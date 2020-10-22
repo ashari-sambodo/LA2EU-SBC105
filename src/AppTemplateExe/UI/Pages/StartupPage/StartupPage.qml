@@ -18,9 +18,6 @@ ViewApp {
         height: viewApp.height
         width: viewApp.width
 
-        property bool readyToQuit: false
-        property bool swUpdatePathCleared: false
-
         Column {
             anchors.centerIn: parent
 
