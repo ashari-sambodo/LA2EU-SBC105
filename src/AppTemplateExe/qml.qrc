@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>UI/Pages/HomePage/HomePage.qml</file>
+        <file>UI/Pages/StartupPage/StartupPage.qml</file>
+        <file>UI/Pages/WiFiSettingPage/WiFiSettingPage.qml</file>
+        <file>UI/Pages/ClosingPage/ClosingPage.qml</file>
+    </qresource>
+</RCC>

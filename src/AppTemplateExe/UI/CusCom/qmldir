@@ -1,0 +1,10 @@
+module UI.CusCom
+ViewApp             1.0 ViewApp.qml
+StackViewApp        1.0 StackViewApp.qml
+TapIndicatorApp     1.0 TapIndicatorApp.qml
+BusyIndicatorApp    1.0 BusyIndicatorApp.qml
+TextApp             1.0 TextApp.qml
+ButtonBarApp        1.0 ButtonBarApp.qml
+DialogApp           1.0 DialogApp.qml
+ButtonApp           1.0 ButtonApp.qml
+TextFieldApp        1.0 TextFieldApp.qml

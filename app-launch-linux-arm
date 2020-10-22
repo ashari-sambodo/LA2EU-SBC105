@@ -1,0 +1,56 @@
+#!/bin/bash
+
+## License under Proprietary of PT ESCO Bintan Indonesia
+## Author Heri Cahyono
+## email: electronicsengineer8@escoglobal.com
+
+MAINAPP="/opt/MainApp/bin/app-exe"
+
+## Find main executable software
+if [ ! -e "$MAINAPP" ]; then
+    echo "Executable file not found"
+    exit 1
+fi
+
+## Display Platform, use eglfs for best gui performance
+#export QT_QPA_PLATFORM=linuxfb
+export QT_QPA_PLATFORM=eglfs
+
+## Take the signal handle from plugin (EGLFS/LinuxFB) to app
+QT_QPA_NO_SIGNAL_HANDLER=1
+
+## Unit in mm
+## Actually the screen size is 155x870, but the result of the ppi in not good
+## so with multipy with 10, the result is acceptable
+## this parameter make qt platform not ask physical size of the screen every run the program
+export QT_QPA_EGLFS_PHYSICAL_WIDTH=1550
+export QT_QPA_EGLFS_PHYSICAL_HEIGHT=870
+
+## Configure touchscreen device
+if [ -e "/dev/input/touchscreen0" ]; then
+    
+    ## Enable Disable input debug
+    #export QT_LOGGING_RULES="qt.qpa.input*.debug=true"
+
+    # By default Qt use libinput, disable it then use evdev
+    export QT_QPA_EGLFS_NO_LIBINPUT=1
+    
+    ## For 5 inch TSD Display (TSD 5 inch used portrait panel on the landscape LCD, so need additional parameters)
+    #export QT_QPA_EVDEV_TOUCHSCREEN_PARAMETERS=/dev/input/touchscreen0:invertx
+    
+    ## For 5, 7 inch and 10 inch standard firmware
+    ## need rotate because LCD has installed with vertical flip
+    export QT_QPA_EVDEV_TOUCHSCREEN_PARAMETERS=/dev/input/touchscreen0:rotate=180
+
+else
+    echo "Touchscreen device at /dev/input/touchscreen0 not found"
+fi
+
+## Application require target folder as runtime folder                                       
+export XDG_RUNTIME_DIR=/tmp/runtime-root
+
+## Call main application including forward all the arguments
+"${MAINAPP}" $@
+
+EXITCODE=$?
+exit $EXITCODE
