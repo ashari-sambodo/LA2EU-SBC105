@@ -27,7 +27,7 @@ void MachineData::singletonDelete()
 MachineData::MachineData(QObject *parent) : QObject(parent)
 {
     m_machineState = 0;
-    m_hasStopped = false;
+    m_hasStopped = true;
     m_count = 0;
 }
 

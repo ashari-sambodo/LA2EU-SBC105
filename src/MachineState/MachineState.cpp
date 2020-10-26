@@ -46,6 +46,9 @@ void MachineState::setup()
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
+    /// initial
+    pData->setDataHasStopped(false);
+
     /// Chane state to loop, routine task
     pData->setDataMachineState(MachineEnums::MACHINE_STATE_LOOP);
     /// GIVE A SIGNAL

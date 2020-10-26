@@ -204,16 +204,36 @@ ViewApp {
                         anchors.fill: parent
                         anchors.margins: 5
 
-                        ButtonBarApp {
+                        Row {
                             anchors.verticalCenter: parent.verticalCenter
+                            spacing: 2
 
-                            imageSource: "../../Pictures/restart-red-icon.png"
-                            text: qsTr("Restart")
+                            ButtonBarApp {
 
-                            onClicked: {
-                                //                                Qt.exit(ExitCode.ECC_NORMAL_EXIT)
-                                var intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {"message":""})
-                                startRootView(intent)
+                                imageSource: "../../Pictures/restart-red-icon.png"
+                                text: qsTr("Restart")
+
+                                onClicked: {
+                                    //                                Qt.exit(ExitCode.ECC_NORMAL_EXIT)
+                                    var intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {
+                                                                      "exitCode": ExitCode.ECC_NORMAL_EXIT_RESTART_SBC
+                                                                  })
+                                    startRootView(intent)
+                                }
+                            }
+
+                            ButtonBarApp {
+
+                                imageSource: "../../Pictures/restart-red-icon.png"
+                                text: qsTr("Restart to update")
+
+                                onClicked: {
+                                    //                                Qt.exit(ExitCode.ECC_NORMAL_EXIT)
+                                    var intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {
+                                                                      "exitCode": ExitCode.ECC_NORMAL_EXIT_OPEN_SBCUPDATE
+                                                                  })
+                                    startRootView(intent)
+                                }
                             }
                         }
 
@@ -244,33 +264,33 @@ ViewApp {
                     Component.onCompleted: {
                         //                        console.log("StackView.Active");
 
-                        const xhrSWRevision = new XMLHttpRequest();
-                        xhrSWRevision.open("GET", "file://" + SWRevisionPath);
-                        xhrSWRevision.onreadystatechange = function() {
-                            if (xhrSWRevision.readyState === XMLHttpRequest.DONE) {
-                                const responseText = xhrSWRevision.responseText
-                                swCurrentRevisionText.text = String(responseText).trim()
-                                //                                console.log(responseText)
-                            }
-                            //                            else {
-                            //                                console.log(xhrSWRevision.readyState)
-                            //                            }
-                        }
-                        xhrSWRevision.send()
+                        //                        const xhrSWRevision = new XMLHttpRequest();
+                        //                        xhrSWRevision.open("GET", "file://" + SWRevisionPath);
+                        //                        xhrSWRevision.onreadystatechange = function() {
+                        //                            if (xhrSWRevision.readyState === XMLHttpRequest.DONE) {
+                        //                                const responseText = xhrSWRevision.responseText
+                        //                                swCurrentRevisionText.text = String(responseText).trim()
+                        //                                //                                console.log(responseText)
+                        //                            }
+                        //                            //                            else {
+                        //                            //                                console.log(xhrSWRevision.readyState)
+                        //                            //                            }
+                        //                        }
+                        //                        xhrSWRevision.send()
 
-                        const xhrHWRevision = new XMLHttpRequest;
-                        xhrHWRevision.open("GET", "file://" + HWRevisionPath);
-                        xhrHWRevision.onreadystatechange = function() {
-                            if (xhrHWRevision.readyState === XMLHttpRequest.DONE) {
-                                const responseText = xhrHWRevision.responseText
-                                hwCompatibilityText.text = String(responseText).trim()
-                                //                                console.log(responseText)
-                            }
-                            //                            else {
-                            //                                console.log(xhrHWRevision.readyState)
-                            //                            }
-                        }
-                        xhrHWRevision.send()
+                        //                        const xhrHWRevision = new XMLHttpRequest;
+                        //                        xhrHWRevision.open("GET", "file://" + HWRevisionPath);
+                        //                        xhrHWRevision.onreadystatechange = function() {
+                        //                            if (xhrHWRevision.readyState === XMLHttpRequest.DONE) {
+                        //                                const responseText = xhrHWRevision.responseText
+                        //                                hwCompatibilityText.text = String(responseText).trim()
+                        //                                //                                console.log(responseText)
+                        //                            }
+                        //                            //                            else {
+                        //                            //                                console.log(xhrHWRevision.readyState)
+                        //                            //                            }
+                        //                        }
+                        //                        xhrHWRevision.send()
                     }
 
                     /// onPause

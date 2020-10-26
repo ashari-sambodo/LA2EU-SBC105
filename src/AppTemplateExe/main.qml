@@ -5,6 +5,8 @@ import QtQuick.Controls 2.0
 import UI.CusCom 1.0
 import UI.CusCom.KeyboardOnScreen 1.0
 
+import "UI/CusCom/JS/IntentApp.js" as IntentApp
+
 ApplicationWindow {
     id: window
     visible: true
@@ -43,7 +45,11 @@ ApplicationWindow {
                 /// IF LAST CURENT ITEM IS THE SAME WITH TARGET URI
                 /// DON'T RELOAD
                 if (mainStackView.currentItem.uri !== newIntent.uri){
-                    mainStackView.replace(newIntent.uri, {"uri": newIntent.uri})
+                    mainStackView.replace(newIntent.uri, {"uri": newIntent.uri,  "intent": newIntent})
+                } else {
+                    /// put object intent from previous page to current page
+                    /// in case the current view needs onViewResult
+                    mainStackView.currentItem.intent = newIntent;
                 }
             }
 
@@ -55,8 +61,8 @@ ApplicationWindow {
                     mainStackView.pop()
                     mainStackView.currentItem.intent = newIntent
                 } else {
-                    var intentHome = IntentApp.create(mainStackView.homeURL, {"message":""})
-                    mainStackView.replace(intentHome.uri, {"uri": intentHome.uri})
+                    var intentHome = IntentApp.create(mainStackView.homeURL, {})
+                    mainStackView.replace(intentHome.uri, {"uri": intentHome.uri, "intent": intentHome})
                 }
             }
 
