@@ -104,6 +104,31 @@ Item {
                             border.color: "gray"
                             radius: 5
                         }
+
+                        onAccepted: {
+                            enterClicked(text)
+                        }
+
+                        //                        Keys.onPressed: {
+                        //                            if (event.key === Qt.Key_Enter) {
+                        //                                //                                console.log("Physycal Enter Keyboard")
+                        //                                enterClicked(text)
+                        //                            }
+                        //                        }
+
+                        onVisibleChanged: {
+                            //                            console.log("onVisibleChanged")
+                            if (visible) {
+                                textField.forceActiveFocus()
+                                delaySetFocusTimer.start()
+                            }
+                        }
+
+                        Timer {
+                            id: delaySetFocusTimer
+                            interval: 200
+                            onTriggered: textField.forceActiveFocus()
+                        }
                     }
                 }
 
