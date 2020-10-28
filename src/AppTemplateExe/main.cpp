@@ -8,6 +8,7 @@
 #include "Modules/FileDirUtils/FileDirUtils.h"
 #include "Modules/ExitCodeCustom/ExitCodeCustom.h"
 #include "Modules/NetworkManager/NetworkManager.h"
+#include "Modules/TranslatorText/TranslatorText.h"
 
 #include "UI/CusCom/KeyboardOnScreen/KeyboardOnScreenAdapter.h"
 
@@ -80,6 +81,10 @@ int main(int argc, char *argv[])
 
     /// CREATE USER INTEFACE QML ENGINE
     QQmlApplicationEngine engine;
+
+    /// PREPARE TRANSLATOR TEXT
+    TranslatorText translatorText(&engine);
+    engine.rootContext()->setContextProperty("TranslatorText", &translatorText);
 
     /// enable import of qml component by dot
     /// (with: import UI.CusCom 1.0 vs wihout: import "../../UI/CusCom")

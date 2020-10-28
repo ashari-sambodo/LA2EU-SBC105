@@ -5,11 +5,11 @@ CONFIG += c++11
 
 VERSION = 1.0.0.1
 DEFINES += APP_VERSION=\\\"$${VERSION}\\\"
-TARGET = bin/apptemplate-exe-$$VERSION
+TARGET = bin/apptemplate-$$VERSION
 
 ## CREATE SYMBOLIC LINK
 unix {
-    QMAKE_POST_LINK += $$quote(cd $$OUT_PWD/bin; ln -sf apptemplate-exe-$$VERSION app-exe)
+    QMAKE_POST_LINK += $$quote(cd $$OUT_PWD/bin; ln -sf apptemplate-$$VERSION app-exe)
     ## rsync -lavv * root@172.16.30.210:/opt/SBCUpdate/
 }
 # The following define makes your compiler emit warnings if you use
@@ -23,7 +23,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+
 HEADERS += \
+    Modules/TranslatorText/TranslatorText.h \
     Modules/ExitCodeCustom/ExitCodeCustom.h \
     Modules/FileDirUtils/FileDirUtils.h \
     Modules/NetworkManager/NetworkManager.h \
@@ -31,6 +33,7 @@ HEADERS += \
     UI/CusCom/KeyboardOnScreen/KeyboardOnScreenAdapter.h
 
 SOURCES += \
+        Modules/TranslatorText/TranslatorText.cpp \
         Modules/FileDirUtils/FileDirUtils.cpp \
         Modules/NetworkManager/NetworkManager.cpp \
         Modules/USBStorageMount/USBStorageMount.cpp \
@@ -38,10 +41,18 @@ SOURCES += \
         main.cpp
 
 RESOURCES += qml.qrc \
-    components.qrc
+    components.qrc \
+    i18n.qrc
 
-TRANSLATIONS += \
-    SBCupdateApp_zh_CN.ts
+include(i18n.pri)
+
+## Please check ISO-639 Language Codes
+TRANSLATIONS = i18n/translating-qml_de.ts \
+               i18n/translating-qml_zh.ts \
+               i18n/translating-qml_ru.ts \
+               i18n/translating-qml_ja.ts \
+               i18n/translating-qml_ko.ts \
+               i18n/translating-qml_ar.ts \
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH += $$PWD

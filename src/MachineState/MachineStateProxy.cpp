@@ -57,6 +57,7 @@ void MachineStateProxy::setup(QObject *pData)
     m_timerEventForMachineState->setInterval(TIMER_INTERVAL_WORKER);
 
     pMachineData = qobject_cast<MachineData*>(pData);
+    pMachineData->setDataMachineState(MachineEnums::MACHINE_STATE_SETUP);
     m_machineState->setMachineData(pMachineData);
 
     /// Start timer event when thread was called

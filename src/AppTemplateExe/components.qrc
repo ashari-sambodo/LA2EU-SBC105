@@ -56,5 +56,6 @@
         <file>UI/Pictures/carbon_send-anim.png</file>
         <file>UI/CusCom/ButtonApp.qml</file>
         <file>UI/CusCom/TextFieldApp.qml</file>
+        <file>UI/CusCom/ComboBoxApp.qml</file>
     </qresource>
 </RCC>

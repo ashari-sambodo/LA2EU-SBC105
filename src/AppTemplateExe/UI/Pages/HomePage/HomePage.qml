@@ -8,6 +8,8 @@ import "../../CusCom/JS/IntentApp.js" as IntentApp
 import modules.cpp.utils 1.0
 import modules.cpp.machine 1.0
 
+import Qt.labs.settings 1.0
+
 ViewApp {
     id: viewApp
     title: "Home"
@@ -59,36 +61,13 @@ ViewApp {
                             spacing: 10
 
                             Column {
-                                TextApp {
-                                    text: qsTr("Current version: ")
-                                }
-
-                                TextApp {
-                                    id: swCurrentRevisionText
-                                    text: ""
-
-                                }
-                            }
-
-                            Column {
-                                TextApp {
-                                    text: qsTr("HW-Compatibility: ")
-                                }
-
-                                TextApp {
-                                    id: hwCompatibilityText
-                                    text: ""
-                                }
-                            }
-
-                            Column {
                                 spacing: 2
 
                                 Row {
 
                                     TextApp {
                                         id: machineStateLabelText
-                                        text: "Machine state: "
+                                        text: "Machine state:" + " "
                                     }//
 
                                     TextApp {
@@ -102,7 +81,7 @@ ViewApp {
 
                                     TextApp {
                                         id: countLabelText
-                                        text: "Machine Counting: "
+                                        text: "Machine Counting:" + " "
                                     }//
 
                                     TextApp {
@@ -117,7 +96,7 @@ ViewApp {
                                     text: "Start Machine"
                                     
                                     onClicked: {
-                                        if (MachineData.machineState != MachineApi.MACHINE_STATE_LOOP) {
+                                        if (MachineData.hasStopped) {
                                             MachineApi.setup(MachineData);
                                         }
                                     }
@@ -128,7 +107,7 @@ ViewApp {
                                     text: "Stop Machine"
 
                                     onClicked: {
-                                        if (MachineData.machineState == MachineApi.MACHINE_STATE_LOOP) {
+                                        if (!MachineData.hasStopped) {
                                             MachineApi.stop();
                                         }
                                     }
@@ -145,7 +124,13 @@ ViewApp {
                             anchors.centerIn: parent
                             spacing: 5
 
+                            TextApp {
+                                text: qsTr("Hello World!")
+                            }
+
                             Image {
+                                height: 120
+                                fillMode: Image.PreserveAspectFit
                                 source: "../../Pictures/feature-image.png"
                             }//
 
@@ -182,9 +167,46 @@ ViewApp {
                                     console.log("onAccepted")
                                 }
                             }
+
+                            ComboBoxApp {
+                                id: languageComboBox
+                                textRole: "text"
+                                font.pixelSize: 20
+                                model: [
+                                    {text: "English",  code: "en"},
+                                    {text: "Chinese",  code: "zh"},
+                                    {text: "Rusia",    code: "ru"},
+                                    {text: "Japan",    code: "ja"},
+                                    {text: "Korea",    code: "ko"},
+                                    {text: "Arabic",   code: "ar"},
+                                    {text: "Germany",  code: "de"},
+                                ]
+
+                                onActivated: {
+                                    let code = model[index]["code"]
+                                    TranslatorText.selectLanguage(code)
+                                    settingsLanguage.languange      = code
+                                    settingsLanguage.languangeIndex = index
+                                }
+
+                                Settings {
+                                    id: settingsLanguage
+
+                                    property string languange: "en"
+                                    property int    languangeIndex: 0
+                                }
+
+                                Component.onCompleted: {
+                                    let index = settingsLanguage.languangeIndex
+                                    let code = settingsLanguage.languange
+                                    TranslatorText.selectLanguage(code)
+
+                                    languageComboBox.currentIndex = index
+                                }//
+                            }//
                         }//
-                    }
-                }
+                    }//
+                }//
             }//
 
             /// FOOTER
@@ -206,10 +228,14 @@ ViewApp {
 
                         Row {
                             anchors.verticalCenter: parent.verticalCenter
-                            spacing: 2
+                            spacing: 1
+
+                            //                            Component.onCompleted: {
+                            //                                console.log("width: " + parent.width)
+                            //                            }
 
                             ButtonBarApp {
-
+                                width: 194
                                 imageSource: "../../Pictures/restart-red-icon.png"
                                 text: qsTr("Restart")
 
@@ -223,9 +249,10 @@ ViewApp {
                             }
 
                             ButtonBarApp {
+                                width: 194
 
                                 imageSource: "../../Pictures/restart-red-icon.png"
-                                text: qsTr("Restart to update")
+                                text: qsTr("Software update")
 
                                 onClicked: {
                                     //                                Qt.exit(ExitCode.ECC_NORMAL_EXIT)
@@ -235,9 +262,24 @@ ViewApp {
                                     startRootView(intent)
                                 }
                             }
+
+                            ButtonBarApp {
+                                width: 194
+                                imageSource: "../../Pictures/restart-red-icon.png"
+                                text: qsTr("Reload")
+
+                                onClicked: {
+                                    //                                Qt.exit(ExitCode.ECC_NORMAL_EXIT)
+                                    var intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {
+                                                                      "exitCode": ExitCode.ECC_NORMAL_EXIT
+                                                                  })
+                                    startRootView(intent)
+                                }
+                            }
                         }
 
                         ButtonBarApp {
+                            width: 194
                             anchors.right: parent.right
                             anchors.verticalCenter: parent.verticalCenter
 
@@ -255,14 +297,12 @@ ViewApp {
 
             /// Execute This Every This Screen Active/Visible
             Loader {
-                active: (viewApp.stackViewStatus === StackViewApp.Activating)
-                        || (viewApp.stackViewStatus === StackViewApp.Active)
-
+                active: viewApp.stackViewStatusActivating || viewApp.stackViewStatusActive
                 sourceComponent: QtObject {
 
                     /// onResume
                     Component.onCompleted: {
-                        //                        console.log("StackView.Active");
+                        console.log("StackView.Active");
 
                         //                        const xhrSWRevision = new XMLHttpRequest();
                         //                        xhrSWRevision.open("GET", "file://" + SWRevisionPath);
@@ -295,7 +335,7 @@ ViewApp {
 
                     /// onPause
                     Component.onDestruction: {
-                        //                        console.log("StackView.DeActivating");
+                        console.log("StackView.DeActivating");
                     }
 
                     /// PUT ANY DYNAMIC OBJECT MUST A WARE TO PAGE STATUS
@@ -307,13 +347,13 @@ ViewApp {
 
                         switch (machineState) {
                         case MachineApi.MACHINE_STATE_SETUP:
-                            machineStateText.text = qsTr("SETUP")
+                            machineStateText.text = qsTr("Setup")
                             break;
                         case MachineApi.MACHINE_STATE_LOOP:
-                            machineStateText.text = qsTr("LOOP")
+                            machineStateText.text = qsTr("Loop")
                             break;
                         case MachineApi.MACHINE_STATE_STOPPING:
-                            machineStateText.text = qsTr("STOPPING")
+                            machineStateText.text = qsTr("Stopping")
                             break;
                         }
                     }
@@ -324,6 +364,12 @@ ViewApp {
                         countingText.text = machineCounter
                     }//
 
+                    //                    property bool machineHasStopped: MachineData.hasStopped
+                    //                    onMachineHasStoppedChanged: {
+                    //                        if (machineHasStopped) {
+                    //                            machineStateText.text = qsTr("Stopped")
+                    //                        }
+                    //                    }
                 }//
             }//
         }//

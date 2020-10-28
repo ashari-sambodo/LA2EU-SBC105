@@ -44,7 +44,6 @@ ViewApp {
             id: eventTimer
             interval: 5000
             running: true
-            repeat: true
             onTriggered: {
                 var intent = IntentApp.create("qrc:/UI/Pages/HomePage/HomePage.qml", {"message":""})
                 startRootView(intent)

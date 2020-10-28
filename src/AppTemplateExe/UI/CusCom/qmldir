@@ -8,3 +8,4 @@ ButtonBarApp        1.0 ButtonBarApp.qml
 DialogApp           1.0 DialogApp.qml
 ButtonApp           1.0 ButtonApp.qml
 TextFieldApp        1.0 TextFieldApp.qml
+ComboBoxApp         1.0 ComboBoxApp.qml

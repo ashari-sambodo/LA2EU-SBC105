@@ -35,6 +35,10 @@ Item {
     property alias content: contentLoader
 
     property int stackViewStatus: StackView.status
+    property bool stackViewStatusActivating:  StackView.status == StackViewApp.Activating
+    property bool stackViewStatusActive:  StackView.status == StackViewApp.Active
+    property bool stackViewStatusDeactivating:  StackView.status == StackViewApp.Deactivating
+    property bool stackViewStatusInactive:  StackView.status == StackViewApp.Inactive
     //    onStackViewStatusChanged: {
     //        console.log("stackViewStatus: " + stackViewStatus)
 
@@ -60,12 +64,20 @@ Item {
         sourceComponent: Rectangle{
 
         }
+
+        /// solve binding loop when use m_pQmlEngine->retranslate();
+        property bool ready: false
+        onStatusChanged: {
+            if(backgroundLoader.status === Loader.Ready) {
+                ready = true
+            }
+        }
     }
 
     Loader {
         id: contentLoader
         anchors.fill: parent
-        active: backgroundLoader.status == Loader.Ready
+
         //        onStatusChanged: {
         //            console.log("onStatusChanged: " + status)
         //        }

@@ -80,5 +80,5 @@ void MachineData::setDataHasStopped(bool hasStopped)
 
 void MachineData::initSingleton()
 {
-
+    qDebug() << metaObject()->className() << __FUNCTION__;
 }

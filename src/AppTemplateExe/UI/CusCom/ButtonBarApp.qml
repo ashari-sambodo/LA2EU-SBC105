@@ -32,6 +32,7 @@ Rectangle {
             color: "white"
             font.pixelSize: 20
             wrapMode: Text.WordWrap
+            elide: Text.ElideRight
         }
     }
 
