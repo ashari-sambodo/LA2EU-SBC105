@@ -147,7 +147,7 @@ ViewApp {
                                 }
 
                                 onAccepted: {
-                                    console.log("onAccepted")
+                                    //console.log("onAccepted")
                                 }
                             }
 
@@ -164,7 +164,7 @@ ViewApp {
                                 }
 
                                 onAccepted: {
-                                    console.log("onAccepted")
+                                    //console.log("onAccepted")
                                 }
                             }
 
@@ -335,7 +335,7 @@ ViewApp {
 
                     /// onPause
                     Component.onDestruction: {
-                        console.log("StackView.DeActivating");
+                        //console.log("StackView.DeActivating");
                     }
 
                     /// PUT ANY DYNAMIC OBJECT MUST A WARE TO PAGE STATUS
@@ -343,7 +343,7 @@ ViewApp {
 
                     property int machineState: MachineData.machineState
                     onMachineStateChanged: {
-                        console.log("onMachineStateChanged: " + machineState)
+                        //console.log("onMachineStateChanged: " + machineState)
 
                         switch (machineState) {
                         case MachineApi.MACHINE_STATE_SETUP:
@@ -360,7 +360,7 @@ ViewApp {
 
                     property int machineCounter: MachineData.count
                     onMachineCounterChanged: {
-                        console.log("onMachineCounterChanged: " + machineCounter)
+                        //console.log("onMachineCounterChanged: " + machineCounter)
                         countingText.text = machineCounter
                     }//
 

@@ -159,7 +159,13 @@ ViewApp {
                                                     //                                                    console.log("onClicked")
                                                     const ap = String(modelData).split(":")[0]
 
-                                                    apLabelText.text = qsTr("Connecting to")
+                                                    if (String(ap).includes(" ")){
+                                                        //console.log("Not Support AP Name with Space Character")
+                                                        dialogAppNotify.open()
+                                                        return
+                                                    }
+
+                                                    apLabelText.text = qsTr("Connecting...")
                                                     apNameText.text = ap
                                                     ipAddresspText.text = ""
 
@@ -188,10 +194,10 @@ ViewApp {
                                                 id: deleteMouseArea
                                                 anchors.fill: parent
                                                 onClicked: {
-//                                                    console.log("onPressAndHold")
+                                                    //                                                    console.log("onPressAndHold")
                                                     const ap = String(modelData).split(":")[0]
                                                     //                                            NetworkManager.deleteConnection(ap)
-                                                    dialogApp.openConfirmToForgetDialog(ap)
+                                                    dialogAppForget.openConfirmToForgetDialog(ap)
                                                 }
                                             }
                                         }
@@ -265,7 +271,18 @@ ViewApp {
 
         /// Dialog
         DialogApp {
-            id: dialogApp
+            id: dialogAppNotify
+
+            contentItem.title: qsTr("Warning")
+            contentItem.text: qsTr("Does not support access point names with spaces!")
+            contentItem.dialogType: contentItem.dialogTypeWarning
+            contentItem.standardButton: contentItem.standardButtonClose
+
+        }
+
+        /// Dialog Forget
+        DialogApp {
+            id: dialogAppForget
 
             /////////
             property string apToForget: ""
@@ -274,27 +291,27 @@ ViewApp {
 
                 apToForget = value
 
-                dialogApp.contentItem.title = qsTr("Forget Network")
-                dialogApp.contentItem.text = qsTr("Are your sure wan to forget this network?")
-                dialogApp.contentItem.dialogType = dialogApp.contentItem.dialogTypeWarning
-                dialogApp.contentItem.standardButton = dialogApp.contentItem.standardButtonCancelOK
-                dialogApp.funcOnAccepted = onConfirmToForgetAccepted
-                dialogApp.open()
+                dialogAppForget.contentItem.title = qsTr("Forget Network")
+                dialogAppForget.contentItem.text = qsTr("Are your sure want to forget this network?")
+                dialogAppForget.contentItem.dialogType = dialogAppForget.contentItem.dialogTypeWarning
+                dialogAppForget.contentItem.standardButton = dialogAppForget.contentItem.standardButtonCancelOK
+                dialogAppForget.funcOnAccepted = onConfirmToForgetAccepted
+                dialogAppForget.open()
 
             }//
 
             function onConfirmToForgetAccepted() {
                 //                console.log("onConfirmToDeteleAccepted")
-                NetworkManager.deleteConnection(apToForget)
+                NetworkManager.deleteConnectionAsync(apToForget)
             }//
 
             ////////
             function openInfoDialog(message) {
-                dialogApp.contentItem.title = qsTr("Info")
-                dialogApp.contentItem.text = message
-                dialogApp.contentItem.dialogType = dialogApp.contentItem.dialogTypeInfo
-                dialogApp.contentItem.standardButton = dialogApp.contentItem.standardButtonClose
-                dialogApp.open()
+                dialogAppForget.contentItem.title = qsTr("Info")
+                dialogAppForget.contentItem.text = message
+                dialogAppForget.contentItem.dialogType = dialogAppForget.contentItem.dialogTypeInfo
+                dialogAppForget.contentItem.standardButton = dialogAppForget.contentItem.standardButtonClose
+                dialogAppForget.open()
             }//
 
             ///////
@@ -315,7 +332,7 @@ ViewApp {
 
             function onPasswordAsked(apName) {
                 viewApp.funcOnKeyboardEntered = function(password){
-                    NetworkManager.connect(apName, password)
+                    NetworkManager.connectAsync(apName, password)
                 }
                 viewApp.textInputTarget = wifiPasswordTextInput
                 viewApp.openKeyboard(qsTr("WiFi Password"))
@@ -351,10 +368,10 @@ ViewApp {
 
             function onDeletionFinished(status, apName){
                 if(status === NetworkManager.NME_SUCCESS) {
-                    dialogApp.openInfoDialog(qsTr("The network has been forgotten"))
+                    dialogAppForget.openInfoDialog(qsTr("The network has been forgotten"))
                 }
                 else {
-                    dialogApp.openInfoDialog(qsTr("Failed because it has never been connected to this network or other unknown reasons"))
+                    dialogAppForget.openInfoDialog(qsTr("Failed because it has never been connected to this network or other unknown reasons"))
                 }
             }
         }

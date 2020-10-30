@@ -49,7 +49,7 @@ ViewApp {
             running: true
             repeat: true
             onTriggered: {
-                console.log("MachineData.hasStopped: " + MachineData.hasStopped)
+                //console.log("MachineData.hasStopped: " + MachineData.hasStopped)
 
                 containerItem.readyToQuit = MachineData.hasStopped
 

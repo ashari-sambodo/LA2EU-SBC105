@@ -60,7 +60,7 @@ void NetworkManager::readStatusAsync(/*bool followByScan*/)
 
         //        qDebug() << __FUNCTION__ << QThread::currentThreadId();
         //        QThread::sleep(5);
-#ifdef __arm__
+#ifdef __linux__
         readStatus();
 #else
         setConnectedStatus(true);
@@ -91,7 +91,7 @@ void NetworkManager::readStatusAsync(/*bool followByScan*/)
 
 void NetworkManager::readStatus()
 {
-#ifdef __arm__
+#ifdef __linux__
     /// Check Connection status if connected or not
     QProcess qprocess;
     qprocess.start("nmcli -t dev");
@@ -163,7 +163,7 @@ void NetworkManager::scanAsync()
 
         setScanningStatus(true);
 
-#ifdef __arm__
+#ifdef __linux__
         QProcess qprocess;
         qprocess.start("nmcli --fields SSID,SIGNAL -c no -t d wifi list --rescan yes");
         qprocess.waitForFinished();
@@ -214,7 +214,7 @@ void NetworkManager::connectAsync(const QString name, const QString passwd)
 
         //        qDebug() << __FUNCTION__ << QThread::currentThreadId();
 
-#ifdef __arm__
+#ifdef __linux__
         QRegExp rx(QString("%1.nm*").arg(name));
         rx.setPatternSyntax(QRegExp::Wildcard);
 
@@ -294,7 +294,7 @@ void NetworkManager::deleteConnectionAsync(const QString apName)
     m_thread.reset(QThread::create([=]{
 
         //        qDebug() << __FUNCTION__ << QThread::currentThreadId();
-#ifdef __arm__
+#ifdef __linux__
         QProcess qprocess;
 
         /// Merge standard out and
