@@ -352,7 +352,7 @@ ViewApp {
                         case MachineApi.MACHINE_STATE_LOOP:
                             machineStateText.text = qsTr("Loop")
                             break;
-                        case MachineApi.MACHINE_STATE_STOPPING:
+                        case MachineApi.MACHINE_STATE_STOP:
                             machineStateText.text = qsTr("Stopping")
                             break;
                         }

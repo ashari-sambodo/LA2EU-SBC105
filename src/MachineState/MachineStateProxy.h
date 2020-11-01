@@ -44,7 +44,7 @@ private slots:
 
 private:
     QScopedPointer<QTimer>          m_timerEventForMachineState;
-    QScopedPointer<QThread>         m_machineStateThread;
+    QScopedPointer<QThread>         m_threadForMachineState;
     QScopedPointer<MachineState>    m_machineState;
 
     MachineData*                    pMachineData;

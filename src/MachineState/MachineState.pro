@@ -20,11 +20,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES +=  \
-    Implementations/BlowerDSI/BlowerDsiTorque.cpp \
+    Implementations/BlowerRbm/BlowerRbmDsi.cpp \
     Implementations/ClassManager.cpp \
     Implementations/AirflowVelocity/AirflowVelocity.cpp \
-    Implementations/BlowerDSI/BlowerDSI.cpp \
-    Implementations/BlowerDSI/BlowerDSIThread.cpp \
+    Implementations/BlowerRbm/BlowerRbm.cpp \
+    Implementations/BlowerRbm/BlowerRbmThread.cpp \
     Implementations/DeviceAnalogCom/DeviceAnalogCom.cpp \
     Implementations/DigitalOut/DigitalOut.cpp \
     Implementations/LampDimm/LampDimm.cpp \
@@ -37,12 +37,9 @@ SOURCES +=  \
     MachineStateProxy.cpp
 
 HEADERS +=  \
-    Implementations/BlowerDSI/BlowerDsiTorque.h \
+    Implementations/BlowerRbm/BlowerRbmDsi.h \
     Implementations/ClassManager.h \
     Implementations/AirflowVelocity/AirflowVelocity.h \
-    Implementations/BlowerDSI/BlowerDSI.h \
-    Implementations/BlowerDSI/BlowerDSIThread.h \
-    Implementations/BlowerDSI/ECMValues.h \
     Implementations/DeviceAnalogCom/DeviceAnalogCom.h \
     Implementations/DigitalOut/DigitalOut.h \
     Implementations/LampDimm/LampDimm.h \

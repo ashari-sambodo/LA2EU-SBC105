@@ -5,15 +5,17 @@
 #include "../ClassDriver.h"
 #include <QtSerialPort/QSerialPort>
 
-#define BLOWER_REGAL_ECM_DIRECTION_CLW     0
-#define BLOWER_REGAL_ECM_DIRECTION_CCW     1
-
 class BlowerRegalECM : public ClassDriver
 {
     Q_OBJECT
 public:
     BlowerRegalECM(QObject *parent = nullptr);
     ~BlowerRegalECM();
+
+    enum BlowerEcmDirection {
+        BLOWER_REGAL_ECM_DIRECTION_CLW,
+        BLOWER_REGAL_ECM_DIRECTION_CCW
+    };
 
     void setSerialComm(QSerialPort * serial);
 

@@ -7,10 +7,11 @@
 
 #include <QtDebug>
 
+/// TEI = TIMER EVENT INTERVAL
 #ifdef __arm__
-#define TIMER_INTERVAL_WORKER   150 // ms
+#define TEI_FOR_WORKER   150 // ms
 #else
-#define TIMER_INTERVAL_WORKER   1000 // ms
+#define TEI_FOR_WORKER   1000 // ms
 #endif
 
 static MachineStateProxy* s_instance = nullptr;
@@ -50,26 +51,26 @@ void MachineStateProxy::setup(QObject *pData)
     m_machineState.reset(new MachineState);
 
     /// Create thread where machineState will a life
-    m_machineStateThread.reset(new QThread);
+    m_threadForMachineState.reset(new QThread);
 
     /// Create timer event for triggered any event on the machineState
     m_timerEventForMachineState.reset(new QTimer);
-    m_timerEventForMachineState->setInterval(TIMER_INTERVAL_WORKER);
+    m_timerEventForMachineState->setInterval(TEI_FOR_WORKER);
 
     pMachineData = qobject_cast<MachineData*>(pData);
-    pMachineData->setDataMachineState(MachineEnums::MACHINE_STATE_SETUP);
+    pMachineData->setMachineState(MachineEnums::MACHINE_STATE_SETUP);
     m_machineState->setMachineData(pMachineData);
 
     /// Start timer event when thread was called
-    QObject::connect(m_machineStateThread.data(), &QThread::started,
+    QObject::connect(m_threadForMachineState.data(), &QThread::started,
             m_timerEventForMachineState.data(), QOverload<>::of(&QTimer::start));
 
     /// Stop timer event when thread was called
-    QObject::connect(m_machineStateThread.data(), &QThread::finished,
+    QObject::connect(m_threadForMachineState.data(), &QThread::finished,
             m_timerEventForMachineState.data(), QOverload<>::of(&QTimer::stop));
 
     /// Trigger worker on starting
-    QObject::connect(m_machineStateThread.data(), &QThread::started,
+    QObject::connect(m_threadForMachineState.data(), &QThread::started,
             m_machineState.data(), [&](){m_machineState->worker();});
 
     /// stopped thread
@@ -81,11 +82,11 @@ void MachineStateProxy::setup(QObject *pData)
             m_machineState.data(), &MachineState::worker);
 
     /// Move the object to another thread
-    m_machineState->moveToThread(m_machineStateThread.data());
-    m_timerEventForMachineState->moveToThread(m_machineStateThread.data());
+    m_machineState->moveToThread(m_threadForMachineState.data());
+    m_timerEventForMachineState->moveToThread(m_threadForMachineState.data());
 
     /// start the thread
-    m_machineStateThread->start();
+    m_threadForMachineState->start();
 }
 
 void MachineStateProxy::stop()
@@ -102,9 +103,9 @@ void MachineStateProxy::doStopping()
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
-    if (m_machineStateThread.isNull()) return;
+    if (m_threadForMachineState.isNull()) return;
 
-    m_machineStateThread->quit();
-    m_machineStateThread->wait();
-    pMachineData->setDataHasStopped(true);
+    m_threadForMachineState->quit();
+    m_threadForMachineState->wait();
+    pMachineData->setHasStopped(true);
 }

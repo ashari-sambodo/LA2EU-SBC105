@@ -36,40 +36,40 @@ MachineData::~MachineData()
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 }
 
-int MachineData::getDataMachineState() const
+short MachineData::getMachineState() const
 {
     return m_machineState;
 }
 
-void MachineData::setDataMachineState(int workerState)
+void MachineData::setMachineState(short workerState)
 {
     if (m_machineState == workerState)
         return;
 
     m_machineState = workerState;
-    emit dataMachineStateChanged(m_machineState);
+    emit machineStateChanged(m_machineState);
 }
 
-int MachineData::getDataCount() const
+int MachineData::getCount() const
 {
     return m_count;
 }
 
-void MachineData::setDataCount(int count)
+void MachineData::setCount(int count)
 {
     if (m_count == count)
         return;
 
     m_count = count;
-    emit dataCountChanged(m_count);
+    emit countChanged(m_count);
 }
 
-bool MachineData::getDataHasStopped() const
+bool MachineData::getHasStopped() const
 {
     return m_hasStopped;
 }
 
-void MachineData::setDataHasStopped(bool hasStopped)
+void MachineData::setHasStopped(bool hasStopped)
 {
     if (m_hasStopped == hasStopped)
         return;
@@ -78,7 +78,21 @@ void MachineData::setDataHasStopped(bool hasStopped)
     emit hasStoppedChanged(m_hasStopped);
 }
 
+int MachineData::getBlowerEcmDemandMode() const
+{
+    return m_blowerEcmDemandMode;
+}
+
 void MachineData::initSingleton()
 {
     qDebug() << metaObject()->className() << __FUNCTION__;
+}
+
+void MachineData::setBlowerEcmDemandMode(int blowerEcmDemandMode)
+{
+    if (m_blowerEcmDemandMode == blowerEcmDemandMode)
+        return;
+
+    m_blowerEcmDemandMode = blowerEcmDemandMode;
+    emit blowerEcmDemandModeChanged(m_blowerEcmDemandMode);
 }

@@ -9,19 +9,24 @@ class MachineData : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(int blowerEcmDemandMode
+               READ getBlowerEcmDemandMode
+               //               WRITE setBlowerEcmDemandMode
+               NOTIFY blowerEcmDemandModeChanged)
+
     Q_PROPERTY(int count
-               READ getDataCount
+               READ getCount
                //               WRITE setDataCount
-               NOTIFY dataCountChanged)
+               NOTIFY countChanged)
 
     Q_PROPERTY(int machineState
-               READ getDataMachineState
+               READ getMachineState
                //               WRITE setDataWorkerState
-               NOTIFY dataMachineStateChanged)
+               NOTIFY machineStateChanged)
 
     Q_PROPERTY(bool hasStopped
-               READ getDataHasStopped
-               WRITE setDataHasStopped
+               READ getHasStopped
+               WRITE setHasStopped
                NOTIFY hasStoppedChanged)
 
 public:
@@ -31,30 +36,38 @@ public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
     static void singletonDelete();
 
-    Q_INVOKABLE int getDataMachineState() const;
-    void setDataMachineState(int machineState);
+    Q_INVOKABLE short getMachineState() const;
+    void setMachineState(short getMachineState);
 
-    int getDataCount() const;
-    void setDataCount(int count);
+    int getCount() const;
+    void setCount(int count);
 
-    bool getDataHasStopped() const;
+    bool getHasStopped() const;
 
-    void setDataHasStopped(bool hasStopped);
+    void setHasStopped(bool hasStopped);
+
+    int getBlowerEcmDemandMode() const;
 
 public slots:
     void initSingleton();
 
-signals:
-    void dataMachineStateChanged(int machineState);
+    void setBlowerEcmDemandMode(int blowerEcmDemandMode);
 
-    void dataCountChanged(int count);
+signals:
+    void machineStateChanged(int machineState);
+
+    void countChanged(int count);
 
     void hasStoppedChanged(bool hasStopped);
 
+    void blowerEcmDemandModeChanged(int blowerEcmDemandMode);
+
 private:
-    int m_machineState;
+    ///
+    short m_machineState;
 
     int m_count;
     bool m_hasStopped;
+    int m_blowerEcmDemandMode;
 };
 

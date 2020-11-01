@@ -75,7 +75,7 @@ BlowerRegalECM::BlowerRegalECM(QObject *parent)
 {
     m_address           = 0;
     m_protocolVersion   = 2;
-    serialComm = nullptr;
+    serialComm          = nullptr;
 }
 
 BlowerRegalECM::~BlowerRegalECM()

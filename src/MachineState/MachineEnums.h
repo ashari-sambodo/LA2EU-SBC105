@@ -8,7 +8,7 @@ Q_NAMESPACE         // required for meta object creation
 enum EnumItemState {
     MACHINE_STATE_SETUP,
     MACHINE_STATE_LOOP,
-    MACHINE_STATE_STOPPING
+    MACHINE_STATE_STOP
 };
 Q_ENUM_NS(EnumItemState)  // register the enum in meta object data
 }
@@ -22,7 +22,7 @@ Q_ENUM_NS(EnumItemState)  // register the enum in meta object data
 //    enum EnumItemState {
 //        MACHINE_STATE_SETUP,
 //        MACHINE_STATE_LOOP,
-//        MACHINE_STATE_STOPPING
+//        MACHINE_STATE_STOP
 //    };
 //    Q_ENUM(EnumItemState)
 

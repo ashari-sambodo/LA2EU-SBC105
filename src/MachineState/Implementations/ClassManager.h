@@ -6,10 +6,11 @@
 ** Proprietary and confidential
 ** Written by elect 3-12-2019
 **************************************************************************/
-#ifndef OBJECTMANAGER_H
-#define OBJECTMANAGER_H
+#pragma once
 
 #include <QObject>
+#include <QScopedPointer>
+#include <QEventLoop>
 
 class ClassManager : public QObject
 {
@@ -17,10 +18,21 @@ class ClassManager : public QObject
 public:
     explicit ClassManager(QObject *parent = nullptr);
 
-    virtual void worker(int parameter = 0) = 0;
-
+    /// pure virtual function
     virtual void worker() = 0;
 
-};
+    /// exec(); This for easy implementing independent thread looping
+    /// if the worker dont use triggered by timer event
+    /// so, the thread will keep looping inside exec()
+    /// to listen if any pending task called from outside class
+    /// this method should be called from signal thread::started
+    void exec();
+    /// quit(); This for tell to exec() want to stopping the looping
+    void quit();
 
-#endif // OBJECTMANAGER_H
+signals:
+    void hasComeOut();
+
+private:
+    QScopedPointer<QEventLoop> m_eventLoop;
+};

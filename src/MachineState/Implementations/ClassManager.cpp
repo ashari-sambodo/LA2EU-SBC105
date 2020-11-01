@@ -12,3 +12,25 @@ ClassManager::ClassManager(QObject *parent) : QObject(parent)
 {
 }
 
+void ClassManager::exec()
+{
+    if(!m_eventLoop.isNull()) return;
+
+    m_eventLoop.reset(new QEventLoop);
+
+    /// listen then execute if any pending event task
+    m_eventLoop->exec();
+
+    emit hasComeOut();
+}
+
+void ClassManager::quit()
+{
+    if(!m_eventLoop.isNull()) return;
+
+    /// quit from m_eventLoop->exec();
+    m_eventLoop->quit();
+}
+
+
+

@@ -1,21 +1,19 @@
 #pragma once
 
 #include <QDebug>
-#include <QScopedPointer>
-#include <QSerialPort>
 
 #include "../ClassManager.h"
 #include "BoardIO/Drivers/BlowerRegalECM/BlowerRegalECM.h"
 
-class BlowerDsiTorque : public ClassManager
+class BlowerRbmDsi : public ClassManager
 {
     Q_OBJECT
 public:
-    explicit BlowerDsiTorque(QObject *parent = nullptr);
-
-    int setup();
+    explicit BlowerRbmDsi(QObject *parent = nullptr);
 
     void worker() override;
+
+    void setSubModule(BlowerRegalECM *module);
 
     void setInterlock(int newVal);
 
@@ -30,8 +28,7 @@ signals:
     void errorComCountChanged(int newVal);
 
 private:
-    QScopedPointer<QSerialPort> m_pSerialPort;
-    QScopedPointer<BlowerRegalECM> m_pModuleECM;
+    BlowerRegalECM *pModule;
 
     int m_interlocked;
 
