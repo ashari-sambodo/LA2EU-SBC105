@@ -17,8 +17,9 @@ BlowerRbmDsi::BlowerRbmDsi(QObject *parent) : ClassManager(parent)
     m_rpmSamplesSum     = 0;
 }
 
-void BlowerRbmDsi::worker()
+void BlowerRbmDsi::worker(int parameter)
 {
+    Q_UNUSED(parameter);
     //    qDebug() << metaObject()->className() << __FUNCTION__ << QObject::thread();
 
     updateActualDemand();

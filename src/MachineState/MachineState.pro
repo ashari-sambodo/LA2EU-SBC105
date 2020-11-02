@@ -23,8 +23,6 @@ SOURCES +=  \
     Implementations/BlowerRbm/BlowerRbmDsi.cpp \
     Implementations/ClassManager.cpp \
     Implementations/AirflowVelocity/AirflowVelocity.cpp \
-    Implementations/BlowerRbm/BlowerRbm.cpp \
-    Implementations/BlowerRbm/BlowerRbmThread.cpp \
     Implementations/DeviceAnalogCom/DeviceAnalogCom.cpp \
     Implementations/DigitalOut/DigitalOut.cpp \
     Implementations/LampDimm/LampDimm.cpp \

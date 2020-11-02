@@ -19,6 +19,7 @@ void ClassManager::exec()
     m_eventLoop.reset(new QEventLoop);
 
     /// listen then execute if any pending event task
+    /// have looping forever inside
     m_eventLoop->exec();
 
     emit hasComeOut();

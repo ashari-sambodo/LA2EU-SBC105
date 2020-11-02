@@ -18,8 +18,10 @@ class ClassManager : public QObject
 public:
     explicit ClassManager(QObject *parent = nullptr);
 
+    virtual void worker(int parameter = 0) = 0;
+
     /// pure virtual function
-    virtual void worker() = 0;
+    //    virtual void worker() = 0;
 
     /// exec(); This for easy implementing independent thread looping
     /// if the worker dont use triggered by timer event

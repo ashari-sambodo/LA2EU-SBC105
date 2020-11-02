@@ -12,7 +12,7 @@ class DeviceAnalogCom : public ClassManager
 public:
     explicit DeviceAnalogCom(QObject *parent = nullptr);
 
-    void worker() override;
+    void worker(int parameter = 0 ) override;
 
     void setSubModule(AOmcp4725 *module);
 

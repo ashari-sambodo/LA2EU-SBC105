@@ -1,4 +1,5 @@
 QT += quick
+QT += serialport
 
 TEMPLATE = app
 CONFIG += c++11

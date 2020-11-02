@@ -16,8 +16,9 @@ DeviceAnalogCom::DeviceAnalogCom(QObject *parent) : ClassManager(parent)
     m_stateMax      = 100;
 }
 
-void DeviceAnalogCom::worker()
+void DeviceAnalogCom::worker(int parameter)
 {
+    Q_UNUSED(parameter)
     int ival;
     //actual value from board
     pModule->getRegBufferDAC(&ival);

@@ -48,10 +48,10 @@ private:
     QScopedPointer<QTimer>          m_timerEventForBlowerRbmDsi;
     QScopedPointer<QThread>         m_threadForBlowerRbmDsi;
     ///
-    QScopedPointer<BlowerRbmDsi>    m_blowerRbmDsi;
+    QScopedPointer<BlowerRbmDsi>    m_blowerRbmDsiKeeper;
     QScopedPointer<BlowerRegalECM>  m_blowerRegalECM;
     QScopedPointer<QSerialPort>     m_blowerSerialPort;
 
-    QScopedPointer<QSettings> m_settings;
+    QScopedPointer<QSettings>       m_settings;
 };
 
