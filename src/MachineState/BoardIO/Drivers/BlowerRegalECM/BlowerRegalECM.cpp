@@ -2205,7 +2205,7 @@ void BlowerRegalECM::debugPrintCommand(const QString &title, const QByteArray &c
 
 bool BlowerRegalECM::isPortValid() const
 {
-    if(serialComm) {
+    if (serialComm != nullptr) {
         if(serialComm->isOpen()) {
             return true;
         }

@@ -20,7 +20,7 @@ BlowerRbmDsi::BlowerRbmDsi(QObject *parent) : ClassManager(parent)
 void BlowerRbmDsi::worker(int parameter)
 {
     Q_UNUSED(parameter);
-    //    qDebug() << metaObject()->className() << __FUNCTION__ << QObject::thread();
+    qDebug() << metaObject()->className() << __FUNCTION__ << QObject::thread();
 
     updateActualDemand();
     readActualSpeedRPM();
