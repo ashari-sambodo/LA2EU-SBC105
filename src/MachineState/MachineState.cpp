@@ -53,21 +53,108 @@ void MachineState::setup()
     /// Permanent settings storage
     m_settings.reset(new QSettings);
 
+    /// BoardIO
+    {
+        /// Board IO use i2c port for communication
+        /// setup i2c port
+        m_i2cPort.reset(new I2CPort);
+        /// define which i2c port number want to use
+        /// ESCO OS Y313 has allocated i2cport number 4 for board communication
+        m_i2cPort->setPortNumber(4);
+        m_i2cPort->openPort();
+
+        /// Initializing every requred board
+        m_boardAnalogOut1.reset(new AOmcp4725);
+        m_boardAnalogOut1->setI2C(m_i2cPort.data());
+        m_boardAnalogOut1->init();
+
+        /// catch error status of the board
+        QObject::connect(m_boardAnalogOut1.data(), &AOmcp4725::errorComToleranceReached,
+                         this, [&](int error){
+            qDebug() << "Error changed" << error << thread();
+        });
+
+        /// Required object to manage communication
+        /// communication will use daisy chain mechanism
+        /// in one port i2c will connect to many board
+        /// will use short poling mechanism to synchronization the states between machine logic and actual board
+        m_boardIO.reset(new BoardIO);
+
+        /// add any board for short polling
+        {
+            m_boardIO->addSlave(m_boardAnalogOut1.data());
+        }
+
+        /// setup thread and timer interupt for board IO
+        {
+            /// create timer for triggering the loop (routine task) and execute any pending request
+            /// routine task and any pending task will executed by FIFO mechanism
+            m_timerInterruptForBoardIO.reset(new QTimer);
+            m_timerInterruptForBoardIO->setInterval(TEI_FOR_BOARD_IO);
+
+            /// create independent thread
+            /// looping inside this thread will run parallel* beside machineState loop
+            m_threadForBoardIO.reset(new QThread);
+
+            /// Start timer event when thread was started
+            QObject::connect(m_threadForBoardIO.data(), &QThread::started,
+                             m_timerInterruptForBoardIO.data(), [&](){
+                qDebug() << "m_timerInterruptForBoardIO::started" << thread();
+                m_timerInterruptForBoardIO->start();
+            });
+
+            /// Stop timer event when thread was finished
+            QObject::connect(m_threadForBoardIO.data(), &QThread::finished,
+                             m_timerInterruptForBoardIO.data(), [&](){
+                qDebug() << "m_timerInterruptForBoardIO::finished" << thread();
+                m_timerInterruptForBoardIO->stop();
+            });
+
+            /// Enable triggerOnStarted, calling the worker of BlowerRbmDsi when thread has started
+            /// This is use lambda function, this symbol [&] for pass m_boardIO object to can captured by lambda
+            QObject::connect(m_threadForBoardIO.data(), &QThread::started,
+                             m_boardIO.data(), [&](){
+                m_boardIO->worker();
+            });
+
+            /// Call routine task blower (syncronazation state)
+            /// This method calling by timerEvent
+            QObject::connect(m_timerInterruptForBoardIO.data(), &QTimer::timeout,
+                             m_boardIO.data(), [&](){
+                qDebug() << "m_boardIO::timeout" << thread();
+                m_boardIO->worker();
+            });
+
+            /// Run loop thread when Machine State goes to looping / routine task
+            QObject::connect(this, &MachineState::loopStarted,
+                             m_boardIO.data(), [&](){
+                qDebug() << "m_threadForBoardIO::loopStarted" << thread();
+                m_threadForBoardIO->start();
+            });
+
+            /// Do move blower routine task / looping to independent thread
+            m_boardIO->moveToThread(m_threadForBoardIO.data());
+            /// Do move timer event for blower routine task to independent thread
+            /// make the timer has prescission because independent from this Macine State looping
+            m_timerInterruptForBoardIO->moveToThread(m_threadForBoardIO.data());
+        }
+    }
+
     /// Blower
     {
         /// find and initializing serial port for blower
-        m_blowerSerialPort.reset(new QSerialPort());
+        m_serialPort1.reset(new QSerialPort());
         foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts()){
             if((info.vendorIdentifier() == BLOWER_USB_SERIAL_VID) &&
                     (info.productIdentifier() == BLOWER_USB_SERIAL_PID)){
 
-                m_blowerSerialPort->setPort(info);
+                m_serialPort1->setPort(info);
 
-                if(m_blowerSerialPort->open(QIODevice::ReadWrite)){
-                    m_blowerSerialPort->setBaudRate(QSerialPort::BaudRate::Baud4800);
-                    m_blowerSerialPort->setDataBits(QSerialPort::DataBits::Data8);
-                    m_blowerSerialPort->setParity(QSerialPort::Parity::NoParity);
-                    m_blowerSerialPort->setStopBits(QSerialPort::StopBits::OneStop);
+                if(m_serialPort1->open(QIODevice::ReadWrite)){
+                    m_serialPort1->setBaudRate(QSerialPort::BaudRate::Baud4800);
+                    m_serialPort1->setDataBits(QSerialPort::DataBits::Data8);
+                    m_serialPort1->setParity(QSerialPort::Parity::NoParity);
+                    m_serialPort1->setStopBits(QSerialPort::StopBits::OneStop);
                 }
 
                 break;
@@ -75,27 +162,33 @@ void MachineState::setup()
         }
 
         /// RBM COM Board is OK and ready to send blower paramaters
-        //        if (m_blowerSerialPort->isOpen()) {
+        if (!m_serialPort1->isOpen()) {
+            qWarning() << __FUNCTION__ << thread() << "serial port for blower cannot be opened";
+        }
         /// initializing the blower object
-        m_blowerRegalECM.reset(new BlowerRegalECM);
+        m_boardRegalECM.reset(new BlowerRegalECM);
         /// set the serial port
-        m_blowerRegalECM->setSerialComm(m_blowerSerialPort.data());
+        m_boardRegalECM->setSerialComm(m_serialPort1.data());
         /// we expect the first state of the the blower from not running
         /// now, we assume the response from the blower is always OK,
-        /// so we dont care the return value of following API
-        m_blowerRegalECM->stop();
+        //        /// so we dont care the return value of following API
+        m_boardRegalECM->stop();
         /// setup blower ecm by torque demand
         /// in torque mode, we just need to define the direction of rotation
-        m_blowerRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CLW);
+        //        m_blowerRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CLW);
+        m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CCW);
 
         /// create object for state keeper
         /// ensure actuator state is what machine state requested
-        m_blowerRbmDsiKeeper.reset(new BlowerRbmDsi);
+        m_blowerRbmDsi.reset(new BlowerRbmDsi);
+
+        /// pass the virtual object sub module board
+        m_blowerRbmDsi->setSubModule(m_boardRegalECM.data());
 
         /// create timer for triggering the loop (routine task) and execute any pending request
         /// routine task and any pending task will executed by FIFO mechanism
-        m_timerEventForBlowerRbmDsi.reset(new QTimer);
-        m_timerEventForBlowerRbmDsi->setInterval(TEI_FOR_BLOWER_RBMDSI);
+        m_timerInterruptForBlowerRbmDsi.reset(new QTimer);
+        m_timerInterruptForBlowerRbmDsi->setInterval(TEI_FOR_BLOWER_RBMDSI);
 
         /// create independent thread
         /// looping inside this thread will run parallel* beside machineState loop
@@ -103,51 +196,49 @@ void MachineState::setup()
 
         /// Start timer event when thread was started
         QObject::connect(m_threadForBlowerRbmDsi.data(), &QThread::started,
-                         m_timerEventForBlowerRbmDsi.data(), [&](){
-            m_timerEventForBlowerRbmDsi->start();
-            qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+                         m_timerInterruptForBlowerRbmDsi.data(), [&](){
+            qDebug() << "m_timerEventForBlowerRbmDsi::started" << thread();
+            m_timerInterruptForBlowerRbmDsi->start();
         });
 
         /// Stop timer event when thread was finished
         QObject::connect(m_threadForBlowerRbmDsi.data(), &QThread::finished,
-                         m_timerEventForBlowerRbmDsi.data(), [&](){
-            m_timerEventForBlowerRbmDsi->stop();
-            qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+                         m_timerInterruptForBlowerRbmDsi.data(), [&](){
+            qDebug() << "m_timerEventForBlowerRbmDsi::finished" << thread();
+            m_timerInterruptForBlowerRbmDsi->stop();
         });
 
         /// Enable triggerOnStarted, calling the worker of BlowerRbmDsi when thread has started
         /// This is use lambda function, this symbol [&] for pass m_blowerRbmDsi object to can captured by lambda
         /// m_blowerRbmDsi.data(), [&](){m_blowerRbmDsi->worker();});
         QObject::connect(m_threadForBlowerRbmDsi.data(), &QThread::started,
-                         m_blowerRbmDsiKeeper.data(), [&](){
-            m_blowerRbmDsiKeeper->worker();
+                         m_blowerRbmDsi.data(), [&](){
+            m_blowerRbmDsi->worker();
         });
 
         /// Call routine task blower (syncronazation state)
         /// This method calling by timerEvent
-        QObject::connect(m_timerEventForBlowerRbmDsi.data(), &QTimer::timeout,
-                         m_blowerRbmDsiKeeper.data(), [&](){
-            m_blowerRbmDsiKeeper->worker();
+        QObject::connect(m_timerInterruptForBlowerRbmDsi.data(), &QTimer::timeout,
+                         m_blowerRbmDsi.data(), [&](){
+            qDebug() << "m_blowerRbmDsiKeeper::timeout" << thread();
+            m_blowerRbmDsi->worker();
         });
 
         /// Run blower loop thread when Machine State goes to looping / routine task
         QObject::connect(this, &MachineState::loopStarted,
                          m_threadForBlowerRbmDsi.data(), [&](){
+            qDebug() << "m_threadForBlowerRbmDsi::loopStarted" << thread();
             m_threadForBlowerRbmDsi->start();
         });
 
         /// Do move blower routine task / looping to independent thread
-        m_blowerRbmDsiKeeper->moveToThread(m_threadForBlowerRbmDsi.data());
+        m_blowerRbmDsi->moveToThread(m_threadForBlowerRbmDsi.data());
         /// Do move timer event for blower routine task to independent thread
         /// make the timer has prescission because independent from this Macine State looping
-        m_timerEventForBlowerRbmDsi->moveToThread(m_threadForBlowerRbmDsi.data());
+        m_timerInterruptForBlowerRbmDsi->moveToThread(m_threadForBlowerRbmDsi.data());
         /// Also move all necesarry object to independent blower thread
-        m_blowerSerialPort->moveToThread(m_threadForBlowerRbmDsi.data());
-        m_blowerRegalECM->moveToThread(m_threadForBlowerRbmDsi.data());
-        //        }
-        //        else {
-        //            qWarning() << __FUNCTION__ << thread() << "serial port for blower cannot be opened";
-        //        }
+        m_serialPort1->moveToThread(m_threadForBlowerRbmDsi.data());
+        m_boardRegalECM->moveToThread(m_threadForBlowerRbmDsi.data());
     }
 
     /// Chane state to loop, routine task
@@ -158,7 +249,7 @@ void MachineState::setup()
 
 void MachineState::loop()
 {
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    //    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     /// Just execute for the first cycle loop
     if (m_loopStarterTaskExecute) {
@@ -193,10 +284,24 @@ void MachineState::deallocate()
     emit hasStopped();
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////
+/// API Group for General Object Operation
 
 void MachineState::stop()
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     m_stop = true;
+}
+
+/// API Group for specific cabinet
+
+void MachineState::setBlowerState(short state)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << state;
+
+    /// append pending task to target object and target thread
+    QMetaObject::invokeMethod(m_blowerRbmDsi.data(),[&, state]{
+        m_blowerRbmDsi->setDutyCycle(state);
+    },
+    Qt::QueuedConnection);
 }

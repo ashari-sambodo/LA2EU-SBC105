@@ -63,15 +63,15 @@ void MachineStateProxy::setup(QObject *pData)
 
     /// Start timer event when thread was called
     QObject::connect(m_threadForMachineState.data(), &QThread::started,
-            m_timerEventForMachineState.data(), QOverload<>::of(&QTimer::start));
+                     m_timerEventForMachineState.data(), QOverload<>::of(&QTimer::start));
 
     /// Stop timer event when thread was called
     QObject::connect(m_threadForMachineState.data(), &QThread::finished,
-            m_timerEventForMachineState.data(), QOverload<>::of(&QTimer::stop));
+                     m_timerEventForMachineState.data(), QOverload<>::of(&QTimer::stop));
 
     /// Trigger worker on starting
     QObject::connect(m_threadForMachineState.data(), &QThread::started,
-            m_machineState.data(), [&](){m_machineState->worker();});
+                     m_machineState.data(), [&](){m_machineState->worker();});
 
     /// stopped thread
     QObject::connect(m_machineState.data(), &MachineState::hasStopped,
@@ -79,7 +79,7 @@ void MachineStateProxy::setup(QObject *pData)
 
     /// Call worker every time timer was timeout , routine task
     QObject::connect(m_timerEventForMachineState.data(), &QTimer::timeout,
-            m_machineState.data(), &MachineState::worker);
+                     m_machineState.data(), &MachineState::worker);
 
     /// Move the object to another thread
     m_machineState->moveToThread(m_threadForMachineState.data());
@@ -97,6 +97,20 @@ void MachineStateProxy::stop()
     QMetaObject::invokeMethod(m_machineState.data(),
                               &MachineState::stop,
                               Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setBlowerState(short state)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << state;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineState.data(), [&, state](){
+        m_machineState->setBlowerState(state);
+    },
+    Qt::QueuedConnection);
 }
 
 void MachineStateProxy::doStopping()

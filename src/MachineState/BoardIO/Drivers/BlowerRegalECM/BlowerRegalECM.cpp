@@ -1,3 +1,4 @@
+#include <cmath>
 #include "BlowerRegalECM.h"
 
 #define ECM_CMD_REQ_DEMAND_RDM          0x45

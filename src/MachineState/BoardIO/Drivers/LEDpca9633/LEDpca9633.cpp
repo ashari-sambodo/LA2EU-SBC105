@@ -78,7 +78,7 @@ int LEDpca9633::init()
     //SET REGISTER MODE 1 TO
     // - SLEEP to Normal Mode
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -88,11 +88,11 @@ int LEDpca9633::init()
     // TURN OFF ALL CALL
     cmd.push_back(0x00);
     //call i2c object and pass command frame
-    if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int LEDpca9633::testComm()
@@ -127,7 +127,7 @@ int LEDpca9633::setOutputPWM(uchar pin, int duty, bool toBuffer)
     //    fflush(stdout);
 
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -138,12 +138,12 @@ int LEDpca9633::setOutputPWM(uchar pin, int duty, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int LEDpca9633::setOutputAsPWM(uchar pin, bool toBuffer)
@@ -156,7 +156,7 @@ int LEDpca9633::setOutputAsPWM(uchar pin, bool toBuffer)
     //    fflush(stdout);
 
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -167,13 +167,13 @@ int LEDpca9633::setOutputAsPWM(uchar pin, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int LEDpca9633::setOutputAsPWMGroup(uchar pin, bool toBuffer)
@@ -184,7 +184,7 @@ int LEDpca9633::setOutputAsPWMGroup(uchar pin, bool toBuffer)
     m_registerDataBuffer[LEDPCA9633_REG_LEDOUT] |= LEDPCA9633_LEDOUT_PWM_GROUP << (pin * 2);
 
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -195,12 +195,12 @@ int LEDpca9633::setOutputAsPWMGroup(uchar pin, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int LEDpca9633::setOutputAsDigital(uchar pin, bool state, bool toBuffer)
@@ -214,7 +214,7 @@ int LEDpca9633::setOutputAsDigital(uchar pin, bool state, bool toBuffer)
     //    fflush(stdout);
 
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -225,18 +225,18 @@ int LEDpca9633::setOutputAsDigital(uchar pin, bool state, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int LEDpca9633::getMode1(uchar &mode)
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         1,
@@ -245,21 +245,21 @@ int LEDpca9633::getMode1(uchar &mode)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     m_registerDataBuffer[LEDPCA9633_REG_MODE1] = receive[0];
     mode = m_registerDataBuffer[LEDPCA9633_REG_MODE1];
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int LEDpca9633::getOutputState(uchar pin, uchar &state)
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         1,
@@ -268,15 +268,15 @@ int LEDpca9633::getOutputState(uchar pin, uchar &state)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     m_registerDataBuffer[LEDPCA9633_REG_LEDOUT] = receive[0];
     state = (m_registerDataBuffer[LEDPCA9633_REG_LEDOUT] >> (pin * 2)) & 0b00000011;
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 /**
  * @brief LEDpca9633::getOutputPWM
@@ -287,7 +287,7 @@ int LEDpca9633::getOutputState(uchar pin, uchar &state)
 int LEDpca9633::getOutputPWM(uchar pin, int &value)
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         1,
@@ -296,9 +296,9 @@ int LEDpca9633::getOutputPWM(uchar pin, int &value)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     ////SAVE TO MEMORY
@@ -306,7 +306,7 @@ int LEDpca9633::getOutputPWM(uchar pin, int &value)
     ////CONVERT FROM COUNTING TO DUTY CYCLE
     value = qRound(static_cast<double>((255 - receive[0]) / 255) * 100.0);
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 /**
@@ -317,7 +317,7 @@ int LEDpca9633::getOutputPWM(uchar pin, int &value)
 int LEDpca9633::getRegisters()
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         LEDPCA9633_REG_LEDOUT + 1,
@@ -326,9 +326,9 @@ int LEDpca9633::getRegisters()
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     ////SAVE TO MEMORY
@@ -340,7 +340,7 @@ int LEDpca9633::getRegisters()
         //        fflush(stdout);
     }
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 void LEDpca9633::getRegBuffer_mode1(uchar &mode)

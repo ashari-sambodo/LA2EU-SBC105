@@ -10,6 +10,10 @@
 #include "BoardIO/Drivers/BlowerRegalECM/BlowerRegalECM.h"
 #include "Implementations/BlowerRbm/BlowerRbmDsi.h"
 
+#include "BoardIO/Drivers/AOmcp4725/AOmcp4725.h"
+#include "BoardIO/Drivers/i2c/I2CPort.h"
+#include "BoardIO/BoardIO.h"
+
 class MachineData;
 
 class MachineState : public QObject
@@ -25,6 +29,9 @@ public slots:
     void stop();
 
     void setMachineData(MachineData* data);
+
+    /// API for Cabinet operational
+    void setBlowerState(short state);
 
 signals:
     void hasStopped();
@@ -44,13 +51,23 @@ private:
     bool m_loopStarterTaskExecute;
     bool m_stoppingExecuted;
 
-    ///
-    QScopedPointer<QTimer>          m_timerEventForBlowerRbmDsi;
+    /// Blower Primary
+    QScopedPointer<QTimer>          m_timerInterruptForBlowerRbmDsi;
     QScopedPointer<QThread>         m_threadForBlowerRbmDsi;
     ///
-    QScopedPointer<BlowerRbmDsi>    m_blowerRbmDsiKeeper;
-    QScopedPointer<BlowerRegalECM>  m_blowerRegalECM;
-    QScopedPointer<QSerialPort>     m_blowerSerialPort;
+    QScopedPointer<BlowerRbmDsi>    m_blowerRbmDsi;
+    QScopedPointer<BlowerRegalECM>  m_boardRegalECM;
+    ///
+    QScopedPointer<QSerialPort>     m_serialPort1;
+
+    /// Board IO
+    QScopedPointer<QTimer>          m_timerInterruptForBoardIO;
+    QScopedPointer<QThread>         m_threadForBoardIO;
+    ///
+    QScopedPointer<BoardIO>         m_boardIO;
+    QScopedPointer<I2CPort>         m_i2cPort;
+    /// Analog Output
+    QScopedPointer<AOmcp4725>       m_boardAnalogOut1;
 
     QScopedPointer<QSettings>       m_settings;
 };

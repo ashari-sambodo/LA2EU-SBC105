@@ -3,7 +3,7 @@
 
 #include <QVector>
 #include <QSharedPointer>
-#include "../i2c/I2CCom.h"
+#include "../i2c/I2CPort.h"
 #include "AImcp342x.h"
 #include "../ClassDriver.h"
 
@@ -24,7 +24,7 @@ public:
     void setChannelDoAverage(int channel, int average);
     void setChannelSamples(int channel, int number);
 
-    void setI2C(I2CCom *pI2C);
+    void setI2C(I2CPort *pI2C);
     void setAddress(uchar addr);
     int testComm();
     int init();

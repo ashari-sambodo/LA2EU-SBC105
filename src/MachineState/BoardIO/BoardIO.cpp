@@ -1,17 +1,16 @@
 #include "BoardIO.h"
-//#include <QtDebug>
 
 BoardIO::BoardIO(QObject *parent)
     : QObject(parent)
 {
 }
 
-void BoardIO::setI2C(I2CCom *pObject)
+void BoardIO::setI2C(I2CPort *pObject)
 {
     pI2c = pObject;
 }
 
-int BoardIO::addModule(ClassDriver *pModule)
+int BoardIO::addSlave(ClassDriver *pModule)
 {
     //    printf("BoardIO::addModule %s\n", idStr.toStdString().c_str());
     //    fflush(stdout);
@@ -23,7 +22,7 @@ int BoardIO::addModule(ClassDriver *pModule)
 void BoardIO::worker(int parameter)
 {
     Q_UNUSED(parameter)
-    //    qDebug()<<"Worker::workerPoll get called from?: "<<QThread::currentThreadId();
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     //send out queque
     pI2c->sendOutQueue();
@@ -34,10 +33,10 @@ void BoardIO::worker(int parameter)
         //        printf("board address %02X\n", board->address());
         //        fflush(stdout);
         //#endif
-        if(board->commStatus() == ClassDriver::I2C_COMM_OK){
+        if(board->commStatusActual() == ClassDriver::I2C_COMM_OK){
             //POLLING_DATA
             if(board->polling() != 0){
-                board->setCommStatus(ClassDriver::I2C_COMM_ERROR);
+                board->setCommStatusActual(ClassDriver::I2C_COMM_ERROR);
             }
         }else{
             //TEST_COMMUNICATION
@@ -45,30 +44,30 @@ void BoardIO::worker(int parameter)
                 //THEN_INIT_OR_RE_INITIALIZING
                 if(board->init() == 0){
                     //MODULE_HAS_RESPONSED
-                    board->setCommStatus(ClassDriver::I2C_COMM_OK);
+                    board->setCommStatusActual(ClassDriver::I2C_COMM_OK);
                 }
             }else {
-                board->setCommStatus(ClassDriver::I2C_COMM_ERROR);
+                board->setCommStatusActual(ClassDriver::I2C_COMM_ERROR);
                 //CLEAR_BUFFER
                 board->clearRegBuffer();
             }
         }
 
         //INCREASE_COMM_ERROR_COUNT
-        if(board->commStatus() == ClassDriver::I2C_COMM_ERROR){
-            int errorCount = board->errorComCount();
+        if(board->commStatusActual() == ClassDriver::I2C_COMM_ERROR){
+            int errorCount = board->errorComToleranceCount();
             errorCount = errorCount + 1;
             //#ifndef NO_PRINT_DEBUG
             //            printf("errorCount %d\n", errorCount);
             //            fflush(stdout);
             //#endif
-            board->setErrorComCount(errorCount);
+            board->setErrorComToleranceCount(errorCount);
         }
         //CLEAR_COMM_ERROR_COUNT
-        else if (board->commStatus() == ClassDriver::I2C_COMM_OK) {
+        else if (board->commStatusActual() == ClassDriver::I2C_COMM_OK) {
             //IF_ERROR_COUNT_MORE_THAN_ZERO
-            if(board->errorComCount()){
-                board->setErrorComCount(0);
+            if(board->errorComToleranceCount()){
+                board->setErrorComToleranceCount(0);
             }
 
             //#ifndef NO_PRINT_DEBUG

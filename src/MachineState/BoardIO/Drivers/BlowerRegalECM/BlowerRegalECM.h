@@ -1,7 +1,6 @@
 #ifndef BLOWERREGALECM_H
 #define BLOWERREGALECM_H
 
-#include <cmath>
 #include "../ClassDriver.h"
 #include <QtSerialPort/QSerialPort>
 

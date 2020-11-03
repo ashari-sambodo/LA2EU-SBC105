@@ -112,6 +112,24 @@ ViewApp {
                                         }
                                     }
                                 }//
+
+                                ButtonBarApp {
+                                    id: setBlowerOnButton
+                                    text: "Set Blower ON"
+
+                                    onClicked: {
+                                        MachineApi.setBlowerState(20)
+                                    }
+                                }//
+
+                                ButtonBarApp {
+                                    id: setBlowerOffButton
+                                    text: "Set Blower OFF"
+
+                                    onClicked: {
+                                        MachineApi.setBlowerState(0)
+                                    }
+                                }//
                             }//
                         }
                     }

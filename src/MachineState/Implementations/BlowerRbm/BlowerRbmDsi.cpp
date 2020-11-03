@@ -52,8 +52,8 @@ void BlowerRbmDsi::updateActualDemand()
     if(response == 0) {
 
         /// CLEAR ERROR COUNT IF NOT YET REACH THE MAXIMUM ERROR
-        if(pModule->errorComCount()){
-            pModule->setErrorComCount(0);
+        if(pModule->errorComToleranceCount()){
+            pModule->setErrorComToleranceCount(0);
         }
 
         /// convert from byte torque to percent representative
@@ -82,9 +82,9 @@ void BlowerRbmDsi::updateActualDemand()
     else {
         //ECM COMMUNICATION HAVE NO RESPONSE CORRECTLY
         //INCREASE_COMM_ERROR_COUNT
-        int errorCount = pModule->errorComCount();
+        int errorCount = pModule->errorComToleranceCount();
         errorCount = errorCount + 1;
-        pModule->setErrorComCount(errorCount);
+        pModule->setErrorComToleranceCount(errorCount);
 
         //                        #ifndef NO_PRINT_DEBUG
         //        printf("BlowerDSIManager::updateActualState error response %d\n", errorCount);
@@ -111,8 +111,8 @@ void BlowerRbmDsi::readActualSpeedRPM()
     if(response == 0){
 
         ///CLEAR ERROR COUNT IF NOT YET REACH THE MAXIMUM ERROR
-        if(pModule->errorComCount()){
-            pModule->setErrorComCount(0);
+        if(pModule->errorComToleranceCount()){
+            pModule->setErrorComToleranceCount(0);
         }
 
         //SMOOTHING
@@ -137,9 +137,9 @@ void BlowerRbmDsi::readActualSpeedRPM()
     else {
         //ECM COMMUNICATION HAVE NO RESPONSE CORRECTLY
         //INCREASE_COMM_ERROR_COUNT
-        int errorCount = pModule->errorComCount();
+        int errorCount = pModule->errorComToleranceCount();
         errorCount = errorCount + 1;
-        pModule->setErrorComCount(errorCount);
+        pModule->setErrorComToleranceCount(errorCount);
 
         //                #ifndef NO_PRINT_DEBUG
         //        printf("BlowerDSIManager::readSpeedRPM error response %d\n", errorCount);

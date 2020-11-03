@@ -122,7 +122,7 @@ void PWMpca9685::preInitOscilatorType(int oscilator)
 int PWMpca9685::testComm()
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                          m_address,
                          1,
                          1,
@@ -131,11 +131,11 @@ int PWMpca9685::testComm()
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int PWMpca9685::polling()
@@ -167,7 +167,7 @@ int PWMpca9685::setFrequency(float frequency)
     //make device going to sleep
     //frequency only can set when sleep condition
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                          m_address,
                          1,
                          1,
@@ -175,14 +175,14 @@ int PWMpca9685::setFrequency(float frequency)
                          cmd);
     cmd.push_back(PCA9685_PWM_BIT_SLEEP);
     //call i2c object and pass command frame
-    if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     if(m_oscilatorType == OscType::OSC_TYPE_EXTENAL){
         vector<unsigned char> cmd;
-        pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+        pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                              m_address,
                              1,
                              1,
@@ -190,9 +190,9 @@ int PWMpca9685::setFrequency(float frequency)
                              cmd);
         cmd.push_back(PCA9685_PWM_BIT_EX_OSCILATOR);
         //call i2c object and pass command frame
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
 
@@ -204,7 +204,7 @@ int PWMpca9685::setFrequency(float frequency)
 
     //frequency only can set when sleep condition
     cmd.clear();
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                          m_address,
                          1,
                          1,
@@ -212,14 +212,14 @@ int PWMpca9685::setFrequency(float frequency)
                          cmd);
     cmd.push_back(pre_scaler);
     //call i2c object and pass command frame
-    if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //Re-enable auto increment i2c register
     cmd.clear();
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                          m_address,
                          1,
                          1,
@@ -227,13 +227,13 @@ int PWMpca9685::setFrequency(float frequency)
                          cmd);
     cmd.push_back(PCA9685_PWM_BIT_RESTART | PCA9685_PWM_BIT_AUTOINC);
     //call i2c object and pass command frame
-    if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
     //required oscilator startup delay when used internal oscilator, at least 500us
     if (m_oscillatorValue == PCA9685_PWM_VAL_IN_OSCILATOR) usleep(550);
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 /**
@@ -251,7 +251,7 @@ int PWMpca9685::setPWM(int channel, int duty_cycle, bool toBuffer)
 
     //do set pwm
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                          m_address,
                          1,
                          4,
@@ -265,12 +265,12 @@ int PWMpca9685::setPWM(int channel, int duty_cycle, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 /**
@@ -285,7 +285,7 @@ int PWMpca9685::setAllPWM(int duty_cycle, bool toBuffer)
 
     //do set pwm
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                          m_address,
                          1,
                          4,
@@ -299,12 +299,12 @@ int PWMpca9685::setAllPWM(int duty_cycle, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 /**
@@ -315,7 +315,7 @@ int PWMpca9685::setAllPWM(int duty_cycle, bool toBuffer)
 int PWMpca9685::getOscilatorStatus(int *result)
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                          m_address,
                          1,
                          1,
@@ -324,16 +324,16 @@ int PWMpca9685::getOscilatorStatus(int *result)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //don't sleep device
     if(receive[0] & PCA9685_PWM_BIT_SLEEP) *result = 0;
     else *result = 1;
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 /**
@@ -347,7 +347,7 @@ int PWMpca9685::updateRegBuffer(int channels)
     //    unsigned char count = PCA9685_PWM_REG_LED7_OFF_H + 1;
     unsigned char count = (channels * 4 + 4) + 6;
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                          m_address,
                          1,
                          count,
@@ -356,9 +356,9 @@ int PWMpca9685::updateRegBuffer(int channels)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //copy received byte to holding array
@@ -366,7 +366,7 @@ int PWMpca9685::updateRegBuffer(int channels)
 
     //read register prescale
     cmd.clear();
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                          m_address,
                          1,
                          1,
@@ -375,14 +375,14 @@ int PWMpca9685::updateRegBuffer(int channels)
     //make buffer received message
     receive.clear();
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //copy received byte to holding array
     copy(receive.begin(), receive.end(), m_registerDataBuffer + PCA9685_PWM_REG_PRE_SCALE + 1);
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 /**
@@ -421,7 +421,7 @@ void PWMpca9685::clearRegBuffer()
 int PWMpca9685::getFrequency(float *result)
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                          m_address,
                          1,
                          1,
@@ -430,16 +430,16 @@ int PWMpca9685::getFrequency(float *result)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     // prescale to frequency
     float val = (m_oscillatorValue / receive[0] / 4096);
     //rounded value to two digits behind comma
     *result = qRound(val * 100.00) / 100.00;
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 /**1017,25260417
@@ -452,7 +452,7 @@ int PWMpca9685::getPWM(int channel, int *result)
 {
     unsigned char start_reg = getStartAddress(channel);
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                          m_address,
                          1,
                          4,
@@ -461,13 +461,13 @@ int PWMpca9685::getPWM(int channel, int *result)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
     unsigned char pwm_reg[4] = {receive[0], receive[1], receive[2], receive[3]};
     PWMRegFormatToDec(pwm_reg, result);
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 /**

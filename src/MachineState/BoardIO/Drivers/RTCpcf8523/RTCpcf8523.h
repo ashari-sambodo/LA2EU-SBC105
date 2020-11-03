@@ -1,7 +1,7 @@
 #ifndef RTCPCF8523_H
 #define RTCPCF8523_H
 
-#include "../i2c/I2CCom.h"
+#include "../i2c/I2CPort.h"
 #include "../../Drivers/ClassDriver.h"
 
 #define PCF8523_TIMER_SOURCE_FREQ_US    0x00 // 4.096 kHz   //uS

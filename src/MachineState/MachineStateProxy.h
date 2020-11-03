@@ -39,6 +39,9 @@ public slots:
     void setup(QObject *pData);
     void stop();
 
+    /// API for Cabinet operational
+    void setBlowerState(short state);
+
 private slots:
     void doStopping();
 

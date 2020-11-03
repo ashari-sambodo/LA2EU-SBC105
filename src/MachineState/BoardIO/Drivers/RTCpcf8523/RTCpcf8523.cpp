@@ -46,7 +46,7 @@ int RTCpcf8523::readTimeDebug()
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         7,
@@ -55,9 +55,9 @@ int RTCpcf8523::readTimeDebug()
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
     //update register data
     m_registerDataBuffer[PCF8523_REG_SECOND]   = receive[0];
@@ -77,14 +77,14 @@ int RTCpcf8523::readTimeDebug()
             bcd_to_dec(receive[1] & PCF8523_MASK_SECOND_MINUTE),
             bcd_to_dec(receive[0] & PCF8523_MASK_SECOND_MINUTE));
     fflush(stdout);
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::readTimerADebug()
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         1,
@@ -93,15 +93,15 @@ int RTCpcf8523::readTimerADebug()
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     printf("Counter: %d \n", receive[0]);
     fflush(stdout);
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::init()
@@ -112,7 +112,7 @@ int RTCpcf8523::init()
     //check invalidate second osilation
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         1,
@@ -121,9 +121,9 @@ int RTCpcf8523::init()
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     unsigned char invalid_flag = receive[0];
@@ -134,7 +134,7 @@ int RTCpcf8523::init()
         //RESET SOFTWARE pcf8523
         //generate comand frame
         cmd.clear();
-        pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+        pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                             m_address,
                             1,
                             1,
@@ -142,15 +142,15 @@ int RTCpcf8523::init()
                             cmd);
         cmd.push_back(0x58);
         //call i2c object and pass command frame
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
 
         //Re setting battery switch over Vcc << Vbat << Vth and reset value to zero (Standard Mode)
         //generate comand frame
         cmd.clear();
-        pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+        pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                             m_address,
                             1,
                             8,
@@ -165,12 +165,12 @@ int RTCpcf8523::init()
         cmd.push_back(0x1); // month
         cmd.push_back(0x0); // year
         //call i2c object and pass command frame
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::setClock(int hour, int minute, int second, bool toBuffer)
@@ -181,7 +181,7 @@ int RTCpcf8523::setClock(int hour, int minute, int second, bool toBuffer)
     unsigned char bcd_sec = dec_to_bcd(second);
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         3,
@@ -195,12 +195,12 @@ int RTCpcf8523::setClock(int hour, int minute, int second, bool toBuffer)
         pI2C->addOutQueue(cmd);
     }
     else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::setDate(int weekday, int day, int month, int year, bool toBuffer)
@@ -211,7 +211,7 @@ int RTCpcf8523::setDate(int weekday, int day, int month, int year, bool toBuffer
     unsigned char bcd_year  = dec_to_bcd(year - PCF8523_YEAR_CENTURY);
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         4,
@@ -225,19 +225,19 @@ int RTCpcf8523::setDate(int weekday, int day, int month, int year, bool toBuffer
     if(toBuffer) {
         pI2C->addOutQueue(cmd);
     }else{
-        if((pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK))
+        if((pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK))
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::setWday(int wday, bool toBuffer)
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -248,19 +248,19 @@ int RTCpcf8523::setWday(int wday, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::setModePowerSwitch(int mode, bool toBuffer)
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -271,19 +271,19 @@ int RTCpcf8523::setModePowerSwitch(int mode, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::setClockOutCtrl(int val, bool toBuffer)
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         1,
@@ -292,9 +292,9 @@ int RTCpcf8523::setClockOutCtrl(int val, bool toBuffer)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //SAVE_TO_REGISTER_HOLDER
@@ -307,7 +307,7 @@ int RTCpcf8523::setClockOutCtrl(int val, bool toBuffer)
     //SET_TO_NEW_VALUE
     //generate comand frame
     cmd.clear();
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -318,19 +318,19 @@ int RTCpcf8523::setClockOutCtrl(int val, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::setClearInterrupt(bool toBuffer)
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         1,
@@ -344,21 +344,21 @@ int RTCpcf8523::setClearInterrupt(bool toBuffer)
     }else{
         vector<unsigned char> receive;
         //call i2c object and pass command frame
-        if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
         //update_holding_register
         m_registerDataBuffer[PCF8523_REG::PCF8523_REG_CONTROL_2] = receive[0];
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::setTimerAMode(int val, bool toBuffer)
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         1,
@@ -367,9 +367,9 @@ int RTCpcf8523::setTimerAMode(int val, bool toBuffer)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //SAVE_TO_REGISTER_HOLDER
@@ -382,7 +382,7 @@ int RTCpcf8523::setTimerAMode(int val, bool toBuffer)
     //SET_TO_NEW_VALUE
     //generate comand frame
     cmd.clear();
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -393,19 +393,19 @@ int RTCpcf8523::setTimerAMode(int val, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::setTimerAInteruptEnable(int val, bool toBuffer)
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         1,
@@ -414,9 +414,9 @@ int RTCpcf8523::setTimerAInteruptEnable(int val, bool toBuffer)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //SAVE_TO_REGISTER_HOLDER
@@ -429,7 +429,7 @@ int RTCpcf8523::setTimerAInteruptEnable(int val, bool toBuffer)
     //SET_TO_NEW_VALUE
     //generate comand frame
     cmd.clear();
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -440,19 +440,19 @@ int RTCpcf8523::setTimerAInteruptEnable(int val, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::setTimerFreqCtrl(int val, bool toBuffer)
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -463,19 +463,19 @@ int RTCpcf8523::setTimerFreqCtrl(int val, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::setTimerAModeInterrupt(int val, bool toBuffer)
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         1,
@@ -484,9 +484,9 @@ int RTCpcf8523::setTimerAModeInterrupt(int val, bool toBuffer)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //SAVE_TO_REGISTER_HOLDER
@@ -499,7 +499,7 @@ int RTCpcf8523::setTimerAModeInterrupt(int val, bool toBuffer)
     //SET_TO_NEW_VALUE
     //generate comand frame
     cmd.clear();
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -510,19 +510,19 @@ int RTCpcf8523::setTimerAModeInterrupt(int val, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::setTimerACount(int val, bool toBuffer)
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address,
                         1,
                         1,
@@ -533,19 +533,19 @@ int RTCpcf8523::setTimerACount(int val, bool toBuffer)
     if(toBuffer){
         pI2C->addOutQueue(cmd);
     }else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::getClock(int &hour, int &minute, int &second)
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         3,
@@ -554,9 +554,9 @@ int RTCpcf8523::getClock(int &hour, int &minute, int &second)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
     //update register data
     m_registerDataBuffer[PCF8523_REG_SECOND]   = receive[0];
@@ -568,14 +568,14 @@ int RTCpcf8523::getClock(int &hour, int &minute, int &second)
     minute  = bcd_to_dec(m_registerDataBuffer[PCF8523_REG_MINUTE]  & PCF8523_MASK_SECOND_MINUTE);
     second  = bcd_to_dec(m_registerDataBuffer[PCF8523_REG_SECOND]  & PCF8523_MASK_SECOND_MINUTE);
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::getDate(int& wday, int &day, int &month, int &year)
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         4,
@@ -584,9 +584,9 @@ int RTCpcf8523::getDate(int& wday, int &day, int &month, int &year)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
     //update register data
     m_registerDataBuffer[PCF8523_REG_DAYS]     = receive[0];
@@ -600,14 +600,14 @@ int RTCpcf8523::getDate(int& wday, int &day, int &month, int &year)
     month   = bcd_to_dec(m_registerDataBuffer[PCF8523_REG_MONTHS] & PCF8523_MASK_MONTH);
     year    = bcd_to_dec(m_registerDataBuffer[PCF8523_REG_YEARS]) + PCF8523_YEAR_CENTURY;
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::getTimerACount(int &count)
 {
     //generate comand frame
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         1,
@@ -616,16 +616,16 @@ int RTCpcf8523::getTimerACount(int &count)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //update register data
     m_registerDataBuffer[PCF8523_REG_TMR_A_REG]     = receive[0];
     count = m_registerDataBuffer[PCF8523_REG_TMR_A_REG];
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 void RTCpcf8523::getRegBuffer_TimerACount(int &count)
@@ -651,7 +651,7 @@ void RTCpcf8523::getRegBuffer_Date(int &wday, int &day, int &month, int &year)
 int RTCpcf8523::testComm()
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         1,
                         1,
@@ -660,11 +660,11 @@ int RTCpcf8523::testComm()
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int RTCpcf8523::polling()

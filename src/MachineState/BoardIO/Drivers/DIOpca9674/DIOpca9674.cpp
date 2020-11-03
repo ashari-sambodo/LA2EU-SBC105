@@ -26,7 +26,7 @@ int DIOpca9674::testComm()
     qDebug() << "DIOpca9674::test_comm " << "called";
 #endif
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         0,
                         1,
@@ -35,14 +35,14 @@ int DIOpca9674::testComm()
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
 #ifdef DEBUG_ME
         qDebug() << "DIOpca9674::test_comm " << "Failed to communication DIOpca9674";
 #endif
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int DIOpca9674::init()
@@ -52,7 +52,7 @@ int DIOpca9674::init()
     vector<unsigned char> cmd;
     //set io as input/output
     //    cmd.clear();
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                         m_address, //address
                         0, //without offset
                         1, //total of data
@@ -62,12 +62,12 @@ int DIOpca9674::init()
     else cmd.push_back(255);                                           //output
 
     //call i2c object and pass command frame
-    if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
         //        qDebug() << "DIOpca9674::init " << "Failed to set io PWMpca9685";
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int DIOpca9674::polling()
@@ -78,7 +78,7 @@ int DIOpca9674::polling()
 int DIOpca9674::getStateIO(int channel, unsigned char *result)
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         0,
                         1,
@@ -87,23 +87,23 @@ int DIOpca9674::getStateIO(int channel, unsigned char *result)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
 #ifdef DEBUG_ME
         qDebug() << "DIOpca9674::get_io_state " << "Failed to io state DIOpca9674";
 #endif
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     m_registerDataBuffer[DIOpca9674_REG::IO_VALUE] = receive[0];
     *result = (~m_registerDataBuffer[DIOpca9674_REG::IO_VALUE] & (0x01 << channel)) >> channel;
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int DIOpca9674::updateRegBuffer(void)
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                         m_address,
                         0,
                         1,
@@ -112,16 +112,16 @@ int DIOpca9674::updateRegBuffer(void)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
 #ifdef DEBUG_ME
         qDebug() << "DIOpca9674::update_reg_buffer " << "Failed to get update buffer DIOpca9674";
 #endif
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     m_registerDataBuffer[DIOpca9674_REG::IO_VALUE] = receive[0];
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 
 }
 

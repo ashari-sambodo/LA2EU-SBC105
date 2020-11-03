@@ -40,7 +40,7 @@ void AIManage::setChannelSamples(int channel, int number)
     channelsMaxSamples[channel] = number;
 }
 
-void AIManage::setI2C(I2CCom *pI2C)
+void AIManage::setI2C(I2CPort *pI2C)
 {
     m_pAIModule->setI2C(pI2C);
 }

@@ -1,22 +1,22 @@
 #pragma once
 
 #include <QObject>
-#include "i2c/I2CCom.h"
+#include "i2c/I2CPort.h"
 
 class ClassDriver : public QObject
 {
     Q_OBJECT
 public:
     explicit ClassDriver(QObject *parent = nullptr);
-    virtual void    setI2C(I2CCom *pI2C);
+    virtual void    setI2C(I2CPort *pI2C);
     virtual void    setAddress(uchar addr);
     virtual int     init();
     virtual int     polling();
     virtual int     testComm();
     virtual void    clearRegBuffer();
 
-    int commStatus() const;
-    void setCommStatus(int value);
+    int commStatusActual() const;
+    void setCommStatusActual(short value);
 
     enum EnumCommunicationStatus{
         I2C_COMM_STATUS_NONE,
@@ -24,27 +24,31 @@ public:
         I2C_COMM_ERROR
     };
 
-    int errorComCount() const;
-    void setErrorComCount(int val);
+    void increaseErrorComToleranceCount();
+    void clearErrorComToleranceCount();
 
-    int errorComCountMax() const;
-    void setErrorComCountMax(int errorComCountMax);
+    int errorComToleranceCount() const;
+    void setErrorComToleranceCount(short val);
+
+    int errorComToleranceCountMax() const;
+    void setErrorComToleranceCountMax(short errorComToleranceCountMax);
 
     uchar address() const;
 
 protected:
-    I2CCom*         pI2C;
+    I2CPort*        pI2C;
     uchar           m_address;
-    int             m_commStatus;
+    int             m_commStatusActual;
     unsigned char   m_registerDataBuffer[255];
 
-    int            m_errorComCount;
-    int            m_errorComCountMax;
+    short           m_errorComToleranceCount;
+    short           m_errorComToleranceCountMax;
 
     QString         m_idString;
 
 signals:
-    void errorComCountChanged(int count);
+    void errorComToleranceCountChanged(short count);
+    void errorComToleranceReached(short count);
 
 public slots:
 };

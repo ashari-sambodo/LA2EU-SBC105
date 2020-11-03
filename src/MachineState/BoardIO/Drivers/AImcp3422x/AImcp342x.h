@@ -1,7 +1,7 @@
 #ifndef AIMCP342X_H
 #define AIMCP342X_H
 
-#include "../i2c/I2CCom.h"
+#include "../i2c/I2CPort.h"
 #include "../ClassDriver.h"
 
 //conversion bit: bit 7

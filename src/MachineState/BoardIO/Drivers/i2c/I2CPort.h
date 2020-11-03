@@ -12,11 +12,11 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-class I2CCom
+class I2CPort
 {
 public:
-    I2CCom();
-    virtual ~I2CCom();
+    I2CPort();
+    virtual ~I2CPort();
     int setPortNumber(const int port);
     int openPort();
     int closePort();

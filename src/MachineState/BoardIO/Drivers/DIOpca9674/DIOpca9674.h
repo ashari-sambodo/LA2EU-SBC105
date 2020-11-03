@@ -1,7 +1,7 @@
 #ifndef DIPCA9674_H
 #define DIPCA9674_H
 
-#include "../i2c/I2CCom.h"
+#include "../i2c/I2CPort.h"
 #include "../ClassDriver.h"
 
 class DIOpca9674 : public ClassDriver

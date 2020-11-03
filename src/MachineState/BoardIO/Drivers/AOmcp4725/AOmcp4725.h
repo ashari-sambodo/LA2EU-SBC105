@@ -1,7 +1,7 @@
 #ifndef AOMCP4725_H
 #define AOMCP4725_H
 
-#include "../i2c/I2CCom.h"
+#include "../i2c/I2CPort.h"
 #include "../ClassDriver.h"
 
 class AOmcp4725 : public ClassDriver

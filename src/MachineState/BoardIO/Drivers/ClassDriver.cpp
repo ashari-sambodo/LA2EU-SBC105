@@ -3,15 +3,15 @@
 ClassDriver::ClassDriver(QObject *parent) : QObject(parent)
 {
     memset(m_registerDataBuffer, 0x00, 255);
-    m_commStatus            = I2C_COMM_STATUS_NONE;
+    m_commStatusActual            = I2C_COMM_STATUS_NONE;
     pI2C                    = nullptr;
     m_address               = 0x00;
-    m_errorComCount         = 0;
-    m_errorComCountMax      = 2;
+    m_errorComToleranceCount         = 0;
+    m_errorComToleranceCountMax      = 2;
     m_idString              = "";
 }
 
-void ClassDriver::setI2C(I2CCom *pI2C)
+void ClassDriver::setI2C(I2CPort *pI2C)
 {
     this->pI2C = pI2C;
 }
@@ -41,41 +41,64 @@ void ClassDriver::clearRegBuffer()
 
 }
 
-int ClassDriver::commStatus() const
+int ClassDriver::commStatusActual() const
 {
-    return m_commStatus;
+    return m_commStatusActual;
 }
 
-void ClassDriver::setCommStatus(int value)
+void ClassDriver::setCommStatusActual(short value)
 {
-    m_commStatus = value;
+    m_commStatusActual = value;
 }
 
-int ClassDriver::errorComCount() const
+void ClassDriver::increaseErrorComToleranceCount()
 {
-    return m_errorComCount;
+    short count = m_errorComToleranceCount;
+    count++;
+    setErrorComToleranceCount(count);
 }
 
-void ClassDriver::setErrorComCount(int val)
+void ClassDriver::clearErrorComToleranceCount()
 {
-    if(val > m_errorComCountMax) return;
-    else if(m_errorComCount == val) return;
-    m_errorComCount = val;
+    if(m_errorComToleranceCount > 0){
+        short count = m_errorComToleranceCount;
+        count--;
+        setErrorComToleranceCount(count);
+    }
+}
+
+int ClassDriver::errorComToleranceCount() const
+{
+    return m_errorComToleranceCount;
+}
+
+void ClassDriver::setErrorComToleranceCount(short val)
+{
+    if(m_errorComToleranceCount == val) return;
+
+    m_errorComToleranceCount = val;
 
     //    printf("ClassDriver::setErrorComCount %d\n", m_errorComCount);
     //    fflush(stdout);
 
-    emit errorComCountChanged(m_errorComCount);
+    emit errorComToleranceCountChanged(m_errorComToleranceCount);
+
+    if (m_errorComToleranceCount == m_errorComToleranceCountMax) {
+        emit errorComToleranceReached(m_errorComToleranceCount);
+    }
+    else if (m_errorComToleranceCountMax == 0) {
+        emit errorComToleranceReached(m_errorComToleranceCount);
+    }
 }
 
-int ClassDriver::errorComCountMax() const
+int ClassDriver::errorComToleranceCountMax() const
 {
-    return m_errorComCountMax;
+    return m_errorComToleranceCountMax;
 }
 
-void ClassDriver::setErrorComCountMax(int errorComCountMax)
+void ClassDriver::setErrorComToleranceCountMax(short errorComCountMax)
 {
-    m_errorComCountMax = errorComCountMax;
+    m_errorComToleranceCountMax = errorComCountMax;
 }
 
 uchar ClassDriver::address() const

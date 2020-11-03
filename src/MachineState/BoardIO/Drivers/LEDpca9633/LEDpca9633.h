@@ -1,7 +1,7 @@
 #ifndef LEDPCA9633_H
 #define LEDPCA9633_H
 
-#include "../i2c/I2CCom.h"
+#include "../i2c/I2CPort.h"
 #include "../../Drivers/ClassDriver.h"
 
 class LEDpca9633 : public ClassDriver

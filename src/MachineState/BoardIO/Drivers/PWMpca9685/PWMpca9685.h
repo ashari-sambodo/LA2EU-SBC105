@@ -2,7 +2,7 @@
 #define PWMPCA9685_H
 
 #include <unistd.h>
-#include "../i2c/I2CCom.h"
+#include "../i2c/I2CPort.h"
 #include "../ClassDriver.h"
 
 #define PCA9685_PWM_ADDRESS              0x40

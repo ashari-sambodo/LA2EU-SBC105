@@ -33,7 +33,7 @@ AImcp342x::AImcp342x(QObject *parent)
 int AImcp342x::testComm()
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                          m_address,
                          0,
                          1,
@@ -47,9 +47,9 @@ int AImcp342x::testComm()
 #ifdef DEBUG_ME
         qDebug() << "AImcp342x::test_comm " << "Failed to communication DIOpca9674";
 #endif
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int AImcp342x::init()
@@ -87,7 +87,7 @@ void AImcp342x::setConfigSPS(char sps)
 int AImcp342x::sendConfig()
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                          m_address, //m_address
                          0, //without offset
                          1, //total of data
@@ -95,11 +95,11 @@ int AImcp342x::sendConfig()
                          cmd);
     cmd.push_back(config.byte);
     //call i2c object and pass command frame
-    if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int AImcp342x::getValue(int *adc, int channel, int *mVolt, double *mA)
@@ -108,7 +108,7 @@ int AImcp342x::getValue(int *adc, int channel, int *mVolt, double *mA)
     sendConfig();
     //Then read conversion result
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                          m_address,
                          0,
                          3,
@@ -117,9 +117,9 @@ int AImcp342x::getValue(int *adc, int channel, int *mVolt, double *mA)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     convertionUpdated   = 1;
@@ -145,7 +145,7 @@ int AImcp342x::getValue(int *adc, int channel, int *mVolt, double *mA)
             if(mA) *mA = convertADCtomA(value);
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int AImcp342x::convertADCtomVolt(int adc)

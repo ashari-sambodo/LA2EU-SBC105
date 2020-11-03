@@ -1,4 +1,4 @@
-#include "I2CCom.h"
+#include "I2CPort.h"
 
 using namespace std;
 
@@ -6,13 +6,13 @@ using namespace std;
  * @brief i2cCom::i2cCom
  * @param parent
  */
-I2CCom::I2CCom()
+I2CPort::I2CPort()
 {
     port_number     = -1;
     path_i2c_port   = -1;
 }
 
-I2CCom::~I2CCom()
+I2CPort::~I2CPort()
 {
     closePort();
 }
@@ -22,7 +22,7 @@ I2CCom::~I2CCom()
  * @param port
  * @return new value of port number
  */
-int I2CCom::setPortNumber(const int port)
+int I2CPort::setPortNumber(const int port)
 {
     //    qDebug() << "i2cCom-set_port_number "<< port;
     port_number = port;
@@ -32,7 +32,7 @@ int I2CCom::setPortNumber(const int port)
  * @brief i2cCom::open
  * @return
  */
-int I2CCom::openPort()
+int I2CPort::openPort()
 {
     if(port_number < 0)
     {
@@ -50,7 +50,7 @@ int I2CCom::openPort()
  * @brief i2cCom::close_port
  * @return
  */
-int I2CCom::closePort()
+int I2CPort::closePort()
 {
     if(port_number < 0) return 0;
     close(path_i2c_port);
@@ -61,7 +61,7 @@ int I2CCom::closePort()
  * @param byte is sequence data want to send over i2c
  * @return
  */
-int I2CCom::writeData(std::vector<unsigned char> &byte)
+int I2CPort::writeData(std::vector<unsigned char> &byte)
 {
     //post must opened before
     if(path_i2c_port < 0)
@@ -112,7 +112,7 @@ int I2CCom::writeData(std::vector<unsigned char> &byte)
  * @param receive
  * @return
  */
-int I2CCom::readData(std::vector<unsigned char> &byte, std::vector<unsigned char> &receive)
+int I2CPort::readData(std::vector<unsigned char> &byte, std::vector<unsigned char> &receive)
 {
     //post must opened before
     if(path_i2c_port < 0)
@@ -171,7 +171,7 @@ int I2CCom::readData(std::vector<unsigned char> &byte, std::vector<unsigned char
  * @param offset    : value of offset
  * @param result    : result frame command
  */
-void I2CCom::generateFrame(
+void I2CPort::generateFrame(
         unsigned char operation,
         unsigned char address,
         unsigned char woffset,
@@ -187,13 +187,13 @@ void I2CCom::generateFrame(
     result.push_back(offset);
 }
 
-void I2CCom::addOutQueue(std::vector<unsigned char> byte)
+void I2CPort::addOutQueue(std::vector<unsigned char> byte)
 {
     QMutexLocker locker(&mutex);
     out_queue.push(byte);
 }
 
-void I2CCom::sendOutQueue(/*std::vector<unsigned char> &addr_failed, */int count)
+void I2CPort::sendOutQueue(/*std::vector<unsigned char> &addr_failed, */int count)
 {
     int size;
     {

@@ -55,7 +55,7 @@ int SensirionSPD8xx::init()
 int SensirionSPD8xx::testComm()
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                          m_address,
                          0,
                          3,
@@ -64,17 +64,17 @@ int SensirionSPD8xx::testComm()
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int SensirionSPD8xx::setContinousDiffPresureWithAvg()
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                          m_address,
                          0,
                          2,
@@ -97,7 +97,7 @@ int SensirionSPD8xx::setContinousOff()
 {
     //WITHOUT_MUX
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                          m_address,
                          0,
                          2,
@@ -120,7 +120,7 @@ int SensirionSPD8xx::readDiffPressure()
 {
     // WITHOUT_MUX_IC
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                          m_address,
                          0,
                          3,
@@ -129,10 +129,10 @@ int SensirionSPD8xx::readDiffPressure()
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
         //        qDebug() << QObject::metaObject()->className() << " " << "Failed to readDiffPressure";
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //    printf("SensirionSPD8xx::readDiffPressure rawdata ");
@@ -226,13 +226,13 @@ int SensirionSPD8xx::readDiffPressure()
     //    printf("\n");
     //    fflush(stdout);
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int SensirionSPD8xx::readProductIdentifier()
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                          m_address,
                          0,
                          18,

@@ -20,6 +20,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES +=  \
+    BoardIO/Drivers/i2c/I2CPort.cpp \
     Implementations/BlowerRbm/BlowerRbmDsi.cpp \
     Implementations/ClassManager.cpp \
     Implementations/AirflowVelocity/AirflowVelocity.cpp \
@@ -35,6 +36,7 @@ SOURCES +=  \
     MachineStateProxy.cpp
 
 HEADERS +=  \
+    BoardIO/Drivers/i2c/I2CPort.h \
     Implementations/BlowerRbm/BlowerRbmDsi.h \
     Implementations/ClassManager.h \
     Implementations/AirflowVelocity/AirflowVelocity.h \
@@ -65,8 +67,7 @@ SOURCES += \
     BoardIO/Drivers/PWMpca9685/PWMpca9685.cpp \
     BoardIO/Drivers/QGpioSysfs/QGpioSysfs.cpp \
     BoardIO/Drivers/RTCpcf8523/RTCpcf8523.cpp \
-    BoardIO/Drivers/SensirionSPD8xx/SensirionSPD8xx.cpp \
-    BoardIO/Drivers/i2c/I2CCom.cpp
+    BoardIO/Drivers/SensirionSPD8xx/SensirionSPD8xx.cpp
 
 HEADERS += \
     BoardIO/BoardIO.h \
@@ -81,8 +82,7 @@ HEADERS += \
     BoardIO/Drivers/PWMpca9685/PWMpca9685.h \
     BoardIO/Drivers/QGpioSysfs/QGpioSysfs.h \
     BoardIO/Drivers/RTCpcf8523/RTCpcf8523.h \
-    BoardIO/Drivers/SensirionSPD8xx/SensirionSPD8xx.h \
-    BoardIO/Drivers/i2c/I2CCom.h
+    BoardIO/Drivers/SensirionSPD8xx/SensirionSPD8xx.h
 
 ## Default rules for deployment.
 #unix {

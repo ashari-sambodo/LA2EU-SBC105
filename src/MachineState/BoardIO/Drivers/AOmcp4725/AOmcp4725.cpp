@@ -19,7 +19,7 @@ AOmcp4725::AOmcp4725(QObject *parent)
 int AOmcp4725::testComm()
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                           m_address,
                           0,
                           1,
@@ -28,14 +28,14 @@ int AOmcp4725::testComm()
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
 #ifdef DEBUG_ME
         qDebug() << "AOmcp4725::test_comm " << "Failed to communication AOmcp4725";
 #endif
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 /**
@@ -105,7 +105,7 @@ int AOmcp4725::setVoltDAC(int mvolt, bool toBuffer)
     //    qDebug() << "AOmcp4725::setVoltDAC inputCode byte: " << second_byte << "-" << third_byte;
 
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                           m_address,  //m_address
                           0,        //without offset
                           2,        //total of data
@@ -118,15 +118,15 @@ int AOmcp4725::setVoltDAC(int mvolt, bool toBuffer)
         pI2C->addOutQueue(cmd);
     }
     else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
 #ifdef DEBUG_ME
             qDebug() << "AOmcp4725::setDAC " << "Failed to fast mode AOmcp4725";
 #endif
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int AOmcp4725::setVoltDACRegEEPROM(int mvolt, bool toBuffer)
@@ -144,7 +144,7 @@ int AOmcp4725::setVoltDACRegEEPROM(int mvolt, bool toBuffer)
     //    fflush(stdout);
 
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                           m_address,  //m_address
                           0,        //without offset
                           3,        //total of data
@@ -158,16 +158,16 @@ int AOmcp4725::setVoltDACRegEEPROM(int mvolt, bool toBuffer)
         pI2C->addOutQueue(cmd);
     }
     else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK)
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
         {
 #ifdef DEBUG_ME
             qDebug() << "AOmcp4725::write_fast_mode " << "Failed to fast mode AOmcp4725";
 #endif
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int AOmcp4725::setDAC(int inputCode, bool toBuffer)
@@ -177,7 +177,7 @@ int AOmcp4725::setDAC(int inputCode, bool toBuffer)
     unsigned char third_byte    = inputCode & 0xff;
 
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                           m_address,  //m_address
                           0,        //without offset
                           2,        //total of data
@@ -190,14 +190,14 @@ int AOmcp4725::setDAC(int inputCode, bool toBuffer)
         pI2C->addOutQueue(cmd);
     }
     else {
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK) {
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK) {
 #ifdef DEBUG_ME
             qDebug() << "AOmcp4725::setDAC " << "Failed to fast mode AOmcp4725";
 #endif
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int AOmcp4725::setDACRegEEPROM(int inputCode, bool toBuffer)
@@ -207,7 +207,7 @@ int AOmcp4725::setDACRegEEPROM(int inputCode, bool toBuffer)
     unsigned char third_byte    = (inputCode & 0xf) << 4;
 
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_WRITE,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
                           m_address,  //m_address
                           0,        //without offset
                           3,        //total of data
@@ -221,11 +221,11 @@ int AOmcp4725::setDACRegEEPROM(int inputCode, bool toBuffer)
         pI2C->addOutQueue(cmd);
     }
     else{
-        if(pI2C->writeData(cmd) != I2CCom::I2C_COMM_RESPONSE_OK){
+        if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK){
 #ifdef DEBUG_ME
             qDebug() << "AOmcp4725::write_fast_mode " << "Failed to fast mode AOmcp4725";
 #endif
-            return I2CCom::I2C_COMM_RESPONSE_ERROR;
+            return I2CPort::I2C_COMM_RESPONSE_ERROR;
         }
     }
 
@@ -236,13 +236,13 @@ int AOmcp4725::setDACRegEEPROM(int inputCode, bool toBuffer)
     //        fflush(stdout);
     //    }
 
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int AOmcp4725::getDAC(int *result_adc, int *result_mvolt)
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                           m_address,
                           0,
                           3,
@@ -251,12 +251,12 @@ int AOmcp4725::getDAC(int *result_adc, int *result_mvolt)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
 #ifdef DEBUG_ME
         qDebug() << "AOmcp4725::update_reg_buffer " << "Failed to get update buffer AOmcp4725";
 #endif
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //marge byte to word to see original value
@@ -264,13 +264,13 @@ int AOmcp4725::getDAC(int *result_adc, int *result_mvolt)
     *result_adc = inputcode;
     //convert to voltage
     if(result_mvolt) inputcodeToMiliVolt(inputcode, result_mvolt);
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int AOmcp4725::getDACRegEEPROM(int *result_adc, int *result_mvolt)
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                           m_address,
                           0,
                           5,
@@ -279,12 +279,12 @@ int AOmcp4725::getDACRegEEPROM(int *result_adc, int *result_mvolt)
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
 #ifdef DEBUG_ME
         qDebug() << "AOmcp4725::update_reg_buffer " << "Failed to get update buffer AOmcp4725";
 #endif
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //marge byte to word to see original value
@@ -292,13 +292,13 @@ int AOmcp4725::getDACRegEEPROM(int *result_adc, int *result_mvolt)
     *result_adc = inputcode;
     //convert to voltage
     if(result_mvolt) inputcodeToMiliVolt(inputcode, result_mvolt);
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 int AOmcp4725::updateRegBuffer()
 {
     vector<unsigned char> cmd;
-    pI2C->generateFrame(I2CCom::I2C_CMD_OPERATION_READ,
+    pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
                           m_address,
                           0,
                           5,
@@ -307,12 +307,12 @@ int AOmcp4725::updateRegBuffer()
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
-    if(pI2C->readData(cmd, receive) != I2CCom::I2C_COMM_RESPONSE_OK)
+    if(pI2C->readData(cmd, receive) != I2CPort::I2C_COMM_RESPONSE_OK)
     {
 #ifdef DEBUG_ME
         qDebug() << "AOmcp4725::update_reg_buffer " << "Failed to get update buffer AOmcp4725";
 #endif
-        return I2CCom::I2C_COMM_RESPONSE_ERROR;
+        return I2CPort::I2C_COMM_RESPONSE_ERROR;
     }
 
     //    printf("AOmcp4725::updateRegBuffer receive\n");
@@ -324,7 +324,7 @@ int AOmcp4725::updateRegBuffer()
 
     //update register buffer
     copy(receive.begin(), receive.end(), m_registerDataBuffer);
-    return I2CCom::I2C_COMM_RESPONSE_OK;
+    return I2CPort::I2C_COMM_RESPONSE_OK;
 }
 
 void AOmcp4725::getRegBufferDAC(int *dac, int *mvolt)
