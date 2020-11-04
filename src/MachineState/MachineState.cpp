@@ -241,6 +241,13 @@ void MachineState::setup()
             m_threadForBlowerRbmDsi->start();
         });
 
+        QObject::connect(m_blowerDownflow.data(), &BlowerRbmDsi::dutyCycleChanged,
+                         this, [&](int dutyCycle){
+            qDebug() << "m_blowerDownflow::dutyCycleChanged" << thread();
+            qDebug() << "m_blowerDownflow::dutyCycleChanged" << dutyCycle;
+            pData->setBlowerDownflowState(dutyCycle);
+        });
+
         /// Do move blower routine task / looping to independent thread
         m_blowerDownflow->moveToThread(m_threadForBlowerRbmDsi.data());
         /// Do move timer event for blower routine task to independent thread

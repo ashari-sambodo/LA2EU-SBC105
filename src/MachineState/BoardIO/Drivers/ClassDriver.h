@@ -29,6 +29,7 @@ public:
 
     int errorComToleranceCount() const;
     void setErrorComToleranceCount(short val);
+    bool isErrorComToleranceReached() const;
 
     int errorComToleranceCountMax() const;
     void setErrorComToleranceCountMax(short errorComToleranceCountMax);

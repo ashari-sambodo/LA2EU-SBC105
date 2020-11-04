@@ -10,12 +10,23 @@ import "UI/CusCom/JS/IntentApp.js" as IntentApp
 ApplicationWindow {
     id: window
     visible: true
-    //    width: 1024
-    //    height: 600
-    width: 800
-    height: 480
+    width: 1024
+    height: 600
+    //    width: 800
+    //    height: 480
     title: Qt.application.name + "-" + Qt.application.version
     color: "#000000"
+
+    background: Image {
+        id: backgroundImage
+        source: "qrc:/UI/Pictures/Background-Blue.png"
+
+        Rectangle {
+            anchors.fill: parent
+            color: "red"
+            opacity: 0.6
+        }
+    }
 
     StackViewApp {
         id: mainStackView

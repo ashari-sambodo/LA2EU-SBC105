@@ -29,6 +29,11 @@ class MachineData : public QObject
                WRITE setHasStopped
                NOTIFY hasStoppedChanged)
 
+    Q_PROPERTY(short blowerDownflowState
+               READ getBlowerDownflowState
+               //               WRITE setBlowerDownflowState
+               NOTIFY blowerDownflowStateChanged)
+
 public:
     explicit MachineData(QObject *parent = nullptr);
     ~MachineData();
@@ -48,10 +53,14 @@ public:
 
     int getBlowerEcmDemandMode() const;
 
+    short getBlowerDownflowState() const;
+
 public slots:
     void initSingleton();
 
     void setBlowerEcmDemandMode(int blowerEcmDemandMode);
+
+    void setBlowerDownflowState(short blowerDownflowState);
 
 signals:
     void machineStateChanged(int machineState);
@@ -62,6 +71,8 @@ signals:
 
     void blowerEcmDemandModeChanged(int blowerEcmDemandMode);
 
+    void blowerDownflowStateChanged(short blowerDownflowState);
+
 private:
     ///
     short m_machineState;
@@ -69,5 +80,6 @@ private:
     int m_count;
     bool m_hasStopped;
     int m_blowerEcmDemandMode;
+    short m_blowerDownflowState;
 };
 

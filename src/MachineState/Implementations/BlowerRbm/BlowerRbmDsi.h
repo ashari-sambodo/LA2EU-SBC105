@@ -21,11 +21,11 @@ public:
     void setDutyCycle(int newVal);
 
 signals:
-    void interlockChanged(int newVal);
-    void dutyCycleChanged(int newVal);
-    void speedRPMChanged(int newVal);
-    void directionChanged(int newVal);
-    void errorComCountChanged(int newVal);
+    void interlockChanged(short newVal);
+    void dutyCycleChanged(short newVal);
+    void speedRPMChanged(short newVal);
+    void directionChanged(short newVal);
+    void errorComCountChanged(short newVal);
 
 private:
     BlowerRegalECM *pModule;

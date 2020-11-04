@@ -53,7 +53,8 @@ void BlowerRbmDsi::updateActualDemand()
 
         /// CLEAR ERROR COUNT IF NOT YET REACH THE MAXIMUM ERROR
         if(pModule->errorComToleranceCount()){
-            pModule->setErrorComToleranceCount(0);
+            //            pModule->setErrorComToleranceCount(0);
+            pModule->clearErrorComToleranceCount();
         }
 
         /// convert from byte torque to percent representative
@@ -80,16 +81,18 @@ void BlowerRbmDsi::updateActualDemand()
         }
     }
     else {
-        //ECM COMMUNICATION HAVE NO RESPONSE CORRECTLY
-        //INCREASE_COMM_ERROR_COUNT
-        int errorCount = pModule->errorComToleranceCount();
-        errorCount = errorCount + 1;
-        pModule->setErrorComToleranceCount(errorCount);
+        ///ECM COMMUNICATION HAVE NO RESPONSE CORRECTLY
+        ///INCREASE_COMM_ERROR_COUNT
+        //        int errorCount = pModule->errorComToleranceCount();
+        //        errorCount = errorCount + 1;
+        //        pModule->setErrorComToleranceCount(errorCount);
 
         //                        #ifndef NO_PRINT_DEBUG
         //        printf("BlowerDSIManager::updateActualState error response %d\n", errorCount);
         //        fflush(stdout);
         //                        #endif
+
+        pModule->increaseErrorComToleranceCount();
     }
 }
 
@@ -112,7 +115,8 @@ void BlowerRbmDsi::readActualSpeedRPM()
 
         ///CLEAR ERROR COUNT IF NOT YET REACH THE MAXIMUM ERROR
         if(pModule->errorComToleranceCount()){
-            pModule->setErrorComToleranceCount(0);
+            //            pModule->setErrorComToleranceCount(0);
+            pModule->clearErrorComToleranceCount();
         }
 
         //SMOOTHING
@@ -137,14 +141,15 @@ void BlowerRbmDsi::readActualSpeedRPM()
     else {
         //ECM COMMUNICATION HAVE NO RESPONSE CORRECTLY
         //INCREASE_COMM_ERROR_COUNT
-        int errorCount = pModule->errorComToleranceCount();
-        errorCount = errorCount + 1;
-        pModule->setErrorComToleranceCount(errorCount);
+        //        int errorCount = pModule->errorComToleranceCount();
+        //        errorCount = errorCount + 1;
+        //        pModule->setErrorComToleranceCount(errorCount);
 
         //                #ifndef NO_PRINT_DEBUG
         //        printf("BlowerDSIManager::readSpeedRPM error response %d\n", errorCount);
         //        fflush(stdout);
         //                #endif
+        pModule->increaseErrorComToleranceCount();
     }
 }
 

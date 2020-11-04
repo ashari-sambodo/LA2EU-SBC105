@@ -29,6 +29,7 @@ MachineData::MachineData(QObject *parent) : QObject(parent)
     m_machineState = 0;
     m_hasStopped = true;
     m_count = 0;
+    m_blowerDownflowState = 0;
 }
 
 MachineData::~MachineData()
@@ -83,9 +84,14 @@ int MachineData::getBlowerEcmDemandMode() const
     return m_blowerEcmDemandMode;
 }
 
+short MachineData::getBlowerDownflowState() const
+{
+    return m_blowerDownflowState;
+}
+
 void MachineData::initSingleton()
 {
-    qDebug() << metaObject()->className() << __FUNCTION__;
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 }
 
 void MachineData::setBlowerEcmDemandMode(int blowerEcmDemandMode)
@@ -95,4 +101,15 @@ void MachineData::setBlowerEcmDemandMode(int blowerEcmDemandMode)
 
     m_blowerEcmDemandMode = blowerEcmDemandMode;
     emit blowerEcmDemandModeChanged(m_blowerEcmDemandMode);
+}
+
+void MachineData::setBlowerDownflowState(short blowerDownflowState)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    if (m_blowerDownflowState == blowerDownflowState)
+        return;
+
+    m_blowerDownflowState = blowerDownflowState;
+    emit blowerDownflowStateChanged(m_blowerDownflowState);
 }

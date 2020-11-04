@@ -57,5 +57,59 @@
         <file>UI/CusCom/ButtonApp.qml</file>
         <file>UI/CusCom/TextFieldApp.qml</file>
         <file>UI/CusCom/ComboBoxApp.qml</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_arrow_df_blue.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_arrow_df_green.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_arrow_df_red.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_arrow_if_blue.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_arrow_if_green.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_arrow_if_green_elbow.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_arrow_if_red.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_blackframe_ac.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_blackframe_la.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_blackframe_sc.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_sash_fc.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_sash_fo.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_sash_safe.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_sash_standby.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_sash_unsafe.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3D_sash_uvon.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3Dbase.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3Dstatusalarm.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3Dstatusok.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco/pictures/BSC3Dstatuswarning.png</file>
+        <file>UI/CusCom/BiosafetyCabinetEsco.qml</file>
+        <file>UI/Pictures/Background-Blue.png</file>
+        <file>UI/Pictures/Logo_HS_W.png</file>
+        <file>UI/Pictures/controll/Button_Down.png</file>
+        <file>UI/Pictures/controll/Button_Down_Gray.png</file>
+        <file>UI/Pictures/controll/Button_Down_Run.png</file>
+        <file>UI/Pictures/controll/Button_Up.png</file>
+        <file>UI/Pictures/controll/Button_Up_Gray.png</file>
+        <file>UI/Pictures/controll/Button_Up_Run.png</file>
+        <file>UI/Pictures/controll/Fan_G.png</file>
+        <file>UI/Pictures/controll/Fan_W.png</file>
+        <file>UI/Pictures/controll/Gas_G.png</file>
+        <file>UI/Pictures/controll/Gas_W.png</file>
+        <file>UI/Pictures/controll/Light_G.png</file>
+        <file>UI/Pictures/controll/Light_W.png</file>
+        <file>UI/Pictures/controll/Menu_W.png</file>
+        <file>UI/Pictures/controll/Mute_G.png</file>
+        <file>UI/Pictures/controll/Mute_W.png</file>
+        <file>UI/Pictures/controll/Socket_G.png</file>
+        <file>UI/Pictures/controll/Socket_W.png</file>
+        <file>UI/Pictures/controll/STB_G.png</file>
+        <file>UI/Pictures/controll/STB_W.png</file>
+        <file>UI/Pictures/controll/UV_G.png</file>
+        <file>UI/Pictures/controll/UV_W.png</file>
+        <file>UI/Pictures/controll/UVSC_G.png</file>
+        <file>UI/Pictures/controll/UVSC_W.png</file>
+        <file>UI/Pictures/controll/UVT_G.png</file>
+        <file>UI/Pictures/controll/UVT_W.png</file>
+        <file>UI/Pictures/controll/UVTM_G.png</file>
+        <file>UI/Pictures/controll/UVTM_W.png</file>
+        <file>UI/Pictures/button_bg.png</file>
+        <file>UI/Pictures/button_gray_bg.png</file>
+        <file>UI/Pictures/rowstatus/Row-Blue-Gradient.png</file>
+        <file>UI/Pictures/rowstatus/Row-Red-Gradient.png</file>
     </qresource>
 </RCC>

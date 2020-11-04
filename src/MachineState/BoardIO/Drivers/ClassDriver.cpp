@@ -75,6 +75,7 @@ int ClassDriver::errorComToleranceCount() const
 void ClassDriver::setErrorComToleranceCount(short val)
 {
     if(m_errorComToleranceCount == val) return;
+    if (m_errorComToleranceCount >= m_errorComToleranceCountMax) return;
 
     m_errorComToleranceCount = val;
 
@@ -89,6 +90,11 @@ void ClassDriver::setErrorComToleranceCount(short val)
     else if (m_errorComToleranceCountMax == 0) {
         emit errorComToleranceReached(m_errorComToleranceCount);
     }
+}
+
+bool ClassDriver::isErrorComToleranceReached() const
+{
+    return m_errorComToleranceCount >= m_errorComToleranceCountMax;
 }
 
 int ClassDriver::errorComToleranceCountMax() const
