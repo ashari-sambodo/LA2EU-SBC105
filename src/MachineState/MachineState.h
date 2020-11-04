@@ -9,6 +9,7 @@
 
 #include "BoardIO/Drivers/BlowerRegalECM/BlowerRegalECM.h"
 #include "Implementations/BlowerRbm/BlowerRbmDsi.h"
+#include "Implementations/DeviceAnalogCom/DeviceAnalogCom.h"
 
 #include "BoardIO/Drivers/AOmcp4725/AOmcp4725.h"
 #include "BoardIO/Drivers/i2c/I2CPort.h"
@@ -51,23 +52,28 @@ private:
     bool m_loopStarterTaskExecute;
     bool m_stoppingExecuted;
 
+    void _setBlowerDutyCycle(short dutyCycle);
+
     /// Blower Primary
-    QScopedPointer<QTimer>          m_timerInterruptForBlowerRbmDsi;
     QScopedPointer<QThread>         m_threadForBlowerRbmDsi;
+    QScopedPointer<QTimer>          m_timerInterruptForBlowerRbmDsi;
     ///
-    QScopedPointer<BlowerRbmDsi>    m_blowerRbmDsi;
+    QScopedPointer<BlowerRbmDsi>    m_blowerDownflow;
     QScopedPointer<BlowerRegalECM>  m_boardRegalECM;
     ///
     QScopedPointer<QSerialPort>     m_serialPort1;
 
     /// Board IO
-    QScopedPointer<QTimer>          m_timerInterruptForBoardIO;
     QScopedPointer<QThread>         m_threadForBoardIO;
+    QScopedPointer<QTimer>          m_timerInterruptForBoardIO;
     ///
     QScopedPointer<BoardIO>         m_boardIO;
     QScopedPointer<I2CPort>         m_i2cPort;
+
     /// Analog Output
     QScopedPointer<AOmcp4725>       m_boardAnalogOut1;
+    ///
+    QScopedPointer<DeviceAnalogCom> m_blowerExhaust;
 
     QScopedPointer<QSettings>       m_settings;
 };

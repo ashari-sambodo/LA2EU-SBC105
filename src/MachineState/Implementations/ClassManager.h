@@ -18,7 +18,7 @@ class ClassManager : public QObject
 public:
     explicit ClassManager(QObject *parent = nullptr);
 
-    virtual void worker(int parameter = 0) = 0;
+    virtual void routineTask(int parameter = 0) = 0;
 
     /// pure virtual function
     //    virtual void worker() = 0;

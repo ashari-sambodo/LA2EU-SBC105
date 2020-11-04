@@ -9,7 +9,7 @@ class SashManager : public ClassManager
 public:
     explicit SashManager(QObject *parent = nullptr);
 
-    void worker(int parameter = 0) override;
+    void routineTask(int parameter = 0) override;
 
     void setSubModule(DIOpca9674 *obj);
 

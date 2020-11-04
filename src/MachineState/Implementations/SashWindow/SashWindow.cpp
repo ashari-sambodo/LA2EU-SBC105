@@ -49,7 +49,7 @@ int SashManager::previousState() const
     return m_previousState;
 }
 
-void SashManager::worker(int parameter)
+void SashManager::routineTask(int parameter)
 {
     Q_UNUSED(parameter)
     //    qDebug() << "SashManager::worker()";

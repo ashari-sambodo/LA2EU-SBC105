@@ -15,7 +15,7 @@ public:
     void setAIN(AIManage *value);
     void setChannel(int channel);
 
-    void worker(int parameter = 0);
+    void routineTask(int parameter = 0);
 
     void calculateCompensationADC();
 

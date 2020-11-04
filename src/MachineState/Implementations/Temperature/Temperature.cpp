@@ -15,7 +15,7 @@ TemperatureManager::TemperatureManager(QObject *parent)
     m_precision         = 0;
 }
 
-void TemperatureManager::worker(int parameter)
+void TemperatureManager::routineTask(int parameter)
 {
     Q_UNUSED(parameter)
 

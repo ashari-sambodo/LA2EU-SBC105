@@ -1,6 +1,7 @@
 #ifndef AOMCP4725_H
 #define AOMCP4725_H
 
+#include <QDebug>
 #include "../i2c/I2CPort.h"
 #include "../ClassDriver.h"
 

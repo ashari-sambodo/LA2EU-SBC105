@@ -22,7 +22,7 @@ int BoardIO::addSlave(ClassDriver *pModule)
 void BoardIO::worker(int parameter)
 {
     Q_UNUSED(parameter)
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    //    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     //send out queque
     pI2c->sendOutQueue();

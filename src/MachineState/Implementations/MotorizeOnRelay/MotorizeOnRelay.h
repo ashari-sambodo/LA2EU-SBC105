@@ -10,7 +10,7 @@ class MotorizeOnRelayManager : public ClassManager
 public:
     explicit MotorizeOnRelayManager(QObject *parent = nullptr);
 
-    void worker(int parameter = 0) override;
+    void routineTask(int parameter = 0) override;
 
     void setSubModule(PWMpca9685 *module);
 

@@ -1,7 +1,6 @@
 #ifndef I2CCOM_H
 #define I2CCOM_H
 
-#include <QObject>
 #include <QMutex>
 #include <queue>
 #include <QMutexLocker>

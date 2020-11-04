@@ -94,6 +94,8 @@ int AOmcp4725::polling()
 
 int AOmcp4725::setVoltDAC(int mvolt, bool toBuffer)
 {
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
     //generate input code
     int inputCode;
     voltToInputcode(mvolt, &inputCode);

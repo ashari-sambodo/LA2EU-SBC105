@@ -21,7 +21,7 @@ MotorizeOnRelayManager::MotorizeOnRelayManager(QObject *parent)
     m_interlockDown = 0;
 }
 
-void MotorizeOnRelayManager::worker(int /*parameter*/)
+void MotorizeOnRelayManager::routineTask(int /*parameter*/)
 {
     //GET ACTUAL STATE FROM SUB MODULE
     int ivalUp, ivalDown;

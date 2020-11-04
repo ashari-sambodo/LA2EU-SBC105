@@ -17,7 +17,7 @@ class PressureDiffManager : public ClassManager
 public:
     explicit PressureDiffManager(QObject *parent = nullptr);
 
-    void worker(int parameter = 0) override;
+    void routineTask(int parameter = 0) override;
 
     void setSubModule(SensirionSPD8xx *obj);
     void setOffsetPa(int offsetPa);

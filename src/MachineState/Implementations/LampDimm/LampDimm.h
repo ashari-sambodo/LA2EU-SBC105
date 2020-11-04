@@ -10,7 +10,7 @@ class LampDimmManager : public ClassManager
 public:
     explicit LampDimmManager(QObject *parent = nullptr);
 
-    void worker(int parameter = 0) override;
+    void routineTask(int parameter = 0) override;
 
     void setSubModule(AOmcp4725 *obj);
     void setIntensity(int val);

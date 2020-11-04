@@ -25,7 +25,7 @@ AirflowManager::AirflowManager(QObject *parent)
  * Calculate ADC Compensation, then
  * Calculate AIrflow Velocity
  */
-void AirflowManager::worker(int parameter)
+void AirflowManager::routineTask(int parameter)
 {
     Q_UNUSED(parameter);
 

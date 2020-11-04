@@ -15,7 +15,7 @@ PressureDiffManager::PressureDiffManager(QObject *parent)
     m_offsetPa = 0;
 }
 
-void PressureDiffManager::worker(int parameter)
+void PressureDiffManager::routineTask(int parameter)
 {
     Q_UNUSED(parameter)
     //GET_VALUE_FROM_MODULE

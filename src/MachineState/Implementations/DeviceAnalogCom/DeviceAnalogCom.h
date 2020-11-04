@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QDebug>
-#include <QScopedPointer>
 
 #include "../ClassManager.h"
 #include "BoardIO/Drivers/AOmcp4725/AOmcp4725.h"
@@ -12,9 +11,9 @@ class DeviceAnalogCom : public ClassManager
 public:
     explicit DeviceAnalogCom(QObject *parent = nullptr);
 
-    void worker(int parameter = 0 ) override;
+    void routineTask(int parameter = 0 ) override;
 
-    void setSubModule(AOmcp4725 *module);
+    void setSubBoard(AOmcp4725 *board);
 
     void setState(int state);
 
@@ -28,7 +27,7 @@ signals:
     void interlockChanged(short interlock);
 
 private:
-    AOmcp4725  *pModule;
+    AOmcp4725  *pBoard;
 
     int m_state;
     int m_adc;

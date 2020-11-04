@@ -14,7 +14,7 @@ LampDimmManager::LampDimmManager(QObject *parent)
     m_adcRequest        = 0;
 }
 
-void LampDimmManager::worker(int parameter)
+void LampDimmManager::routineTask(int parameter)
 {
     Q_UNUSED(parameter)
     int ival;

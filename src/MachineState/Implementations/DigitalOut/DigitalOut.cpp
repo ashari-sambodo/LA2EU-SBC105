@@ -20,7 +20,7 @@ int DigitalOutManager::state() const
     return m_state;
 }
 
-void DigitalOutManager::worker(int parameter)
+void DigitalOutManager::routineTask(int parameter)
 {
     Q_UNUSED(parameter)
     //    qDebug() << "DigitalOutManager::worker()";

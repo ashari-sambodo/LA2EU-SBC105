@@ -2,7 +2,7 @@
 
 DeviceAnalogCom::DeviceAnalogCom(QObject *parent) : ClassManager(parent)
 {
-    pModule = nullptr;
+    pBoard = nullptr;
 
     m_state         = 0;
     m_adc           = 0;
@@ -16,12 +16,12 @@ DeviceAnalogCom::DeviceAnalogCom(QObject *parent) : ClassManager(parent)
     m_stateMax      = 100;
 }
 
-void DeviceAnalogCom::worker(int parameter)
+void DeviceAnalogCom::routineTask(int parameter)
 {
     Q_UNUSED(parameter)
     int ival;
     //actual value from board
-    pModule->getRegBufferDAC(&ival);
+    pBoard->getRegBufferDAC(&ival);
     //    //override with dummy value
     //    if(m_dummyStateEnabled){
     //        ival = m_adcRequest;
@@ -44,13 +44,13 @@ void DeviceAnalogCom::worker(int parameter)
 
     /// send req state as a adc to board
     if(m_adcRequest != m_adc){
-        pModule->setDAC(m_adcRequest, true);
+        pBoard->setDAC(m_adcRequest, true);
     }
 }
 
-void DeviceAnalogCom::setSubModule(AOmcp4725 *module)
+void DeviceAnalogCom::setSubBoard(AOmcp4725 *board)
 {
-    pModule = module;
+    pBoard = board;
 }
 
 void DeviceAnalogCom::setState(int state)
