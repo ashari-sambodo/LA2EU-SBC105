@@ -19,6 +19,10 @@ ViewApp {
     background.sourceComponent: Item {}
 
     content.sourceComponent: Item{
+        id: containerItem
+        height: viewApp.height
+        width: viewApp.width
+
         ColumnLayout {
             anchors.fill: parent
             anchors.margins: 5
@@ -45,6 +49,8 @@ ViewApp {
                                 anchors.fill: parent
                                 color: "#770F2952"
                                 radius: 5
+                                border.width: 1
+                                border.color: "gray"
                             }
 
                             RowLayout {
@@ -59,6 +65,7 @@ ViewApp {
                                     Image {
                                         id: logoImage
                                         anchors.fill: parent
+                                        anchors.margins: 5
                                         fillMode: Image.PreserveAspectFit
                                         source: "../../Pictures/Logo_HS_W.png"
                                     }//
@@ -85,27 +92,23 @@ ViewApp {
                         Layout.fillWidth: true
 
                         Rectangle {
-                            anchors.fill: parent
-                            color: "#770F2952"
-                            radius: 5
-                        }
-
-                        Rectangle {
+                            id: topBarStatusRectangle
                             anchors.fill: parent
                             radius: 5
-                            //                            color: "green"
-                            color: "red"
-                            border.color: "white"
+                            color: "green"
+                            //                            color: "red"
+                            border.color: "gray"
                             border.width: 2
 
                             TextApp {
+                                id: topBarStatusText
                                 anchors.fill: parent
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
                                 font.pixelSize: 36
                                 font.bold: true
-                                //                                text: "CABINET IS SAFE"
-                                text: "WARNING: AIRFLOW IS FAIL"
+                                text: "CABINET IS SAFE"
+                                //                                text: "WARNING: AIRFLOW IS FAIL"
                             }//
                         }//
                     }//
@@ -137,6 +140,8 @@ ViewApp {
                                     anchors.fill: parent
                                     color: "#770F2952"
                                     radius: 5
+                                    border.width: 1
+                                    border.color: "gray"
 
                                     RowLayout {
                                         anchors.fill: parent
@@ -187,6 +192,8 @@ ViewApp {
                                     anchors.fill: parent
                                     color: "#770F2952"
                                     radius: 5
+                                    border.width: 1
+                                    border.color: "gray"
 
                                     RowLayout {
                                         anchors.fill: parent
@@ -273,7 +280,8 @@ ViewApp {
                                 Layout.fillHeight: true
 
                                 Column{
-                                    anchors.centerIn: parent
+                                    //                                    anchors.bottom: parent.bottom
+                                    anchors.verticalCenter: parent.verticalCenter
                                     spacing: 5
 
                                     //                                    Repeater {
@@ -283,21 +291,14 @@ ViewApp {
                                         height: 60
                                         width: centerContentItem.width
 
-                                        //                                            Image {
-                                        //                                                height: parent.height
-                                        //                                                width: parent.width + 100
-                                        //                                                x: -100
-                                        //                                                source: "qrc:/UI/Pictures/rowstatus/Row-Blue-Gradient.png"
-                                        //                                            }//
-
-                                        Rectangle {
+                                        CusComPage.StatusHorizontalApp {
                                             height: parent.height
-                                            width: parent.width + 100
-                                            x: -100
-                                            radius: 5
-                                            color: "#770F2952"
-                                            border.width: 1
-                                            border.color: "gray"
+                                            width: parent.width + 150
+                                            x: -150
+                                            contentItem.x : 150
+
+                                            textLabel: qsTr("Sash:")
+                                            textValue: "Safe height"
                                         }//
                                     }//
 
@@ -305,21 +306,29 @@ ViewApp {
                                         height: 60
                                         width: centerContentItem.width
 
-                                        //                                            Image {
-                                        //                                                height: parent.height
-                                        //                                                width: parent.width + 100
-                                        //                                                x: -100
-                                        //                                                source: "qrc:/UI/Pictures/rowstatus/Row-Blue-Gradient.png"
-                                        //                                            }//
-
-                                        Rectangle {
+                                        CusComPage.StatusHorizontalApp {
                                             height: parent.height
-                                            width: parent.width + 100
-                                            x: -100
-                                            radius: 5
-                                            color: "#ff0000"
-                                            border.width: 1
-                                            border.color: "gray"
+                                            width: parent.width + 150
+                                            x: -150
+                                            contentItem.x : 150
+
+                                            textLabel: qsTr("Downflow:")
+                                            textValue: "0.33 m/s"
+                                        }//
+                                    }//
+
+                                    Item {
+                                        height: 60
+                                        width: centerContentItem.width
+
+                                        CusComPage.StatusHorizontalApp {
+                                            height: parent.height
+                                            width: parent.width + 150
+                                            x: -150
+                                            contentItem.x : 150
+
+                                            textLabel: qsTr("Inflow:")
+                                            textValue: "0.53 m/s"
                                         }//
                                     }//
                                     //                                    }//
@@ -436,7 +445,7 @@ ViewApp {
                                 height: parent.height
                                 width: parent.width > 200 ? 200 : parent.width
 
-                                sourceImage: "qrc:/UI/Pictures/controll/Menu_W.png"
+                                sourceImage: "/UI/Pictures/controll/Menu_W.png"
 
                                 tapHandler.onTapped: {
                                     MachineApi.setup(MachineData)
@@ -454,7 +463,7 @@ ViewApp {
                                 height: parent.height
                                 width: parent.width > 200 ? 200 : parent.width
 
-                                sourceImage: "qrc:/UI/Pictures/controll/Fan_W.png"
+                                sourceImage: "/UI/Pictures/controll/Fan_W.png"
 
                                 tapHandler.onTapped: {
                                     MachineApi.setBlowerState(1)
@@ -473,7 +482,7 @@ ViewApp {
                                         when: MachineData.blowerDownflowState
                                         PropertyChanges {
                                             target: fanButton
-                                            sourceImage: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                            sourceImage: "/UI/Pictures/controll/Fan_G.png"
                                         }
                                     }
                                 ]
@@ -489,7 +498,12 @@ ViewApp {
                                 height: parent.height
                                 width: parent.width > 200 ? 200 : parent.width
 
-                                sourceImage: "qrc:/UI/Pictures/controll/Light_W.png"
+                                sourceImage: "/UI/Pictures/controll/Light_W.png"
+
+                                tapHandler.onLongPressed: {
+                                    var intent = IntentApp.create("/UI/Pages/LightIntensityPage/LightIntensityPage.qml", {"message":""})
+                                    startView(intent)
+                                }
                             }//
                         }//
 
@@ -502,7 +516,7 @@ ViewApp {
                                 height: parent.height
                                 width: parent.width > 200 ? 200 : parent.width
 
-                                sourceImage: "qrc:/UI/Pictures/controll/Socket_W.png"
+                                sourceImage: "/UI/Pictures/controll/Socket_W.png"
                             }//
                         }//
 
@@ -515,7 +529,7 @@ ViewApp {
                                 height: parent.height
                                 width: parent.width > 200 ? 200 : parent.width
 
-                                sourceImage: "qrc:/UI/Pictures/controll/Gas_W.png"
+                                sourceImage: "/UI/Pictures/controll/Gas_W.png"
                             }//
                         }//
 
@@ -528,7 +542,7 @@ ViewApp {
                                 height: parent.height
                                 width: parent.width > 200 ? 200 : parent.width
 
-                                sourceImage: "qrc:/UI/Pictures/controll/UV_W.png"
+                                sourceImage: "/UI/Pictures/controll/UV_W.png"
                             }//
                         }//
 
@@ -541,7 +555,7 @@ ViewApp {
                                 height: parent.height
                                 width: parent.width > 200 ? 200 : parent.width
 
-                                sourceImage: "qrc:/UI/Pictures/controll/Mute_W.png"
+                                sourceImage: "/UI/Pictures/controll/Mute_W.png"
                             }//
                         }//
                     }//
@@ -896,7 +910,7 @@ Designer {
 
 //                                onClicked: {
 //                                    //                                Qt.exit(ExitCode.ECC_NORMAL_EXIT)
-//                                    var intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {
+//                                    var intent = IntentApp.create("/UI/Pages/ClosingPage/ClosingPage.qml", {
 //                                                                      "exitCode": ExitCode.ECC_NORMAL_EXIT_RESTART_SBC
 //                                                                  })
 //                                    startRootView(intent)
@@ -911,7 +925,7 @@ Designer {
 
 //                                onClicked: {
 //                                    //                                Qt.exit(ExitCode.ECC_NORMAL_EXIT)
-//                                    var intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {
+//                                    var intent = IntentApp.create("/UI/Pages/ClosingPage/ClosingPage.qml", {
 //                                                                      "exitCode": ExitCode.ECC_NORMAL_EXIT_OPEN_SBCUPDATE
 //                                                                  })
 //                                    startRootView(intent)
@@ -925,7 +939,7 @@ Designer {
 
 //                                onClicked: {
 //                                    //                                Qt.exit(ExitCode.ECC_NORMAL_EXIT)
-//                                    var intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {
+//                                    var intent = IntentApp.create("/UI/Pages/ClosingPage/ClosingPage.qml", {
 //                                                                      "exitCode": ExitCode.ECC_NORMAL_EXIT
 //                                                                  })
 //                                    startRootView(intent)
@@ -938,11 +952,11 @@ Designer {
 //                            anchors.right: parent.right
 //                            anchors.verticalCenter: parent.verticalCenter
 
-//                            imageSource: "qrc:/UI/Pictures/local-wifi-update.png"
+//                            imageSource: "/UI/Pictures/local-wifi-update.png"
 //                            text: qsTr("WiFi Setting")
 
 //                            onClicked: {
-//                                var intent = IntentApp.create("qrc:/UI/Pages/WiFiSettingPage/WiFiSettingPage.qml", {"message":""})
+//                                var intent = IntentApp.create("/UI/Pages/WiFiSettingPage/WiFiSettingPage.qml", {"message":""})
 //                                startView(intent)
 //                            }
 //                        }//

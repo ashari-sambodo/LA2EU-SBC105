@@ -10,3 +10,4 @@ ButtonApp               1.0 ButtonApp.qml
 TextFieldApp            1.0 TextFieldApp.qml
 ComboBoxApp             1.0 ComboBoxApp.qml
 BiosafetyCabinetEsco    1.0 BiosafetyCabinetEsco.qml
+HeaderApp               1.0 HeaderApp.qml

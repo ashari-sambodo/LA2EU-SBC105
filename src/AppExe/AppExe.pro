@@ -43,7 +43,8 @@ SOURCES += \
 
 RESOURCES += qml.qrc \
     components.qrc \
-    i18n.qrc
+    i18n.qrc \
+    pictures.qrc
 
 include(i18n.pri)
 

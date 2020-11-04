@@ -262,6 +262,8 @@ void MachineState::setup()
     pData->setMachineState(MachineEnums::MACHINE_STATE_LOOP);
     /// GIVE A SIGNAL
     emit loopStarted();
+
+    //    pData->setAlarmDownfLow(true);
 }
 
 void MachineState::loop()

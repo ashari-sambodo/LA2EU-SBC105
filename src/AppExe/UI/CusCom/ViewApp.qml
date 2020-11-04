@@ -7,7 +7,7 @@ Item {
     property string uri:    ""
     property var    intent: null
 
-    property string homeURL: "qrc:/UI/Pages/HomePage/HomePage.qml"
+    property string homeURL: ""
 
     /// View Navigation
     signal startView(variant newIntent);
@@ -96,43 +96,6 @@ Item {
                 width: 100
                 fillMode: Image.PreserveAspectFit
             }
-            //            Rectangle{
-            //                id: outerRectangle
-            //                anchors.centerIn: parent
-            //                height: 50
-            //                width: 50
-            //                radius: width / 2
-            //                color: "#00000000"
-            //                border.color: "#ffffff"
-            //                border.width: 5
-
-            //                Rectangle {
-            //                    id: innerRectangle
-            //                    anchors.fill: parent
-            //                    anchors.margins: 15
-            //                    radius: width
-            //                }
-
-            //                Timer{
-            //                    running: true
-            //                    interval: 500
-            //                    repeat: true
-            //                    onTriggered: {
-            //                        if(control){
-            //                            innerRectangle.color = "#000000"
-            //                            outerRectangle.border.color = "#ffffff"
-            //                            control = !control
-            //                        } else {
-            //                            innerRectangle.color = "#ffffff"
-            //                            outerRectangle.border.color = "#000000"
-            //                            control = !control
-            //                        }
-            //                        console.log("anim")
-            //                    }
-
-            //                    property bool control: false
-            //                }
-            //            }
         }
     }
 

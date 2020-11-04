@@ -7,6 +7,8 @@ import UI.CusCom.KeyboardOnScreen 1.0
 
 import "UI/CusCom/JS/IntentApp.js" as IntentApp
 
+import modules.cpp.machine 1.0
+
 ApplicationWindow {
     id: window
     visible: true
@@ -19,22 +21,56 @@ ApplicationWindow {
 
     background: Image {
         id: backgroundImage
-        source: "qrc:/UI/Pictures/Background-Blue.png"
+        source: "/UI/Pictures/Background-Blue.png"
 
-        Rectangle {
+        Loader {
             anchors.fill: parent
-            color: "red"
-            opacity: 0.6
-        }
+            active: MachineData.alarmDownflowHigh
+                    || MachineData.alarmDownflowLow
+                    || MachineData.alarmInflowLow
+                    || MachineData.alarmSashUnsafe
+                    || MachineData.alarmSashError
+            sourceComponent: Rectangle {
+                id: backgroundOverlay
+                anchors.fill: parent
+                color: "red"
+                opacity: 0.6
+
+                /// blinking
+                SequentialAnimation {
+                    running: true
+                    loops: Animation.Infinite
+                    ScriptAction {
+                        script: {
+                            backgroundOverlay.color = "red"
+                        }//
+                    }//
+
+                    PauseAnimation {
+                        duration: 2000
+                    }//
+
+                    ScriptAction {
+                        script: {
+                            backgroundOverlay.color = "black"
+                        }
+                    }//
+
+                    PauseAnimation {
+                        duration: 1000
+                    }//
+                }//
+            }//
+        }//
     }
 
     StackViewApp {
         id: mainStackView
         anchors.fill: parent
 
-        property string homeURL: "qrc:/UI/Pages/HomePage/HomePage.qml"
+        property string homeURL: "/UI/Pages/HomePage/HomePage.qml"
 
-        initialItem: "qrc:/UI/Pages/StartupPage/StartupPage.qml"
+        initialItem: "/UI/Pages/StartupPage/StartupPage.qml"
 
         Connections{
             target: mainStackView.currentItem

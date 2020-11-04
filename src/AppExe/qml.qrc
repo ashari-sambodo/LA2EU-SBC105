@@ -6,5 +6,7 @@
         <file>UI/Pages/WiFiSettingPage/WiFiSettingPage.qml</file>
         <file>UI/Pages/ClosingPage/ClosingPage.qml</file>
         <file>UI/Pages/HomePage/Components/ControlButtonApp.qml</file>
+        <file>UI/Pages/HomePage/Components/StatusHorizontalApp.qml</file>
+        <file>UI/Pages/LightIntensityPage/LightIntensityPage.qml</file>
     </qresource>
 </RCC>

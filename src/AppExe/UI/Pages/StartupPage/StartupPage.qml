@@ -45,7 +45,7 @@ ViewApp {
             interval: 5000
             running: true
             onTriggered: {
-                var intent = IntentApp.create("qrc:/UI/Pages/HomePage/HomePage.qml", {"message":""})
+                var intent = IntentApp.create("/UI/Pages/HomePage/HomePage.qml", {"message":""})
                 startRootView(intent)
             }//
         }//

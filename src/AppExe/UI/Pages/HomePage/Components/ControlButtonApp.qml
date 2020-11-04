@@ -12,7 +12,7 @@ Item {
 
     Image {
         anchors.fill: parent
-        source: !button.stateInterlock ? "qrc:/UI/Pictures/button_bg.png" : "qrc:/UI/Pictures/button_gray_bg.png"
+        source: !button.stateInterlock ? "/UI/Pictures/button_bg.png" : "/UI/Pictures/button_gray_bg.png"
         asynchronous: true
     }//
 
