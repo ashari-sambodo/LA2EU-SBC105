@@ -4,11 +4,11 @@
 #include "../ClassManager.h"
 #include "BoardIO/Drivers/PWMpca9685/PWMpca9685.h"
 
-class MotorizeOnRelayManager : public ClassManager
+class MotorizeOnRelay : public ClassManager
 {
     Q_OBJECT
 public:
-    explicit MotorizeOnRelayManager(QObject *parent = nullptr);
+    explicit MotorizeOnRelay(QObject *parent = nullptr);
 
     void routineTask(int parameter = 0) override;
 

@@ -113,6 +113,266 @@ void MachineStateProxy::setBlowerState(short state)
     Qt::QueuedConnection);
 }
 
+void MachineStateProxy::setLightIntensity(short lightIntensity)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << lightIntensity;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineState.data(), [&, lightIntensity](){
+        m_machineState->setLightIntensity(lightIntensity);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setLightState(short lightState)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << lightState;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineState.data(), [&, lightState](){
+        m_machineState->setLightState(lightState);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setSocketState(short socketState)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << socketState;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineState.data(), [&, socketState](){
+        m_machineState->setSocketState(socketState);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setGasState(short gasState)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << gasState;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineState.data(), [&, gasState](){
+        m_machineState->setGasState(gasState);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setUvState(short uvState)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << uvState;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineState.data(), [&, uvState](){
+        m_machineState->setUvState(uvState);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setSashWindowMotorizeState(short sashMotorizeState)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << sashMotorizeState;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineState.data(), [&, sashMotorizeState](){
+        m_machineState->setSashMotorizeState(sashMotorizeState);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setInflowAdcPointFactory(short point, int adc)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, point, adc](){
+        m_machineState->setInflowAdcPointFactory(point, adc);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setInflowAdcPointField(short point, int adc)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, point, adc](){
+        m_machineState->setInflowAdcPointField(point, adc);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setInflowVelocityPointFactory(short point, float value)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, point, value](){
+        m_machineState->setInflowVelocityPointFactory(point, value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setInflowVelocityPointField(short point, float value)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, point, value](){
+        m_machineState->setInflowVelocityPointField(point, value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setInflowConstant(int ifaConstant)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, ifaConstant](){
+        m_machineState->setInflowConstant(ifaConstant);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setInflowTemperatureFactory(double ifaTemperatureFactory)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, ifaTemperatureFactory](){
+        m_machineState->setInflowTemperatureFactory(ifaTemperatureFactory);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setInflowTemperatureADCFactory(int ifaTemperatureADCFactory)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, ifaTemperatureADCFactory](){
+        m_machineState->setInflowTemperatureADCFactory(ifaTemperatureADCFactory);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setInflowTemperatureField(double ifaTemperatureField)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, ifaTemperatureField](){
+        m_machineState->setInflowTemperatureField(ifaTemperatureField);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setInflowTemperatureADCField(int ifaTemperatureADCField)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, ifaTemperatureADCField](){
+        m_machineState->setInflowTemperatureADCField(ifaTemperatureADCField);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setInflowLowLimitVelocity(double ifaLowLimitVelocity)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, ifaLowLimitVelocity](){
+        m_machineState->setInflowLowLimitVelocity(ifaLowLimitVelocity);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setDownflowAdcPointFactory(short point, int adc)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, point, adc](){
+        m_machineState->setDownflowAdcPointFactory(point, adc);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setDownflowAdcPointField(short point, int adc)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, point, adc](){
+        m_machineState->setDownflowAdcPointField(point, adc);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setDownflowVelocityPointFactory(short point, float value)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, point, value](){
+        m_machineState->setDownflowVelocityPointFactory(point, value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setDownflowVelocityPointField(short point, float value)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, point, value](){
+        m_machineState->setDownflowVelocityPointField(point, value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setDownflowConstant(int dfaConstant)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, dfaConstant](){
+        m_machineState->setDownflowConstant(dfaConstant);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setDownflowTemperatureFactory(double dfaTemperatureFactory)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, dfaTemperatureFactory](){
+        m_machineState->setDownflowConstant(dfaTemperatureFactory);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setDownflowTemperatureField(double dfaTemperatureField)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, dfaTemperatureField](){
+        m_machineState->setDownflowConstant(dfaTemperatureField);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setDownflowTemperatureADCField(int dfaTemperatureADCField)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, dfaTemperatureADCField](){
+        m_machineState->setDownflowConstant(dfaTemperatureADCField);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setDownflowTemperatureADCFactory(int dfaTemperatureADCFactory)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, dfaTemperatureADCFactory](){
+        m_machineState->setDownflowConstant(dfaTemperatureADCFactory);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setDownflowLowLimitVelocity(double dfaLowLimitVelocity)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, dfaLowLimitVelocity](){
+        m_machineState->setDownflowConstant(dfaLowLimitVelocity);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setDownflowHigLimitVelocity(double dfaHigLimitVelocity)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, dfaHigLimitVelocity](){
+        m_machineState->setDownflowConstant(dfaHigLimitVelocity);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setAirflowCalibration(short value)
+{
+    QMetaObject::invokeMethod(m_machineState.data(), [&, value](){
+        m_machineState->setAirflowCalibration(value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineStateProxy::doStopping()
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();

@@ -65,6 +65,46 @@ void DeviceAnalogCom::setInterlock(short interlock)
     emit interlockChanged(m_interlocked);
 }
 
+int DeviceAnalogCom::adcMin() const
+{
+    return m_adcMin;
+}
+
+void DeviceAnalogCom::setAdcMin(int adcMin)
+{
+    m_adcMin = adcMin;
+}
+
+int DeviceAnalogCom::adcMax() const
+{
+    return m_adcMax;
+}
+
+void DeviceAnalogCom::setAdcMax(int adcMax)
+{
+    m_adcMax = adcMax;
+}
+
+int DeviceAnalogCom::stateMin() const
+{
+    return m_stateMin;
+}
+
+void DeviceAnalogCom::setStateMin(int stateMin)
+{
+    m_stateMin = stateMin;
+}
+
+int DeviceAnalogCom::stateMax() const
+{
+    return m_stateMax;
+}
+
+void DeviceAnalogCom::setStateMax(int stateMax)
+{
+    m_stateMax = stateMax;
+}
+
 int DeviceAnalogCom::adcToState(int adc)
 {
     return mapToVal(adc, m_adcMin, m_adcMax, m_stateMin, m_stateMax);

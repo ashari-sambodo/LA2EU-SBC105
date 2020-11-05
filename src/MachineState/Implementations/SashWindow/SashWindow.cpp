@@ -6,7 +6,7 @@
 #define SASH_BIT_STATE_STANDBY          0b00001000
 #define SASH_BIT_STATE_UNSAFE           0b00000000
 
-SashManager::SashManager(QObject *parent)
+SashWindow::SashWindow(QObject *parent)
     : ClassManager(parent)
 {
     pSubModule       = nullptr;
@@ -29,27 +29,27 @@ SashManager::SashManager(QObject *parent)
     //#endif
 }
 
-void SashManager::setSubModule(DIOpca9674 *obj)
+void SashWindow::setSubModule(DIOpca9674 *obj)
 {
     pSubModule = obj;
 }
 
-int SashManager::isSashStateChanged() const
+int SashWindow::isSashStateChanged() const
 {
     return m_sashStateChanged;
 }
 
-void SashManager::clearFlagSashStateChanged()
+void SashWindow::clearFlagSashStateChanged()
 {
     if(m_sashStateChanged) m_sashStateChanged = 0;
 }
 
-int SashManager::previousState() const
+int SashWindow::previousState() const
 {
     return m_previousState;
 }
 
-void SashManager::routineTask(int parameter)
+void SashWindow::routineTask(int parameter)
 {
     Q_UNUSED(parameter)
     //    qDebug() << "SashManager::worker()";
@@ -114,7 +114,7 @@ void SashManager::routineTask(int parameter)
     emit workerFinished();
 }
 
-int SashManager::sashState() const
+int SashWindow::sashState() const
 {
     return m_sashState;
 }

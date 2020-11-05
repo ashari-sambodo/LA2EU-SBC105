@@ -23,6 +23,21 @@ enum EnumItemSashState{
 };
 Q_ENUMS(EnumItemSashState)
 
+enum EnumItemFanState{
+    FAN_STATE_OFF,
+    FAN_STATE_ON,
+    FAN_STATE_STANDBY
+};
+Q_ENUMS(EnumItemFanState)
+
+enum EnumMotorSashState{
+    MOTOR_SASH_STATE_OFF,
+    MOTOR_SASH_STATE_UP,
+    MOTOR_SASH_STATE_DOWN,
+    MOTOR_SASH_STATE_UP_DOWN
+};
+Q_ENUMS(EnumMotorSashState)
+
 }
 
 //class MachineEnums : public QObject

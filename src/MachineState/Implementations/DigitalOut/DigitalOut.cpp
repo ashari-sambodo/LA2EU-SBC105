@@ -1,6 +1,6 @@
 #include "DigitalOut.h"
 
-DigitalOutManager::DigitalOutManager(QObject *parent)
+DigitalOut::DigitalOut(QObject *parent)
     : ClassManager(parent)
 {
     pSubModule      = nullptr;
@@ -10,17 +10,17 @@ DigitalOutManager::DigitalOutManager(QObject *parent)
     m_stateRequest  = 0;
 }
 
-int DigitalOutManager::interlock() const
+int DigitalOut::interlock() const
 {
     return m_interlock;
 }
 
-int DigitalOutManager::state() const
+int DigitalOut::state() const
 {
     return m_state;
 }
 
-void DigitalOutManager::routineTask(int parameter)
+void DigitalOut::routineTask(int parameter)
 {
     Q_UNUSED(parameter)
     //    qDebug() << "DigitalOutManager::worker()";
@@ -53,12 +53,12 @@ void DigitalOutManager::routineTask(int parameter)
     emit workerFinished();
 }
 
-void DigitalOutManager::setSubModule(PWMpca9685 *obj)
+void DigitalOut::setSubModule(PWMpca9685 *obj)
 {
     pSubModule = obj;
 }
 
-void DigitalOutManager::setChannelIO(int channel)
+void DigitalOut::setChannelIO(int channel)
 {
     //    qDebug() << "DigitalOutManager::setChannelIO(): " << channel;
     if(m_channelIO != channel){
@@ -69,7 +69,7 @@ void DigitalOutManager::setChannelIO(int channel)
     }
 }
 
-void DigitalOutManager::setState(int state)
+void DigitalOut::setState(int state)
 {
     //    printf("DigitalOutManager::setState\n");
     //    fflush(stdout);
@@ -79,7 +79,7 @@ void DigitalOutManager::setState(int state)
     m_stateRequest = state;
 }
 
-void DigitalOutManager::setInterlock(int interlock)
+void DigitalOut::setInterlock(int interlock)
 {
     //    qDebug() << "DigitalOutManager::setInterlock(): " << interlock;
     if(m_interlock == interlock)return;

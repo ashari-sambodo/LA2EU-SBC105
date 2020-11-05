@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QObject>
 
@@ -74,10 +74,10 @@ class MachineData : public QObject
                //               WRITE setMuteAlarmState
                NOTIFY muteAlarmStateChanged)
 
-    Q_PROPERTY(short sashMotorizeState
-               READ getSashMotorizeState
+    Q_PROPERTY(short sashWindowMotorizeState
+               READ getSashWindowMotorizeState
                //               WRITE setSashMotorizeState
-               NOTIFY sashMotorizeStateChanged)
+               NOTIFY sashWindowMotorizeStateChanged)
 
     Q_PROPERTY(bool alarmSashUnsafe
                READ getAlarmSashUnsafe
@@ -114,6 +114,75 @@ class MachineData : public QObject
                //               WRITE setVelocityDownflowMatric
                NOTIFY velocityDownflowMatricChanged)
 
+    /// Temperature
+    Q_PROPERTY(int      temperatureAdc
+               READ     getTemperatureAdc
+               //               WRITE    setTemperatureAdc
+               NOTIFY   temperatureAdcChanged)
+
+    Q_PROPERTY(QString  temperatureValueStr
+               READ     getTemperatureValueStr
+               //               WRITE    setTemperatureValueStr
+               NOTIFY   temperatureValueStrChanged)
+
+    /// AIRFLOW_INFLOW
+    Q_PROPERTY(int      ifaAdc
+               READ     getInflowAdc
+               //               WRITE    setInflowAdc
+               NOTIFY   ifaAdcChanged)
+
+    Q_PROPERTY(int      ifaAdcConpensation
+               READ     getInflowAdcConpensation
+               //               WRITE    setInflowAdcConpensation
+               NOTIFY   ifaAdcConpensationChanged)
+
+    Q_PROPERTY(float    ifaVelocity
+               READ     getInflowVelocity
+               //               WRITE    setInflowVelocity
+               NOTIFY   ifaVelocityChanged)
+
+    Q_PROPERTY(float    ifaVelocityImperial
+               READ     getInflowVelocityImperial
+               //               WRITE    setInflowVelocityImperial
+               NOTIFY   ifaVelocityImperialChanged)
+
+    Q_PROPERTY(QString  dfaVelocityStr
+               READ     getInflowVelocityStr
+               //               WRITE    setInflowVelocityStr
+               NOTIFY   ifaVelocityStrChanged)
+
+    /// AIRFLOW_DOWNFLOW
+    Q_PROPERTY(int      dfaAdc
+               READ     getDownflowAdc
+               //               WRITE    setDownflowAdc
+               NOTIFY   ifaAdcChanged)
+
+    Q_PROPERTY(int      dfaAdcConpensation
+               READ     getDownflowAdcConpensation
+               //               WRITE    setDownflowAdcConpensation
+               NOTIFY   dfaAdcConpensationChanged)
+
+    Q_PROPERTY(float    dfaVelocity
+               READ     getDownflowVelocity
+               //               WRITE     setDownflowVelocity
+               NOTIFY   dfaVelocityChanged)
+
+    Q_PROPERTY(float    dfaVelocityImperial
+               READ     getDownflowVelocityImperial
+               //               WRITE    setDownflowVelocityImperial
+               NOTIFY   dfaVelocityImperialChanged)
+
+    Q_PROPERTY(QString  dfaVelocityStr
+               READ     getDownflowVelocityStr
+               //               WRITE    setDownflowVelocityStr
+               NOTIFY   dfaVelocityStrChanged)
+
+    /// Measurement Unit
+    Q_PROPERTY(short    measurementUnit
+               READ     getMeasurementUnit
+               //               WRITE    setMeasurementUnit
+               NOTIFY   measurementUnitChanged)
+
 public:
     explicit MachineData(QObject *parent = nullptr);
     ~MachineData();
@@ -149,7 +218,7 @@ public:
 
     short getSashWindowState() const;
 
-    short getSashMotorizeState() const;
+    short getSashWindowMotorizeState() const;
 
     short getLightIntensity() const;
 
@@ -167,8 +236,84 @@ public:
 
     float getVelocityDownflowMatric() const;
 
-public slots:
-    void initSingleton();
+    int getInflowAdc() const;
+
+    int getInflowAdcConpensation() const;
+
+    float getInflowVelocity() const;
+
+    float getInflowVelocityImperial() const;
+
+    int getDownflowAdc() const;
+
+    int getDownflowAdcConpensation() const;
+
+    float getDownflowVelocity() const;
+
+    float getDownflowVelocityImperial() const;
+
+    QString getInflowVelocityStr() const;
+
+    QString getDownflowVelocityStr() const;
+
+    int getTemperatureAdc() const;
+
+    QString getTemperatureValueStr() const;
+
+    short getMeasurementUnit() const;
+
+    void setInflowAdcPoint(short point, int adc);
+    void setInflowAdcPointFactory(short point, int adc);
+    void setInflowAdcPointField(short point, int adc);
+    void setInflowVelocityPoint(short point, float value);
+    void setInflowVelocityPointFactory(short point, float value);
+    void setInflowVelocityPointField(short point, float value);
+    ///
+    void setInflowConstant(int ifaConstant);
+    void setInflowTemperatureADC(int ifaTemperatureADC);
+    void setInflowTemperatureFactory(double ifaTemperatureFactory);
+    void setInflowTemperature(double ifaTemperature);
+    void setInflowTemperatureADCFactory(int ifaTemperatureADCFactory);
+    void setInflowTemperatureField(double ifaTemperatureField);
+    void setInflowTemperatureADCField(int ifaTemperatureADCField);
+    void setInflowLowLimitVelocity(double ifaLowLimitVelocity);
+
+
+    void setDownflowAdcPoint(short point, int adc);
+    void setDownflowAdcPointFactory(short point, int adc);
+    void setDownflowAdcPointField(short point, int adc);
+    void setDownflowVelocityPoint(short point, float value);
+    void setDownflowVelocityPointFactory(short point, float value);
+    void setDownflowVelocityPointField(short point, float value);
+    ///
+    void setDownflowConstant(int dfaConstant);
+    void setDownflowTemperatureADC(int dfaTemperatureADC);
+    void setDownflowTemperatureFactory(double dfaTemperatureFactory);
+    void setDownflowTemperatureField(double dfaTemperatureField);
+    void setDownflowTemperatureADCField(int dfaTemperatureADCField);
+    void setDownflowTemperatureADCFactory(int dfaTemperatureADCFactory);
+    void setDownflowLowLimitVelocity(double dfaLowLimitVelocity);
+    void setDownflowHigLimitVelocity(double dfaHigLimitVelocity);
+
+    Q_INVOKABLE int getInflowConstant() const;
+    Q_INVOKABLE double getInflowTemperature() const;
+    Q_INVOKABLE int getInflowTemperatureADC() const;
+    Q_INVOKABLE double getInflowTemperatureFactory() const;
+    Q_INVOKABLE int getInflowTemperatureADCFactory() const;
+    Q_INVOKABLE double getInflowTemperatureField() const;
+    Q_INVOKABLE int getInflowTemperatureADCField() const;
+    Q_INVOKABLE double getInflowLowLimitVelocity() const;
+    Q_INVOKABLE double getDownflowLowLimitVelocity() const;
+    Q_INVOKABLE double getDownflowHighLimitVelocity() const;
+
+    Q_INVOKABLE int getDownflowConstant() const;
+    Q_INVOKABLE double getDownflowTemperatureField() const;
+    Q_INVOKABLE int getDownflowTemperatureADCField() const;
+    Q_INVOKABLE double getDownflowTemperatureFactory() const;
+    Q_INVOKABLE int getDownflowTemperatureADCFactory() const;
+    Q_INVOKABLE double getDownflowTemperature() const;
+    Q_INVOKABLE int getDownflowTemperatureADC() const;
+    Q_INVOKABLE void setDownflowTemperature(double dfaTemperature);
 
     void setBlowerEcmDemandMode(int blowerEcmDemandMode);
 
@@ -188,7 +333,7 @@ public slots:
 
     void setSashWindowState(short sashWindowState);
 
-    void setSashMotorizeState(short sashMotorizeState);
+    void setSashWindowMotorizeState(short sashMotorizeState);
 
     void setLightIntensity(short lightIntensity);
 
@@ -205,6 +350,35 @@ public slots:
     void setVelocityInflowMatric(float velocityInflowMatric);
 
     void setVelocityDownflowMatric(float velocityDownflowMatric);
+
+    void setInflowAdc(int ifaAdc);
+
+    void setInflowAdcConpensation(int ifaAdcConpensation);
+
+    void setInflowVelocity(float ifaVelocity);
+
+    void setInflowVelocityImperial(float ifaVelocityImperial);
+
+    void setDownflowAdc(int dfaAdc);
+
+    void setDownflowAdcConpensation(int dfaAdcConpensation);
+
+    void setDownflowVelocity(float dfaVelocity);
+
+    void setDownflowVelocityImperial(float dfaVelocityImperial);
+
+    void setInflowVelocityStr(QString ifaVelocityStr);
+
+    void setDownflowVelocityStr(QString dfaVelocityStr);
+
+    void setTemperatureAdc(int temperatureAdc);
+
+    void setTemperatureValueStr(QString temperatureValueStr);
+
+    void setMeasurementUnit(short measurementUnit);
+
+public slots:
+    void initSingleton();
 
 signals:
     void machineStateChanged(int machineState);
@@ -229,7 +403,7 @@ signals:
 
     void sashWindowStateChanged(short sashWindowState);
 
-    void sashMotorizeStateChanged(short sashMotorizeState);
+    void sashWindowMotorizeStateChanged(short sashMotorizeState);
 
     void lightIntensityChanged(short lightIntensity);
 
@@ -244,6 +418,30 @@ signals:
     void velocityInflowMatricChanged(float velocityInflowMatric);
 
     void velocityDownflowMatricChanged(float velocityDownflowMatric);
+
+    void ifaAdcChanged(int ifaAdc);
+
+    void ifaAdcConpensationChanged(int ifaAdcConpensation);
+
+    void ifaVelocityChanged(float ifaVelocity);
+
+    void ifaVelocityImperialChanged(float ifaVelocityImperial);
+
+    void dfaAdcConpensationChanged(int dfaAdcConpensation);
+
+    void dfaVelocityChanged(float dfaVelocity);
+
+    void dfaVelocityImperialChanged(float dfaVelocityImperial);
+
+    void ifaVelocityStrChanged(QString dfaVelocityStr);
+
+    void dfaVelocityStrChanged(QString dfaVelocityStr);
+
+    void temperatureAdcChanged(int temperatureAdc);
+
+    void temperatureValueStrChanged(QString temperatureValueStr);
+
+    void measurementUnitChanged(short measurementUnit);
 
 private:
     ///
@@ -260,7 +458,7 @@ private:
     short m_uvState = 0;
     short m_muteAlarmState = 0;
     short m_sashWindowState = 0;
-    short m_sashMotorizeState = 0;
+    short m_sashWindowMotorizeState = 0;
     short m_lightIntensity = 0;
     bool m_alarmInflowLow = false;
     bool m_alarmSashError = false;
@@ -269,5 +467,57 @@ private:
     bool m_alarmDownflowHigh = false;
     float m_velocityInflowMatric = 0;
     float m_velocityDownflowMatric;
+    int m_ifaAdc;
+    int m_ifaAdcConpensation;
+    float m_ifaVelocity;
+    float m_ifaVelocityImperial;
+    int m_dfaAdc;
+    int m_dfaAdcConpensation;
+    float m_dfaVelocity;
+    float m_dfaVelocityImperial;
+    QString m_ifaVelocityStr;
+    QString m_dfaVelocityStr;
+    int m_temperatureAdc;
+    QString m_temperatureValueStr;
+    short m_measurementUnit;
+
+    ////
+    int     m_ifaConstant;
+    int     m_ifaAdcPoint[3];
+    double  m_ifaVelocityPoint[3];
+    double  m_ifaTemperature;
+    int     m_ifaTemperatureADC;
+    ////
+    int     m_ifaAdcPointFactory[3];
+    double  m_ifaVelocityPointFactory[3];
+    double  m_ifaTemperatureFactory;
+    int     m_ifaTemperatureADCFactory;
+    ////
+    int     m_ifaAdcPointField[3];
+    double  m_ifaVelocityPointField[3];
+    double  m_ifaTemperatureField;
+    int     m_ifaTemperatureADCField;
+    ////
+    double  m_ifaLowLimitVelocity;
+
+    ////
+    int     m_dfaConstant;
+    int     m_dfaAdcPoint[3];
+    double  m_dfaVelocityPoint[3];
+    double  m_dfaTemperature;
+    int     m_dfaTemperatureADC;
+    ////
+    int     m_dfaAdcPointFactory[3];
+    double  m_dfaVelocityPointFactory[3];
+    double  m_dfaTemperatureFactory;
+    int     m_dfaTemperatureADCFactory;
+    ////
+    int     m_dfaAdcPointField[3];
+    double  m_dfaVelocityPointField[3];
+    double  m_dfaTemperatureField;
+    int     m_dfaTemperatureADCField;
+    ////
+    double  m_dfaLowLimitVelocity;
+    double  m_dfaHigLimitVelocity;
 };
 

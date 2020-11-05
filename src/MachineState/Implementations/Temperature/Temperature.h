@@ -4,11 +4,11 @@
 #include "../ClassManager.h"
 #include "BoardIO/Drivers/AImcp3422x/AIManage.h"
 
-class TemperatureManager : public ClassManager
+class Temperature : public ClassManager
 {
     Q_OBJECT
 public:
-    explicit TemperatureManager(QObject *parent = nullptr);
+    explicit Temperature(QObject *parent = nullptr);
 
     void routineTask(int parameter = 0) override;
 

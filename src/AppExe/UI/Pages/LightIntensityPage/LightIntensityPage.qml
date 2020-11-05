@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
+import QtQuick.Controls 2.0
 
 import UI.CusCom 1.0
 import "../../CusCom/JS/IntentApp.js" as IntentApp
@@ -30,6 +31,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
+                    title: qsTr(viewApp.title)
                 }
             }
 
@@ -38,6 +40,30 @@ ViewApp {
                 id: bodyItem
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+
+                Column {
+                    anchors.centerIn: parent
+
+                    TextApp {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: lightIntensitySlider.value + "%"
+                    }
+
+                    Slider {
+                        id: lightIntensitySlider
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: 500
+                        stepSize: 5
+                        from: 30
+                        to: 100
+
+                        onValueChanged: {
+                            if (pressed) {
+                                MachineApi.setLightIntensity(value)
+                            }
+                        }
+                    }
+                }
             }
 
             /// FOOTER
@@ -78,5 +104,30 @@ ViewApp {
         Component.onCompleted: {
 
         }//
+
+        /// Execute This Every This Screen Active/Visible
+        Loader {
+            active: viewApp.stackViewStatusActivating || viewApp.stackViewStatusActive
+            sourceComponent: QtObject {
+
+                /// onResume
+                Component.onCompleted: {
+                    console.log("StackView.Active");
+
+                    lightIntensitySlider.value = MachineData.lightIntensity
+                }
+
+                /// onPause
+                Component.onDestruction: {
+                    //console.log("StackView.DeActivating");
+                }
+            }//
+        }//
     }//
 }
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:800}
+}
+##^##*/

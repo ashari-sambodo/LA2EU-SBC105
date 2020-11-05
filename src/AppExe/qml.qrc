@@ -8,5 +8,6 @@
         <file>UI/Pages/HomePage/Components/ControlButtonApp.qml</file>
         <file>UI/Pages/HomePage/Components/StatusHorizontalApp.qml</file>
         <file>UI/Pages/LightIntensityPage/LightIntensityPage.qml</file>
+        <file>UI/Pages/FanPinPage/FanPinPage.qml</file>
     </qresource>
 </RCC>

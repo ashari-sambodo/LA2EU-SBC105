@@ -5,6 +5,9 @@ RowLayout {
     //    anchors.fill: parent
     //    spacing: 5
 
+    property alias title: topBarStatusText.text
+    property alias textDeviceModel: deviceModelText.text
+
     Item {
         Layout.fillHeight: true
         Layout.minimumWidth: 300

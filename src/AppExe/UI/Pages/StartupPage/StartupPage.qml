@@ -37,6 +37,8 @@ ViewApp {
         Component.onCompleted: {
             MachineData.initSingleton()
             MachineApi.initSingleton()
+
+            MachineApi.setup(MachineData)
         }//
 
         /// Event by Timer

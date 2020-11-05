@@ -3,7 +3,7 @@
 
 #define TEMPERATURE_LM35_GAIN   10 // 10mV per degree celcius
 
-TemperatureManager::TemperatureManager(QObject *parent)
+Temperature::Temperature(QObject *parent)
     : ClassManager(parent)
 {
     pSubModule      = nullptr;
@@ -15,7 +15,7 @@ TemperatureManager::TemperatureManager(QObject *parent)
     m_precision         = 0;
 }
 
-void TemperatureManager::routineTask(int parameter)
+void Temperature::routineTask(int parameter)
 {
     Q_UNUSED(parameter)
 
@@ -87,12 +87,12 @@ void TemperatureManager::routineTask(int parameter)
     //    emit workerFinished();'
 }
 
-void TemperatureManager::setSubModule(AIManage *obj)
+void Temperature::setSubModule(AIManage *obj)
 {
     pSubModule = obj;
 }
 
-void TemperatureManager::setChannelIO(int channel)
+void Temperature::setChannelIO(int channel)
 {
     if(m_channelIO != channel){
         int oldState = m_channelIO;
@@ -102,33 +102,33 @@ void TemperatureManager::setChannelIO(int channel)
     }
 }
 
-void TemperatureManager::setPrecision(int newVal)
+void Temperature::setPrecision(int newVal)
 {
     m_precision = newVal;
 }
 
-double TemperatureManager::celciusPrecision() const
+double Temperature::celciusPrecision() const
 {
     return m_celciusPrecision;
 }
 
-int TemperatureManager::celcius() const
+int Temperature::celcius() const
 {
     return m_celcius;
 }
 
 //ROUND_UP_TEMPERATURE_VALUE
-int TemperatureManager::voltageToTemperature(int mVolt)
+int Temperature::voltageToTemperature(int mVolt)
 {
     return std::ceil((float) mVolt / (float) TEMPERATURE_LM35_GAIN);
 }
 
-double TemperatureManager::voltageToTemperaturePrecision(int mVolt)
+double Temperature::voltageToTemperaturePrecision(int mVolt)
 {
     return qRound((mVolt / (double)TEMPERATURE_LM35_GAIN) * 100.0) / 100.0;
 }
 
-int TemperatureManager::temperatureToVoltage(int temperature)
+int Temperature::temperatureToVoltage(int temperature)
 {
     return (temperature * TEMPERATURE_LM35_GAIN);
 }

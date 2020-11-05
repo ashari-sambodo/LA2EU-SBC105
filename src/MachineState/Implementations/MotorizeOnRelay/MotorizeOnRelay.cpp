@@ -7,7 +7,7 @@ enum ENUM_MOTOR_STATE{
     MOTOR_STATE_UP_DOWN
 };
 
-MotorizeOnRelayManager::MotorizeOnRelayManager(QObject *parent)
+MotorizeOnRelay::MotorizeOnRelay(QObject *parent)
     : ClassManager (parent)
 {
     pSubModule      = nullptr;
@@ -21,7 +21,7 @@ MotorizeOnRelayManager::MotorizeOnRelayManager(QObject *parent)
     m_interlockDown = 0;
 }
 
-void MotorizeOnRelayManager::routineTask(int /*parameter*/)
+void MotorizeOnRelay::routineTask(int /*parameter*/)
 {
     //GET ACTUAL STATE FROM SUB MODULE
     int ivalUp, ivalDown;
@@ -95,19 +95,19 @@ void MotorizeOnRelayManager::routineTask(int /*parameter*/)
 
 }
 
-void MotorizeOnRelayManager::setSubModule(PWMpca9685 *module)
+void MotorizeOnRelay::setSubModule(PWMpca9685 *module)
 {
     pSubModule = module;
 }
 
-void MotorizeOnRelayManager::setState(short state)
+void MotorizeOnRelay::setState(short state)
 {
     if(m_state == state) return;
     if(m_stateRequest == state) return;
     m_stateRequest = state;
 }
 
-void MotorizeOnRelayManager::setInterlockUp(short interlock)
+void MotorizeOnRelay::setInterlockUp(short interlock)
 {
     if(m_interlockUp == interlock) return;
     m_interlockUp = interlock;
@@ -115,7 +115,7 @@ void MotorizeOnRelayManager::setInterlockUp(short interlock)
     emit interlockUpChanged(m_interlockUp);
 }
 
-void MotorizeOnRelayManager::setInterlockDown(short interlock)
+void MotorizeOnRelay::setInterlockDown(short interlock)
 {
     if(m_interlockDown == interlock) return;
     m_interlockDown = interlock;
@@ -123,22 +123,22 @@ void MotorizeOnRelayManager::setInterlockDown(short interlock)
     emit interlockDownChanged(m_interlockDown);
 }
 
-int MotorizeOnRelayManager::interlockUp() const
+int MotorizeOnRelay::interlockUp() const
 {
     return m_interlockUp;
 }
 
-int MotorizeOnRelayManager::interlockDown() const
+int MotorizeOnRelay::interlockDown() const
 {
     return m_interlockDown;
 }
 
-void MotorizeOnRelayManager::setChannelUp(char channelUp)
+void MotorizeOnRelay::setChannelUp(char channelUp)
 {
     m_channelUp = channelUp;
 }
 
-void MotorizeOnRelayManager::setChannelDown(char channelDown)
+void MotorizeOnRelay::setChannelDown(char channelDown)
 {
     m_channelDown = channelDown;
 }

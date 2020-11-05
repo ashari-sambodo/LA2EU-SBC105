@@ -6,18 +6,18 @@
 
 #define AIRFLOWNANAGER_MAX_ADC_POINT    3
 
-class AirflowManager : public ClassManager
+class AirflowVelocity : public ClassManager
 {
     Q_OBJECT
 public:
-    explicit AirflowManager(QObject *parent = nullptr);
+    explicit AirflowVelocity(QObject *parent = nullptr);
 
     void setAIN(AIManage *value);
     void setChannel(int channel);
 
     void routineTask(int parameter = 0);
 
-    void calculateCompensationADC();
+    //    void calculateCompensationADC();
 
     void setAdcPoint(int point, int value);
     void setVelocityPoint(int point, double value);
@@ -41,7 +41,9 @@ public:
     bool getVelocityChanged() const;
     void setVelocityChanged(bool velocityChanged);
 
-    void setTemperature(double newVal);
+    void setTemperature(int newVal);
+
+    enum CALIB_POINT_MODE {AFCALIB_POINT_3POINTS, AFCALIB_POINT_2POINTS};
 
 signals:
     void adcChanged(int val);
@@ -57,7 +59,7 @@ private:
     int m_adcConpensation;
     double m_velocity;
     int m_constant;
-    double m_temperature;
+    int m_temperature;
     bool m_temperatureChanged;
 
     int m_adcPoint[AIRFLOWNANAGER_MAX_ADC_POINT];
@@ -70,6 +72,8 @@ private:
     //scope 2
     double m_m2;
     double m_b2;
+
+    short m_calibPointMode = 0;
 
     int adcDummy;
 

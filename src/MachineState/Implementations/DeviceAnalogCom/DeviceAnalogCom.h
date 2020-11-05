@@ -19,6 +19,18 @@ public:
 
     void setInterlock(short interlock);
 
+    int adcMin() const;
+    void setAdcMin(int adcMin);
+
+    int adcMax() const;
+    void setAdcMax(int adcMax);
+
+    int stateMin() const;
+    void setStateMin(int stateMin);
+
+    int stateMax() const;
+    void setStateMax(int stateMax);
+
 signals:
     void stateChanged(int newVal);
 

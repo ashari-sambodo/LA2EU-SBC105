@@ -65,18 +65,123 @@ void MachineState::setup()
 
         /// Initializing every required board
         {
-            /// Aanalog Out Board
-            m_boardAnalogOut1.reset(new AOmcp4725);
-            m_boardAnalogOut1->setI2C(m_i2cPort.data());
-            m_boardAnalogOut1->setAddress(0x61);
-            m_boardAnalogOut1->init();
+            ////IO EXTENDER
+            {
+                m_boardIOExtendPca9633.reset(new LEDpca9633);
+                m_boardIOExtendPca9633->setI2C(m_i2cPort.data());
+                m_boardIOExtendPca9633->init();
+                ///Pin 0 - PWM0 connect to LCD Brightness Control
+                m_boardIOExtendPca9633->setOutputAsPWM(0);
+                ///Pin 1 - PWM1 connect to Mosfet to controll watchdog gate
+                //                m_boardIOExtendPca9633->setOutputAsDigital(LEDpca9633_CHANNEL_WDG, EEnums::DIG_STATE_ON);
+                m_boardIOExtendPca9633->setOutputPWM(0, 5);
 
-            /// catch error status of the board
-            QObject::connect(m_boardAnalogOut1.data(), &AOmcp4725::errorComToleranceReached,
-                             this, [&](int error){
-                qDebug() << "Error changed" << error << thread();
-            });
-        }
+                //                ////MONITORING COMMUNICATION STATUS
+                //                connect(m_pModule_IOExtendPca9633.data(), &LEDpca9633::errorComCountChanged,
+                //                        this, &Backend::_onModuleComStatus_IOExtenderChanged);
+            }
+
+            /// Aanalog Out Board
+            {
+                m_boardAnalogOut1.reset(new AOmcp4725);
+                m_boardAnalogOut1->setI2C(m_i2cPort.data());
+                m_boardAnalogOut1->setAddress(0x61);
+                m_boardAnalogOut1->init();
+
+                /// catch error status of the board
+                QObject::connect(m_boardAnalogOut1.data(), &AOmcp4725::errorComToleranceReached,
+                                 this, [&](int error){
+                    qDebug() << "m_boardAnalogOut1 Error changed" << error << thread();
+                });
+            }//
+
+            /// Aanalog Out Board
+            {
+                m_boardAnalogOut2.reset(new AOmcp4725);
+                m_boardAnalogOut2->setI2C(m_i2cPort.data());
+                m_boardAnalogOut2->setAddress(0x60);
+                m_boardAnalogOut2->init();
+
+                /// catch error status of the board
+                QObject::connect(m_boardAnalogOut2.data(), &AOmcp4725::errorComToleranceReached,
+                                 this, [&](int error){
+                    qDebug() << "m_boardAnalogOut2 Error changed" << error << thread();
+                });
+            }//
+
+            /// DIGITAL_INPUT
+            {
+                m_boardDigitalInput1.reset(new DIOpca9674);
+                m_boardDigitalInput1->setI2C(m_i2cPort.data());
+                m_boardDigitalInput1->init();
+
+                /// catch error status of the board
+                QObject::connect(m_boardDigitalInput1.data(), &DIOpca9674::errorComToleranceReached,
+                                 this, [&](int error){
+                    qDebug() << "m_boardDigitalInput1 Error changed" << error << thread();
+                });
+            }//
+
+            ////DIGITAL_OUTPUT/PWM
+            {
+                m_boardPwm1.reset(new PWMpca9685);
+                m_boardPwm1->setI2C(m_i2cPort.data());
+                m_boardPwm1->preInitCountChannelsToPool(8);
+                m_boardPwm1->preInitFrequency(PCA9685_PWM_VAL_FREQ_100HZ);
+                m_boardPwm1->init();
+
+                ////MONITORING COMMUNICATION STATUS
+                connect(m_boardPwm1.data(), &PWMpca9685::errorComToleranceReached,
+                        this, [&](int error){
+                    qDebug() << "m_boardPwm1 Error changed" << error << thread();
+                });
+            }
+
+            /// Analog Input
+            {
+                m_boardAnalogInput1.reset(new AIManage);
+                m_boardAnalogInput1->setupAIModule();
+                m_boardAnalogInput1->setI2C(m_i2cPort.data());
+                m_boardAnalogInput1->setAddress(0x69);
+                m_boardAnalogInput1->init();
+
+                //DEFINE_CHANNEL_FOR_TEMPERATURE
+                m_boardAnalogInput1->setChannelDoPoll(0, true);
+                m_boardAnalogInput1->setChannelDoAverage(0, true);
+                m_boardAnalogInput1->setChannelSamples(0, 30);
+
+                //DEFINE_CHANNEL_FOR_AIRFLOW
+                m_boardAnalogInput1->setChannelDoPoll(1, true);
+                m_boardAnalogInput1->setChannelDoAverage(1, true);
+                m_boardAnalogInput1->setChannelSamples(1, 100);
+
+                ////MONITORING COMMUNICATION STATUS
+                connect(m_boardAnalogInput1.data(), &AIManage::errorComToleranceReached,
+                        this, [&](int error){
+                    qDebug() << "m_boardAnalogInput1 Error changed" << error << thread();
+                });
+            }
+
+            /// Analog Input 2
+            {
+                m_boardAnalogInput2.reset(new AIManage);
+                m_boardAnalogInput2->setupAIModule();
+                m_boardAnalogInput2->setI2C(m_i2cPort.data());
+                m_boardAnalogInput2->setAddress(0x6f);
+                m_boardAnalogInput2->init();
+
+                //DEFINE_CHANNEL_FOR_AIRFLOW
+                m_boardAnalogInput2->setChannelDoPoll(0, true);
+                m_boardAnalogInput2->setChannelDoAverage(0, true);
+                m_boardAnalogInput2->setChannelSamples(0, 100);
+
+                ////MONITORING COMMUNICATION STATUS
+                connect(m_boardAnalogInput2.data(), &AIManage::errorComToleranceReached,
+                        this, [&](int error){
+                    qDebug() << "m_boardAnalogInput2 Error changed" << error << thread();
+                });
+            }
+        }//
 
         /// Required object to manage communication
         /// communication will use daisy chain mechanism
@@ -86,7 +191,10 @@ void MachineState::setup()
         m_boardIO->setI2C(m_i2cPort.data());
         /// add any board for short polling
         {
+            m_boardIO->addSlave(m_boardDigitalInput1.data());
             m_boardIO->addSlave(m_boardAnalogOut1.data());
+            m_boardIO->addSlave(m_boardAnalogOut2.data());
+            m_boardIO->addSlave(m_boardPwm1.data());
         }
         /// setup thread and timer interupt for board IO
         {
@@ -185,8 +293,8 @@ void MachineState::setup()
         m_boardRegalECM->stop();
         /// setup blower ecm by torque demand
         /// in torque mode, we just need to define the direction of rotation
-        //        m_blowerRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CLW);
-        m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CCW);
+        m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CLW);
+        //        m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CCW);
 
         /// create object for state keeper
         /// ensure actuator state is what machine state requested
@@ -242,7 +350,7 @@ void MachineState::setup()
         });
 
         QObject::connect(m_blowerDownflow.data(), &BlowerRbmDsi::dutyCycleChanged,
-                         this, [&](int dutyCycle){
+                         pData, [&](int dutyCycle){
             qDebug() << "m_blowerDownflow::dutyCycleChanged" << thread();
             qDebug() << "m_blowerDownflow::dutyCycleChanged" << dutyCycle;
             pData->setBlowerDownflowState(dutyCycle);
@@ -256,6 +364,171 @@ void MachineState::setup()
         /// Also move all necesarry object to independent blower thread
         m_serialPort1->moveToThread(m_threadForBlowerRbmDsi.data());
         m_boardRegalECM->moveToThread(m_threadForBlowerRbmDsi.data());
+    }
+
+    /// SASH
+    {
+        m_sashWindow.reset(new SashWindow(m_boardDigitalInput1.data()));
+        m_sashWindow->setSubModule(m_boardDigitalInput1.data());
+
+        connect(m_sashWindow.data(), &SashWindow::sashStateChanged,
+                pData, [&](int newVal, int /*oldVal*/){
+            pData->setSashWindowState(newVal);
+        });
+        //        connect(m_pSashWindow.data(), &SashWindow::mSwitchStateChanged,
+        //                this, [&](int dutyCycle){
+        //            qDebug() << "m_blowerDownflow::dutyCycleChanged" << thread();
+        //            qDebug() << "m_blowerDownflow::dutyCycleChanged" << dutyCycle;
+        //            pData->setBlowerDownflowState(dutyCycle);
+        //        });
+    }
+
+    /// Sash Window Motorize
+    {
+        m_sasWindowMotorize.reset(new MotorizeOnRelay);
+        m_sasWindowMotorize->setSubModule(m_boardPwm1.data());
+        m_sasWindowMotorize->setChannelUp(4);
+        m_sasWindowMotorize->setChannelDown(3);
+
+        connect(m_sasWindowMotorize.data(), &MotorizeOnRelay::stateChanged,
+                pData, [&](int newVal){
+            pData->setSashWindowMotorizeState(newVal);
+        });
+
+        //        connect(m_sasWindowMotorize.data(), &MotorizeOnRelayManager::interlockUpChanged,
+        //                this, &Backend::_onMotorizeSashInterlockUpChanged);
+        //        connect(m_sasWindowMotorize.data(), &MotorizeOnRelayManager::interlockDownChanged,
+        //                this, &Backend::_onMotorizeSashInterlockDownChanged);
+    }
+
+    /// Light Intensity
+    {
+        m_lightIntensity.reset(new DeviceAnalogCom);
+        m_lightIntensity->setSubBoard(m_boardAnalogOut2.data());
+
+        connect(m_lightIntensity.data(), &DeviceAnalogCom::stateChanged,
+                pData, [&](int newVal){
+            pData->setLightIntensity(newVal);
+        });
+    }
+
+    /// Light
+    {
+        m_light.reset(new DigitalOut);
+        m_light->setSubModule(m_boardPwm1.data());
+        m_light->setChannelIO(0);
+
+        connect(m_light.data(), &DigitalOut::stateChanged,
+                pData, [&](int newVal){
+            pData->setLightState(newVal);
+        });
+
+        //        connect(m_light.data(), &DigitalOut::interlockChanged,
+        //                this, [&](int newVal){
+        //        });
+    }
+
+    /// Socket
+    {
+        m_socket.reset(new DigitalOut);
+        m_socket->setSubModule(m_boardPwm1.data());
+        m_socket->setChannelIO(5);
+
+        connect(m_socket.data(), &DigitalOut::stateChanged,
+                pData, [&](int newVal){
+            pData->setSocketState(newVal);
+        });
+
+        //        connect(m_light.data(), &DigitalOut::interlockChanged,
+        //                this, [&](int newVal){
+        //        });
+    }
+
+    /// Gas
+    {
+        m_gas.reset(new DigitalOut);
+        m_gas->setSubModule(m_boardPwm1.data());
+        m_gas->setChannelIO(2);
+
+        connect(m_gas.data(), &DigitalOut::stateChanged,
+                pData, [&](int newVal){
+            pData->setGasState(newVal);
+        });
+
+        //        connect(m_light.data(), &DigitalOut::interlockChanged,
+        //                this, [&](int newVal){
+        //        });
+    }
+
+    /// UV
+    {
+        m_uv.reset(new DigitalOut);
+        m_uv->setSubModule(m_boardPwm1.data());
+        m_uv->setChannelIO(1);
+
+        connect(m_uv.data(), &DigitalOut::stateChanged,
+                pData, [&](int newVal){
+            pData->setUvState(newVal);
+        });
+
+        //        connect(m_light.data(), &DigitalOut::interlockChanged,
+        //                this, [&](int newVal){
+        //        });
+    }
+
+    /// TEMPERATURE
+    {
+        m_temperature.reset(new Temperature);
+        m_temperature->setSubModule(m_boardAnalogInput1.data());
+        m_temperature->setChannelIO(0);
+
+        connect(m_temperature.data(), &Temperature::celciusChanged,
+                pData, [&](int newVal){
+            QString valueStr = QString::asprintf("%d°C", newVal);
+            pData->setTemperatureValueStr(valueStr);
+        });
+        //        connect(m_temperature.data(), &Temperature::adcChanged,
+        //                pData, [&](int newVal){
+        //            pData->setUvState(newVal);
+        //        });
+    }
+
+    /// AIRFLOW_INFLOW
+    {
+        ////CREATE INFLOW OBJECT
+        m_airflowInflow.reset(new AirflowVelocity());
+        m_airflowInflow->setAIN(m_boardAnalogInput1.data());
+        m_airflowInflow->setChannel(1);
+
+        /// CONNECION
+        connect(m_airflowInflow.data(), &AirflowVelocity::adcConpensationChanged,
+                pData, [&](int newVal){
+            pData->setInflowAdc(newVal);
+        });
+        connect(m_airflowInflow.data(), &AirflowVelocity::velocityChanged,
+                pData, [&](double newVal){
+            QString valueStr = QString::asprintf("%.2f°C", newVal);
+            pData->setInflowVelocityStr(valueStr);
+        });
+    }
+
+    /// AIRFLOW_DOWNFLOW
+    {
+        ////CREATE INFLOW OBJECT
+        m_airflowDownflow.reset(new AirflowVelocity());
+        m_airflowDownflow->setAIN(m_boardAnalogInput2.data());
+        m_airflowDownflow->setChannel(0);
+
+        /// CONNECION
+        connect(m_airflowDownflow.data(), &AirflowVelocity::adcConpensationChanged,
+                pData, [&](int newVal){
+            pData->setDownflowAdc(newVal);
+        });
+        connect(m_airflowDownflow.data(), &AirflowVelocity::velocityChanged,
+                pData, [&](double newVal){
+            QString valueStr = QString::asprintf("%.2f°C", newVal);
+            pData->setDownflowVelocityStr(valueStr);
+        });
     }
 
     /// Chane state to loop, routine task
@@ -278,14 +551,52 @@ void MachineState::loop()
 
     /// READ_SENSOR
     /// put any read sensor routine task on here
+    m_sashWindow->routineTask();
+    m_temperature->routineTask();
+    m_airflowInflow->routineTask();
+    m_airflowDownflow->routineTask();
 
     /// PROCESSING
     /// put any processing/machine state condition on here
-    pData->setCount(pData->getCount() + 1);
+    //    pData->setCount(pData->getCount() + 1);
+    if (pData->getBlowerDownflowState() == MachineEnums::FAN_STATE_ON) {
+        if (m_airflowInflow->velocity() <= pData->getInflowLowLimitVelocity()) {
+            if (!pData->getAlarmInflowLow()) {
+                pData->setAlarmInflowLow(true);
+            }
+        }
+
+        if (m_airflowDownflow->velocity() <= pData->getDownflowLowLimitVelocity()) {
+            if (!pData->getAlarmDownflowLow()) {
+                pData->setAlarmDownfLow(true);
+            }
+        }
+        else if (m_airflowDownflow->velocity() >= pData->getDownflowHighLimitVelocity()) {
+            if (!pData->getAlarmDownflowHigh()) {
+                pData->setAlarmDownfHigh(true);
+            }
+        }
+    }
+    else {
+        if (pData->getAlarmInflowLow()) {
+            pData->setAlarmInflowLow(false);
+        }
+        if (pData->getAlarmDownflowHigh()) {
+            pData->setAlarmDownfHigh(false);
+        }
+        if (pData->getAlarmDownflowHigh()) {
+            pData->setAlarmDownfHigh(false);
+        }
+    }
 
     /// ACTUATOR
     /// put any actuator routine task on here
+    m_sasWindowMotorize->routineTask();
     m_blowerExhaust->routineTask();
+    m_light->routineTask();
+    m_socket->routineTask();
+    m_gas->routineTask();
+    m_uv->routineTask();
 
     if(m_stop){
         pData->setMachineState(MachineEnums::MACHINE_STATE_STOP);
@@ -325,10 +636,60 @@ void MachineState::setBlowerState(short state)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << state;
 
-    _setBlowerDutyCycle(state ? 30 : 0);
+    _setBlowerDowndlowDutyCycle(state ? 24 : 0);
+    m_blowerExhaust->setState(state ? 51 : 0);
 }
 
-void MachineState::_setBlowerDutyCycle(short dutyCycle)
+void MachineState::setLightIntensity(short lightIntensity)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << lightIntensity;
+
+    m_lightIntensity->setState(lightIntensity);
+}
+
+void MachineState::setLightState(short lightState)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << lightState;
+
+    m_light->setState(lightState);
+}
+
+void MachineState::setSocketState(short socketState)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << socketState;
+
+    m_socket->setState(socketState);
+}
+
+void MachineState::setGasState(short gasState)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << gasState;
+
+    m_gas->setState(gasState);
+}
+
+void MachineState::setUvState(short uvState)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << uvState;
+
+    m_uv->setState(uvState);
+}
+
+void MachineState::setSashMotorizeState(short state)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << state;
+
+    m_sasWindowMotorize->setState(state);
+    m_sasWindowMotorize->routineTask();
+}
+
+void MachineState::_setBlowerDowndlowDutyCycle(short dutyCycle)
 {
     /// Turn on blower exhaust first
     m_blowerExhaust->setState(dutyCycle);
@@ -340,4 +701,120 @@ void MachineState::_setBlowerDutyCycle(short dutyCycle)
         m_blowerDownflow->setDutyCycle(dutyCycle);
     },
     Qt::QueuedConnection);
+}
+
+void MachineState::setInflowAdcPointFactory(short point, int adc)
+{
+    m_airflowInflow->setAdcPoint(point, adc);
+    pData->setInflowAdcPointFactory(point, adc);
+}
+
+void MachineState::setInflowAdcPointField(short point, int adc)
+{
+
+}
+
+void MachineState::setInflowVelocityPointFactory(short point, float value)
+{
+    m_airflowInflow->setVelocityPoint(point, value);
+    pData->setInflowVelocityPointFactory(point, value);
+}
+
+void MachineState::setInflowVelocityPointField(short point, float value)
+{
+
+}
+
+void MachineState::setInflowConstant(int ifaConstant)
+{
+    m_airflowInflow->setConstant(ifaConstant);
+    pData->setDownflowConstant(ifaConstant);
+}
+
+void MachineState::setInflowTemperatureFactory(double ifaTemperatureFactory)
+{
+
+}
+
+void MachineState::setInflowTemperatureADCFactory(int ifaTemperatureADCFactory)
+{
+
+}
+
+void MachineState::setInflowTemperatureField(double ifaTemperatureField)
+{
+
+}
+
+void MachineState::setInflowTemperatureADCField(int ifaTemperatureADCField)
+{
+
+}
+
+void MachineState::setInflowLowLimitVelocity(double ifaLowLimitVelocity)
+{
+    pData->setInflowLowLimitVelocity(ifaLowLimitVelocity);
+}
+
+void MachineState::setDownflowAdcPointFactory(short point, int adc)
+{
+    m_airflowDownflow->setAdcPoint(point, adc);
+    pData->setDownflowAdcPointFactory(point, adc);
+}
+
+void MachineState::setDownflowAdcPointField(short point, int adc)
+{
+
+}
+
+void MachineState::setDownflowVelocityPointFactory(short point, float value)
+{
+    m_airflowDownflow->setVelocityPoint(point, value);
+    pData->setDownflowVelocityPointFactory(point, value);
+}
+
+void MachineState::setDownflowVelocityPointField(short point, float value)
+{
+
+}
+
+void MachineState::setDownflowConstant(int dfaConstant)
+{
+
+}
+
+void MachineState::setDownflowTemperatureFactory(double dfaTemperatureFactory)
+{
+
+}
+
+void MachineState::setDownflowTemperatureField(double dfaTemperatureField)
+{
+
+}
+
+void MachineState::setDownflowTemperatureADCField(int dfaTemperatureADCField)
+{
+
+}
+
+void MachineState::setDownflowTemperatureADCFactory(int dfaTemperatureADCFactory)
+{
+
+}
+
+void MachineState::setDownflowLowLimitVelocity(double dfaLowLimitVelocity)
+{
+    pData->setDownflowLowLimitVelocity(dfaLowLimitVelocity);
+}
+
+void MachineState::setDownflowHigLimitVelocity(double dfaHigLimitVelocity)
+{
+    pData->setDownflowHigLimitVelocity(dfaHigLimitVelocity);
+}
+
+void MachineState::setAirflowCalibration(short value)
+{
+    m_airflowDownflow->initScope();
+    m_airflowInflow->initScope();
 }

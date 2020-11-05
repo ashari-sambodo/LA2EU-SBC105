@@ -95,8 +95,8 @@ ViewApp {
                             id: topBarStatusRectangle
                             anchors.fill: parent
                             radius: 5
-                            color: "green"
-                            //                            color: "red"
+                            //                            color: "green"
+                            color: "red"
                             border.color: "gray"
                             border.width: 2
 
@@ -107,8 +107,8 @@ ViewApp {
                                 verticalAlignment: Text.AlignVCenter
                                 font.pixelSize: 36
                                 font.bold: true
-                                text: "CABINET IS SAFE"
-                                //                                text: "WARNING: AIRFLOW IS FAIL"
+                                //                                text: "CABINET IS SAFE"
+                                text: "WARNING: AIRFLOW IS FAIL"
                             }//
                         }//
                     }//
@@ -292,13 +292,41 @@ ViewApp {
                                         width: centerContentItem.width
 
                                         CusComPage.StatusHorizontalApp {
+                                            id: sashStatus
                                             height: parent.height
                                             width: parent.width + 150
                                             x: -150
                                             contentItem.x : 150
 
                                             textLabel: qsTr("Sash:")
-                                            textValue: "Safe height"
+                                            textValue: "---"
+
+                                            states: [
+                                                State {
+                                                    name: "A"
+                                                    when: MachineData.sashWindowState === MachineApi.SASH_STATE_WORK_SSV
+                                                    PropertyChanges {
+                                                        target: sashStatus
+                                                        textValue: qsTr("Safe height")
+                                                    }
+                                                },
+                                                State {
+                                                    name: "B"
+                                                    when: MachineData.sashWindowState === MachineApi.SASH_STATE_UNSAFE_SSV
+                                                    PropertyChanges {
+                                                        target: sashStatus
+                                                        textValue: qsTr("Unsafe")
+                                                    }
+                                                },
+                                                State {
+                                                    name: "C"
+                                                    when: MachineData.sashWindowState === MachineApi.SASH_STATE_STANDBY_SSV
+                                                    PropertyChanges {
+                                                        target: sashStatus
+                                                        textValue: qsTr("Standby height")
+                                                    }
+                                                }
+                                            ]
                                         }//
                                     }//
 
@@ -328,7 +356,9 @@ ViewApp {
                                             contentItem.x : 150
 
                                             textLabel: qsTr("Inflow:")
-                                            textValue: "0.53 m/s"
+                                            textValue: "0.42 m/s (Too Low)"
+
+                                            hightlighted: true
                                         }//
                                     }//
                                     //                                    }//
@@ -350,43 +380,90 @@ ViewApp {
                                     spacing: 50
 
                                     Image {
+                                        id: upSashMotorizeImage
                                         opacity: tapHandlerUp.pressed ? 0.5 : 1
                                         source: "../../Pictures/controll/Button_Up.png"
 
-                                        TapHandler {
+                                        MouseArea {
                                             id: tapHandlerUp
-                                            onLongPressed: {
-                                                console.log("onLongPressed")
-                                            }//
+                                            anchors.fill: parent
+                                            onPressAndHold: {
+                                                MachineApi.setSashWindowMotorizeState(MachineApi.MOTOR_SASH_STATE_UP)
+                                            }
+                                            onReleased: {
+                                                MachineApi.setSashWindowMotorizeState(MachineApi.MOTOR_SASH_STATE_OFF)
+                                            }
+                                        }
 
-                                            onTapped: {
-                                                console.log("onTapped")
-                                            }//
+                                        //                                        TapHandler {
+                                        //                                            id: tapHandlerUp
+                                        //                                            onLongPressed: {
+                                        //                                                console.log("onLongPressed")
+                                        //                                            }//
 
-                                            onDoubleTapped: {
-                                                console.log("onDoubleTapped")
-                                            }//
-                                        }//
+                                        //                                            onTapped: {
+                                        //                                                console.log("onTapped")
+                                        //                                            }//
+
+                                        //                                            onDoubleTapped: {
+                                        //                                                console.log("onDoubleTapped")
+                                        //                                            }//
+                                        //                                        }//
+
+                                        states: [
+                                            State {
+                                                name: "STATE_A"
+                                                when: MachineData.sashWindowMotorizeState === MachineApi.MOTOR_SASH_STATE_UP
+                                                PropertyChanges {
+                                                    target: upSashMotorizeImage
+                                                    source: "/UI/Pictures/controll/Button_Up_Run.png"
+                                                }
+                                            }
+                                        ]
                                     }//
 
                                     Image {
+                                        id: downSashMotorizeImage
                                         opacity: tapHandlerDown.pressed ? 0.5 : 1
                                         source: "../../Pictures/controll/Button_Down.png"
 
-                                        TapHandler {
+                                        MouseArea {
                                             id: tapHandlerDown
-                                            onLongPressed: {
-                                                console.log("onLongPressed")
-                                            }//
+                                            anchors.fill: parent
+                                            onPressAndHold: {
+                                                MachineApi.setSashWindowMotorizeState(MachineApi.MOTOR_SASH_STATE_DOWN)
+                                            }
+                                            onReleased: {
+                                                MachineApi.setSashWindowMotorizeState(MachineApi.MOTOR_SASH_STATE_OFF)
+                                            }
+                                        }
 
-                                            onTapped: {
-                                                console.log("onTapped")
-                                            }//
+                                        //                                        TapHandler {
+                                        //                                            id: tapHandlerDown
+                                        //                                            onLongPressed: {
+                                        //                                                console.log("onLongPressed")
 
-                                            onDoubleTapped: {
-                                                console.log("onDoubleTapped")
-                                            }//
-                                        }//
+                                        //                                            }//
+
+                                        //                                            onTapped: {
+                                        //                                                console.log("onTapped")
+                                        //                                            }//
+
+                                        //                                            onDoubleTapped: {
+                                        //                                                console.log("onDoubleTapped")
+                                        //                                            }//
+                                        //                                        }//
+
+                                        states: [
+                                            State {
+                                                name: "STATE_A"
+                                                when: MachineData.sashWindowMotorizeState === MachineApi.MOTOR_SASH_STATE_DOWN
+                                                PropertyChanges {
+                                                    target: downSashMotorizeImage
+                                                    source: "/UI/Pictures/controll/Button_Down_Run.png"
+                                                }
+                                            }
+                                        ]
                                     }//
                                 }//
                             }//
@@ -448,7 +525,7 @@ ViewApp {
                                 sourceImage: "/UI/Pictures/controll/Menu_W.png"
 
                                 tapHandler.onTapped: {
-                                    MachineApi.setup(MachineData)
+
                                 }
                             }//
                         }//
@@ -464,21 +541,24 @@ ViewApp {
                                 width: parent.width > 200 ? 200 : parent.width
 
                                 sourceImage: "/UI/Pictures/controll/Fan_W.png"
+                                //                                stateInterlock: true
 
                                 tapHandler.onTapped: {
-                                    MachineApi.setBlowerState(1)
-                                }
+                                    //                                    let currentState = MachineData.blowerDownflowState
+                                    //                                    if (currentState) {
+                                    //                                        MachineApi.setBlowerState(MachineApi.FAN_STATE_OFF);
+                                    //                                    }
+                                    //                                    else {
+                                    //                                        MachineApi.setBlowerState(MachineApi.FAN_STATE_ON);
+                                    //                                    }
 
-                                tapHandler.onLongPressed: {
-                                    MachineApi.setBlowerState(0)
+                                    var intent = IntentApp.create("qrc:/UI/Pages/FanPinPage/FanPinPage.qml", {"message":""})
+                                    startView(intent)
                                 }
-
-                                readonly property string stateNone: ""
-                                readonly property string stateA:    "STATE_A"
 
                                 states: [
                                     State {
-                                        name: fanButton.stateA
+                                        name: "STATE_A"
                                         when: MachineData.blowerDownflowState
                                         PropertyChanges {
                                             target: fanButton
@@ -494,6 +574,7 @@ ViewApp {
                             Layout.fillWidth: true
 
                             CusComPage.ControlButtonApp {
+                                id: lightButton
                                 anchors.centerIn: parent
                                 height: parent.height
                                 width: parent.width > 200 ? 200 : parent.width
@@ -501,9 +582,30 @@ ViewApp {
                                 sourceImage: "/UI/Pictures/controll/Light_W.png"
 
                                 tapHandler.onLongPressed: {
+                                    let currentState = MachineData.lightState
+                                    if (!currentState) {
+                                        MachineApi.setLightState(!currentState);
+                                    }
+
                                     var intent = IntentApp.create("/UI/Pages/LightIntensityPage/LightIntensityPage.qml", {"message":""})
                                     startView(intent)
                                 }
+
+                                tapHandler.onTapped: {
+                                    let currentState = MachineData.lightState
+                                    MachineApi.setLightState(!currentState);
+                                }
+
+                                states: [
+                                    State {
+                                        name: "STATE_A"
+                                        when: MachineData.lightState
+                                        PropertyChanges {
+                                            target: lightButton
+                                            sourceImage: "/UI/Pictures/controll/Light_G.png"
+                                        }
+                                    }
+                                ]
                             }//
                         }//
 
@@ -512,11 +614,28 @@ ViewApp {
                             Layout.fillWidth: true
 
                             CusComPage.ControlButtonApp {
+                                id: socketButton
                                 anchors.centerIn: parent
                                 height: parent.height
                                 width: parent.width > 200 ? 200 : parent.width
 
                                 sourceImage: "/UI/Pictures/controll/Socket_W.png"
+
+                                tapHandler.onTapped: {
+                                    let currentState = MachineData.socketState
+                                    MachineApi.setSocketState(!currentState);
+                                }
+
+                                states: [
+                                    State {
+                                        name: "STATE_A"
+                                        when: MachineData.socketState
+                                        PropertyChanges {
+                                            target: socketButton
+                                            sourceImage: "/UI/Pictures/controll/Socket_G.png"
+                                        }
+                                    }
+                                ]
                             }//
                         }//
 
@@ -525,11 +644,28 @@ ViewApp {
                             Layout.fillWidth: true
 
                             CusComPage.ControlButtonApp {
+                                id: gasButton
                                 anchors.centerIn: parent
                                 height: parent.height
                                 width: parent.width > 200 ? 200 : parent.width
 
                                 sourceImage: "/UI/Pictures/controll/Gas_W.png"
+
+                                tapHandler.onTapped: {
+                                    let currentState = MachineData.gasState
+                                    MachineApi.setGasState(!currentState);
+                                }
+
+                                states: [
+                                    State {
+                                        name: "STATE_A"
+                                        when: MachineData.gasState
+                                        PropertyChanges {
+                                            target: gasButton
+                                            sourceImage: "/UI/Pictures/controll/Gas_G.png"
+                                        }
+                                    }
+                                ]
                             }//
                         }//
 
@@ -538,11 +674,28 @@ ViewApp {
                             Layout.fillWidth: true
 
                             CusComPage.ControlButtonApp {
+                                id: uvButton
                                 anchors.centerIn: parent
                                 height: parent.height
                                 width: parent.width > 200 ? 200 : parent.width
 
                                 sourceImage: "/UI/Pictures/controll/UV_W.png"
+
+                                tapHandler.onTapped: {
+                                    let currentState = MachineData.uvState
+                                    MachineApi.setUvState(!currentState);
+                                }
+
+                                states: [
+                                    State {
+                                        name: "STATE_A"
+                                        when: MachineData.uvState
+                                        PropertyChanges {
+                                            target: uvButton
+                                            sourceImage: "/UI/Pictures/controll/UV_G.png"
+                                        }
+                                    }
+                                ]
                             }//
                         }//
 
@@ -551,11 +704,28 @@ ViewApp {
                             Layout.fillWidth: true
 
                             CusComPage.ControlButtonApp {
+                                id: muteAlarmButton
                                 anchors.centerIn: parent
                                 height: parent.height
                                 width: parent.width > 200 ? 200 : parent.width
 
                                 sourceImage: "/UI/Pictures/controll/Mute_W.png"
+
+                                tapHandler.onTapped: {
+                                    let currentState = MachineData.muteAlarmState
+                                    //                                    MachineApi.setSocketState(!currentState);
+                                }
+
+                                states: [
+                                    State {
+                                        name: "STATE_A"
+                                        when: MachineData.muteAlarmState
+                                        PropertyChanges {
+                                            target: muteAlarmButton
+                                            sourceImage: "/UI/Pictures/controll/Mute_W.png"
+                                        }
+                                    }
+                                ]
                             }//
                         }//
                     }//

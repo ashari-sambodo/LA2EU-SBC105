@@ -4,11 +4,11 @@
 #include "../ClassManager.h"
 #include "BoardIO/Drivers/PWMpca9685/PWMpca9685.h"
 
-class DigitalOutManager : public ClassManager
+class DigitalOut : public ClassManager
 {
     Q_OBJECT
 public:
-    explicit DigitalOutManager(QObject *parent = nullptr);
+    explicit DigitalOut(QObject *parent = nullptr);
 
     void routineTask(int parameter = 0) override;
 

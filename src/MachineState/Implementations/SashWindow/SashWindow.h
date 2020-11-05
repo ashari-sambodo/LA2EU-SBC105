@@ -3,11 +3,11 @@
 #include "../ClassManager.h"
 #include "BoardIO/Drivers/DIOpca9674/DIOpca9674.h"
 
-class SashManager : public ClassManager
+class SashWindow : public ClassManager
 {
     Q_OBJECT
 public:
-    explicit SashManager(QObject *parent = nullptr);
+    explicit SashWindow(QObject *parent = nullptr);
 
     void routineTask(int parameter = 0) override;
 

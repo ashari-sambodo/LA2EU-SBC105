@@ -31,7 +31,7 @@ Rectangle {
             Item {
                 id: statusLabelItem
                 Layout.fillHeight: true
-                Layout.minimumWidth: 170
+                Layout.minimumWidth: 200
 
                 TextApp {
                     id: labelText

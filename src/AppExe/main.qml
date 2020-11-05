@@ -25,11 +25,12 @@ ApplicationWindow {
 
         Loader {
             anchors.fill: parent
-            active: MachineData.alarmDownflowHigh
-                    || MachineData.alarmDownflowLow
-                    || MachineData.alarmInflowLow
-                    || MachineData.alarmSashUnsafe
-                    || MachineData.alarmSashError
+            active: true
+            //            active: MachineData.alarmDownflowHigh
+            //                    || MachineData.alarmDownflowLow
+            //                    || MachineData.alarmInflowLow
+            //                    || MachineData.alarmSashUnsafe
+            //                    || MachineData.alarmSashError
             sourceComponent: Rectangle {
                 id: backgroundOverlay
                 anchors.fill: parent

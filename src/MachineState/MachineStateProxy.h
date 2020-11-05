@@ -42,6 +42,45 @@ public slots:
     /// API for Cabinet operational
     void setBlowerState(short state);
 
+    void setLightIntensity(short lightIntensity);
+
+    void setLightState(short lightState);
+
+    void setSocketState(short socketState);
+
+    void setGasState(short gasState);
+
+    void setUvState(short uvState);
+
+    void setSashWindowMotorizeState(short sashMotorizeState);
+
+    void setInflowAdcPointFactory(short point, int adc);
+    void setInflowAdcPointField(short point, int adc);
+    void setInflowVelocityPointFactory(short point, float value);
+    void setInflowVelocityPointField(short point, float value);
+    ///
+    void setInflowConstant(int ifaConstant);
+    void setInflowTemperatureFactory(double ifaTemperatureFactory);
+    void setInflowTemperatureADCFactory(int ifaTemperatureADCFactory);
+    void setInflowTemperatureField(double ifaTemperatureField);
+    void setInflowTemperatureADCField(int ifaTemperatureADCField);
+    void setInflowLowLimitVelocity(double ifaLowLimitVelocity);
+
+    void setDownflowAdcPointFactory(short point, int adc);
+    void setDownflowAdcPointField(short point, int adc);
+    void setDownflowVelocityPointFactory(short point, float value);
+    void setDownflowVelocityPointField(short point, float value);
+    ///
+    void setDownflowConstant(int dfaConstant);
+    void setDownflowTemperatureFactory(double dfaTemperatureFactory);
+    void setDownflowTemperatureField(double dfaTemperatureField);
+    void setDownflowTemperatureADCField(int dfaTemperatureADCField);
+    void setDownflowTemperatureADCFactory(int dfaTemperatureADCFactory);
+    void setDownflowLowLimitVelocity(double dfaLowLimitVelocity);
+    void setDownflowHigLimitVelocity(double dfaHigLimitVelocity);
+
+    void setAirflowCalibration(short value);
+
 private slots:
     void doStopping();
 
