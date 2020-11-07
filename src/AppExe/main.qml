@@ -23,47 +23,47 @@ ApplicationWindow {
         id: backgroundImage
         source: "/UI/Pictures/Background-Blue.png"
 
-        Loader {
-            anchors.fill: parent
-            active: true
-            //            active: MachineData.alarmDownflowHigh
-            //                    || MachineData.alarmDownflowLow
-            //                    || MachineData.alarmInflowLow
-            //                    || MachineData.alarmSashUnsafe
-            //                    || MachineData.alarmSashError
-            sourceComponent: Rectangle {
-                id: backgroundOverlay
-                anchors.fill: parent
-                color: "red"
-                opacity: 0.7
+        //        Loader {
+        //            anchors.fill: parent
+        //            active: true
+        //            //            active: MachineData.alarmDownflowHigh
+        //            //                    || MachineData.alarmDownflowLow
+        //            //                    || MachineData.alarmInflowLow
+        //            //                    || MachineData.alarmSashUnsafe
+        //            //                    || MachineData.alarmSashError
+        //            sourceComponent: Rectangle {
+        //                id: backgroundOverlay
+        //                anchors.fill: parent
+        //                color: "red"
+        //                opacity: 0.7
 
-                /// blinking
-                SequentialAnimation {
-                    running: true
-                    loops: Animation.Infinite
-                    ScriptAction {
-                        script: {
-                            backgroundOverlay.color = "red"
-                        }//
-                    }//
+        //                /// blinking
+        //                SequentialAnimation {
+        //                    running: true
+        //                    loops: Animation.Infinite
+        //                    ScriptAction {
+        //                        script: {
+        //                            backgroundOverlay.color = "red"
+        //                        }//
+        //                    }//
 
-                    PauseAnimation {
-                        duration: 2000
-                    }//
+        //                    PauseAnimation {
+        //                        duration: 2000
+        //                    }//
 
-                    ScriptAction {
-                        script: {
-                            backgroundOverlay.color = "black"
-                        }
-                    }//
+        //                    ScriptAction {
+        //                        script: {
+        //                            backgroundOverlay.color = "black"
+        //                        }
+        //                    }//
 
-                    PauseAnimation {
-                        duration: 1000
-                    }//
-                }//
-            }//
-        }//
-    }
+        //                    PauseAnimation {
+        //                        duration: 1000
+        //                    }//
+        //                }//
+        //            }//
+        //        }//
+    }//
 
     StackViewApp {
         id: mainStackView

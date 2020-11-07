@@ -95,8 +95,8 @@ ViewApp {
                             id: topBarStatusRectangle
                             anchors.fill: parent
                             radius: 5
-                            //                            color: "green"
-                            color: "red"
+                            color: "green"
+                            //                            color: "red"
                             border.color: "gray"
                             border.width: 2
 
@@ -107,8 +107,8 @@ ViewApp {
                                 verticalAlignment: Text.AlignVCenter
                                 font.pixelSize: 36
                                 font.bold: true
-                                //                                text: "CABINET IS SAFE"
-                                text: "WARNING: AIRFLOW IS FAIL"
+                                text: "CABINET IS SAFE"
+                                //                                text: "WARNING: AIRFLOW IS FAIL"
                             }//
                         }//
                     }//
@@ -330,37 +330,37 @@ ViewApp {
                                         }//
                                     }//
 
-                                    Item {
-                                        height: 60
-                                        width: centerContentItem.width
+                                    //                                    Item {
+                                    //                                        height: 60
+                                    //                                        width: centerContentItem.width
 
-                                        CusComPage.StatusHorizontalApp {
-                                            height: parent.height
-                                            width: parent.width + 150
-                                            x: -150
-                                            contentItem.x : 150
+                                    //                                        CusComPage.StatusHorizontalApp {
+                                    //                                            height: parent.height
+                                    //                                            width: parent.width + 150
+                                    //                                            x: -150
+                                    //                                            contentItem.x : 150
 
-                                            textLabel: qsTr("Downflow:")
-                                            textValue: "0.33 m/s"
-                                        }//
-                                    }//
+                                    //                                            textLabel: qsTr("Downflow:")
+                                    //                                            textValue: "0.33 m/s"
+                                    //                                        }//
+                                    //                                    }//
 
-                                    Item {
-                                        height: 60
-                                        width: centerContentItem.width
+                                    //                                    Item {
+                                    //                                        height: 60
+                                    //                                        width: centerContentItem.width
 
-                                        CusComPage.StatusHorizontalApp {
-                                            height: parent.height
-                                            width: parent.width + 150
-                                            x: -150
-                                            contentItem.x : 150
+                                    //                                        CusComPage.StatusHorizontalApp {
+                                    //                                            height: parent.height
+                                    //                                            width: parent.width + 150
+                                    //                                            x: -150
+                                    //                                            contentItem.x : 150
 
-                                            textLabel: qsTr("Inflow:")
-                                            textValue: "0.42 m/s (Too Low)"
+                                    //                                            textLabel: qsTr("Inflow:")
+                                    //                                            textValue: "0.42 m/s (Too Low)"
 
-                                            hightlighted: true
-                                        }//
-                                    }//
+                                    //                                            hightlighted: true
+                                    //                                        }//
+                                    //                                    }//
                                     //                                    }//
                                 }//
                             }//
@@ -525,7 +525,10 @@ ViewApp {
                                 sourceImage: "/UI/Pictures/controll/Menu_W.png"
 
                                 tapHandler.onTapped: {
-
+                                    var intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {
+                                                                      "exitCode": ExitCode.ECC_NORMAL_EXIT_OPEN_SBCUPDATE
+                                                                  })
+                                    startRootView(intent)
                                 }
                             }//
                         }//
@@ -552,7 +555,7 @@ ViewApp {
                                     //                                        MachineApi.setBlowerState(MachineApi.FAN_STATE_ON);
                                     //                                    }
 
-                                    var intent = IntentApp.create("qrc:/UI/Pages/FanPinPage/FanPinPage.qml", {"message":""})
+                                    var intent = IntentApp.create("qrc:/UI/Pages/FanSpeedPage/FanSpeedPage.qml", {"message":""})
                                     startView(intent)
                                 }
 

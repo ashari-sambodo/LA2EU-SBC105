@@ -236,6 +236,24 @@ void MachineData::initSingleton()
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 }
 
+void MachineData::setBlowerDownflowDutyCycle(short blowerDownflowDutyCycle)
+{
+    if (m_blowerDownflowDutyCycle == blowerDownflowDutyCycle)
+        return;
+
+    m_blowerDownflowDutyCycle = blowerDownflowDutyCycle;
+    emit blowerDownflowDutyCycleChanged(m_blowerDownflowDutyCycle);
+}
+
+void MachineData::setBlowerExhaustDutyCycle(short blowerExhaustDutyCycle)
+{
+    if (m_blowerExhaustDutyCycle == blowerExhaustDutyCycle)
+        return;
+
+    m_blowerExhaustDutyCycle = blowerExhaustDutyCycle;
+    emit blowerExhaustDutyCycleChanged(m_blowerExhaustDutyCycle);
+}
+
 void MachineData::setDownflowTemperatureADCFactory(int dfaTemperatureADCFactory)
 {
     m_dfaTemperatureADCFactory = dfaTemperatureADCFactory;
@@ -541,6 +559,16 @@ void MachineData::setMeasurementUnit(short measurementUnit)
 
     m_measurementUnit = measurementUnit;
     emit measurementUnitChanged(m_measurementUnit);
+}
+
+short MachineData::getBlowerDownflowDutyCycle() const
+{
+    return m_blowerDownflowDutyCycle;
+}
+
+short MachineData::getBlowerExhaustDutyCycle() const
+{
+    return m_blowerExhaustDutyCycle;
 }
 
 void MachineData::setDownflowTemperatureADC(int dfaTemperatureADC)

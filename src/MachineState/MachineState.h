@@ -42,6 +42,8 @@ public slots:
 
     /// API for Cabinet operational
     void setBlowerState(short state);
+    void setBlowerDownflowDutyCycle(short state);
+    void setBlowerExhaustDutyCycle(short state);
 
     void setLightIntensity(short lightIntensity);
 

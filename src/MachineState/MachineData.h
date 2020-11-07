@@ -44,6 +44,16 @@ class MachineData : public QObject
                //               WRITE setBlowerExhaustState
                NOTIFY blowerExhaustStateChanged)
 
+    Q_PROPERTY(short blowerDownflowDutyCycle
+               READ getBlowerDownflowDutyCycle
+               //               WRITE setBlowerDownflowDutyCycle
+               NOTIFY blowerDownflowDutyCycleChanged)
+
+    Q_PROPERTY(short blowerExhaustDutyCycle
+               READ getBlowerExhaustDutyCycle
+               //               WRITE setBlowerExhaustDutyCycle
+               NOTIFY blowerExhaustDutyCycleChanged)
+
     Q_PROPERTY(short lightState
                READ getLightState
                //               WRITE setLightState
@@ -377,6 +387,14 @@ public:
 
     void setMeasurementUnit(short measurementUnit);
 
+    short getBlowerDownflowDutyCycle() const;
+
+    short getBlowerExhaustDutyCycle() const;
+
+    void setBlowerDownflowDutyCycle(short blowerDownflowDutyCycle);
+
+    void setBlowerExhaustDutyCycle(short blowerExhaustDutyCycle);
+
 public slots:
     void initSingleton();
 
@@ -442,6 +460,10 @@ signals:
     void temperatureValueStrChanged(QString temperatureValueStr);
 
     void measurementUnitChanged(short measurementUnit);
+
+    void blowerDownflowDutyCycleChanged(short blowerDownflowDutyCycle);
+
+    void blowerExhaustDutyCycleChanged(short blowerExhaustDutyCycle);
 
 private:
     ///
@@ -517,7 +539,10 @@ private:
     double  m_dfaTemperatureField;
     int     m_dfaTemperatureADCField;
     ////
-    double  m_dfaLowLimitVelocity;
-    double  m_dfaHigLimitVelocity;
+    double  m_dfaLowLimitVelocity = 0;
+    double  m_dfaHigLimitVelocity = 0;
+
+    short m_blowerDownflowDutyCycle = 0;
+    short m_blowerExhaustDutyCycle = 0;
 };
 

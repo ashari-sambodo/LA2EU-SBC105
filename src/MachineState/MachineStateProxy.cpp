@@ -113,6 +113,34 @@ void MachineStateProxy::setBlowerState(short state)
     Qt::QueuedConnection);
 }
 
+void MachineStateProxy::setBlowerDownflowDutyCycle(short state)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << state;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineState.data(), [&, state](){
+        m_machineState->setBlowerDownflowDutyCycle(state);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineStateProxy::setBlowerExhaustDutyCycle(short state)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << state;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineState.data(), [&, state](){
+        m_machineState->setBlowerExhaustDutyCycle(state);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineStateProxy::setLightIntensity(short lightIntensity)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();

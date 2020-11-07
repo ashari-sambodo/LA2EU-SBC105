@@ -256,6 +256,11 @@ void MachineState::setup()
     {
         m_blowerExhaust.reset(new DeviceAnalogCom);
         m_blowerExhaust->setSubBoard(m_boardAnalogOut1.data());
+
+        connect(m_blowerExhaust.data(), &DeviceAnalogCom::stateChanged,
+                pData, [&](int newVal){
+            pData->setBlowerExhaustDutyCycle(newVal);
+        });
     }
 
     /// Blower Downflow
@@ -354,6 +359,7 @@ void MachineState::setup()
             qDebug() << "m_blowerDownflow::dutyCycleChanged" << thread();
             qDebug() << "m_blowerDownflow::dutyCycleChanged" << dutyCycle;
             pData->setBlowerDownflowState(dutyCycle);
+            pData->setBlowerDownflowDutyCycle(dutyCycle);
         });
 
         /// Do move blower routine task / looping to independent thread
@@ -636,8 +642,26 @@ void MachineState::setBlowerState(short state)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << state;
 
-    _setBlowerDowndlowDutyCycle(state ? 24 : 0);
     m_blowerExhaust->setState(state ? 51 : 0);
+    m_blowerExhaust->routineTask();
+
+    _setBlowerDowndlowDutyCycle(state ? 24 : 0);
+}
+
+void MachineState::setBlowerDownflowDutyCycle(short state)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << state;
+
+    _setBlowerDowndlowDutyCycle(state);
+}
+
+void MachineState::setBlowerExhaustDutyCycle(short state)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << state;
+
+    m_blowerExhaust->setState(state);
 }
 
 void MachineState::setLightIntensity(short lightIntensity)
@@ -691,10 +715,6 @@ void MachineState::setSashMotorizeState(short state)
 
 void MachineState::_setBlowerDowndlowDutyCycle(short dutyCycle)
 {
-    /// Turn on blower exhaust first
-    m_blowerExhaust->setState(dutyCycle);
-    m_blowerExhaust->routineTask();
-
     /// Then turned on downflow blower
     /// append pending task to target object and target thread
     QMetaObject::invokeMethod(m_blowerDownflow.data(),[&, dutyCycle]{
