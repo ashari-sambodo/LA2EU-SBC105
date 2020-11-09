@@ -127,7 +127,7 @@ void MachineStateProxy::setBlowerDownflowDutyCycle(short state)
     Qt::QueuedConnection);
 }
 
-void MachineStateProxy::setBlowerExhaustDutyCycle(short state)
+void MachineStateProxy::setBlowerInflowDutyCycle(short state)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << state;
@@ -136,7 +136,7 @@ void MachineStateProxy::setBlowerExhaustDutyCycle(short state)
     /// this method better in error checking during compiling
     /// this method will append pending task to target object then execute on target thread
     QMetaObject::invokeMethod(m_machineState.data(), [&, state](){
-        m_machineState->setBlowerExhaustDutyCycle(state);
+        m_machineState->setBlowerInflowDutyCycle(state);
     },
     Qt::QueuedConnection);
 }
@@ -265,7 +265,7 @@ void MachineStateProxy::setInflowConstant(int ifaConstant)
     Qt::QueuedConnection);
 }
 
-void MachineStateProxy::setInflowTemperatureFactory(double ifaTemperatureFactory)
+void MachineStateProxy::setInflowTemperatureFactory(float ifaTemperatureFactory)
 {
     QMetaObject::invokeMethod(m_machineState.data(), [&, ifaTemperatureFactory](){
         m_machineState->setInflowTemperatureFactory(ifaTemperatureFactory);
@@ -281,7 +281,7 @@ void MachineStateProxy::setInflowTemperatureADCFactory(int ifaTemperatureADCFact
     Qt::QueuedConnection);
 }
 
-void MachineStateProxy::setInflowTemperatureField(double ifaTemperatureField)
+void MachineStateProxy::setInflowTemperatureField(float ifaTemperatureField)
 {
     QMetaObject::invokeMethod(m_machineState.data(), [&, ifaTemperatureField](){
         m_machineState->setInflowTemperatureField(ifaTemperatureField);
@@ -297,7 +297,7 @@ void MachineStateProxy::setInflowTemperatureADCField(int ifaTemperatureADCField)
     Qt::QueuedConnection);
 }
 
-void MachineStateProxy::setInflowLowLimitVelocity(double ifaLowLimitVelocity)
+void MachineStateProxy::setInflowLowLimitVelocity(float ifaLowLimitVelocity)
 {
     QMetaObject::invokeMethod(m_machineState.data(), [&, ifaLowLimitVelocity](){
         m_machineState->setInflowLowLimitVelocity(ifaLowLimitVelocity);
@@ -345,7 +345,7 @@ void MachineStateProxy::setDownflowConstant(int dfaConstant)
     Qt::QueuedConnection);
 }
 
-void MachineStateProxy::setDownflowTemperatureFactory(double dfaTemperatureFactory)
+void MachineStateProxy::setDownflowTemperatureFactory(float dfaTemperatureFactory)
 {
     QMetaObject::invokeMethod(m_machineState.data(), [&, dfaTemperatureFactory](){
         m_machineState->setDownflowConstant(dfaTemperatureFactory);
@@ -353,7 +353,7 @@ void MachineStateProxy::setDownflowTemperatureFactory(double dfaTemperatureFacto
     Qt::QueuedConnection);
 }
 
-void MachineStateProxy::setDownflowTemperatureField(double dfaTemperatureField)
+void MachineStateProxy::setDownflowTemperatureField(float dfaTemperatureField)
 {
     QMetaObject::invokeMethod(m_machineState.data(), [&, dfaTemperatureField](){
         m_machineState->setDownflowConstant(dfaTemperatureField);
@@ -377,7 +377,7 @@ void MachineStateProxy::setDownflowTemperatureADCFactory(int dfaTemperatureADCFa
     Qt::QueuedConnection);
 }
 
-void MachineStateProxy::setDownflowLowLimitVelocity(double dfaLowLimitVelocity)
+void MachineStateProxy::setDownflowLowLimitVelocity(float dfaLowLimitVelocity)
 {
     QMetaObject::invokeMethod(m_machineState.data(), [&, dfaLowLimitVelocity](){
         m_machineState->setDownflowConstant(dfaLowLimitVelocity);
@@ -385,7 +385,7 @@ void MachineStateProxy::setDownflowLowLimitVelocity(double dfaLowLimitVelocity)
     Qt::QueuedConnection);
 }
 
-void MachineStateProxy::setDownflowHigLimitVelocity(double dfaHigLimitVelocity)
+void MachineStateProxy::setDownflowHigLimitVelocity(float dfaHigLimitVelocity)
 {
     QMetaObject::invokeMethod(m_machineState.data(), [&, dfaHigLimitVelocity](){
         m_machineState->setDownflowConstant(dfaHigLimitVelocity);

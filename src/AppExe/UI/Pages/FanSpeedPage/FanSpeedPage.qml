@@ -49,11 +49,11 @@ ViewApp {
 
                         TextApp {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "Exhaust: " + blowerExhaustSlider.value + "%"
+                            text: "Exhaust: " + blowerInflowSlider.value + "%"
                         }
 
                         Slider {
-                            id: blowerExhaustSlider
+                            id: blowerInflowSlider
                             //                            anchors.horizontalCenter: parent.horizontalCenter
                             width: 500
                             stepSize: 1
@@ -62,7 +62,7 @@ ViewApp {
 
                             onValueChanged: {
                                 if (pressed) {
-                                    MachineApi.setBlowerExhaustDutyCycle(blowerExhaustSlider.value)
+                                    MachineApi.setBlowerInflowDutyCycle(blowerInflowSlider.value)
                                 }//
                             }//
                         }//
@@ -141,7 +141,7 @@ ViewApp {
                 Component.onCompleted: {
                     console.log("StackView.Active");
 
-                    blowerExhaustSlider.value = MachineData.blowerExhaustDutyCycle
+                    blowerInflowSlider.value = MachineData.blowerInflowDutyCycle
                     blowerDownflowSlider.value = MachineData.blowerDownflowDutyCycle
                 }
 

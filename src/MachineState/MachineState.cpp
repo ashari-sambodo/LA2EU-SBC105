@@ -254,12 +254,12 @@ void MachineState::setup()
 
     /// Blower Exhaust
     {
-        m_blowerExhaust.reset(new DeviceAnalogCom);
-        m_blowerExhaust->setSubBoard(m_boardAnalogOut1.data());
+        m_blowerInflow.reset(new DeviceAnalogCom);
+        m_blowerInflow->setSubBoard(m_boardAnalogOut1.data());
 
-        connect(m_blowerExhaust.data(), &DeviceAnalogCom::stateChanged,
+        connect(m_blowerInflow.data(), &DeviceAnalogCom::stateChanged,
                 pData, [&](int newVal){
-            pData->setBlowerExhaustDutyCycle(newVal);
+            pData->setBlowerInflowDutyCycle(newVal);
         });
     }
 
@@ -512,7 +512,7 @@ void MachineState::setup()
             pData->setInflowAdc(newVal);
         });
         connect(m_airflowInflow.data(), &AirflowVelocity::velocityChanged,
-                pData, [&](double newVal){
+                pData, [&](float newVal){
             QString valueStr = QString::asprintf("%.2f°C", newVal);
             pData->setInflowVelocityStr(valueStr);
         });
@@ -531,7 +531,7 @@ void MachineState::setup()
             pData->setDownflowAdc(newVal);
         });
         connect(m_airflowDownflow.data(), &AirflowVelocity::velocityChanged,
-                pData, [&](double newVal){
+                pData, [&](float newVal){
             QString valueStr = QString::asprintf("%.2f°C", newVal);
             pData->setDownflowVelocityStr(valueStr);
         });
@@ -598,7 +598,7 @@ void MachineState::loop()
     /// ACTUATOR
     /// put any actuator routine task on here
     m_sasWindowMotorize->routineTask();
-    m_blowerExhaust->routineTask();
+    m_blowerInflow->routineTask();
     m_light->routineTask();
     m_socket->routineTask();
     m_gas->routineTask();
@@ -642,8 +642,8 @@ void MachineState::setBlowerState(short state)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << state;
 
-    m_blowerExhaust->setState(state ? 51 : 0);
-    m_blowerExhaust->routineTask();
+    m_blowerInflow->setState(state ? 51 : 0);
+    m_blowerInflow->routineTask();
 
     _setBlowerDowndlowDutyCycle(state ? 24 : 0);
 }
@@ -656,12 +656,12 @@ void MachineState::setBlowerDownflowDutyCycle(short state)
     _setBlowerDowndlowDutyCycle(state);
 }
 
-void MachineState::setBlowerExhaustDutyCycle(short state)
+void MachineState::setBlowerInflowDutyCycle(short state)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << state;
 
-    m_blowerExhaust->setState(state);
+    m_blowerInflow->setState(state);
 }
 
 void MachineState::setLightIntensity(short lightIntensity)
@@ -751,7 +751,7 @@ void MachineState::setInflowConstant(int ifaConstant)
     pData->setDownflowConstant(ifaConstant);
 }
 
-void MachineState::setInflowTemperatureFactory(double ifaTemperatureFactory)
+void MachineState::setInflowTemperatureFactory(float ifaTemperatureFactory)
 {
 
 }
@@ -761,7 +761,7 @@ void MachineState::setInflowTemperatureADCFactory(int ifaTemperatureADCFactory)
 
 }
 
-void MachineState::setInflowTemperatureField(double ifaTemperatureField)
+void MachineState::setInflowTemperatureField(float ifaTemperatureField)
 {
 
 }
@@ -771,7 +771,7 @@ void MachineState::setInflowTemperatureADCField(int ifaTemperatureADCField)
 
 }
 
-void MachineState::setInflowLowLimitVelocity(double ifaLowLimitVelocity)
+void MachineState::setInflowLowLimitVelocity(float ifaLowLimitVelocity)
 {
     pData->setInflowLowLimitVelocity(ifaLowLimitVelocity);
 }
@@ -803,12 +803,12 @@ void MachineState::setDownflowConstant(int dfaConstant)
 
 }
 
-void MachineState::setDownflowTemperatureFactory(double dfaTemperatureFactory)
+void MachineState::setDownflowTemperatureFactory(float dfaTemperatureFactory)
 {
 
 }
 
-void MachineState::setDownflowTemperatureField(double dfaTemperatureField)
+void MachineState::setDownflowTemperatureField(float dfaTemperatureField)
 {
 
 }
@@ -823,12 +823,12 @@ void MachineState::setDownflowTemperatureADCFactory(int dfaTemperatureADCFactory
 
 }
 
-void MachineState::setDownflowLowLimitVelocity(double dfaLowLimitVelocity)
+void MachineState::setDownflowLowLimitVelocity(float dfaLowLimitVelocity)
 {
     pData->setDownflowLowLimitVelocity(dfaLowLimitVelocity);
 }
 
-void MachineState::setDownflowHigLimitVelocity(double dfaHigLimitVelocity)
+void MachineState::setDownflowHigLimitVelocity(float dfaHigLimitVelocity)
 {
     pData->setDownflowHigLimitVelocity(dfaHigLimitVelocity);
 }

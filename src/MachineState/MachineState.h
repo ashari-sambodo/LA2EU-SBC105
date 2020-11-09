@@ -43,7 +43,7 @@ public slots:
     /// API for Cabinet operational
     void setBlowerState(short state);
     void setBlowerDownflowDutyCycle(short state);
-    void setBlowerExhaustDutyCycle(short state);
+    void setBlowerInflowDutyCycle(short state);
 
     void setLightIntensity(short lightIntensity);
 
@@ -63,11 +63,11 @@ public slots:
     void setInflowVelocityPointField(short point, float value);
     ///
     void setInflowConstant(int ifaConstant);
-    void setInflowTemperatureFactory(double ifaTemperatureFactory);
+    void setInflowTemperatureFactory(float ifaTemperatureFactory);
     void setInflowTemperatureADCFactory(int ifaTemperatureADCFactory);
-    void setInflowTemperatureField(double ifaTemperatureField);
+    void setInflowTemperatureField(float ifaTemperatureField);
     void setInflowTemperatureADCField(int ifaTemperatureADCField);
-    void setInflowLowLimitVelocity(double ifaLowLimitVelocity);
+    void setInflowLowLimitVelocity(float ifaLowLimitVelocity);
 
     void setDownflowAdcPointFactory(short point, int adc);
     void setDownflowAdcPointField(short point, int adc);
@@ -75,12 +75,12 @@ public slots:
     void setDownflowVelocityPointField(short point, float value);
     ///
     void setDownflowConstant(int dfaConstant);
-    void setDownflowTemperatureFactory(double dfaTemperatureFactory);
-    void setDownflowTemperatureField(double dfaTemperatureField);
+    void setDownflowTemperatureFactory(float dfaTemperatureFactory);
+    void setDownflowTemperatureField(float dfaTemperatureField);
     void setDownflowTemperatureADCField(int dfaTemperatureADCField);
     void setDownflowTemperatureADCFactory(int dfaTemperatureADCFactory);
-    void setDownflowLowLimitVelocity(double dfaLowLimitVelocity);
-    void setDownflowHigLimitVelocity(double dfaHigLimitVelocity);
+    void setDownflowLowLimitVelocity(float dfaLowLimitVelocity);
+    void setDownflowHigLimitVelocity(float dfaHigLimitVelocity);
 
     void setAirflowCalibration(short value);
 
@@ -123,7 +123,7 @@ private:
     /// Analog Output
     QScopedPointer<AOmcp4725>       m_boardAnalogOut1;
     ///
-    QScopedPointer<DeviceAnalogCom> m_blowerExhaust;
+    QScopedPointer<DeviceAnalogCom> m_blowerInflow;
 
     /// Analog Output
     QScopedPointer<AOmcp4725>       m_boardAnalogOut2;

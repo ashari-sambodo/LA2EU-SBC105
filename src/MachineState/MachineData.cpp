@@ -86,9 +86,9 @@ short MachineData::getBlowerDownflowState() const
     return m_blowerDownflowState;
 }
 
-short MachineData::getBlowerExhaustState() const
+short MachineData::getBlowerInflowState() const
 {
-    return m_blowerExhaustState;
+    return m_blowerInflowState;
 }
 
 short MachineData::getLightState() const
@@ -245,13 +245,13 @@ void MachineData::setBlowerDownflowDutyCycle(short blowerDownflowDutyCycle)
     emit blowerDownflowDutyCycleChanged(m_blowerDownflowDutyCycle);
 }
 
-void MachineData::setBlowerExhaustDutyCycle(short blowerExhaustDutyCycle)
+void MachineData::setBlowerInflowDutyCycle(short blowerInflowDutyCycle)
 {
-    if (m_blowerExhaustDutyCycle == blowerExhaustDutyCycle)
+    if (m_blowerInflowDutyCycle == blowerInflowDutyCycle)
         return;
 
-    m_blowerExhaustDutyCycle = blowerExhaustDutyCycle;
-    emit blowerExhaustDutyCycleChanged(m_blowerExhaustDutyCycle);
+    m_blowerInflowDutyCycle = blowerInflowDutyCycle;
+    emit blowerInflowDutyCycleChanged(m_blowerInflowDutyCycle);
 }
 
 void MachineData::setDownflowTemperatureADCFactory(int dfaTemperatureADCFactory)
@@ -264,12 +264,12 @@ void MachineData::setDownflowTemperatureADCField(int dfaTemperatureADCField)
     m_dfaTemperatureADCField = dfaTemperatureADCField;
 }
 
-void MachineData::setDownflowTemperatureField(double dfaTemperatureField)
+void MachineData::setDownflowTemperatureField(short dfaTemperatureField)
 {
     m_dfaTemperatureField = dfaTemperatureField;
 }
 
-void MachineData::setDownflowTemperatureFactory(double dfaTemperatureFactory)
+void MachineData::setDownflowTemperatureFactory(short dfaTemperatureFactory)
 {
     m_dfaTemperatureFactory = dfaTemperatureFactory;
 }
@@ -294,13 +294,13 @@ void MachineData::setBlowerDownflowState(short blowerDownflowState)
     emit blowerDownflowStateChanged(m_blowerDownflowState);
 }
 
-void MachineData::setBlowerExhaustState(short blowerExhaustState)
+void MachineData::setBlowerInflowState(short blowerInflowState)
 {
-    if (m_blowerExhaustState == blowerExhaustState)
+    if (m_blowerInflowState == blowerInflowState)
         return;
 
-    m_blowerExhaustState = blowerExhaustState;
-    emit blowerExhaustStateChanged(m_blowerExhaustState);
+    m_blowerInflowState = blowerInflowState;
+    emit blowerInflowStateChanged(m_blowerInflowState);
 }
 
 void MachineData::setLightState(short lightState)
@@ -566,9 +566,9 @@ short MachineData::getBlowerDownflowDutyCycle() const
     return m_blowerDownflowDutyCycle;
 }
 
-short MachineData::getBlowerExhaustDutyCycle() const
+short MachineData::getBlowerInflowDutyCycle() const
 {
-    return m_blowerExhaustDutyCycle;
+    return m_blowerInflowDutyCycle;
 }
 
 void MachineData::setDownflowTemperatureADC(int dfaTemperatureADC)
@@ -576,7 +576,7 @@ void MachineData::setDownflowTemperatureADC(int dfaTemperatureADC)
     m_dfaTemperatureADC = dfaTemperatureADC;
 }
 
-void MachineData::setDownflowTemperature(double dfaTemperature)
+void MachineData::setDownflowTemperature(short dfaTemperature)
 {
     m_dfaTemperature = dfaTemperature;
 }
@@ -586,7 +586,7 @@ int MachineData::getDownflowTemperatureADC() const
     return m_dfaTemperatureADC;
 }
 
-double MachineData::getDownflowTemperature() const
+short MachineData::getDownflowTemperature() const
 {
     return m_dfaTemperature;
 }
@@ -596,7 +596,7 @@ int MachineData::getDownflowTemperatureADCFactory() const
     return m_dfaTemperatureADCFactory;
 }
 
-double MachineData::getDownflowTemperatureFactory() const
+short MachineData::getDownflowTemperatureFactory() const
 {
     return m_dfaTemperatureFactory;
 }
@@ -606,37 +606,37 @@ int MachineData::getDownflowTemperatureADCField() const
     return m_dfaTemperatureADCField;
 }
 
-double MachineData::getDownflowTemperatureField() const
+short MachineData::getDownflowTemperatureField() const
 {
     return m_dfaTemperatureField;
 }
 
-double MachineData::getDownflowHighLimitVelocity() const
+float MachineData::getDownflowHighLimitVelocity() const
 {
     return m_dfaHigLimitVelocity;
 }
 
-void MachineData::setDownflowHigLimitVelocity(double dfaHigLimitVelocity)
+void MachineData::setDownflowHigLimitVelocity(float dfaHigLimitVelocity)
 {
     m_dfaHigLimitVelocity = dfaHigLimitVelocity;
 }
 
-double MachineData::getDownflowLowLimitVelocity() const
+float MachineData::getDownflowLowLimitVelocity() const
 {
     return m_dfaLowLimitVelocity;
 }
 
-void MachineData::setDownflowLowLimitVelocity(double dfaLowLimitVelocity)
+void MachineData::setDownflowLowLimitVelocity(float dfaLowLimitVelocity)
 {
     m_dfaLowLimitVelocity = dfaLowLimitVelocity;
 }
 
-double MachineData::getInflowLowLimitVelocity() const
+float MachineData::getInflowLowLimitVelocity() const
 {
     return m_ifaLowLimitVelocity;
 }
 
-void MachineData::setInflowLowLimitVelocity(double ifaLowLimitVelocity)
+void MachineData::setInflowLowLimitVelocity(float ifaLowLimitVelocity)
 {
     m_ifaLowLimitVelocity = ifaLowLimitVelocity;
 }
@@ -651,12 +651,12 @@ void MachineData::setInflowTemperatureADCField(int ifaTemperatureADCField)
     m_ifaTemperatureADCField = ifaTemperatureADCField;
 }
 
-double MachineData::getInflowTemperatureField() const
+short MachineData::getInflowTemperatureField() const
 {
     return m_ifaTemperatureField;
 }
 
-void MachineData::setInflowTemperatureField(double ifaTemperatureField)
+void MachineData::setInflowTemperatureField(short ifaTemperatureField)
 {
     m_ifaTemperatureField = ifaTemperatureField;
 }
@@ -671,12 +671,12 @@ void MachineData::setInflowTemperatureADCFactory(int ifaTemperatureADCFactory)
     m_ifaTemperatureADCFactory = ifaTemperatureADCFactory;
 }
 
-double MachineData::getInflowTemperatureFactory() const
+short MachineData::getInflowTemperatureFactory() const
 {
     return m_ifaTemperatureFactory;
 }
 
-void MachineData::setInflowTemperatureFactory(double ifaTemperatureFactory)
+void MachineData::setInflowTemperatureFactory(float ifaTemperatureFactory)
 {
     m_ifaTemperatureFactory = ifaTemperatureFactory;
 }
@@ -691,12 +691,12 @@ void MachineData::setInflowTemperatureADC(int ifaTemperatureADC)
     m_ifaTemperatureADC = ifaTemperatureADC;
 }
 
-double MachineData::getInflowTemperature() const
+short MachineData::getInflowTemperature() const
 {
     return m_ifaTemperature;
 }
 
-void MachineData::setInflowTemperature(double ifaTemperature)
+void MachineData::setInflowTemperature(short ifaTemperature)
 {
     m_ifaTemperature = ifaTemperature;
 }

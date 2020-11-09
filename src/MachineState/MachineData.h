@@ -39,20 +39,20 @@ class MachineData : public QObject
                //               WRITE setBlowerDownflowState
                NOTIFY blowerDownflowStateChanged)
 
-    Q_PROPERTY(short blowerExhaustState
-               READ getBlowerExhaustState
-               //               WRITE setBlowerExhaustState
-               NOTIFY blowerExhaustStateChanged)
+    Q_PROPERTY(short blowerInflowState
+               READ getBlowerInflowState
+               //               WRITE setBlowerInflowState
+               NOTIFY blowerInflowStateChanged)
 
     Q_PROPERTY(short blowerDownflowDutyCycle
                READ getBlowerDownflowDutyCycle
                //               WRITE setBlowerDownflowDutyCycle
                NOTIFY blowerDownflowDutyCycleChanged)
 
-    Q_PROPERTY(short blowerExhaustDutyCycle
-               READ getBlowerExhaustDutyCycle
-               //               WRITE setBlowerExhaustDutyCycle
-               NOTIFY blowerExhaustDutyCycleChanged)
+    Q_PROPERTY(short blowerInflowDutyCycle
+               READ getBlowerInflowDutyCycle
+               //               WRITE setBlowerInflowDutyCycle
+               NOTIFY blowerInflowDutyCycleChanged)
 
     Q_PROPERTY(short lightState
                READ getLightState
@@ -214,7 +214,7 @@ public:
 
     short getBlowerDownflowState() const;
 
-    short getBlowerExhaustState() const;
+    short getBlowerInflowState() const;
 
     short getLightState() const;
 
@@ -281,12 +281,12 @@ public:
     ///
     void setInflowConstant(int ifaConstant);
     void setInflowTemperatureADC(int ifaTemperatureADC);
-    void setInflowTemperatureFactory(double ifaTemperatureFactory);
-    void setInflowTemperature(double ifaTemperature);
+    void setInflowTemperatureFactory(float ifaTemperatureFactory);
+    void setInflowTemperature(short ifaTemperature);
     void setInflowTemperatureADCFactory(int ifaTemperatureADCFactory);
-    void setInflowTemperatureField(double ifaTemperatureField);
+    void setInflowTemperatureField(short ifaTemperatureField);
     void setInflowTemperatureADCField(int ifaTemperatureADCField);
-    void setInflowLowLimitVelocity(double ifaLowLimitVelocity);
+    void setInflowLowLimitVelocity(float ifaLowLimitVelocity);
 
 
     void setDownflowAdcPoint(short point, int adc);
@@ -298,38 +298,38 @@ public:
     ///
     void setDownflowConstant(int dfaConstant);
     void setDownflowTemperatureADC(int dfaTemperatureADC);
-    void setDownflowTemperatureFactory(double dfaTemperatureFactory);
-    void setDownflowTemperatureField(double dfaTemperatureField);
+    void setDownflowTemperatureFactory(short dfaTemperatureFactory);
+    void setDownflowTemperatureField(short dfaTemperatureField);
     void setDownflowTemperatureADCField(int dfaTemperatureADCField);
     void setDownflowTemperatureADCFactory(int dfaTemperatureADCFactory);
-    void setDownflowLowLimitVelocity(double dfaLowLimitVelocity);
-    void setDownflowHigLimitVelocity(double dfaHigLimitVelocity);
+    void setDownflowLowLimitVelocity(float dfaLowLimitVelocity);
+    void setDownflowHigLimitVelocity(float dfaHigLimitVelocity);
 
     Q_INVOKABLE int getInflowConstant() const;
-    Q_INVOKABLE double getInflowTemperature() const;
+    Q_INVOKABLE short getInflowTemperature() const;
     Q_INVOKABLE int getInflowTemperatureADC() const;
-    Q_INVOKABLE double getInflowTemperatureFactory() const;
+    Q_INVOKABLE short getInflowTemperatureFactory() const;
     Q_INVOKABLE int getInflowTemperatureADCFactory() const;
-    Q_INVOKABLE double getInflowTemperatureField() const;
+    Q_INVOKABLE short getInflowTemperatureField() const;
     Q_INVOKABLE int getInflowTemperatureADCField() const;
-    Q_INVOKABLE double getInflowLowLimitVelocity() const;
-    Q_INVOKABLE double getDownflowLowLimitVelocity() const;
-    Q_INVOKABLE double getDownflowHighLimitVelocity() const;
+    Q_INVOKABLE float getInflowLowLimitVelocity() const;
+    Q_INVOKABLE float getDownflowLowLimitVelocity() const;
+    Q_INVOKABLE float getDownflowHighLimitVelocity() const;
 
     Q_INVOKABLE int getDownflowConstant() const;
-    Q_INVOKABLE double getDownflowTemperatureField() const;
+    Q_INVOKABLE short getDownflowTemperatureField() const;
     Q_INVOKABLE int getDownflowTemperatureADCField() const;
-    Q_INVOKABLE double getDownflowTemperatureFactory() const;
+    Q_INVOKABLE short getDownflowTemperatureFactory() const;
     Q_INVOKABLE int getDownflowTemperatureADCFactory() const;
-    Q_INVOKABLE double getDownflowTemperature() const;
+    Q_INVOKABLE short getDownflowTemperature() const;
     Q_INVOKABLE int getDownflowTemperatureADC() const;
-    Q_INVOKABLE void setDownflowTemperature(double dfaTemperature);
+    Q_INVOKABLE void setDownflowTemperature(short dfaTemperature);
 
     void setBlowerEcmDemandMode(int blowerEcmDemandMode);
 
     void setBlowerDownflowState(short blowerDownflowState);
 
-    void setBlowerExhaustState(short blowerExhaustState);
+    void setBlowerInflowState(short blowerInflowState);
 
     void setLightState(short lightState);
 
@@ -389,11 +389,11 @@ public:
 
     short getBlowerDownflowDutyCycle() const;
 
-    short getBlowerExhaustDutyCycle() const;
+    short getBlowerInflowDutyCycle() const;
 
     void setBlowerDownflowDutyCycle(short blowerDownflowDutyCycle);
 
-    void setBlowerExhaustDutyCycle(short blowerExhaustDutyCycle);
+    void setBlowerInflowDutyCycle(short blowerInflowDutyCycle);
 
 public slots:
     void initSingleton();
@@ -409,7 +409,7 @@ signals:
 
     void blowerDownflowStateChanged(short blowerDownflowState);
 
-    void blowerExhaustStateChanged(short blowerExhaustState);
+    void blowerInflowStateChanged(short blowerInflowState);
 
     void lightStateChanged(short lightState);
 
@@ -463,7 +463,7 @@ signals:
 
     void blowerDownflowDutyCycleChanged(short blowerDownflowDutyCycle);
 
-    void blowerExhaustDutyCycleChanged(short blowerExhaustDutyCycle);
+    void blowerInflowDutyCycleChanged(short blowerInflowDutyCycle);
 
 private:
     ///
@@ -473,7 +473,7 @@ private:
     bool m_hasStopped = true;
     int m_blowerEcmDemandMode;
     short m_blowerDownflowState = 0;
-    short m_blowerExhaustState = 0;
+    short m_blowerInflowState = 0;
     short m_lightState = 0;
     short m_socketState = 0;
     short m_gasState = 0;
@@ -503,46 +503,46 @@ private:
     QString m_temperatureValueStr;
     short m_measurementUnit;
 
-    ////
+    ///
     int     m_ifaConstant;
     int     m_ifaAdcPoint[3];
-    double  m_ifaVelocityPoint[3];
-    double  m_ifaTemperature;
-    int     m_ifaTemperatureADC;
-    ////
+    float   m_ifaVelocityPoint[3];
+    short   m_ifaTemperature = 0;
+    int     m_ifaTemperatureADC = 0;
+    ///
     int     m_ifaAdcPointFactory[3];
-    double  m_ifaVelocityPointFactory[3];
-    double  m_ifaTemperatureFactory;
-    int     m_ifaTemperatureADCFactory;
-    ////
+    float   m_ifaVelocityPointFactory[3];
+    short   m_ifaTemperatureFactory = 0;
+    int     m_ifaTemperatureADCFactory = 0;
+    ///
     int     m_ifaAdcPointField[3];
-    double  m_ifaVelocityPointField[3];
-    double  m_ifaTemperatureField;
-    int     m_ifaTemperatureADCField;
-    ////
-    double  m_ifaLowLimitVelocity;
+    float   m_ifaVelocityPointField[3];
+    short   m_ifaTemperatureField = 0;
+    int     m_ifaTemperatureADCField = 0;
+    ///
+    float   m_ifaLowLimitVelocity = 0;
 
-    ////
-    int     m_dfaConstant;
-    int     m_dfaAdcPoint[3];
-    double  m_dfaVelocityPoint[3];
-    double  m_dfaTemperature;
-    int     m_dfaTemperatureADC;
-    ////
+    ///
+    int     m_dfaConstant = 0;
+    int     m_dfaAdcPoint[3] = {0,0,0};
+    float   m_dfaVelocityPoint[3] = {0,0,0};
+    short   m_dfaTemperature = 0;
+    int     m_dfaTemperatureADC = 0;
+    ///
     int     m_dfaAdcPointFactory[3];
-    double  m_dfaVelocityPointFactory[3];
-    double  m_dfaTemperatureFactory;
-    int     m_dfaTemperatureADCFactory;
-    ////
+    float   m_dfaVelocityPointFactory[3];
+    short   m_dfaTemperatureFactory = 0;
+    int     m_dfaTemperatureADCFactory = 0;
+    ///
     int     m_dfaAdcPointField[3];
-    double  m_dfaVelocityPointField[3];
-    double  m_dfaTemperatureField;
-    int     m_dfaTemperatureADCField;
-    ////
-    double  m_dfaLowLimitVelocity = 0;
-    double  m_dfaHigLimitVelocity = 0;
+    float   m_dfaVelocityPointField[3];
+    short   m_dfaTemperatureField = 0;
+    int     m_dfaTemperatureADCField = 0;
+    ///
+    float   m_dfaLowLimitVelocity = 0;
+    float   m_dfaHigLimitVelocity = 0;
 
     short m_blowerDownflowDutyCycle = 0;
-    short m_blowerExhaustDutyCycle = 0;
+    short m_blowerInflowDutyCycle = 0;
 };
 
