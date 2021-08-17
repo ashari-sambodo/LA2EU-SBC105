@@ -1,8 +1,9 @@
-import QtQuick 2.0
+import QtQuick 2.7
 
 Text {
     id: textApp
     text: qsTr("text")
-    color: "#ffffff"
+    color: "#e3dac9"
+    //    color: "#decab0"
     font.pixelSize: 20
 }

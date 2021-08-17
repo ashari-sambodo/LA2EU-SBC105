@@ -1,27 +1,49 @@
+/**
+ *  Copyright (C) 2021 by ESCO Bintan Indonesia
+ *  https://escoglobal.com
+ *
+ *  Author: Heri Cahyono
+**/
+
 import QtQuick 2.0
 
 import UI.CusCom 1.0
-import modules.cpp.utils 1.0
+import ModulesCpp.Utils 1.0
 
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
-import modules.cpp.machine 1.0
+import ModulesCpp.Machine 1.0
+
+//Here is standard exit code of the main app
+//enum EXIT_CUSTOM_CODE{
+// ECC_NORMAL_EXIT,
+// ECC_NORMAL_EXIT_RESTART_SBC = 5,
+// ECC_NORMAL_EXIT_POWEROFF_SBC = 6,
+// ECC_NORMAL_EXIT_OPEN_SBCUPDATE = 7,
+// ECC_NORMAL_EXIT_DEV = 8
+//};
 
 ViewApp {
     id: viewApp
     title: "Closing"
 
     background.sourceComponent: Rectangle {
+        id: bkg
         color: "black"
-    }
+        opacity: 0.5
 
-    content.sourceComponent: Item{
-        id: containerItem
+        Component.onCompleted: {
+            const extraData = IntentApp.getExtraData(intent)
+            const message = extraData["backgroundBlack"] || 0
+            if(message) opacity = 1
+        }
+    }//
+
+    content.asynchronous: true
+    content.sourceComponent: ContentItemApp {
+        id: contentView
         height: viewApp.height
         width: viewApp.width
-
-        property bool readyToQuit: false
-        property bool swUpdatePathCleared: false
 
         Column {
             anchors.centerIn: parent
@@ -30,36 +52,66 @@ ViewApp {
                 anchors.horizontalCenter: parent.horizontalCenter
                 running: true
                 loops: Animation.Infinite
+
+                onFullRotatedCycleChanged: {
+                    let hasStopped = MachineData.hasStopped
+                    //                    console.log(hasStopped)
+                    if (hasStopped) {
+                        const existCode = IntentApp.getExtraData(intent)["exitCode"] || 0
+                        Qt.exit(existCode)
+                    }
+                }
             }//
 
             TextApp {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Closing...")
+                text: props.messageText
             }//
         }//
 
-        /// OnCreated
+        /// Variable collector
+        QtObject {
+            id: props
+
+            property string messageText: qsTr("Shuting down...")
+
+        }//
+
         Component.onCompleted: {
-            MachineApi.stop();
+            viewApp.fnSwipedFromLeftEdge    = function(){}
+            viewApp.fnSwipedFromRightEdge   = function(){}
+            viewApp.fnSwipedFromBottomEdge  = function(){}
+
+            viewApp.enabledSwipedFromLeftEdge   = false
+            viewApp.enabledSwipedFromRightEdge  = false
+            viewApp.enabledSwipedFromBottomEdge = false
+            viewApp.enabledSwipedFromTopEdge    = false
         }//
 
-        Timer {
-            id: eventTimer
-            interval: 5000
-            running: true
-            repeat: true
-            onTriggered: {
-                //console.log("MachineData.hasStopped: " + MachineData.hasStopped)
+        /// Execute This Every This Screen Active/Visible
+        executeOnPageVisible: QtObject {
 
-                containerItem.readyToQuit = MachineData.hasStopped
+            /// onResume
+            Component.onCompleted: {
+                //                    //console.debug("StackView.Active");
 
-                if(containerItem.readyToQuit) {
-                    let exitBehaviour = IntentApp.getExtraData(intent)["exitCode"]
-                    exitBehaviour = exitBehaviour === undefined ? ExitCode.ECC_NORMAL_EXIT_RESTART_SBC : exitBehaviour
+                const extraData = IntentApp.getExtraData(intent)
+                const message = extraData["message"] || props.messageText
+                //                props.messageText = message
 
-                    Qt.exit(exitBehaviour)
-                }
-            }//
+                MachineAPI.stop()
+            }
+
+            /// onPause
+            Component.onDestruction: {
+                ////console.debug("StackView.DeActivating");
+            }
         }//
     }//
+}//
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:800}
 }
+##^##*/

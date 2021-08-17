@@ -1,3 +1,10 @@
+/**
+ *  Copyright (C) 2021 by ESCO Bintan Indonesia
+ *  https://escoglobal.com
+ *
+ *  Author: Heri Cahyono
+**/
+
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
@@ -5,7 +12,7 @@ import QtQuick.Controls 2.0
 import UI.CusCom 1.0
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
-import modules.cpp.machine 1.0
+import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
@@ -14,10 +21,12 @@ ViewApp {
     background.sourceComponent: Item {}
 
     content.asynchronous: true
-    content.sourceComponent: Item{
-        id: containerItem
+    content.sourceComponent: ContentItemApp {
+        id: contentView
         height: viewApp.height
         width: viewApp.width
+
+        //        visible: true
 
         ColumnLayout {
             anchors.fill: parent
@@ -31,129 +40,175 @@ ViewApp {
                 Layout.minimumHeight: 60
 
                 HeaderApp {
+                    id: headerApp
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
-                }
-            }
+                    title: qsTr("Fan PIN")
+                }//
+            }//
 
             /// BODY
             Item {
-                id: bodyItem
-                Layout.fillWidth: true
+                id: contentItem
                 Layout.fillHeight: true
+                Layout.fillWidth: true
+                Layout.topMargin: 5
+                Layout.bottomMargin: 5
+
+                //            Rectangle{anchors.fill: parent; color: "yellow"}
 
                 RowLayout {
                     anchors.fill: parent
 
                     Item {
-                        Layout.fillWidth: true
                         Layout.fillHeight: true
+                        Layout.fillWidth: true
 
-                        Grid {
-                            id: placeHolderPinGrid
+                        TextApp {
+                            id: infoPinText
+                            anchors.horizontalCenter: pinTextField.horizontalCenter
+                            anchors.bottom: pinTextField.top
+                            anchors.bottomMargin: 50
+                            text: qsTr("Enter PIN")
+                        }//
+
+                        TextField {
+                            id: pinTextField
+                            //                                anchors.horizontalCenter: parent.horizontalCenter
                             anchors.centerIn: parent
-                            spacing: 5
-                            columns: 5
+                            placeholderText: "*****"
+                            font.pointSize: (parent.width / 5) - 10
+                            font.letterSpacing: 20
+                            font.bold: true
+                            color: "white"
+                            echoMode: TextInput.Password
+                            passwordCharacter: "*"
+                            horizontalAlignment: TextInput.AlignHCenter
+                            maximumLength: 5
 
-                            Repeater {
-                                model: 5
+                            background: Item {
+                                id: name
+                            }
 
-                                Rectangle {
-                                    height: 50
-                                    width: 50
-                                    radius: 50
-                                    color: "#20ffffff"
-                                    border.width: 1
-                                    border.color: "#ffffff"
+                            enabled: false
+
+                            onTextChanged: {
+                                if (text.length == 5) {
+                                    const pinEncode = Qt.md5(text)
+                                    //                                    console.log(pinEncode)
+
+                                    if (props.fanPIN === pinEncode){
+                                        props.changeStateOfFan()
+                                    }
+                                    else {
+                                        let attempt = props.incorrectAttemptCount
+                                        attempt = attempt + 1
+                                        props.incorrectAttemptCount = attempt
+
+                                        if (attempt === 5) {
+                                            showDialogMessage(qsTr("Fan PIN"),
+                                                              qsTr("You have entered an incorrect pin several times!"),
+                                                              dialogAlert,
+                                                              function onClosed(){
+                                                                  const intent = IntentApp.create(uri,[])
+                                                                  finishView(intent)
+                                                              })
+                                        }
+                                        else {
+                                            text = ""
+                                            showDialogMessage(qsTr("Fan PIN"),
+                                                              qsTr("Incorrect PIN"),
+                                                              dialogAlert)
+                                        }
+                                    }
                                 }//
                             }//
                         }//
 
-                        Grid {
-                            x: placeHolderPinGrid.x
-                            y: placeHolderPinGrid.y
-                            spacing: 5
-                            columns: 5
+                        TextApp {
+                            visible: pinTextField.text.length
+                            anchors.horizontalCenter: pinTextField.horizontalCenter
+                            anchors.top: pinTextField.bottom
+                            anchors.topMargin: 50
+                            text: "Clear"
 
-                            Repeater {
-                                id: fillPinRepeater
-                                model: []
-
-                                Rectangle {
-                                    height: 50
-                                    width: 50
-                                    radius: 50
-                                    color: "#aaffffff"
-                                    border.width: 1
-                                    border.color: "#ffffff"
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    pinTextField.clear()
                                 }//
                             }//
                         }//
-
                     }//
 
                     Item {
-                        Layout.fillWidth: true
                         Layout.fillHeight: true
+                        Layout.fillWidth: true
 
-                        Grid {
+                        Column {
                             anchors.centerIn: parent
                             spacing: 5
 
-                            Repeater {
-                                model: ["1","2","3","4","5","6","7","8","9","0", "BS", "C"]
+                            Grid {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                columns: 3
+                                spacing: 5
 
-                                Rectangle {
-                                    height: 100
-                                    width: 100
-                                    radius: 50
-                                    color: mouseArea.pressed ? "#70ffffff" : "#20ffffff"
-                                    border.width: 1
-                                    border.color: "#ffffff"
+                                Repeater {
+                                    model: [1,2,3,4,5,6,7,8,9]
 
-                                    TextApp {
-                                        anchors.fill: parent
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        font.pixelSize: 24
-                                        text: modelData
-                                    }//
+                                    Rectangle {
+                                        height: 70
+                                        width: 100
+                                        radius: 50
+                                        color: buttonMouseArea.pressed ? "#77ffffff" : "#11ffffff"
+                                        border.color: "white"
+                                        border.width: 2
 
-                                    MouseArea {
-                                        id: mouseArea
-                                        anchors.fill: parent
-                                        onClicked: {
-                                            let fillModel = fillPinRepeater.model
-
-                                            if (modelData == "BS") {
-                                                fillModel.pop()
-                                            }
-                                            else if (modelData == "C") {
-                                                fillModel = []
-                                            }
-                                            else {
-                                                if (fillModel.length === 5 ){
-                                                    let inPin = fillModel
-                                                    containerItem.authentication(inPin)
-                                                }
-                                                else {
-                                                    fillModel.push(modelData)
-                                                    if (fillModel.length === 5 ){
-                                                        let inPin = fillModel
-                                                        containerItem.authentication(inPin)
-                                                    }
-                                                }
-                                            }
-
-                                            fillPinRepeater.model = fillModel
+                                        TextApp {
+                                            anchors.centerIn: parent
+                                            text: modelData
+                                            font.pixelSize: 32
                                         }
+
+                                        MouseArea {
+                                            id: buttonMouseArea
+                                            anchors.fill: parent
+                                            onClicked: {
+                                                pinTextField.text = pinTextField.text + modelData
+                                            }
+                                        }//
                                     }//
                                 }//
                             }//
-                        }//
-                    }//
-                }//
-            }//
+
+                            Rectangle {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                height: 70
+                                width: 100
+                                radius: 50
+                                color: buttonZeroMouseArea.pressed ? "#77ffffff" : "#11ffffff"
+                                border.color: "white"
+                                border.width: 2
+
+                                TextApp {
+                                    anchors.centerIn: parent
+                                    text: "0"
+                                    font.pixelSize: 32
+                                }
+
+                                MouseArea {
+                                    id: buttonZeroMouseArea
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        pinTextField.text = pinTextField.text + "0"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
 
             /// FOOTER
             Item {
@@ -163,8 +218,8 @@ ViewApp {
 
                 Rectangle {
                     anchors.fill: parent
-                    color: "#770F2952"
-                    //                    border.color: "#ffffff"
+                    color: "#0F2952"
+                    //                    border.color: "#DDDDDD"
                     //                    border.width: 1
                     radius: 5
 
@@ -176,7 +231,7 @@ ViewApp {
                             width: 194
                             anchors.verticalCenter: parent.verticalCenter
 
-                            imageSource: "/UI/Pictures/back-step.png"
+                            imageSource: "qrc:/UI/Pictures/back-step.png"
                             text: qsTr("Back")
 
                             onClicked: {
@@ -186,44 +241,46 @@ ViewApp {
                         }//
                     }//
                 }//
-            }
+            }//
         }//
 
-        function authentication(pin) {
-            if (pin.join("") === "12345") {
-                containerItem.setBlowerState()
-            }
-            else {
-                dialogNotify.open()
-            }
-        }
+        /// Put all private property inside here
+        /// if none, please comment this block to optimize the code
+        QtObject {
+            id: props
 
-        function setBlowerState() {
-            let currentState = MachineData.blowerDownflowState
-            if (currentState) {
-                MachineApi.setBlowerState(MachineApi.FAN_STATE_OFF);
-            }
-            else {
-                MachineApi.setBlowerState(MachineApi.FAN_STATE_ON);
-            }
+            property string fanPIN : ""
+            property int fanState: 0
+            property int incorrectAttemptCount: 0
 
-            var intent = IntentApp.create(uri, {"message":""})
-            finishView(intent)
-        }
+            function changeStateOfFan(){
+                if (props.fanState) {
+                    MachineAPI.setFanState(MachineAPI.FAN_STATE_OFF);
+                    props.showFanProgressSwitchingState(!props.fanState)
 
-        /// Dialog
-        DialogApp {
-            id: dialogNotify
+                    MachineAPI.insertEventLog(qsTr("User: Set Fan off"))
+                }
+                else {
+                    MachineAPI.setFanState(MachineAPI.FAN_STATE_ON);
+                    props.showFanProgressSwitchingState(!props.fanState)
 
-            contentItem.title: qsTr("Warning")
-            contentItem.text: qsTr("PIN does not match")
-            contentItem.dialogType: contentItem.dialogTypeWarning
-            contentItem.standardButton: contentItem.standardButtonClose
+                    MachineAPI.insertEventLog(qsTr("User: Set Fan on"))
+                }
+            }//
 
-            onRejected: {
-                fillPinRepeater.model = []
-            }
-        }
+            function showFanProgressSwitchingState(swithTo){
+                //                //console.debug("swithTo: " + swithTo)
+                const message = swithTo ? qsTr("Swithcing on the fan") + "..."
+                                        : qsTr("Swithcing off the fan") + "..."
+                viewApp.showBusyPage(message, function(cycle){
+                    if(cycle === 5){
+                        viewApp.closeDialog()
+                        const intent = IntentApp.create(uri,[])
+                        finishView(intent)
+                    }
+                })
+            }//
+        }//
 
         /// OnCreated
         Component.onCompleted: {
@@ -231,28 +288,26 @@ ViewApp {
         }//
 
         /// Execute This Every This Screen Active/Visible
-        Loader {
-            active: viewApp.stackViewStatusActivating || viewApp.stackViewStatusActive
-            sourceComponent: QtObject {
+        executeOnPageVisible: QtObject {
 
-                /// onResume
-                Component.onCompleted: {
-                    console.log("StackView.Active");
-                }
+            /// onResume
+            Component.onCompleted: {
+                //                    //console.debug("StackView.Active");
+                props.fanPIN = MachineData.fanPIN
+                console.log("MachineData.fanPIN: " + MachineData.fanPIN)
+                props.fanState = Qt.binding(function(){ return MachineData.fanPrimaryState })
+            }//
 
-                /// onPause
-                Component.onDestruction: {
-                    //console.log("StackView.DeActivating");
-                }//
+            /// onPause
+            Component.onDestruction: {
+                ////console.debug("StackView.DeActivating");
             }//
         }//
     }//
 }//
 
-
-
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:800}
+    D{i:0;autoSize:true;formeditorColor:"#808080";height:480;width:800}
 }
 ##^##*/

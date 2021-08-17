@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
@@ -10,6 +10,7 @@ Item {
     property alias title: titleText.text
     property alias text: textField.text
     property alias validator: textField.validator
+    property alias inputMask: textField.inputMask
 
     signal hideClicked();
     signal enterClicked(string textValue);
@@ -24,7 +25,12 @@ Item {
         color: rootItem.darkMode ? "#404244" : "#ecf0f1"
     }
 
-    property bool darkMode: false
+    property bool darkMode: true
+
+    // Block any clicked action outside button
+    MouseArea {
+        anchors.fill: parent
+    }
 
     ColumnLayout{
         anchors.fill: parent
@@ -42,7 +48,7 @@ Item {
                 anchors.centerIn: parent
                 text: "Title Text"
                 font.pixelSize: 20
-                color: rootItem.darkMode ? "white" : "#666666"
+                color: rootItem.darkMode ? "#dddddd" : "#666666"
             }
 
             MouseArea {
@@ -71,17 +77,22 @@ Item {
                     acceptedButtons: Qt.NoButton
                 }
 
-                background: Rectangle{
-                    border.color: "gray"
+                background: Rectangle {
+                    anchors.fill: parent
                     radius: 5
+                    color: "#e3dac9"
                 }
 
                 onAccepted: {
                     enterClicked(text)
                 }
 
+                onPressAndHold: {
+                    selectWord()
+                }
+
                 onVisibleChanged: {
-                    //                            console.log("onVisibleChanged")
+                    //                            //console.debug("onVisibleChanged")
                     if (visible) {
                         textField.forceActiveFocus()
                         delaySetFocusTimer.start()
@@ -91,7 +102,10 @@ Item {
                 Timer {
                     id: delaySetFocusTimer
                     interval: 200
-                    onTriggered: textField.forceActiveFocus()
+                    onTriggered: {
+                        textField.forceActiveFocus()
+                        textField.selectAll()
+                    }
                 }
             }
         }
@@ -167,8 +181,34 @@ Item {
         }
     }
 
+    //    TapHandler {
+    //        id: keyboardTapHandler
+    //        onTapped: {
+    //            //console.debug("Keyboard Tapped")
+    //            autocloseTimer.restart()
+    //        }//
+    //    }//
+
+    MouseArea {
+        id: keyboardTouchHandler
+        anchors.fill: parent
+        onPressed: {
+            autocloseTimer.restart()
+            mouse.accepted = false
+        }
+    }
+
+    Timer {
+        id: autocloseTimer
+        interval: 30000
+        running: rootItem.visible
+        onTriggered: {
+            rootItem.hideClicked()
+        }//
+    }//
+
     function keyPressAndHold(keyID){
-        //        console.log(keyID)
+        //        //console.debug(keyID)
 
         keyboardOnScreenAdapter.setFocusItem(textField)
         if(keyID === "BS"){
@@ -177,7 +217,7 @@ Item {
     }
 
     function keyClicked(keyID){
-        //        console.log(keyID)
+        //        //console.debug(keyID)
 
         keyboardOnScreenAdapter.setFocusItem(textField)
 

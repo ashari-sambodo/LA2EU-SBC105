@@ -5,5 +5,5 @@ function create(uri, extradata) {
 }
 
 function getExtraData(intent) {
-    return intent.extradata
+    return intent["extradata"]
 }

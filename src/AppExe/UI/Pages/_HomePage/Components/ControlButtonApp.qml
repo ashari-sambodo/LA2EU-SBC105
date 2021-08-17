@@ -1,0 +1,62 @@
+import QtQuick 2.12
+
+Item {
+    id: button
+    opacity: controlMouseArea.pressed ? 0.5 : 1
+
+    property int stateIO
+    property bool stateInterlock
+
+    property alias background: backgroundLoader
+
+    property alias sourceImage: featureImage.source
+    property alias imageFeature: featureImage
+
+    signal clicked()
+    signal pressAndHold()
+    signal releasedPress()
+
+    Loader {
+        id: backgroundLoader
+        anchors.fill: parent
+        sourceComponent:  Image {
+            source: !button.stateInterlock ? "../../../Pictures/button_bg.png" : "../../../Pictures/button_gray_bg.png"
+        }//
+    }//
+
+    Image{
+        id: featureImage
+        anchors.fill: parent
+        anchors.margins: 10
+        fillMode: Image.PreserveAspectFit
+        opacity: !button.stateInterlock ? 1 : 0.5
+    }//
+
+    MouseArea {
+        id: controlMouseArea
+        anchors.fill: parent
+        //        onLongPressed: {
+        //             //console.debug("onLongPressed")
+        //        }//
+
+        //        onTapped: {
+        //            //console.debug("onTapped")
+        //        }//
+
+        //        onDoubleTapped: {
+        //            //console.debug("onDoubleTapped")
+        //        }//
+
+        Component.onCompleted: {
+            controlMouseArea.clicked.connect(button.clicked)
+            controlMouseArea.pressAndHold.connect(button.pressAndHold)
+            controlMouseArea.released.connect(button.releasedPress)
+        }//
+    }//
+}//
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/

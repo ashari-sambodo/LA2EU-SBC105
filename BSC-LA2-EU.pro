@@ -1,7 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    src/MachineState \
+    src/MachineBackend \
     src/AppExe
 
 CONFIG += ordered

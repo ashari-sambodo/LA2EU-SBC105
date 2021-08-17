@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
@@ -26,13 +26,15 @@ Item {
     //    onCancelClicked: dialogApp.clickedNegative()
     //    onEnterClicked: dialogApp.clickedPositive(textValue)
 
-    property bool darkMode: false
+    property bool darkMode: true
 
     property alias title: titleText.text
     property alias text: textField.text
 
     property alias echoMode: textField.echoMode
     property alias validator: textField.validator
+    property alias inputMask: textField.inputMask
+    property alias maximumLength: textField.maximumLength
 
     function open() {
         visible = true
@@ -42,6 +44,11 @@ Item {
     Rectangle{
         anchors.fill: parent
         color: rootItem.darkMode ? "#404244" : "#ecf0f1"
+    }
+
+    // Block any clicked action outside button
+    MouseArea {
+        anchors.fill: parent
     }
 
     ColumnLayout{
@@ -59,7 +66,7 @@ Item {
                 anchors.centerIn: parent
                 text: "Title Text"
                 font.pixelSize: 20
-                color: rootItem.darkMode ? "white" : "#666666"
+                color: rootItem.darkMode ? "#dddddd" : "#666666"
             }
 
             MouseArea {
@@ -94,30 +101,35 @@ Item {
 
                         selectByMouse: true
 
+                        background: Rectangle {
+                            anchors.fill: parent
+                            radius: 5
+                            color: "#e3dac9"
+                        }
+
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: Qt.IBeamCursor
                             acceptedButtons: Qt.NoButton
                         }
 
-                        background: Rectangle{
-                            border.color: "gray"
-                            radius: 5
-                        }
-
                         onAccepted: {
                             enterClicked(text)
                         }
 
+                        onPressAndHold: {
+                            selectWord()
+                        }
+
                         //                        Keys.onPressed: {
                         //                            if (event.key === Qt.Key_Enter) {
-                        //                                //                                console.log("Physycal Enter Keyboard")
+                        //                                //                                //console.debug("Physycal Enter Keyboard")
                         //                                enterClicked(text)
                         //                            }
                         //                        }
 
                         onVisibleChanged: {
-                            //                            console.log("onVisibleChanged")
+                            //                            //console.debug("onVisibleChanged")
                             if (visible) {
                                 textField.forceActiveFocus()
                                 delaySetFocusTimer.start()
@@ -127,7 +139,10 @@ Item {
                         Timer {
                             id: delaySetFocusTimer
                             interval: 200
-                            onTriggered: textField.forceActiveFocus()
+                            onTriggered: {
+                                textField.forceActiveFocus()
+                                textField.selectAll()
+                            }
                         }
                     }
                 }
@@ -246,7 +261,7 @@ Item {
 
                                 ButtonKeyApp{
                                     anchors.fill: parent
-                                    //                                    colorText: StyleApp.white
+                                    //                                    colorText: StyleApp.#dddddd
                                     text: rootItem.keyType == rootItem.__keyType_Letter ? firstKey : (rootItem.keyType == rootItem.__keyType_LetterCaps ? secondKey : thirdKey)
 
                                     onClicked: {
@@ -280,7 +295,7 @@ Item {
 
                                 ButtonKeyApp{
                                     text: rootItem.keyType == rootItem.__keyType_Letter ? firstKey : (rootItem.keyType == rootItem.__keyType_LetterCaps ? secondKey : thirdKey)
-                                    //                                    colorText: StyleApp.white
+                                    //                                    colorText: StyleApp.#dddddd
 
                                     onClicked: {
                                         keyboardOnScreenAdapter.setFocusItem(textField)
@@ -352,7 +367,7 @@ Item {
 
                                 ButtonKeyApp{
                                     text: rootItem.keyType == rootItem.__keyType_Letter ? firstKey : (rootItem.keyType == rootItem.__keyType_LetterCaps ? secondKey : thirdKey)
-                                    //                                    colorText: StyleApp.white
+                                    //                                    colorText: StyleApp.#dddddd
 
                                     onClicked: {
                                         keyboardOnScreenAdapter.setFocusItem(textField)
@@ -380,7 +395,7 @@ Item {
                                     textField.clear()
                                 }
 
-                                //                                colorText: StyleApp.white
+                                //                                colorText: StyleApp.#dddddd
 
                                 Image{
                                     //                                    anchors.fill: parent
@@ -417,7 +432,7 @@ Item {
                                     rootItem.hideClicked()
                                 }
 
-                                //                                colorText: StyleApp.white
+                                //                                colorText: StyleApp.#dddddd
 
                                 Image{
                                     anchors.centerIn: parent
@@ -446,7 +461,7 @@ Item {
                                     textField.cursorPosition = textField.cursorPosition - 1
                                 }
 
-                                //                                colorText: StyleApp.white
+                                //                                colorText: StyleApp.#dddddd
 
                                 Image{
                                     anchors.centerIn: parent
@@ -492,7 +507,7 @@ Item {
                                     textField.cursorPosition = textField.cursorPosition + 1
                                 }
 
-                                //                                colorText: StyleApp.white
+                                //                                colorText: StyleApp.#dddddd
 
                                 Image{
                                     anchors.centerIn: parent
@@ -520,7 +535,7 @@ Item {
                                     rootItem.enterClicked(textField.text)
                                 }
 
-                                //                                colorText: StyleApp.white
+                                //                                colorText: StyleApp.#dddddd
                                 colorBackground: "#2ecc71"
 
                                 Image{
@@ -540,16 +555,34 @@ Item {
                 }
             }
         }
+    }//
+
+    MouseArea {
+        id: keyboardTouchHandler
+        anchors.fill: parent
+        onPressed: {
+            autocloseTimer.restart()
+            mouse.accepted = false
+        }
     }
+
+    Timer {
+        id: autocloseTimer
+        interval: 30000
+        running: rootItem.visible
+        onTriggered: {
+            rootItem.hideClicked()
+        }//
+    }//
 
     Loader{
         id: langModelLoader
         source: "LanguageModels/KeyboardKeysModel_en.qml"
 
         //        Component.onCompleted: {
-        //            console.log(keyboard_Item.modelKey.firstRowModel)
+        //            //console.debug(keyboard_Item.modelKey.firstRowModel)
         //        }
-    }
+    }//
 
     KeyboardOnScreenAdapter{
         id: keyboardOnScreenAdapter

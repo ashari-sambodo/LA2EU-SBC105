@@ -1,17 +1,23 @@
-import QtQuick 2.6
+import QtQuick 2.12
 
-Rectangle {
+Item {
     id: control
     implicitWidth: 200
     implicitHeight: 60
-    radius: 5
-    border.color: "white"
-    color: controlMouseArea.pressed ?  "#55ffffff" : "transparent"
+    //    radius: 5
+    //    border.color: "#dddddd"
+    //    color: controlMouseArea.pressed ?  "#55ffffff" : "transparent"
+    opacity: controlMouseArea.pressed || !enabled ?  0.5 : 1
 
     property alias imageSource: controlImage.source
     property alias text: controlText.text
 
     signal clicked()
+
+    Image {
+        anchors.fill: parent
+        source: "ButtonBarApp/buttonBarBackground.png"
+    }
 
     Row {
 
@@ -24,12 +30,13 @@ Rectangle {
 
         Text {
             id: controlText
-            width: 140
+            //            width: 140
+            width: control.width * 0.70 - 5
             height: 60
             padding: 2
             text: qsTr("text")
             verticalAlignment: Text.AlignVCenter
-            color: "white"
+            color: "#dddddd"
             font.pixelSize: 20
             wrapMode: Text.WordWrap
             elide: Text.ElideRight
@@ -41,4 +48,8 @@ Rectangle {
         anchors.fill: parent
         onClicked: control.clicked()
     }
+
+    //    TapHandler {
+    //        onTapped: control.clicked()
+    //    }
 }

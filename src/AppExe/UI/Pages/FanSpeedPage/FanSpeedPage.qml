@@ -1,3 +1,10 @@
+/**
+ *  Copyright (C) 2021 by ESCO Bintan Indonesia
+ *  https://escoglobal.com
+ *
+ *  Author: Heri Cahyono
+**/
+
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
@@ -5,7 +12,7 @@ import QtQuick.Controls 2.0
 import UI.CusCom 1.0
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
-import modules.cpp.machine 1.0
+import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
@@ -13,8 +20,8 @@ ViewApp {
 
     background.sourceComponent: Item {}
 
-    content.sourceComponent: Item{
-        id: containerItem
+    content.sourceComponent: ContentItemApp {
+        id: contentView
         height: viewApp.height
         width: viewApp.width
 
@@ -49,11 +56,11 @@ ViewApp {
 
                         TextApp {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "Exhaust: " + blowerInflowSlider.value + "%"
+                            text: "Exhaust: " + fanInflowSlider.value + "%"
                         }
 
                         Slider {
-                            id: blowerInflowSlider
+                            id: fanInflowSlider
                             //                            anchors.horizontalCenter: parent.horizontalCenter
                             width: 500
                             stepSize: 1
@@ -62,7 +69,7 @@ ViewApp {
 
                             onValueChanged: {
                                 if (pressed) {
-                                    MachineApi.setBlowerInflowDutyCycle(blowerInflowSlider.value)
+                                    MachineProxy.setFanInflowDutyCycle(fanInflowSlider.value)
                                 }//
                             }//
                         }//
@@ -72,11 +79,11 @@ ViewApp {
 
                         TextApp {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "Downflow: " + blowerDownflowSlider.value + "%"
+                            text: "Downflow: " + fanDownflowSlider.value + "%"
                         }
 
                         Slider {
-                            id: blowerDownflowSlider
+                            id: fanDownflowSlider
                             //                            anchors.horizontalCenter: parent.horizontalCenter
                             width: 500
                             stepSize: 1
@@ -85,7 +92,7 @@ ViewApp {
 
                             onValueChanged: {
                                 if (pressed) {
-                                    MachineApi.setBlowerDownflowDutyCycle(blowerDownflowSlider.value)
+                                    MachineProxy.setFanDownflowDutyCycle(fanDownflowSlider.value)
                                 }//
                             }//
                         }//
@@ -101,8 +108,8 @@ ViewApp {
 
                 Rectangle {
                     anchors.fill: parent
-                    color: "#770F2952"
-                    //                    border.color: "#ffffff"
+                    color: "#0F2952"
+                    //                    border.color: "#e3dac9"
                     //                    border.width: 1
                     radius: 5
 
@@ -127,29 +134,26 @@ ViewApp {
             }
         }//
 
-        /// OnCreated
+        /// called Once but after onResume
         Component.onCompleted: {
 
         }//
 
         /// Execute This Every This Screen Active/Visible
-        Loader {
-            active: viewApp.stackViewStatusActivating || viewApp.stackViewStatusActive
-            sourceComponent: QtObject {
+        executeOnPageVisible: QtObject {
 
-                /// onResume
-                Component.onCompleted: {
-                    console.log("StackView.Active");
+            /// onResume
+            Component.onCompleted: {
+                //console.debug("StackView.Active");
 
-                    blowerInflowSlider.value = MachineData.blowerInflowDutyCycle
-                    blowerDownflowSlider.value = MachineData.blowerDownflowDutyCycle
-                }
+                fanInflowSlider.value = MachineData.fanInflowDutyCycle
+                fanDownflowSlider.value = MachineData.fanDownflowDutyCycle
+            }
 
-                /// onPause
-                Component.onDestruction: {
-                    //console.log("StackView.DeActivating");
-                }
-            }//
+            /// onPause
+            Component.onDestruction: {
+                ////console.debug("StackView.DeActivating");
+            }
         }//
     }//
 }

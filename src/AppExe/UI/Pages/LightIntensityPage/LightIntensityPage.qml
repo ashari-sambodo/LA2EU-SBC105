@@ -1,3 +1,10 @@
+/**
+ *  Copyright (C) 2021 by ESCO Bintan Indonesia
+ *  https://escoglobal.com
+ *
+ *  Author: Heri Cahyono
+**/
+
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
@@ -5,7 +12,7 @@ import QtQuick.Controls 2.0
 import UI.CusCom 1.0
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
-import modules.cpp.machine 1.0
+import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
@@ -13,8 +20,9 @@ ViewApp {
 
     background.sourceComponent: Item {}
 
-    content.sourceComponent: Item{
-        id: containerItem
+    content.asynchronous: true
+    content.sourceComponent: ContentItemApp {
+        id: contentView
         height: viewApp.height
         width: viewApp.width
 
@@ -31,7 +39,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Light Intensity")
                 }
             }
 
@@ -43,28 +51,54 @@ ViewApp {
 
                 Column {
                     anchors.centerIn: parent
+                    spacing: 20
 
                     TextApp {
                         anchors.horizontalCenter: parent.horizontalCenter
-                        text: lightIntensitySlider.value + "%"
-                    }
+                        font.pixelSize: 32
+                        text: slider.value + "%"
+                    }//
 
-                    Slider {
-                        id: lightIntensitySlider
+                    SliderApp {
+                        id: slider
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: 500
                         stepSize: 5
                         from: 30
                         to: 100
+                        padding: 0
+
+                        Image {
+                            anchors.left: parent.left
+                            anchors.leftMargin: 10
+                            anchors.verticalCenter: parent.verticalCenter
+                            source: "qrc:/UI/Pictures/brightness_lowest_icon.png"
+                        }
+
+                        Image {
+                            anchors.right: parent.right
+                            anchors.rightMargin: 10
+                            anchors.verticalCenter: parent.verticalCenter
+                            source: "qrc:/UI/Pictures/brightness_highest_icon.png"
+                        }
 
                         onValueChanged: {
                             if (pressed) {
-                                MachineApi.setLightIntensity(value)
-                            }
-                        }
-                    }
-                }
-            }
+                                MachineAPI.setLightIntensity(slider.value)
+                            }//
+                        }//
+
+                        onPressedChanged: {
+                            if (!pressed) {
+                                //                                //console.debug("released")
+                                MachineAPI.saveLightIntensity(slider.value)
+
+                                MachineAPI.insertEventLog(qsTr("User: Set Light intensity to") + " " + slider.value + "%")
+                            }//
+                        }//
+                    }//
+                }//
+            }//
 
             /// FOOTER
             Item {
@@ -74,8 +108,8 @@ ViewApp {
 
                 Rectangle {
                     anchors.fill: parent
-                    color: "#770F2952"
-                    //                    border.color: "#ffffff"
+                    color: "#0F2952"
+                    //                    border.color: "#e3dac9"
                     //                    border.width: 1
                     radius: 5
 
@@ -100,26 +134,26 @@ ViewApp {
             }
         }//
 
-        /// OnCreated
+        /// called Once but after onResume
         Component.onCompleted: {
 
         }//
 
         /// Execute This Every This Screen Active/Visible
         Loader {
-            active: viewApp.stackViewStatusActivating || viewApp.stackViewStatusActive
+            active: viewApp.stackViewStatusForeground
             sourceComponent: QtObject {
 
                 /// onResume
                 Component.onCompleted: {
-                    console.log("StackView.Active");
+                    //                    //console.debug("StackView.Active");
 
-                    lightIntensitySlider.value = MachineData.lightIntensity
+                    slider.value = MachineData.lightIntensity
                 }
 
                 /// onPause
                 Component.onDestruction: {
-                    //console.log("StackView.DeActivating");
+                    ////console.debug("StackView.DeActivating");
                 }
             }//
         }//
