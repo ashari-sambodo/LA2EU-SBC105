@@ -69,7 +69,7 @@ ViewApp {
 
                             onValueChanged: {
                                 if (pressed) {
-                                    MachineProxy.setFanInflowDutyCycle(fanInflowSlider.value)
+                                    MachineAPI.setFanInflowDutyCycle(fanInflowSlider.value)
                                 }//
                             }//
                         }//
@@ -92,7 +92,7 @@ ViewApp {
 
                             onValueChanged: {
                                 if (pressed) {
-                                    MachineProxy.setFanDownflowDutyCycle(fanDownflowSlider.value)
+                                    MachineAPI.setFanDownflowDutyCycle(fanDownflowSlider.value)
                                 }//
                             }//
                         }//

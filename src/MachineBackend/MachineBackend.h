@@ -115,6 +115,9 @@ public slots:
 
     void setFanState(short value);
     void setFanPrimaryDutyCycle(short value);
+    //Added for LA2-EU
+    void setFanDownflowDutyCycle(short value);
+    void setFanInflowDutyCycle(short value);
     //
     void setFanPrimaryNominalDutyCycleFactory(short value);
     void setFanPrimaryNominalRpmFactory(int value);
@@ -338,6 +341,8 @@ private:
     QScopedPointer<DeviceDigitalOut>    m_pExhaustContact;
     QScopedPointer<DeviceDigitalOut>    m_pAlarmContact;
     ///
+
+    ///
     QScopedPointer<Temperature>     m_pTemperature;
     QScopedPointer<AirflowVelocity> m_pAirflowInflow;
     ///
@@ -350,6 +355,8 @@ private:
     QScopedPointer<QThread>         m_threadForFanRbmDsi;
     QScopedPointer<QTimer>          m_timerEventForFanRbmDsi;
     ///
+    QScopedPointer<DeviceAnalogCom> m_fanInflow;
+    //QScopedPointer<BlowerRbmDsi>    m_fanDownflow;
     QScopedPointer<BlowerRbmDsi>    m_pFanPrimary;
     QScopedPointer<BlowerRegalECM>  m_boardRegalECM;
     ///
@@ -417,6 +424,15 @@ private:
     void _insertDataLog();
     void _insertAlarmLog(int alarmCode, const QString alarmText);
     void _insertEventLog(const QString logText);
+
+//    void _setFanDownflowDutyCycle(short value);
+
+    void _setFanInflowStateNominal();
+    void _setFanInflowStateMinimum();
+    void _setFanInflowStateStandby();
+    void _setFanInflowStateOFF();
+    void _setFanInflowDutyCycle(short dutyCycle);
+    void _setFanInflowInterlocked(bool interlocked);
 
     void _setFanPrimaryStateNominal();
     void _setFanPrimaryStateMinimum();

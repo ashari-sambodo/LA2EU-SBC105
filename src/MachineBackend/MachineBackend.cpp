@@ -565,7 +565,7 @@ void MachineBackend::setup()
         /// Register Address
         QModbusDataUnitMap reg;
         reg.insert(QModbusDataUnit::HoldingRegisters,
-        {QModbusDataUnit::HoldingRegisters, 0, MODBUS_REGISTER_COUNT});
+                   {QModbusDataUnit::HoldingRegisters, 0, MODBUS_REGISTER_COUNT});
         /// Shadow of the modbus register
         m_modbusDataUnitBufferRegisterHolding.reset(new QVector<uint16_t>(MODBUS_REGISTER_COUNT));
         /// put the register map to modbus handler
@@ -587,7 +587,17 @@ void MachineBackend::setup()
         }
     }
 
-    /// Fan Primary
+    /// Fan Exhaust
+    {
+        m_fanInflow.reset(new DeviceAnalogCom);
+        m_fanInflow->setSubBoard(m_boardAnalogOutput1.data());
+
+        connect(m_fanInflow.data(), &DeviceAnalogCom::stateChanged,
+                pData, [&](int newVal){
+            pData->setFanInflowDutyCycle(newVal);
+        });
+    }
+    /// Fan Primary - Fan Downflow
     {
         /// find and initializing serial port for fan
         m_serialPort1.reset(new QSerialPort());
@@ -1823,6 +1833,7 @@ void MachineBackend::loop()
     /// ACTUATOR
     /// put any actuator routine task in here
     m_pSasWindowMotorize->routineTask();
+    m_fanInflow->routineTask();
     m_pLight->routineTask();
     m_pLightIntensity->routineTask();
     if(pData->getSocketInstalled()) m_pSocket->routineTask();
@@ -2741,6 +2752,9 @@ void MachineBackend::setFanState(short value)
     case MachineEnums::FAN_STATE_ON:
     {
         _setFanPrimaryStateNominal();
+        m_fanInflow->setState(value ? 51 : 0);
+        m_fanInflow->routineTask();
+        //        _setFanDownflowDutyCycle(value ? 24 : 0);
     }
         break;
     case MachineEnums::FAN_STATE_STANDBY:
@@ -2782,6 +2796,22 @@ void MachineBackend::setFanPrimaryDutyCycle(short value)
     if(value > 100) return;
 
     _setFanPrimaryDutyCycle(value);
+}
+
+void MachineBackend::setFanDownflowDutyCycle(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    _setFanDownflowDutyCycle(value);
+}
+
+void MachineBackend::setFanInflowDutyCycle(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    m_fanInflow->setState(value);
 }
 
 void MachineBackend::setFanPrimaryNominalDutyCycleFactory(short value)
@@ -4726,6 +4756,47 @@ void MachineBackend::_insertEventLog(const QString logText)
         }//
     });
 }
+
+void MachineBackend::_setFanInflowStateNominal()
+{
+    short dutyCycle = pData->getFanInflowNominalDutyCycle();
+    _setFanInflowDutyCycle(dutyCycle);
+}
+
+void MachineBackend::_setFanInflowStateMinimum()
+{
+
+}
+
+void MachineBackend::_setFanInflowStateStandby()
+{
+
+}
+
+void MachineBackend::_setFanInflowStateOFF()
+{
+
+}
+
+void MachineBackend::_setFanInflowDutyCycle(short dutyCycle)
+{
+
+}
+
+void MachineBackend::_setFanInflowInterlocked(bool interlocked)
+{
+
+}
+
+//void MachineBackend::_setFanDownflowDutyCycle(short value)
+//{
+//    /// Then turned on downflow blower
+//    /// append pending task to target object and target thread
+//    QMetaObject::invokeMethod(m_pFanPrimary.data(),[&, value]{
+//        m_pFanPrimary->setDutyCycle(value);
+//    },
+//    Qt::QueuedConnection);
+//}
 
 void MachineBackend::_setFanPrimaryStateNominal()
 {

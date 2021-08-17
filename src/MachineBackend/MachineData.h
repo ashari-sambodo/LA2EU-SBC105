@@ -83,6 +83,25 @@ class MachineData : public QObject
                //               WRITE setFanPrimaryRpm
                NOTIFY fanPrimaryRpmChanged)
 
+    //Added for LA2-EU INFLOW
+    Q_PROPERTY(bool fanInflowInterlocked
+               READ getFanInflowInterlocked
+               //               WRITE setFanInflowInterlocked
+               NOTIFY fanInflowInterlockedChanged)
+    Q_PROPERTY(short fanInflowState
+               READ getFanInflowState
+               //               WRITE setFanInflowState
+               NOTIFY fanInflowStateChanged)
+    Q_PROPERTY(short fanInflowDutyCycle
+               READ getFanInflowDutyCycle
+               //               WRITE setFanInflowDutyCycle
+               NOTIFY fanInflowDutyCycleChanged)
+    Q_PROPERTY(int fanInflowRpm
+               READ getFanInflowRpm
+               //               WRITE setFanInflowRpm
+               NOTIFY fanInflowRpmChanged)
+    //
+
     //    Q_PROPERTY(short fanPrimaryNominalDutyCycle
     //               READ getFanPrimaryNominalDutyCycle
     //               //               WRITE setFanPrimaryNominalDutyCycle
@@ -901,7 +920,13 @@ public:
     ///
     bool getFanPrimaryInterlocked() const;
     void setFanPrimaryInterlocked(short fanPrimaryInterlocked);
-
+    //
+    short getFanInflowState() const;
+    void setFanInflowState(short fanInflowState);
+    ///
+    bool getFanInflowInterlocked() const;
+    void setFanInflowInterlocked(short fanInflowInterlocked);
+    //
     ///LIGHT
     void setLightInterlocked(bool lightInterlocked);
     bool getLightInterlocked() const;
@@ -1033,6 +1058,8 @@ public:
     Q_INVOKABLE short   getFanPrimaryDutyCycle() const;
     Q_INVOKABLE int     getFanPrimaryRpm() const;
     //
+    //    Q_INVOKABLE int     getFanDownflowDutyCycle() const;
+    //
     Q_INVOKABLE short   getFanPrimaryNominalDutyCycle() const;
     Q_INVOKABLE int     getFanPrimaryNominalRpm() const;
     Q_INVOKABLE short   getFanPrimaryMinimumDutyCycle() const;
@@ -1080,6 +1107,59 @@ public:
     //
     void    setFanPrimaryStandbyDutyCycleField(short fanPrimaryStandbyDutyCycleField);
     void    setFanPrimaryStandbyRpmField(int fanPrimaryStandbyRpmField);
+
+    ////Added for LA2-EU
+    //FAN INFLOW
+    Q_INVOKABLE short   getFanInflowDutyCycle() const;
+    Q_INVOKABLE int     getFanInflowRpm() const;
+    //
+    Q_INVOKABLE short   getFanInflowNominalDutyCycle() const;
+    Q_INVOKABLE int     getFanInflowNominalRpm() const;
+    Q_INVOKABLE short   getFanInflowMinimumDutyCycle() const;
+    Q_INVOKABLE int     getFanInflowMinimumRpm() const;
+    Q_INVOKABLE short   getFanInflowStandbyDutyCycle() const;
+    Q_INVOKABLE int     getFanInflowStandbyRpm() const;
+    //
+    Q_INVOKABLE short   getFanInflowNominalDutyCycleFactory() const;
+    Q_INVOKABLE int     getFanInflowNominalRpmFactory() const;
+    Q_INVOKABLE short   getFanInflowNominalDutyCycleField() const;
+    Q_INVOKABLE int     getFanInflowNominalRpmField() const;
+    //
+    Q_INVOKABLE short   getFanInflowMinimumDutyCycleFactory() const;
+    Q_INVOKABLE int     getFanInflowMinimumRpmFactory() const;
+    Q_INVOKABLE short   getFanInflowMinimumDutyCycleField() const;
+    Q_INVOKABLE int     getFanInflowMinimumRpmField() const;
+    //
+    Q_INVOKABLE short   getFanInflowStandbyDutyCycleFactory() const;
+    Q_INVOKABLE int     getFanInflowStandbyRpmFactory() const;
+    Q_INVOKABLE short   getFanInflowStandbyDutyCycleField() const;
+    Q_INVOKABLE int     getFanInflowStandbyRpmField() const;
+    //Added for LA2-EU
+    void    setFanInflowDutyCycle(short value);
+    void    setFanInflowRpm(int value);
+    //
+    void    setFanInflowNominalDutyCycle(short value);
+    void    setFanInflowNominalRpm(short value);
+    void    setFanInflowMinimumDutyCycle(short value);
+    void    setFanInflowMinimumRpm(short value);
+    void    setFanInflowStandbyDutyCycle(short value);
+    void    setFanInflowStandbyRpm(int fanInflowStandbyRpm);
+    //
+    void    setFanInflowNominalDutyCycleFactory(short fanInflowNominalDutyCycleFactory);
+    void    setFanInflowNominalRpmFactory(int fanInflowNominalRpmFactory);
+    void    setFanInflowNominalDutyCycleField(short fanInflowNominalDutyCycleField);
+    void    setFanInflowNominalRpmField(int fanInflowNominalRpmField);
+    //
+    void    setFanInflowMinimumDutyCycleFactory(short fanInflowMinimumDutyCycleFactory);
+    void    setFanInflowMinimumRpmFactory(int fanInflowMinimumRpmFactory);
+    void    setFanInflowMinimumDutyCycleField(short fanInflowMinimumDutyCycleField);
+    void    setFanInflowMinimumRpmField(int fanInflowMinimumRpmField);
+    //
+    void    setFanInflowStandbyDutyCycleFactory(short fanInflowStandbyDutyCycleFactory);
+    void    setFanInflowStandbyRpmFactory(int fanInflowStandbyRpmFactory);
+    //
+    void    setFanInflowStandbyDutyCycleField(short fanInflowStandbyDutyCycleField);
+    void    setFanInflowStandbyRpmField(int fanInflowStandbyRpmField);
 
     // Magenetic Swtich for Sash Windows
     void setMagSWState(short index, bool value);
@@ -1462,6 +1542,7 @@ signals:
     void hasStoppedChanged(bool hasStopped);
 
     void fanPrimaryStateChanged(short fanPrimaryState);
+    void fanInflowStateChanged(short fanInflowState);
     void lightStateChanged(short lightState);
     void socketStateChanged(short socketState);
     void gasStateChanged(short gasState);
@@ -1496,7 +1577,10 @@ signals:
 
     void fanPrimaryDutyCycleChanged(short fanPrimaryDutyCycle);
     void fanPrimaryRpmChanged(int fanPrimaryRpm);
-
+    //Added for LA2-EU
+    void fanInflowDutyCycleChanged(short fanInflowDutyCycle);
+    void fanInflowRpmChanged(int fanInflowRpm);
+    //
     void temperatureChanged(short temperature);
     void temperatureAdcChanged(int value);
     void temperatureValueStrfChanged(QString value);
@@ -1545,6 +1629,7 @@ signals:
     void dataLogIsFullChanged(bool dataLogIsFull);
 
     void fanPrimaryInterlockedChanged(short fanPrimaryInterlocked);
+    void fanInflowInterlockedChanged(short fanInflowInterlocked);
     void lightInterlockedChanged(bool lightInterlocked);
     void socketInterlockedChanged(bool socketInterlocked);
     void gasInterlockedChanged(bool gasInterlocked);
@@ -1571,6 +1656,7 @@ signals:
     void warmingUpCountdownChanged(int warmingUpCountdown);
 
     void fanPrimarySwithingStateTriggered(bool stateTo);
+    void fanInflowSwithingStateTriggered(bool stateTo);
 
     void uvLifeMinutesChanged(int uvLifeMinutes);
     void uvLifePercentChanged(short uvLifePercent);
@@ -1712,6 +1798,7 @@ private:
     short m_sashWindowState = 0;
 
     short m_fanPrimaryState = 0;
+    short m_fanInflowState = 0;
 
     short m_lightState = 0;
     bool m_lightInterlocked = false;
@@ -1826,6 +1913,31 @@ private:
     short   m_fanPrimaryStandbyDutyCycleField = 0;
     int     m_fanPrimaryStandbyRpmField = 0;
 
+    //FAN INFLOW
+    short   m_fanInflowDutyCycle = 0;
+    int     m_fanInflowRpm = 0;
+    short   m_fanInflowNominalDutyCycle = 0;
+    int     m_fanInflowNominalRpm = 0;
+    short   m_fanInflowMinimumDutyCycle = 0;
+    int     m_fanInflowMinimumRpm = 0;
+    short   m_fanInflowStandbyDutyCycle = 0;
+    int     m_fanInflowStandbyRpm = 0;
+    short   m_fanInflowNominalDutyCycleFactory = 0;
+    int     m_fanInflowNominalRpmFactory = 0;
+    short   m_fanInflowNominalDutyCycleField = 0;
+    int     m_fanInflowNominalRpmField = 0;
+
+    short   m_fanInflowMinimumDutyCycleFactory = 0;
+    int     m_fanInflowMinimumRpmFactory = 0;
+    short   m_fanInflowMinimumDutyCycleField = 0;
+    int     m_fanInflowMinimumRpmField = 0;
+
+    short   m_fanInflowStandbyDutyCycleFactory = 0;
+    int     m_fanInflowStandbyRpmFactory = 0;
+    short   m_fanInflowStandbyDutyCycleField = 0;
+    int     m_fanInflowStandbyRpmField = 0;
+
+    //
     bool    m_boardStatusHybridDigitalRelay = false;
     bool    m_boardStatusHybridDigitalInput = false;
     bool    m_boardStatusHybridAnalogInput  = false;
@@ -1835,6 +1947,8 @@ private:
     bool    m_boardStatusCtpRtc = false;
     bool    m_boardStatusCtpIoe = false;
 
+
+
     /// Datalog
     bool m_dataLogEnable    = false;
     bool m_dataLogRunning   = false;
@@ -1843,6 +1957,7 @@ private:
     bool  m_dataLogIsFull   = false;
 
     bool m_fanPrimaryInterlocked = false;
+    bool m_fanInflowInterlocked = false;
 
     short m_tempAmbientStatus = 0;
 

@@ -1442,6 +1442,34 @@ void MachineData::setFanPrimaryInterlocked(short fanPrimaryInterlocked)
     emit fanPrimaryInterlockedChanged(m_fanPrimaryInterlocked);
 }
 
+short MachineData::getFanInflowState() const
+{
+    return m_fanInflowState;
+}
+
+void MachineData::setFanInflowState(short fanInflowState)
+{
+    if (m_fanInflowState == fanInflowState)
+        return;
+
+    m_fanInflowState = fanInflowState;
+    emit fanInflowStateChanged(m_fanInflowState);
+}
+
+bool MachineData::getFanInflowInterlocked() const
+{
+    return m_fanInflowInterlocked;
+}
+
+void MachineData::setFanInflowInterlocked(short fanInflowInterlocked)
+{
+    if (m_fanInflowInterlocked == fanInflowInterlocked)
+        return;
+
+    m_fanInflowInterlocked = fanInflowInterlocked;
+    emit fanInflowInterlockedChanged(m_fanInflowInterlocked);
+}
+
 void MachineData::setUvInstalled(bool uvInstalled)
 {
     if (m_uvInstalled == uvInstalled)
@@ -1780,6 +1808,229 @@ void MachineData::setFanPrimaryStandbyRpmField(int fanPrimaryStandbyRpmField)
     //    emit fanPrimaryStandbyRpmFieldChanged(m_fanPrimaryStandbyRpmField);
 }
 
+short MachineData::getFanInflowDutyCycle() const
+{
+    return m_fanInflowDutyCycle;
+}
+
+int MachineData::getFanInflowRpm() const
+{
+    return m_fanInflowRpm;
+}
+
+short MachineData::getFanInflowNominalDutyCycle() const
+{
+    return m_fanInflowNominalDutyCycle;
+}
+
+int MachineData::getFanInflowNominalRpm() const
+{
+    return m_fanInflowNominalRpm;
+}
+
+short MachineData::getFanInflowMinimumDutyCycle() const
+{
+    return m_fanInflowMinimumDutyCycle;
+}
+
+int MachineData::getFanInflowMinimumRpm() const
+{
+    return m_fanInflowMinimumRpm;
+}
+
+short MachineData::getFanInflowStandbyDutyCycle() const
+{
+    return m_fanInflowStandbyDutyCycle;
+}
+
+int MachineData::getFanInflowStandbyRpm() const
+{
+    return m_fanInflowStandbyRpm;
+}
+
+short MachineData::getFanInflowNominalDutyCycleFactory() const
+{
+    return m_fanInflowNominalDutyCycleFactory;
+}
+
+int MachineData::getFanInflowNominalRpmFactory() const
+{
+    return m_fanInflowNominalRpmFactory;
+}
+
+short MachineData::getFanInflowNominalDutyCycleField() const
+{
+    return m_fanInflowNominalDutyCycleField;
+}
+
+int MachineData::getFanInflowNominalRpmField() const
+{
+    return m_fanInflowNominalRpmField;
+}
+
+short MachineData::getFanInflowMinimumDutyCycleFactory() const
+{
+    return m_fanInflowMinimumDutyCycleFactory;
+}
+
+int MachineData::getFanInflowMinimumRpmFactory() const
+{
+    return m_fanInflowMinimumRpmFactory;
+}
+
+short MachineData::getFanInflowMinimumDutyCycleField() const
+{
+    return m_fanInflowMinimumDutyCycleField;
+}
+
+int MachineData::getFanInflowMinimumRpmField() const
+{
+    return m_fanInflowMinimumRpmField;
+}
+
+short MachineData::getFanInflowStandbyDutyCycleFactory() const
+{
+    return m_fanInflowStandbyDutyCycleFactory;
+}
+
+int MachineData::getFanInflowStandbyRpmFactory() const
+{
+    return m_fanInflowStandbyRpmFactory;
+}
+
+short MachineData::getFanInflowStandbyDutyCycleField() const
+{
+    return m_fanInflowStandbyDutyCycleField;
+}
+
+int MachineData::getFanInflowStandbyRpmField() const
+{
+    return m_fanInflowStandbyRpmField;
+}
+
+void MachineData::setFanInflowDutyCycle(short value)
+{
+    if(m_fanInflowDutyCycle == value) return;
+    m_fanInflowDutyCycle = value;
+    emit fanInflowDutyCycleChanged(m_fanInflowDutyCycle);
+}
+
+void MachineData::setFanInflowRpm(int value)
+{
+    if(m_fanInflowRpm == value) return;
+    m_fanInflowRpm = value;
+    emit fanInflowRpmChanged(m_fanInflowRpm);
+}
+
+void MachineData::setFanInflowNominalDutyCycle(short value)
+{
+    if(m_fanInflowNominalDutyCycle == value) return;
+    m_fanInflowNominalDutyCycle = value;
+}
+
+void MachineData::setFanInflowNominalRpm(short value)
+{
+    if(m_fanInflowNominalRpm == value) return;
+    m_fanInflowNominalRpm = value;
+}
+
+void MachineData::setFanInflowMinimumDutyCycle(short value)
+{
+    if(m_fanInflowMinimumDutyCycle == value) return;
+    m_fanInflowMinimumDutyCycle = value;
+}
+
+void MachineData::setFanInflowMinimumRpm(short value)
+{
+    if(m_fanInflowMinimumRpm == value) return;
+    m_fanInflowMinimumRpm = value;
+}
+
+void MachineData::setFanInflowStandbyDutyCycle(short value)
+{
+    if(m_fanInflowStandbyDutyCycle == value) return;
+    m_fanInflowStandbyDutyCycle = value;
+}
+
+void MachineData::setFanInflowStandbyRpm(int fanInflowStandbyRpm)
+{
+    if(m_fanInflowStandbyRpm == fanInflowStandbyRpm) return;
+    m_fanInflowStandbyRpm = fanInflowStandbyRpm;
+}
+
+void MachineData::setFanInflowNominalDutyCycleFactory(short fanInflowNominalDutyCycleFactory)
+{
+    if(m_fanInflowNominalDutyCycleFactory == fanInflowNominalDutyCycleFactory) return;
+    m_fanInflowNominalDutyCycleFactory = fanInflowNominalDutyCycleFactory;
+}
+
+void MachineData::setFanInflowNominalRpmFactory(int fanInflowNominalRpmFactory)
+{
+    if(m_fanInflowNominalRpmFactory == fanInflowNominalRpmFactory) return;
+    m_fanInflowNominalRpmFactory = fanInflowNominalRpmFactory;
+}
+
+void MachineData::setFanInflowNominalDutyCycleField(short fanInflowNominalDutyCycleField)
+{
+    if(m_fanInflowNominalDutyCycleField == fanInflowNominalDutyCycleField) return;
+    m_fanInflowNominalDutyCycleField = fanInflowNominalDutyCycleField;
+}
+
+void MachineData::setFanInflowNominalRpmField(int fanInflowNominalRpmField)
+{
+    if(m_fanInflowNominalRpmField == fanInflowNominalRpmField) return;
+    m_fanInflowNominalRpmField = fanInflowNominalRpmField;
+}
+
+void MachineData::setFanInflowMinimumDutyCycleFactory(short fanInflowMinimumDutyCycleFactory)
+{
+    if(m_fanInflowMinimumDutyCycleFactory == fanInflowMinimumDutyCycleFactory) return;
+    m_fanInflowMinimumDutyCycleFactory = fanInflowMinimumDutyCycleFactory;
+}
+
+void MachineData::setFanInflowMinimumRpmFactory(int fanInflowMinimumRpmFactory)
+{
+    if(m_fanInflowMinimumRpmFactory == fanInflowMinimumRpmFactory) return;
+    m_fanInflowMinimumRpmFactory = fanInflowMinimumRpmFactory;
+}
+
+void MachineData::setFanInflowMinimumDutyCycleField(short fanInflowMinimumDutyCycleField)
+{
+    if(m_fanInflowMinimumDutyCycleField == fanInflowMinimumDutyCycleField) return;
+    m_fanInflowMinimumDutyCycleField = fanInflowMinimumDutyCycleField;
+}
+
+void MachineData::setFanInflowMinimumRpmField(int fanInflowMinimumRpmField)
+{
+    if(m_fanInflowMinimumRpmField == fanInflowMinimumRpmField) return;
+    m_fanInflowMinimumRpmField = fanInflowMinimumRpmField;
+}
+
+void MachineData::setFanInflowStandbyDutyCycleFactory(short fanInflowStandbyDutyCycleFactory)
+{
+    if(m_fanInflowStandbyDutyCycleFactory == fanInflowStandbyDutyCycleFactory) return;
+    m_fanInflowStandbyDutyCycleFactory = fanInflowStandbyDutyCycleFactory;
+}
+
+void MachineData::setFanInflowStandbyRpmFactory(int fanInflowStandbyRpmFactory)
+{
+    if(m_fanInflowStandbyRpmFactory == fanInflowStandbyRpmFactory) return;
+    m_fanInflowStandbyRpmFactory = fanInflowStandbyRpmFactory;
+}
+
+void MachineData::setFanInflowStandbyDutyCycleField(short fanInflowStandbyDutyCycleField)
+{
+    if(m_fanInflowStandbyDutyCycleField == fanInflowStandbyDutyCycleField) return;
+    m_fanInflowStandbyDutyCycleField = fanInflowStandbyDutyCycleField;
+}
+
+void MachineData::setFanInflowStandbyRpmField(int fanInflowStandbyRpmField)
+{
+    if(m_fanInflowStandbyRpmField == fanInflowStandbyRpmField) return;
+    m_fanInflowStandbyRpmField = fanInflowStandbyRpmField;
+}
+
+//
 void MachineData::setMagSWState(short index, bool value)
 {
     if(index > 5) return;

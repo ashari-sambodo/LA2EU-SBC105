@@ -767,6 +767,34 @@ void MachineProxy::setFanPrimaryDutyCycle(short value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setFanDownflowDutyCycle(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanDownflowDutyCycle(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanInflowDutyCycle(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowDutyCycle(value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setFanPrimaryNominalDutyCycleFactory(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
