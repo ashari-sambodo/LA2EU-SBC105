@@ -589,10 +589,10 @@ void MachineBackend::setup()
 
     /// Fan Exhaust
     {
-        m_fanInflow.reset(new DeviceAnalogCom);
-        m_fanInflow->setSubBoard(m_boardAnalogOutput1.data());
+        m_pFanInflow.reset(new DeviceAnalogCom);
+        m_pFanInflow->setSubBoard(m_boardAnalogOutput1.data());
 
-        connect(m_fanInflow.data(), &DeviceAnalogCom::stateChanged,
+        connect(m_pFanInflow.data(), &DeviceAnalogCom::stateChanged,
                 pData, [&](int newVal){
             pData->setFanInflowDutyCycle(newVal);
         });
@@ -1833,7 +1833,7 @@ void MachineBackend::loop()
     /// ACTUATOR
     /// put any actuator routine task in here
     m_pSasWindowMotorize->routineTask();
-    m_fanInflow->routineTask();
+    m_pFanInflow->routineTask();
     m_pLight->routineTask();
     m_pLightIntensity->routineTask();
     if(pData->getSocketInstalled()) m_pSocket->routineTask();
@@ -2752,8 +2752,8 @@ void MachineBackend::setFanState(short value)
     case MachineEnums::FAN_STATE_ON:
     {
         _setFanPrimaryStateNominal();
-        m_fanInflow->setState(value ? 51 : 0);
-        m_fanInflow->routineTask();
+        m_pFanInflow->setState(value ? 51 : 0);
+        m_pFanInflow->routineTask();
         //        _setFanDownflowDutyCycle(value ? 24 : 0);
     }
         break;
@@ -2798,20 +2798,12 @@ void MachineBackend::setFanPrimaryDutyCycle(short value)
     _setFanPrimaryDutyCycle(value);
 }
 
-void MachineBackend::setFanDownflowDutyCycle(short value)
-{
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    qDebug() << value;
-
-    _setFanDownflowDutyCycle(value);
-}
-
 void MachineBackend::setFanInflowDutyCycle(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << value;
 
-    m_fanInflow->setState(value);
+    m_pFanInflow->setState(value);
 }
 
 void MachineBackend::setFanPrimaryNominalDutyCycleFactory(short value)
@@ -3441,6 +3433,28 @@ void MachineBackend::_setFanPrimaryInterlocked(bool interlocked)
     /// append pending task to target object and target thread
     QMetaObject::invokeMethod(m_pFanPrimary.data(),[&, interlocked]{
         m_pFanPrimary->setInterlock(interlocked);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineBackend::_setFanInflowDutyCycle(short dutyCycle)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << "Set fan duty" << dutyCycle << "%";
+    /// talk to another thread
+    /// append pending task to target object and target thread
+    QMetaObject::invokeMethod(m_pFanInflow.data(),[&, dutyCycle]{
+        m_pFanInflow->setState(dutyCycle);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineBackend::_setFanInflowInterlocked(bool interlocked)
+{
+    /// talk to another thread
+    /// append pending task to target object and target thread
+    QMetaObject::invokeMethod(m_pFanInflow.data(),[&, interlocked]{
+        m_pFanInflow->setInterlock(interlocked);
     },
     Qt::QueuedConnection);
 }
@@ -4765,38 +4779,22 @@ void MachineBackend::_setFanInflowStateNominal()
 
 void MachineBackend::_setFanInflowStateMinimum()
 {
-
+    short dutyCycle = pData->getFanInflowMinimumDutyCycle();
+    _setFanInflowDutyCycle(dutyCycle);
 }
 
 void MachineBackend::_setFanInflowStateStandby()
 {
-
+    short dutyCycle = pData->getFanInflowStandbyDutyCycle();
+    _setFanInflowDutyCycle(dutyCycle);
 }
 
 void MachineBackend::_setFanInflowStateOFF()
 {
-
+    short dutyCycle = MachineEnums::FAN_STATE_OFF;
+    _setFanInflowDutyCycle(dutyCycle);
 }
 
-void MachineBackend::_setFanInflowDutyCycle(short dutyCycle)
-{
-
-}
-
-void MachineBackend::_setFanInflowInterlocked(bool interlocked)
-{
-
-}
-
-//void MachineBackend::_setFanDownflowDutyCycle(short value)
-//{
-//    /// Then turned on downflow blower
-//    /// append pending task to target object and target thread
-//    QMetaObject::invokeMethod(m_pFanPrimary.data(),[&, value]{
-//        m_pFanPrimary->setDutyCycle(value);
-//    },
-//    Qt::QueuedConnection);
-//}
 
 void MachineBackend::_setFanPrimaryStateNominal()
 {

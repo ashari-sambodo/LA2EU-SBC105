@@ -34,15 +34,16 @@
 
 /*
 SBC101 -> LA2 Std
-SBC102 -> LB2 Std
+SBC102 ->
 SBC103 -> AC2 Std
-SBC104 -> LA2 EU
+SBC104 ->
+SBC105 -> LA2 EU
 */
 
-#define APP_NAME    "SBC104"
+#define APP_NAME    "SBC105"
 #define APP_DOMAIN  "com"
 #define APP_ORG     "escolifesciences"
-#define APP_LNAME   "sbc104"
+#define APP_LNAME   "sbc105"
 
 #define COMPATIBLE_FOR "LA2-EU-G4"
 

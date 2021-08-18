@@ -116,7 +116,6 @@ public slots:
     void setFanState(short value);
     void setFanPrimaryDutyCycle(short value);
     //Added for LA2-EU
-    void setFanDownflowDutyCycle(short value);
     void setFanInflowDutyCycle(short value);
     //
     void setFanPrimaryNominalDutyCycleFactory(short value);
@@ -355,7 +354,7 @@ private:
     QScopedPointer<QThread>         m_threadForFanRbmDsi;
     QScopedPointer<QTimer>          m_timerEventForFanRbmDsi;
     ///
-    QScopedPointer<DeviceAnalogCom> m_fanInflow;
+    QScopedPointer<DeviceAnalogCom> m_pFanInflow;
     //QScopedPointer<BlowerRbmDsi>    m_fanDownflow;
     QScopedPointer<BlowerRbmDsi>    m_pFanPrimary;
     QScopedPointer<BlowerRegalECM>  m_boardRegalECM;

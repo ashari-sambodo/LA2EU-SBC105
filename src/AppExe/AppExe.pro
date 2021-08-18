@@ -11,11 +11,11 @@ CONFIG += c++11
 VERSION = 1.0.0
 DEFINES += APP_VERSION=\\\"$${VERSION}\\\"
 DEFINES += INCREMENTAL_VERSION=1
-TARGET = bin/sbc104-$$VERSION
+TARGET = bin/sbc105-$$VERSION
 
 ## CREATE SYMBOLIC LINK
 unix {
-    QMAKE_POST_LINK += $$quote(cd $$OUT_PWD/bin; ln -sf sbc104-$$VERSION app-exe)
+    QMAKE_POST_LINK += $$quote(cd $$OUT_PWD/bin; ln -sf sbc105-$$VERSION app-exe)
     ## rsync -lavv * root@172.16.30.210:/opt/SBCUpdate/
 }
 # The following define makes your compiler emit warnings if you use

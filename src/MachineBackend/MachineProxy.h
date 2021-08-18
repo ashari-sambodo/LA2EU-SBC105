@@ -94,7 +94,6 @@ public slots:
     void setFanState(short value);
     void setFanPrimaryDutyCycle(short value);
     //Added for LA2-EU
-    void setFanDownflowDutyCycle(short value);
     void setFanInflowDutyCycle(short value);
     //
     void setFanPrimaryNominalDutyCycleFactory(short value);
