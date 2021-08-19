@@ -776,10 +776,15 @@ class MachineData : public QObject
                //               WRITE setBoardStatusHybridAnalogInput
                NOTIFY boardStatusHybridAnalogInputChanged)
 
-    Q_PROPERTY(bool boardStatusHybridAnalogOutput
-               READ getBoardStatusHybridAnalogOutput
-               //               WRITE setBoardStatusHybridAnalogOutput
-               NOTIFY boardStatusHybridAnalogOutputChanged)
+    Q_PROPERTY(bool boardStatusHybridAnalogOutput1
+               READ getBoardStatusHybridAnalogOutput1
+               //               WRITE setBoardStatusHybridAnalogOutput1
+               NOTIFY boardStatusHybridAnalogOutput1Changed)
+
+    Q_PROPERTY(bool boardStatusHybridAnalogOutput2
+               READ getBoardStatusHybridAnalogOutput2
+               //               WRITE setBoardStatusHybridAnalogOutput2
+               NOTIFY boardStatusHybridAnalogOutput2Changed)
 
     Q_PROPERTY(bool boardStatusRbmCom
                READ getBoardStatusRbmCom
@@ -1256,8 +1261,10 @@ public:
     bool getBoardStatusHybridAnalogInput() const;
     void setBoardStatusHybridAnalogInput(bool boardStatusHybridAnalogInput);
     //
-    bool getBoardStatusHybridAnalogOutput() const;
-    void setBoardStatusHybridAnalogOutput(bool boardStatusHybridAnalogOutput);
+    bool getBoardStatusHybridAnalogOutput1() const;
+    void setBoardStatusHybridAnalogOutput1(bool boardStatusHybridAnalogOutput1);
+    bool getBoardStatusHybridAnalogOutput2() const;
+    void setBoardStatusHybridAnalogOutput2(bool boardStatusHybridAnalogOutput2);
     //
     bool getBoardStatusRbmCom() const;
     void setBoardStatusRbmCom(bool boardStatusRbmCom);
@@ -1615,7 +1622,8 @@ signals:
     void boardStatusHybridDigitalRelayChanged(bool boardStatusHybridDigitalRelay);
     void boardStatusHybridDigitalInputChanged(bool boardStatusHybridDigitalInput);
     void boardStatusHybridAnalogInputChanged(bool boardStatusHybridAnalogInput);
-    void boardStatusHybridAnalogOutputChanged(bool boardStatusHybridAnalogOutput);
+    void boardStatusHybridAnalogOutput1Changed(bool boardStatusHybridAnalogOutput1);
+    void boardStatusHybridAnalogOutput2Changed(bool boardStatusHybridAnalogOutput2);
     void boardStatusRbmComChanged(bool boardStatusRbmCom);
     void boardStatusPressureDiffChanged(bool boardStatusPressureDiff);
     void boardStatusCtpRtcChanged(bool boardStatusCtpRtc);
@@ -1941,7 +1949,8 @@ private:
     bool    m_boardStatusHybridDigitalRelay = false;
     bool    m_boardStatusHybridDigitalInput = false;
     bool    m_boardStatusHybridAnalogInput  = false;
-    bool    m_boardStatusHybridAnalogOutput = false;
+    bool    m_boardStatusHybridAnalogOutput1 = false;
+    bool    m_boardStatusHybridAnalogOutput2 = false;
     bool    m_boardStatusRbmCom  = false;
     bool    m_boardStatusPressureDiff  = false;
     bool    m_boardStatusCtpRtc = false;

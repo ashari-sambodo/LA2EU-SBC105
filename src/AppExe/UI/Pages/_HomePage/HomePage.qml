@@ -1624,7 +1624,12 @@ ViewApp {
 
                                         case MachineAPI.MODE_SECURITY_ACCESS_LOW:
                                         case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
-                                            const intent = IntentApp.create("qrc:/UI/Pages/FanSchedulerPage/FanSchedulerPage.qml", {})
+                                            let intent1;
+                                            if(props.modeIsMaintenance)
+                                                intent1 = IntentApp.create("qrc:/UI/Pages/FanSpeedPage/FanSpeedPage.qml", {})
+                                            else
+                                                intent1 = IntentApp.create("qrc:/UI/Pages/FanSchedulerPage/FanSchedulerPage.qml", {})
+                                            const intent = intent1
                                             startView(intent)
                                             break;
                                         case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
@@ -1633,7 +1638,12 @@ ViewApp {
                                         }
                                     }
                                     else {
-                                        const intent = IntentApp.create("qrc:/UI/Pages/FanSchedulerPage/FanSchedulerPage.qml", {})
+                                        let intent1;
+                                        if(props.modeIsMaintenance)
+                                            intent1 = IntentApp.create("qrc:/UI/Pages/FanSpeedPage/FanSpeedPage.qml", {})
+                                        else
+                                            intent1 = IntentApp.create("qrc:/UI/Pages/FanSchedulerPage/FanSchedulerPage.qml", {})
+                                        const intent = intent1
                                         startView(intent)
                                     }//
                                 }//

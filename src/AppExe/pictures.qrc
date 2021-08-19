@@ -219,5 +219,6 @@
         <file>UI/Pictures/datetime.png</file>
         <file>UI/Pictures/menu/microprocessor-device.png</file>
         <file>UI/Pictures/reset-save-60px.png</file>
+        <file>UI/Pictures/menu/set-fan-speed.png</file>
     </qresource>
 </RCC>

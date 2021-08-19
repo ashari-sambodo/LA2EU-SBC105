@@ -1734,13 +1734,22 @@ bool MachineData::getBoardStatusPressureDiff() const
     return m_boardStatusPressureDiff;
 }
 
-void MachineData::setBoardStatusHybridAnalogOutput(bool boardStatusHybridAnalogOutput)
+void MachineData::setBoardStatusHybridAnalogOutput1(bool boardStatusHybridAnalogOutput1)
 {
-    if (m_boardStatusHybridAnalogOutput == boardStatusHybridAnalogOutput)
+    if (m_boardStatusHybridAnalogOutput1 == boardStatusHybridAnalogOutput1)
         return;
 
-    m_boardStatusHybridAnalogOutput = boardStatusHybridAnalogOutput;
-    emit boardStatusHybridAnalogOutputChanged(m_boardStatusHybridAnalogOutput);
+    m_boardStatusHybridAnalogOutput1 = boardStatusHybridAnalogOutput1;
+    emit boardStatusHybridAnalogOutput1Changed(m_boardStatusHybridAnalogOutput1);
+}
+
+void MachineData::setBoardStatusHybridAnalogOutput2(bool boardStatusHybridAnalogOutput2)
+{
+    if (m_boardStatusHybridAnalogOutput2 == boardStatusHybridAnalogOutput2)
+        return;
+
+    m_boardStatusHybridAnalogOutput2 = boardStatusHybridAnalogOutput2;
+    emit boardStatusHybridAnalogOutput2Changed(m_boardStatusHybridAnalogOutput2);
 }
 
 bool MachineData::getBoardStatusRbmCom() const
@@ -1757,9 +1766,14 @@ void MachineData::setBoardStatusHybridAnalogInput(bool boardStatusHybridAnalogIn
     emit boardStatusHybridAnalogInputChanged(m_boardStatusHybridAnalogInput);
 }
 
-bool MachineData::getBoardStatusHybridAnalogOutput() const
+bool MachineData::getBoardStatusHybridAnalogOutput1() const
 {
-    return m_boardStatusHybridAnalogOutput;
+    return m_boardStatusHybridAnalogOutput1;
+}
+
+bool MachineData::getBoardStatusHybridAnalogOutput2() const
+{
+    return m_boardStatusHybridAnalogOutput2;
 }
 
 void MachineData::setBoardStatusHybridDigitalInput(bool boardStatusHybridDigitalInput)

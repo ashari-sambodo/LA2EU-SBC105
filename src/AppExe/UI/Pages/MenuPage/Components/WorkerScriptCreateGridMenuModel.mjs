@@ -122,6 +122,13 @@
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype        : "menu",
+                                 mtitle    : qsTr("Fan Speed"),
+                                 micon     : "qrc:/UI/Pictures/menu/set-fan-speed.png",
+                                 mlink     : "qrc:/UI/Pages/FanSpeedPage/FanSpeedPage.qml"
+                             })
+
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype        : "menu",
                                  mtitle    : qsTr("Fan Scheduler"),
                                  micon     : "qrc:/UI/Pictures/menu/Fan_Schedule.png",
                                  mlink     : "qrc:/UI/Pages/FanSchedulerPage/FanSchedulerPage.qml"

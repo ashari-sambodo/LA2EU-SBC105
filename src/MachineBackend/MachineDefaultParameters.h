@@ -87,6 +87,25 @@
 #define SKEY_FAN_PRI_STB_DCY_FIELD      "fanPriStbDcyFie"
 #define SKEY_FAN_PRI_STB_RPM_FIELD      "fanPriStbRpmFie"
 //
+//FAN INFLOW EXHAUST
+#define SKEY_FAN_INF_NOM_DCY_FACTORY    "fanInfNomDcyFac"
+#define SKEY_FAN_INF_NOM_RPM_FACTORY    "fanInfNomRpmFac"
+//
+#define SKEY_FAN_INF_MIN_DCY_FACTORY    "fanInfMinDcyFac"
+#define SKEY_FAN_INF_MIN_RPM_FACTORY    "fanInfMinRpmFac"
+//
+#define SKEY_FAN_INF_STB_DCY_FACTORY    "fanInfStbDcyFac"
+#define SKEY_FAN_INF_STB_RPM_FACTORY    "fanInfStbRpmFac"
+//
+#define SKEY_FAN_INF_NOM_DCY_FIELD      "fanInfNomDcyFie"
+#define SKEY_FAN_INF_NOM_RPM_FIELD      "fanInfNomRpmFie"
+//
+#define SKEY_FAN_INF_MIN_DCY_FIELD      "fanInfMinDcyFie"
+#define SKEY_FAN_INF_MIN_RPM_FIELD      "fanInfMinRpmFie"
+//
+#define SKEY_FAN_INF_STB_DCY_FIELD      "fanInfStbDcyFie"
+#define SKEY_FAN_INF_STB_RPM_FIELD      "fanInfStbRpmFie"
+////
 //IFA
 #define SKEY_IFA_SENSOR_CONST           "ifaSenCon"
 #define SKEY_IFA_CAL_VEL_LOW_LIMIT      "ifaLowLim"

@@ -82,6 +82,7 @@ struct modbusRegisterAddress
     struct alarmCom          {static const short addr = 21;  short rw = 0; uint16_t value;} alarmCom;
     struct filterLife        {static const short addr = 22;  short rw = 0; uint16_t value;} filterLife;
     struct alarmFlapExhaust  {static const short addr = 23;  short rw = 0; uint16_t value;} alarmFlapExhaust;
+    struct fanInflowDutyCycle{static const short addr = 24;  short rw = 0; uint16_t value;} fanInflowDutyCycle;
 } modbusRegisterAddress;
 
 #define MODBUS_REGISTER_COUNT   23
@@ -382,7 +383,7 @@ void MachineBackend::setup()
                 });
             }
 
-            /// Aanalog Out Board
+            /// Analog Output Board - LIGHT INTENSITY
             {
                 m_boardAnalogOutput1.reset(new AOmcp4725);
                 m_boardAnalogOutput1->setI2C(m_i2cPort.data());
@@ -391,18 +392,42 @@ void MachineBackend::setup()
                 bool response = m_boardAnalogOutput1->init();
                 m_boardAnalogOutput1->polling();
 
-                pData->setBoardStatusHybridAnalogOutput(!response);
+                pData->setBoardStatusHybridAnalogOutput1(!response);
 
                 /// catch error status of the board
                 QObject::connect(m_boardAnalogOutput1.data(), &AOmcp4725::errorComToleranceReached,
                                  this, [&](int error){
-                    qDebug() << "AOmcp4725::errorComToleranceReached" << error << thread();
-                    pData->setBoardStatusHybridAnalogOutput(false);
+                    qDebug() << "m_boardAnalogOutput1 Error changed" << error << thread();
+                    pData->setBoardStatusHybridAnalogOutput1(false);
                 });
                 QObject::connect(m_boardAnalogOutput1.data(), &AIManage::errorComToleranceCleared,
                                  this, [&](int error){
-                    qDebug() << "AIManage::errorComToleranceCleared" << error << thread();
-                    pData->setBoardStatusHybridAnalogOutput(true);
+                    qDebug() << "m_boardAnalogOutput1 Error changed" << error << thread();
+                    pData->setBoardStatusHybridAnalogOutput1(true);
+                });
+            }//
+
+            /// Analog Output Board - INFLOW FAN
+            {
+                m_boardAnalogOutput2.reset(new AOmcp4725);
+                m_boardAnalogOutput2->setI2C(m_i2cPort.data());
+                m_boardAnalogOutput2->setAddress(0x61);
+
+                bool response = m_boardAnalogOutput2->init();
+                m_boardAnalogOutput2->polling();
+
+                pData->setBoardStatusHybridAnalogOutput2(!response);
+
+                /// catch error status of the board
+                QObject::connect(m_boardAnalogOutput2.data(), &AOmcp4725::errorComToleranceReached,
+                                 this, [&](int error){
+                    qDebug() << "m_boardAnalogOutput2 Error changed" << error << thread();
+                    pData->setBoardStatusHybridAnalogOutput2(false);
+                });
+                QObject::connect(m_boardAnalogOutput2.data(), &AIManage::errorComToleranceCleared,
+                                 this, [&](int error){
+                    qDebug() << "m_boardAnalogOutput2 Error changed" << error << thread();
+                    pData->setBoardStatusHybridAnalogOutput2(true);
                 });
             }//
 
@@ -473,6 +498,7 @@ void MachineBackend::setup()
             m_boardIO->addSlave(m_boardRelay1.data());
             m_boardIO->addSlave(m_boardAnalogInput1.data());
             m_boardIO->addSlave(m_boardAnalogOutput1.data());
+            m_boardIO->addSlave(m_boardAnalogOutput2.data());
             if(pData->getSeasInstalled()){ m_boardIO->addSlave(m_boardSensirionSPD8xx.data());}
 
             m_boardIO->addSlave(m_boardCtpIO.data());
@@ -591,11 +617,14 @@ void MachineBackend::setup()
     /// Fan Exhaust
     {
         m_pFanInflow.reset(new DeviceAnalogCom);
-        m_pFanInflow->setSubBoard(m_boardAnalogOutput1.data());
+        m_pFanInflow->setSubBoard(m_boardAnalogOutput2.data());
 
         connect(m_pFanInflow.data(), &DeviceAnalogCom::stateChanged,
                 pData, [&](int newVal){
             pData->setFanInflowDutyCycle(newVal);
+
+            /// MODBUS
+            _setModbusRegHoldingValue(modbusRegisterAddress.fanInflowDutyCycle.addr, newVal);
         });
     }
     /// Fan Primary - Fan Downflow
@@ -2758,14 +2787,13 @@ void MachineBackend::setFanState(short value)
     case MachineEnums::FAN_STATE_ON:
     {
         _setFanPrimaryStateNominal();
-        m_pFanInflow->setState(value ? 51 : 0);
-        m_pFanInflow->routineTask();
-        //        _setFanDownflowDutyCycle(value ? 24 : 0);
+        _setFanInflowStateNominal();
     }
         break;
     case MachineEnums::FAN_STATE_STANDBY:
     {
         _setFanPrimaryStateStandby();
+        _setFanInflowStateStandby();
     }
         break;
     default:
@@ -2788,6 +2816,7 @@ void MachineBackend::setFanState(short value)
         }
         /// ACTUALY TURNED OFF THE FAN
         _setFanPrimaryStateOFF();
+        _setFanInflowStateOFF();
     }
         break;
     }
@@ -2802,14 +2831,6 @@ void MachineBackend::setFanPrimaryDutyCycle(short value)
     if(value > 100) return;
 
     _setFanPrimaryDutyCycle(value);
-}
-
-void MachineBackend::setFanInflowDutyCycle(short value)
-{
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    qDebug() << value;
-
-    m_pFanInflow->setState(value);
 }
 
 void MachineBackend::setFanPrimaryNominalDutyCycleFactory(short value)
@@ -2936,6 +2957,111 @@ void MachineBackend::setFanPrimaryStandbyRpmField(int value)
     settings.setValue(SKEY_FAN_PRI_STB_RPM_FIELD, value);
 
     pData->setFanPrimaryStandbyRpmField(value);
+}
+
+///FAN INFLOW
+void MachineBackend::setFanInflowDutyCycle(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    _setFanInflowDutyCycle(value);
+}
+
+void MachineBackend::setFanInflowNominalDutyCycleFactory(short value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_NOM_DCY_FACTORY, value);
+
+    pData->setFanInflowNominalDutyCycleFactory(value);
+}
+
+void MachineBackend::setFanInflowNominalRpmFactory(int value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_NOM_RPM_FACTORY, value);
+
+    pData->setFanInflowNominalRpmFactory(value);
+}
+
+void MachineBackend::setFanInflowMinimumDutyCycleFactory(short value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_MIN_DCY_FACTORY, value);
+
+    pData->setFanInflowMinimumDutyCycleFactory(value);
+}
+
+void MachineBackend::setFanInflowMinimumRpmFactory(int value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_MIN_RPM_FACTORY, value);
+
+    pData->setFanInflowMinimumRpmFactory(value);
+}
+
+void MachineBackend::setFanInflowStandbyDutyCycleFactory(short value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_STB_DCY_FACTORY, value);
+
+    pData->setFanInflowStandbyDutyCycleFactory(value);
+}
+
+void MachineBackend::setFanInflowStandbyRpmFactory(int value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_STB_RPM_FACTORY, value);
+
+    pData->setFanInflowStandbyRpmFactory(value);
+}
+
+void MachineBackend::setFanInflowNominalDutyCycleField(short value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_NOM_DCY_FIELD, value);
+
+    pData->setFanInflowNominalDutyCycleField(value);
+}
+
+void MachineBackend::setFanInflowNominalRpmField(int value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_NOM_RPM_FIELD, value);
+
+    pData->setFanInflowNominalRpmField(value);
+}
+
+void MachineBackend::setFanInflowMinimumDutyCycleField(short value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_MIN_DCY_FIELD, value);
+
+    pData->setFanInflowMinimumDutyCycleField(value);
+}
+
+void MachineBackend::setFanInflowMinimumRpmField(int value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_MIN_RPM_FIELD, value);
+
+    pData->setFanInflowMinimumRpmField(value);
+}
+
+void MachineBackend::setFanInflowStandbyDutyCycleField(short value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_STB_DCY_FIELD, value);
+
+    pData->setFanInflowStandbyDutyCycleField(value);
+}
+
+void MachineBackend::setFanInflowStandbyRpmField(int value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_STB_RPM_FIELD, value);
+
+    pData->setFanInflowStandbyRpmField(value);
 }
 
 void MachineBackend::setLightIntensity(short lightIntensity)
@@ -3451,6 +3577,7 @@ void MachineBackend::_setFanInflowDutyCycle(short dutyCycle)
     /// append pending task to target object and target thread
     QMetaObject::invokeMethod(m_pFanInflow.data(),[&, dutyCycle]{
         m_pFanInflow->setState(dutyCycle);
+        m_pFanInflow->routineTask();
     },
     Qt::QueuedConnection);
 }
@@ -5542,7 +5669,8 @@ void MachineBackend::_machineState()
     alarmsBoards |= !pData->getBoardStatusHybridDigitalInput();
     alarmsBoards |= !pData->getBoardStatusHybridDigitalRelay();
     alarmsBoards |= !pData->getBoardStatusHybridAnalogInput();
-    alarmsBoards |= !pData->getBoardStatusHybridAnalogOutput();
+    alarmsBoards |= !pData->getBoardStatusHybridAnalogOutput1();
+    alarmsBoards |= !pData->getBoardStatusHybridAnalogOutput2();
     alarmsBoards |= !pData->getBoardStatusRbmCom();
     alarmsBoards |= !pData->getBoardStatusCtpRtc();
     alarmsBoards |= !pData->getBoardStatusCtpIoe();
@@ -6541,10 +6669,18 @@ void MachineBackend::onDummyStateNewConnection()
                 m_pFanPrimary->setDummyStateEnable(1);
             },
             Qt::QueuedConnection);
+            QMetaObject::invokeMethod(m_pFanInflow.data(),[&]{
+                m_pFanInflow->setDummyStateEnable(1);
+            },
+            Qt::QueuedConnection);
         }
         else if(message == QLatin1String("#fan#dummy#0")){
             QMetaObject::invokeMethod(m_pFanPrimary.data(),[&]{
                 m_pFanPrimary->setDummyStateEnable(0);
+            },
+            Qt::QueuedConnection);
+            QMetaObject::invokeMethod(m_pFanInflow.data(),[&]{
+                m_pFanInflow->setDummyStateEnable(0);
             },
             Qt::QueuedConnection);
         }
@@ -6553,6 +6689,10 @@ void MachineBackend::onDummyStateNewConnection()
             int value = std::atoi(adcStr.toStdString().c_str());
             QMetaObject::invokeMethod(m_pFanPrimary.data(),[&, value]{
                 m_pFanPrimary->setDummyState(value);
+            },
+            Qt::QueuedConnection);
+            QMetaObject::invokeMethod(m_pFanInflow.data(),[&, value]{
+                m_pFanInflow->setDummyState(value);
             },
             Qt::QueuedConnection);
         }

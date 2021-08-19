@@ -959,7 +959,7 @@ ViewApp {
                                 property bool connected: false
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return MachineData.boardStatusHybridAnalogOutput })
+                                    connected = Qt.binding(function() { return MachineData.boardStatusHybridAnalogInput })
                                 }
 
                                 onUnloaded: {
@@ -968,19 +968,40 @@ ViewApp {
                             }//
 
                             CusComPage.RowItemApp {
-                                id: moduleHabOutput
+                                id: moduleHabOutputLight
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Module - Hybrid Analog/Output")
+                                label: qsTr("Module - Hybrid Analog/Output (Light)")
                                 value: connected ? qsTr("OK") : qsTr("Fail")
 
                                 property bool connected: false
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return MachineData.boardStatusHybridAnalogOutput })
+                                    connected = Qt.binding(function() { return MachineData.boardStatusHybridAnalogOutput1 })
+                                }
+
+                                onUnloaded: {
+                                    connected = false
+                                }
+                            }//
+
+                            CusComPage.RowItemApp {
+                                id: moduleHabOutputFan
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
+                                label: qsTr("Module - Hybrid Analog/Output (Fan Inflow)")
+                                value: connected ? qsTr("OK") : qsTr("Fail")
+
+                                property bool connected: false
+
+                                onLoaded: {
+                                    connected = Qt.binding(function() { return MachineData.boardStatusHybridAnalogOutput2 })
                                 }
 
                                 onUnloaded: {

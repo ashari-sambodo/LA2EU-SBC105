@@ -38,7 +38,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Fan Duty Cycle")
                 }
             }
 
@@ -92,7 +92,7 @@ ViewApp {
 
                             onValueChanged: {
                                 if (pressed) {
-                                    MachineAPI.setFanDownflowDutyCycle(fanDownflowSlider.value)
+                                    MachineAPI.setFanPrimaryDutyCycle(fanDownflowSlider.value)
                                 }//
                             }//
                         }//
@@ -147,7 +147,7 @@ ViewApp {
                 //console.debug("StackView.Active");
 
                 fanInflowSlider.value = MachineData.fanInflowDutyCycle
-                fanDownflowSlider.value = MachineData.fanDownflowDutyCycle
+                fanDownflowSlider.value = MachineData.fanPrimaryDutyCycle
             }
 
             /// onPause

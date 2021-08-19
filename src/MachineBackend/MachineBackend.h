@@ -115,8 +115,6 @@ public slots:
 
     void setFanState(short value);
     void setFanPrimaryDutyCycle(short value);
-    //Added for LA2-EU
-    void setFanInflowDutyCycle(short value);
     //
     void setFanPrimaryNominalDutyCycleFactory(short value);
     void setFanPrimaryNominalRpmFactory(int value);
@@ -131,6 +129,23 @@ public slots:
     void setFanPrimaryMinimumRpmField(int value);
     void setFanPrimaryStandbyDutyCycleField(short value);
     void setFanPrimaryStandbyRpmField(int value);
+
+    //Added for LA2-EU
+    void setFanInflowDutyCycle(short value);
+    //
+    void setFanInflowNominalDutyCycleFactory(short value);
+    void setFanInflowNominalRpmFactory(int value);
+    void setFanInflowMinimumDutyCycleFactory(short value);
+    void setFanInflowMinimumRpmFactory(int value);
+    void setFanInflowStandbyDutyCycleFactory(short value);
+    void setFanInflowStandbyRpmFactory(int value);
+    //
+    void setFanInflowNominalDutyCycleField(short value);
+    void setFanInflowNominalRpmField(int value);
+    void setFanInflowMinimumDutyCycleField(short value);
+    void setFanInflowMinimumRpmField(int value);
+    void setFanInflowStandbyDutyCycleField(short value);
+    void setFanInflowStandbyRpmField(int value);
 
     void setLightIntensity(short lightIntensity);
     void saveLightIntensity(short lightIntensity);
@@ -327,7 +342,8 @@ private:
     /// Analog Input
     QScopedPointer<AIManage>        m_boardAnalogInput1;
     /// Analog Output
-    QScopedPointer<AOmcp4725>       m_boardAnalogOutput1;
+    QScopedPointer<AOmcp4725>       m_boardAnalogOutput1;//Light Intensity
+    QScopedPointer<AOmcp4725>       m_boardAnalogOutput2;//Fan Inflow Duty Cycle
 
     /// Implementation
     QScopedPointer<SashWindow>          m_pSashWindow;
