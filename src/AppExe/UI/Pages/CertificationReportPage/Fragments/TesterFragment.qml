@@ -418,12 +418,18 @@ Item {
 
         property string customer:   "WORLD"
         property string country:    "SINGAPORE"
+        property string dateTest:   Qt.formatDate(new Date, "dd-MMM-yyyy")
+        property string swVersion:  Qt.application.name + " - " + Qt.application.version
 
         Component.onCompleted: {
             customerText.text = customer
             countryText.text = country
-            dateText.text = Qt.formatDate(new Date, "dd-MMM-yyyy")
-            swText.text = Qt.application.name + " - " + Qt.application.version
+
+            settings.dateTest = Qt.formatDate(new Date, "dd-MMM-yyyy")
+            dateText.text = settings.dateTest
+            settings.swVersion = Qt.application.name + " - " + Qt.application.version
+            swText.text = settings.swVersion
+
             testerNameText.text = testerName
             checkerNameText.text = checkerName
         }//

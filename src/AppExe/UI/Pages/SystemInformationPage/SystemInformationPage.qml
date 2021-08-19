@@ -58,119 +58,130 @@ ViewApp {
                     Item {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        ColumnLayout{
+                        Loader{
+                            active: props.compCompleted && Loader.Ready
                             anchors.fill: parent
-                            Item{
-                                Layout.minimumHeight: 40
-                                Layout.fillWidth: true
-                                Rectangle{
-                                    anchors.fill: parent
-                                    color: "#0F2952"
-                                    radius: 5
+                            sourceComponent: ColumnLayout{
+                                anchors.fill: parent
+                                Item{
+                                    Layout.minimumHeight: 40
+                                    Layout.fillWidth: true
+                                    Rectangle{
+                                        anchors.fill: parent
+                                        color: "#0F2952"
+                                        radius: 5
+                                    }
+                                    TextApp{
+                                        height: parent.height
+                                        width: parent.width
+                                        text: qsTr("Current System")
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                    }
                                 }
-                                TextApp{
-                                    height: parent.height
-                                    width: parent.width
-                                    text: qsTr("Current System")
-                                    horizontalAlignment: Text.AlignHCenter
-                                    verticalAlignment: Text.AlignVCenter
-                                }
-                            }
-                            Item{
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
-                                Rectangle{
-                                    id: rect1
-                                    anchors.fill: parent
-                                    color:"#22000000"
-                                }
-                                ColumnLayout{
-                                    anchors.fill: parent
-                                    Item{
-                                        Layout.fillHeight: true
-                                        Layout.fillWidth: true
-                                        RowLayout{
-                                            anchors.fill: parent
-                                            Flickable {
-                                                id: flick1
-                                                Layout.fillHeight: true
-                                                Layout.fillWidth: true
-                                                //                        anchors.fill: parent
-                                                //                        anchors.margins: 2
-                                                contentWidth: sysInfo1.width
-                                                contentHeight: sysInfo1.height
-                                                clip: true
+                                Item{
+                                    Layout.fillHeight: true
+                                    Layout.fillWidth: true
+                                    Rectangle{
+                                        id: rect1
+                                        anchors.fill: parent
+                                        color:"#22000000"
+                                    }
+                                    ColumnLayout{
+                                        anchors.fill: parent
+                                        Item{
+                                            Layout.fillHeight: true
+                                            Layout.fillWidth: true
+                                            RowLayout{
+                                                anchors.fill: parent
+                                                Flickable {
+                                                    id: flick1
+                                                    Layout.fillHeight: true
+                                                    Layout.fillWidth: true
+                                                    contentWidth: col1.width
+                                                    contentHeight: col1.height
+                                                    clip: true
 
-                                                flickableDirection: Flickable.VerticalFlick
+                                                    flickableDirection: Flickable.VerticalFlick
 
-                                                ScrollBar.vertical: verticalScrollBar1
-                                                ScrollBar.horizontal: horizontalScrollBar1
-
-                                                TextApp{
-                                                    id: sysInfo1
-                                                    padding: 5
-                                                    //height: parent.height
-                                                    //width: parent.width
-                                                    text: "---"
+                                                    ScrollBar.vertical: verticalScrollBar1
+                                                    Column {
+                                                        id: col1
+                                                        spacing: 2
+                                                        width: flick1.width
+                                                        Repeater{
+                                                            model: props.modelLength1
+                                                            Row{
+                                                                width: flick1.width
+                                                                TextApp{
+                                                                    id: name1
+                                                                    padding: 5
+                                                                    //height: parent.height
+                                                                    width: flick1.width * 0.3
+                                                                    text: "---"
+                                                                    wrapMode: Text.WordWrap
+                                                                    font.capitalization: Font.Capitalize
+                                                                }
+                                                                TextApp{
+                                                                    padding: 5
+                                                                    text: ":"
+                                                                }
+                                                                TextApp{
+                                                                    id: value1
+                                                                    width: flick1.width * 0.7
+                                                                    text: "---"
+                                                                    wrapMode: Text.WordWrap
+                                                                }
+                                                                Component.onCompleted:{
+                                                                    let sysInfo = props.sbcCurSysInfo[index]
+                                                                    let textSysInfo = String(typeof sysInfo !== 'undefined' ? sysInfo : "---:---")
+                                                                    let text1 = textSysInfo.split(":")[0]
+                                                                    let text2 = textSysInfo.split(":")[1]
+                                                                    while(text2.charAt(0) === ' ')
+                                                                    {
+                                                                        text2 = text2.substring(1);
+                                                                    }
+                                                                    name1.text = text1
+                                                                    value1.text = text2
+                                                                    //console.debug(name1.text)
+                                                                    //console.debug(value1.text)
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
-                                            }
-                                            Rectangle{
-                                                visible: sysInfo1.height > parent.height
-                                                Layout.fillHeight: true
-                                                Layout.minimumWidth: 10
-                                                color: "transparent"
-                                                border.color: "#dddddd"
-                                                radius: 5
+                                                Rectangle{
+                                                    visible: col1.height > parent.height
+                                                    Layout.fillHeight: true
+                                                    Layout.minimumWidth: 10
+                                                    color: "transparent"
+                                                    border.color: "#dddddd"
+                                                    radius: 5
 
-                                                /// Horizontal ScrollBar
-                                                ScrollBar {
-                                                    id: verticalScrollBar1
-                                                    anchors.fill: parent
-                                                    orientation: Qt.Horizontal
-                                                    policy: ScrollBar.AlwaysOn
+                                                    /// Horizontal ScrollBar
+                                                    ScrollBar {
+                                                        id: verticalScrollBar1
+                                                        anchors.fill: parent
+                                                        orientation: Qt.Horizontal
+                                                        policy: ScrollBar.AlwaysOn
 
-                                                    contentItem: Rectangle {
-                                                        implicitWidth: 5
-                                                        implicitHeight: 0
-                                                        radius: width / 2
-                                                        color: "#dddddd"
+                                                        contentItem: Rectangle {
+                                                            implicitWidth: 5
+                                                            implicitHeight: 0
+                                                            radius: width / 2
+                                                            color: "#dddddd"
+                                                        }//
                                                     }//
                                                 }//
                                             }//
-                                        }
-                                    }
-                                    Rectangle{
-                                        visible: sysInfo1.width > parent.width
-                                        Layout.minimumHeight: 10
-                                        Layout.fillWidth: true
-                                        color: "transparent"
-                                        border.color: "#dddddd"
-                                        radius: 5
-
-                                        /// Horizontal ScrollBar
-                                        ScrollBar {
-                                            id: horizontalScrollBar1
-                                            anchors.fill: parent
-                                            orientation: Qt.Horizontal
-                                            policy: ScrollBar.AlwaysOn
-
-                                            contentItem: Rectangle {
-                                                implicitWidth: 0
-                                                implicitHeight: 5
-                                                radius: width / 2
-                                                color: "#dddddd"
-                                            }//
                                         }//
                                     }//
-                                }//
-                                Component.onCompleted: {
-                                    let sysInfo = ""
-                                    sysInfo = MachineData.getSbcCurrentSystemInformation()
+                                    Component.onCompleted: {
 
-                                    sysInfo1.text = sysInfo
-                                }
-                            }
-                        }//
+                                    }//
+                                }//
+                            }//
+                        }
                     }//
                     Rectangle{
                         Layout.fillHeight: true
@@ -178,121 +189,135 @@ ViewApp {
                         color: "#e3dac9"
                     }
                     Item {
-                        id: registeredItem
-                        visible: !MachineData.getSbcCurrentSerialNumberKnown()
-
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        ColumnLayout{
+                        visible: !MachineData.getSbcCurrentSerialNumberKnown()
+                        Loader{
+                            active: props.compCompleted && Loader.Ready
                             anchors.fill: parent
-                            Item{
-                                Layout.minimumHeight: 40
-                                Layout.fillWidth: true
-                                Rectangle{
-                                    anchors.fill: parent
-                                    color: "#0F2952"
-                                    radius: 5
+                            sourceComponent: ColumnLayout{
+                                anchors.fill: parent
+                                Item{
+                                    Layout.minimumHeight: 40
+                                    Layout.fillWidth: true
+                                    Rectangle{
+                                        anchors.fill: parent
+                                        color: "#0F2952"
+                                        radius: 5
+                                    }
+                                    TextApp{
+                                        height: parent.height
+                                        width: parent.width
+                                        text: qsTr("Current System")
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                    }
                                 }
-                                TextApp{
-                                    height: parent.height
-                                    width: parent.width
-                                    text: qsTr("Registered System")
-                                    horizontalAlignment: Text.AlignHCenter
-                                    verticalAlignment: Text.AlignVCenter
-                                }
-                            }
-                            Item{
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
-                                Rectangle{
-                                    id: rect2
-                                    anchors.fill: parent
-                                    color:"#22000000"
-                                }
-                                ColumnLayout{
-                                    anchors.fill: parent
-                                    Item{
-                                        Layout.fillHeight: true
-                                        Layout.fillWidth: true
-                                        RowLayout{
-                                            anchors.fill: parent
-                                            Flickable {
-                                                id: flick2
-                                                Layout.fillHeight: true
-                                                Layout.fillWidth: true
-                                                contentWidth: sysInfo2.width
-                                                contentHeight: sysInfo2.height
-                                                clip: true
+                                Item{
+                                    Layout.fillHeight: true
+                                    Layout.fillWidth: true
+                                    Rectangle{
+                                        id: rect2
+                                        anchors.fill: parent
+                                        color:"#22000000"
+                                    }
+                                    ColumnLayout{
+                                        anchors.fill: parent
+                                        Item{
+                                            Layout.fillHeight: true
+                                            Layout.fillWidth: true
+                                            RowLayout{
+                                                anchors.fill: parent
+                                                Flickable {
+                                                    id: flick2
+                                                    Layout.fillHeight: true
+                                                    Layout.fillWidth: true
+                                                    contentWidth: col2.width
+                                                    contentHeight: col2.height
+                                                    clip: true
 
-                                                flickableDirection: Flickable.VerticalFlick
+                                                    flickableDirection: Flickable.VerticalFlick
 
-                                                ScrollBar.vertical: verticalScrollBar2
-                                                ScrollBar.horizontal: horizontalScrollBar2
+                                                    ScrollBar.vertical: verticalScrollBar2
+                                                    Column {
+                                                        id: col2
+                                                        spacing: 2
+                                                        width: flick2.width
+                                                        Repeater{
+                                                            model: props.modelLength2
+                                                            Row{
+                                                                spacing: 0
+                                                                width: flick2.width
+                                                                TextApp{
+                                                                    id: name2
+                                                                    padding: 5
+                                                                    //height: parent.height
+                                                                    width: flick2.width * 0.3
+                                                                    text: "---"
+                                                                    wrapMode: Text.WordWrap
+                                                                    font.capitalization: Font.Capitalize
+                                                                }
 
-                                                TextApp{
-                                                    id: sysInfo2
-                                                    padding: 5
-                                                    //height: parent.height
-                                                    //width: parent.width
-                                                    text: "---"
+                                                                TextApp{
+                                                                    text: ":"
+                                                                }
+                                                                TextApp{
+                                                                    id: value2
+                                                                    //padding: 5
+                                                                    width: flick2.width * 0.7
+                                                                    text: "---"
+                                                                    wrapMode: Text.WordWrap
+                                                                }
+                                                                Component.onCompleted:{
+                                                                    var sysInfo = props.sbcCurSysInfo[index]
+                                                                    var textSysInfo = String(typeof sysInfo !== 'undefined' ? sysInfo : "---:---")
+                                                                    let text1 = textSysInfo.split(":")[0]
+                                                                    let text2 = textSysInfo.split(":")[1]
+                                                                    while(text2.charAt(0) === ' ')
+                                                                    {
+                                                                        text2 = text2.substring(1);
+                                                                    }
+                                                                    name2.text = text1
+                                                                    value2.text = text2
+                                                                    //console.debug(name1.text)
+                                                                    //console.debug(value1.text)
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
-                                            }
-                                            Rectangle{
-                                                visible: sysInfo2.height > parent.height
-                                                Layout.fillHeight: true
-                                                Layout.minimumWidth: 10
-                                                color: "transparent"
-                                                border.color: "#dddddd"
-                                                radius: 5
+                                                Rectangle{
+                                                    visible: col2.height > parent.height
+                                                    Layout.fillHeight: true
+                                                    Layout.minimumWidth: 10
+                                                    color: "transparent"
+                                                    border.color: "#dddddd"
+                                                    radius: 5
 
-                                                /// Horizontal ScrollBar
-                                                ScrollBar {
-                                                    id: verticalScrollBar2
-                                                    anchors.fill: parent
-                                                    orientation: Qt.Horizontal
-                                                    policy: ScrollBar.AlwaysOn
+                                                    /// Horizontal ScrollBar
+                                                    ScrollBar {
+                                                        id: verticalScrollBar2
+                                                        anchors.fill: parent
+                                                        orientation: Qt.Horizontal
+                                                        policy: ScrollBar.AlwaysOn
 
-                                                    contentItem: Rectangle {
-                                                        implicitWidth: 5
-                                                        implicitHeight: 0
-                                                        radius: width / 2
-                                                        color: "#dddddd"
+                                                        contentItem: Rectangle {
+                                                            implicitWidth: 5
+                                                            implicitHeight: 0
+                                                            radius: width / 2
+                                                            color: "#dddddd"
+                                                        }//
                                                     }//
                                                 }//
                                             }//
-                                        }
-                                    }
-                                    Rectangle{
-                                        visible: sysInfo2.width > parent.width
-                                        Layout.minimumHeight: 10
-                                        Layout.fillWidth: true
-                                        color: "transparent"
-                                        border.color: "#dddddd"
-                                        radius: 5
-
-                                        /// Horizontal ScrollBar
-                                        ScrollBar {
-                                            id: horizontalScrollBar2
-                                            anchors.fill: parent
-                                            orientation: Qt.Horizontal
-                                            policy: ScrollBar.AlwaysOn
-
-                                            contentItem: Rectangle {
-                                                implicitWidth: 0
-                                                implicitHeight: 5
-                                                radius: width / 2
-                                                color: "#dddddd"
-                                            }//
                                         }//
                                     }//
+                                    Component.onCompleted: {
+
+                                    }//
                                 }//
-                                Component.onCompleted: {
-                                    let sysInfo = ""
-                                    sysInfo = MachineData.getSbcSystemInformation()
-                                    sysInfo2.text = sysInfo
-                                }
-                            }
-                        }//
+                            }//
+                        }
                     }//
                     //
                 }//
@@ -367,6 +392,11 @@ ViewApp {
         ///// if none, please comment this block to optimize the code
         QtObject {
             id: props
+            property bool compCompleted: false
+            property var sbcSysInfo:""
+            property var sbcCurSysInfo:""
+            property int modelLength1: 0
+            property int modelLength2: 0
         }//
 
         /// One time executed after onResume
@@ -378,9 +408,13 @@ ViewApp {
         executeOnPageVisible: QtObject {
             /// onResume
             Component.onCompleted: {
+                props.sbcSysInfo = MachineData.getSbcSystemInformation();
+                props.sbcCurSysInfo = MachineData.getSbcCurrentSystemInformation();
 
+                props.modelLength1 = props.sbcSysInfo.length
+                props.modelLength2 = props.sbcCurSysInfo.length
+                props.compCompleted = true
             }
-
             /// onPause
             Component.onDestruction: {
                 ////console.debug("StackView.DeActivating");

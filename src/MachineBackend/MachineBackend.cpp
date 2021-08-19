@@ -2680,11 +2680,9 @@ QStringList MachineBackend::_readSbcSystemInformation()
     QString err(process.readAllStandardError());
     qDebug()<<err;
 
-    sysInfoStr = output;
-    sysInfo = sysInfoStr.split("\n");
-    qDebug() << "sysInfoStr";
-    qDebug() << sysInfoStr;
-    qDebug() << "sysInfo";
+    sysInfoStr = output.remove(QRegularExpression("[\t]+"));
+    sysInfo = sysInfoStr.split("\n", Qt::SkipEmptyParts);
+
     qDebug() << sysInfo;
 #else
     sysInfo = QStringList() << "Unknown";

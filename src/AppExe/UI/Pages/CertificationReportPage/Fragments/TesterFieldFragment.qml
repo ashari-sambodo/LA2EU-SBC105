@@ -128,7 +128,7 @@ Item {
                         }//
 
                         onAccepted: {
-                            settings.testerName = text
+                            settings.testerNameField = text
                         }//
                     }//
                 }//
@@ -268,7 +268,7 @@ Item {
                         }//
 
                         onAccepted: {
-                            settings.checkerName = text
+                            settings.checkerNameField = text
                         }//
                     }//
                 }//
@@ -418,14 +418,21 @@ Item {
 
         property string customer:   "WORLD"
         property string country:    "SINGAPORE"
+        property string dateTest: Qt.formatDate(new Date, "dd-MMM-yyyy")
+        property string swVersion: Qt.application.name + " - " + Qt.application.version
 
         Component.onCompleted: {
             customerTextField.text = customer
             countryTextField.text = country
-            dateTextField.text = Qt.formatDate(new Date, "dd-MMM-yyyy")
-            swTextField.text = Qt.application.name + " - " + Qt.application.version
+
+            settings.dateTest = Qt.formatDate(new Date, "dd-MMM-yyyy")
+            dateTextField.text = settings.dateTest
+            settings.swVersion = Qt.application.name + " - " + Qt.application.version
+            swTextField.text = settings.swVersion
+
             testerNameTextField.text = testerNameField
             checkerNameTextField.text = checkerNameField
+
         }//
     }//
 
