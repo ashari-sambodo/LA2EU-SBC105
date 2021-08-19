@@ -1520,16 +1520,16 @@ public:
     void setSbcSerialNumber(QString sbcSerialNumber);
     Q_INVOKABLE QString getSbcCurrentFullMacAddress() const;
     void setSbcCurrentFullMacAddress(QString sbcCurrentFullMacAddress);
-    Q_INVOKABLE QString getSbcSystemInformation()const;
-    void setSbcSystemInformation(QString sbcSystemInformation);
+    Q_INVOKABLE QStringList getSbcSystemInformation()const;
+    void setSbcSystemInformation(QStringList sbcSystemInformation);
 
     Q_INVOKABLE bool getSbcCurrentSerialNumberKnown()const;
     void setSbcCurrentSerialNumberKnown(bool value);
 
     Q_INVOKABLE QString getSbcCurrentSerialNumber() const;
     void setSbcCurrentSerialNumber(QString sbcCurrentSerialNumber);
-    Q_INVOKABLE QString getSbcCurrentSystemInformation()const;
-    void setSbcCurrentSystemInformation(QString sbcCurrentSystemInformation);
+    Q_INVOKABLE QStringList getSbcCurrentSystemInformation()const;
+    void setSbcCurrentSystemInformation(QStringList sbcCurrentSystemInformation);
 
 public slots:
     void initSingleton();
@@ -2079,10 +2079,10 @@ private:
 
     QString m_sbcSerialNumber;
     QString m_sbcCurrentFullMacAddress;
-    QString m_sbcSystemInformation;
+    QStringList m_sbcSystemInformation;
     bool m_sbcCurrentSerialNumberKnown = false;
     QString m_sbcCurrentSerialNumber;
-    QString m_sbcCurrentSystemInformation;
+    QStringList m_sbcCurrentSystemInformation;
 };
 
 

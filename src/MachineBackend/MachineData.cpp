@@ -50,12 +50,12 @@ void MachineData::setSbcCurrentFullMacAddress(QString sbcCurrentFullMacAddress)
     //    emit sbcCurrentFullMacAddressChanged(m_sbcCurrentFullMacAddress);
 }
 
-QString MachineData::getSbcSystemInformation() const
+QStringList MachineData::getSbcSystemInformation() const
 {
     return m_sbcSystemInformation;
 }
 
-void MachineData::setSbcSystemInformation(QString sbcSystemInformation)
+void MachineData::setSbcSystemInformation(QStringList sbcSystemInformation)
 {
     if(m_sbcSystemInformation == sbcSystemInformation)return;
     m_sbcSystemInformation = sbcSystemInformation;
@@ -84,12 +84,12 @@ void MachineData::setSbcCurrentSerialNumber(QString value)
 }
 
 
-QString MachineData::getSbcCurrentSystemInformation() const
+QStringList MachineData::getSbcCurrentSystemInformation() const
 {
     return m_sbcCurrentSystemInformation;
 }
 
-void MachineData::setSbcCurrentSystemInformation(QString sbcCurrentSystemInformation)
+void MachineData::setSbcCurrentSystemInformation(QStringList sbcCurrentSystemInformation)
 {
     if(m_sbcCurrentSystemInformation == sbcCurrentSystemInformation)return;
     m_sbcCurrentSystemInformation = sbcCurrentSystemInformation;

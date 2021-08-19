@@ -148,12 +148,13 @@ void MachineBackend::setup()
     }
     /// READ SYSTEM INFORMATION
     {
-        QString sysInfo = m_settings->value(SKEY_SBC_SYS_INFO, SDEF_SBC_SYS_INFO).toString();
+        QStringList sysInfoDefault = (QStringList() << SDEF_SBC_SYS_INFO);
+        QStringList sysInfo = m_settings->value(SKEY_SBC_SYS_INFO, sysInfoDefault).toStringList();
         pData->setSbcSystemInformation(sysInfo);
         qDebug() << "------ SysInfo ------";
         qDebug() << sysInfo;
 
-        if(sysInfo == SDEF_SBC_SYS_INFO){
+        if(sysInfo == sysInfoDefault){
             sysInfo = _readSbcSystemInformation();
             _setSbcSystemInformation(sysInfo);
             _setSbcCurrentSystemInformation(sysInfo);
@@ -2660,26 +2661,33 @@ QString MachineBackend::_readMacAddress()
     return text;
 }
 
-QString MachineBackend::_readSbcSystemInformation()
+QStringList MachineBackend::_readSbcSystemInformation()
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     //    qDebug() << sysInfo;
     //    QStringList sysInfo;
-    QString sysInfo;
+    QStringList sysInfo;
+    QString sysInfoStr;
+
 #ifdef __linux__
     QProcess process;
 
-    process.start("cat /proc/cpuinfo");
+    process.start("cat", QStringList()<<"/proc/cpuinfo");
     process.waitForFinished();
     usleep(1000);
     QString output(process.readAllStandardOutput());
-    qDebug()<<output;
-    sysInfo = output;
-
+    //    qDebug()<<output;
     QString err(process.readAllStandardError());
     qDebug()<<err;
+
+    sysInfoStr = output;
+    sysInfo = sysInfoStr.split("\n");
+    qDebug() << "sysInfoStr";
+    qDebug() << sysInfoStr;
+    qDebug() << "sysInfo";
+    qDebug() << sysInfo;
 #else
-    sysInfo = "Unknown";
+    sysInfo = QStringList() << "Unknown";
 #endif
     return sysInfo;
 }
@@ -2694,7 +2702,7 @@ QString MachineBackend::_readSbcSerialNumber()
 #ifdef __linux__
     QProcess process;
 
-    process.start("cat /sys/firmware/devicetree/base/serial-number");
+    process.start("cat", QStringList() << "/sys/firmware/devicetree/base/serial-number");
     process.waitForFinished();
     usleep(1000);
     QString output(process.readAllStandardOutput());
@@ -2710,7 +2718,7 @@ QString MachineBackend::_readSbcSerialNumber()
     return serialNumber;
 }
 
-void MachineBackend::_setSbcSystemInformation(QString sysInfo)
+void MachineBackend::_setSbcSystemInformation(QStringList sysInfo)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     //    qDebug() << sysInfo;
@@ -2721,7 +2729,7 @@ void MachineBackend::_setSbcSystemInformation(QString sysInfo)
     pData->setSbcSystemInformation(sysInfo);
 }
 
-void MachineBackend::_setSbcCurrentSystemInformation(QString sysInfo)
+void MachineBackend::_setSbcCurrentSystemInformation(QStringList sysInfo)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     //    qDebug() << sysInfo;
@@ -5512,7 +5520,7 @@ void MachineBackend::setCurrentSystemAsKnown(bool value)
 {
     if(value){
         QString serialNumber = pData->getSbcCurrentSerialNumber();
-        QString sysInfo = pData->getSbcCurrentSystemInformation();
+        QStringList sysInfo = pData->getSbcCurrentSystemInformation();
 
         _setSbcSerialNumber(serialNumber);
         pData->setSbcSystemInformation(sysInfo);

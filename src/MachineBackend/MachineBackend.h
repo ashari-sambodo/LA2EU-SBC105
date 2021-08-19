@@ -446,10 +446,10 @@ private:
     void _setDateTimeLinux(const QString value);
 
     QString _readMacAddress();
-    QString _readSbcSystemInformation();
+    QStringList _readSbcSystemInformation();
     QString _readSbcSerialNumber();
-    void _setSbcSystemInformation(QString sysInfo);
-    void _setSbcCurrentSystemInformation(QString sysInfo);
+    void _setSbcSystemInformation(QStringList sysInfo);
+    void _setSbcCurrentSystemInformation(QStringList sysInfo);
     void _setSbcSerialNumber(QString value);
 
     void _initAirflowCalibartionFactory();
