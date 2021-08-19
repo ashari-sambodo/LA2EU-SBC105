@@ -128,6 +128,7 @@ ViewApp {
                                                                 }
                                                                 TextApp{
                                                                     id: value1
+                                                                    padding: 5
                                                                     width: flick1.width * 0.7
                                                                     text: "---"
                                                                     wrapMode: Text.WordWrap
@@ -137,7 +138,7 @@ ViewApp {
                                                                     let textSysInfo = String(typeof sysInfo !== 'undefined' ? sysInfo : "---:---")
                                                                     let text1 = textSysInfo.split(":")[0]
                                                                     let text2 = textSysInfo.split(":")[1]
-                                                                    while(text2.charAt(0) === ' ')
+                                                                    if(text2.charAt(0) === ' ')
                                                                     {
                                                                         text2 = text2.substring(1);
                                                                     }
@@ -263,7 +264,7 @@ ViewApp {
                                                                 }
                                                                 TextApp{
                                                                     id: value2
-                                                                    //padding: 5
+                                                                    padding: 5
                                                                     width: flick2.width * 0.7
                                                                     text: "---"
                                                                     wrapMode: Text.WordWrap
@@ -273,7 +274,7 @@ ViewApp {
                                                                     var textSysInfo = String(typeof sysInfo !== 'undefined' ? sysInfo : "---:---")
                                                                     let text1 = textSysInfo.split(":")[0]
                                                                     let text2 = textSysInfo.split(":")[1]
-                                                                    while(text2.charAt(0) === ' ')
+                                                                    if(text2.charAt(0) === ' ')
                                                                     {
                                                                         text2 = text2.substring(1);
                                                                     }

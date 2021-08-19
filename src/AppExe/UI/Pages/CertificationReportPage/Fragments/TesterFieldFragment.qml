@@ -430,8 +430,8 @@ Item {
             settings.swVersion = Qt.application.name + " - " + Qt.application.version
             swTextField.text = settings.swVersion
 
-            testerNameTextField.text = testerNameField
-            checkerNameTextField.text = checkerNameField
+            testerNameTextField.text = ""/*testerNameField*/
+            checkerNameTextField.text = ""/*checkerNameField*/
 
         }//
     }//

@@ -110,7 +110,7 @@ ViewApp {
                                 //                                elide: Text.ElideMiddle
                                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                                 font.pixelSize: 16
-                                text: qsTr("To") + ": " + props.destinationPath
+                                text: qsTr("To") + ": /" + props.destinationPath
                             }
                         }
                     }//
@@ -123,9 +123,10 @@ ViewApp {
                         /// Handle File and Directory Model
                         FolderListModel {
                             id: folderListModel
+                            showDirs: true
                             showDirsFirst: true
-                            rootFolder: "file:///" + MediaUSBStoragePath
-                            folder: "file:///" + MediaUSBStoragePath
+                            //rootFolder: "file:///" + MediaUSBStoragePath
+                            folder: "file://" + MediaUSBStoragePath
                             //                            showFiles: false
 
                             function goUp(){
@@ -143,6 +144,9 @@ ViewApp {
                             function isNowRootFolder(){
                                 return folder === rootFolder
                             }
+                            //                            Component.onCompleted: {
+                            //                                props.destinationPath = folderListModel.folder
+                            //                            }
                         }//
 
                         /// File-Manager Presentation
@@ -308,6 +312,10 @@ ViewApp {
                                 progressBar.visible = true
                                 //                                props.sourceFilePath = "C:/Users/electronicsengineer8/dev/usbstorage/usb-sda1/Folder1/file.mp4"
                                 //                                props.destinationFilePath = "C:/Users/electronicsengineer8/dev/usbstorage/usb-sda1/Folder2/file.mp4"
+
+                                let dest = props.destinationFilePath
+                                if(dest.charAt(0)!== '/')
+                                    props.destinationFilePath = "/" + props.destinationFilePath
 
                                 usbCopier.copy(props.sourceFilePath, props.destinationFilePath)
                                 //                                var intent = IntentApp.create(uri, {"message":""})

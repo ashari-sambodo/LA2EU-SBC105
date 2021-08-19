@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
 
 #ifdef __arm__
     /// Path for usb mounting
-    engine.rootContext()->setContextProperty("MediaUSBStoragePath", "/media/usbstorage");
+    engine.rootContext()->setContextProperty("MediaUSBStoragePath", "/tmp/media");
     /// Path for update software
     engine.rootContext()->setContextProperty("SWUpdatePath", "/data/update");
     engine.rootContext()->setContextProperty("HWRevisionPath", "/etc/hwrevision");
