@@ -1352,13 +1352,14 @@ void MachineBackend::setup()
     {
         QSettings settings;
 
-        int fanNominalDutyCycleFactory  = settings.value(SKEY_FAN_PRI_NOM_DCY_FACTORY, 49).toInt();
+        ///Fan Downflow
+        int fanNominalDutyCycleFactory  = settings.value(SKEY_FAN_PRI_NOM_DCY_FACTORY, 0).toInt();
         int fanNominalRpmFactory        = settings.value(SKEY_FAN_PRI_NOM_RPM_FACTORY, 0).toInt();
 
-        int fanMinimumDutyCycleFactory  = settings.value(SKEY_FAN_PRI_MIN_DCY_FACTORY, 36).toInt();
+        int fanMinimumDutyCycleFactory  = settings.value(SKEY_FAN_PRI_MIN_DCY_FACTORY, 0).toInt();
         int fanMinimumRpmFactory        = settings.value(SKEY_FAN_PRI_MIN_RPM_FACTORY, 0).toInt();
 
-        int fanStandbyDutyCycleFactory  = settings.value(SKEY_FAN_PRI_STB_DCY_FACTORY, 18).toInt();
+        int fanStandbyDutyCycleFactory  = settings.value(SKEY_FAN_PRI_STB_DCY_FACTORY, 0).toInt();
         int fanStandbyRpmFactory        = settings.value(SKEY_FAN_PRI_STB_RPM_FACTORY, 0).toInt();
 
         int fanNominalDutyCycleField    = settings.value(SKEY_FAN_PRI_NOM_DCY_FIELD, 0).toInt();
@@ -1370,7 +1371,7 @@ void MachineBackend::setup()
         int fanStandbyDutyCycleField    = settings.value(SKEY_FAN_PRI_STB_DCY_FIELD, 0).toInt();
         int fanStandbyRpmField          = settings.value(SKEY_FAN_PRI_STB_RPM_FIELD, 0).toInt();
 
-        int sensorConstant  = settings.value(SKEY_IFA_SENSOR_CONST, 0).toInt();
+        int sensorConstant1  = settings.value(SKEY_IFA_SENSOR_CONST, 0).toInt();
 
         int tempCalib       = settings.value(SKEY_IFA_CAL_TEMP, 0).toInt();
         int tempCalibAdc    = settings.value(SKEY_IFA_CAL_TEMP_ADC, 0).toInt();
@@ -1379,8 +1380,8 @@ void MachineBackend::setup()
         int ifaAdcMinFactory  = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "1", 0).toInt();
         int ifaAdcNomFactory  = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "2", 0).toInt();
 
-        int ifaVelMinFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "1", 40).toInt();
-        int ifaVelNomFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "2", 53).toInt();
+        int ifaVelMinFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "1", 53).toInt();
+        int ifaVelNomFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "2", 40).toInt();
 
         int ifaVelLowAlarm    = settings.value(QString(SKEY_IFA_CAL_VEL_LOW_LIMIT), ifaVelMinFactory).toInt();
 
@@ -1393,6 +1394,49 @@ void MachineBackend::setup()
 
         int dfaVelNomFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "2", 0).toInt();
         int dfaVelNomField    = settings.value(QString(SKEY_DFA_CAL_VEL_FIELD) + "2", 0).toInt();
+
+        ///Fan Inflow
+        int fanInfNominalDutyCycleFactory  = settings.value(SKEY_FAN_INF_NOM_DCY_FACTORY, 0).toInt();
+        int fanInfNominalRpmFactory        = settings.value(SKEY_FAN_INF_NOM_RPM_FACTORY, 0).toInt();
+
+        int fanInfMinimumDutyCycleFactory  = settings.value(SKEY_FAN_INF_MIN_DCY_FACTORY, 0).toInt();
+        int fanInfMinimumRpmFactory        = settings.value(SKEY_FAN_INF_MIN_RPM_FACTORY, 0).toInt();
+
+        int fanInfStandbyDutyCycleFactory  = settings.value(SKEY_FAN_INF_STB_DCY_FACTORY, 0).toInt();
+        int fanInfStandbyRpmFactory        = settings.value(SKEY_FAN_INF_STB_RPM_FACTORY, 0).toInt();
+
+        int fanInfNominalDutyCycleField    = settings.value(SKEY_FAN_INF_NOM_DCY_FIELD, 0).toInt();
+        int fanInfNominalRpmField          = settings.value(SKEY_FAN_INF_NOM_RPM_FIELD, 0).toInt();
+
+        int fanInfMinimumDutyCycleField    = settings.value(SKEY_FAN_INF_MIN_DCY_FIELD, 0).toInt();
+        int fanInfMinimumRpmField          = settings.value(SKEY_FAN_INF_MIN_RPM_FIELD, 0).toInt();
+
+        int fanInfStandbyDutyCycleField    = settings.value(SKEY_FAN_INF_STB_DCY_FIELD, 0).toInt();
+        int fanInfStandbyRpmField          = settings.value(SKEY_FAN_INF_STB_RPM_FIELD, 0).toInt();
+
+        //        int sensorConstant2  = settings.value(SKEY_IFA_SENSOR_CONST, 0).toInt();
+
+        //        int tempCalib       = settings.value(SKEY_IFA_CAL_TEMP, 0).toInt();
+        //        int tempCalibAdc    = settings.value(SKEY_IFA_CAL_TEMP_ADC, 0).toInt();
+
+        //        int ifaAdcZeroFactory = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "0", 0).toInt();
+        //        int ifaAdcMinFactory  = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "1", 0).toInt();
+        //        int ifaAdcNomFactory  = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "2", 0).toInt();
+
+        //        int ifaVelMinFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "1", 53).toInt();
+        //        int ifaVelNomFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "2", 40).toInt();
+
+        //        int ifaVelLowAlarm    = settings.value(QString(SKEY_IFA_CAL_VEL_LOW_LIMIT), ifaVelMinFactory).toInt();
+
+        //        int ifaAdcZeroField   = settings.value(QString(SKEY_IFA_CAL_ADC_FIELD) + "0", 0).toInt();
+        //        int ifaAdcMinField    = settings.value(QString(SKEY_IFA_CAL_ADC_FIELD) + "1", 0).toInt();
+        //        int ifaAdcNomField    = settings.value(QString(SKEY_IFA_CAL_ADC_FIELD) + "2", 0).toInt();
+
+        //        int ifaVelMinField    = settings.value(QString(SKEY_IFA_CAL_VEL_FIELD) + "1", 0).toInt();
+        //        int ifaVelNomField    = settings.value(QString(SKEY_IFA_CAL_VEL_FIELD) + "2", 0).toInt();
+
+        //        int dfaVelNomFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "2", 0).toInt();
+        //        int dfaVelNomField    = settings.value(QString(SKEY_DFA_CAL_VEL_FIELD) + "2", 0).toInt();
 
         //        //CALIB PHASE; NONE, FACTORY, or FIELD
         //        //        int afCalibPhase      = settings.value(SKEY_AF_CALIB_PHASE, 0).toInt();
@@ -1414,6 +1458,19 @@ void MachineBackend::setup()
                 && (ifaVelMinField < ifaVelNomField)
                 && fanStandbyDutyCycleField;
 
+        //        ///INFLOW
+        //        bool calibInfPhaseFactory =
+        //                (ifaAdcZeroFactory < ifaAdcMinFactory)
+        //                && (ifaAdcMinFactory < ifaAdcNomFactory)
+        //                && (ifaVelMinFactory < ifaVelNomFactory)
+        //                && fanNominalDutyCycleFactory;
+        //        bool calibInfPhaseField =
+        //                (ifaAdcZeroField < ifaAdcMinField)
+        //                && (ifaAdcMinField< ifaAdcNomField)
+        //                && (ifaVelMinField < ifaVelNomField)
+        //                && fanStandbyDutyCycleField;
+
+
         //        calibPhaseFactory = false;
         //        calibPhaseField = false;
         int calibPhase = calibPhaseField
@@ -1429,27 +1486,27 @@ void MachineBackend::setup()
         //        if (fanNominalDutyCycleField > 10) fanNominalDutyCycleField = 10;
         //        if (fanStandbyDutyCycleField > 5) fanStandbyDutyCycleField = 5;
 #endif
-        pData->setFanPrimaryNominalDutyCycleFactory(fanNominalDutyCycleFactory);
+        pData->setFanPrimaryNominalDutyCycleFactory(static_cast<short>(fanNominalDutyCycleFactory));
         pData->setFanPrimaryNominalRpmFactory(fanNominalRpmFactory);
 
-        pData->setFanPrimaryMinimumDutyCycleFactory(fanMinimumDutyCycleFactory);
+        pData->setFanPrimaryMinimumDutyCycleFactory(static_cast<short>(fanMinimumDutyCycleFactory));
         pData->setFanPrimaryMinimumRpmFactory(fanMinimumRpmFactory);
 
-        pData->setFanPrimaryStandbyDutyCycleFactory(fanStandbyDutyCycleFactory);
+        pData->setFanPrimaryStandbyDutyCycleFactory(static_cast<short>(fanStandbyDutyCycleFactory));
         pData->setFanPrimaryStandbyRpmFactory(fanStandbyRpmFactory);
 
-        pData->setFanPrimaryNominalDutyCycleField(fanNominalDutyCycleField);
+        pData->setFanPrimaryNominalDutyCycleField(static_cast<short>(fanNominalDutyCycleField));
         pData->setFanPrimaryNominalRpmField(fanNominalRpmField);
 
-        pData->setFanPrimaryMinimumDutyCycleField(fanMinimumDutyCycleField);
+        pData->setFanPrimaryMinimumDutyCycleField(static_cast<short>(fanMinimumDutyCycleField));
         pData->setFanPrimaryMinimumRpmField(fanMinimumRpmField);
 
-        pData->setFanPrimaryStandbyDutyCycleField(fanStandbyDutyCycleField);
+        pData->setFanPrimaryStandbyDutyCycleField(static_cast<short>(fanStandbyDutyCycleField));
         pData->setFanPrimaryStandbyRpmField(fanStandbyRpmField);
 
-        pData->setInflowSensorConstant(sensorConstant);
-        pData->setInflowTempCalib(tempCalib);
-        pData->setInflowTempCalibAdc(tempCalibAdc);
+        pData->setInflowSensorConstant(static_cast<short>(sensorConstant1));
+        pData->setInflowTempCalib(static_cast<short>(tempCalib));
+        pData->setInflowTempCalibAdc(static_cast<short>(tempCalibAdc));
 
         pData->setInflowAdcPointFactory(0, ifaAdcZeroFactory);
         pData->setInflowAdcPointFactory(1, ifaAdcMinFactory);
@@ -1470,7 +1527,7 @@ void MachineBackend::setup()
         pData->setDownflowVelocityPointFactory(2, dfaVelNomFactory);
         pData->setDownflowVelocityPointField(2, dfaVelNomField);
 
-        initAirflowCalibrationStatus(calibPhase);
+        initAirflowCalibrationStatus(static_cast<short>(calibPhase));
 
         /// force generate velocity string
         _onInflowVelocityActualChanged(0);
