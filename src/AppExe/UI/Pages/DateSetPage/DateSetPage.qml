@@ -268,8 +268,29 @@ ViewApp {
             /// onResume
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
-
                 //                    props.counting = Qt.binding(function(){return MachineData.count})
+
+                ///Check the year, if year < 2021 then set initial date to "2021-01-01"
+                let date = new Date()
+                let dateTime = Qt.formatDateTime(date, "yyyy-MM-dd hh:mm:ss")
+                let strDate = dateTime.split(" ")[0]
+                let currentYear = Number(strDate.split("-")[0])
+
+                //console.debug("current year:", currentYear)
+
+                if(currentYear < 2021){
+                    let strTime = dateTime.split(" ")[1]
+                    let dateTimeSet = "2021-01-01 " + strTime
+                    /// tell to machine
+                    MachineAPI.setDateTime(dateTimeSet);
+                    MachineAPI.insertEventLog(qsTr("User: Init date time") + " " + dateTimeSet)
+                    viewApp.showBusyPage(qsTr("Setting up initial date..."),
+                                         function onCycle(cycle){
+                                             if (cycle === 10) {
+                                                 closeDialog()
+                                             }//
+                                         })
+                }
             }
 
             /// onPause

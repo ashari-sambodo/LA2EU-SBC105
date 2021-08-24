@@ -382,7 +382,7 @@ Item {
                     "tested_by":            settingsCert.testerName,
                     "t_signature":          settingsCert.testerSignature,
                     "checked_by":           settingsCert.checkerName,
-                    "c_signature":          settingsCert.checkerSignature,
+                    "c_signature":          settingsCert.checkerSignature === "" ? " " : settingsCert.checkerSignature,
 
                     "sw_ver":               settingsCert.swVersion,
 

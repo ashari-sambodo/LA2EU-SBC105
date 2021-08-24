@@ -126,7 +126,7 @@ ViewApp {
                             showDirs: true
                             showDirsFirst: true
                             //rootFolder: "file:///" + MediaUSBStoragePath
-                            folder: "file://" + MediaUSBStoragePath
+                            //folder: "file://" + MediaUSBStoragePath
                             //                            showFiles: false
 
                             function goUp(){
@@ -137,16 +137,25 @@ ViewApp {
                                 if (folder != rootFolder) {
                                     folder = parentFolder
 
-                                    props.destinationPath = String(folder).replace("file:///", "")
+                                    props.destinationPath = String(folder).replace("file://", "")
                                 }
                             }
 
                             function isNowRootFolder(){
                                 return folder === rootFolder
                             }
-                            //                            Component.onCompleted: {
-                            //                                props.destinationPath = folderListModel.folder
-                            //                            }
+                            Component.onCompleted: {
+                                if (__osplatform__) {
+                                    /// linux
+                                    rootFolder = "file://" + MediaUSBStoragePath
+                                    folder = rootFolder
+                                }
+                                else {
+                                    /// windows
+                                    rootFolder = "file:///" + MediaUSBStoragePath
+                                    folder = rootFolder
+                                }
+                            }
                         }//
 
                         /// File-Manager Presentation
@@ -250,10 +259,19 @@ ViewApp {
                                             anchors.fill: parent
                                             onPressed: {
                                                 if (fileIsDir) {
-                                                    //                                                    console.log("fileURL: " + fileURL)
+                                                    // console.log("fileURL: " + fileURL)
                                                     folderListModel.folder = fileURL
-                                                    props.destinationPath = String(fileURL).replace("file:///", "")
+                                                    if (__osplatform__) {
+                                                        /// linux
+                                                        props.destinationPath = String(fileURL).replace("file://", "")
+                                                    }
+                                                    else {
+                                                        /// windows
+                                                        props.destinationPath = String(fileURL).replace("file:///", "")
+                                                    }
                                                     props.destinationFilePath = props.destinationPath + "/" + props.sourceFileName
+                                                    //props.destinationPath = String(fileURL).replace("file:///", "")
+                                                    //props.destinationFilePath = props.destinationPath + "/" + props.sourceFileName
                                                 }//
                                             }//
                                         }//
@@ -310,12 +328,11 @@ ViewApp {
                                 }
 
                                 progressBar.visible = true
-                                //                                props.sourceFilePath = "C:/Users/electronicsengineer8/dev/usbstorage/usb-sda1/Folder1/file.mp4"
-                                //                                props.destinationFilePath = "C:/Users/electronicsengineer8/dev/usbstorage/usb-sda1/Folder2/file.mp4"
-
-                                let dest = props.destinationFilePath
-                                if(dest.charAt(0)!== '/')
-                                    props.destinationFilePath = "/" + props.destinationFilePath
+                                //props.sourceFilePath = "C:/Users/electronicsengineer8/dev/usbstorage/usb-sda1/Folder1/file.mp4"
+                                //props.destinationFilePath = "C:/Users/electronicsengineer8/dev/usbstorage/usb-sda1/Folder2/file.mp4"
+                                //let dest = props.destinationFilePath
+                                //if(dest.charAt(0)!== '/')
+                                //    props.destinationFilePath = "/" + props.destinationFilePath
 
                                 usbCopier.copy(props.sourceFilePath, props.destinationFilePath)
                                 //                                var intent = IntentApp.create(uri, {"message":""})

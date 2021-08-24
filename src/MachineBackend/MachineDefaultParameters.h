@@ -44,7 +44,7 @@
 
 #define SDEF_FULL_MAC_ADDRESS   "00:00:00:00:00:00#00:00:00:00:00:00#"
 #define SDEF_SBC_SERIAL_NUMBER   "0000000000000001"
-#define SDEF_SBC_SYS_INFO       "sysInfo"
+#define SDEF_SBC_SYS_INFO       "sysInfo:sbc"
 
 ////////////////////////////////////
 

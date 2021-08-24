@@ -30,6 +30,7 @@ public:
     int polling();
 
     int getADC(int channel) const;
+    int getAdcMap(int channel, unsigned char m_maxAdcResBits) const;
     int getmVolt(int channel) const;
     double getmA(int channel) const;
 
@@ -48,6 +49,9 @@ private:
     int     channelsmVolt[AI_MAX_CHANNELS];
     double  channelsmA[AI_MAX_CHANNELS];
     int     channelTotalADC[AI_MAX_CHANNELS];
+    long map(long x, long in_min, long in_max, long out_min, long out_max) const;
+    long getMaxDecFromBits(unsigned char bits) const;
+
     QVector<int> channelsSamples[AI_MAX_CHANNELS];
 
     void nextChannel();

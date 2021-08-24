@@ -5,564 +5,587 @@ import UI.CusCom 1.0
 import ModulesCpp.Machine 1.0
 
 Item {
-
-    Row {
+    Column{
         anchors.centerIn: parent
-        spacing: 20
-
-        Column {
-            spacing: 5
-
-            TextApp {
-                text: qsTr("Initial")
-            }//
-
-            Rectangle {
-                height: 2
-                width: 120
-                color: "#e3dac9"
-            }//
+        spacing: 5
+        Row {
+            spacing: 20
 
             Column {
                 spacing: 5
 
                 TextApp {
-                    text: qsTr("Fan duty cycle") + " (%)" + " / " + "RPM"
+                    text: qsTr("Initial")
                 }//
 
-                Row {
+                Rectangle {
+                    height: 2
+                    width: 120
+                    color: "#e3dac9"
+                }//
+
+                Column {
                     spacing: 5
 
+                    TextApp {
+                        text: qsTr("Fan duty cycle") + " (%)" + " / " + "RPM"
+                    }//
+
+                    Row {
+                        spacing: 5
+
+                        TextFieldApp {
+                            id: initialDutyCycleTextField
+                            width: 50
+                            height: 40
+                            //                        text: "48"
+                            //colorBorder: "#f39c12"
+                            //enabled: false
+                            onPressed: {
+                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan duty cycle"))
+                            }//
+
+                            onAccepted: {
+                                const val = Number(text)
+                                settings.mvInitialFanDucy = val
+                            }//
+                        }//
+
+                        TextFieldApp {
+                            id: initialRpmTextField
+                            width: 145
+                            height: 40
+                            //                        text: "700"
+
+                            onPressed: {
+                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan RPM"))
+                            }//
+
+                            onAccepted: {
+                                const val = Number(text)
+                                settings.mvInitialFanRpm = val
+                            }//
+                        }//
+                    }//
+                }//
+
+                Column {
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("Donwflow velocity") + " " + unitStr
+
+                        property string unitStr: "(m/s)"
+
+                        Component.onCompleted: {
+                            unitStr = MachineData.measurementUnit ? "(fpm)" : "(m/s)"
+                        }//
+                    }//
+
                     TextFieldApp {
-                        id: initialDutyCycleTextField
-                        width: 50
+                        id: initialDfaTextField
+                        width: 200
                         height: 40
-                        //                        text: "48"
+                        //                    text: "0.33"
 
                         onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan duty cycle"))
+                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Donwflow velocity"))
+                        }//
+
+                        onAccepted: {
+                            let value = 0.0
+                            let valueImp = 0.0
+                            if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
+                                valueImp = Number(text)
+                                value = utils.getMpsFromFpm(valueImp)
+                            }else{
+                                value = Number(text)
+                                valueImp = utils.getFpmFromMps(value)
+                            }
+
+                            settings.mvInitialDfa = value.toFixed(2)
+                            settings.mvInitialDfaImp = valueImp.toFixed()
+
+                            //                        settings.mvInitialDfa = text
+                        }//
+                    }//
+                }//
+
+                Column {
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("Inflow velocity") + " " + unitStr
+
+                        property string unitStr: "(m/s)"
+
+                        Component.onCompleted: {
+                            unitStr = MachineData.measurementUnit ? "(fpm)" : "(m/s)"
+                        }//
+                    }//
+
+                    TextFieldApp {
+                        id: initialIfaTextField
+                        width: 200
+                        height: 40
+                        //                    text: "0.53"
+
+                        onPressed: {
+                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow velocity"))
+                        }//
+
+                        onAccepted: {
+                            let value = 0.0
+                            let valueImp = 0.0
+                            if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
+                                valueImp = Number(text)
+                                value = utils.getMpsFromFpm(valueImp)
+                            }else{
+                                value = Number(text)
+                                valueImp = utils.getFpmFromMps(value)
+                            }
+
+                            settings.mvInitialIfa = value.toFixed(2)
+                            settings.mvInitialIfaImp = valueImp.toFixed()
+
+                            //                        settings.mvInitialIfa = text
+                        }//
+                    }//
+                }//
+
+                Column {
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("Power consumption") + " " + unitStr
+
+                        property string unitStr: "(Watt)"
+                    }//
+
+                    TextFieldApp {
+                        id: initialPowerTextField
+                        width: 200
+                        height: 40
+                        text: "0"
+
+                        onPressed: {
+                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Power consumption"))
                         }//
 
                         onAccepted: {
                             const val = Number(text)
-                            settings.mvInitialFanDucy = val
+
+                            settings.mvInitialPower = val
+                        }
+                    }//
+                }//
+
+                ButtonBarApp {
+                    text: qsTr("Capture")
+
+                    onClicked: {
+                        initialDutyCycleTextField.text = MachineData.fanPrimaryDutyCycle
+                        initialRpmTextField.text = MachineData.fanPrimaryRpm
+
+                        initialDfaTextField.text = MachineData.dfaVelocityStr.split(" ")[0] || "0"
+                        initialIfaTextField.text = MachineData.ifaVelocityStr.split(" ")[0] || "0"
+
+                        settings.mvInitialFanDucy = initialDutyCycleTextField.text
+                        settings.mvInitialFanRpm = initialRpmTextField.text
+
+                        if(MachineData.measurementUnit){
+                            settings.mvInitialDfaImp = initialDfaTextField.text
+                            settings.mvInitialIfaImp = initialIfaTextField.text
+                        }else{
+                            settings.mvInitialDfa = initialDfaTextField.text
+                            settings.mvInitialIfa = initialIfaTextField.text
+                        }
+                    }//
+                }//
+            }//
+
+            Column {
+                spacing: 5
+
+                TextApp {
+                    text: qsTr("Grill blocked")
+                }//
+
+                Rectangle {
+                    height: 2
+                    width: 120
+                    color: "#e3dac9"
+                }//
+
+                Column {
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("Fan duty cycle") + " (%)" + " / " + "RPM"
+                    }//
+
+                    Row {
+                        spacing: 5
+
+                        TextFieldApp {
+                            id: blockedDutyCycleTextField
+                            width: 50
+                            height: 40
+                            //                        text: "48"
+                            colorBorder: "#f39c12"
+                            enabled: false
+                            onPressed: {
+                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan duty cycle"))
+                            }//
+
+                            onAccepted: {
+                                const val = Number(text)
+                                settings.mvBlockFanDucy = val
+                            }//
+                        }//
+
+                        TextFieldApp {
+                            id: blockedRpmTextField
+                            width: 145
+                            height: 40
+                            //                        text: "735"
+
+                            onPressed: {
+                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan RPM"))
+                            }//
+
+                            onAccepted: {
+                                const val = Number(text)
+                                settings.mvBlockFanRpm = val
+                            }//
+                        }//
+                    }//
+                }//
+
+                Column {
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("Donwflow velocity") + " " + unitStr
+
+                        property string unitStr: "(m/s)"
+
+                        Component.onCompleted: {
+                            unitStr = MachineData.measurementUnit ? "(fpm)" : "(m/s)"
                         }//
                     }//
 
                     TextFieldApp {
-                        id: initialRpmTextField
-                        width: 145
+                        id: blockedDfaTextField
+                        width: 200
                         height: 40
-                        //                        text: "700"
+                        //                    text: "0.32"
 
                         onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan RPM"))
+                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Donwflow velocity"))
                         }//
 
                         onAccepted: {
-                            const val = Number(text)
-                            settings.mvInitialFanRpm = val
+                            let value = 0.0
+                            let valueImp = 0.0
+                            if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
+                                valueImp = Number(text)
+                                value = utils.getMpsFromFpm(valueImp)
+                            }else{
+                                value = Number(text)
+                                valueImp = utils.getFpmFromMps(value)
+                            }
+
+                            settings.mvBlockDfa = value.toFixed(2)
+                            settings.mvBlockDfaImp = valueImp.toFixed()
+
+                            //                        settings.mvBlockDfa = text
                         }//
                     }//
                 }//
+
+                Column {
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("Inflow velocity") + " " + unitStr
+
+                        property string unitStr: "(m/s)"
+
+                        Component.onCompleted: {
+                            unitStr = MachineData.measurementUnit ? "(fpm)" : "(m/s)"
+                        }//
+                    }//
+
+                    TextFieldApp {
+                        id: blockedIfaTextField
+                        width: 200
+                        height: 40
+                        //                    text: "0.52"
+
+                        onPressed: {
+                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow velocity"))
+                        }//
+
+                        onAccepted: {
+                            let value = 0.0
+                            let valueImp = 0.0
+                            if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
+                                valueImp = Number(text)
+                                value = utils.getMpsFromFpm(valueImp)
+                            }else{
+                                value = Number(text)
+                                valueImp = utils.getFpmFromMps(value)
+                            }
+
+                            settings.mvBlockIfa = value.toFixed(2)
+                            settings.mvBlockIfaImp = valueImp.toFixed()
+
+                            //                        settings.mvBlockIfa = text
+                        }//
+                    }//
+                }//
+
+                Column {
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("Power consumption") + " " + unitStr
+
+                        property string unitStr: "(Watt)"
+                    }//
+
+                    TextFieldApp {
+                        id: blockedPowerTextField
+                        width: 200
+                        height: 40
+                        text: "0"
+
+                        onPressed: {
+                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Power consumption"))
+                        }//
+
+                        onAccepted: {
+                            settings.mvBlockPower = text
+                        }//
+                    }//
+                }//
+
+                //                            Rectangle {
+                //                                height: 2
+                //                                width: 120
+                //                                color: "#e3dac9"
+                //                            }//
+
+                ButtonBarApp {
+                    text: qsTr("Capture")
+
+                    onClicked: {
+                        blockedDutyCycleTextField.text = settings.mvInitialFanDucy/*MachineData.fanPrimaryDutyCycle*/
+                        blockedRpmTextField.text = MachineData.fanPrimaryRpm
+
+                        blockedDfaTextField.text = MachineData.dfaVelocityStr.split(" ")[0] || "0"
+                        blockedIfaTextField.text = MachineData.ifaVelocityStr.split(" ")[0] || "0"
+
+                        settings.mvBlockFanDucy = blockedDutyCycleTextField.text
+                        settings.mvBlockFanRpm = blockedRpmTextField.text
+
+                        if(MachineData.measurementUnit){
+                            settings.mvBlockDfaImp = blockedDfaTextField.text
+                            settings.mvBlockIfaImp = blockedIfaTextField.text
+                        }else{
+                            settings.mvBlockDfa = blockedDfaTextField.text
+                            settings.mvBlockIfa = blockedIfaTextField.text
+                        }
+                    }//
+                }//
             }//
 
             Column {
                 spacing: 5
 
                 TextApp {
-                    text: qsTr("Donwflow velocity") + " " + unitStr
+                    text: qsTr("Final")
+                }//
 
-                    property string unitStr: "(m/s)"
+                Rectangle {
+                    height: 2
+                    width: 120
+                    color: "#e3dac9"
+                }//
 
-                    Component.onCompleted: {
-                        unitStr = MachineData.measurementUnit ? "(fpm)" : "(m/s)"
+                Column {
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("Fan duty cycle") + " (%)" + " / " + "RPM"
+                    }//
+
+                    Row {
+                        spacing: 5
+
+                        TextFieldApp {
+                            id: finalDutyCycleTextField
+                            width: 50
+                            height: 40
+                            //                        text: "48"
+                            colorBorder: "#f39c12"
+                            enabled: false
+                            onPressed: {
+                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan duty cycle"))
+                            }//
+
+                            onAccepted: {
+                                const val = Number(text)
+                                settings.mvFinalFanDucy = val
+                            }//
+                        }//
+
+                        TextFieldApp {
+                            id: finalRpmTextField
+                            width: 145
+                            height: 40
+                            //                        text: "735"
+
+                            onPressed: {
+                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan RPM"))
+                            }//
+
+                            onAccepted: {
+                                const val = Number(text)
+                                settings.mvFinalFanRpm = val
+                            }//
+                        }//
                     }//
                 }//
 
-                TextFieldApp {
-                    id: initialDfaTextField
-                    width: 200
-                    height: 40
-                    //                    text: "0.33"
+                Column {
+                    spacing: 5
 
-                    onPressed: {
-                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Donwflow velocity"))
+                    TextApp {
+                        text: qsTr("Donwflow velocity") + " " + unitStr
+
+                        property string unitStr: "(m/s)"
+
+                        Component.onCompleted: {
+                            unitStr = MachineData.measurementUnit ? "(fpm)" : "(m/s)"
+                        }//
                     }//
 
-                    onAccepted: {
-                        let value = 0.0
-                        let valueImp = 0.0
-                        if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
-                            valueImp = Number(text)
-                            value = utils.getMpsFromFpm(valueImp)
+                    TextFieldApp {
+                        id: finalDfaTextField
+                        width: 200
+                        height: 40
+                        //                    text: "0.33"
+
+                        onPressed: {
+                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Donwflow velocity"))
+                        }//
+
+                        onAccepted: {
+                            let value = 0.0
+                            let valueImp = 0.0
+                            if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
+                                valueImp = Number(text)
+                                value = utils.getMpsFromFpm(valueImp)
+                            }else{
+                                value = Number(text)
+                                valueImp = utils.getFpmFromMps(value)
+                            }
+
+                            settings.mvFinalDfa = value.toFixed(2)
+                            settings.mvFinalDfaImp = valueImp.toFixed()
+
+                            //                        settings.mvFinalDfa = text
+                        }//
+                    }//
+                }//
+
+                Column {
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("Inflow velocity") + " " + unitStr
+
+                        property string unitStr: "(m/s)"
+
+                        Component.onCompleted: {
+                            unitStr = MachineData.measurementUnit ? "(fpm)" : "(m/s)"
+                        }//
+                    }//
+
+                    TextFieldApp {
+                        id: finalIfaTextField
+                        width: 200
+                        height: 40
+                        //                    text: "0.53"
+
+                        onPressed: {
+                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow velocity"))
+                        }//
+
+                        onAccepted: {
+                            let value = 0.0
+                            let valueImp = 0.0
+                            if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
+                                valueImp = Number(text)
+                                value = utils.getMpsFromFpm(valueImp)
+                            }else{
+                                value = Number(text)
+                                valueImp = utils.getFpmFromMps(value)
+                            }
+
+                            settings.mvFinalIfa = value.toFixed(2)
+                            settings.mvFinalIfaImp = valueImp.toFixed()
+                            //                        settings.mvFinalIfa = text
+                        }//
+                    }//
+                }//
+
+                ButtonBarApp {
+                    text: qsTr("Capture")
+
+                    onClicked: {
+                        finalDutyCycleTextField.text = settings.mvInitialFanDucy/*MachineData.fanPrimaryDutyCycle*/
+                        finalRpmTextField.text = MachineData.fanPrimaryRpm
+
+                        finalDfaTextField.text = MachineData.dfaVelocityStr.split(" ")[0] || "0"
+                        finalIfaTextField.text = MachineData.ifaVelocityStr.split(" ")[0] || "0"
+
+                        settings.mvFinalFanDucy = finalDutyCycleTextField.text
+                        settings.mvFinalFanRpm = finalRpmTextField.text
+
+                        if(MachineData.measurementUnit){
+                            settings.mvFinalDfaImp = finalDfaTextField.text
+                            settings.mvFinalIfaImp = finalIfaTextField.text
                         }else{
-                            value = Number(text)
-                            valueImp = utils.getFpmFromMps(value)
+                            settings.mvFinalDfa = finalDfaTextField.text
+                            settings.mvFinalIfa = finalIfaTextField.text
                         }
 
-                        settings.mvInitialDfa = value.toFixed(2)
-                        settings.mvInitialDfaImp = valueImp.toFixed()
-
-                        //                        settings.mvInitialDfa = text
                     }//
-                }//
-            }//
-
-            Column {
-                spacing: 5
-
-                TextApp {
-                    text: qsTr("Inflow velocity") + " " + unitStr
-
-                    property string unitStr: "(m/s)"
-
-                    Component.onCompleted: {
-                        unitStr = MachineData.measurementUnit ? "(fpm)" : "(m/s)"
-                    }//
-                }//
-
-                TextFieldApp {
-                    id: initialIfaTextField
-                    width: 200
-                    height: 40
-                    //                    text: "0.53"
-
-                    onPressed: {
-                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow velocity"))
-                    }//
-
-                    onAccepted: {
-                        let value = 0.0
-                        let valueImp = 0.0
-                        if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
-                            valueImp = Number(text)
-                            value = utils.getMpsFromFpm(valueImp)
-                        }else{
-                            value = Number(text)
-                            valueImp = utils.getFpmFromMps(value)
-                        }
-
-                        settings.mvInitialIfa = value.toFixed(2)
-                        settings.mvInitialIfaImp = valueImp.toFixed()
-
-                        //                        settings.mvInitialIfa = text
-                    }//
-                }//
-            }//
-
-            Column {
-                spacing: 5
-
-                TextApp {
-                    text: qsTr("Power consumption") + " " + unitStr
-
-                    property string unitStr: "(Watt)"
-                }//
-
-                TextFieldApp {
-                    id: initialPowerTextField
-                    width: 200
-                    height: 40
-                    text: "0"
-
-                    onPressed: {
-                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Power consumption"))
-                    }//
-
-                    onAccepted: {
-                        const val = Number(text)
-
-                        settings.mvInitialPower = val
-                    }
-                }//
-            }//
-
-            ButtonBarApp {
-                text: qsTr("Capture")
-
-                onClicked: {
-                    initialDutyCycleTextField.text = MachineData.fanPrimaryDutyCycle
-                    initialRpmTextField.text = MachineData.fanPrimaryRpm
-
-                    initialDfaTextField.text = MachineData.dfaVelocityStr.split(" ")[0] || "0"
-                    initialIfaTextField.text = MachineData.ifaVelocityStr.split(" ")[0] || "0"
-
-                    settings.mvInitialFanDucy = initialDutyCycleTextField.text
-                    settings.mvInitialFanRpm = initialRpmTextField.text
-
-                    if(MachineData.measurementUnit){
-                        settings.mvInitialDfaImp = initialDfaTextField.text
-                        settings.mvInitialIfaImp = initialIfaTextField.text
-                    }else{
-                        settings.mvInitialDfa = initialDfaTextField.text
-                        settings.mvInitialIfa = initialIfaTextField.text
-                    }
                 }//
             }//
         }//
-
-        Column {
-            spacing: 5
-
-            TextApp {
-                text: qsTr("Grill blocked")
-            }//
-
+        Column{
             Rectangle {
-                height: 2
-                width: 120
+                height: 1
+                width: textId.width
                 color: "#e3dac9"
             }//
 
-            Column {
-                spacing: 5
-
-                TextApp {
-                    text: qsTr("Fan duty cycle") + " (%)" + " / " + "RPM"
-                }//
-
-                Row {
-                    spacing: 5
-
-                    TextFieldApp {
-                        id: blockedDutyCycleTextField
-                        width: 50
-                        height: 40
-                        //                        text: "48"
-
-                        onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan duty cycle"))
-                        }//
-
-                        onAccepted: {
-                            const val = Number(text)
-                            settings.mvBlockFanDucy = val
-                        }//
-                    }//
-
-                    TextFieldApp {
-                        id: blockedRpmTextField
-                        width: 145
-                        height: 40
-                        //                        text: "735"
-
-                        onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan RPM"))
-                        }//
-
-                        onAccepted: {
-                            const val = Number(text)
-                            settings.mvBlockFanRpm = val
-                        }//
-                    }//
-                }//
-            }//
-
-            Column {
-                spacing: 5
-
-                TextApp {
-                    text: qsTr("Donwflow velocity") + " " + unitStr
-
-                    property string unitStr: "(m/s)"
-
-                    Component.onCompleted: {
-                        unitStr = MachineData.measurementUnit ? "(fpm)" : "(m/s)"
-                    }//
-                }//
-
-                TextFieldApp {
-                    id: blockedDfaTextField
-                    width: 200
-                    height: 40
-                    //                    text: "0.32"
-
-                    onPressed: {
-                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Donwflow velocity"))
-                    }//
-
-                    onAccepted: {
-                        let value = 0.0
-                        let valueImp = 0.0
-                        if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
-                            valueImp = Number(text)
-                            value = utils.getMpsFromFpm(valueImp)
-                        }else{
-                            value = Number(text)
-                            valueImp = utils.getFpmFromMps(value)
-                        }
-
-                        settings.mvBlockDfa = value.toFixed(2)
-                        settings.mvBlockDfaImp = valueImp.toFixed()
-
-                        //                        settings.mvBlockDfa = text
-                    }//
-                }//
-            }//
-
-            Column {
-                spacing: 5
-
-                TextApp {
-                    text: qsTr("Inflow velocity") + " " + unitStr
-
-                    property string unitStr: "(m/s)"
-
-                    Component.onCompleted: {
-                        unitStr = MachineData.measurementUnit ? "(fpm)" : "(m/s)"
-                    }//
-                }//
-
-                TextFieldApp {
-                    id: blockedIfaTextField
-                    width: 200
-                    height: 40
-                    //                    text: "0.52"
-
-                    onPressed: {
-                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow velocity"))
-                    }//
-
-                    onAccepted: {
-                        let value = 0.0
-                        let valueImp = 0.0
-                        if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
-                            valueImp = Number(text)
-                            value = utils.getMpsFromFpm(valueImp)
-                        }else{
-                            value = Number(text)
-                            valueImp = utils.getFpmFromMps(value)
-                        }
-
-                        settings.mvBlockIfa = value.toFixed(2)
-                        settings.mvBlockIfaImp = valueImp.toFixed()
-
-                        //                        settings.mvBlockIfa = text
-                    }//
-                }//
-            }//
-
-            Column {
-                spacing: 5
-
-                TextApp {
-                    text: qsTr("Power consumption") + " " + unitStr
-
-                    property string unitStr: "(Watt)"
-                }//
-
-                TextFieldApp {
-                    id: blockedPowerTextField
-                    width: 200
-                    height: 40
-                    text: "0"
-
-                    onPressed: {
-                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Power consumption"))
-                    }//
-
-                    onAccepted: {
-                        settings.mvBlockPower = text
-                    }//
-                }//
-            }//
-
-            //                            Rectangle {
-            //                                height: 2
-            //                                width: 120
-            //                                color: "#e3dac9"
-            //                            }//
-
-            ButtonBarApp {
-                text: qsTr("Capture")
-
-                onClicked: {
-                    blockedDutyCycleTextField.text = MachineData.fanPrimaryDutyCycle
-                    blockedRpmTextField.text = MachineData.fanPrimaryRpm
-
-                    blockedDfaTextField.text = MachineData.dfaVelocityStr.split(" ")[0] || "0"
-                    blockedIfaTextField.text = MachineData.ifaVelocityStr.split(" ")[0] || "0"
-
-                    settings.mvBlockFanDucy = blockedDutyCycleTextField.text
-                    settings.mvBlockFanRpm = blockedRpmTextField.text
-
-                    if(MachineData.measurementUnit){
-                        settings.mvBlockDfaImp = blockedDfaTextField.text
-                        settings.mvBlockIfaImp = blockedIfaTextField.text
-                    }else{
-                        settings.mvBlockDfa = blockedDfaTextField.text
-                        settings.mvBlockIfa = blockedIfaTextField.text
-                    }
-                }//
-            }//
-        }//
-
-        Column {
-            spacing: 5
-
             TextApp {
-                text: qsTr("Final")
+                id: textId
+                text: "<u>"+ qsTr("Grill blocked")+"</u> "
+                      + qsTr("and")
+                      + " <u>" + qsTr("Final") + "</u> "
+                      + qsTr("duty cycle")+ ", "+ qsTr("will be based on")
+                      + " <u>"+ qsTr("Initial")+"</u> "
+                      + qsTr("value")+ ". " + qsTr("They are not editable.")
+                font.pixelSize: 16
             }//
-
-            Rectangle {
-                height: 2
-                width: 120
-                color: "#e3dac9"
-            }//
-
-            Column {
-                spacing: 5
-
-                TextApp {
-                    text: qsTr("Fan duty cycle") + " (%)" + " / " + "RPM"
-                }//
-
-                Row {
-                    spacing: 5
-
-                    TextFieldApp {
-                        id: finalDutyCycleTextField
-                        width: 50
-                        height: 40
-                        //                        text: "48"
-
-                        onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan duty cycle"))
-                        }//
-
-                        onAccepted: {
-                            const val = Number(text)
-                            settings.mvFinalFanDucy = val
-                        }//
-                    }//
-
-                    TextFieldApp {
-                        id: finalRpmTextField
-                        width: 145
-                        height: 40
-                        //                        text: "735"
-
-                        onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan RPM"))
-                        }//
-
-                        onAccepted: {
-                            const val = Number(text)
-                            settings.mvFinalFanRpm = val
-                        }//
-                    }//
-                }//
-            }//
-
-            Column {
-                spacing: 5
-
-                TextApp {
-                    text: qsTr("Donwflow velocity") + " " + unitStr
-
-                    property string unitStr: "(m/s)"
-
-                    Component.onCompleted: {
-                        unitStr = MachineData.measurementUnit ? "(fpm)" : "(m/s)"
-                    }//
-                }//
-
-                TextFieldApp {
-                    id: finalDfaTextField
-                    width: 200
-                    height: 40
-                    //                    text: "0.33"
-
-                    onPressed: {
-                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Donwflow velocity"))
-                    }//
-
-                    onAccepted: {
-                        let value = 0.0
-                        let valueImp = 0.0
-                        if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
-                            valueImp = Number(text)
-                            value = utils.getMpsFromFpm(valueImp)
-                        }else{
-                            value = Number(text)
-                            valueImp = utils.getFpmFromMps(value)
-                        }
-
-                        settings.mvFinalDfa = value.toFixed(2)
-                        settings.mvFinalDfaImp = valueImp.toFixed()
-
-                        //                        settings.mvFinalDfa = text
-                    }//
-                }//
-            }//
-
-            Column {
-                spacing: 5
-
-                TextApp {
-                    text: qsTr("Inflow velocity") + " " + unitStr
-
-                    property string unitStr: "(m/s)"
-
-                    Component.onCompleted: {
-                        unitStr = MachineData.measurementUnit ? "(fpm)" : "(m/s)"
-                    }//
-                }//
-
-                TextFieldApp {
-                    id: finalIfaTextField
-                    width: 200
-                    height: 40
-                    //                    text: "0.53"
-
-                    onPressed: {
-                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow velocity"))
-                    }//
-
-                    onAccepted: {
-                        let value = 0.0
-                        let valueImp = 0.0
-                        if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
-                            valueImp = Number(text)
-                            value = utils.getMpsFromFpm(valueImp)
-                        }else{
-                            value = Number(text)
-                            valueImp = utils.getFpmFromMps(value)
-                        }
-
-                        settings.mvFinalIfa = value.toFixed(2)
-                        settings.mvFinalIfaImp = valueImp.toFixed()
-                        //                        settings.mvFinalIfa = text
-                    }//
-                }//
-            }//
-
-            ButtonBarApp {
-                text: qsTr("Capture")
-
-                onClicked: {
-                    finalDutyCycleTextField.text = MachineData.fanPrimaryDutyCycle
-                    finalRpmTextField.text = MachineData.fanPrimaryRpm
-
-                    finalDfaTextField.text = MachineData.dfaVelocityStr.split(" ")[0] || "0"
-                    finalIfaTextField.text = MachineData.ifaVelocityStr.split(" ")[0] || "0"
-
-                    settings.mvFinalFanDucy = finalDutyCycleTextField.text
-                    settings.mvFinalFanRpm = finalRpmTextField.text
-
-                    if(MachineData.measurementUnit){
-                        settings.mvFinalDfaImp = finalDfaTextField.text
-                        settings.mvFinalIfaImp = finalIfaTextField.text
-                    }else{
-                        settings.mvFinalDfa = finalDfaTextField.text
-                        settings.mvFinalIfa = finalIfaTextField.text
-                    }
-
-                }//
-            }//
-        }//
-    }//
+        }
+    }
 
     Settings {
         id: settings

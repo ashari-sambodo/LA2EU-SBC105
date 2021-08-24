@@ -58,7 +58,7 @@ Item {
                         Item {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-
+                            visible: false
                             Image {
                                 anchors.centerIn: parent
                                 source: "qrc:/UI/Pictures/pdf-export-bt.png"
@@ -234,7 +234,7 @@ Item {
             "tested_by":            settingsCert.testerNameField,
             "t_signature":          settingsCert.testerSignatureField,
             "checked_by":           settingsCert.checkerNameField,
-            "c_signature":          settingsCert.checkerSignatureField,
+            "c_signature":          settingsCert.checkerSignatureField === "" ? " " : settingsCert.checkerSignatureField,
 
             "sw_ver":               settingsCert.swVersion,
 

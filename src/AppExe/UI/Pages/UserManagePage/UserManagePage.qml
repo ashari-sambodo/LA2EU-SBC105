@@ -181,7 +181,9 @@ ViewApp {
                                                     MouseArea {
                                                         anchors.fill: parent
                                                         onClicked: {
-                                                            props.deleteUser(modelData.username, modelData.fullname)
+                                                            props.deleteUser(modelData.username,
+                                                                             modelData.role,
+                                                                             modelData.fullname)
                                                         }//
                                                     }//
                                                 }//
@@ -458,27 +460,37 @@ ViewApp {
             property int userTotal: 0
 
             function editUser(username, role, fullname, email){
-                const intent = IntentApp.create("qrc:/UI/Pages/UserManagePage/UserEditFormPage.qml",
-                                                {
-                                                    "username": username,
-                                                    "role":     role,
-                                                    "fullname": fullname,
-                                                    "email":    email,
-                                                })
-                startView(intent);
+                if(UserSessionService.roleLevel > role || (role === UserSessionService.roleLevelSAdmin && UserSessionService.roleLevel >= role)){
+                    const intent = IntentApp.create("qrc:/UI/Pages/UserManagePage/UserEditFormPage.qml",
+                                                    {
+                                                        "username": username,
+                                                        "role":     role,
+                                                        "fullname": fullname,
+                                                        "email":    email,
+                                                    })
+                    startView(intent);
+                }else{
+                    const message = qsTr("Access denied!")
+                    showDialogMessage(qsTr("Edit User"), message, dialogAlert)
+                }
             }//
 
-            function deleteUser(username, fullname){
+            function deleteUser(username, role, fullname){
                 //                console.debug("deleteUser")
-                const message = qsTr("Delete user") + " " + fullname + " ?"
-                showDialogAsk(qsTr("Delete"), message, dialogAlert, function onAccepted(){
-                    showBusyPage(qsTr("Loading..."), function(seconds){
-                        if (seconds === 10){
-                            closeDialog()
-                        }
+                if(UserSessionService.roleLevel > role || (role === UserSessionService.roleLevelSAdmin && UserSessionService.roleLevel >= role)){
+                    const message = qsTr("Delete user") + " " + fullname + " ?"
+                    showDialogAsk(qsTr("Delete"), message, dialogAlert, function onAccepted(){
+                        showBusyPage(qsTr("Loading..."), function(seconds){
+                            if (seconds === 10){
+                                closeDialog()
+                            }
+                        })
+                        userManageQml.deleteByUsername(username);
                     })
-                    userManageQml.deleteByUsername(username);
-                })
+                }else{
+                    const message = qsTr("Access denied!")
+                    showDialogMessage(qsTr("Delete User"), message, dialogAlert)
+                }
             }
 
             function reloadUser(){

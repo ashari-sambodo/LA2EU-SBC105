@@ -190,6 +190,7 @@ ViewApp {
 
                 const extraData = IntentApp.getExtraData(intent)
                 props.calledFromWalcomeSetup = extraData["walcomesetup"] || false
+                if(props.calledFromWalcomeSetup) MachineAPI.setLightState(true);
             }
 
             /// onPause

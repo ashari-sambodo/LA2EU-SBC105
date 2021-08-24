@@ -148,8 +148,8 @@ Item {
 
                         Rectangle {
 
-                            height: 110
-                            width: 200
+                            height: 160/*110*/
+                            width: 280/*200*/
                             radius: 5
                             color: "#e3dac9"
 
@@ -288,8 +288,8 @@ Item {
 
                         Rectangle {
 
-                            height: 110
-                            width: 200
+                            height: 160/*110*/
+                            width: 280/*200*/
                             radius: 5
                             color: "#e3dac9"
 
@@ -350,10 +350,10 @@ Item {
                                     const dataUrl = signatureChackerCanvas.toDataURL()
                                     const dataUrlPayload = dataUrl.replace("data:image/png;base64,", "")
                                     settings.checkerSignatureField = Qt.btoa(dataUrlPayload)
-                                    //                            console.log("dataUrl: " + dataUrl)
-                                    //                            console.log("dataUrlPayload: " + dataUrlPayload)
-                                    //                            console.log("dataUrlPayloadbtoa: " + Qt.btoa(dataUrlPayload))
-                                    //                            console.log("dataUrlPayloadatob: " + Qt.atob(Qt.btoa(dataUrlPayload)))
+                                    //                                    console.log("dataUrl: " + dataUrl)
+                                    //                                    console.log("dataUrlPayload: " + dataUrlPayload)
+                                    //                                    console.log("dataUrlPayloadbtoa: " + Qt.btoa(dataUrlPayload))
+                                    //                                    console.log("dataUrlPayloadatob: " + Qt.atob(Qt.btoa(dataUrlPayload)))
 
                                     const url = StandardPaths.writableLocation(StandardPaths.AppLocalDataLocation)
                                     const path = utilsApp.urlToPath(String(url))
@@ -398,7 +398,7 @@ Item {
         }//
 
         TextApp {
-            text: qsTr("Name and signature is not saved permanently!")
+            text: qsTr("The signature will not be saved permanently!")
             font.pixelSize: 16
         }//
     }//
@@ -425,13 +425,13 @@ Item {
             customerTextField.text = customer
             countryTextField.text = country
 
-            settings.dateTest = Qt.formatDate(new Date, "dd-MMM-yyyy")
-            dateTextField.text = settings.dateTest
+            //settings.dateTest = Qt.formatDate(new Date, "dd-MMM-yyyy")
+            dateTextField.text = dateTest
             settings.swVersion = Qt.application.name + " - " + Qt.application.version
-            swTextField.text = settings.swVersion
+            swTextField.text = swVersion
 
-            testerNameTextField.text = ""/*testerNameField*/
-            checkerNameTextField.text = ""/*checkerNameField*/
+            testerNameTextField.text = testerNameField
+            checkerNameTextField.text = checkerNameField
 
         }//
     }//

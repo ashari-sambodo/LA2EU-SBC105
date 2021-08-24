@@ -17,6 +17,7 @@ AirflowVelocity::AirflowVelocity(QObject *parent)
     m_m2                = 0;
     m_b2                = 0;
     m_temperature       = 0;
+    m_maxAdcResBits   = 12; // Default ADC Resolution 12 bits
 
     adcDummy            = 0;
     m_adcChanged        = false;
@@ -49,7 +50,8 @@ void AirflowVelocity::routineTask(int parameter)
         break;
     }
 
-    int adc = pAI->getADC(m_channel);
+    //// Map the original ADC value to specific bits
+    int adc = /*pAI->getAdcMap(m_channel, m_maxAdcResBits);*/pAI->getADC(m_channel);
 
 #ifdef QT_DEBUG
     if(m_dummyStateEnable){
@@ -81,8 +83,15 @@ void AirflowVelocity::routineTask(int parameter)
 
         //ADC TEMPERATURE CONVESATION
         int adcC = m_adc;
-        if((m_constant != 0) && (m_temperature < 50.0)){
-            adcC = qRound((double)m_adc + (double)m_adc * (m_temperature - 25.0) / (double)m_constant);
+        double adcCompTemp = 0.0;
+
+        if((m_constant != 0) && (m_temperature <= 50.0)){
+            adcCompTemp = (m_temperature - 25.0) + static_cast<double>(m_constant);
+            adcCompTemp *= static_cast<double>(m_adc);
+            adcCompTemp /= static_cast<double>(m_constant);
+
+            adcC = static_cast<int>(adcCompTemp);
+            //adcC = qRound((double)m_adc + (double)m_adc * (m_temperature - 25.0) / (double)m_constant);
             //There is no ADC negative value
             if(adcC < 0) adcC = m_adc;
         }//
@@ -120,7 +129,7 @@ void AirflowVelocity::routineTask(int parameter)
             qDebug() << metaObject()->className() << __func__ << "m_adcPoint[1]"  << m_adcPoint[1] << m_adcConpensation << m_b1 << m_m1 << "velocity" << velocity;
         }else{
             velocity = qRound((m_adcConpensation - m_b2) / m_m2);
-             qDebug() << metaObject()->className() << __func__ << "m_adcPoint[2]" << m_adcPoint[2] << m_adcConpensation << m_b2 << m_m2 << "velocity" << velocity;
+            qDebug() << metaObject()->className() << __func__ << "m_adcPoint[2]" << m_adcPoint[2] << m_adcConpensation << m_b2 << m_m2 << "velocity" << velocity;
         }
         //            break;
         //        case AFCALIB_POINT_2POINTS:
@@ -320,11 +329,11 @@ void AirflowVelocity::initScope()
     qDebug() << metaObject()->className() << __func__ << m_adcPoint[2] << m_adcPoint[1] << m_adcPoint[0];
     qDebug() << metaObject()->className() << __func__ << m_velocityPoint[2] << m_velocityPoint[1];
 
-    double m1 = ((double)(m_adcPoint[1] - m_adcPoint[0])) / (m_velocityPoint[1] - m_velocityPoint[0]);
-    double b1 = ((double)m_adcPoint[0]) - (m1 * m_velocityPoint[0]);
+    double m1 = (static_cast<double>(m_adcPoint[1] - m_adcPoint[0])) / (m_velocityPoint[1] - m_velocityPoint[0]);
+    double b1 = (static_cast<double>(m_adcPoint[0])) - (m1 * m_velocityPoint[0]);
 
-    double m2 = ((double)(m_adcPoint[2] - m_adcPoint[1])) / (m_velocityPoint[2] - m_velocityPoint[1]);
-    double b2 = ((double)m_adcPoint[1]) - (m2 * m_velocityPoint[1]);
+    double m2 = (static_cast<double>(m_adcPoint[2] - m_adcPoint[1])) / (m_velocityPoint[2] - m_velocityPoint[1]);
+    double b2 = (static_cast<double>(m_adcPoint[1])) - (m2 * m_velocityPoint[1]);
 
 
     if((m_m1 != m1) || (m_b1 != b1) || (m_m2 != m2) || (m_b2 != b2)){
@@ -351,6 +360,11 @@ void AirflowVelocity::setTemperature(int newVal)
     if(m_temperature == newVal) return;
     m_temperature = newVal;
     if(!m_temperatureChanged) m_temperatureChanged = true;
+}
+
+void AirflowVelocity::setAdcResolutionBits(unsigned char bits)
+{
+    m_maxAdcResBits = bits;
 }
 
 bool AirflowVelocity::getDummyStateEnable() const

@@ -129,21 +129,40 @@ ApplicationWindow {
         }//
     }//
 
+    ///Grab Screen
     Connections {
         target: HeaderAppService
 
         function onVendorLogoPressandHold(){
-            mainItem.grabToImage(function(result) {
-                const dataLocation = StandardPaths.writableLocation(StandardPaths.AppLocalDataLocation)
-                const fileName = dataLocation + "/screenpic.png"
-                const res = result.saveToFile(fileName.replace("file:///C:", "c:"));
+            if(UserSessionService.loggedIn){
+                //console.log("Grab screen capture")
+                mainItem.grabToImage(function(result) {
+                    //let date = new Date()
+                    //let dateTimeStr = Qt.formatDateTime(date, "yyyyMMddhhmmss")
 
-                //                console.log(res)
+                    //console.log("Grab result")
+                    const appLocalDataLocation = StandardPaths.writableLocation(StandardPaths.AppLocalDataLocation)
+                    //console.log("appDataLocation: " + appLocalDataLocation)
+                    let fileName = appLocalDataLocation + "/screenpic.png"
+                    if (__osplatform__) {
+                        /// linux
+                        fileName = fileName.replace("file://", "")
+                        const res = result.saveToFile(fileName);
+                        fileName = "file://" + fileName
+                    }
+                    else {
+                        /// windows
+                        fileName = fileName.replace("file:///C:", "c:")
+                        const res = result.saveToFile(fileName);
+                        fileName = "file:///" + fileName
+                    }
 
-                const intent = IntentApp.create("qrc:/UI/Pages/ScreenShootShowPage/ScreenShootShowPage.qml", {"filename": fileName})
-                mainStackView.push(intent.uri, {"uri": intent.uri, "intent": intent})
-            });
-            //            console.log("Get Screen Capture.!!!")
+                    console.log("Grab " + fileName)
+                    //                console.log(res)
+                    const intent = IntentApp.create("qrc:/UI/Pages/ScreenShootShowPage/ScreenShootShowPage.qml", {"filename": fileName})
+                    mainStackView.push(intent.uri, {"uri": intent.uri, "intent": intent})
+                });
+            }
         }
     }
 
@@ -615,12 +634,13 @@ ApplicationWindow {
                 active: false
                 sourceComponent: Timer {
                     id: delayToOpenScreenSaverTimer
-                    //                    interval: 5000
-                    interval: 1800000 /// auto log out after 30 minutes if not any interuption condition
+                    //interval: 5000
+                    interval: 1800000 /// auto log out after 30 minutes if there is no interuption condition
                     running: true
                     onTriggered: {
                         //                        console.log("delayToOpenScreenSaverLoader")
-                        /// except if following condition
+                        /// except the following condition
+
                         if(MachineData.operationMode === MachineAPI.MODE_OPERATION_MAINTENANCE){
                             //                console.log("MachineData.operationMode")
                             return

@@ -209,7 +209,7 @@ ViewApp {
                                     TextApp{
                                         height: parent.height
                                         width: parent.width
-                                        text: qsTr("Current System")
+                                        text: qsTr("Registered System")
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
                                     }
@@ -270,7 +270,7 @@ ViewApp {
                                                                     wrapMode: Text.WordWrap
                                                                 }
                                                                 Component.onCompleted:{
-                                                                    var sysInfo = props.sbcCurSysInfo[index]
+                                                                    var sysInfo = props.sbcSysInfo[index]
                                                                     var textSysInfo = String(typeof sysInfo !== 'undefined' ? sysInfo : "---:---")
                                                                     let text1 = textSysInfo.split(":")[0]
                                                                     let text2 = textSysInfo.split(":")[1]
@@ -280,8 +280,8 @@ ViewApp {
                                                                     }
                                                                     name2.text = text1
                                                                     value2.text = text2
-                                                                    //console.debug(name1.text)
-                                                                    //console.debug(value1.text)
+                                                                    //console.debug(name2.text)
+                                                                    //console.debug(value2.text)
                                                                 }
                                                             }
                                                         }
@@ -394,8 +394,8 @@ ViewApp {
         QtObject {
             id: props
             property bool compCompleted: false
-            property var sbcSysInfo:""
-            property var sbcCurSysInfo:""
+            property var sbcSysInfo: []
+            property var sbcCurSysInfo: []
             property int modelLength1: 0
             property int modelLength2: 0
         }//
@@ -412,8 +412,8 @@ ViewApp {
                 props.sbcSysInfo = MachineData.getSbcSystemInformation();
                 props.sbcCurSysInfo = MachineData.getSbcCurrentSystemInformation();
 
-                props.modelLength1 = props.sbcSysInfo.length
-                props.modelLength2 = props.sbcCurSysInfo.length
+                props.modelLength1 = props.sbcCurSysInfo.length
+                props.modelLength2 = props.sbcSysInfo.length
                 props.compCompleted = true
             }
             /// onPause

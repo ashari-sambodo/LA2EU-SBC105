@@ -16,10 +16,9 @@ Item {
             TextApp {
                 text: qsTr("Sensor (VDC): Press and type the value from Volt Meter!")
             }//
-
-            TextApp {
-                text: qsTr("ADC Actual (IFA): Ensure blower is ON, then press it to re-capturing!")
-            }//
+            //            TextApp {
+            //                text: qsTr("ADC Actual (IFA): Ensure blower is ON, then press it to re-capturing!")
+            //            }//
         }//
 
         Rectangle {
@@ -74,11 +73,10 @@ Item {
                 //            width: children[0].width + 10
                 height: 110
                 width: 150
-                color: "#aaf39c12"
+                color: "#aa0F2952"
                 radius: 5
                 border.width: 1
-                border.color: "#f39c12"
-
+                border.color: "#e3dac9"
                 Column {
                     anchors.centerIn: parent
                     spacing: 5
@@ -93,17 +91,21 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: 100
                         height: 40
-                        colorBorder: "#f39c12"
-                        //                text: "2021-123456"
+                        enabled: false
+                        text: props.adcActual
+
+                        Component.onCompleted: {
+                            text = Qt.binding(function(){return props.adcActual})
+                        }
                     }//
                 }//
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        //                                console.log("onClicked")
+                        //console.log("onClicked")
                         adcActualTextField.text = MachineData.ifaAdcConpensation
-                        settings.adcActual = MachineData.ifaAdcConpensation
+                        //settings.adcActual = MachineData.ifaAdcConpensation
                     }//
                 }//
             }//
@@ -452,6 +454,19 @@ Item {
         }//
     }
 
+    QtObject{
+        id: props
+        property int adcActual: 0
+
+        onAdcActualChanged: {
+            settings.adcActual = adcActual
+        }
+
+        Component.onCompleted: {
+            adcActual = Qt.binding(function(){return MachineData.ifaAdcConpensation})
+        }
+    }
+
     /*
       Author: Heri Cahyono
       Change to not editable except sensor VDC
@@ -466,7 +481,9 @@ Item {
 
         Component.onCompleted: {
             sensorVoltageTextField.text     = sensorVdc
-            adcActualTextField.text         = MachineData.ifaAdcConpensation
+
+            adcActual                       = MachineData.ifaAdcConpensation
+            adcActualTextField.text         = adcActual
             adcMinTextField.text            = MachineData.getInflowAdcPointFactory(1)
             adcNomTextField.text            = MachineData.getInflowAdcPointFactory(2)
             adcNomFactoryTextField.text     = MachineData.getInflowAdcPointFactory(2)

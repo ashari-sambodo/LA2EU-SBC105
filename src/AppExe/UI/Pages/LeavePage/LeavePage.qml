@@ -97,6 +97,7 @@ ViewApp {
                                     width: rightItem.width - 10
                                     wrapMode: Text.WordWrap
                                     horizontalAlignment: Text.AlignJustify
+                                    rightPadding: 5
                                     text: qsTr("This action only needed if you want to take out the electricity to the unit.")
                                 }//
 
@@ -107,6 +108,7 @@ ViewApp {
                                     width: rightItem.width - 10
                                     wrapMode: Text.WordWrap
                                     horizontalAlignment: Text.AlignJustify
+                                    rightPadding: 5
                                     text: qsTr("This to ensure all the tasks will be stopped properly and not caused disk error.")
                                 }//
 
@@ -117,7 +119,8 @@ ViewApp {
                                     width: rightItem.width - 10
                                     wrapMode: Text.WordWrap
                                     horizontalAlignment: Text.AlignJustify
-                                    text: qsTr("System will automatically turned off all the output, then go to black screen.")
+                                    rightPadding: 5
+                                    text: qsTr("System will automatically turn off all the output, then go to black screen.")
                                 }//
 
                                 Rectangle {height: 1; width: parent.width; color: "gray"}
@@ -127,9 +130,18 @@ ViewApp {
                                     width: rightItem.width - 10
                                     wrapMode: Text.WordWrap
                                     horizontalAlignment: Text.AlignJustify
+                                    rightPadding: 5
                                     text: qsTr("After black screen about 5 seconds, you can actually take out the electricity.")
                                 }//
-
+                                Rectangle {height: 1; width: parent.width; color: "gray"}
+                                TextApp {
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    width: rightItem.width - 10
+                                    wrapMode: Text.WordWrap
+                                    horizontalAlignment: Text.AlignJustify
+                                    rightPadding: 5
+                                    text: qsTr("If you intend to turn on the unit again, please plug it off and plug in back the power.")
+                                }//
                                 Rectangle {height: 1; width: parent.width; color: "gray"}
                             }
 

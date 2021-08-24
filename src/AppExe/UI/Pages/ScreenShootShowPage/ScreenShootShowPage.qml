@@ -92,44 +92,58 @@ ViewApp {
                             }
                         }//
 
-                        ButtonBarApp {
-                            width: 194
-                            anchors.right: parent.right
-                            anchors.verticalCenter: parent.verticalCenter
+                        //                        ButtonBarApp {
+                        //                            visible: false
+                        //                            width: 194
+                        //                            anchors.right: parent.right
+                        //                            anchors.verticalCenter: parent.verticalCenter
 
-                            imageSource: "qrc:/UI/Pictures/bluetooth.png"
-                            text: qsTr("Share via Bluetooth")
+                        //                            imageSource: "qrc:/UI/Pictures/bluetooth.png"
+                        //                            text: qsTr("Share via Bluetooth")
 
-                            onClicked: {
-                                const pictureSource = String(getPicScreenImage.source)
-                                const sourceFilePath = pictureSource.replace("file:///C:", "c:")
-                                const intent = IntentApp.create("qrc:/UI/Pages/BluetoothFileTransfer/BluetoothFileTransfer.qml",
-                                                                {
-                                                                    "sourceFilePath": sourceFilePath
-                                                                });
-                                startView(intent);
-                            }//
-                        }//
+                        //                            onClicked: {
+                        //                                const pictureSource = String(getPicScreenImage.source)
+                        //                                const sourceFilePath = pictureSource.replace("file:///C:", "c:")
+                        //                                const intent = IntentApp.create("qrc:/UI/Pages/BluetoothFileTransfer/BluetoothFileTransfer.qml",
+                        //                                                                {
+                        //                                                                    "sourceFilePath": sourceFilePath
+                        //                                                                });
+                        //                                startView(intent);
+                        //                            }//
+                        //                        }//
 
                         ButtonBarApp {
                             x: 386
                             width: 194
                             anchors.right: parent.right
-                            anchors.verticalCenterOffset: 0
-                            anchors.rightMargin: 200
                             anchors.verticalCenter: parent.verticalCenter
 
                             imageSource: "qrc:/UI/Pictures/usbvia.png"
                             text: qsTr("Share via USB")
 
                             onClicked: {
-                                const pictureSource = String(getPicScreenImage.source)
-                                const sourceFilePath = pictureSource.replace("file:///C:", "c:")
+                                let pictureSource = String(getPicScreenImage.source)
+                                if (__osplatform__) {
+                                    /// linux
+                                    pictureSource = pictureSource.replace("file://", "")
+                                }
+                                else {
+                                    /// windows
+                                    pictureSource = pictureSource.replace("file:///C:", "c:")
+                                }
                                 const intent = IntentApp.create("qrc:/UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml",
                                                                 {
-                                                                    "sourceFilePath": sourceFilePath
+                                                                    "sourceFilePath": pictureSource
                                                                 });
                                 startView(intent);
+
+                                //const pictureSource = String(getPicScreenImage.source)
+                                //const sourceFilePath = pictureSource.replace("file:///C:", "c:")
+                                //const intent = IntentApp.create("qrc:/UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml",
+                                //                                {
+                                //                                    "sourceFilePath": sourceFilePath
+                                //                                });
+                                //startView(intent);
                             }//
                         }//
                     }//
@@ -161,7 +175,7 @@ ViewApp {
 
                 const getpicture = extradata['filename'] || ""
 
-                //                console.log(getpicture)
+                console.debug(getpicture)
 
                 props.pictureLink = getpicture
 

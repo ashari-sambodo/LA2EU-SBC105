@@ -88,7 +88,7 @@ ViewApp {
                                         //                                        props.securityAccessLevel = MachineAPI.MODE_SECURITY_ACCESS_LOW
                                         const textSecureLevel = "<b>" + qsTr("Set security level to less?") + "</b>"
                                                               + "<br><br>"
-                                                              + qsTr("Both contol button and user menu are accessable without login")
+                                                              + qsTr("Both control button and user menu are accessible without login")
                                         viewApp.showDialogAsk(qsTr("Notification"),
                                                               textSecureLevel,
                                                               viewApp.dialogAlert,
@@ -146,7 +146,7 @@ ViewApp {
                                         //                                        props.securityAccessLevel = MachineAPI.MODE_SECURITY_ACCESS_MODERATE
                                         const textSecureLevel = "<b>" + qsTr("Set security level to moderate?") + "</b>"
                                                               + "<br><br>"
-                                                              + qsTr("Contol button is accessable without login, but required login to open user menu")
+                                                              + qsTr("Control button is accessible without login, but required login to open user menu")
 
                                         viewApp.showDialogAsk(qsTr("Notification"),
                                                               textSecureLevel,
@@ -204,7 +204,7 @@ ViewApp {
 
                                         const textSecureLevel = "<b>" + qsTr("Set security level to secure?") + "</b>"
                                                               + "<br><br>"
-                                                              + qsTr("Both contol button and user menu are required login")
+                                                              + qsTr("Both control button and user menu are required login")
 
                                         viewApp.showDialogAsk(qsTr("Notification"),
                                                               textSecureLevel,

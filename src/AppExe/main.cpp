@@ -168,6 +168,12 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("__release__", 0);
 #endif
 
+#ifdef __WIN32__
+    engine.rootContext()->setContextProperty("__osplatform__", 0/*Windows*/);
+#elif __linux__
+    engine.rootContext()->setContextProperty("__osplatform__", 1/*Linux*/);
+#endif
+
     /// CRATE VIEW ENGINE
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

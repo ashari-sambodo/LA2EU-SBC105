@@ -390,7 +390,9 @@ ViewApp {
                                             border.width: 2
                                         }//
 
-                                        model: ["Operator", "Administrator"]
+                                        model: UserSessionService.roleLevel >= UserSessionService.roleLevelSAdmin ?
+                                                   ["Operator",  "Administrator", "Supervisor"] :
+                                                   ["Operator",  "Administrator"]
                                     }//
                                 }// user level
                             }//

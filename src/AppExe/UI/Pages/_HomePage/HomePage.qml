@@ -97,6 +97,18 @@ ViewApp {
                             }//
                             ,
                             State {
+                                when: props.alarmSashError
+                                PropertyChanges {
+                                    target: headerBgImage
+                                    visible: true
+                                }//
+                                PropertyChanges {
+                                    target: headerStatusText
+                                    text: qsTr("ALARM: SASH ERROR")
+                                }//
+                            }//
+                            ,
+                            State {
                                 when: props.alarmSashUnsafe || props.alarmSashFullyOpen
                                 PropertyChanges {
                                     target: headerBgImage
@@ -1975,7 +1987,7 @@ ViewApp {
                                         }//
                                     }//
 
-                                    stateInterlock: props.uvInterlocked
+                                    stateInterlock: props.uvInterlocked || (props.sashWindowState !== MachineAPI.SASH_STATE_FULLY_CLOSE_SSV)
 
                                     states: [
                                         State {
@@ -1997,22 +2009,24 @@ ViewApp {
                             CusComPage.ControlButtonApp {
                                 id: muteAlarmButton
                                 anchors.fill: parent
-                                //                                stateInterlock: !props.alarmsState ||
+                                //stateInterlock: !props.alarmsState
 
                                 sourceImage: "qrc:/UI/Pictures/controll/Mute_W.png"
 
                                 function callMuteAlarmButton () {
-                                    if (props.alarmSashFullyOpen
+                                    if (!props.alarmsState) {
+                                        showDialogMessage(qsTr("Audible Alarm"), qsTr("There's no audible alarm."), dialogAlert)
+                                        return
+                                    }
+                                    else if (props.alarmSashFullyOpen
                                             || props.alarmBoardComError
                                             || props.alarmInflowLow
                                             || props.alarmSeasTooPositive
                                             || props.alarmSeasFlapTooPositive) {
 
                                         MachineAPI.setMuteAlarmState(!props.muteAlarmState)
-
                                     }
                                     else if (props.alarmsState) {
-
                                         showDialogMessage(qsTr("Audible Alarm"),
                                                           qsTr("This audible alarm can not be muted!"), dialogAlert)
                                     }
@@ -2023,7 +2037,7 @@ ViewApp {
                                         showDialogMessage(qsTr("Audible Alarm"),
                                                           qsTr("There's no audible alarm."), dialogAlert)
                                     }//
-                                }
+                                }//
 
                                 onPressAndHold: {
                                     const intent = IntentApp.create("qrc:/UI/Pages/VivariumMuteSetPage/VivariumMuteSetPage.qml", {})
@@ -2167,6 +2181,7 @@ ViewApp {
 
             property int  alarmSash: 0
             property bool alarmSashUnsafe: false
+            property bool alarmSashError: false
             property bool alarmSashFullyOpen: false
             property bool alarmSashUnknown: false
             property int  alarmInflowLow: 0
@@ -2247,6 +2262,7 @@ ViewApp {
 
                 props.alarmSash = Qt.binding(function(){ return MachineData.alarmSash })
                 props.alarmSashUnsafe = Qt.binding(function(){ return MachineData.alarmSash === MachineAPI.ALARM_SASH_ACTIVE_UNSAFE_STATE })
+                props.alarmSashError = Qt.binding(function(){ return MachineData.alarmSash === MachineAPI.ALARM_SASH_ACTIVE_ERROR_STATE })
                 props.alarmSashFullyOpen = Qt.binding(function(){ return MachineData.alarmSash === MachineAPI.ALARM_SASH_ACTIVE_FO_STATE })
                 props.alarmSashUnknown = Qt.binding(function(){ return MachineData.alarmSash === MachineAPI.ALARM_SASH_ACTIVE_ERROR_STATE })
 
@@ -2280,9 +2296,6 @@ ViewApp {
                 props.muteAlarmState = Qt.binding(function(){ return MachineData.muteAlarmState })
                 props.muteAlarmTimeCountdown = Qt.binding(function(){ return MachineData.muteAlarmCountdown })
                 props.vivariumMuteState = Qt.binding(function(){ return MachineData.vivariumMuteState })
-
-                props.uvTimeCountDown = Qt.binding(function(){ return MachineData.uvState })
-                props.uvLifePercent = Qt.binding(function(){ return MachineData.uvState })
 
                 props.filterLifePercent = Qt.binding(function(){ return MachineData.filterLifePercent })
 

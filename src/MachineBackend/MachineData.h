@@ -883,18 +883,7 @@ class MachineData : public QObject
                //               WRITE setShippingModeEnable
                NOTIFY shippingModeEnableChanged)
 
-    //    Q_PROPERTY(QString sbcCurrentFullMacAddress
-    //               READ getSbcCurrentFullMacAddress
-    //               //               WRITE setSbcCurrentFullMacAddress
-    //               NOTIFY sbcCurrentFullMacAddressChanged)
-    //    Q_PROPERTY(QString piWlanMacAddress
-    //               READ getPiWlanMacAddress
-    //               //               WRITE setPiWlanMacAddress
-    //               NOTIFY piWlanMacAddressChanged)
-    //    Q_PROPERTY(QString piEthMacAddress
-    //               READ getPiEthMacAddress
-    //               //               WRITE setPiEthMacAddress
-    //               NOTIFY piEthMacAddressChanged)
+
 
 
 public:

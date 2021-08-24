@@ -21,24 +21,25 @@ AImcp342x::AImcp342x(QObject *parent)
 
     config.bits.pga         = MCP342X_AI_GAIN_x1;
 
+    //    config.bits.sps         = MCP342X_AI_SPS_12bits;
+    //    lsb_value               = MCP342X_AI_LSB_12bit;
     config.bits.sps         = MCP342X_AI_SPS_14bits;
     lsb_value               = MCP342X_AI_LSB_14bit;
 
     config.bits.conv_mode   = MCP342X_AI_CONT_CONV;
     config.bits.channel     = MCP342X_AI_CH1;
     config.bits.r_flag      = MCP342X_AI_CONV_INIT;
-
 }
 
 int AImcp342x::testComm()
 {
     vector<unsigned char> cmd;
     pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
-                         m_address,
-                         0,
-                         1,
-                         0,
-                         cmd);
+                        m_address,
+                        0,
+                        1,
+                        0,
+                        cmd);
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
@@ -88,11 +89,11 @@ int AImcp342x::sendConfig()
 {
     vector<unsigned char> cmd;
     pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_WRITE,
-                         m_address, //m_address
-                         0, //without offset
-                         1, //total of data
-                         0, //offset
-                         cmd);
+                        m_address, //m_address
+                        0, //without offset
+                        1, //total of data
+                        0, //offset
+                        cmd);
     cmd.push_back(config.byte);
     //call i2c object and pass command frame
     if(pI2C->writeData(cmd) != I2CPort::I2C_COMM_RESPONSE_OK)
@@ -109,11 +110,11 @@ int AImcp342x::getValue(int *adc, int channel, int *mVolt, double *mA)
     //Then read conversion result
     vector<unsigned char> cmd;
     pI2C->generateFrame(I2CPort::I2C_CMD_OPERATION_READ,
-                         m_address,
-                         0,
-                         3,
-                         0,
-                         cmd);
+                        m_address,
+                        0,
+                        3,
+                        0,
+                        cmd);
     //make buffer received message
     vector<unsigned char> receive;
     //call i2c object and pass command frame
@@ -189,4 +190,9 @@ void AImcp342x::_debugPrintRegister(int index)
 void AImcp342x::clearRegBuffer()
 {
     memset(m_registerDataBuffer, 0, sizeof(m_registerDataBuffer));
+}
+
+unsigned char AImcp342x::getConfigSPS() const
+{
+    return config.bits.sps;
 }

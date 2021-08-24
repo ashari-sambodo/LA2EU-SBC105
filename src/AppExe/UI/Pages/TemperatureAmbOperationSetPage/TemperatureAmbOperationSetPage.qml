@@ -109,9 +109,7 @@ ViewApp {
                             onAccepted: {
                                 //                                console.log(text)
                                 let val = Number(text)
-                                props.lowestLimitNew = props.measurementUnit
-                                        ? Number(Number(utilsApp.fahrenheitToCelcius(val)).toFixed())
-                                        : val
+                                props.lowestLimitNew = val
                                 currentLowestText.text = props.measurementUnit ? val + "°F" : val + "°C"
                             }
                         }//
@@ -170,10 +168,8 @@ ViewApp {
                             onAccepted: {
                                 //                                console.log(text)
                                 let val = Number(text)
-                                props.highestLimitNew = props.measurementUnit
-                                        ? Number(Number(utilsApp.fahrenheitToCelcius(val)).toFixed())
-                                        : val
-                                currentHighestText.text = props.measurementUnit ? val + "°F" : val + "°C"
+                                props.highestLimitNew = val
+                                currentHighestText.text =  props.measurementUnit ? val + "°F" : val + "°C"
                             }
                         }//
                     }//
@@ -211,12 +207,9 @@ ViewApp {
                                 if ((props.lowestLimitNew != props.lowestLimitMachine)
                                         || (props.highestLimitNew != props.highestLimitMachine)){
 
-                                    console.debug("lowestLimitNew: " + lowestLimitNew)
-                                    console.debug("highestLimitNew: " + highestLimitNew)
-
                                     /// send to backend
-                                    MachineAPI.setEnvTempLowestLimit(lowestLimitNew);
-                                    MachineAPI.setEnvTempHighestLimit(highestLimitNew);
+                                    MachineAPI.setEnvTempLowestLimit(props.lowestLimitNew);
+                                    MachineAPI.setEnvTempHighestLimit(props.highestLimitNew);
 
                                     showBusyPage(qsTr("Setting up..."), function(cycle){
                                         if(cycle === 3) {
@@ -312,15 +305,11 @@ ViewApp {
                 props.lowestLimitMachine = Qt.binding(function(){return MachineData.envTempLowestLimit})
                 props.highestLimitMachine = Qt.binding(function(){return MachineData.envTempHighestLimit})
 
-                let val = props.measurementUnit
-                    ? Number(Number(utilsApp.celciusToFahrenheit(MachineData.envTempLowestLimit)).toFixed())
-                    : MachineData.envTempLowestLimit
+                let val = MachineData.envTempLowestLimit
                 currentLowestText.text = props.measurementUnit ? val + "°F" : val + "°C"
                 lowestLimitNewTextField.text = val
 
-                val = props.measurementUnit
-                    ? Number(Number(utilsApp.celciusToFahrenheit(MachineData.envTempHighestLimit)).toFixed())
-                    : MachineData.envTempHighestLimit
+                val = MachineData.envTempHighestLimit
                 currentHighestText.text = props.measurementUnit ? val + "°F" : val + "°C"
                 highestLimitNewTextField.text = val
             }

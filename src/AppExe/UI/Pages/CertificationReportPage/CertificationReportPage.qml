@@ -212,14 +212,14 @@ ViewApp {
             Component.onDestruction: {
                 /// do not save tester name and signatures for the next opening
                 /// let"s remove them
-                setValue("testerName", "")
+                //setValue("testerName", "")
                 setValue("testerSignature", "")
-                setValue("checkerName", "")
+                //setValue("checkerName", "")
                 setValue("checkerSignature", "")
 
-                setValue("testerNameField", "")
+                //setValue("testerNameField", "")
                 setValue("testerSignatureField", "")
-                setValue("checkerNameField", "")
+                //setValue("checkerNameField", "")
                 setValue("checkerSignatureField", "")
 
                 MachineAPI.deleteFileOnSystem(StandardPaths.writableLocation(StandardPaths.AppLocalDataLocation) + "/fullsigntester.png");

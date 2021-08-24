@@ -72,10 +72,13 @@ void DeviceDigitalOut::routineTask(int parameter)
                     PCA9685_PWM_VAL_FULL_DCY_ON : PCA9685_PWM_VAL_FULL_DCY_OFF;
         pSubModule->setPWM(m_channelIO, pwmDcy, ClassDriver::I2C_OUT_BUFFER);
 
+        m_state = m_stateRequest;
+        emit stateChanged(m_state);
+
 #ifdef QT_DEBUG
-    if(m_dummyStateEnable){
-        m_dummyState = m_stateRequest;
-    }
+        if(m_dummyStateEnable){
+            m_dummyState = m_stateRequest;
+        }
 #endif
         //        m_stateRequest = BackendEEnums::DIGITAL_STATE_OFF;
         //        qDebug() << "m_stateRequest: " << m_stateRequest;

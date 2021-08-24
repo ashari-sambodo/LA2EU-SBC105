@@ -46,6 +46,7 @@ public:
     double  convertADCtomA(int adc);
     bool    isConversionUpdated();
     void    clearRegBuffer();
+    unsigned char  getConfigSPS() const;
 
     void _debugPrintRegister(int index);
 

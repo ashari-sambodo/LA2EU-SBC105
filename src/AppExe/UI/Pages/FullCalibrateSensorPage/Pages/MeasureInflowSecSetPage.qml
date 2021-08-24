@@ -688,16 +688,28 @@ ViewApp {
                         ///
                         props.velocityTotal = sumVal
 
-                        let average = messageObject["avgVal"]
-                        ///
-                        props.velocityAverage = average
+                        let average = Number(messageObject["avgVal"])
                         /// update to view
-                        average = Number(average).toFixed(2)
+                        if(props.measureUnit){
+                            average = Math.round(average)
+                            average = average.toFixed()
+                        }
+                        else{
+                            average = average.toFixed(2)
+                        }
+                        props.velocityAverage = Number(average)
                         averageTextField.text = average
 
-                        const velocity = messageObject["velVal"]
-                        props.velocityConpensate = velocity
+                        let velocity = Number(messageObject["velVal"])
                         /// update the view
+                        if(props.measureUnit){
+                            velocity = Math.round(velocity)
+                            velocity = velocity.toFixed()
+                        }
+                        else{
+                            velocity = velocity.toFixed(2)
+                        }
+                        props.velocityConpensate = Number(velocity)
                         velocityTextField.text = velocity
 
                         let acceptedCount = messageObject["acceptedCount"]

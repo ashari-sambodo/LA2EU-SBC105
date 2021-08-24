@@ -148,8 +148,8 @@ Item {
 
                         Rectangle {
 
-                            height: 110
-                            width: 200
+                            height: 160/*110*/
+                            width: 280/*200*/
                             radius: 5
                             color: "#e3dac9"
 
@@ -288,8 +288,8 @@ Item {
 
                         Rectangle {
 
-                            height: 110
-                            width: 200
+                            height: 160/*110*/
+                            width: 280/*200*/
                             radius: 5
                             color: "#e3dac9"
 
@@ -398,7 +398,7 @@ Item {
         }//
 
         TextApp {
-            text: qsTr("Name and signature is not saved permanently!")
+            text: qsTr("The signature will not be saved permanently!")
             font.pixelSize: 16
         }//
     }//
@@ -425,13 +425,13 @@ Item {
             customerText.text = customer
             countryText.text = country
 
-            settings.dateTest = Qt.formatDate(new Date, "dd-MMM-yyyy")
-            dateText.text = settings.dateTest
+            //            settings.dateTest = Qt.formatDate(new Date, "dd-MMM-yyyy")
+            dateText.text = dateTest
             settings.swVersion = Qt.application.name + " - " + Qt.application.version
-            swText.text = settings.swVersion
+            swText.text = swVersion
 
-            testerNameText.text = ""/*testerName*/
-            checkerNameText.text = ""/*checkerName*/
+            testerNameText.text = testerName
+            checkerNameText.text = checkerName
         }//
     }//
 

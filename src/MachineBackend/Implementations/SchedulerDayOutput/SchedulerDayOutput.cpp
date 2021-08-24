@@ -10,7 +10,7 @@ SchedulerDayOutput::SchedulerDayOutput(QObject *parent) : ClassManager(parent)
 
 void SchedulerDayOutput::routineTask(int parameter)
 {
-    Q_UNUSED(parameter);
+    Q_UNUSED(parameter)
 
     if(!m_enabled) return;
 

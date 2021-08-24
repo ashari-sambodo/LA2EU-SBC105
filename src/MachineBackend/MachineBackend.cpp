@@ -318,7 +318,7 @@ void MachineBackend::setup()
                 });
                 QObject::connect(m_boardDigitalInput1.data(), &DIOpca9674::errorComToleranceCleared,
                                  this, [&](int error){
-                    qDebug() << "AIManage::errorComToleranceCleared" << error << thread();
+                    qDebug() << "DIOpca9674::errorComToleranceCleared" << error << thread();
                     pData->setBoardStatusHybridDigitalInput(true);
                 });
             }//
@@ -343,7 +343,7 @@ void MachineBackend::setup()
                 });
                 QObject::connect(m_boardRelay1.data(), &PWMpca9685::errorComToleranceCleared,
                                  this, [&](int error){
-                    qDebug() << "AIManage::errorComToleranceCleared" << error << thread();
+                    qDebug() << "PWMpca9685::errorComToleranceCleared" << error << thread();
                     pData->setBoardStatusHybridDigitalRelay(true);
                 });
             }
@@ -1188,6 +1188,7 @@ void MachineBackend::setup()
         m_pAirflowInflow.reset(new AirflowVelocity());
         m_pAirflowInflow->setAIN(m_boardAnalogInput1.data());
         m_pAirflowInflow->setChannel(1);
+        //m_pAirflowInflow->setAdcResolutionBits(12);
 
         /// CONNECTION
         connect(m_pAirflowInflow.data(), &AirflowVelocity::adcConpensationChanged,
@@ -1595,7 +1596,7 @@ void MachineBackend::setup()
         pData->setDataLogSpaceMaximum(DATALOG_MAX_ROW);
 
         m_timerEventForDataLog.reset(new QTimer);
-        m_timerEventForDataLog->setInterval(period * 1 * 1000);
+        m_timerEventForDataLog->setInterval(period * 60 * 1000);
         ///
         QObject::connect(m_timerEventForDataLog.data(), &QTimer::timeout,
                          this, &MachineBackend::_insertDataLog);
@@ -2294,7 +2295,7 @@ void MachineBackend::setDataLogPeriod(short dataLogPeriod)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << dataLogPeriod;
 
-    m_timerEventForDataLog->setInterval(dataLogPeriod * 1 * 1000); /// convert minute to ms
+    m_timerEventForDataLog->setInterval(dataLogPeriod * 60 * 1000); /// convert minute to ms
     if(pData->getDataLogEnable()) m_timerEventForDataLog->start();
 
     pData->setDataLogPeriod(dataLogPeriod);
@@ -2582,6 +2583,8 @@ void MachineBackend::setMeasurementUnit(short value)
     int velPointLowAlarm        = pData->getInflowLowLimitVelocity();
 
     int tempCelsius            = pData->getTemperatureCelcius();
+    int tempLowestLimit         = pData->getEnvTempLowestLimit();
+    int tempHighestLimit         = pData->getEnvTempHighestLimit();
     //    ///test
     //    velPointMinFactory  = !value ? 7900 : 40;
     //    velPointNomFactory  = !value ? 10500 : 53;
@@ -2595,6 +2598,8 @@ void MachineBackend::setMeasurementUnit(short value)
     int _tempCalib;
     int _tempCelsius = tempCelsius;
     int _tempFahrenheit = __convertCtoF(tempCelsius);
+    int _tempLowestLimit;
+    int _tempHighestLimit;
 
     if (value) {
         //        qDebug() << "__convertMpsToFpm" ;
@@ -2615,6 +2620,9 @@ void MachineBackend::setMeasurementUnit(short value)
         QString valueStr = QString::asprintf("%d°F", _tempFahrenheit);
         pData->setTemperatureValueStrf(valueStr);
 
+        _tempLowestLimit = __convertCtoF(tempLowestLimit);
+        _tempHighestLimit = __convertCtoF(tempHighestLimit);
+
     } else {
         //        qDebug() << "__convertFpmToMps" ;
         /// metric
@@ -2633,6 +2641,9 @@ void MachineBackend::setMeasurementUnit(short value)
         pData->setTemperature(_tempCelsius);
         QString valueStr = QString::asprintf("%d°C", _tempCelsius);
         pData->setTemperatureValueStrf(valueStr);
+
+        _tempLowestLimit = __convertFtoC(tempLowestLimit);
+        _tempHighestLimit = __convertFtoC(tempHighestLimit);
     }
 
     /// set to data
@@ -2642,7 +2653,9 @@ void MachineBackend::setMeasurementUnit(short value)
     pData->setInflowVelocityPointField(2, _velPointNomField);
     pData->setDownflowVelocityPointFactory(2, _dfaVelPointNomFactory);
     pData->setDownflowVelocityPointField(2, _dfaVelPointNomField);
-    pData->setInflowTempCalib(_tempCalib);
+    setInflowTemperatureCalib(_tempCalib, pData->getInflowTempCalibAdc());
+    setEnvTempLowestLimit(_tempLowestLimit);
+    setEnvTempHighestLimit(_tempHighestLimit);
 
     pData->setInflowLowLimitVelocity(_velPointLowAlarm);
 
@@ -2818,7 +2831,6 @@ void MachineBackend::_setSbcCurrentSystemInformation(QStringList sysInfo)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     //    qDebug() << sysInfo;
 
-    QSettings settings;
     pData->setSbcCurrentSystemInformation(sysInfo);
 }
 
@@ -4194,23 +4206,26 @@ void MachineBackend::_onTemperatureActualChanged(int value)
 {
     qDebug() << metaObject()->className() << __func__ << value;
 
-    pData->setTemperatureCelcius(value);
-    /// Temperature have effect to airflow reading
+    pData->setTemperatureCelcius(static_cast<short>(value));
+    /// Temperature is effecting the airflow reading
     m_pAirflowInflow->setTemperature(value);
 
     QString valueStr;
     if (pData->getMeasurementUnit()) {
         int fahrenheit = __convertCtoF(value);
-        pData->setTemperature(fahrenheit);
+        pData->setTemperature(static_cast<short>(fahrenheit));
 
         valueStr = QString::asprintf("%d°F", fahrenheit);
         pData->setTemperatureValueStrf(valueStr);
+
+        //        tempBasedOnMeaUnit = static_cast<short>(fahrenheit);
     }
     else {
-        pData->setTemperature(value);
+        pData->setTemperature(static_cast<short>(value));
 
         valueStr = QString::asprintf("%d°C", value);
         pData->setTemperatureValueStrf(valueStr);
+        //        tempBasedOnMeaUnit = value;
     }
 
     //    /// CHANGE TO ANOTHER IMPLEMENTATION
@@ -4229,10 +4244,10 @@ void MachineBackend::_onTemperatureActualChanged(int value)
 
     /// ENV TEMPERATURE SET POINT GETTING FROM CABINET PROFILE
     /// BUT ALSO ADJUSTABLE
-    short lowest = pData->getEnvTempLowestLimit();
-    short highest = pData->getEnvTempHighestLimit();
+    short lowest = static_cast<short>(pData->getEnvTempLowestLimit());
+    short highest = static_cast<short>(pData->getEnvTempHighestLimit());
 
-    if (value < lowest){
+    if (pData->getTemperature() < lowest){
         if(!isTempAmbLow(pData->getTempAmbientStatus())){
             pData->setTempAmbientStatus(MachineEnums::TEMP_AMB_LOW);
 
@@ -4245,7 +4260,7 @@ void MachineBackend::_onTemperatureActualChanged(int value)
             //            _insertAlarmLog(ALARM_LOG_CODE::ALC_ENV_TEMP_LOW, text);
         }
     }
-    else if (value > highest){
+    else if (pData->getTemperature() > highest){
         if(!isTempAmbHigh(pData->getTempAmbientStatus())){
             pData->setTempAmbientStatus(MachineEnums::TEMP_AMB_HIGH);
 
@@ -4449,7 +4464,9 @@ void MachineBackend::_onTimerEventWarmingUp()
 
         /// IF IN NORMAL MODE, AFTER WARMING UP COMPLETE, TURN ON LAMP AUTOMATICALLY
         bool normalMode = pData->getOperationMode() == MachineEnums::MODE_OPERATION_NORMAL;
-        if(normalMode) {
+        bool quickMode = pData->getOperationMode() == MachineEnums::MODE_OPERATION_QUICKSTART;
+
+        if(normalMode || quickMode) {
             m_pLight->setState(MachineEnums::DIG_STATE_ONE);
         }
 
@@ -4689,7 +4706,6 @@ void MachineBackend::_onTimerEventFanFilterUsageMeterCalculate()
 
 void MachineBackend::_startPowerOutageCapture()
 {
-
     qDebug() << __func__;
 
     /// double ensure this slot not connected yet, minimize chance to double connect the signal
@@ -5620,6 +5636,9 @@ void MachineBackend::setEnvTempHighestLimit(int envTempHighestLimit)
 
     QSettings settings;
     settings.setValue(SKEY_ENV_TEMP_HIGH_LIMIT, envTempHighestLimit);
+
+    /// force update temperature value and temperature strf
+    _onTemperatureActualChanged(pData->getTemperatureCelcius());
 }
 
 void MachineBackend::setEnvTempLowestLimit(int envTempLowestLimit)
@@ -5630,6 +5649,9 @@ void MachineBackend::setEnvTempLowestLimit(int envTempLowestLimit)
 
     QSettings settings;
     settings.setValue(SKEY_ENV_TEMP_LOW_LIMIT, envTempLowestLimit);
+
+    /// force update temperature value and temperature strf
+    _onTemperatureActualChanged(pData->getTemperatureCelcius());
 }
 
 void MachineBackend::setParticleCounterSensorInstalled(bool particleCounterSensorInstalled)
@@ -6060,6 +6082,8 @@ void MachineBackend::_machineState()
                                  [=](){
 
                     qDebug() << "Sash Safe Height after delay turned on out put";
+                    ///Ensure the Buzzer Alarm Off Once Sahs Safe
+                    setBuzzerState(MachineEnums::DIG_STATE_ZERO);
                     ////TURN ON LAMP
                     m_pLight->setState(MachineEnums::DIG_STATE_ONE);
                     ///
@@ -6087,6 +6111,10 @@ void MachineBackend::_machineState()
                 });
 
                 eventTimerForDelaySafeHeightAction->start();
+            }
+            /// CLEAR FLAG OF SASH STATE FLAG
+            if(m_pSashWindow->isSashStateChanged()){
+                m_pSashWindow->clearFlagSashStateChanged();
             }
         }
             break;
@@ -6229,7 +6257,10 @@ void MachineBackend::_machineState()
             if (isAlarmNA(pData->getAlarmTempLow())) {
                 pData->setAlarmTempLow(MachineEnums::ALARM_NA_STATE);
             }
-
+            /// CLEAR FLAG OF SASH STATE FLAG
+            if(m_pSashWindow->isSashStateChanged()){
+                m_pSashWindow->clearFlagSashStateChanged();
+            }
         }
             break;
         case MachineEnums::SASH_STATE_STANDBY_SSV:
@@ -6351,6 +6382,12 @@ void MachineBackend::_machineState()
             if (isAlarmNA(pData->getAlarmTempLow())) {
                 pData->setAlarmTempLow(MachineEnums::ALARM_NA_STATE);
             }
+
+            /// CLEAR FLAG OF SASH STATE FLAG
+            if(m_pSashWindow->isSashStateChanged()){
+                m_pSashWindow->clearFlagSashStateChanged();
+            }
+
         }
             break;
         case MachineEnums::SASH_STATE_FULLY_OPEN_SSV:
@@ -6437,7 +6474,10 @@ void MachineBackend::_machineState()
             if (isAlarmNA(pData->getAlarmTempLow())) {
                 pData->setAlarmTempLow(MachineEnums::ALARM_NA_STATE);
             }
-
+            /// CLEAR FLAG OF SASH STATE FLAG
+            if(m_pSashWindow->isSashStateChanged()){
+                m_pSashWindow->clearFlagSashStateChanged();
+            }
         }
             break;
         default:
@@ -6524,6 +6564,10 @@ void MachineBackend::_machineState()
             }
             if (isAlarmNA(pData->getAlarmTempLow())) {
                 pData->setAlarmTempLow(MachineEnums::ALARM_NA_STATE);
+            }
+            /// CLEAR FLAG OF SASH STATE FLAG
+            if(m_pSashWindow->isSashStateChanged()){
+                m_pSashWindow->clearFlagSashStateChanged();
             }
         }
             break;
@@ -6612,6 +6656,11 @@ void MachineBackend::_machineState()
         if (pData->getPostPurgingActive()){
             _cancelPostPurgingTime();
         }
+
+        /// CLEAR FLAG OF SASH STATE FLAG
+        if(m_pSashWindow->isSashStateChanged()){
+            m_pSashWindow->clearFlagSashStateChanged();
+        }
     }
         break;
     }
@@ -6669,20 +6718,20 @@ void MachineBackend::_machineState()
     }
 
     /// MODBUS ALARM STATUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmCom.addr, pData->getAlarmBoardComError());
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmSash.addr, pData->getAlarmSash());
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmInflow.addr, pData->getAlarmInflowLow());
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmCom.addr, static_cast<ushort>(pData->getAlarmBoardComError()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmSash.addr, static_cast<ushort>(pData->getAlarmSash()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmInflow.addr, static_cast<ushort>(pData->getAlarmInflowLow()));
     if(pData->getSeasInstalled()){
-        _setModbusRegHoldingValue(modbusRegisterAddress.alarmExhaust.addr, pData->getAlarmSeasPressureLow());
+        _setModbusRegHoldingValue(modbusRegisterAddress.alarmExhaust.addr, static_cast<ushort>(pData->getAlarmSeasPressureLow()));
     }
     if(pData->getSeasFlapInstalled()){
         _setModbusRegHoldingValue(modbusRegisterAddress.alarmFlapExhaust.addr, static_cast<ushort>(pData->getSeasFlapAlarmPressure()));
     }
 
-    /// CLEAR FLAG OF SASH STATE FLAG
-    if(m_pSashWindow->isSashStateChanged()){
-        m_pSashWindow->clearFlagSashStateChanged();
-    }
+    //    /// CLEAR FLAG OF SASH STATE FLAG
+    //    if(m_pSashWindow->isSashStateChanged()){
+    //        m_pSashWindow->clearFlagSashStateChanged();
+    //    }
 }
 
 #ifdef QT_DEBUG

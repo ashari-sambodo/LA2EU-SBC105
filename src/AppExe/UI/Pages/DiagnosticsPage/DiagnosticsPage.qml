@@ -308,6 +308,47 @@ ViewApp {
                             }//
 
                             CusComPage.RowItemApp {
+                                id: tempAmbientCalib
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
+                                label: qsTr("Temperature calibration")
+
+                                onLoaded: {
+                                    value = Qt.binding(function(){
+                                        if(MachineData.measurementUnit)
+                                            return MachineData.getInflowTempCalib()+ "°F"
+                                        else
+                                            return MachineData.getInflowTempCalib()+ "°C"
+                                    })
+                                }
+
+                                onUnloaded: {
+                                    value = ""
+                                }
+                            }//
+
+                            CusComPage.RowItemApp {
+                                id: tempAmbientCalibADC
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
+                                label: qsTr("Temperature calibration ADC")
+
+                                onLoaded: {
+                                    value = Qt.binding(function(){return MachineData.getInflowTempCalibAdc()})
+                                }
+
+                                onUnloaded: {
+                                    value = ""
+                                }
+                            }//
+
+                            CusComPage.RowItemApp {
                                 id: ifaADC
                                 width: view.width
                                 height: 50
@@ -1113,14 +1154,12 @@ ViewApp {
                                     /// 1: imperial 0: metric
                                     const meaUnit = MachineData.measurementUnit /// 1 imperial 0 metric
                                     if (meaUnit) {
-                                        lowest = utilsApp.celciusToFahrenheit(lowest)
-                                        highest = utilsApp.celciusToFahrenheit(highest)
                                         value = Number(lowest).toFixed() + "°F" + " - " + Number(highest).toFixed() + "°F"
                                     }
                                     else {
                                         value = Number(lowest).toFixed() + "°C" + " - " + Number(highest).toFixed() + "°C"
-                                    }
-                                }
+                                    }//
+                                }//
                             }//
 
                             CusComPage.RowItemApp {

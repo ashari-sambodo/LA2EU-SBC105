@@ -42,6 +42,7 @@ public:
     void setVelocityChanged(bool velocityChanged);
 
     void setTemperature(int newVal);
+    void setAdcResolutionBits(unsigned char bits);
 
     enum CALIB_POINT_MODE {AFCALIB_POINT_3POINTS, AFCALIB_POINT_2POINTS};
 
@@ -82,6 +83,8 @@ private:
     double m_b2;
 
     short m_calibPointMode = 0;
+
+    unsigned char m_maxAdcResBits;
 
     int adcDummy;
 

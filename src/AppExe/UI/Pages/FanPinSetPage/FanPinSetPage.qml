@@ -106,17 +106,29 @@ ViewApp {
 
                                             /// tell to backend
                                             MachineAPI.setFanPIN(props.userBlowerPIN);
-
-                                            viewApp.showBusyPage( qsTr("Setting up..."),
-                                                                 function onTriggered(cycle){
-                                                                     if(cycle === 3){
-                                                                         viewApp.dialogObject.close()
-                                                                         viewApp.showDialogMessage(qsTr("Notification"),
-                                                                                                   qsTr("PIN has been changed!"),
-                                                                                                   viewApp.dialogInfo)
-                                                                         //console.debug("PIN Changed to: ", props.userBlowerPIN)
-                                                                     }
-                                                                 })
+                                            if(props.userBlowerPIN !== "00000"){
+                                                viewApp.showBusyPage( qsTr("Setting up..."),
+                                                                     function onTriggered(cycle){
+                                                                         if(cycle === 3){
+                                                                             viewApp.dialogObject.close()
+                                                                             viewApp.showDialogMessage(qsTr("Notification"),
+                                                                                                       qsTr("PIN has been changed!"),
+                                                                                                       viewApp.dialogInfo)
+                                                                             //console.debug("PIN Changed to: ", props.userBlowerPIN)
+                                                                         }
+                                                                     })
+                                            }else{
+                                                viewApp.showBusyPage( qsTr("Setting up..."),
+                                                                     function onTriggered(cycle){
+                                                                         if(cycle === 3){
+                                                                             viewApp.dialogObject.close()
+                                                                             viewApp.showDialogMessage(qsTr("Notification"),
+                                                                                                       qsTr("PIN has been reset!"),
+                                                                                                       viewApp.dialogInfo)
+                                                                             //console.debug("PIN Changed to: ", props.userBlowerPIN)
+                                                                         }
+                                                                     })
+                                            }
                                         }
                                         else {
                                             infoPinText.text = qsTr("PIN does not match")

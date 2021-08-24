@@ -81,7 +81,7 @@ ViewApp {
                                     Item {
                                         Layout.fillHeight: true
                                         Layout.fillWidth: true
-
+                                        visible: false
                                         Image {
                                             anchors.centerIn: parent
                                             source: "qrc:/UI/Pictures/pdf-export-bt.png"

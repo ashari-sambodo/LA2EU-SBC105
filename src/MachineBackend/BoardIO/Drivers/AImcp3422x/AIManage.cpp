@@ -1,5 +1,7 @@
 #include "AIManage.h"
 
+#define MAXIMUM_ADC_RESOLUTION 4095
+
 AIManage::AIManage(QObject *parent)
     : ClassDriver(parent)
 {
@@ -200,7 +202,35 @@ int AIManage::medianSampleADC(QVector<int> &samples)
 
 int AIManage::getADC(int channel) const
 {
-    return channelsADC[channel];
+    /// Mapping ADC Value to MAXIMUM_ADC_VALUE_RESOLUTION
+    /// use this only if AImcp342x ADC Resolution setting is 14 bits
+    int adcFinal = static_cast<int>(map(channelsADC[channel], 0, 8191, 0, MAXIMUM_ADC_RESOLUTION));
+    return adcFinal/*channelsADC[channel]*/;
+}
+
+int AIManage::getAdcMap(int channel, unsigned char m_maxAdcResBits) const
+{
+    unsigned char mcp432xConfigSps = m_pAIModule->getConfigSPS();
+    unsigned char mcp432xMaxAdcResBits = 0;
+    int adcOri = channelsADC[channel];
+    int adcMap = 0;
+
+    if(mcp432xConfigSps == MCP342X_AI_SPS_12bits)
+        mcp432xMaxAdcResBits = 11;     /// Actual output adc from mcp432x = mcp432xConfigSps_bits - 1
+    else if(mcp432xConfigSps == MCP342X_AI_SPS_14bits)
+        mcp432xMaxAdcResBits = 13;     /// Actual output adc from mcp432x = mcp432xConfigSps_bits - 1
+    else if(mcp432xConfigSps == MCP342X_AI_SPS_16bits)
+        mcp432xMaxAdcResBits = 15;     /// Actual output adc from mcp432x = mcp432xConfigSps_bits - 1
+    else if(mcp432xConfigSps == MCP342X_AI_SPS_18bits)
+        mcp432xMaxAdcResBits = 17;     /// Actual output adc from mcp432x = mcp432xConfigSps_bits - 1
+    else
+        return adcOri;
+
+    /// Set Minimum Mapping to 10 bits (1024)
+    if(m_maxAdcResBits < 10 || m_maxAdcResBits >= mcp432xMaxAdcResBits) return adcOri;
+
+    adcMap = static_cast<int>(map(adcOri, 0, getMaxDecFromBits(mcp432xMaxAdcResBits), 0, getMaxDecFromBits(m_maxAdcResBits)));
+    return adcMap;
 }
 
 int AIManage::getmVolt(int channel) const
@@ -221,5 +251,23 @@ void AIManage::_debugPrintDataAIConfig()
 AImcp342x *AIManage::getPAIModule() const
 {
     return m_pAIModule.data();
+}
+
+long AIManage::map(long x, long in_min, long in_max, long out_min, long out_max) const
+{
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+long AIManage::getMaxDecFromBits(unsigned char bits) const
+{
+    long _bit = 0;
+
+    if(_bit > 0) _bit |= 1;
+
+    for(short i = 0; i < bits; i++){
+        _bit = (_bit << 1) | 1;
+    }
+
+    return _bit;
 }
 

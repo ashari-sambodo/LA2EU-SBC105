@@ -93,7 +93,7 @@ ViewApp {
                         function onClicked(){
                             serialNumberBufferTextInput.text = props.serialNumber
                             //serialNumberBufferTextInput.text = props.serialNumber
-                            KeyboardOnScreenCaller.openNumpad(serialNumberBufferTextInput, qsTr("Notification"))
+                            KeyboardOnScreenCaller.openNumpad(serialNumberBufferTextInput, qsTr("Serial Number"))
                         }//
                     }//
 
@@ -116,7 +116,7 @@ ViewApp {
                         }
                         else {
                             const autoClosed = false
-                            viewApp.showDialogMessage(qsTr("Notification"),
+                            viewApp.showDialogMessage(qsTr("Serial Number"),
                                                       qsTr("Invalid Serial Number!. Make sure the format is YYYY-XXXXXX"),
                                                       viewApp.dialogAlert,
                                                       function onClosed(){},
