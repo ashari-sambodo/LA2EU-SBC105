@@ -448,8 +448,8 @@ int BlowerRegalECM::getDemand(int * demand)
                 if(isChecksumValid(response)){
                     *demand = (response[6] << 8) | response[5];
 
-                    //                    printf("BlowerRegalECM::getECMSerialNumber demand: %d\n", *demand);
-                    //                    fflush(stdout);
+                    //printf("BlowerRegalECM::getECMSerialNumber demand: %d\n", *demand);
+                    //fflush(stdout);
 
                 }else return -6;
             }
@@ -1034,10 +1034,14 @@ int BlowerRegalECM::setTorqueDemand(int newVal)
     cmd.append(m_address);
     cmd.append(ECM_CMD_SET_TORQUE_STQ);
 
-    //    int torqueNew = (newVal / 100) * 65535;
-    //    int torqueNew = torquePercentToVal(newVal);
-    //    cmd.append(intToQByte16(torqueNew));
-    cmd.append(newVal);
+    if(m_demandMode == TORQUE_DEMMAND_BRDM){
+        //    int torqueNew = (newVal / 100) * 65535;
+        int torqueNew = torquePercentToVal(newVal);
+        cmd.append(intToQByte16(torqueNew));
+    }
+    else {
+        cmd.append(newVal);
+    }
 
     {
         QByteArray checksum;
@@ -2223,4 +2227,11 @@ bool BlowerRegalECM::isPortValid() const
         }
     }
     return false;
+}
+
+void BlowerRegalECM::setDemandMode(unsigned char value){
+    m_demandMode = value;
+}
+unsigned char BlowerRegalECM::getDemandMode() const{
+    return m_demandMode;
 }

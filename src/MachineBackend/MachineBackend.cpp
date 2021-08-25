@@ -661,7 +661,102 @@ void MachineBackend::setup()
         /// now, we assume the response from the fan is always OK,
         //        /// so we dont care the return value of following API
         m_boardRegalECM->stop();
-        int maxAirVolume;
+
+        /// setup blower ecm by torque demand
+        /// in torque mode, we just need to define the direction of rotation
+        int response = m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CLW);
+        //        m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CCW);
+        pData->setBoardStatusRbmCom(response == 0);
+
+        ////MONITORING COMMUNICATION STATUS
+        QObject::connect(m_boardRegalECM.data(), &BlowerRegalECM::errorComToleranceReached,
+                         this, [&](int error){
+            qDebug() << "BlowerRegalECM::errorComToleranceReached" << error << thread();
+            pData->setBoardStatusRbmCom(false);
+        });
+        QObject::connect(m_boardRegalECM.data(), &BlowerRegalECM::errorComToleranceCleared,
+                         this, [&](int error){
+            qDebug() << "BlowerRegalECM::errorComToleranceCleared" << error << thread();
+            pData->setBoardStatusRbmCom(true);
+        });
+
+
+        /// create object for state keeper
+        /// ensure actuator state is what machine state requested
+        m_pFanPrimary.reset(new BlowerRbmDsi);
+
+        /// pass the virtual object sub module board
+        m_pFanPrimary->setSubModule(m_boardRegalECM.data());
+        m_pFanPrimary->setDemandMode(BlowerRbmDsi::TORQUE_DEMMAND_BRDM);
+
+        /// create timer for triggering the loop (routine task) and execute any pending request
+        /// routine task and any pending task will executed by FIFO mechanism
+        m_timerEventForFanRbmDsi.reset(new QTimer);
+        m_timerEventForFanRbmDsi->setInterval(TEI_FOR_BLOWER_RBMDSI);
+
+        /// create independent thread
+        /// looping inside this thread will run parallel* beside machineState loop
+        m_threadForFanRbmDsi.reset(new QThread);
+
+        /// Start timer event when thread was started
+        QObject::connect(m_threadForFanRbmDsi.data(), &QThread::started,
+                         m_timerEventForFanRbmDsi.data(), [&](){
+            //            qDebug() << "m_timerEventForBlowerRbmDsi::started" << thread();
+            m_timerEventForFanRbmDsi->start();
+        });
+
+        /// Stop timer event when thread was finished
+        QObject::connect(m_threadForFanRbmDsi.data(), &QThread::finished,
+                         m_timerEventForFanRbmDsi.data(), [&](){
+            //            qDebug() << "m_timerEventForBlowerRbmDsi::finished" << thread();
+            m_timerEventForFanRbmDsi->stop();
+        });
+
+        /// Enable triggerOnStarted, calling the worker of BlowerRbmDsi when thread has started
+        /// This is use lambda function, this symbol [&] for pass m_blowerRbmDsi object to can captured by lambda
+        /// m_blowerRbmDsi.data(), [&](){m_blowerRbmDsi->worker();});
+        QObject::connect(m_threadForFanRbmDsi.data(), &QThread::started,
+                         m_pFanPrimary.data(), [&](){
+            m_pFanPrimary->routineTask();
+        });
+
+        /// Call routine task blower (syncronazation state)
+        /// This method calling by timerEvent
+        QObject::connect(m_timerEventForFanRbmDsi.data(), &QTimer::timeout,
+                         m_pFanPrimary.data(), [&](){
+            //            qDebug() << "m_blowerRbmDsi::timeout" << thread();
+            m_pFanPrimary->routineTask();
+        });
+
+        /// Run blower loop thread when Machine State goes to looping / routine task
+        QObject::connect(this, &MachineBackend::loopStarted,
+                         m_threadForFanRbmDsi.data(), [&](){
+            //            qDebug() << "m_threadForFanRbmDsi::loopStarted" << thread();
+            m_threadForFanRbmDsi->start();
+        });
+
+        /// call this when actual blower duty cycle has changed
+        QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::dutyCycleChanged,
+                         this, &MachineBackend::_onFanPrimaryActualDucyChanged);
+
+        /// call this when actual blower rpm has changed
+        QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::rpmChanged,
+                         this, &MachineBackend::_onFanPrimaryActualRpmChanged);
+
+        /// call this when actual blower interloked
+        QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::interlockChanged,
+                         pData, [&](short newVal){
+            pData->setFanPrimaryInterlocked(newVal);
+        });
+
+        //        QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::dutyCycleChanged,
+        //                         pData, [&](int dutyCycle){
+        //            qDebug() << "m_pFanPrimary::dutyCycleChanged" << thread();
+        //            qDebug() << "m_pFanPrimary::dutyCycleChanged" << dutyCycle;
+        //            pData->setFanPrimaryDutyCycle(static_cast<short>(dutyCycle));
+        //        });
+
+        /*int maxAirVolume;
         /// setup profile fan ecm
         {
             /// query profile from machine profile
@@ -685,9 +780,9 @@ void MachineBackend::setup()
             short response = m_boardRegalECM->setBlowerContant(a1, a2, a3, a4);
 
             pData->setBoardStatusRbmCom(response == 0);
-        }
+        }*/
 
-        ////MONITORING COMMUNICATION STATUS
+        /*////MONITORING COMMUNICATION STATUS
         QObject::connect(m_boardRegalECM.data(), &BlowerRegalECM::errorComToleranceReached,
                          this, [&](int error){
             qDebug() << "BlowerRegalECM::errorComToleranceReached" << error << thread();
@@ -697,8 +792,9 @@ void MachineBackend::setup()
                          this, [&](int error){
             qDebug() << "BlowerRegalECM::errorComToleranceCleared" << error << thread();
             pData->setBoardStatusRbmCom(true);
-        });
+        });*/
 
+        /*
         /// create object for value keeper
         /// ensure actuator value is what machine value requested
         m_pFanPrimary.reset(new BlowerRbmDsi);
@@ -769,6 +865,7 @@ void MachineBackend::setup()
                          pData, [&](short newVal){
             pData->setFanPrimaryInterlocked(newVal);
         });
+        */
 
         /// Do move fan routine task / looping to independent thread
         m_pFanPrimary->moveToThread(m_threadForFanRbmDsi.data());
@@ -1764,7 +1861,7 @@ void MachineBackend::setup()
         m_timerEventEveryHour.reset(new QTimer);
         m_timerEventEveryHour->setInterval(std::chrono::hours(1));
 
-        QObject::connect(m_timerEventEveryMinute.data(), &QTimer::timeout,
+        QObject::connect(m_timerEventEveryHour.data(), &QTimer::timeout,
                          this, &MachineBackend::_onTriggeredEventEveryHour);
         QObject::connect(this, &MachineBackend::loopStarted, [&]{
             m_timerEventEveryHour->start();

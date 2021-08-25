@@ -91,7 +91,9 @@ ViewApp {
                             to: 100
 
                             onValueChanged: {
+                                console.debug(fanDownflowSlider.value)
                                 if (pressed) {
+                                    console.debug("MachineAPI.setFanPrimaryDutyCycle(fanDownflowSlider.value)")
                                     MachineAPI.setFanPrimaryDutyCycle(fanDownflowSlider.value)
                                 }//
                             }//

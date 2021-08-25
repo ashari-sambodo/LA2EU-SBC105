@@ -16,6 +16,8 @@ public:
         BLOWER_REGAL_ECM_DIRECTION_CCW
     };
 
+    enum BlowerRbmDsiDemandMode {TORQUE_DEMMAND_BRDM, AIRVOLUME_DEMMAND_BRDM};
+
     void setSerialComm(QSerialPort * serial);
 
     int getFirmwareVersion(QString &versionStr);
@@ -57,11 +59,13 @@ public:
 
     int airVolumeCfmToPercent(int newVal, int scale);
     int airVolumePercentToCfm(int newVal, int scale);
+    void setDemandMode(unsigned char value);
+    unsigned char getDemandMode() const;
 
 private:
     QSerialPort * serialComm; //forwardPointer
     char m_protocolVersion;
-
+    unsigned char m_demandMode = 0;
     void generateChecksum(QByteArray &byte, QByteArray& checksum);
     bool isChecksumValid(QByteArray byte);
 

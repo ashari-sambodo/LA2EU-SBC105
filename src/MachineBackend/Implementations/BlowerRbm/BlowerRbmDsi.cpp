@@ -111,8 +111,9 @@ void BlowerRbmDsi::updateActualDemand()
         }
 
         /// Update to demand value
+		int value = m_demandMode ? actualDemand : m_dutyCycle;
         if((m_speedDemand > 0) && m_interlocked) m_speedDemand = 0;
-        if(m_speedDemand != actualDemand){
+        if(m_speedDemand != value){
 
             switch (m_demandMode) {
             case TORQUE_DEMMAND_BRDM:
@@ -262,6 +263,7 @@ short BlowerRbmDsi::demandMode() const
 void BlowerRbmDsi::setDemandMode(short demandMode)
 {
     m_demandMode = demandMode;
+    pModule->setDemandMode(static_cast<unsigned char>(m_demandMode));
 }
 
 int BlowerRbmDsi::airVolumeScale() const
@@ -286,6 +288,7 @@ void BlowerRbmDsi::setDutyCycle(int newVal)
     qDebug() << metaObject()->className() << __FUNCTION__ << newVal << QObject::thread();
 
     if(m_interlocked) {
+	qDebug() << "Interlocked";
         if(m_speedDemand != 0) m_speedDemand = 0;
         return;
     }
@@ -293,7 +296,7 @@ void BlowerRbmDsi::setDutyCycle(int newVal)
     switch (m_demandMode) {
     case TORQUE_DEMMAND_BRDM:
         /// convert scalling air volume
-        newVal = pModule->torquePercentToVal(newVal);
+        newVal = /*pModule->torquePercentToVal*/(newVal);
         break;
     case AIRVOLUME_DEMMAND_BRDM:
         /// convert scalling air volume
