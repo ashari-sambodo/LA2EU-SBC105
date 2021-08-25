@@ -62,7 +62,7 @@ class MachineBackend : public QObject
     Q_OBJECT
 public:
     explicit MachineBackend(QObject *parent = nullptr);
-    ~MachineBackend();
+    ~MachineBackend() override;
 
 public slots:
     void routineTask();
@@ -339,11 +339,14 @@ private:
     QScopedPointer<DIOpca9674>      m_boardDigitalInput1;
     /// Digital Swith / PWM
     QScopedPointer<PWMpca9685>      m_boardRelay1;
-    /// Analog Input
+    /// HAB - Analog Input (Inflow & Temperature)
     QScopedPointer<AIManage>        m_boardAnalogInput1;
-    /// Analog Output
+    /// HAB - Analog Output
     QScopedPointer<AOmcp4725>       m_boardAnalogOutput1;//Light Intensity
+    /// HAB - Analog Output FAN Inflow
     QScopedPointer<AOmcp4725>       m_boardAnalogOutput2;//Fan Inflow Duty Cycle
+    /// AI - Analog Input (Downflow)
+    QScopedPointer<AIManage>        m_boardAnalogInput2;
 
     /// Implementation
     QScopedPointer<SashWindow>          m_pSashWindow;
@@ -360,6 +363,7 @@ private:
     ///
     QScopedPointer<Temperature>     m_pTemperature;
     QScopedPointer<AirflowVelocity> m_pAirflowInflow;
+    QScopedPointer<AirflowVelocity> m_pAirflowDownflow;
     ///
     QScopedPointer<QGpioSysfs>      m_pBuzzer;
     ///
@@ -482,7 +486,8 @@ private:
 
     void _onTemperatureActualChanged(int value);
     void _onInflowVelocityActualChanged(int value);
-    void _calculteDownflowVelocity(int value);
+    void _onDownflowVelocityActualChanged(int value);
+    //void _calculteDownflowVelocity(int value);
 
     void _onSeasPressureDiffPaChanged(int value);
 
@@ -523,14 +528,14 @@ private:
 
     void _readRTCActualTime();
 
-    double __convertCfmToLs(float value);
-    double __convertLsToCfm(float value);
-    double __convertFpmToMps(float value);
-    double __convertMpsToFpm(float value);
-    double __toFixedDecPoint(float value, short point);
+    double __convertCfmToLs(double value);
+    double __convertLsToCfm(double value);
+    double __convertFpmToMps(double value);
+    double __convertMpsToFpm(double value);
+    double __toFixedDecPoint(double value, short point);
     int __convertCtoF(int c);
     int __convertFtoC(int f);
-    float __convertPa2inWG(int pa);
+    double __convertPa2inWG(int pa);
     int __getPercentFrom(int val, int ref);
 
     bool isMaintenanceModeActive() const;

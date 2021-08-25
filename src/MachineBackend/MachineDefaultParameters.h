@@ -68,7 +68,7 @@
 ///////////////AIRFLOW
 //CALIB PHASE; NONE, FACTORY, or FIELD
 #define SKEY_AF_CALIB_PHASE             "afCalibPhase"
-//FAN
+///FAN PRIMARY
 #define SKEY_FAN_PRI_NOM_DCY_FACTORY    "fanPriNomDcyFac"
 #define SKEY_FAN_PRI_NOM_RPM_FACTORY    "fanPriNomRpmFac"
 //
@@ -86,8 +86,7 @@
 //
 #define SKEY_FAN_PRI_STB_DCY_FIELD      "fanPriStbDcyFie"
 #define SKEY_FAN_PRI_STB_RPM_FIELD      "fanPriStbRpmFie"
-//
-//FAN INFLOW EXHAUST
+///FAN INFLOW
 #define SKEY_FAN_INF_NOM_DCY_FACTORY    "fanInfNomDcyFac"
 #define SKEY_FAN_INF_NOM_RPM_FACTORY    "fanInfNomRpmFac"
 //
@@ -105,6 +104,7 @@
 //
 #define SKEY_FAN_INF_STB_DCY_FIELD      "fanInfStbDcyFie"
 #define SKEY_FAN_INF_STB_RPM_FIELD      "fanInfStbRpmFie"
+
 ////
 //IFA
 #define SKEY_IFA_SENSOR_CONST           "ifaSenCon"
@@ -189,20 +189,19 @@
 #define SKEY_IFA_CAL_GRID_NOM_SEC_VEL_FIL_IMP   "ifaCalGridNomVelSecFilImp"
 #define SKEY_IFA_CAL_GRID_NOM_SEC_DCY_FIL_IMP   "ifaCalGridNomDcySecFilImp"
 #define SKEY_IFA_CAL_GRID_NOM_SEC_RPM_FIL_IMP   "ifaCalGridNomRpmSecFilImp"
-//DFA
-//#define SKEY_DFA_SENSOR_CONST           "dfaSenCon"
-//#define SKEY_DFA_VEL_LOWEST_LIMIT       "dfaLowLim"
-//
-//#define SKEY_DFA_CAL_ADC_FACTORY        "dfaCalAdcFac"
-#define SKEY_DFA_CAL_VEL_FACTORY        "dfaCalVelFac"
-//#define SKEY_DFA_CAL_TEMP_FACTORY       "dfaCalTemFac"
-//#define SKEY_DFA_CAL_TEMP_ADC_FACTORY   "dfaCalTemAdcFac"
-//
-//#define SKEY_DFA_CAL_ADC_FIELD          "dfaCalAdcFie"
-#define SKEY_DFA_CAL_VEL_FIELD          "dfaCalVelFie"
-//#define SKEY_DFA_CAL_TEMP_FIELD         "dfaCalTemFie"
-//#define SKEY_DFA_CAL_TEMP_ADC_FIELD     "dfaCalTemAdcFie"
 
+////
+//DFA
+#define SKEY_DFA_SENSOR_CONST           "dfaSenCon"
+#define SKEY_DFA_CAL_VEL_LOW_LIMIT      "dfaLowLim"
+#define SKEY_DFA_CAL_TEMP               "dfaCalTem"
+#define SKEY_DFA_CAL_TEMP_ADC           "dfaCalTemAdc"
+//
+#define SKEY_DFA_CAL_ADC_FACTORY        "dfaCalAdcFac"
+#define SKEY_DFA_CAL_VEL_FACTORY        "dfaCalVelFac"
+//
+#define SKEY_DFA_CAL_ADC_FIELD          "dfaCalAdcFie"
+#define SKEY_DFA_CAL_VEL_FIELD          "dfaCalVelFie"
 
 //// FULL CALIBRATION
 #define SKEY_DFA_CAL_GRID_NOM           "dfaCalGridNom"

@@ -85,6 +85,7 @@ struct modbusRegisterAddress
     struct fanInflowDutyCycle{static const short addr = 24;  short rw = 0; uint16_t value;} fanInflowDutyCycle;
 } modbusRegisterAddress;
 
+
 #define MODBUS_REGISTER_COUNT   23
 #define ALLOW_ANY_IP            "0.0.0.0"
 #define LOCALHOST_ONLY          "127.0.0.1"
@@ -219,7 +220,7 @@ void MachineBackend::setup()
                 m_boardCtpRTC.reset(new RTCpcf8523);
                 m_boardCtpRTC->setI2C(m_i2cPort.data());
                 //check status osilation of second
-                short response = m_boardCtpRTC->init();
+                short response = static_cast<short>(m_boardCtpRTC->init());
 
                 pData->setBoardStatusCtpRtc(!response);
 #ifdef __arm__
@@ -348,7 +349,7 @@ void MachineBackend::setup()
                 });
             }
 
-            /// Analog Input
+            /// HAB - Analog Input
             {
                 m_boardAnalogInput1.reset(new AIManage);
                 m_boardAnalogInput1->setupAIModule();
@@ -365,7 +366,7 @@ void MachineBackend::setup()
                 m_boardAnalogInput1->setChannelDoAverage(0, true);
                 m_boardAnalogInput1->setChannelSamples(0, 30);
 
-                //DEFINE_CHANNEL_FOR_AIRFLOW
+                //DEFINE_CHANNEL_FOR_AIRFLOW_INFLOW
                 m_boardAnalogInput1->setChannelDoPoll(1, true);
                 m_boardAnalogInput1->setChannelDoAverage(1, true);
                 m_boardAnalogInput1->setChannelSamples(1, 100);
@@ -383,6 +384,36 @@ void MachineBackend::setup()
                 });
             }
 
+            /// AIB - Analog Input For Airflow Downflow
+            {
+                m_boardAnalogInput2.reset(new AIManage);
+                m_boardAnalogInput2->setupAIModule();
+                m_boardAnalogInput2->setI2C(m_i2cPort.data());
+                m_boardAnalogInput2->setAddress(0x6F);
+
+                bool response = m_boardAnalogInput2->init();
+                m_boardAnalogInput2->polling();
+
+                pData->setBoardStatusAnalogInput(!response);
+
+                //DEFINE_CHANNEL_FOR_AIRFLOW_INFLOW
+                m_boardAnalogInput2->setChannelDoPoll(0, true);
+                m_boardAnalogInput2->setChannelDoAverage(1, true);
+                m_boardAnalogInput2->setChannelSamples(1, 100);
+
+                ////MONITORING COMMUNICATION STATUS
+                QObject::connect(m_boardAnalogInput2.data(), &AIManage::errorComToleranceReached,
+                                 this, [&](int error){
+                    qDebug() << "AIManage::errorComToleranceReached" << error << thread();
+                    pData->setBoardStatusAnalogInput(false);
+                });
+                QObject::connect(m_boardAnalogInput2.data(), &AIManage::errorComToleranceCleared,
+                                 this, [&](int error){
+                    qDebug() << "AIManage::errorComToleranceCleared" << error << thread();
+                    pData->setBoardStatusAnalogInput(true);
+                });
+            }//
+
             /// Analog Output Board - LIGHT INTENSITY
             {
                 m_boardAnalogOutput1.reset(new AOmcp4725);
@@ -392,18 +423,18 @@ void MachineBackend::setup()
                 bool response = m_boardAnalogOutput1->init();
                 m_boardAnalogOutput1->polling();
 
-                pData->setBoardStatusHybridAnalogOutput1(!response);
+                pData->setBoardStatusHybridAnalogOutput(!response);
 
                 /// catch error status of the board
                 QObject::connect(m_boardAnalogOutput1.data(), &AOmcp4725::errorComToleranceReached,
                                  this, [&](int error){
                     qDebug() << "m_boardAnalogOutput1 Error changed" << error << thread();
-                    pData->setBoardStatusHybridAnalogOutput1(false);
+                    pData->setBoardStatusHybridAnalogOutput(false);
                 });
                 QObject::connect(m_boardAnalogOutput1.data(), &AIManage::errorComToleranceCleared,
                                  this, [&](int error){
                     qDebug() << "m_boardAnalogOutput1 Error changed" << error << thread();
-                    pData->setBoardStatusHybridAnalogOutput1(true);
+                    pData->setBoardStatusHybridAnalogOutput(true);
                 });
             }//
 
@@ -416,24 +447,24 @@ void MachineBackend::setup()
                 bool response = m_boardAnalogOutput2->init();
                 m_boardAnalogOutput2->polling();
 
-                pData->setBoardStatusHybridAnalogOutput2(!response);
+                pData->setBoardStatusHybridAnalogOutput(!response);
 
                 /// catch error status of the board
                 QObject::connect(m_boardAnalogOutput2.data(), &AOmcp4725::errorComToleranceReached,
                                  this, [&](int error){
                     qDebug() << "m_boardAnalogOutput2 Error changed" << error << thread();
-                    pData->setBoardStatusHybridAnalogOutput2(false);
+                    pData->setBoardStatusHybridAnalogOutput(false);
                 });
                 QObject::connect(m_boardAnalogOutput2.data(), &AIManage::errorComToleranceCleared,
                                  this, [&](int error){
                     qDebug() << "m_boardAnalogOutput2 Error changed" << error << thread();
-                    pData->setBoardStatusHybridAnalogOutput2(true);
+                    pData->setBoardStatusHybridAnalogOutput(true);
                 });
             }//
 
             /// SEAS BOARD FLAP INTEGRATED
             {
-                short installed = m_settings->value(SKEY_SEAS_BOARD_FLAP_INSTALLED, MachineEnums::DIG_STATE_ZERO).toInt();
+                short installed = static_cast<short>(m_settings->value(SKEY_SEAS_BOARD_FLAP_INSTALLED, MachineEnums::DIG_STATE_ZERO).toInt());
                 //installed = 1;
                 pData->setSeasFlapInstalled(installed);
             }
@@ -441,7 +472,7 @@ void MachineBackend::setup()
             /// EXHAUST_PRESSURE_DIFF_SENSIRION_SPD8xx
             /// SEAS INTEGRATED
             {
-                short installed = m_settings->value(SKEY_SEAS_INSTALLED, MachineEnums::DIG_STATE_ZERO).toInt();
+                short installed = static_cast<short>(m_settings->value(SKEY_SEAS_INSTALLED, MachineEnums::DIG_STATE_ZERO).toInt());
                 //installed = 1;
                 pData->setSeasInstalled(installed);
 
@@ -497,6 +528,7 @@ void MachineBackend::setup()
             m_boardIO->addSlave(m_boardDigitalInput1.data());
             m_boardIO->addSlave(m_boardRelay1.data());
             m_boardIO->addSlave(m_boardAnalogInput1.data());
+            m_boardIO->addSlave(m_boardAnalogInput2.data());
             m_boardIO->addSlave(m_boardAnalogOutput1.data());
             m_boardIO->addSlave(m_boardAnalogOutput2.data());
             if(pData->getSeasInstalled()){ m_boardIO->addSlave(m_boardSensirionSPD8xx.data());}
@@ -565,16 +597,16 @@ void MachineBackend::setup()
         QString allowedIP = m_settings->value(SKEY_MODBUS_ALLOW_IP, LOCALHOST_ONLY).toString();
         pData->setModbusAllowIpMaster(allowedIP);
 
-        short slaveID = m_settings->value(SKEY_MODBUS_SLAVE_ID, 1).toInt();
+        short slaveID = static_cast<short>(m_settings->value(SKEY_MODBUS_SLAVE_ID, 1).toInt());
         pData->setModbusSlaveID(slaveID);
 
         enum {REG_RO, REG_RW};
-        modbusRegisterAddress.fanState.rw       = m_settings->value(SKEY_MODBUS_RW_FAN, REG_RO).toInt();
-        modbusRegisterAddress.lightState.rw     = m_settings->value(SKEY_MODBUS_RW_LAMP, REG_RO).toInt();
-        modbusRegisterAddress.lightIntensity.rw = m_settings->value(SKEY_MODBUS_RW_LAMP_DIMM, REG_RO).toInt();
-        modbusRegisterAddress.socketState.rw    = m_settings->value(SKEY_MODBUS_RW_SOCKET, REG_RO).toInt();
-        modbusRegisterAddress.gasState.rw       = m_settings->value(SKEY_MODBUS_RW_GAS, REG_RO).toInt();
-        modbusRegisterAddress.uvState.rw        = m_settings->value(SKEY_MODBUS_RW_UV, REG_RO).toInt();
+        modbusRegisterAddress.fanState.rw       = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_FAN, REG_RO).toInt());
+        modbusRegisterAddress.lightState.rw     = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_LAMP, REG_RO).toInt());
+        modbusRegisterAddress.lightIntensity.rw = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_LAMP_DIMM, REG_RO).toInt());
+        modbusRegisterAddress.socketState.rw    = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_SOCKET, REG_RO).toInt());
+        modbusRegisterAddress.gasState.rw       = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_GAS, REG_RO).toInt());
+        modbusRegisterAddress.uvState.rw        = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_UV, REG_RO).toInt());
 
         pData->setModbusAllowSetFan(modbusRegisterAddress.fanState.rw);
         pData->setModbusAllowSetLight(modbusRegisterAddress.lightState.rw);
@@ -621,10 +653,10 @@ void MachineBackend::setup()
 
         connect(m_pFanInflow.data(), &DeviceAnalogCom::stateChanged,
                 pData, [&](int newVal){
-            pData->setFanInflowDutyCycle(newVal);
+            pData->setFanInflowDutyCycle(static_cast<short>(newVal));
 
             /// MODBUS
-            _setModbusRegHoldingValue(modbusRegisterAddress.fanInflowDutyCycle.addr, newVal);
+            _setModbusRegHoldingValue(modbusRegisterAddress.fanInflowDutyCycle.addr, static_cast<ushort>(newVal));
         });
     }
     /// Fan Primary - Fan Downflow
@@ -886,10 +918,10 @@ void MachineBackend::setup()
         m_boardDigitalInput1->polling();
         m_pSashWindow->routineTask();
         int currentState = m_pSashWindow->sashState();
-        pData->setSashWindowState(currentState);
+        pData->setSashWindowState(static_cast<short>(currentState));
 
         /// MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.sashState.addr, currentState);
+        _setModbusRegHoldingValue(modbusRegisterAddress.sashState.addr, static_cast<ushort>(currentState));
 
         QObject::connect(m_pSashWindow.data(), &SashWindow::mSwitchStateChanged,
                          pData, &MachineData::setMagSWState);
@@ -917,10 +949,10 @@ void MachineBackend::setup()
 
         connect(m_pSasWindowMotorize.data(), &MotorizeOnRelay::stateChanged,
                 pData, [&](int newVal){
-            pData->setSashWindowMotorizeState(newVal);
+            pData->setSashWindowMotorizeState(static_cast<short>(newVal));
 
             /// MODBUS
-            _setModbusRegHoldingValue(modbusRegisterAddress.sashMotorizeState.addr, newVal);
+            _setModbusRegHoldingValue(modbusRegisterAddress.sashMotorizeState.addr, static_cast<ushort>(newVal));
         });
 
         connect(m_pSasWindowMotorize.data(), &MotorizeOnRelay::interlockUpChanged,
@@ -948,7 +980,7 @@ void MachineBackend::setup()
         m_pLightIntensity->setAdcMin(adcMin);
         m_pLightIntensity->setStateMin(min);
 
-        short light = m_settings->value(SKEY_LIGHT_INTENSITY, 100).toInt();
+        short light = static_cast<short>(m_settings->value(SKEY_LIGHT_INTENSITY, 100).toInt());
 
         /// CAUSED BLINKING - NO IMPLEMENTED
         /// bacasue boardIo poilling not started yet, so we manually call
@@ -962,10 +994,10 @@ void MachineBackend::setup()
 
         connect(m_pLightIntensity.data(), &DeviceAnalogCom::stateChanged,
                 pData, [&](int newVal){
-            pData->setLightIntensity(newVal);
+            pData->setLightIntensity(static_cast<short>(newVal));
 
             /// MODBUS
-            _setModbusRegHoldingValue(modbusRegisterAddress.lightIntensity.addr, newVal);
+            _setModbusRegHoldingValue(modbusRegisterAddress.lightIntensity.addr, static_cast<ushort>(newVal));
         });
     }
 
@@ -1046,7 +1078,7 @@ void MachineBackend::setup()
 
             //update to global observable variable
             pData->setUvLifeMinutes(minutes);
-            pData->setUvLifePercent(minutesPercentLeft);
+            pData->setUvLifePercent(static_cast<short>(minutesPercentLeft));
         }
 
         /// UV Timer
@@ -1066,7 +1098,7 @@ void MachineBackend::setup()
 
         connect(m_pExhaustContact.data(), &DeviceDigitalOut::stateChanged,
                 pData, [&](int newVal){
-            pData->setExhaustContactState(newVal);
+            pData->setExhaustContactState(static_cast<short>(newVal));
         });
     }
 
@@ -1078,13 +1110,13 @@ void MachineBackend::setup()
 
         connect(m_pAlarmContact.data(), &DeviceDigitalOut::stateChanged,
                 pData, [&](int newVal){
-            pData->setAlarmContactState(newVal);
+            pData->setAlarmContactState(static_cast<short>(newVal));
         });
     }
 
     /// Particle Counter
     {
-        bool particleCounterSensorInstalled = m_settings->value(SKEY_PARTICLE_COUNTER_INST, MachineEnums::DIG_STATE_ZERO).toInt();
+        bool particleCounterSensorInstalled = m_settings->value(SKEY_PARTICLE_COUNTER_INST, MachineEnums::DIG_STATE_ZERO).toBool();
         pData->setParticleCounterSensorInstalled(particleCounterSensorInstalled);
 
         if(pData->getParticleCounterSensorInstalled()) {
@@ -1223,10 +1255,10 @@ void MachineBackend::setup()
         int meaUnit = m_settings->value(SKEY_MEASUREMENT_UNIT,
                                         MachineEnums::MEA_UNIT_METRIC).toInt();
 
-        pData->setMeasurementUnit(meaUnit);
+        pData->setMeasurementUnit(static_cast<short>(meaUnit));
 
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.meaUnit.addr, meaUnit);
+        _setModbusRegHoldingValue(modbusRegisterAddress.meaUnit.addr, static_cast<ushort>(meaUnit));
 
         //        qDebug() << "SKEY_MEASUREMENT_UNIT" << meaUnit;
     }
@@ -1260,23 +1292,18 @@ void MachineBackend::setup()
 
         /// force update temperature string
         int temp = 0;
-        pData->setTemperatureCelcius(temp);
+        pData->setTemperatureCelcius(static_cast<short>(temp));
 
         if (pData->getMeasurementUnit()) {
-            pData->setTemperature(temp);
+            pData->setTemperature(static_cast<short>(temp));
             QString valueStr = QString::asprintf("%d°F", temp);
             pData->setTemperatureValueStrf(valueStr);
         }
         else {
-            pData->setTemperature(temp);
+            pData->setTemperature(static_cast<short>(temp));
             QString valueStr = QString::asprintf("%d°C", temp);
             pData->setTemperatureValueStrf(valueStr);
         }
-    }
-    /// AIRFLOW MONITOR ENABLE
-    {
-        bool airflowMonitorEnable = m_settings->value(SKEY_AF_MONITOR_ENABLE, MachineEnums::DIG_STATE_ONE).toBool();
-        pData->setAirflowMonitorEnable(airflowMonitorEnable);
     }
 
     /// AIRFLOW_INFLOW
@@ -1296,13 +1323,41 @@ void MachineBackend::setup()
         });
         connect(m_pAirflowInflow.data(), &AirflowVelocity::velocityChanged,
                 this, &MachineBackend::_onInflowVelocityActualChanged);
-        connect(m_pAirflowInflow.data(), &AirflowVelocity::velocityChanged,
-                this, &MachineBackend::_calculteDownflowVelocity);
 
         /// Temperature has effecting to Airflow Reading
         /// so, need to update temperature value on the Airflow Calculation
         connect(m_pTemperature.data(), &Temperature::celciusChanged,
                 m_pAirflowInflow.data(), &AirflowVelocity::setTemperature);
+    }
+
+    /// AIRFLOW_DOWNFLOW
+    {
+        ////CREATE INFLOW OBJECT
+        m_pAirflowDownflow.reset(new AirflowVelocity());
+        m_pAirflowDownflow->setAIN(m_boardAnalogInput2.data());
+        m_pAirflowDownflow->setChannel(0);
+        //m_pAirflowDownflow->setAdcResolutionBits(12);
+
+        /// CONNECTION
+        connect(m_pAirflowDownflow.data(), &AirflowVelocity::adcConpensationChanged,
+                pData, [&](int newVal){
+            //            qDebug() << newVal;
+            pData->setDownflowAdcConpensation(newVal);
+            //            qDebug() << "convertADCtomVolt: " << m_boardAnalogInput2->getPAIModule()->convertADCtomVolt(newVal);
+        });
+        connect(m_pAirflowDownflow.data(), &AirflowVelocity::velocityChanged,
+                this, &MachineBackend::_onDownflowVelocityActualChanged);
+
+        /// Temperature has effecting to Airflow Reading
+        /// so, need to update temperature value on the Airflow Calculation
+        connect(m_pTemperature.data(), &Temperature::celciusChanged,
+                m_pAirflowDownflow.data(), &AirflowVelocity::setTemperature);
+    }
+
+    /// AIRFLOW MONITOR ENABLE
+    {
+        bool airflowMonitorEnable = m_settings->value(SKEY_AF_MONITOR_ENABLE, MachineEnums::DIG_STATE_ONE).toBool();
+        pData->setAirflowMonitorEnable(airflowMonitorEnable);
     }
 
     /// SEAS INTEGRATED
@@ -1311,7 +1366,7 @@ void MachineBackend::setup()
         m_pSeas.reset(new PressureDiffManager);
         m_pSeas->setSubModule(m_boardSensirionSPD8xx.data());
 
-        short offset = m_settings->value(SKEY_SEAS_OFFSET_PA, 0).toInt();
+        short offset = static_cast<short>(m_settings->value(SKEY_SEAS_OFFSET_PA, 0).toInt());
         pData->setSeasPressureDiffPaOffset(offset);
         int lowLimit = m_settings->value(SKEY_SEAS_FAIL_POINT_PA, 1000).toInt();
         pData->setSeasPressureDiffPaLowLimit(lowLimit);
@@ -1328,16 +1383,16 @@ void MachineBackend::setup()
 
     /// LCD Brightness
     {
-        short time          = m_settings->value(SKEY_LCD_DELAY_TO_DIMM, 1/*minute*/).toInt();
-        short brightness    = m_settings->value(SKEY_LCD_BL, 50).toInt();
+        int time          = m_settings->value(SKEY_LCD_DELAY_TO_DIMM, 1/*minute*/).toInt();
+        int brightness    = m_settings->value(SKEY_LCD_BL, 50).toInt();
 
         /// SEND TO BOARD
-        m_boardCtpIO->setOutputPWM(LEDpca9633_CHANNEL_BL, brightness);
+        m_boardCtpIO->setOutputPWM(LEDpca9633_CHANNEL_BL, (brightness));
 
         /// UPDATE INFO
-        pData->setLcdBrightnessLevel(brightness);
-        pData->setLcdBrightnessLevelUser(brightness);
-        pData->setLcdBrightnessDelayToDimm(time);
+        pData->setLcdBrightnessLevel(static_cast<short>(brightness));
+        pData->setLcdBrightnessLevelUser(static_cast<short>(brightness));
+        pData->setLcdBrightnessDelayToDimm(static_cast<short>(time));
 
         /// SETUP TIMER EVENT
         m_timerEventForLcdToDimm.reset(new QTimer);
@@ -1372,7 +1427,7 @@ void MachineBackend::setup()
 
         /// 12h or 24h
         int timeClockPeriod = m_settings->value(SKEY_CLOCK_PERIOD, 12).toInt();
-        pData->setTimeClockPeriod(timeClockPeriod);
+        pData->setTimeClockPeriod(static_cast<short>(timeClockPeriod));
 
         //        qDebug () << timeClockPeriod;
 
@@ -1383,11 +1438,11 @@ void MachineBackend::setup()
     {
         int value = m_settings->value(SKEY_OPERATION_MODE,
                                       MachineEnums::MODE_OPERATION_QUICKSTART).toInt();
-        pData->setOperationMode(value);
+        pData->setOperationMode(static_cast<short>(value));
 
         //        qDebug() << "SKEY_OPERATION_MODE" << value;
         /// MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.operationMode.addr, value);
+        _setModbusRegHoldingValue(modbusRegisterAddress.operationMode.addr, static_cast<ushort>(value));
     }
 
     /// SENSOR TEMPERATURE ENVIRONTMENTAL LIMITATION
@@ -1395,8 +1450,8 @@ void MachineBackend::setup()
         QJsonObject machineProfile = pData->getMachineProfile();
         QJsonObject envTempLimit = machineProfile.value("envTempLimit").toObject();
 
-        short highLimit = envTempLimit.value("highest").toInt();
-        short lowLimit  = envTempLimit.value("lowest").toInt();
+        int highLimit = envTempLimit.value("highest").toInt();
+        int lowLimit  = envTempLimit.value("lowest").toInt();
 
         highLimit = m_settings->value(SKEY_ENV_TEMP_HIGH_LIMIT, highLimit).toInt();
         lowLimit = m_settings->value(SKEY_ENV_TEMP_LOW_LIMIT, lowLimit).toInt();
@@ -1419,7 +1474,7 @@ void MachineBackend::setup()
     {
         int value = m_settings->value(SKEY_SECURITY_ACCESS_MODE,
                                       MachineEnums::MODE_SECURITY_ACCESS_SECURE).toInt();
-        pData->setSecurityAccessMode(value);
+        pData->setSecurityAccessMode(static_cast<short>(value));
 
         //        qDebug() << "SKEY_SECURITY_ACCESS_MODE" << value;
     }
@@ -1451,28 +1506,71 @@ void MachineBackend::setup()
         QSettings settings;
 
         ///Fan Downflow
-        int fanNominalDutyCycleFactory  = settings.value(SKEY_FAN_PRI_NOM_DCY_FACTORY, 0).toInt();
-        int fanNominalRpmFactory        = settings.value(SKEY_FAN_PRI_NOM_RPM_FACTORY, 0).toInt();
+        int fanDfaNominalDutyCycleFactory  = settings.value(SKEY_FAN_PRI_NOM_DCY_FACTORY, 0).toInt();
+        int fanDfaNominalRpmFactory        = settings.value(SKEY_FAN_PRI_NOM_RPM_FACTORY, 0).toInt();
 
-        int fanMinimumDutyCycleFactory  = settings.value(SKEY_FAN_PRI_MIN_DCY_FACTORY, 0).toInt();
-        int fanMinimumRpmFactory        = settings.value(SKEY_FAN_PRI_MIN_RPM_FACTORY, 0).toInt();
+        int fanDfaMinimumDutyCycleFactory  = settings.value(SKEY_FAN_PRI_MIN_DCY_FACTORY, 0).toInt();
+        int fanDfaMinimumRpmFactory        = settings.value(SKEY_FAN_PRI_MIN_RPM_FACTORY, 0).toInt();
 
-        int fanStandbyDutyCycleFactory  = settings.value(SKEY_FAN_PRI_STB_DCY_FACTORY, 0).toInt();
-        int fanStandbyRpmFactory        = settings.value(SKEY_FAN_PRI_STB_RPM_FACTORY, 0).toInt();
+        int fanDfaStandbyDutyCycleFactory  = settings.value(SKEY_FAN_PRI_STB_DCY_FACTORY, 0).toInt();
+        int fanDfaStandbyRpmFactory        = settings.value(SKEY_FAN_PRI_STB_RPM_FACTORY, 0).toInt();
 
-        int fanNominalDutyCycleField    = settings.value(SKEY_FAN_PRI_NOM_DCY_FIELD, 0).toInt();
-        int fanNominalRpmField          = settings.value(SKEY_FAN_PRI_NOM_RPM_FIELD, 0).toInt();
+        int fanDfaNominalDutyCycleField    = settings.value(SKEY_FAN_PRI_NOM_DCY_FIELD, 0).toInt();
+        int fanDfaNominalRpmField          = settings.value(SKEY_FAN_PRI_NOM_RPM_FIELD, 0).toInt();
 
-        int fanMinimumDutyCycleField    = settings.value(SKEY_FAN_PRI_MIN_DCY_FIELD, 0).toInt();
-        int fanMinimumRpmField          = settings.value(SKEY_FAN_PRI_MIN_RPM_FIELD, 0).toInt();
+        int fanDfaMinimumDutyCycleField    = settings.value(SKEY_FAN_PRI_MIN_DCY_FIELD, 0).toInt();
+        int fanDfaMinimumRpmField          = settings.value(SKEY_FAN_PRI_MIN_RPM_FIELD, 0).toInt();
 
-        int fanStandbyDutyCycleField    = settings.value(SKEY_FAN_PRI_STB_DCY_FIELD, 0).toInt();
-        int fanStandbyRpmField          = settings.value(SKEY_FAN_PRI_STB_RPM_FIELD, 0).toInt();
+        int fanDfaStandbyDutyCycleField    = settings.value(SKEY_FAN_PRI_STB_DCY_FIELD, 0).toInt();
+        int fanDfaStandbyRpmField          = settings.value(SKEY_FAN_PRI_STB_RPM_FIELD, 0).toInt();
 
-        int sensorConstant1  = settings.value(SKEY_IFA_SENSOR_CONST, 0).toInt();
+        ///Fan Inflow
+        int fanIfaNominalDutyCycleFactory  = settings.value(SKEY_FAN_INF_NOM_DCY_FACTORY, 0).toInt();
+        int fanIfaNominalRpmFactory        = settings.value(SKEY_FAN_INF_NOM_RPM_FACTORY, 0).toInt();
 
-        int tempCalib       = settings.value(SKEY_IFA_CAL_TEMP, 0).toInt();
-        int tempCalibAdc    = settings.value(SKEY_IFA_CAL_TEMP_ADC, 0).toInt();
+        int fanIfaMinimumDutyCycleFactory  = settings.value(SKEY_FAN_INF_MIN_DCY_FACTORY, 0).toInt();
+        int fanIfaMinimumRpmFactory        = settings.value(SKEY_FAN_INF_MIN_RPM_FACTORY, 0).toInt();
+
+        int fanIfaStandbyDutyCycleFactory  = settings.value(SKEY_FAN_INF_STB_DCY_FACTORY, 0).toInt();
+        int fanIfaStandbyRpmFactory        = settings.value(SKEY_FAN_INF_STB_RPM_FACTORY, 0).toInt();
+
+        int fanIfaNominalDutyCycleField    = settings.value(SKEY_FAN_INF_NOM_DCY_FIELD, 0).toInt();
+        int fanIfaNominalRpmField          = settings.value(SKEY_FAN_INF_NOM_RPM_FIELD, 0).toInt();
+
+        int fanIfaMinimumDutyCycleField    = settings.value(SKEY_FAN_INF_MIN_DCY_FIELD, 0).toInt();
+        int fanIfaMinimumRpmField          = settings.value(SKEY_FAN_INF_MIN_RPM_FIELD, 0).toInt();
+
+        int fanIfaStandbyDutyCycleField    = settings.value(SKEY_FAN_INF_STB_DCY_FIELD, 0).toInt();
+        int fanIfaStandbyRpmField          = settings.value(SKEY_FAN_INF_STB_RPM_FIELD, 0).toInt();
+
+
+        ///AIRFLOW DOWNFLOW
+        int dfaSensorConstant  = settings.value(SKEY_DFA_SENSOR_CONST, 0).toInt();
+
+        int dfaTempCalib       = settings.value(SKEY_DFA_CAL_TEMP, 0).toInt();
+        int dfaTempCalibAdc    = settings.value(SKEY_DFA_CAL_TEMP_ADC, 0).toInt();
+
+        int dfaAdcZeroFactory = settings.value(QString(SKEY_DFA_CAL_ADC_FACTORY) + "0", 0).toInt();
+        int dfaAdcMinFactory  = settings.value(QString(SKEY_DFA_CAL_ADC_FACTORY) + "1", 0).toInt();
+        int dfaAdcNomFactory  = settings.value(QString(SKEY_DFA_CAL_ADC_FACTORY) + "2", 0).toInt();
+
+        int dfaVelMinFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "1", 53).toInt();
+        int dfaVelNomFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "2", 40).toInt();
+
+        int dfaVelLowAlarm    = settings.value(QString(SKEY_DFA_CAL_VEL_LOW_LIMIT), dfaVelMinFactory).toInt();
+
+        int dfaAdcZeroField   = settings.value(QString(SKEY_DFA_CAL_ADC_FIELD) + "0", 0).toInt();
+        int dfaAdcMinField    = settings.value(QString(SKEY_DFA_CAL_ADC_FIELD) + "1", 0).toInt();
+        int dfaAdcNomField    = settings.value(QString(SKEY_DFA_CAL_ADC_FIELD) + "2", 0).toInt();
+
+        int dfaVelMinField    = settings.value(QString(SKEY_DFA_CAL_VEL_FIELD) + "1", 0).toInt();
+        int dfaVelNomField    = settings.value(QString(SKEY_DFA_CAL_VEL_FIELD) + "2", 0).toInt();
+
+        ///AIRFLOW INFLOW
+        int ifaSensorConstant  = settings.value(SKEY_IFA_SENSOR_CONST, 0).toInt();
+
+        int ifaTempCalib       = settings.value(SKEY_IFA_CAL_TEMP, 0).toInt();
+        int ifaTempCalibAdc    = settings.value(SKEY_IFA_CAL_TEMP_ADC, 0).toInt();
 
         int ifaAdcZeroFactory = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "0", 0).toInt();
         int ifaAdcMinFactory  = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "1", 0).toInt();
@@ -1490,91 +1588,53 @@ void MachineBackend::setup()
         int ifaVelMinField    = settings.value(QString(SKEY_IFA_CAL_VEL_FIELD) + "1", 0).toInt();
         int ifaVelNomField    = settings.value(QString(SKEY_IFA_CAL_VEL_FIELD) + "2", 0).toInt();
 
-        int dfaVelNomFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "2", 0).toInt();
-        int dfaVelNomField    = settings.value(QString(SKEY_DFA_CAL_VEL_FIELD) + "2", 0).toInt();
+        ///AIRFLOW DOWNFLOW CALIBRATION STATUS
+        //        //CALIB PHASE; NONE, FACTORY, or FIELD
+        //        //        int afCalibPhase      = settings.value(SKEY_AF_CALIB_PHASE, 0).toInt();
+        //        qDebug() << dfaAdcZeroFactory << dfaAdcMinFactory << dfaAdcNomFactory;
+        //        qDebug() << dfaVelMinFactory << dfaVelNomFactory;
+        //        qDebug() << fanNominalDutyCycleFactory;
+        bool dfaCalibPhaseFactory = (dfaAdcZeroFactory < dfaAdcMinFactory)
+                && (dfaAdcMinFactory < dfaAdcNomFactory)
+                && (dfaVelMinFactory < dfaVelNomFactory)
+                && fanIfaNominalDutyCycleFactory;
 
-        ///Fan Inflow
-        int fanInfNominalDutyCycleFactory  = settings.value(SKEY_FAN_INF_NOM_DCY_FACTORY, 0).toInt();
-        int fanInfNominalRpmFactory        = settings.value(SKEY_FAN_INF_NOM_RPM_FACTORY, 0).toInt();
+        //        qDebug() << dfaAdcZeroField << dfaAdcMinField << dfaAdcNomField;
+        //        qDebug() << dfaVelMinField << dfaVelNomField;
+        //        qDebug() << fanStandbyDutyCycleField;
+        bool dfaCalibPhaseField = (dfaAdcZeroField < dfaAdcMinField)
+                && (dfaAdcMinField< dfaAdcNomField)
+                && (dfaVelMinField < dfaVelNomField)
+                && fanIfaStandbyDutyCycleField;
 
-        int fanInfMinimumDutyCycleFactory  = settings.value(SKEY_FAN_INF_MIN_DCY_FACTORY, 0).toInt();
-        int fanInfMinimumRpmFactory        = settings.value(SKEY_FAN_INF_MIN_RPM_FACTORY, 0).toInt();
+        int downflowCalibStatus = dfaCalibPhaseField ? MachineEnums::AF_CALIB_FIELD
+                                                     : (dfaCalibPhaseFactory ? MachineEnums::AF_CALIB_FACTORY : MachineEnums::AF_CALIB_NONE);
 
-        int fanInfStandbyDutyCycleFactory  = settings.value(SKEY_FAN_INF_STB_DCY_FACTORY, 0).toInt();
-        int fanInfStandbyRpmFactory        = settings.value(SKEY_FAN_INF_STB_RPM_FACTORY, 0).toInt();
-
-        int fanInfNominalDutyCycleField    = settings.value(SKEY_FAN_INF_NOM_DCY_FIELD, 0).toInt();
-        int fanInfNominalRpmField          = settings.value(SKEY_FAN_INF_NOM_RPM_FIELD, 0).toInt();
-
-        int fanInfMinimumDutyCycleField    = settings.value(SKEY_FAN_INF_MIN_DCY_FIELD, 0).toInt();
-        int fanInfMinimumRpmField          = settings.value(SKEY_FAN_INF_MIN_RPM_FIELD, 0).toInt();
-
-        int fanInfStandbyDutyCycleField    = settings.value(SKEY_FAN_INF_STB_DCY_FIELD, 0).toInt();
-        int fanInfStandbyRpmField          = settings.value(SKEY_FAN_INF_STB_RPM_FIELD, 0).toInt();
-
-        //        int sensorConstant2  = settings.value(SKEY_IFA_SENSOR_CONST, 0).toInt();
-
-        //        int tempCalib       = settings.value(SKEY_IFA_CAL_TEMP, 0).toInt();
-        //        int tempCalibAdc    = settings.value(SKEY_IFA_CAL_TEMP_ADC, 0).toInt();
-
-        //        int ifaAdcZeroFactory = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "0", 0).toInt();
-        //        int ifaAdcMinFactory  = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "1", 0).toInt();
-        //        int ifaAdcNomFactory  = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "2", 0).toInt();
-
-        //        int ifaVelMinFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "1", 53).toInt();
-        //        int ifaVelNomFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "2", 40).toInt();
-
-        //        int ifaVelLowAlarm    = settings.value(QString(SKEY_IFA_CAL_VEL_LOW_LIMIT), ifaVelMinFactory).toInt();
-
-        //        int ifaAdcZeroField   = settings.value(QString(SKEY_IFA_CAL_ADC_FIELD) + "0", 0).toInt();
-        //        int ifaAdcMinField    = settings.value(QString(SKEY_IFA_CAL_ADC_FIELD) + "1", 0).toInt();
-        //        int ifaAdcNomField    = settings.value(QString(SKEY_IFA_CAL_ADC_FIELD) + "2", 0).toInt();
-
-        //        int ifaVelMinField    = settings.value(QString(SKEY_IFA_CAL_VEL_FIELD) + "1", 0).toInt();
-        //        int ifaVelNomField    = settings.value(QString(SKEY_IFA_CAL_VEL_FIELD) + "2", 0).toInt();
-
-        //        int dfaVelNomFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "2", 0).toInt();
-        //        int dfaVelNomField    = settings.value(QString(SKEY_DFA_CAL_VEL_FIELD) + "2", 0).toInt();
-
+        ///AIRFLOW INFLOW CALIBRATION STATUS
         //        //CALIB PHASE; NONE, FACTORY, or FIELD
         //        //        int afCalibPhase      = settings.value(SKEY_AF_CALIB_PHASE, 0).toInt();
         //        qDebug() << ifaAdcZeroFactory << ifaAdcMinFactory << ifaAdcNomFactory;
         //        qDebug() << ifaVelMinFactory << ifaVelNomFactory;
         //        qDebug() << fanNominalDutyCycleFactory;
-        bool calibPhaseFactory =
-                (ifaAdcZeroFactory < ifaAdcMinFactory)
+        bool ifaCalibPhaseFactory = (ifaAdcZeroFactory < ifaAdcMinFactory)
                 && (ifaAdcMinFactory < ifaAdcNomFactory)
                 && (ifaVelMinFactory < ifaVelNomFactory)
-                && fanNominalDutyCycleFactory;
+                && fanIfaNominalDutyCycleFactory;
 
         //        qDebug() << ifaAdcZeroField << ifaAdcMinField << ifaAdcNomField;
         //        qDebug() << ifaVelMinField << ifaVelNomField;
         //        qDebug() << fanStandbyDutyCycleField;
-        bool calibPhaseField =
-                (ifaAdcZeroField < ifaAdcMinField)
+        bool ifaCalibPhaseField = (ifaAdcZeroField < ifaAdcMinField)
                 && (ifaAdcMinField< ifaAdcNomField)
                 && (ifaVelMinField < ifaVelNomField)
-                && fanStandbyDutyCycleField;
+                && fanIfaStandbyDutyCycleField;
 
-        //        ///INFLOW
-        //        bool calibInfPhaseFactory =
-        //                (ifaAdcZeroFactory < ifaAdcMinFactory)
-        //                && (ifaAdcMinFactory < ifaAdcNomFactory)
-        //                && (ifaVelMinFactory < ifaVelNomFactory)
-        //                && fanNominalDutyCycleFactory;
-        //        bool calibInfPhaseField =
-        //                (ifaAdcZeroField < ifaAdcMinField)
-        //                && (ifaAdcMinField< ifaAdcNomField)
-        //                && (ifaVelMinField < ifaVelNomField)
-        //                && fanStandbyDutyCycleField;
+        int inflowCalibStatus = ifaCalibPhaseField ? MachineEnums::AF_CALIB_FIELD
+                                                   : (ifaCalibPhaseFactory ? MachineEnums::AF_CALIB_FACTORY : MachineEnums::AF_CALIB_NONE);
 
-
-        //        calibPhaseFactory = false;
-        //        calibPhaseField = false;
-        int calibPhase = calibPhaseField
-                ? MachineEnums::AF_CALIB_FIELD
-                : (calibPhaseFactory ? MachineEnums::AF_CALIB_FACTORY : MachineEnums::AF_CALIB_NONE);
-        //        qDebug() << "calibPhase" << calibPhase;
+        int airflowCalibStatus = (downflowCalibStatus == MachineEnums::AF_CALIB_FIELD) && (inflowCalibStatus == MachineEnums::AF_CALIB_FIELD) ?
+                    MachineEnums::AF_CALIB_FIELD : (downflowCalibStatus == MachineEnums::AF_CALIB_FACTORY) && (inflowCalibStatus == MachineEnums::AF_CALIB_FACTORY) ?
+                        MachineEnums::AF_CALIB_FACTORY : MachineEnums::AF_CALIB_NONE;
 
 #ifdef QT_DEBUG
         /// Testing purpose
@@ -1584,27 +1644,72 @@ void MachineBackend::setup()
         //        if (fanNominalDutyCycleField > 10) fanNominalDutyCycleField = 10;
         //        if (fanStandbyDutyCycleField > 5) fanStandbyDutyCycleField = 5;
 #endif
-        pData->setFanPrimaryNominalDutyCycleFactory(static_cast<short>(fanNominalDutyCycleFactory));
-        pData->setFanPrimaryNominalRpmFactory(fanNominalRpmFactory);
+        /// Set FAN DOWNFLOW
+        pData->setFanPrimaryNominalDutyCycleFactory(static_cast<short>(fanDfaNominalDutyCycleFactory));
+        pData->setFanPrimaryNominalRpmFactory(fanDfaNominalRpmFactory);
 
-        pData->setFanPrimaryMinimumDutyCycleFactory(static_cast<short>(fanMinimumDutyCycleFactory));
-        pData->setFanPrimaryMinimumRpmFactory(fanMinimumRpmFactory);
+        pData->setFanPrimaryMinimumDutyCycleFactory(static_cast<short>(fanDfaMinimumDutyCycleFactory));
+        pData->setFanPrimaryMinimumRpmFactory(fanDfaMinimumRpmFactory);
 
-        pData->setFanPrimaryStandbyDutyCycleFactory(static_cast<short>(fanStandbyDutyCycleFactory));
-        pData->setFanPrimaryStandbyRpmFactory(fanStandbyRpmFactory);
+        pData->setFanPrimaryStandbyDutyCycleFactory(static_cast<short>(fanDfaStandbyDutyCycleFactory));
+        pData->setFanPrimaryStandbyRpmFactory(fanDfaStandbyRpmFactory);
 
-        pData->setFanPrimaryNominalDutyCycleField(static_cast<short>(fanNominalDutyCycleField));
-        pData->setFanPrimaryNominalRpmField(fanNominalRpmField);
+        pData->setFanPrimaryNominalDutyCycleField(static_cast<short>(fanDfaNominalDutyCycleField));
+        pData->setFanPrimaryNominalRpmField(fanDfaNominalRpmField);
 
-        pData->setFanPrimaryMinimumDutyCycleField(static_cast<short>(fanMinimumDutyCycleField));
-        pData->setFanPrimaryMinimumRpmField(fanMinimumRpmField);
+        pData->setFanPrimaryMinimumDutyCycleField(static_cast<short>(fanDfaMinimumDutyCycleField));
+        pData->setFanPrimaryMinimumRpmField(fanDfaMinimumRpmField);
 
-        pData->setFanPrimaryStandbyDutyCycleField(static_cast<short>(fanStandbyDutyCycleField));
-        pData->setFanPrimaryStandbyRpmField(fanStandbyRpmField);
+        pData->setFanPrimaryStandbyDutyCycleField(static_cast<short>(fanDfaStandbyDutyCycleField));
+        pData->setFanPrimaryStandbyRpmField(fanDfaStandbyRpmField);
 
-        pData->setInflowSensorConstant(static_cast<short>(sensorConstant1));
-        pData->setInflowTempCalib(static_cast<short>(tempCalib));
-        pData->setInflowTempCalibAdc(static_cast<short>(tempCalibAdc));
+        /// Set FAN INFLOW
+        pData->setFanInflowNominalDutyCycleFactory(static_cast<short>(fanIfaNominalDutyCycleFactory));
+        pData->setFanInflowNominalRpmFactory(fanIfaNominalRpmFactory);
+
+        pData->setFanInflowMinimumDutyCycleFactory(static_cast<short>(fanIfaMinimumDutyCycleFactory));
+        pData->setFanInflowMinimumRpmFactory(fanIfaMinimumRpmFactory);
+
+        pData->setFanInflowStandbyDutyCycleFactory(static_cast<short>(fanIfaStandbyDutyCycleFactory));
+        pData->setFanInflowStandbyRpmFactory(fanIfaStandbyRpmFactory);
+
+        pData->setFanInflowNominalDutyCycleField(static_cast<short>(fanIfaNominalDutyCycleField));
+        pData->setFanInflowNominalRpmField(fanIfaNominalRpmField);
+
+        pData->setFanInflowMinimumDutyCycleField(static_cast<short>(fanIfaMinimumDutyCycleField));
+        pData->setFanInflowMinimumRpmField(fanIfaMinimumRpmField);
+
+        pData->setFanInflowStandbyDutyCycleField(static_cast<short>(fanIfaStandbyDutyCycleField));
+        pData->setFanInflowStandbyRpmField(fanIfaStandbyRpmField);
+
+        /// SET AIRFLOW DOWNFLOW
+        pData->setDownflowSensorConstant(static_cast<short>(dfaSensorConstant));
+        pData->setDownflowTempCalib(static_cast<short>(dfaTempCalib));
+        pData->setDownflowTempCalibAdc(static_cast<short>(dfaTempCalibAdc));
+
+        pData->setDownflowAdcPointFactory(0, dfaAdcZeroFactory);
+        pData->setDownflowAdcPointFactory(1, dfaAdcMinFactory);
+        pData->setDownflowAdcPointFactory(2, dfaAdcNomFactory);
+
+        pData->setDownflowVelocityPointFactory(1, dfaVelMinFactory);
+        pData->setDownflowVelocityPointFactory(2, dfaVelNomFactory);
+
+        pData->setDownflowLowLimitVelocity(dfaVelLowAlarm);
+
+        pData->setDownflowAdcPointField(0, dfaAdcZeroField);
+        pData->setDownflowAdcPointField(1, dfaAdcMinField);
+        pData->setDownflowAdcPointField(2, dfaAdcNomField);
+
+        pData->setDownflowVelocityPointField(1, dfaVelMinField);
+        pData->setDownflowVelocityPointField(2, dfaVelNomField);
+
+        pData->setDownflowVelocityPointFactory(2, dfaVelNomFactory);
+        pData->setDownflowVelocityPointField(2, dfaVelNomField);
+
+        /// SET AIRFLOW INFLOW
+        pData->setInflowSensorConstant(static_cast<short>(ifaSensorConstant));
+        pData->setInflowTempCalib(static_cast<short>(ifaTempCalib));
+        pData->setInflowTempCalibAdc(static_cast<short>(ifaTempCalibAdc));
 
         pData->setInflowAdcPointFactory(0, ifaAdcZeroFactory);
         pData->setInflowAdcPointFactory(1, ifaAdcMinFactory);
@@ -1622,14 +1727,18 @@ void MachineBackend::setup()
         pData->setInflowVelocityPointField(1, ifaVelMinField);
         pData->setInflowVelocityPointField(2, ifaVelNomField);
 
-        pData->setDownflowVelocityPointFactory(2, dfaVelNomFactory);
-        pData->setDownflowVelocityPointField(2, dfaVelNomField);
+        pData->setInflowVelocityPointFactory(2, ifaVelNomFactory);
+        pData->setInflowVelocityPointField(2, ifaVelNomField);
 
-        initAirflowCalibrationStatus(static_cast<short>(calibPhase));
+        ///
+        /// \brief initAirflowCalibrationStatus
+        pData->setDownflowCalibrationStatus(static_cast<short>(downflowCalibStatus));
+        pData->setInflowCalibrationStatus(static_cast<short>(inflowCalibStatus));
+        initAirflowCalibrationStatus(static_cast<short>(airflowCalibStatus));
 
         /// force generate velocity string
         _onInflowVelocityActualChanged(0);
-        _calculteDownflowVelocity(0);
+        _onDownflowVelocityActualChanged(0);
     }
 
     /// Output Auto Set
@@ -1685,11 +1794,11 @@ void MachineBackend::setup()
 
     /// DATA LOG
     {
-        short enable = m_settings->value(SKEY_DATALOG_ENABLE, 1).toInt();
-        short period = m_settings->value(SKEY_DATALOG_PERIOD, 10).toInt(); /// default every 10 minutes
+        int enable = m_settings->value(SKEY_DATALOG_ENABLE, 1).toInt();
+        int period = m_settings->value(SKEY_DATALOG_PERIOD, 10).toInt(); /// default every 10 minutes
 
         pData->setDataLogEnable(enable);
-        pData->setDataLogPeriod(period);
+        pData->setDataLogPeriod(static_cast<short>(period));
         pData->setDataLogSpaceMaximum(DATALOG_MAX_ROW);
 
         m_timerEventForDataLog.reset(new QTimer);
@@ -1794,10 +1903,10 @@ void MachineBackend::setup()
 
         //update to global observable variable
         pData->setFilterLifeMinutes(minutes);
-        pData->setFilterLifePercent(minutesPercentLeft);
+        pData->setFilterLifePercent(static_cast<short>(minutesPercentLeft));
 
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.filterLife.addr, minutesPercentLeft);
+        _setModbusRegHoldingValue(modbusRegisterAddress.filterLife.addr, static_cast<ushort>(minutesPercentLeft));
     }
 
     /// Sash Cycle Meter
@@ -1881,21 +1990,21 @@ void MachineBackend::setup()
     if(!pData->getShippingModeEnable()){
         /// Power outage
         {
-            short poweroutage = m_settings->value(SKEY_POWER_OUTAGE, MachineEnums::DIG_STATE_ZERO).toInt();
+            int poweroutage = m_settings->value(SKEY_POWER_OUTAGE, MachineEnums::DIG_STATE_ZERO).toInt();
             m_settings->setValue(SKEY_POWER_OUTAGE, MachineEnums::DIG_STATE_ZERO);
             //        qDebug() << __func__ << "poweroutage" << poweroutage;
 
-            short uvState    = m_settings->value(SKEY_POWER_OUTAGE_UV, MachineEnums::DIG_STATE_ZERO).toInt();
+            int uvState    = m_settings->value(SKEY_POWER_OUTAGE_UV, MachineEnums::DIG_STATE_ZERO).toInt();
             //        qDebug() << SKEY_POWER_OUTAGE_UV << uvState;
             /// clear the flag
             m_settings->setValue(SKEY_POWER_OUTAGE_UV, MachineEnums::DIG_STATE_ZERO);
-            pData->setPowerOutageUvState(uvState);
+            pData->setPowerOutageUvState(static_cast<short>(uvState));
 
-            short fanState   = m_settings->value(SKEY_POWER_OUTAGE_FAN, MachineEnums::DIG_STATE_ZERO).toInt();
+            int fanState   = m_settings->value(SKEY_POWER_OUTAGE_FAN, MachineEnums::DIG_STATE_ZERO).toInt();
             //        qDebug() << SKEY_POWER_OUTAGE_FAN << uvState;
             /// clear the flag
             m_settings->setValue(SKEY_POWER_OUTAGE_FAN, MachineEnums::DIG_STATE_ZERO);
-            pData->setPowerOutageFanState(fanState);
+            pData->setPowerOutageFanState(static_cast<short>(fanState));
 
             //update to global observable variable
             if(poweroutage) {
@@ -2517,7 +2626,7 @@ void MachineBackend::setOperationModeSave(short value)
     }
 
     ///MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.operationMode.addr, value);
+    _setModbusRegHoldingValue(modbusRegisterAddress.operationMode.addr, static_cast<ushort>(value));
 }
 
 void MachineBackend::setOperationMaintenanceMode()
@@ -2538,7 +2647,7 @@ void MachineBackend::setOperationPreviousMode()
     pData->setOperationMode(m_operationPrevMode);
 
     ///MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.operationMode.addr, m_operationPrevMode);
+    _setModbusRegHoldingValue(modbusRegisterAddress.operationMode.addr, static_cast<ushort>(m_operationPrevMode));
 }
 
 void MachineBackend::setSecurityAccessModeSave(short value)
@@ -2708,12 +2817,12 @@ void MachineBackend::setMeasurementUnit(short value)
 
         _velPointLowAlarm    = qCeil(__convertMpsToFpm(velPointLowAlarm) / 100.0) * 100;
 
-        _dfaVelPointNomFactory  = qCeil(__convertMpsToFpm(dfaVelPointNomFactory) / 100.0) * 100;
-        _dfaVelPointNomField    = qCeil(__convertMpsToFpm(dfaVelPointNomField) / 100.0) * 100;
+        _dfaVelPointNomFactory  = qCeil(__convertMpsToFpm((dfaVelPointNomFactory)) / 100.0) * 100;
+        _dfaVelPointNomField    = qCeil(__convertMpsToFpm((dfaVelPointNomField)) / 100.0) * 100;
 
         _tempCalib = __convertCtoF(tempCalib);
 
-        pData->setTemperature(_tempFahrenheit);
+        pData->setTemperature(static_cast<short>(_tempFahrenheit));
         QString valueStr = QString::asprintf("%d°F", _tempFahrenheit);
         pData->setTemperatureValueStrf(valueStr);
 
@@ -2735,8 +2844,8 @@ void MachineBackend::setMeasurementUnit(short value)
 
         _tempCalib = __convertFtoC(tempCalib);
 
-        pData->setTemperature(_tempCelsius);
-        QString valueStr = QString::asprintf("%d°C", _tempCelsius);
+        pData->setTemperature(static_cast<short>(_tempCelsius));
+        QString valueStr = QString::asprintf("%d°C", static_cast<short>(_tempCelsius));
         pData->setTemperatureValueStrf(valueStr);
 
         _tempLowestLimit = __convertFtoC(tempLowestLimit);
@@ -2750,7 +2859,7 @@ void MachineBackend::setMeasurementUnit(short value)
     pData->setInflowVelocityPointField(2, _velPointNomField);
     pData->setDownflowVelocityPointFactory(2, _dfaVelPointNomFactory);
     pData->setDownflowVelocityPointField(2, _dfaVelPointNomField);
-    setInflowTemperatureCalib(_tempCalib, pData->getInflowTempCalibAdc());
+    setInflowTemperatureCalib(static_cast<short>(_tempCalib), pData->getInflowTempCalibAdc());
     setEnvTempLowestLimit(_tempLowestLimit);
     setEnvTempHighestLimit(_tempHighestLimit);
 
@@ -2865,6 +2974,7 @@ QStringList MachineBackend::_readSbcSystemInformation()
     QStringList sysInfo;
     QString sysInfoStr;
 
+    Q_UNUSED(sysInfoStr)
 #ifdef __linux__
     QProcess process;
 
@@ -3423,7 +3533,7 @@ void MachineBackend::setSeasPressureDiffPaOffset(int value)
     qDebug() << value;
     qDebug() << "pressure Off set";
 
-    pData->setSeasPressureDiffPaOffset(value);
+    pData->setSeasPressureDiffPaOffset(static_cast<short>(value));
     m_pSeas->setOffsetPa(value);
 }
 
@@ -3778,7 +3888,7 @@ void MachineBackend::setInflowAdcPointField(int point, int value)
     QSettings settings;
     settings.setValue(QString(SKEY_IFA_CAL_ADC_FIELD) + QString::number(point), value);
 
-    pData->setInflowAdcPointField(point, value);
+    pData->setInflowAdcPointField(static_cast<short>(point), value);
 }
 
 void MachineBackend::setInflowVelocityPointField(int /*pointZero*/, int pointMin, int pointNom)
@@ -3796,7 +3906,7 @@ void MachineBackend::setInflowVelocityPointField(int point, int value)
     QSettings settings;
     settings.setValue(QString(SKEY_IFA_CAL_VEL_FIELD) + QString::number(point), value);
 
-    pData->setInflowVelocityPointField(point, value);
+    pData->setInflowVelocityPointField(static_cast<short>(point), value);
 }
 
 void MachineBackend::setInflowSensorConstant(short value)
@@ -3818,7 +3928,7 @@ void MachineBackend::setInflowTemperatureCalib(short value, int adc)
     settings.setValue(SKEY_IFA_CAL_TEMP_ADC, adc);
 
     pData->setInflowTempCalib(value);
-    pData->setInflowTempCalibAdc(adc);
+    pData->setInflowTempCalibAdc(static_cast<short>(adc));
 }
 
 void MachineBackend::setInflowAdcPointFactory(int pointZero, int pointMin, int pointNom)
@@ -3842,7 +3952,7 @@ void MachineBackend::setInflowAdcPointFactory(int point, int value)
     QSettings settings;
     settings.setValue(QString(SKEY_IFA_CAL_ADC_FACTORY) + QString::number(point), value);
 
-    pData->setInflowAdcPointFactory(point, value);
+    pData->setInflowAdcPointFactory(static_cast<short>(point), value);
 }
 
 void MachineBackend::setInflowVelocityPointFactory(int /*pointZero*/, int pointMin, int pointNom)
@@ -3860,7 +3970,7 @@ void MachineBackend::setInflowVelocityPointFactory(int point, int value)
     QSettings settings;
     settings.setValue(QString(SKEY_IFA_CAL_VEL_FACTORY) + QString::number(point), value);
 
-    pData->setInflowVelocityPointFactory(point, value);
+    pData->setInflowVelocityPointFactory(static_cast<short>(point), value);
 }
 
 void MachineBackend::setInflowLowLimitVelocity(short value)
@@ -4003,7 +4113,7 @@ void MachineBackend::setDownflowVelocityPointFactory(int point, int value)
     QSettings settings;
     settings.setValue(QString(SKEY_DFA_CAL_VEL_FACTORY) + QString::number(point), value);
 
-    pData->setDownflowVelocityPointFactory(point, value);
+    pData->setDownflowVelocityPointFactory(static_cast<short>(point), value);
 }
 
 void MachineBackend::setDownflowVelocityPointField(int /*pointZero*/, int pointMin, int pointNom)
@@ -4021,7 +4131,7 @@ void MachineBackend::setDownflowVelocityPointField(int point, int value)
     QSettings settings;
     settings.setValue(QString(SKEY_DFA_CAL_VEL_FIELD) + QString::number(point), value);
 
-    pData->setDownflowVelocityPointField(point, value);
+    pData->setDownflowVelocityPointField(static_cast<short>(point), value);
 }
 
 void MachineBackend::initAirflowCalibrationStatus(short value)
@@ -4041,91 +4151,156 @@ void MachineBackend::initAirflowCalibrationStatus(short value)
 
 void MachineBackend::_initAirflowCalibartionFactory()
 {
-    short fanNomDutyCycle   = pData->getFanPrimaryNominalDutyCycleFactory();
-    int   fanNomRpm         = pData->getFanPrimaryNominalRpmFactory();
-    short fanMinDutyCycle   = pData->getFanPrimaryMinimumDutyCycleFactory();
-    int   fanMinRpm         = pData->getFanPrimaryMinimumRpmFactory();
-    short fanStbDutyCycle   = pData->getFanPrimaryStandbyDutyCycleFactory();
-    int   fanStbRpm         = pData->getFanPrimaryStandbyRpmFactory();
+    /// DOWNFLOW
+    short fanDfaNomDutyCycle   = pData->getFanPrimaryNominalDutyCycleFactory();
+    int   fanDfaNomRpm         = pData->getFanPrimaryNominalRpmFactory();
+    short fanDfaMinDutyCycle   = pData->getFanPrimaryMinimumDutyCycleFactory();
+    int   fanDfaMinRpm         = pData->getFanPrimaryMinimumRpmFactory();
+    short fanDfaStbDutyCycle   = pData->getFanPrimaryStandbyDutyCycleFactory();
+    int   fanDfaStbRpm         = pData->getFanPrimaryStandbyRpmFactory();
 
-    pData->setFanPrimaryNominalDutyCycle(fanNomDutyCycle);
-    pData->setFanPrimaryNominalRpm(fanNomRpm);
-    pData->setFanPrimaryMinimumDutyCycle(fanMinDutyCycle);
-    pData->setFanPrimaryMinimumRpm(fanMinRpm);
-    pData->setFanPrimaryStandbyDutyCycle(fanStbDutyCycle);
-    pData->setFanPrimaryStandbyRpm(fanStbRpm);
+    pData->setFanPrimaryNominalDutyCycle(fanDfaNomDutyCycle);
+    pData->setFanPrimaryNominalRpm(static_cast<short>(fanDfaNomRpm));
+    pData->setFanPrimaryMinimumDutyCycle(fanDfaMinDutyCycle);
+    pData->setFanPrimaryMinimumRpm(static_cast<short>(fanDfaMinRpm));
+    pData->setFanPrimaryStandbyDutyCycle(fanDfaStbDutyCycle);
+    pData->setFanPrimaryStandbyRpm(fanDfaStbRpm);
 
-    int sensorConstant = pData->getInflowSensorConstant();
-
-    int adcPointZero   = pData->getInflowAdcPointFactory(0);
-    int adcPointMin    = pData->getInflowAdcPointFactory(1);
-    int adcPointNom    = pData->getInflowAdcPointFactory(2);
-
-    int velPointMin    = pData->getInflowVelocityPointFactory(1);
-    int velPointNom    = pData->getInflowVelocityPointFactory(2);
-
-    int velLowAlarm    = pData->getInflowLowLimitVelocity();
-
+    int dfaSensorConstant = pData->getDownflowSensorConstant();
+    int dfaAdcPointZero   = pData->getDownflowAdcPointFactory(0);
+    int dfaAdcPointMin    = pData->getDownflowAdcPointFactory(1);
+    int dfaAdcPointNom    = pData->getDownflowAdcPointFactory(2);
+    int dfaVelPointMin    = pData->getDownflowVelocityPointFactory(1);
+    int dfaVelPointNom    = pData->getDownflowVelocityPointFactory(2);
+    int dfaVelLowAlarm    = pData->getDownflowLowLimitVelocity();
     /// LOW LIMIT VELOCITY ALARM
-    pData->setInflowLowLimitVelocity(velLowAlarm);
+    pData->setDownflowLowLimitVelocity(dfaVelLowAlarm);
 
-    m_pAirflowInflow->setConstant(sensorConstant);
+    /// INFLOW
+    short fanIfaNomDutyCycle   = pData->getFanPrimaryNominalDutyCycleFactory();
+    int   fanIfaNomRpm         = pData->getFanPrimaryNominalRpmFactory();
+    short fanIfaMinDutyCycle   = pData->getFanPrimaryMinimumDutyCycleFactory();
+    int   fanIfaMinRpm         = pData->getFanPrimaryMinimumRpmFactory();
+    short fanIfaStbDutyCycle   = pData->getFanPrimaryStandbyDutyCycleFactory();
+    int   fanIfaStbRpm         = pData->getFanPrimaryStandbyRpmFactory();
 
-    m_pAirflowInflow->setAdcPoint(0, adcPointZero);
-    m_pAirflowInflow->setAdcPoint(1, adcPointMin);
-    m_pAirflowInflow->setAdcPoint(2, adcPointNom);
+    pData->setFanPrimaryNominalDutyCycle(fanIfaNomDutyCycle);
+    pData->setFanPrimaryNominalRpm(static_cast<short>(fanIfaNomRpm));
+    pData->setFanPrimaryMinimumDutyCycle(fanIfaMinDutyCycle);
+    pData->setFanPrimaryMinimumRpm(static_cast<short>(fanIfaMinRpm));
+    pData->setFanPrimaryStandbyDutyCycle(fanIfaStbDutyCycle);
+    pData->setFanPrimaryStandbyRpm(fanIfaStbRpm);
 
-    m_pAirflowInflow->setVelocityPoint(1, velPointMin);
-    m_pAirflowInflow->setVelocityPoint(2, velPointNom);
+    int ifaSensorConstant = pData->getInflowSensorConstant();
+    int ifaAdcPointZero   = pData->getInflowAdcPointFactory(0);
+    int ifaAdcPointMin    = pData->getInflowAdcPointFactory(1);
+    int ifaAdcPointNom    = pData->getInflowAdcPointFactory(2);
+    int ifaVelPointMin    = pData->getInflowVelocityPointFactory(1);
+    int ifaVelPointNom    = pData->getInflowVelocityPointFactory(2);
+    int ifaVelLowAlarm    = pData->getInflowLowLimitVelocity();
+    /// LOW LIMIT VELOCITY ALARM
+    pData->setInflowLowLimitVelocity(ifaVelLowAlarm);
 
+    /// AIRFLOW DOWNFLOW
+    m_pAirflowDownflow->setConstant(dfaSensorConstant);
+    m_pAirflowDownflow->setAdcPoint(0, dfaAdcPointZero);
+    m_pAirflowDownflow->setAdcPoint(1, dfaAdcPointMin);
+    m_pAirflowDownflow->setAdcPoint(2, dfaAdcPointNom);
+    m_pAirflowDownflow->setVelocityPoint(1, dfaVelPointMin);
+    m_pAirflowDownflow->setVelocityPoint(2, dfaVelPointNom);
+    m_pAirflowDownflow->initScope();
+
+    /// AIRFLOW INFLOW
+    m_pAirflowInflow->setConstant(ifaSensorConstant);
+    m_pAirflowInflow->setAdcPoint(0, ifaAdcPointZero);
+    m_pAirflowInflow->setAdcPoint(1, ifaAdcPointMin);
+    m_pAirflowInflow->setAdcPoint(2, ifaAdcPointNom);
+    m_pAirflowInflow->setVelocityPoint(1, ifaVelPointMin);
+    m_pAirflowInflow->setVelocityPoint(2, ifaVelPointNom);
     m_pAirflowInflow->initScope();
 }
 
 void MachineBackend::_initAirflowCalibartionField()
 {
+    /// DOWNFLOW
     //Get delta value between Factory Nominal Duty cycle and Factory Standby Duty Cycle
-    short fanNomDutyCycleFact   = pData->getFanPrimaryNominalDutyCycleFactory();
-    short fanMinDutyCycleFact   = pData->getFanPrimaryMinimumDutyCycleFactory();Q_UNUSED(fanMinDutyCycleFact)
-            short fanStbDutyCycleFact   = pData->getFanPrimaryStandbyDutyCycleFactory();
-    short deltaValue = qAbs(fanNomDutyCycleFact - fanStbDutyCycleFact);
+    short fanDfaNomDutyCycleFact   = pData->getFanPrimaryNominalDutyCycleFactory();
+    short fanDfaStbDutyCycleFact   = pData->getFanPrimaryStandbyDutyCycleFactory();
+    int dfaDeltaValue = qAbs(fanDfaNomDutyCycleFact - fanDfaStbDutyCycleFact);
 
-    short fanNomDutyCycle   = pData->getFanPrimaryNominalDutyCycleField();
-    int   fanNomRpm         = pData->getFanPrimaryNominalRpmField();
-    short fanMinDutyCycle   = pData->getFanPrimaryMinimumDutyCycleField();
-    int   fanMinRpm         = pData->getFanPrimaryMinimumRpmField();
-    short fanStbDutyCycle   = fanNomDutyCycle - deltaValue;
-    int   fanStbRpm         = pData->getFanPrimaryStandbyRpmField(); /// this not valid, still follow factory or just zero
+    int fanDfaNomDutyCycle   = pData->getFanPrimaryNominalDutyCycleField();
+    int   fanDfaNomRpm         = pData->getFanPrimaryNominalRpmField();
+    short fanDfaMinDutyCycle   = pData->getFanPrimaryMinimumDutyCycleField();
+    int   fanDfaMinRpm         = pData->getFanPrimaryMinimumRpmField();
+    int fanDfaStbDutyCycle   = fanDfaNomDutyCycle - dfaDeltaValue;
+    int   fanDfaStbRpm         = pData->getFanPrimaryStandbyRpmField(); /// this not valid, still follow factory or just zero
 
-    pData->setFanPrimaryNominalDutyCycle(fanNomDutyCycle);
-    pData->setFanPrimaryNominalRpm(fanNomRpm);
-    pData->setFanPrimaryMinimumDutyCycle(fanMinDutyCycle);
-    pData->setFanPrimaryMinimumRpm(fanMinRpm);
-    pData->setFanPrimaryStandbyDutyCycle(fanStbDutyCycle);
-    pData->setFanPrimaryStandbyRpm(fanStbRpm);
+    pData->setFanPrimaryNominalDutyCycle(static_cast<short>(fanDfaNomDutyCycle));
+    pData->setFanPrimaryNominalRpm(static_cast<short>(fanDfaNomRpm));
+    pData->setFanPrimaryMinimumDutyCycle(fanDfaMinDutyCycle);
+    pData->setFanPrimaryMinimumRpm(static_cast<short>(fanDfaMinRpm));
+    pData->setFanPrimaryStandbyDutyCycle(static_cast<short>(fanDfaStbDutyCycle));
+    pData->setFanPrimaryStandbyRpm(fanDfaStbRpm);
 
-    int sensorConstant = pData->getInflowSensorConstant();
+    int dfaSensorConstant = pData->getDownflowSensorConstant();
+    int dfaAdcPointZero   = pData->getDownflowAdcPointField(0);
+    int dfaAdcPointMin    = pData->getDownflowAdcPointField(1);
+    int dfaAdcPointNom    = pData->getDownflowAdcPointField(2);
 
-    int adcPointZero   = pData->getInflowAdcPointField(0);
-    int adcPointMin    = pData->getInflowAdcPointField(1);
-    int adcPointNom    = pData->getInflowAdcPointField(2);
-
-    int velPointMin    = pData->getInflowVelocityPointField(1);
-    int velPointNom    = pData->getInflowVelocityPointField(2);
-
-    int velLowAlarm    = pData->getInflowLowLimitVelocity();
+    int dfaVelPointMin    = pData->getDownflowVelocityPointField(1);
+    int dfaVelPointNom    = pData->getDownflowVelocityPointField(2);
+    int dfaVelLowAlarm    = pData->getDownflowLowLimitVelocity();
 
     /// LOW LIMIT VELOCITY ALARM
-    pData->setInflowLowLimitVelocity(velLowAlarm);
+    pData->setDownflowLowLimitVelocity(dfaVelLowAlarm);
 
-    m_pAirflowInflow->setConstant(sensorConstant);
+    /// INFLOW
+    //Get delta value between Factory Nominal Duty cycle and Factory Standby Duty Cycle
+    short fanIfaNomDutyCycleFact   = pData->getFanInflowNominalDutyCycleFactory();
+    short fanIfaStbDutyCycleFact   = pData->getFanInflowStandbyDutyCycleFactory();
+    int ifaDeltaValue = qAbs(fanIfaNomDutyCycleFact - fanIfaStbDutyCycleFact);
 
-    m_pAirflowInflow->setAdcPoint(0, adcPointZero);
-    m_pAirflowInflow->setAdcPoint(1, adcPointMin);
-    m_pAirflowInflow->setAdcPoint(2, adcPointNom);
+    int fanIfaNomDutyCycle   = pData->getFanInflowNominalDutyCycleField();
+    int   fanIfaNomRpm         = pData->getFanInflowNominalRpmField();
+    short fanIfaMinDutyCycle   = pData->getFanInflowMinimumDutyCycleField();
+    int   fanIfaMinRpm         = pData->getFanInflowMinimumRpmField();
+    int fanIfaStbDutyCycle   = fanIfaNomDutyCycle - ifaDeltaValue;
+    int   fanIfaStbRpm         = pData->getFanInflowStandbyRpmField(); /// this not valid, still follow factory or just zero
 
-    m_pAirflowInflow->setVelocityPoint(1, velPointMin);
-    m_pAirflowInflow->setVelocityPoint(2, velPointNom);
+    pData->setFanInflowNominalDutyCycle(static_cast<short>(fanIfaNomDutyCycle));
+    pData->setFanInflowNominalRpm(static_cast<short>(fanIfaNomRpm));
+    pData->setFanInflowMinimumDutyCycle(fanIfaMinDutyCycle);
+    pData->setFanInflowMinimumRpm(static_cast<short>(fanIfaMinRpm));
+    pData->setFanInflowStandbyDutyCycle(static_cast<short>(fanIfaStbDutyCycle));
+    pData->setFanInflowStandbyRpm(fanIfaStbRpm);
 
+    int ifaSensorConstant = pData->getDownflowSensorConstant();
+    int ifaAdcPointZero   = pData->getDownflowAdcPointField(0);
+    int ifaAdcPointMin    = pData->getDownflowAdcPointField(1);
+    int ifaAdcPointNom    = pData->getDownflowAdcPointField(2);
+
+    int ifaVelPointMin    = pData->getDownflowVelocityPointField(1);
+    int ifaVelPointNom    = pData->getDownflowVelocityPointField(2);
+    int ifaVelLowAlarm    = pData->getDownflowLowLimitVelocity();
+
+    /// LOW LIMIT VELOCITY ALARM
+    pData->setDownflowLowLimitVelocity(ifaVelLowAlarm);
+
+    /// AIRFLOW DOWNFLOW
+    m_pAirflowDownflow->setConstant(dfaSensorConstant);
+    m_pAirflowDownflow->setAdcPoint(0, dfaAdcPointZero);
+    m_pAirflowDownflow->setAdcPoint(1, dfaAdcPointMin);
+    m_pAirflowDownflow->setAdcPoint(2, dfaAdcPointNom);
+    m_pAirflowDownflow->setVelocityPoint(1, dfaVelPointMin);
+    m_pAirflowDownflow->setVelocityPoint(2, dfaVelPointNom);
+    m_pAirflowDownflow->initScope();
+    /// AIRFLOW INFLOW
+    m_pAirflowInflow->setConstant(ifaSensorConstant);
+    m_pAirflowInflow->setAdcPoint(0, ifaAdcPointZero);
+    m_pAirflowInflow->setAdcPoint(1, ifaAdcPointMin);
+    m_pAirflowInflow->setAdcPoint(2, ifaAdcPointNom);
+    m_pAirflowInflow->setVelocityPoint(1, ifaVelPointMin);
+    m_pAirflowInflow->setVelocityPoint(2, ifaVelPointNom);
     m_pAirflowInflow->initScope();
 }
 
@@ -4177,8 +4352,8 @@ void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
     }
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.fanState.addr, pData->getFanPrimaryState());
-    _setModbusRegHoldingValue(modbusRegisterAddress.fanDutyCycle.addr, value);
+    _setModbusRegHoldingValue(modbusRegisterAddress.fanState.addr, static_cast<ushort>(pData->getFanPrimaryState()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.fanDutyCycle.addr, static_cast<ushort>(value));
 }
 
 void MachineBackend::_onFanPrimaryActualRpmChanged(int value)
@@ -4186,7 +4361,7 @@ void MachineBackend::_onFanPrimaryActualRpmChanged(int value)
     pData->setFanPrimaryRpm(value);
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.fanRpm.addr, value);
+    _setModbusRegHoldingValue(modbusRegisterAddress.fanRpm.addr, static_cast<ushort>(value));
 }
 
 void MachineBackend::_onSashStateChanged(short state, short prevState)
@@ -4210,7 +4385,7 @@ void MachineBackend::_onSashStateChanged(short state, short prevState)
     }//
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.sashState.addr, state);
+    _setModbusRegHoldingValue(modbusRegisterAddress.sashState.addr, static_cast<ushort>(state));
 
     /// Event Log
     switch (state) {
@@ -4243,7 +4418,7 @@ void MachineBackend::_onLightStateChanged(short state)
     pData->setLightState(state);
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.lightState.addr, state);
+    _setModbusRegHoldingValue(modbusRegisterAddress.lightState.addr, static_cast<ushort>(state));
 
     //    /// EVENT LOG
     //    QString event = state ? EVENT_STR_LIGHT_ON : EVENT_STR_LIGHT_OFF;
@@ -4256,7 +4431,7 @@ void MachineBackend::_onSocketStateChanged(short state)
     pData->setSocketState(state);
 
     /// MEDIUM
-    _setModbusRegHoldingValue(modbusRegisterAddress.socketState.addr, state);
+    _setModbusRegHoldingValue(modbusRegisterAddress.socketState.addr, static_cast<ushort>(state));
 
     //    /// EVENT LOG
     //    QString event = state ? EVENT_STR_SOCKET_ON : EVENT_STR_SOCKET_OFF;
@@ -4268,7 +4443,7 @@ void MachineBackend::_onGasStateChanged(short state)
     pData->setGasState(state);
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.gasState.addr, state);
+    _setModbusRegHoldingValue(modbusRegisterAddress.gasState.addr, static_cast<ushort>(state));
 
     //    /// EVENT LOG
     //    QString event = state ? EVENT_STR_GAS_ON : EVENT_STR_GAS_OFF;
@@ -4292,7 +4467,7 @@ void MachineBackend::_onUVStateChanged(short state)
     }
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.uvState.addr, state);
+    _setModbusRegHoldingValue(modbusRegisterAddress.uvState.addr, static_cast<ushort>(state));
 
     //    /// EVENT LOG
     //    QString event = state ? EVENT_STR_UV_ON : EVENT_STR_UV_OFF;
@@ -4385,7 +4560,7 @@ void MachineBackend::_onTemperatureActualChanged(int value)
     }
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.temperature.addr, pData->getTemperature());
+    _setModbusRegHoldingValue(modbusRegisterAddress.temperature.addr, static_cast<ushort>(pData->getTemperature()));
 
     //    qDebug() << value << pData->getTempAmbientStatus();
 }
@@ -4406,53 +4581,73 @@ void MachineBackend::_onInflowVelocityActualChanged(int value)
     }
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.airflowInflow.addr, value);
+    _setModbusRegHoldingValue(modbusRegisterAddress.airflowInflow.addr, static_cast<ushort>(value));
 
     //    qDebug() << "Inflow" << pData->getInflowVelocityStr();
 }
-
-void MachineBackend::_calculteDownflowVelocity(int value)
+void MachineBackend::_onDownflowVelocityActualChanged(int value)
 {
-    /// Calculate Downflow based on inflow
-    /// DOWNFLOW SENSOR NOT PHYSICALLY INSTALLED
-    /// CALCULATE DOWNFLOW VALUE BY PROPORTIONAL METHOD
-    /// CALCULATE DOWNFLOW FROM INFLOW PROPORTIONAL
-    int velRefActual, velRefPoportional;
-    switch (pData->getAirflowCalibrationStatus()) {
-    case MachineEnums::AF_CALIB_FIELD:
-        velRefActual         = pData->getInflowVelocityPointField(2);
-        velRefPoportional    = pData->getDownflowVelocityPointField(2);
-        break;
-    default:
-        velRefActual         = pData->getInflowVelocityPointFactory(2);
-        velRefPoportional    = pData->getDownflowVelocityPointFactory(2);
-        break;
-    }
-
-    int dfVelocity = 0;
-    if (velRefActual > 0) {
-        dfVelocity = value * velRefPoportional / velRefActual;
-    }
-
-    pData->setDownflowVelocity(dfVelocity);
+    pData->setDownflowVelocity(value);
 
     if (pData->getMeasurementUnit()) {
-        int valueVel = qRound(dfVelocity / 100.0);
+        int valueVel = qRound(value / 100.0);
         QString valueStr = QString::asprintf("%d fpm", valueVel);
         pData->setDownflowVelocityStr(valueStr);
     }
     else {
-        double valueVel = dfVelocity / 100.0;
+        double valueVel = value / 100.0;
         QString valueStr = QString::asprintf("%.2f m/s", valueVel);
         pData->setDownflowVelocityStr(valueStr);
     }
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.airflowDownflow.addr, dfVelocity);
+    _setModbusRegHoldingValue(modbusRegisterAddress.airflowDownflow.addr, static_cast<ushort>(value));
 
-    //    qDebug() << "Downflow" << pData->getDownflowVelocityStr();
-    //    qDebug() << value << velRefActual << velRefPoportional;
+    //    qDebug() << "Inflow" << pData->getInflowVelocityStr();
 }
+
+//void MachineBackend::_calculteDownflowVelocity(int value)
+//{
+//    /// Calculate Downflow based on inflow
+//    /// DOWNFLOW SENSOR NOT PHYSICALLY INSTALLED
+//    /// CALCULATE DOWNFLOW VALUE BY PROPORTIONAL METHOD
+//    /// CALCULATE DOWNFLOW FROM INFLOW PROPORTIONAL
+//    int velRefActual, velRefPoportional;
+//    switch (pData->getAirflowCalibrationStatus()) {
+//    case MachineEnums::AF_CALIB_FIELD:
+//        velRefActual         = pData->getInflowVelocityPointField(2);
+//        velRefPoportional    = pData->getDownflowVelocityPointField(2);
+//        break;
+//    default:
+//        velRefActual         = pData->getInflowVelocityPointFactory(2);
+//        velRefPoportional    = pData->getDownflowVelocityPointFactory(2);
+//        break;
+//    }
+
+//    int dfVelocity = 0;
+//    if (velRefActual > 0) {
+//        dfVelocity = value * velRefPoportional / velRefActual;
+//    }
+
+//    pData->setDownflowVelocity(dfVelocity);
+
+//    if (pData->getMeasurementUnit()) {
+//        int valueVel = qRound(dfVelocity / 100.0);
+//        QString valueStr = QString::asprintf("%d fpm", valueVel);
+//        pData->setDownflowVelocityStr(valueStr);
+//    }
+//    else {
+//        double valueVel = dfVelocity / 100.0;
+//        QString valueStr = QString::asprintf("%.2f m/s", valueVel);
+//        pData->setDownflowVelocityStr(valueStr);
+//    }
+
+//    /// MODBUS
+//    _setModbusRegHoldingValue(modbusRegisterAddress.airflowDownflow.addr, static_cast<ushort>(dfVelocity));
+
+//    //    qDebug() << "Downflow" << pData->getDownflowVelocityStr();
+//    //    qDebug() << value << velRefActual << velRefPoportional;
+//}
 
 void MachineBackend::_onSeasPressureDiffPaChanged(int value)
 {
@@ -4462,7 +4657,7 @@ void MachineBackend::_onSeasPressureDiffPaChanged(int value)
     pData->setSeasPressureDiffPa(value);
 
     if (pData->getMeasurementUnit()) {
-        float iwg = __toFixedDecPoint(__convertPa2inWG(value), 3);
+        double iwg = __toFixedDecPoint(__convertPa2inWG(value), 3);
         pData->setSeasPressureDiff(qRound(iwg * 1000));
 
         QString valueStr = QString::asprintf("%.3f iwg", iwg);
@@ -4476,7 +4671,7 @@ void MachineBackend::_onSeasPressureDiffPaChanged(int value)
     }
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.pressureExhaust.addr, value);
+    _setModbusRegHoldingValue(modbusRegisterAddress.pressureExhaust.addr, static_cast<ushort>(value));
 }
 
 void MachineBackend::_onParticleCounterPM1_0Changed(int pm1_0)
@@ -4504,7 +4699,7 @@ void MachineBackend::_onParticleCounterSensorFanStateChanged(int state)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << state;
 
-    pData->setParticleCounterSensorFanState(state);
+    pData->setParticleCounterSensorFanState(static_cast<short>(state));
 }
 
 void MachineBackend::_onTimerEventLcdDimm()
@@ -4727,7 +4922,7 @@ void MachineBackend::_onTimerEventUVLifeCalculate()
 
         //update to global observable variable
         pData->setUvLifeMinutes(minutes);
-        pData->setUvLifePercent(minutesPercentLeft);
+        pData->setUvLifePercent(static_cast<short>(minutesPercentLeft));
 
         //save to sattings
         QSettings settings;
@@ -4777,7 +4972,7 @@ void MachineBackend::_onTimerEventFanFilterUsageMeterCalculate()
 
             //update to global observable variable
             pData->setFilterLifeMinutes(minutes);
-            pData->setFilterLifePercent(minutesPercentLeft);
+            pData->setFilterLifePercent(static_cast<short>(minutesPercentLeft));
 
             //save to sattings
             settings.setValue(SKEY_FILTER_METER, minutes);
@@ -4785,7 +4980,7 @@ void MachineBackend::_onTimerEventFanFilterUsageMeterCalculate()
             //            qDebug() << __FUNCTION__  << minutes;
 
             ///MODBUS
-            _setModbusRegHoldingValue(modbusRegisterAddress.filterLife.addr, minutesPercentLeft);
+            _setModbusRegHoldingValue(modbusRegisterAddress.filterLife.addr, static_cast<ushort>(minutesPercentLeft));
         }
     }
 
@@ -5123,52 +5318,52 @@ void MachineBackend::_setFanPrimaryStateOFF()
     _setFanPrimaryDutyCycle(dutyCycle);
 }
 
-double MachineBackend::__convertCfmToLs(float value)
+double MachineBackend::__convertCfmToLs(double value)
 {
     return static_cast<double>(qRound(static_cast<double>(value) * 0.4719));
 }
 
-double MachineBackend::__convertLsToCfm(float value)
+double MachineBackend::__convertLsToCfm(double value)
 {
     return static_cast<double>(qRound(static_cast<double>(value) * 2.11888));
 }
 
-double MachineBackend::__convertFpmToMps(float value)
+double MachineBackend::__convertFpmToMps(double value)
 {
     if(value <= 0) return value;
     return value / 197.0;
 }
 
-double MachineBackend::__convertMpsToFpm(float value)
+double MachineBackend::__convertMpsToFpm(double value)
 {
     return value * 197.0;
 }
 
-double MachineBackend::__toFixedDecPoint(float value, short point)
+double MachineBackend::__toFixedDecPoint(double value, short point)
 {
-    float dec = (float)(qPow(10.0, point));
+    double dec = static_cast<double>(qPow(10.0, point));
     //    qDebug() << "dec" << dec;
     return qRound(value * dec) / dec;
 }
 
 int MachineBackend::__convertCtoF(int c)
 {
-    return qRound(((double) c * 9.0/5.0) + 32.0);
+    return qRound((static_cast<double>(c) * 9.0/5.0) + 32.0);
 }
 
 int MachineBackend::__convertFtoC(int f)
 {
-    return qRound((double)(f - 32) * 5.0/9.0);
+    return qRound(static_cast<double>(f - 32) * 5.0/9.0);
 }
 
-float MachineBackend::__convertPa2inWG(int pa)
+double MachineBackend::__convertPa2inWG(int pa)
 {
     return pa / 249.0;
 }
 
 int MachineBackend::__getPercentFrom(int val, int ref)
 {
-    return qRound(((float) val/(float) ref) * 100);
+    return qRound((static_cast<double>(val)/ static_cast<double>(ref)) * 100.0);
 }
 
 bool MachineBackend::isMaintenanceModeActive() const
@@ -5253,13 +5448,13 @@ void MachineBackend::_checkCertificationReminder()
 
         //    pData->setCertificationExpired(acDate == currentDate);
 
-        int span = currentDate.daysTo(acDate);
+        qint64 span = currentDate.daysTo(acDate);
 
         qDebug() << "span days" << span;
 
         pData->setCertificationExpiredValid(true);
         pData->setCertificationExpired(span == 0);
-        pData->setCertificationExpiredCount(span);
+        pData->setCertificationExpiredCount(static_cast<int>(span));
     }
     else {
         pData->setCertificationExpiredValid(false);
@@ -5311,37 +5506,37 @@ void MachineBackend::_modbusCommandHandler(int address, uint16_t value)
     switch (address) {
     case modbusRegisterAddress.fanState.addr:
         if (modbusRegisterAddress.fanState.rw){
-            setFanState(value);
+            setFanState(static_cast<short>(value));
             revertData = false;
         }
         break;
     case modbusRegisterAddress.lightState.addr:
         if (modbusRegisterAddress.lightState.rw){
-            setLightState(value);
+            setLightState(static_cast<short>(value));
             revertData = false;
         }
         break;
     case modbusRegisterAddress.lightIntensity.addr:
         if (modbusRegisterAddress.lightIntensity.rw){
-            setLightIntensity(value);
+            setLightIntensity(static_cast<short>(value));
             revertData = false;
         }
         break;
     case modbusRegisterAddress.socketState.addr:
         if (modbusRegisterAddress.socketState.rw){
-            setSocketState(value);
+            setSocketState(static_cast<short>(value));
             revertData = false;
         }
         break;
     case modbusRegisterAddress.gasState.addr:
         if (modbusRegisterAddress.gasState.rw){
-            setGasState(value);
+            setGasState(static_cast<short>(value));
             revertData = false;
         }
         break;
     case modbusRegisterAddress.uvState.addr:
         if (modbusRegisterAddress.uvState.rw){
-            setUvState(value);
+            setUvState(static_cast<short>(value));
             revertData = false;
         }
         break;
@@ -5351,7 +5546,7 @@ void MachineBackend::_modbusCommandHandler(int address, uint16_t value)
         /// if the register is read-only
         /// revert the value to the actual value from buffer
         uint16_t data = m_modbusDataUnitBufferRegisterHolding->at(address);
-        m_pModbusServer->setData(QModbusDataUnit::HoldingRegisters, address, data);
+        m_pModbusServer->setData(QModbusDataUnit::HoldingRegisters, static_cast<ushort>(address), data);
     }
 }
 
@@ -5365,7 +5560,7 @@ void MachineBackend::_setModbusRegHoldingValue(int addr, uint16_t value)
     /// Dont trigered signal onDataWritten from this action
     m_pModbusServer->blockSignals(true);
 
-    m_pModbusServer->setData(QModbusDataUnit::HoldingRegisters, addr, value);
+    m_pModbusServer->setData(QModbusDataUnit::HoldingRegisters, static_cast<ushort>(addr), value);
     m_modbusDataUnitBufferRegisterHolding->replace(addr, value);
 
     /// Get back trigered signal onDataWritten when master write to register
@@ -5689,7 +5884,7 @@ void MachineBackend::setUvUsageMeter(int minutes)
 
     //update to global observable variable
     pData->setUvLifeMinutes(minutes);
-    pData->setUvLifePercent(minutesPercentLeft);
+    pData->setUvLifePercent(static_cast<short>(minutesPercentLeft));
 
     //save to sattings
     QSettings settings;
@@ -5707,7 +5902,7 @@ void MachineBackend::setFilterUsageMeter(int minutes)
 
     //update to global observable variable
     pData->setFilterLifeMinutes(minutes);
-    pData->setFilterLifePercent(minutesPercentLeft);
+    pData->setFilterLifePercent(static_cast<short>(minutesPercentLeft));
 
     //save to sattings
     QSettings settings;
@@ -5845,12 +6040,12 @@ void MachineBackend::_machineState()
     alarmsBoards |= !pData->getBoardStatusHybridDigitalInput();
     alarmsBoards |= !pData->getBoardStatusHybridDigitalRelay();
     alarmsBoards |= !pData->getBoardStatusHybridAnalogInput();
-    alarmsBoards |= !pData->getBoardStatusHybridAnalogOutput1();
-    alarmsBoards |= !pData->getBoardStatusHybridAnalogOutput2();
+    alarmsBoards |= !pData->getBoardStatusHybridAnalogOutput();
     alarmsBoards |= !pData->getBoardStatusRbmCom();
     alarmsBoards |= !pData->getBoardStatusCtpRtc();
     alarmsBoards |= !pData->getBoardStatusCtpIoe();
-    if(pData->getSeasInstalled()){alarmsBoards |= !pData->getBoardStatusPressureDiff();}
+    if(pData->getSeasInstalled())
+        alarmsBoards |= !pData->getBoardStatusPressureDiff();
 
     ///demo
 #ifdef QT_DEBUG
@@ -6119,7 +6314,7 @@ void MachineBackend::_machineState()
                     //DEPENDING_TO_BLOWER_STATE
                     //DEPENDING_TO_AF_CALIBRATION_STATUS
                     //ONLY_IF_BLOWER_IS_ON
-                    int alarm = pData->getAlarmSeasPressureLow();
+                    short alarm = pData->getAlarmSeasPressureLow();
                     if((isFanStateNominal() && isAirflowHasCalibrated()) && pData->getAirflowMonitorEnable()){
                         int actual  = pData->getSeasPressureDiffPa();
                         int fail    = pData->getSeasPressureDiffPaLowLimit();
@@ -6891,11 +7086,11 @@ void MachineBackend::onDummyStateNewConnection()
             QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
             int value = std::atoi(adcStr.toStdString().c_str());
             QMetaObject::invokeMethod(m_pFanPrimary.data(),[&, value]{
-                m_pFanPrimary->setDummyState(value);
+                m_pFanPrimary->setDummyState(static_cast<short>(value));
             },
             Qt::QueuedConnection);
             QMetaObject::invokeMethod(m_pFanInflow.data(),[&, value]{
-                m_pFanInflow->setDummyState(value);
+                m_pFanInflow->setDummyState(static_cast<short>(value));
             },
             Qt::QueuedConnection);
         }
@@ -7004,7 +7199,7 @@ void MachineBackend::onDummyStateNewConnection()
         else if(message.contains("#temp#adc#")){
             QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
             int value = std::atoi(adcStr.toStdString().c_str());
-            m_pTemperature->setDummyAdcState(value);
+            m_pTemperature->setDummyAdcState(static_cast<short>(value));
         }
         else if(message.contains("#temp#volt#")){
             QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
@@ -7022,7 +7217,7 @@ void MachineBackend::onDummyStateNewConnection()
             QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
             int value = std::atoi(adcStr.toStdString().c_str());
             //            qDebug() << message << value;
-            m_pSeas->setDummyState(value);
+            m_pSeas->setDummyState(static_cast<short>(value));
         }
     });
     connect(pSocket, &QWebSocket::disconnected, [=]{

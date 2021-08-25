@@ -100,67 +100,6 @@ class MachineData : public QObject
                READ getFanInflowRpm
                //               WRITE setFanInflowRpm
                NOTIFY fanInflowRpmChanged)
-    //
-
-    //    Q_PROPERTY(short fanPrimaryNominalDutyCycle
-    //               READ getFanPrimaryNominalDutyCycle
-    //               //               WRITE setFanPrimaryNominalDutyCycle
-    //               NOTIFY fanPrimaryNominalDutyCycleChanged)
-
-    //    Q_PROPERTY(int fanPrimaryNominalRpm
-    //               READ getFanPrimaryNominalRpm
-    //               //               WRITE setFanPrimaryNominalRpm
-    //               NOTIFY fanPrimaryNominalRpmChanged)
-
-    //    Q_PROPERTY(short fanPrimaryStandbyDutyCycle
-    //               READ getFanPrimaryStandbyDutyCycle
-    //               //               WRITE setFanPrimaryStandbyDutyCycle
-    //               NOTIFY fanPrimaryStandbyDutyCycleChanged)
-
-    //    Q_PROPERTY(int fanPrimaryStandbyRpm
-    //               READ getFanPrimaryStandbyRpm
-    //               //               WRITE setFanPrimaryStandbyRpm
-    //               NOTIFY fanPrimaryStandbyRpmChanged)
-
-    //    Q_PROPERTY(short fanPrimaryNominalDutyCycleFactory
-    //               READ getFanPrimaryNominalDutyCycleFactory
-    //               WRITE setFanPrimaryNominalDutyCycleFactory
-    //               NOTIFY fanPrimaryNominalDutyCycleFactoryChanged)
-
-    //    Q_PROPERTY(int fanPrimaryNominalRpmFactory
-    //               READ getFanPrimaryNominalRpmFactory
-    //               WRITE setFanPrimaryNominalRpmFactory
-    //               NOTIFY fanPrimaryNominalRpmFactoryChanged)
-
-    //    Q_PROPERTY(short fanPrimaryNominalDutyCycleField
-    //               READ getFanPrimaryNominalDutyCycleField
-    //               WRITE setFanPrimaryNominalDutyCycleField
-    //               NOTIFY fanPrimaryNominalDutyCycleFieldChanged)
-
-    //    Q_PROPERTY(int fanPrimaryNominalRpmField
-    //               READ getFanPrimaryNominalRpmField
-    //               WRITE setFanPrimaryNominalRpmField
-    //               NOTIFY fanPrimaryNominalRpmFieldChanged)
-
-    //    Q_PROPERTY(short fanPrimaryStandbyDutyCycleFactory
-    //               READ getFanPrimaryStandbyDutyCycleFactory
-    //               WRITE setFanPrimaryStandbyDutyCycleFactory
-    //               NOTIFY fanPrimaryStandbyDutyCycleFactoryChanged)
-
-    //    Q_PROPERTY(int fanPrimaryStandbyRpmFactory
-    //               READ getFanPrimaryStandbyRpmFactory
-    //               WRITE setFanPrimaryStandbyRpmFactory
-    //               NOTIFY fanPrimaryStandbyRpmFactoryChanged)
-
-    //    Q_PROPERTY(short fanPrimaryStandbyDutyCycleField
-    //               READ getFanPrimaryStandbyDutyCycleField
-    //               WRITE setFanPrimaryStandbyDutyCycleField
-    //               NOTIFY fanPrimaryStandbyDutyCycleFieldChanged)
-
-    //    Q_PROPERTY(int fanPrimaryStandbyRpmField
-    //               READ getFanPrimaryStandbyRpmField
-    //               WRITE setFanPrimaryStandbyRpmField
-    //               NOTIFY fanPrimaryStandbyRpmFieldChanged)
 
     ///Fan Auto Set
     Q_PROPERTY(int      fanAutoSetEnabled
@@ -415,16 +354,6 @@ class MachineData : public QObject
                //               WRITE setAlarmTempLow
                NOTIFY alarmTempLowChanged)
 
-    //    Q_PROPERTY(bool alarmDownflowLow
-    //               READ getAlarmDownflowLow
-    //               //               WRITE setAlarmDownfLow
-    //               NOTIFY alarmDownflowHighChanged)
-
-    //    Q_PROPERTY(bool alarmDownflowHigh
-    //               READ getAlarmDownflowHigh
-    //               //               WRITE setAlarmDownfHigh
-    //               NOTIFY alarmDownflowHighChanged)
-
     // Temperature
     Q_PROPERTY(int temperatureAdc
                READ     getTemperatureAdc
@@ -477,11 +406,17 @@ class MachineData : public QObject
                //               WRITE setPowerOutageUvState
                NOTIFY powerOutageUvStateChanged)
 
-    /// AIRFLOW
+    //AIRFLOW MONITOR
     Q_PROPERTY(bool      airflowMonitorEnable
                READ     getAirflowMonitorEnable
                //               WRITE    setAirflowMonitorEnable
                NOTIFY   airflowMonitorEnableChanged)
+
+    //AIRFLOW INFLOW
+    Q_PROPERTY(int ifaVelocity
+               READ getInflowVelocity
+               //               WRITE setIfaVelocity
+               NOTIFY ifaVelocityChanged)
 
     Q_PROPERTY(int      ifaAdc
                READ     getInflowAdc
@@ -493,25 +428,48 @@ class MachineData : public QObject
                //               WRITE    setInflowAdcConpensation
                NOTIFY   ifaAdcConpensationChanged)
 
-    Q_PROPERTY(int ifaVelocity
-               READ getInflowVelocity
-               //               WRITE setIfaVelocity
-               NOTIFY ifaVelocityChanged)
-
     Q_PROPERTY(QString  ifaVelocityStr
                READ     getInflowVelocityStr
                //               WRITE    setInflowVelocityStr
                NOTIFY   ifaVelocityStrChanged)
 
+    //AIRFLOW DOWNFLOW
+    Q_PROPERTY(int dfaVelocity
+               READ getInflowVelocity
+               //               WRITE setIfaVelocity
+               NOTIFY dfaVelocityChanged)
+
+    Q_PROPERTY(int      dfaAdc
+               READ     getInflowAdc
+               //               WRITE    setInflowAdc
+               NOTIFY   dfaAdcChanged)
+
+    Q_PROPERTY(int      dfaAdcConpensation
+               READ     getInflowAdcConpensation
+               //               WRITE    setInflowAdcConpensation
+               NOTIFY   dfaAdcConpensationChanged)
+
     Q_PROPERTY(QString  dfaVelocityStr
-               READ     getDownflowVelocityStr
-               //               WRITE    setDownflowVelocityStr
+               READ     getInflowVelocityStr
+               //               WRITE    setInflowVelocityStr
                NOTIFY   dfaVelocityStrChanged)
+
+    //AIRFLOW CALIBRATION STATUS
+    Q_PROPERTY(short inflowCalibrationStatus
+               READ     getInflowCalibrationStatus
+               //               WRITE    setInflowCalibrationMode
+               NOTIFY   inflowCalibrationStatusChanged)
+
+    Q_PROPERTY(short downflowCalibrationStatus
+               READ     getDownflowCalibrationStatus
+               //               WRITE    setDownflowCalibrationMode
+               NOTIFY   downflowCalibrationStatusChanged)
 
     Q_PROPERTY(short airflowCalibrationStatus
                READ     getAirflowCalibrationStatus
                //               WRITE    setAirflowCalibrationMode
                NOTIFY   airflowCalibrationStatusChanged)
+
 
     ///WARMING UP
     Q_PROPERTY(bool warmingUpActive
@@ -776,15 +734,15 @@ class MachineData : public QObject
                //               WRITE setBoardStatusHybridAnalogInput
                NOTIFY boardStatusHybridAnalogInputChanged)
 
-    Q_PROPERTY(bool boardStatusHybridAnalogOutput1
-               READ getBoardStatusHybridAnalogOutput1
-               //               WRITE setBoardStatusHybridAnalogOutput1
-               NOTIFY boardStatusHybridAnalogOutput1Changed)
+    Q_PROPERTY(bool boardStatusAnalogInput
+               READ getBoardStatusAnalogInput
+               //               WRITE setBoardStatusHybridAnalogInput
+               NOTIFY boardStatusAnalogInputChanged)
 
-    Q_PROPERTY(bool boardStatusHybridAnalogOutput2
-               READ getBoardStatusHybridAnalogOutput2
-               //               WRITE setBoardStatusHybridAnalogOutput2
-               NOTIFY boardStatusHybridAnalogOutput2Changed)
+    Q_PROPERTY(bool boardStatusHybridAnalogOutput
+               READ getBoardStatusHybridAnalogOutput
+               //               WRITE setBoardStatusHybridAnalogOutput
+               NOTIFY boardStatusHybridAnalogOutputChanged)
 
     Q_PROPERTY(bool boardStatusRbmCom
                READ getBoardStatusRbmCom
@@ -891,7 +849,7 @@ public:
     static void singletonDelete();
 
     explicit MachineData(QObject *parent = nullptr);
-    ~MachineData();
+    ~MachineData() override;
 
     Q_INVOKABLE short getMachineBackendState() const;
     void setMachineBackendState(short getMachineBackendState);
@@ -1195,13 +1153,17 @@ public:
     short   getTimeClockPeriod() const;
     void    setTimeClockPeriod(short timeClockPeriod);
 
-    //AIRFLOW
+    //AIRFLOW MONITOR
     bool getAirflowMonitorEnable() const;
+    void setAirflowMonitorEnable(bool airflowMonitorEnable);
+
+    //AIRFLOW INFLOW
     int     getInflowVelocity() const;
     int     getInflowAdc() const;
     int     getInflowAdcConpensation() const;
     QString getInflowVelocityStr() const;
     //
+    Q_INVOKABLE int getInflowLowLimitVelocity() const;
     Q_INVOKABLE short getInflowSensorConstant();
     Q_INVOKABLE int getInflowTempCalib();
     Q_INVOKABLE int getInflowTempCalibAdc();
@@ -1210,12 +1172,9 @@ public:
     Q_INVOKABLE int getInflowAdcPointField(short point);
     Q_INVOKABLE int getInflowVelocityPointField(short point);
     //
-    Q_INVOKABLE int getInflowLowLimitVelocity() const;
-    //
-    void setAirflowMonitorEnable(bool airflowMonitorEnable);
+    void    setInflowVelocity(int ifaVelocity);
     void    setInflowAdc(int ifaAdc);
     void    setInflowAdcConpensation(int ifaAdcConpensation);
-    void    setInflowVelocity(int ifaVelocity);
     void    setInflowVelocityStr(QString ifaVelocityStr);
     //
     void    setInflowLowLimitVelocity(int ifaLowLimitVelocity);
@@ -1227,16 +1186,42 @@ public:
     void    setInflowAdcPointField(short point, int value);
     void    setInflowVelocityPointField(short point, int value);
     //
+
+    //AIRFLOW DOWNFLOW
+    int     getDownflowVelocity() const;
+    int     getDownflowAdc() const;
+    int     getDownflowAdcConpensation() const;
     QString getDownflowVelocityStr() const;
     //
+    Q_INVOKABLE int getDownflowLowLimitVelocity() const;
+    Q_INVOKABLE short getDownflowSensorConstant();
+    Q_INVOKABLE int getDownflowTempCalib();
+    Q_INVOKABLE int getDownflowTempCalibAdc();
+    Q_INVOKABLE int getDownflowAdcPointFactory(short point);
     Q_INVOKABLE int getDownflowVelocityPointFactory(short point);
+    Q_INVOKABLE int getDownflowAdcPointField(short point);
     Q_INVOKABLE int getDownflowVelocityPointField(short point);
     //
-    void    setDownflowVelocity(int dfaVelocity);
+    void    setDownflowVelocity(int ifaVelocity);
+    void    setDownflowAdc(int ifaAdc);
+    void    setDownflowAdcConpensation(int ifaAdcConpensation);
     void    setDownflowVelocityStr(QString dfaVelocityStr);
+    //
+    void    setDownflowLowLimitVelocity(int ifaLowLimitVelocity);
+    void    setDownflowSensorConstant(short value);
+    void    setDownflowTempCalib(short value);
+    void    setDownflowTempCalibAdc(short value);
+    void    setDownflowAdcPointFactory(short point, int value);
     void    setDownflowVelocityPointFactory(short point, int value);
+    void    setDownflowAdcPointField(short point, int value);
     void    setDownflowVelocityPointField(short point, int value);
     //
+
+    //AIRFLOW CALIBRATION STATUS
+    void    setInflowCalibrationStatus(short infflowCalibrationStatus);
+    short   getInflowCalibrationStatus() const;
+    void    setDownflowCalibrationStatus(short downflowCalibrationStatus);
+    short   getDownflowCalibrationStatus() const;
     void    setAirflowCalibrationStatus(short airflowCalibrationStatus);
     short   getAirflowCalibrationStatus() const;
 
@@ -1250,10 +1235,11 @@ public:
     bool getBoardStatusHybridAnalogInput() const;
     void setBoardStatusHybridAnalogInput(bool boardStatusHybridAnalogInput);
     //
-    bool getBoardStatusHybridAnalogOutput1() const;
-    void setBoardStatusHybridAnalogOutput1(bool boardStatusHybridAnalogOutput1);
-    bool getBoardStatusHybridAnalogOutput2() const;
-    void setBoardStatusHybridAnalogOutput2(bool boardStatusHybridAnalogOutput2);
+    bool getBoardStatusAnalogInput() const;
+    void setBoardStatusAnalogInput(bool boardStatusAnalogInput);
+    //
+    bool getBoardStatusHybridAnalogOutput() const;
+    void setBoardStatusHybridAnalogOutput(bool boardStatusHybridAnalogOutput);
     //
     bool getBoardStatusRbmCom() const;
     void setBoardStatusRbmCom(bool boardStatusRbmCom);
@@ -1558,14 +1544,23 @@ signals:
     void alarmSashChanged(short alarmSash);
     void alarmSashUnsafeChanged(short alarmSashUnsafe);
 
+    //AIRFLOW MONITOR
     void airflowMonitorEnableChanged(bool airflowMonitorEnable);
+
+    //AIRFLOW INFLOW
+    void ifaVelocityChanged(int ifaVelocity);
     void ifaAdcChanged(int ifaAdc);
     void ifaAdcConpensationChanged(int ifaAdcConpensation);
-    void ifaVelocityChanged(int ifaVelocity);
-    void ifaVelocityStrChanged(QString dfaVelocityStr);
-    void dfaVelocityChanged(int dfaVelocity);
+    void ifaVelocityStrChanged(QString ifaVelocityStr);
+    //AIRFLOW DOWNFLOW
+    void dfaVelocityChanged(int ifaVelocity);
+    void dfaAdcChanged(int ifaAdc);
+    void dfaAdcConpensationChanged(int dfaAdcConpensation);
     void dfaVelocityStrChanged(QString dfaVelocityStr);
 
+    //AIRFLOW CALIBRATION STATUS
+    void inflowCalibrationStatusChanged(short inflowCalibrationStatus);
+    void downflowCalibrationStatusChanged(short downflowCalibrationStatus);
     void airflowCalibrationStatusChanged(short airflowCalibrationStatus);
 
     void measurementUnitChanged(short measurementUnit);
@@ -1611,8 +1606,8 @@ signals:
     void boardStatusHybridDigitalRelayChanged(bool boardStatusHybridDigitalRelay);
     void boardStatusHybridDigitalInputChanged(bool boardStatusHybridDigitalInput);
     void boardStatusHybridAnalogInputChanged(bool boardStatusHybridAnalogInput);
-    void boardStatusHybridAnalogOutput1Changed(bool boardStatusHybridAnalogOutput1);
-    void boardStatusHybridAnalogOutput2Changed(bool boardStatusHybridAnalogOutput2);
+    void boardStatusAnalogInputChanged(bool boardStatusAnalogInput);
+    void boardStatusHybridAnalogOutputChanged(bool boardStatusHybridAnalogOutput);
     void boardStatusRbmComChanged(bool boardStatusRbmCom);
     void boardStatusPressureDiffChanged(bool boardStatusPressureDiff);
     void boardStatusCtpRtcChanged(bool boardStatusCtpRtc);
@@ -1840,31 +1835,44 @@ private:
     QString m_temperatureValueStrf;
     short   m_temperatureCelcius = 0;
 
-    //IFA
-    short m_airflowCalibrationStatus;
-    //
+
+    //AIRFLOW MONITOR
     bool m_airflowMonitorEnable = true;
+
+    //AIRFLOW INFLOW
+    int     m_ifaVelocity = 0;
     int     m_ifaAdc = 0;
     int     m_ifaAdcConpensation = 0;
-    int     m_ifaVelocity = 0;
     QString m_ifaVelocityStr;
     //
+    int     m_ifaLowLimitVelocity = 0;
     short   m_ifaConstant = 0;
     short   m_ifaTemperatureCalib = 0;
     short   m_ifaTemperatureCalibAdc = 0;
-    //
     int     m_ifaAdcPointFactory[3] = {0,0,0};
     int     m_ifaVelocityPointFactory[3] = {0,0,0};
-    //
     int     m_ifaAdcPointField[3] = {0,0,0};
     int     m_ifaVelocityPointField[3] = {0,0,0};
     //
-    int     m_ifaLowLimitVelocity = 0;
-    //DFA
+    //AIRFLOW DOWNFLOW
     int     m_dfaVelocity = 0;
-    int     m_dfaVelocityPointFactory[3] = {0,0,0};
-    int     m_dfaVelocityPointField[3] = {0,0,0};
+    int     m_dfaAdc = 0;
+    int     m_dfaAdcConpensation = 0;
     QString m_dfaVelocityStr;
+    //
+    int     m_dfaLowLimitVelocity = 0;
+    short   m_dfaConstant = 0;
+    short   m_dfaTemperatureCalib = 0;
+    short   m_dfaTemperatureCalibAdc = 0;
+    int     m_dfaAdcPointFactory[3] = {0,0,0};
+    int     m_dfaVelocityPointFactory[3] = {0,0,0};
+    int     m_dfaAdcPointField[3] = {0,0,0};
+    int     m_dfaVelocityPointField[3] = {0,0,0};
+
+    //AIRFLOW CALIBRATION STATUS
+    short m_inflowCalibrationStatus;
+    short m_downflowCalibrationStatus;
+    short m_airflowCalibrationStatus;
 
     // PRESSURE DIFFERENTIAL
     int    m_dataExhPressureActualPa = 0;
@@ -1938,8 +1946,8 @@ private:
     bool    m_boardStatusHybridDigitalRelay = false;
     bool    m_boardStatusHybridDigitalInput = false;
     bool    m_boardStatusHybridAnalogInput  = false;
-    bool    m_boardStatusHybridAnalogOutput1 = false;
-    bool    m_boardStatusHybridAnalogOutput2 = false;
+    bool    m_boardStatusAnalogInput  = false;
+    bool    m_boardStatusHybridAnalogOutput = false;
     bool    m_boardStatusRbmCom  = false;
     bool    m_boardStatusPressureDiff  = false;
     bool    m_boardStatusCtpRtc = false;

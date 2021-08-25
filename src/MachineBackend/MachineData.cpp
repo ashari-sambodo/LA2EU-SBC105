@@ -1734,27 +1734,23 @@ bool MachineData::getBoardStatusPressureDiff() const
     return m_boardStatusPressureDiff;
 }
 
-void MachineData::setBoardStatusHybridAnalogOutput1(bool boardStatusHybridAnalogOutput1)
+void MachineData::setBoardStatusHybridAnalogOutput(bool boardStatusHybridAnalogOutput)
 {
-    if (m_boardStatusHybridAnalogOutput1 == boardStatusHybridAnalogOutput1)
+    if (m_boardStatusHybridAnalogOutput == boardStatusHybridAnalogOutput)
         return;
 
-    m_boardStatusHybridAnalogOutput1 = boardStatusHybridAnalogOutput1;
-    emit boardStatusHybridAnalogOutput1Changed(m_boardStatusHybridAnalogOutput1);
-}
-
-void MachineData::setBoardStatusHybridAnalogOutput2(bool boardStatusHybridAnalogOutput2)
-{
-    if (m_boardStatusHybridAnalogOutput2 == boardStatusHybridAnalogOutput2)
-        return;
-
-    m_boardStatusHybridAnalogOutput2 = boardStatusHybridAnalogOutput2;
-    emit boardStatusHybridAnalogOutput2Changed(m_boardStatusHybridAnalogOutput2);
+    m_boardStatusHybridAnalogOutput = boardStatusHybridAnalogOutput;
+    emit boardStatusHybridAnalogOutputChanged(m_boardStatusHybridAnalogOutput);
 }
 
 bool MachineData::getBoardStatusRbmCom() const
 {
     return m_boardStatusRbmCom;
+}
+
+bool MachineData::getBoardStatusHybridAnalogInput() const
+{
+    return m_boardStatusHybridAnalogInput;
 }
 
 void MachineData::setBoardStatusHybridAnalogInput(bool boardStatusHybridAnalogInput)
@@ -1766,15 +1762,26 @@ void MachineData::setBoardStatusHybridAnalogInput(bool boardStatusHybridAnalogIn
     emit boardStatusHybridAnalogInputChanged(m_boardStatusHybridAnalogInput);
 }
 
-bool MachineData::getBoardStatusHybridAnalogOutput1() const
+bool MachineData::getBoardStatusAnalogInput() const
 {
-    return m_boardStatusHybridAnalogOutput1;
+    return m_boardStatusAnalogInput;
 }
 
-bool MachineData::getBoardStatusHybridAnalogOutput2() const
+void MachineData::setBoardStatusAnalogInput(bool boardStatusAnalogInput)
 {
-    return m_boardStatusHybridAnalogOutput2;
+    if (m_boardStatusAnalogInput == boardStatusAnalogInput)
+        return;
+
+    m_boardStatusAnalogInput = boardStatusAnalogInput;
+    emit boardStatusAnalogInputChanged(m_boardStatusAnalogInput);
 }
+///
+
+bool MachineData::getBoardStatusHybridAnalogOutput() const
+{
+    return m_boardStatusHybridAnalogOutput;
+}
+
 
 void MachineData::setBoardStatusHybridDigitalInput(bool boardStatusHybridDigitalInput)
 {
@@ -1783,11 +1790,6 @@ void MachineData::setBoardStatusHybridDigitalInput(bool boardStatusHybridDigital
 
     m_boardStatusHybridDigitalInput = boardStatusHybridDigitalInput;
     emit boardStatusHybridDigitalInputChanged(m_boardStatusHybridDigitalInput);
-}
-
-bool MachineData::getBoardStatusHybridAnalogInput() const
-{
-    return m_boardStatusHybridAnalogInput;
 }
 
 void MachineData::setBoardStatusHybridDigitalRelay(bool boardStatusHybridDigitalRelay)
@@ -2168,155 +2170,6 @@ void MachineData::setTemperature(short temperature)
     emit temperatureChanged(m_temperature);
 }
 
-int MachineData::getInflowLowLimitVelocity() const
-{
-    return m_ifaLowLimitVelocity;
-}
-
-void MachineData::setAirflowMonitorEnable(bool airflowMonitorEnable)
-{
-    if(m_airflowMonitorEnable == airflowMonitorEnable) return;
-    m_airflowMonitorEnable = airflowMonitorEnable;
-    emit airflowMonitorEnableChanged(m_airflowMonitorEnable);
-}
-
-void MachineData::setInflowLowLimitVelocity(int ifaLowLimitVelocity)
-{
-    if (m_ifaLowLimitVelocity == ifaLowLimitVelocity)
-        return;
-
-    m_ifaLowLimitVelocity = ifaLowLimitVelocity;
-}
-
-void MachineData::setAirflowCalibrationStatus(short airflowCalibrationMode)
-{
-    if (m_airflowCalibrationStatus == airflowCalibrationMode)
-        return;
-
-    m_airflowCalibrationStatus = airflowCalibrationMode;
-    emit airflowCalibrationStatusChanged(m_airflowCalibrationStatus);
-}
-
-void MachineData::setInflowAdc(int ifaAdc)
-{
-    if (m_ifaAdc == ifaAdc)
-        return;
-
-    m_ifaAdc = ifaAdc;
-    emit ifaAdcChanged(m_ifaAdc);
-}
-
-void MachineData::setInflowAdcConpensation(int ifaAdcConpensation)
-{
-    if (m_ifaAdcConpensation == ifaAdcConpensation)
-        return;
-
-    m_ifaAdcConpensation = ifaAdcConpensation;
-    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
-}
-
-void MachineData::setInflowVelocityStr(QString ifaVelocityStr)
-{
-    if (m_ifaVelocityStr == ifaVelocityStr)
-        return;
-
-    m_ifaVelocityStr = ifaVelocityStr;
-    emit ifaVelocityStrChanged(m_ifaVelocityStr);
-}
-
-void MachineData::setDownflowVelocityStr(QString dfaVelocityStr)
-{
-    if (m_dfaVelocityStr == dfaVelocityStr)
-        return;
-
-    m_dfaVelocityStr = dfaVelocityStr;
-    emit dfaVelocityStrChanged(m_dfaVelocityStr);
-}
-
-void MachineData::setInflowSensorConstant(short value)
-{
-    if (m_ifaConstant == value)
-        return;
-
-    m_ifaConstant = value;
-    //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
-}
-
-void MachineData::setInflowTempCalib(short value)
-{
-    if (m_ifaTemperatureCalib == value)
-        return;
-
-    m_ifaTemperatureCalib = value;
-}
-
-void MachineData::setInflowTempCalibAdc(short value)
-{
-    if (m_ifaTemperatureCalibAdc == value)
-        return;
-
-    m_ifaTemperatureCalibAdc = value;
-}
-
-void MachineData::setInflowAdcPointFactory(short point, int value)
-{
-    if (m_ifaAdcPointFactory[point] == value)
-        return;
-
-    m_ifaAdcPointFactory[point] = value;
-    //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
-}
-
-void MachineData::setInflowVelocityPointFactory(short point, int value)
-{
-    if (m_ifaVelocityPointFactory[point] == value)
-        return;
-
-    m_ifaVelocityPointFactory[point] = value;
-    //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
-}
-
-void MachineData::setInflowAdcPointField(short point, int value)
-{
-    if (m_ifaAdcPointField[point] == value)
-        return;
-
-    m_ifaAdcPointField[point] = value;
-    //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
-}
-
-void MachineData::setInflowVelocityPointField(short point, int value)
-{
-    if (m_ifaVelocityPointField[point] == value)
-        return;
-
-    m_ifaVelocityPointField[point] = value;
-    //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
-}
-
-void MachineData::setDownflowVelocityPointFactory(short point, int value)
-{
-    if (m_dfaVelocityPointFactory[point] == value)
-        return;
-
-    m_dfaVelocityPointFactory[point] = value;
-    //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
-}
-
-void MachineData::setDownflowVelocityPointField(short point, int value)
-{
-    if (m_dfaVelocityPointField[point] == value)
-        return;
-
-    m_dfaVelocityPointField[point] = value;
-    //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
-}
-
-short MachineData::getAirflowCalibrationStatus() const
-{
-    return m_airflowCalibrationStatus;
-}
-
 bool MachineData::getBoardStatusHybridDigitalRelay() const
 {
     return m_boardStatusHybridDigitalRelay;
@@ -2402,6 +2255,67 @@ short MachineData::getTemperature() const
     return m_temperature;
 }
 
+///AIRFLOW MONITOR
+bool MachineData::getAirflowMonitorEnable() const
+{
+    return m_airflowMonitorEnable;
+}
+
+void MachineData::setAirflowMonitorEnable(bool airflowMonitorEnable)
+{
+    if(m_airflowMonitorEnable == airflowMonitorEnable) return;
+    m_airflowMonitorEnable = airflowMonitorEnable;
+    emit airflowMonitorEnableChanged(m_airflowMonitorEnable);
+}
+
+//AIRFLOW INFLOW
+int MachineData::getInflowAdc() const
+{
+    return m_ifaAdc;
+}
+int MachineData::getInflowAdcConpensation() const
+{
+    return m_ifaAdcConpensation;
+}
+QString MachineData::getInflowVelocityStr() const
+{
+    return m_ifaVelocityStr;
+}
+//
+int MachineData::getInflowLowLimitVelocity() const
+{
+    return m_ifaLowLimitVelocity;
+}
+short MachineData::getInflowSensorConstant()
+{
+    return m_ifaConstant;
+}
+int MachineData::getInflowTempCalib()
+{
+    return m_ifaTemperatureCalib;
+}
+int MachineData::getInflowTempCalibAdc()
+{
+    return m_ifaTemperatureCalibAdc;
+}
+int MachineData::getInflowAdcPointFactory(short point)
+{
+    return m_ifaAdcPointFactory[point];
+}
+int MachineData::getInflowVelocityPointFactory(short point)
+{
+    return m_ifaVelocityPointFactory[point];
+}
+int MachineData::getInflowAdcPointField(short point)
+{
+    return m_ifaAdcPointField[point];
+}
+int MachineData::getInflowVelocityPointField(short point)
+{
+    return m_ifaVelocityPointField[point];
+}
+//
+//
 void MachineData::setInflowVelocity(int ifaVelocity)
 {
     if (m_ifaVelocity == ifaVelocity)
@@ -2410,81 +2324,278 @@ void MachineData::setInflowVelocity(int ifaVelocity)
     m_ifaVelocity = ifaVelocity;
     emit ifaVelocityChanged(m_ifaVelocity);
 }
-
-int MachineData::getInflowAdc() const
+void MachineData::setInflowAdc(int ifaAdc)
 {
-    return m_ifaAdc;
+    if (m_ifaAdc == ifaAdc)
+        return;
+
+    m_ifaAdc = ifaAdc;
+    emit ifaAdcChanged(m_ifaAdc);
+}
+void MachineData::setInflowAdcConpensation(int ifaAdcConpensation)
+{
+    if (m_ifaAdcConpensation == ifaAdcConpensation)
+        return;
+
+    m_ifaAdcConpensation = ifaAdcConpensation;
+    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
+}
+void MachineData::setInflowVelocityStr(QString ifaVelocityStr)
+{
+    if (m_ifaVelocityStr == ifaVelocityStr)
+        return;
+
+    m_ifaVelocityStr = ifaVelocityStr;
+    emit ifaVelocityStrChanged(m_ifaVelocityStr);
+}
+//
+void MachineData::setInflowLowLimitVelocity(int ifaLowLimitVelocity)
+{
+    if (m_ifaLowLimitVelocity == ifaLowLimitVelocity)
+        return;
+
+    m_ifaLowLimitVelocity = ifaLowLimitVelocity;
+}
+void MachineData::setInflowSensorConstant(short value)
+{
+    if (m_ifaConstant == value)
+        return;
+
+    m_ifaConstant = value;
+    //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
+}
+void MachineData::setInflowTempCalib(short value)
+{
+    if (m_ifaTemperatureCalib == value)
+        return;
+
+    m_ifaTemperatureCalib = value;
 }
 
-int MachineData::getInflowAdcConpensation() const
+void MachineData::setInflowTempCalibAdc(short value)
 {
-    return m_ifaAdcConpensation;
-}
+    if (m_ifaTemperatureCalibAdc == value)
+        return;
 
-QString MachineData::getInflowVelocityStr() const
+    m_ifaTemperatureCalibAdc = value;
+}
+void MachineData::setInflowAdcPointFactory(short point, int value)
 {
-    return m_ifaVelocityStr;
-}
+    if (m_ifaAdcPointFactory[point] == value)
+        return;
 
+    m_ifaAdcPointFactory[point] = value;
+    //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
+}
+void MachineData::setInflowVelocityPointFactory(short point, int value)
+{
+    if (m_ifaVelocityPointFactory[point] == value)
+        return;
+
+    m_ifaVelocityPointFactory[point] = value;
+    //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
+}
+void MachineData::setInflowAdcPointField(short point, int value)
+{
+    if (m_ifaAdcPointField[point] == value)
+        return;
+
+    m_ifaAdcPointField[point] = value;
+    //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
+}
+void MachineData::setInflowVelocityPointField(short point, int value)
+{
+    if (m_ifaVelocityPointField[point] == value)
+        return;
+
+    m_ifaVelocityPointField[point] = value;
+    //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
+}
+//
+///AIRFLOW DOWNFLOW
+int MachineData::getDownflowAdc() const
+{
+    return m_dfaAdc;
+}
+int MachineData::getDownflowAdcConpensation() const
+{
+    return m_dfaAdcConpensation;
+}
 QString MachineData::getDownflowVelocityStr() const
 {
     return m_dfaVelocityStr;
 }
-
-short MachineData::getInflowSensorConstant()
+//
+int MachineData::getDownflowLowLimitVelocity() const
 {
-    return m_ifaConstant;
+    return m_dfaLowLimitVelocity;
 }
-
-int MachineData::getInflowTempCalib()
+short MachineData::getDownflowSensorConstant()
 {
-    return m_ifaTemperatureCalib;
+    return m_dfaConstant;
 }
-
-int MachineData::getInflowTempCalibAdc()
+int MachineData::getDownflowTempCalib()
 {
-    return m_ifaTemperatureCalibAdc;
+    return m_dfaTemperatureCalib;
 }
-
-int MachineData::getInflowAdcPointFactory(short point)
+int MachineData::getDownflowTempCalibAdc()
 {
-    return m_ifaAdcPointFactory[point];
+    return m_dfaTemperatureCalibAdc;
 }
-
-int MachineData::getInflowVelocityPointFactory(short point)
+int MachineData::getDownflowAdcPointFactory(short point)
 {
-    return m_ifaVelocityPointFactory[point];
+    return m_dfaAdcPointFactory[point];
 }
-
-int MachineData::getInflowAdcPointField(short point)
-{
-    return m_ifaAdcPointField[point];
-}
-
-int MachineData::getInflowVelocityPointField(short point)
-{
-    return m_ifaVelocityPointField[point];
-}
-
 int MachineData::getDownflowVelocityPointFactory(short point)
 {
     return m_dfaVelocityPointFactory[point];
 }
-
+int MachineData::getDownflowAdcPointField(short point)
+{
+    return m_dfaAdcPointField[point];
+}
 int MachineData::getDownflowVelocityPointField(short point)
 {
     return m_dfaVelocityPointField[point];
 }
-
+//
+//
 void MachineData::setDownflowVelocity(int dfaVelocity)
 {
     if (m_dfaVelocity == dfaVelocity)
         return;
 
     m_dfaVelocity = dfaVelocity;
-    emit dfaVelocityChanged(m_ifaVelocity);
+    emit dfaVelocityChanged(m_dfaVelocity);
+}
+void MachineData::setDownflowAdc(int dfaAdc)
+{
+    if (m_dfaAdc == dfaAdc)
+        return;
+
+    m_dfaAdc = dfaAdc;
+    emit dfaAdcChanged(m_dfaAdc);
+}
+void MachineData::setDownflowAdcConpensation(int dfaAdcConpensation)
+{
+    if (m_dfaAdcConpensation == dfaAdcConpensation)
+        return;
+
+    m_dfaAdcConpensation = dfaAdcConpensation;
+    emit dfaAdcConpensationChanged(m_dfaAdcConpensation);
+}
+void MachineData::setDownflowVelocityStr(QString dfaVelocityStr)
+{
+    if (m_dfaVelocityStr == dfaVelocityStr)
+        return;
+
+    m_dfaVelocityStr = dfaVelocityStr;
+    emit dfaVelocityStrChanged(m_dfaVelocityStr);
+}
+//
+void MachineData::setDownflowLowLimitVelocity(int dfaLowLimitVelocity)
+{
+    if (m_dfaLowLimitVelocity == dfaLowLimitVelocity)
+        return;
+
+    m_dfaLowLimitVelocity = dfaLowLimitVelocity;
+}
+void MachineData::setDownflowSensorConstant(short value)
+{
+    if (m_dfaConstant == value)
+        return;
+
+    m_dfaConstant = value;
+    //    emit dfaAdcConpensationChanged(m_dfaAdcConpensation);
+}
+void MachineData::setDownflowTempCalib(short value)
+{
+    if (m_dfaTemperatureCalib == value)
+        return;
+
+    m_dfaTemperatureCalib = value;
 }
 
+void MachineData::setDownflowTempCalibAdc(short value)
+{
+    if (m_dfaTemperatureCalibAdc == value)
+        return;
+
+    m_dfaTemperatureCalibAdc = value;
+}
+void MachineData::setDownflowAdcPointFactory(short point, int value)
+{
+    if (m_dfaAdcPointFactory[point] == value)
+        return;
+
+    m_dfaAdcPointFactory[point] = value;
+    //    emit dfaAdcConpensationChanged(m_dfaAdcConpensation);
+}
+void MachineData::setDownflowVelocityPointFactory(short point, int value)
+{
+    if (m_dfaVelocityPointFactory[point] == value)
+        return;
+
+    m_dfaVelocityPointFactory[point] = value;
+    //    emit dfaAdcConpensationChanged(m_dfaAdcConpensation);
+}
+void MachineData::setDownflowAdcPointField(short point, int value)
+{
+    if (m_dfaAdcPointField[point] == value)
+        return;
+
+    m_dfaAdcPointField[point] = value;
+    //    emit dfaAdcConpensationChanged(m_dfaAdcConpensation);
+}
+void MachineData::setDownflowVelocityPointField(short point, int value)
+{
+    if (m_dfaVelocityPointField[point] == value)
+        return;
+
+    m_dfaVelocityPointField[point] = value;
+    //    emit dfaAdcConpensationChanged(m_dfaAdcConpensation);
+}
+//
+/// AIRFLOW CALIBRATION STATUS
+void MachineData::setInflowCalibrationStatus(short inflowCalibrationMode)
+{
+    if (m_inflowCalibrationStatus == inflowCalibrationMode)
+        return;
+
+    m_inflowCalibrationStatus = inflowCalibrationMode;
+    emit inflowCalibrationStatusChanged(m_inflowCalibrationStatus);
+}
+short MachineData::getInflowCalibrationStatus() const
+{
+    return m_inflowCalibrationStatus;
+}
+void MachineData::setDownflowCalibrationStatus(short downflowCalibrationMode)
+{
+    if (m_downflowCalibrationStatus == downflowCalibrationMode)
+        return;
+
+    m_downflowCalibrationStatus = downflowCalibrationMode;
+    emit downflowCalibrationStatusChanged(m_downflowCalibrationStatus);
+}
+short MachineData::getDownflowCalibrationStatus() const
+{
+    return m_downflowCalibrationStatus;
+}
+void MachineData::setAirflowCalibrationStatus(short airflowCalibrationMode)
+{
+    if (m_airflowCalibrationStatus == airflowCalibrationMode)
+        return;
+
+    m_airflowCalibrationStatus = airflowCalibrationMode;
+    emit airflowCalibrationStatusChanged(m_airflowCalibrationStatus);
+}
+short MachineData::getAirflowCalibrationStatus() const
+{
+    return m_airflowCalibrationStatus;
+}
+
+
+///////////
 void MachineData::setFanPrimaryRpm(int value)
 {
     if (m_fanPrimaryRpm == value)
@@ -2615,11 +2726,6 @@ void MachineData::setTimeClockPeriod(short timeClockPeriod)
     emit timeClockPeriodChanged(m_timeClockPeriod);
 }
 
-bool MachineData::getAirflowMonitorEnable() const
-{
-    return m_airflowMonitorEnable;
-}
-
 QString MachineData::getMachineProfileName() const
 {
     return m_machineProfileName;
@@ -2689,15 +2795,6 @@ short MachineData::getLcdBrightnessDelayToDimm() const
 {
     return m_lcdBrightnessDelayToDimm;
 }
-
-//void MachineData::setUnitModelID(int unitModelID)
-//{
-//    if (m_unitModelID == unitModelID)
-//        return;
-
-//    m_unitModelID = unitModelID;
-//    emit unitModelIDChanged(m_unitModelID);
-//}
 
 void MachineData::setMachineModelName(QString unitModelName)
 {
@@ -2868,24 +2965,6 @@ void MachineData::setAlarmSash(short alarmSash)
     emit alarmSashChanged(m_alarmSash);
 }
 
-//void MachineData::setAlarmDownfLow(bool alarmDownflowLow)
-//{
-//    if (m_alarmDownflowLow == alarmDownflowLow)
-//        return;
-
-//    m_alarmDownflowLow = alarmDownflowLow;
-//    emit alarmDownflowHighChanged(m_alarmDownflowLow);
-//}
-
-//void MachineData::setAlarmDownfHigh(bool alarmDownflowHigh)
-//{
-//    if (m_alarmDownflowHigh == alarmDownflowHigh)
-//        return;
-
-//    m_alarmDownflowHigh = alarmDownflowHigh;
-//    emit alarmDownflowHighChanged(m_alarmDownflowHigh);
-//}
-
 void MachineData::setTemperatureAdc(int temperatureAdc)
 {
     if (m_temperatureAdc == temperatureAdc)
@@ -2918,19 +2997,6 @@ short MachineData::getFanPrimaryDutyCycle() const
     return m_fanPrimaryDutyCycle;
 }
 
-
-////////////////////////////////////EXHAUST_PRESSURE_MONITOR
-//int MachineData::dataExhPressureActualPa() const
-//{
-//    return m_dataExhPressureActualPa;
-//}
-
-//void MachineData::setDataExhPressureActualPa(int newVal)
-//{
-//    if(m_dataExhPressureActualPa == newVal) return;
-//    m_dataExhPressureActualPa = newVal;
-//    emit exhPressureActualPaChanged();
-//}
 
 int MachineData::getEscoLockServiceEnable() const
 {
