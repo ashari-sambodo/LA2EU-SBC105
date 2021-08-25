@@ -19,7 +19,7 @@ import "Components" as CusComPage
 
 ViewApp {
     id: viewApp
-    title: "Diagnostics"
+    title: "Diagnostic"
 
     background.sourceComponent: Item {}
 
@@ -42,7 +42,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr("Diagnostics")
+                    title: qsTr("Diagnostic")
                 }
             }
 
@@ -162,16 +162,20 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Fan state")
+                                label: qsTr("Fan state (D/F | I/F)")
 
                                 onLoaded: {
-                                    value = Qt.binding(function(){
-                                        return MachineData.fanPrimaryDutyCycle + "% / " + MachineData.fanPrimaryRpm + " RPM"
+                                    value1 = Qt.binding(function(){
+                                        return "%1\% / %2 RPM".arg(MachineData.fanPrimaryDutyCycle).arg(MachineData.fanPrimaryRpm).arg(MachineData.fanInflowDutyCycle)
+                                    })
+                                    value2 = Qt.binding(function(){
+                                        return "%1\%".arg(MachineData.fanInflowDutyCycle)
                                     })
                                 }
 
                                 onUnloaded: {
-                                    value = ""
+                                    value1 = ""
+                                    value2 = ""
                                 }
                             }//
 
@@ -182,10 +186,15 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Fan usage meter")
+                                label: qsTr("Fan usage meter (D/F | I/F)")
 
                                 onLoaded: {
-                                    value = Qt.binding(function(){
+                                    value1 = Qt.binding(function(){
+                                        let meter = MachineData.fanUsageMeter * 60
+                                        if (meter === 0) return qsTr("Never used")
+                                        return utilsApp.strfSecsToHumanReadableShort(meter)
+                                    })
+                                    value2= Qt.binding(function(){
                                         let meter = MachineData.fanUsageMeter * 60
                                         if (meter === 0) return qsTr("Never used")
                                         return utilsApp.strfSecsToHumanReadableShort(meter)
@@ -314,14 +323,14 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Temperature calibration (D/F | I/F)")
+                                label: qsTr("Temperature calibration")
 
                                 onLoaded: {
                                     value = Qt.binding(function(){
                                         if(MachineData.measurementUnit)
-                                            return MachineData.getDownflowTempCalib()+ "°F" + " | " + MachineData.getInflowTempCalib()+ "°F"
+                                            return MachineData.getDownflowTempCalib()+ "°F" /*+ " | " + MachineData.getInflowTempCalib()+ "°F"*/
                                         else
-                                            return MachineData.getDownflowTempCalib()+ "°C" + " | " + MachineData.getInflowTempCalib()+ "°C"
+                                            return MachineData.getDownflowTempCalib()+ "°C" /*+ " | " + MachineData.getInflowTempCalib()+ "°C"*/
                                     })
                                 }
 
@@ -337,10 +346,10 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Temperature calibration ADC (D/F | I/F)")
+                                label: qsTr("Temperature calibration ADC")
 
                                 onLoaded: {
-                                    value = Qt.binding(function(){return MachineData.getDownflowTempCalibAdc() + " | " + MachineData.getInflowTempCalibAdc()})
+                                    value = Qt.binding(function(){return MachineData.getDownflowTempCalibAdc() /*+ " | " + MachineData.getInflowTempCalibAdc()*/})
                                 }
 
                                 onUnloaded: {
@@ -358,11 +367,13 @@ ViewApp {
                                 label: qsTr("ADC A/F Actual (D/F | I/F)")
 
                                 onLoaded: {
-                                    value = Qt.binding(function(){return MachineData.dfaAdcConpensation + " | " + MachineData.ifaAdcConpensation})
+                                    value1 = Qt.binding(function(){return MachineData.dfaAdcConpensation})
+                                    value2 = Qt.binding(function(){return MachineData.ifaAdcConpensation})
                                 }
 
                                 onUnloaded: {
-                                    value = ""
+                                    value1 = ""
+                                    value2 = ""
                                 }
                             }//
 
@@ -377,10 +388,12 @@ ViewApp {
 
                                 onLoaded: {
                                     if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                                        value = MachineData.getInflowAdcPointField(2);
+                                        value1 = MachineData.getDownflowAdcPointField(2);
+                                        value2 = MachineData.getInflowAdcPointField(2);
                                     }
                                     else {
-                                        value = MachineData.getInflowAdcPointFactory(2);
+                                        value1 = MachineData.getDownflowAdcPointFactory(2)
+                                        value2 = MachineData.getInflowAdcPointField(2)
                                     }
                                 }
 
@@ -397,10 +410,10 @@ ViewApp {
 
                                 onLoaded: {
                                     if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                                        value = MachineData.getInflowAdcPointField(1);
+                                        value = MachineData.getDownflowAdcPointField(1) + " | " + MachineData.getInflowAdcPointField(1);
                                     }
                                     else {
-                                        value = MachineData.getInflowAdcPointFactory(1);
+                                        value = MachineData.getDownflowAdcPointFactory(1) + " | " + MachineData.getInflowAdcPointField(1)
                                     }
                                 }
                             }//
@@ -415,7 +428,7 @@ ViewApp {
                                 label: qsTr("ADC A/F 2 (D/F | I/F)")
 
                                 onLoaded: {
-                                    value = MachineData.getInflowAdcPointFactory(2);
+                                    value = MachineData.getDownflowAdcPointFactory(2) + " | " + MachineData.getInflowAdcPointFactory(2);;
                                 }
                             }//
 
@@ -429,7 +442,7 @@ ViewApp {
                                 label: qsTr("ADC A/F 1 (D/F | I/F)")
 
                                 onLoaded: {
-                                    value = MachineData.getInflowAdcPointFactory(1);
+                                    value = MachineData.getDownflowAdcPointFactory(1) + " | " + MachineData.getInflowAdcPointFactory(1);
                                 }
                             }//
 
@@ -443,7 +456,7 @@ ViewApp {
                                 label: qsTr("ADC A/F 0 (D/F | I/F)")
 
                                 onLoaded: {
-                                    value = MachineData.getInflowAdcPointFactory(0);
+                                    value = MachineData.getDownflowAdcPointFactory(0) + " | " + MachineData.getInflowAdcPointFactory(0);
                                 }
                             }//
 
@@ -457,25 +470,32 @@ ViewApp {
                                 label: qsTr("VEL A/F Nominal (D/F | I/F)")
 
                                 onLoaded: {
-                                    let velocity = 0
+                                    let velocityIfa = 0
+                                    let velocityDfa = 0
                                     if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                                        velocity = MachineData.getInflowVelocityPointField(2) / 100
+                                        velocityIfa = MachineData.getInflowVelocityPointField(2) / 100
+                                        velocityDfa = MachineData.getDownflowVelocityPointField(2) / 100
                                     }
                                     else {
-                                        velocity = MachineData.getInflowVelocityPointFactory(2) / 100
+                                        velocityIfa = MachineData.getInflowVelocityPointFactory(2) / 100
+                                        velocityDfa = MachineData.getDownflowVelocityPointFactory(2) / 100
                                     }
 
-                                    let velocityStr = ""
+                                    let velocityIfaStr = ""
+                                    let velocityDfaStr = ""
+
                                     if (MachineData.measurementUnit) {
                                         /// imperial
-                                        velocityStr = velocity.toFixed() + " fpm"
+                                        velocityIfaStr = velocityIfa.toFixed() + " fpm"
+                                        velocityDfaStr = velocityDfa.toFixed() + " fpm"
                                     }
                                     else {
                                         /// metric
-                                        velocityStr = velocity.toFixed(2) + " m/s"
+                                        velocityIfaStr = velocityIfa.toFixed(2) + " m/s"
+                                        velocityDfaStr = velocityDfa.toFixed(2) + " m/s"
                                     }
 
-                                    value = velocityStr
+                                    value = velocityDfaStr + " | " + velocityIfaStr
                                 }
                             }//
 
@@ -489,25 +509,32 @@ ViewApp {
                                 label: qsTr("VEL A/F Fail (D/F | I/F)")
 
                                 onLoaded: {
-                                    let velocity = 0
+                                    let velocityDfa = 0
+                                    let velocityIfa = 0
+
                                     if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                                        velocity = MachineData.getInflowVelocityPointField(1) / 100
+                                        velocityDfa = MachineData.getDownflowVelocityPointField(1) / 100
+                                        velocityIfa = MachineData.getInflowVelocityPointField(1) / 100
                                     }
                                     else {
-                                        velocity = MachineData.getInflowVelocityPointFactory(1) / 100
+                                        velocityDfa = MachineData.getDownflowVelocityPointFactory(1) / 100
+                                        velocityIfa = MachineData.getInflowVelocityPointFactory(1) / 100
                                     }
 
-                                    let velocityStr = ""
+                                    let velocityIfaStr = ""
+                                    let velocityDfaStr = ""
                                     if (MachineData.measurementUnit) {
                                         /// imperial
-                                        velocityStr = velocity.toFixed() + " fpm"
+                                        velocityDfaStr = velocityDfa.toFixed() + " fpm"
+                                        velocityIfaStr = velocityIfa.toFixed() + " fpm"
                                     }
                                     else {
                                         /// metric
-                                        velocityStr = velocity.toFixed(2) + " m/s"
+                                        velocityDfaStr = velocityDfa.toFixed(2) + " m/s"
+                                        velocityIfaStr = velocityIfa.toFixed(2) + " m/s"
                                     }
 
-                                    value = velocityStr
+                                    value = velocityDfaStr + " | " + velocityIfaStr
                                 }
                             }//
 
@@ -521,20 +548,26 @@ ViewApp {
                                 label: qsTr("VEL A/F 2 (D/F | I/F)")
 
                                 onLoaded: {
-                                    let velocity = 0
-                                    velocity = MachineData.getInflowVelocityPointFactory(2) / 100
+                                    let velocityDfa = 0
+                                    let velocityIfa = 0
 
-                                    let velocityStr = ""
+                                    velocityIfa = MachineData.getInflowVelocityPointFactory(2) / 100
+                                    velocityDfa = MachineData.getDownflowVelocityPointFactory(2) / 100
+
+                                    let velocityIfaStr = ""
+                                    let velocityDfaStr = ""
                                     if (MachineData.measurementUnit) {
                                         /// imperial
-                                        velocityStr = velocity.toFixed() + " fpm"
+                                        velocityIfaStr = velocityIfa.toFixed() + " fpm"
+                                        velocityDfaStr = velocityDfa.toFixed() + " fpm"
                                     }
                                     else {
                                         /// metric
-                                        velocityStr = velocity.toFixed(2) + " m/s"
+                                        velocityIfaStr = velocityIfa.toFixed(2) + " m/s"
+                                        velocityDfaStr = velocityDfa.toFixed(2) + " m/s"
                                     }
 
-                                    value = velocityStr
+                                    value = velocityDfaStr + " | " + velocityIfaStr
                                 }
                             }//
 
@@ -548,26 +581,32 @@ ViewApp {
                                 label: qsTr("VEL A/F 1 (D/F | I/F)")
 
                                 onLoaded: {
-                                    let velocity = 0
-                                    velocity = MachineData.getInflowVelocityPointFactory(1) / 100
+                                    let velocityDfa = 0
+                                    let velocityIfa = 0
 
-                                    let velocityStr = ""
+                                    velocityIfa = MachineData.getInflowVelocityPointFactory(1) / 100
+                                    velocityDfa = MachineData.getDownflowVelocityPointFactory(1) / 100
+
+                                    let velocityIfaStr = ""
+                                    let velocityDfaStr = ""
                                     if (MachineData.measurementUnit) {
                                         /// imperial
-                                        velocityStr = velocity.toFixed() + " fpm"
+                                        velocityIfaStr = velocityIfa.toFixed() + " fpm"
+                                        velocityDfaStr = velocityDfa.toFixed() + " fpm"
                                     }
                                     else {
                                         /// metric
-                                        velocityStr = velocity.toFixed(2) + " m/s"
+                                        velocityIfaStr = velocityIfa.toFixed(2) + " m/s"
+                                        velocityDfaStr = velocityDfa.toFixed(2) + " m/s"
                                     }
 
-                                    value = velocityStr
+                                    value = velocityDfaStr + " | " + velocityIfaStr
                                 }
                             }//
 
                             CusComPage.RowItemApp {
                                 id: ifaSensorConstVel
-                                visible: (MachineData.getDownflowSensorConstant() > 0 || MachineData.getInflowSensorConstant() > 0)
+                                enabled: (MachineData.getDownflowSensorConstant() > 0 || MachineData.getInflowSensorConstant() > 0)
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY
@@ -591,16 +630,18 @@ ViewApp {
 
                                 onLoaded: {
                                     if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                                        const ducy = MachineData.getFanPrimaryNominalDutyCycleField()
-                                        const rpm = MachineData.getFanPrimaryNominalRpmField()
+                                        const ducyDfa = MachineData.getFanPrimaryNominalDutyCycleField()
+                                        const rpmDfa = MachineData.getFanPrimaryNominalRpmField()
+                                        const ducyIfa = MachineData.getFanInflowNominalDutyCycleField()
 
-                                        value = ducy + "%" + " / " + rpm + " RPM"
+                                        value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyIfa + " RPM"
                                     }
                                     else {
-                                        const ducy = MachineData.getFanPrimaryNominalDutyCycleFactory()
-                                        const rpm = MachineData.getFanPrimaryNominalRpmFactory()
+                                        const ducyDfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
+                                        const rpmDfa = MachineData.getFanPrimaryNominalRpmFactory()
+                                        const ducyIfa = MachineData.getFanInflowNominalDutyCycleFactory()
 
-                                        value = ducy + "%" + " / " + rpm + " RPM"
+                                        value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyIfa + " RPM"
                                     }
                                 }
                             }//
@@ -616,16 +657,18 @@ ViewApp {
 
                                 onLoaded: {
                                     if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                                        const ducy = MachineData.getFanPrimaryMinimumDutyCycleField()
-                                        const rpm = MachineData.getFanPrimaryMinimumRpmField()
+                                        const ducyDfa = MachineData.getFanPrimaryMinimumDutyCycleField()
+                                        const rpmDfa = MachineData.getFanPrimaryMinimumRpmField()
+                                        const ducyIfa = MachineData.getFanInflowMinimumDutyCycleField()
 
-                                        value = ducy + "%" + " / " + rpm + " RPM"
+                                        value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyIfa + " RPM"
                                     }//
                                     else {
-                                        const ducy = MachineData.getFanPrimaryMinimumDutyCycleFactory()
-                                        const rpm = MachineData.getFanPrimaryMinimumRpmFactory()
+                                        const ducyDfa = MachineData.getFanPrimaryMinimumDutyCycleFactory()
+                                        const rpmDfa = MachineData.getFanPrimaryMinimumRpmFactory()
+                                        const ducyIfa = MachineData.getFanInflowMinimumDutyCycleFactory()
 
-                                        value = ducy + "%" + " / " + rpm + " RPM"
+                                        value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyIfa + " RPM"
                                     }//
                                 }//
                             }//
@@ -641,16 +684,18 @@ ViewApp {
 
                                 onLoaded: {
                                     if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                                        const ducy = MachineData.getFanPrimaryStandbyDutyCycleField()
-                                        const rpm = MachineData.getFanPrimaryStandbyRpmField()
+                                        const ducyDfa = MachineData.getFanPrimaryStandbyDutyCycleField()
+                                        const rpmDfa = MachineData.getFanPrimaryStandbyRpmField()
+                                        const ducyIfa = MachineData.getFanInflowStandbyDutyCycleField()
 
-                                        value = ducy + "%" + " / " + rpm + " RPM"
+                                        value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyIfa + " RPM"
                                     }
                                     else {
-                                        const ducy = MachineData.getFanPrimaryStandbyDutyCycleFactory()
-                                        const rpm = MachineData.getFanPrimaryStandbyRpmFactory()
+                                        const ducyDfa = MachineData.getFanPrimaryStandbyDutyCycleFactory()
+                                        const rpmDfa = MachineData.getFanPrimaryStandbyRpmFactory()
+                                        const ducyIfa = MachineData.getFanInflowStandbyDutyCycleFactory()
 
-                                        value = ducy + "%" + " / " + rpm + " RPM"
+                                        value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyIfa + " RPM"
                                     }
                                 }
                             }//
@@ -665,10 +710,11 @@ ViewApp {
                                 label: qsTr("Fan A/F 2 (D/F | I/F)")
 
                                 onLoaded: {
-                                    const ducy = MachineData.getFanPrimaryNominalDutyCycleFactory()
-                                    const rpm = MachineData.getFanPrimaryNominalRpmFactory()
+                                    const ducyDfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
+                                    const rpmDfa = MachineData.getFanPrimaryNominalRpmFactory()
+                                    const ducyIfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
 
-                                    value = ducy + "%" + " / " + rpm + " RPM"
+                                    value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyDfa + "%"
                                 }
                             }//
 
@@ -682,10 +728,11 @@ ViewApp {
                                 label: qsTr("Fan A/F 1 (D/F | I/F)")
 
                                 onLoaded: {
-                                    const ducy = MachineData.getFanPrimaryMinimumDutyCycleFactory()
-                                    const rpm = MachineData.getFanPrimaryMinimumRpmFactory()
+                                    const ducyDfa = MachineData.getFanPrimaryMinimumDutyCycleFactory()
+                                    const rpmDfa = MachineData.getFanPrimaryMinimumRpmFactory()
+                                    const ducyIfa = MachineData.getFanInflowMinimumDutyCycleFactory()
 
-                                    value = ducy + "%" + " / " + rpm + " RPM"
+                                    value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyDfa + "%"
                                 }
                             }//
 
@@ -696,13 +743,14 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Fan IFS (D/F | I/F)")
+                                label: qsTr("Fan A/F S (D/F | I/F)")
 
                                 onLoaded: {
-                                    const ducy = MachineData.getFanPrimaryStandbyDutyCycleFactory()
-                                    const rpm = MachineData.getFanPrimaryStandbyRpmFactory()
+                                    const ducyDfa = MachineData.getFanPrimaryStandbyDutyCycleFactory()
+                                    const rpmDfa = MachineData.getFanPrimaryStandbyRpmFactory()
+                                    const ducyIfa = MachineData.getFanInflowStandbyDutyCycleFactory()
 
-                                    value = ducy + "%" + " / " + rpm + " RPM"
+                                    value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyDfa + "%"
                                 }
                             }//
 
@@ -867,7 +915,7 @@ ViewApp {
                                 }
                             }//
                             CusComPage.RowItemApp {
-                                visible: MachineData.seasFlapInstalled
+                                enabled: MachineData.seasFlapInstalled
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY
