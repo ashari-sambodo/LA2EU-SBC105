@@ -65,7 +65,7 @@ ViewApp {
                         id: currentValueText
                         font.pixelSize: 36
                         wrapMode: Text.WordWrap
-                        text: utils.strfMinToHumanReadableShort(props.currentMeter)
+                        text: utils.strfMinToHumanReadableShort(props.currentMeterDfa)
                     }//
 
                     TextApp {
@@ -94,7 +94,7 @@ ViewApp {
 
                     onAccepted: {
                         let val = Number(text)
-                        MachineAPI.setFanUsageMeter(val)
+                        MachineAPI.setFanPrimaryUsageMeter(val)
 
                         showBusyPage(qsTr("Setting up..."), function(cycle){
                             if(cycle === 3) {
@@ -148,7 +148,8 @@ ViewApp {
         QtObject {
             id: props
 
-            property int currentMeter: 0
+            property int currentMeterDfa: 0
+            property int currentMeterIfa: 0
         }
 
         /// called Once but after onResume
@@ -163,7 +164,8 @@ ViewApp {
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
 
-                props.currentMeter = Qt.binding(function(){ return MachineData.fanUsageMeter })
+                props.currentMeterDfa = Qt.binding(function(){ return MachineData.fanPrimaryUsageMeter })
+                props.currentMeterIfa = Qt.binding(function(){ return MachineData.fanInflowUsageMeter })
             }
 
             /// onPause

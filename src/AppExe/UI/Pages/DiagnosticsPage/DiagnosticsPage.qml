@@ -180,7 +180,7 @@ ViewApp {
                             }//
 
                             CusComPage.RowItemApp {
-                                id: fanUsage
+                                id: fanUsageMeter
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY
@@ -190,14 +190,14 @@ ViewApp {
 
                                 onLoaded: {
                                     value1 = Qt.binding(function(){
-                                        let meter = MachineData.fanUsageMeter * 60
-                                        if (meter === 0) return qsTr("Never used")
-                                        return utilsApp.strfSecsToHumanReadableShort(meter)
+                                        let meterDfa = MachineData.fanPrimaryUsageMeter * 60
+                                        if (meterDfa === 0) return qsTr("Never used")
+                                        return utilsApp.strfSecsToHumanReadableShort(meterDfa)
                                     })
                                     value2= Qt.binding(function(){
-                                        let meter = MachineData.fanUsageMeter * 60
-                                        if (meter === 0) return qsTr("Never used")
-                                        return utilsApp.strfSecsToHumanReadableShort(meter)
+                                        let meterIfa = MachineData.fanInflowUsageMeter * 60
+                                        if (meterIfa === 0) return qsTr("Never used")
+                                        return utilsApp.strfSecsToHumanReadableShort(meterIfa)
                                     })
                                 }
                             }//
@@ -410,10 +410,12 @@ ViewApp {
 
                                 onLoaded: {
                                     if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                                        value = MachineData.getDownflowAdcPointField(1) + " | " + MachineData.getInflowAdcPointField(1);
+                                        value1 = MachineData.getDownflowAdcPointField(1)
+                                        value2 = MachineData.getInflowAdcPointField(1);
                                     }
                                     else {
-                                        value = MachineData.getDownflowAdcPointFactory(1) + " | " + MachineData.getInflowAdcPointField(1)
+                                        value1 = MachineData.getDownflowAdcPointFactory(1)
+                                        value2 = MachineData.getInflowAdcPointFactory(1)
                                     }
                                 }
                             }//
@@ -428,7 +430,8 @@ ViewApp {
                                 label: qsTr("ADC A/F 2 (D/F | I/F)")
 
                                 onLoaded: {
-                                    value = MachineData.getDownflowAdcPointFactory(2) + " | " + MachineData.getInflowAdcPointFactory(2);;
+                                    value1 = MachineData.getDownflowAdcPointFactory(2)
+                                    value2 = MachineData.getInflowAdcPointFactory(2)
                                 }
                             }//
 
@@ -442,7 +445,8 @@ ViewApp {
                                 label: qsTr("ADC A/F 1 (D/F | I/F)")
 
                                 onLoaded: {
-                                    value = MachineData.getDownflowAdcPointFactory(1) + " | " + MachineData.getInflowAdcPointFactory(1);
+                                    value1 = MachineData.getDownflowAdcPointFactory(1)
+                                    value2 = MachineData.getInflowAdcPointFactory(1);
                                 }
                             }//
 
@@ -456,7 +460,8 @@ ViewApp {
                                 label: qsTr("ADC A/F 0 (D/F | I/F)")
 
                                 onLoaded: {
-                                    value = MachineData.getDownflowAdcPointFactory(0) + " | " + MachineData.getInflowAdcPointFactory(0);
+                                    value1 = MachineData.getDownflowAdcPointFactory(0)
+                                    value2 = MachineData.getInflowAdcPointFactory(0);
                                 }
                             }//
 
@@ -495,7 +500,8 @@ ViewApp {
                                         velocityDfaStr = velocityDfa.toFixed(2) + " m/s"
                                     }
 
-                                    value = velocityDfaStr + " | " + velocityIfaStr
+                                    value1 = velocityDfaStr
+                                    value2 = velocityIfaStr
                                 }
                             }//
 
@@ -534,7 +540,8 @@ ViewApp {
                                         velocityIfaStr = velocityIfa.toFixed(2) + " m/s"
                                     }
 
-                                    value = velocityDfaStr + " | " + velocityIfaStr
+                                    value1 = velocityDfaStr
+                                    value2 = velocityIfaStr
                                 }
                             }//
 
@@ -567,7 +574,8 @@ ViewApp {
                                         velocityDfaStr = velocityDfa.toFixed(2) + " m/s"
                                     }
 
-                                    value = velocityDfaStr + " | " + velocityIfaStr
+                                    value1 = velocityDfaStr
+                                    value2 = velocityIfaStr
                                 }
                             }//
 
@@ -600,7 +608,8 @@ ViewApp {
                                         velocityDfaStr = velocityDfa.toFixed(2) + " m/s"
                                     }
 
-                                    value = velocityDfaStr + " | " + velocityIfaStr
+                                    value1 = velocityDfaStr
+                                    value2 = velocityIfaStr
                                 }
                             }//
 
@@ -634,14 +643,16 @@ ViewApp {
                                         const rpmDfa = MachineData.getFanPrimaryNominalRpmField()
                                         const ducyIfa = MachineData.getFanInflowNominalDutyCycleField()
 
-                                        value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyIfa + " RPM"
+                                        value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                        value2 = ducyIfa + " RPM"
                                     }
                                     else {
                                         const ducyDfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
                                         const rpmDfa = MachineData.getFanPrimaryNominalRpmFactory()
                                         const ducyIfa = MachineData.getFanInflowNominalDutyCycleFactory()
 
-                                        value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyIfa + " RPM"
+                                        value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                        value2 = ducyIfa + " RPM"
                                     }
                                 }
                             }//
@@ -661,14 +672,16 @@ ViewApp {
                                         const rpmDfa = MachineData.getFanPrimaryMinimumRpmField()
                                         const ducyIfa = MachineData.getFanInflowMinimumDutyCycleField()
 
-                                        value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyIfa + " RPM"
+                                        value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                        value2 = ducyIfa + " RPM"
                                     }//
                                     else {
                                         const ducyDfa = MachineData.getFanPrimaryMinimumDutyCycleFactory()
                                         const rpmDfa = MachineData.getFanPrimaryMinimumRpmFactory()
                                         const ducyIfa = MachineData.getFanInflowMinimumDutyCycleFactory()
 
-                                        value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyIfa + " RPM"
+                                        value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                        value2 = ducyIfa + " RPM"
                                     }//
                                 }//
                             }//
@@ -688,14 +701,16 @@ ViewApp {
                                         const rpmDfa = MachineData.getFanPrimaryStandbyRpmField()
                                         const ducyIfa = MachineData.getFanInflowStandbyDutyCycleField()
 
-                                        value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyIfa + " RPM"
+                                        value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                        value2 = ducyIfa + " RPM"
                                     }
                                     else {
                                         const ducyDfa = MachineData.getFanPrimaryStandbyDutyCycleFactory()
                                         const rpmDfa = MachineData.getFanPrimaryStandbyRpmFactory()
                                         const ducyIfa = MachineData.getFanInflowStandbyDutyCycleFactory()
 
-                                        value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyIfa + " RPM"
+                                        value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                        value2 = ducyIfa + " RPM"
                                     }
                                 }
                             }//
@@ -714,7 +729,8 @@ ViewApp {
                                     const rpmDfa = MachineData.getFanPrimaryNominalRpmFactory()
                                     const ducyIfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
 
-                                    value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyDfa + "%"
+                                    value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                    value2 = ducyIfa + " RPM"
                                 }
                             }//
 
@@ -732,7 +748,8 @@ ViewApp {
                                     const rpmDfa = MachineData.getFanPrimaryMinimumRpmFactory()
                                     const ducyIfa = MachineData.getFanInflowMinimumDutyCycleFactory()
 
-                                    value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyDfa + "%"
+                                    value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                    value2 = ducyIfa + " RPM"
                                 }
                             }//
 
@@ -750,51 +767,10 @@ ViewApp {
                                     const rpmDfa = MachineData.getFanPrimaryStandbyRpmFactory()
                                     const ducyIfa = MachineData.getFanInflowStandbyDutyCycleFactory()
 
-                                    value = "(" + ducyDfa + "%" + " / " + rpmDfa + " RPM)" + " | " + ducyDfa + "%"
+                                    value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                    value2 = ducyIfa + " RPM"
                                 }
                             }//
-
-                            //                            CusComPage.RowItemApp {
-                            //                                id: rtcTime
-                            //                                width: view.width
-                            //                                height: 50
-                            //                                viewContentY: view.contentY
-                            //                                viewSpan: view.span
-
-                            //                                label: qsTr("RTC Time")
-
-                            //                                onValueChanged: {
-                            //                                    //console.debug("value changed in diagnostics")
-                            //                                }
-
-                            //                                Loader {
-                            //                                    active: parent.loaderActive
-                            //                                    sourceComponent: QtObject{
-                            //                                        Component.onCompleted: {
-                            //                                            rtcTime.value = Qt.binding(function(){return MachineData.count})
-                            //                                        }//
-                            //                                    }//
-                            //                                }//
-                            //                            }//
-
-                            //                            CusComPage.RowItemApp {
-                            //                                id: rtcWatchdog
-                            //                                width: view.width
-                            //                                height: 50
-                            //                                viewContentY: view.contentY
-                            //                                viewSpan: view.span
-
-                            //                                label: qsTr("Watchdog")
-
-                            //                                Loader {
-                            //                                    active: parent.loaderActive
-                            //                                    sourceComponent: QtObject{
-                            //                                        Component.onCompleted: {
-                            //                                            rtcWatchdog.value = Qt.binding(function(){return MachineData.count})
-                            //                                        }//
-                            //                                    }//
-                            //                                }//
-                            //                            }//
 
                             CusComPage.RowItemApp {
                                 width: view.width

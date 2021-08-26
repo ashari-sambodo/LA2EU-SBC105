@@ -510,13 +510,24 @@ void MachineProxy::setFanPIN(const QString fanPIN)
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanUsageMeter(int minutes)
+void MachineProxy::setFanPrimaryUsageMeter(int minutes)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << minutes;
 
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, minutes](){
-        m_machineBackend->setFanUsageMeter(minutes);
+        m_machineBackend->setFanPrimaryUsageMeter(minutes);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanInflowUsageMeter(int minutes)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << minutes;
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, minutes](){
+        m_machineBackend->setFanInflowUsageMeter(minutes);
     },
     Qt::QueuedConnection);
 }

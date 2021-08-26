@@ -235,7 +235,8 @@ public slots:
     void setFanPIN(const QString fanPIN);
 
     /// FAN USAGE
-    void setFanUsageMeter(int minutes);
+    void setFanPrimaryUsageMeter(int minutes);
+    void setFanInflowUsageMeter(int minutes);
 
     /// UV USAGE
     void setUvUsageMeter(int minutes);

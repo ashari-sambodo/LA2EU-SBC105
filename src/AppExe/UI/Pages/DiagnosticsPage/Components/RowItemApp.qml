@@ -64,57 +64,55 @@ Item {
                         padding: 5
                     }//
                 }//
-                Item {
+                Item{
+                    id: value2Items
                     Layout.fillHeight: true
-                    //                                                Layout.fillWidth: true
-                    Layout.minimumWidth: parent.width * 0.20
-                    //                                                Layout.minimumWidth: 200
-                    visible: control.value1 !== ""
-                    //                                                Rectangle {anchors.fill: parent; color: "yellow"}
-
-                    TextApp {
-                        id: value1Text
-                        height: parent.height
-                        width: parent.width
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignRight
-                        text: control.value1
-                        padding: 5
-                        textFormat: Text.RichText
-                    }//
-                }//
-                Rectangle{
-                    visible: control.value1 !== "" && control.value2 !== ""
-                    Layout.minimumHeight: parent.height * 0.8
-                    Layout.minimumWidth: 1
-                    color: "#e3dac9"
-                }
-                Item {
-                    Layout.fillHeight: true
-                    //                                                Layout.fillWidth: true
-                    Layout.minimumWidth: parent.width * 0.20
-                    //                                                Layout.minimumWidth: 200
-                    visible: control.value2 !== ""
-                    //                                                Rectangle {anchors.fill: parent; color: "yellow"}
-
-                    TextApp {
-                        id: value2Text
-                        height: parent.height
-                        width: parent.width
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignLeft
-                        text: control.value2
-                        padding: 5
-                        textFormat: Text.RichText
-                    }//
-                }//
-                Item {
-                    Layout.fillHeight: true
-                    //                                                Layout.fillWidth: true
                     Layout.minimumWidth: parent.width * 0.40
-                    //                                                Layout.minimumWidth: 200
-                    visible: control.value2 === ""
-                    //                                                Rectangle {anchors.fill: parent; color: "yellow"}
+                    visible: control.value1 !== "" && control.value2 !== ""
+                    RowLayout{
+                        anchors.fill: parent
+                        Item {
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+
+                            TextApp {
+                                id: value1Text
+                                height: parent.height
+                                width: parent.width
+                                verticalAlignment: Text.AlignVCenter
+                                horizontalAlignment: Text.AlignRight
+                                text: control.value1
+                                padding: 5
+                                textFormat: Text.RichText
+                            }//
+                        }//
+                        Rectangle{
+                            Layout.minimumHeight: parent.height * 0.8
+                            Layout.minimumWidth: 1
+                            color: "#e3dac9"
+                        }
+                        Item {
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+
+                            TextApp {
+                                id: value2Text
+                                height: parent.height
+                                width: parent.width
+                                verticalAlignment: Text.AlignVCenter
+                                horizontalAlignment: Text.AlignLeft
+                                text: control.value2
+                                padding: 5
+                                textFormat: Text.RichText
+                            }//
+                        }//
+                    }//
+                }//
+                Item {
+                    id: valueItem
+                    Layout.fillHeight: true
+                    Layout.minimumWidth: parent.width * 0.40
+                    visible: !value2Items.visible
                     TextApp {
                         id: valueText
                         height: parent.height
@@ -122,7 +120,7 @@ Item {
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
                         text: control.value1 !== "" ? control.value1 : control.value
-                        //padding: 5
+                        padding: 5
                         textFormat: Text.RichText
                     }//
                 }//

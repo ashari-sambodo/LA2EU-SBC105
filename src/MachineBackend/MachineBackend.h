@@ -282,7 +282,8 @@ public slots:
     void setFanPIN(const QString fanPIN);
 
     /// FAN USAGE
-    void setFanUsageMeter(int minutes);
+    void setFanPrimaryUsageMeter(int minutes);
+    void setFanInflowUsageMeter(int minutes);
 
     /// UV USAGE
     void setUvUsageMeter(int minutes);
@@ -477,6 +478,8 @@ private:
 
     void _onFanPrimaryActualDucyChanged(short value);
     void _onFanPrimaryActualRpmChanged(int value);
+    void _onFanInflowActualDucyChanged(short value);
+    //    void _onFanInflowActualRpmChanged(int value);
 
     void _onSashStateChanged(short prevState, short state);
     void _onLightStateChanged(short state);

@@ -271,10 +271,14 @@ class MachineData : public QObject
                NOTIFY filterLifePercentChanged)
 
     /// Blower Meter
-    Q_PROPERTY(int fanUsageMeter
-               READ getFanUsageMeter
-               //               WRITE setFanUsageMeter
-               NOTIFY fanUsageMeterChanged)
+    Q_PROPERTY(int fanPrimaryUsageMeter
+               READ getFanPrimaryUsageMeter
+               //               WRITE setFanPrimaryUsageMeter
+               NOTIFY fanPrimaryUsageMeterChanged)
+    Q_PROPERTY(int fanInflowUsageMeter
+               READ getFanInflowUsageMeter
+               //               WRITE setFanInflowUsageMeter
+               NOTIFY fanInflowUsageMeterChanged)
 
     ///ALARM
     Q_PROPERTY(short muteAlarmState
@@ -1346,8 +1350,10 @@ public:
     void setSeasPressureDiffPaOffset(short seasPressureDiffPaOffset);
 
     /// FAN USAGE METER
-    int getFanUsageMeter() const;
-    void setFanUsageMeter(int fanUsageMeter);
+    int getFanPrimaryUsageMeter() const;
+    void setFanPrimaryUsageMeter(int fanPrimaryUsageMeter);
+    int getFanInflowUsageMeter() const;
+    void setFanInflowUsageMeter(int fanInflowUsageMeter);
 
     /// SERIAL NUMBER
     QString getSerialNumber() const;
@@ -1683,7 +1689,8 @@ signals:
     void seasAlarmPressureLowChanged(short seasAlarmPressureLow);
     void seasPressureDiffPaOffsetChanged(short seasPressureDiffPaOffset);
 
-    void fanUsageMeterChanged(int fanUsageMeter);
+    void fanPrimaryUsageMeterChanged(int fanPrimaryUsageMeter);
+    void fanInflowUsageMeterChanged(int fanPrimaryUsageMeter);
 
     void muteAlarmTimeChanged(int muteAlarmTime);
     void muteAlarmCountdownChanged(int muteAlarmCountdown);
@@ -2013,7 +2020,8 @@ private:
     short m_seasPressureDiffPaOffset = 0;
 
     /// FAN USAGE MATER
-    int m_fanUsageMeter = 0;
+    int m_fanPrimaryUsageMeter = 0;
+    int m_fanInflowUsageMeter = 0;
     QString m_serialNumber;
 
     /// ALARM LOG

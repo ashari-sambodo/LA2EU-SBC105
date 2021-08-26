@@ -263,7 +263,8 @@
 #define SKEY_SASH_CYCLE_METER           "sasCycMet"
 
 #define SKEY_FILTER_METER               "flMet"
-#define SKEY_FAN_METER                  "fanMet"
+#define SKEY_FAN_PRI_METER                  "fanPriMet"
+#define SKEY_FAN_INF_METER                  "fanInfMet"
 
 #define SKEY_POWER_OUTAGE               "pwOa"
 #define SKEY_POWER_OUTAGE_TIME          "pwOat"

@@ -652,12 +652,14 @@ void MachineBackend::setup()
         m_pFanInflow->setSubBoard(m_boardAnalogOutput2.data());
 
         connect(m_pFanInflow.data(), &DeviceAnalogCom::stateChanged,
-                pData, [&](int newVal){
-            pData->setFanInflowDutyCycle(static_cast<short>(newVal));
+                this, [&](int newVal){
 
+            _onFanInflowActualDucyChanged(static_cast<short>(newVal));
             /// MODBUS
             _setModbusRegHoldingValue(modbusRegisterAddress.fanInflowDutyCycle.addr, static_cast<ushort>(newVal));
         });
+
+
     }
     /// Fan Primary - Fan Downflow
     {
@@ -1923,13 +1925,21 @@ void MachineBackend::setup()
         //        _setModbusRegHoldingValue(modbusRegisterAddress.filterLife.addr, minutesPercentLeft);
     }
 
-    /// FAN Usage Meter
+    /// FAN Primary Usage Meter
     {
-        int minutes = m_settings->value(SKEY_FAN_METER, MachineEnums::DIG_STATE_ZERO).toInt();
+        int minutes = m_settings->value(SKEY_FAN_PRI_METER, MachineEnums::DIG_STATE_ZERO).toInt();
         //        minutes = 1000;
 
         //update to global observable variable
-        pData->setFanUsageMeter(minutes);
+        pData->setFanPrimaryUsageMeter(minutes);
+    }
+    /// FAN Inflow Usage Meter
+    {
+        int minutes = m_settings->value(SKEY_FAN_INF_METER, MachineEnums::DIG_STATE_ZERO).toInt();
+        //        minutes = 1000;
+
+        //update to global observable variable
+        pData->setFanInflowUsageMeter(minutes);
     }
 
     /// Mute Audible Alarm
@@ -4364,6 +4374,66 @@ void MachineBackend::_onFanPrimaryActualRpmChanged(int value)
     _setModbusRegHoldingValue(modbusRegisterAddress.fanRpm.addr, static_cast<ushort>(value));
 }
 
+void MachineBackend::_onFanInflowActualDucyChanged(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << value << thread();
+
+    pData->setFanInflowDutyCycle(value);
+
+    //    //// translate duty cycle to fan state
+    //    if (value == MachineEnums::DIG_STATE_ZERO) {
+    //        pData->setFanInflowState(MachineEnums::FAN_STATE_OFF);
+
+    //        _cancelWarmingUpTime();
+    //        _cancelPostPurgingTime();
+    //        _stopFanFilterLifeMeter();
+    //        _cancelPowerOutageCapture();
+
+    //        /// PARTICLE COUNTER
+    //        /// do not counting when internal blower is on
+    //        if (pData->getParticleCounterSensorInstalled()) {
+    //            if (pData->getParticleCounterSensorFanState()){
+    //                m_pParticleCounter->setFanStatePaCo(MachineEnums::DIG_STATE_ZERO);
+    //            }
+    //        }
+    //    }
+    //    else if (value == pData->getFanInflowStandbyDutyCycle()) {
+    //        pData->setFanInflowState(MachineEnums::FAN_STATE_STANDBY);
+    //    }
+    //    else {
+    //        pData->setFanInflowState(MachineEnums::FAN_STATE_ON);
+
+    //        _startFanFilterLifeMeter();
+
+    //        if(!isMaintenanceModeActive()) {
+    //            if(isAirflowHasCalibrated()) {
+    //                _startWarmingUpTime();
+    //                _startPowerOutageCapture();
+    //            }
+    //        }
+
+    //        /// PARTICLE COUNTER
+    //        /// only counting when internal blower is on
+    //        if (pData->getParticleCounterSensorInstalled()) {
+    //            if (!pData->getParticleCounterSensorFanState()){
+    //                m_pParticleCounter->setFanStatePaCo(MachineEnums::DIG_STATE_ONE);
+    //            }
+    //        }
+    //    }
+
+    /// MODBUS
+    //    _setModbusRegHoldingValue(modbusRegisterAddress.fanIfaState.addr, static_cast<ushort>(pData->getFanInflowState()));
+    //    _setModbusRegHoldingValue(modbusRegisterAddress.fanIfaDutyCycle.addr, static_cast<ushort>(value));
+}
+
+//void MachineBackend::_onFanInflowActualRpmChanged(int value)
+//{
+//    pData->setFanPrimaryRpm(value);
+
+//    /// MODBUS
+//    _setModbusRegHoldingValue(modbusRegisterAddress.fanRpm.addr, static_cast<ushort>(value));
+//}
+
 void MachineBackend::_onSashStateChanged(short state, short prevState)
 {
     Q_UNUSED(prevState)
@@ -4986,13 +5056,21 @@ void MachineBackend::_onTimerEventFanFilterUsageMeterCalculate()
 
     /// FAN METER
     {
-        int count = pData->getFanUsageMeter();
+        int count = pData->getFanPrimaryUsageMeter();
         count = count + 1;
-        pData->setFanUsageMeter(count);
+        pData->setFanPrimaryUsageMeter(count);
 
-        settings.setValue(SKEY_FAN_METER, count);
+        settings.setValue(SKEY_FAN_PRI_METER, count);
 
-        //        qDebug() << __func__ << "getFanUsageMeter"  << count;
+        //        qDebug() << __func__ << "getFanPrimaryUsageMeter"  << count;
+
+        count = pData->getFanInflowUsageMeter();
+        count = count + 1;
+        pData->setFanInflowUsageMeter(count);
+
+        settings.setValue(SKEY_FAN_INF_METER, count);
+
+        //        qDebug() << __func__ << "getFanInflowUsageMeter"  << count;
     }
 }
 
@@ -5861,16 +5939,28 @@ void MachineBackend::setFanPIN(const QString fanPIN)
     settings.setValue(SKEY_FAN_PIN, fanPinEncode);
 }
 
-void MachineBackend::setFanUsageMeter(int minutes)
+void MachineBackend::setFanPrimaryUsageMeter(int minutes)
 {
     qDebug() << metaObject()->className() << __func__  << thread();
 
-    pData->setFanUsageMeter(minutes);
+    pData->setFanPrimaryUsageMeter(minutes);
 
     QSettings settings;
-    settings.setValue(SKEY_FAN_METER, minutes);
+    settings.setValue(SKEY_FAN_PRI_METER, minutes);
 
-    //        qDebug() << __func__ << "getFanUsageMeter"  << count;
+    //        qDebug() << __func__ << "getFanPrimaryUsageMeter"  << count;
+}
+
+void MachineBackend::setFanInflowUsageMeter(int minutes)
+{
+    qDebug() << metaObject()->className() << __func__  << thread();
+
+    pData->setFanInflowUsageMeter(minutes);
+
+    QSettings settings;
+    settings.setValue(SKEY_FAN_INF_METER, minutes);
+
+    //        qDebug() << __func__ << "getFanInflowUsageMeter"  << count;
 }
 
 void MachineBackend::setUvUsageMeter(int minutes)

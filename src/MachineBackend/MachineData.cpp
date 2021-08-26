@@ -925,14 +925,23 @@ void MachineData::setMuteAlarmCountdown(int muteAlarmCountdown)
     emit muteAlarmCountdownChanged(m_muteAlarmCountdown);
 }
 
-void MachineData::setFanUsageMeter(int fanUsageMeter)
+void MachineData::setFanPrimaryUsageMeter(int fanPrimaryUsageMeter)
 {
-    if (m_fanUsageMeter == fanUsageMeter)
+    if (m_fanPrimaryUsageMeter == fanPrimaryUsageMeter)
         return;
 
-    m_fanUsageMeter = fanUsageMeter;
-    //    qDebug() << __func__ <<  m_fanUsageMeter;
-    emit fanUsageMeterChanged(m_fanUsageMeter);
+    m_fanPrimaryUsageMeter = fanPrimaryUsageMeter;
+    //    qDebug() << __func__ <<  m_fanPrimaryUsageMeter;
+    emit fanPrimaryUsageMeterChanged(m_fanPrimaryUsageMeter);
+}
+void MachineData::setFanInflowUsageMeter(int fanInflowUsageMeter)
+{
+    if (m_fanInflowUsageMeter == fanInflowUsageMeter)
+        return;
+
+    m_fanInflowUsageMeter = fanInflowUsageMeter;
+    //    qDebug() << __func__ <<  m_fanInflowUsageMeter;
+    emit fanInflowUsageMeterChanged(m_fanInflowUsageMeter);
 }
 
 QString MachineData::getSerialNumber() const
@@ -959,9 +968,13 @@ void MachineData::setSeasPressureDiffPaOffset(short seasPressureDiffPaOffset)
     emit seasPressureDiffPaOffsetChanged(m_seasPressureDiffPaOffset);
 }
 
-int MachineData::getFanUsageMeter() const
+int MachineData::getFanPrimaryUsageMeter() const
 {
-    return m_fanUsageMeter;
+    return m_fanPrimaryUsageMeter;
+}
+int MachineData::getFanInflowUsageMeter() const
+{
+    return m_fanInflowUsageMeter;
 }
 
 void MachineData::setSeasAlarmPressureLow(short seasAlarmPressureLow)
