@@ -144,7 +144,7 @@ ViewApp {
                 //console.debug("StackView.Active");
 
                 props.operationMode = Qt.binding(function(){ return MachineData.operationMode })
-                props.fanState = Qt.binding(function(){ return MachineData.fanPrimaryState })
+                props.fanState = Qt.binding(function(){ return MachineData.fanState })
             }
 
             /// onPause

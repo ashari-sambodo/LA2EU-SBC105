@@ -78,12 +78,12 @@ ViewApp {
                 viewApp.enabledSwipedFromBottomEdge = false
                 viewApp.enabledSwipedFromTopEdge    = false
 
-                //                console.log(MachineData.fanPrimaryState)
-                if ((MachineData.fanPrimaryState === MachineAPI.FAN_STATE_ON)
+                //                console.log(MachineData.fanState)
+                if ((MachineData.fanState === MachineAPI.FAN_STATE_ON)
                         && !MachineData.alarmsState){
                     actualContentLoader.setSource("Fragments/ScreenSaverNormal.qml")
                 }
-                else if (MachineData.fanPrimaryState === MachineAPI.FAN_STATE_STANDBY){
+                else if (MachineData.fanState === MachineAPI.FAN_STATE_STANDBY){
                     actualContentLoader.setSource("Fragments/ScreenSaverStandby.qml")
                 }
                 else {

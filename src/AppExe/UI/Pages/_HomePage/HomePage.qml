@@ -2019,10 +2019,10 @@ ViewApp {
                                         return
                                     }
                                     else if (props.alarmSashFullyOpen
-                                            || props.alarmBoardComError
-                                            || props.alarmInflowLow
-                                            || props.alarmSeasTooPositive
-                                            || props.alarmSeasFlapTooPositive) {
+                                             || props.alarmBoardComError
+                                             || props.alarmInflowLow
+                                             || props.alarmSeasTooPositive
+                                             || props.alarmSeasFlapTooPositive) {
 
                                         MachineAPI.setMuteAlarmState(!props.muteAlarmState)
                                     }
@@ -2274,7 +2274,14 @@ ViewApp {
                 props.sashWindowState = Qt.binding(function(){ return MachineData.sashWindowState })
 
                 props.fanInterlocked = Qt.binding(function(){ return MachineData.fanPrimaryInterlocked })
-                props.fanState = Qt.binding(function(){ return MachineData.fanPrimaryState })
+                props.fanState = Qt.binding(function(){
+                    //                    if(MachineData.fanPrimaryState === MachineAPI.FAN_STATE_ON && MachineData.fanInflowState === MachineAPI.FAN_STATE_ON)
+                    //                        return MachineAPI.FAN_STATE_ON
+                    //                    else if(MachineData.fanPrimaryState === MachineAPI.FAN_STATE_STANDBY && MachineData.fanInflowState === MachineAPI.FAN_STATE_STANDBY)
+                    //                        return MachineAPI.FAN_STATE_STANDBY
+                    //                    else
+                    return MachineData.fanState
+                })
 
                 props.lampInterlocked = Qt.binding(function(){ return MachineData.lightInterlocked })
                 props.lampState = Qt.binding(function(){ return MachineData.lightState })

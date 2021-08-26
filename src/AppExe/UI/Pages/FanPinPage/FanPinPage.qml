@@ -295,7 +295,7 @@ ViewApp {
                 //                    //console.debug("StackView.Active");
                 props.fanPIN = MachineData.fanPIN
                 console.log("MachineData.fanPIN: " + MachineData.fanPIN)
-                props.fanState = Qt.binding(function(){ return MachineData.fanPrimaryState })
+                props.fanState = Qt.binding(function(){ return MachineData.fanState })
             }//
 
             /// onPause

@@ -2178,7 +2178,7 @@ void MachineBackend::deallocate()
     m_timerEventForLcdToDimm->stop();
     m_timerEventForRTCWatchdogReset->stop();
 
-    /// turned off the blower
+    /// turned off the Downflow blower
     if(pData->getFanPrimaryState()){
         _setFanPrimaryStateOFF();
         QEventLoop waitLoop;
@@ -2195,6 +2195,25 @@ void MachineBackend::deallocate()
         });
         waitLoop.exec();
     }
+
+    /// turned off the Inflow blower
+    if(pData->getFanInflowState()){
+        _setFanInflowStateOFF();
+        QEventLoop waitLoop;
+        /// https://www.kdab.com/nailing-13-signal-slot-mistakes-clazy-1-3/
+        QObject::connect(m_pFanInflow.data(), &DeviceAnalogCom::stateChanged,
+                         &waitLoop, [this, &waitLoop] (int state){
+            //            qDebug() << "waitLoop" << dutyCycle;
+            if (state == 0){
+                waitLoop.quit();
+            }
+            else {
+                _setFanInflowStateOFF();
+            }
+        });
+        waitLoop.exec();
+    }
+    pData->setFanState(MachineEnums::FAN_STATE_OFF);
 
     //    qDebug() << metaObject()->className() << __FUNCTION__ << "phase-2";
     if(m_threadForBoardIO){
@@ -3106,6 +3125,9 @@ void MachineBackend::setFanState(short value)
     }
         break;
     }
+    pData->setFanState(value);
+    pData->setFanInflowState(value);
+    pData->setFanPrimaryState(value);
 }
 
 void MachineBackend::setFanPrimaryDutyCycle(short value)
@@ -4323,6 +4345,8 @@ void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
     //// translate duty cycle to fan state
     if (value == MachineEnums::DIG_STATE_ZERO) {
         pData->setFanPrimaryState(MachineEnums::FAN_STATE_OFF);
+        /// Set the Fan State to OFF if one of the blowers is Off
+        pData->setFanState(MachineEnums::FAN_STATE_OFF);
 
         _cancelWarmingUpTime();
         _cancelPostPurgingTime();
@@ -4339,9 +4363,19 @@ void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
     }
     else if (value == pData->getFanPrimaryStandbyDutyCycle()) {
         pData->setFanPrimaryState(MachineEnums::FAN_STATE_STANDBY);
+        /// Check Another Fan State
+        if(pData->getFanInflowState() == MachineEnums::FAN_STATE_STANDBY && pData->getFanState() != MachineEnums::FAN_STATE_STANDBY)
+            pData->setFanState(MachineEnums::FAN_STATE_STANDBY);
+        else
+            pData->setFanState(MachineEnums::FAN_STATE_DIFFERENT);
     }
     else {
         pData->setFanPrimaryState(MachineEnums::FAN_STATE_ON);
+        /// Check Another Fan State
+        if(pData->getFanInflowState() == MachineEnums::FAN_STATE_ON && pData->getFanState() != MachineEnums::FAN_STATE_ON)
+            pData->setFanState(MachineEnums::FAN_STATE_ON);
+        else
+            pData->setFanState(MachineEnums::FAN_STATE_DIFFERENT);
 
         _startFanFilterLifeMeter();
 
@@ -4380,46 +4414,58 @@ void MachineBackend::_onFanInflowActualDucyChanged(short value)
 
     pData->setFanInflowDutyCycle(value);
 
-    //    //// translate duty cycle to fan state
-    //    if (value == MachineEnums::DIG_STATE_ZERO) {
-    //        pData->setFanInflowState(MachineEnums::FAN_STATE_OFF);
+    //// translate duty cycle to fan state
+    if (value == MachineEnums::DIG_STATE_ZERO) {
+        pData->setFanInflowState(MachineEnums::FAN_STATE_OFF);
+        /// Set the Fan State to OFF if one of the blowers is Off
+        pData->setFanState(MachineEnums::FAN_STATE_OFF);
 
-    //        _cancelWarmingUpTime();
-    //        _cancelPostPurgingTime();
-    //        _stopFanFilterLifeMeter();
-    //        _cancelPowerOutageCapture();
+        //        _cancelWarmingUpTime();
+        //        _cancelPostPurgingTime();
+        //        _stopFanFilterLifeMeter();
+        //        _cancelPowerOutageCapture();
 
-    //        /// PARTICLE COUNTER
-    //        /// do not counting when internal blower is on
-    //        if (pData->getParticleCounterSensorInstalled()) {
-    //            if (pData->getParticleCounterSensorFanState()){
-    //                m_pParticleCounter->setFanStatePaCo(MachineEnums::DIG_STATE_ZERO);
-    //            }
-    //        }
-    //    }
-    //    else if (value == pData->getFanInflowStandbyDutyCycle()) {
-    //        pData->setFanInflowState(MachineEnums::FAN_STATE_STANDBY);
-    //    }
-    //    else {
-    //        pData->setFanInflowState(MachineEnums::FAN_STATE_ON);
+        //        /// PARTICLE COUNTER
+        //        /// do not counting when internal blower is on
+        //        if (pData->getParticleCounterSensorInstalled()) {
+        //            if (pData->getParticleCounterSensorFanState()){
+        //                m_pParticleCounter->setFanStatePaCo(MachineEnums::DIG_STATE_ZERO);
+        //            }
+        //        }
+    }
+    else if (value == pData->getFanInflowStandbyDutyCycle()) {
+        pData->setFanInflowState(MachineEnums::FAN_STATE_STANDBY);
+        /// Check Another Fan State
+        if(pData->getFanPrimaryState() == MachineEnums::FAN_STATE_STANDBY && pData->getFanState() != MachineEnums::FAN_STATE_STANDBY)
+            pData->setFanState(MachineEnums::FAN_STATE_STANDBY);
+        else
+            pData->setFanState(MachineEnums::FAN_STATE_DIFFERENT);
+    }
+    else {
+        pData->setFanInflowState(MachineEnums::FAN_STATE_ON);
+        /// Check Another Fan State
+        if(pData->getFanPrimaryState() == MachineEnums::FAN_STATE_ON && pData->getFanState() != MachineEnums::FAN_STATE_ON)
+            pData->setFanState(MachineEnums::FAN_STATE_ON);
+        else
+            pData->setFanState(MachineEnums::FAN_STATE_DIFFERENT);
 
-    //        _startFanFilterLifeMeter();
+        _startFanFilterLifeMeter();
 
-    //        if(!isMaintenanceModeActive()) {
-    //            if(isAirflowHasCalibrated()) {
-    //                _startWarmingUpTime();
-    //                _startPowerOutageCapture();
-    //            }
-    //        }
+        if(!isMaintenanceModeActive()) {
+            if(isAirflowHasCalibrated()) {
+                _startWarmingUpTime();
+                _startPowerOutageCapture();
+            }
+        }
 
-    //        /// PARTICLE COUNTER
-    //        /// only counting when internal blower is on
-    //        if (pData->getParticleCounterSensorInstalled()) {
-    //            if (!pData->getParticleCounterSensorFanState()){
-    //                m_pParticleCounter->setFanStatePaCo(MachineEnums::DIG_STATE_ONE);
-    //            }
-    //        }
-    //    }
+        /// PARTICLE COUNTER
+        /// only counting when internal blower is on
+        if (pData->getParticleCounterSensorInstalled()) {
+            if (!pData->getParticleCounterSensorFanState()){
+                m_pParticleCounter->setFanStatePaCo(MachineEnums::DIG_STATE_ONE);
+            }
+        }
+    }
 
     /// MODBUS
     //    _setModbusRegHoldingValue(modbusRegisterAddress.fanIfaState.addr, static_cast<ushort>(pData->getFanInflowState()));
@@ -6094,7 +6140,8 @@ void MachineBackend::setShippingModeEnable(bool shippingModeEnable)
 
         /// reset boys
         setting.setValue(SKEY_FILTER_METER, SDEF_FILTER_MAXIMUM_TIME_LIFE);
-        setting.setValue(SKEY_FAN_METER, 0);
+        setting.setValue(SKEY_FAN_PRI_METER, 0);
+        setting.setValue(SKEY_FAN_INF_METER, 0);
         setting.setValue(SKEY_SASH_CYCLE_METER, 0);
         setting.setValue(SKEY_UV_METER, SDEF_UV_MAXIMUM_TIME_LIFE);
     }

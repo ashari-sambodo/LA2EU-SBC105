@@ -2924,6 +2924,18 @@ void MachineData::setSashWindowState(short sashWindowState)
     emit sashWindowStateChanged(m_sashWindowState);
 }
 
+short MachineData::getFanState() const
+{
+    return m_fanState;
+}
+
+void MachineData::setFanState(short fanState)
+{
+    if(m_fanState == fansState) return;
+    m_fanState = fanState;
+    emit fanStateChanged(m_fanState);
+}
+
 void MachineData::setSashWindowMotorizeState(short sashMotorizeState)
 {
     if (m_sashWindowMotorizeState == sashMotorizeState)

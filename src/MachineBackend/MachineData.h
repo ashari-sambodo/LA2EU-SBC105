@@ -64,6 +64,11 @@ class MachineData : public QObject
                NOTIFY magSWStateChanged)
 
     //// FAN
+    Q_PROPERTY(short fanState
+               READ getFanState
+               //               WRITE setFanState
+               NOTIFY fanStateChanged)
+    //// FAN DOWNFLOW
     Q_PROPERTY(bool fanPrimaryInterlocked
                READ getFanPrimaryInterlocked
                //               WRITE setFanPrimaryInterlocked
@@ -83,7 +88,7 @@ class MachineData : public QObject
                //               WRITE setFanPrimaryRpm
                NOTIFY fanPrimaryRpmChanged)
 
-    //Added for LA2-EU INFLOW
+    //// FAN INFLOW
     Q_PROPERTY(bool fanInflowInterlocked
                READ getFanInflowInterlocked
                //               WRITE setFanInflowInterlocked
@@ -871,6 +876,9 @@ public:
     void setSashWindowState(short sashWindowState);
 
     ///FAN
+    short getFanState() const;
+    void setFanState(short fanState);
+    /// FAN DOWNFLOW
     short getFanPrimaryState() const;
     void setFanPrimaryState(short fanPrimaryState);
     ///
@@ -1529,6 +1537,8 @@ signals:
 
     void hasStoppedChanged(bool hasStopped);
 
+    void fanStateChanged(short fanState);
+
     void fanPrimaryStateChanged(short fanPrimaryState);
     void fanInflowStateChanged(short fanInflowState);
     void lightStateChanged(short lightState);
@@ -1796,6 +1806,7 @@ private:
     ///SASH
     short m_sashWindowState = 0;
 
+    short m_fanState = 0;
     short m_fanPrimaryState = 0;
     short m_fanInflowState = 0;
 

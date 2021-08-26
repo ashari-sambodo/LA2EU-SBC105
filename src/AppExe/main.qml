@@ -669,7 +669,7 @@ ApplicationWindow {
                             //                console.log("ExperimentTimerService.isRunning")
                             return
                         }
-                        if (!MachineData.airflowCalibrationStatus && MachineData.fanPrimaryState) {
+                        if (!MachineData.airflowCalibrationStatus && (MachineData.fanPrimaryState || MachineData.fanPrimaryState)) {
                             //                console.log("MachineData.airflowCalibrationStatus")
                             return
                         }

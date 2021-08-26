@@ -26,7 +26,8 @@ Q_ENUMS(EnumItemSashState)
 enum EnumItemFanState{
     FAN_STATE_OFF,
     FAN_STATE_ON,
-    FAN_STATE_STANDBY
+    FAN_STATE_STANDBY,
+    FAN_STATE_DIFFERENT // The condition is when both of fan are on but the state is not the same
 };
 Q_ENUMS(EnumItemFanState)
 
