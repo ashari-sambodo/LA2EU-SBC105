@@ -2443,6 +2443,11 @@ int MachineData::getDownflowLowLimitVelocity() const
 {
     return m_dfaLowLimitVelocity;
 }
+
+int MachineData::getDownflowHighLimitVelocity() const
+{
+    return m_dfaHighLimitVelocity;
+}
 short MachineData::getDownflowSensorConstant()
 {
     return m_dfaConstant;
@@ -2512,6 +2517,14 @@ void MachineData::setDownflowLowLimitVelocity(int dfaLowLimitVelocity)
         return;
 
     m_dfaLowLimitVelocity = dfaLowLimitVelocity;
+}
+
+void MachineData::setDownflowHighLimitVelocity(int ifaHighLimitVelocity)
+{
+    if (m_dfaHighLimitVelocity == ifaHighLimitVelocity)
+        return;
+
+    m_dfaHighLimitVelocity = ifaHighLimitVelocity;
 }
 void MachineData::setDownflowSensorConstant(short value)
 {
@@ -2931,7 +2944,7 @@ short MachineData::getFanState() const
 
 void MachineData::setFanState(short fanState)
 {
-    if(m_fanState == fansState) return;
+    if(m_fanState == fanState) return;
     m_fanState = fanState;
     emit fanStateChanged(m_fanState);
 }

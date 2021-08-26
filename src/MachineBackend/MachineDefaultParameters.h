@@ -287,6 +287,8 @@
 #define SKEY_MODBUS_SLAVE_ID            "modSlvID"
 #define SKEY_MODBUS_ALLOW_IP            "modAlwIp"
 #define SKEY_MODBUS_RW_FAN              "modRwFan"
+#define SKEY_MODBUS_RW_FAN_IFA          "modRwFanIfa"
+#define SKEY_MODBUS_RW_FAN_DFA          "modRwFanDfa"
 #define SKEY_MODBUS_RW_LAMP             "modRwLamp"
 #define SKEY_MODBUS_RW_LAMP_DIMM        "modRwLampDimm"
 #define SKEY_MODBUS_RW_SOCKET           "modRwSock"

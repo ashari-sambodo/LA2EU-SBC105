@@ -1206,6 +1206,7 @@ public:
     QString getDownflowVelocityStr() const;
     //
     Q_INVOKABLE int getDownflowLowLimitVelocity() const;
+    Q_INVOKABLE int getDownflowHighLimitVelocity() const;
     Q_INVOKABLE short getDownflowSensorConstant();
     Q_INVOKABLE int getDownflowTempCalib();
     Q_INVOKABLE int getDownflowTempCalibAdc();
@@ -1220,6 +1221,7 @@ public:
     void    setDownflowVelocityStr(QString dfaVelocityStr);
     //
     void    setDownflowLowLimitVelocity(int ifaLowLimitVelocity);
+    void    setDownflowHighLimitVelocity(int ifaHighLimitVelocity);
     void    setDownflowSensorConstant(short value);
     void    setDownflowTempCalib(short value);
     void    setDownflowTempCalibAdc(short value);
@@ -1663,8 +1665,8 @@ signals:
     void warmingUpTimeChanged(int warmingUpTime);
     void warmingUpCountdownChanged(int warmingUpCountdown);
 
-    void fanPrimarySwithingStateTriggered(bool stateTo);
-    void fanInflowSwithingStateTriggered(bool stateTo);
+    void fanSwithingStateTriggered(bool stateTo);
+    //void fanInflowSwithingStateTriggered(bool stateTo);
 
     void uvLifeMinutesChanged(int uvLifeMinutes);
     void uvLifePercentChanged(short uvLifePercent);
@@ -1879,13 +1881,14 @@ private:
     QString m_dfaVelocityStr;
     //
     int     m_dfaLowLimitVelocity = 0;
+    int     m_dfaHighLimitVelocity = 0;
     short   m_dfaConstant = 0;
     short   m_dfaTemperatureCalib = 0;
     short   m_dfaTemperatureCalibAdc = 0;
-    int     m_dfaAdcPointFactory[3] = {0,0,0};
-    int     m_dfaVelocityPointFactory[3] = {0,0,0};
-    int     m_dfaAdcPointField[3] = {0,0,0};
-    int     m_dfaVelocityPointField[3] = {0,0,0};
+    int     m_dfaAdcPointFactory[4] = {0,0,0,0};
+    int     m_dfaVelocityPointFactory[4] = {0,0,0,0};
+    int     m_dfaAdcPointField[4] = {0,0,0,0};
+    int     m_dfaVelocityPointField[4] = {0,0,0,0};
 
     //AIRFLOW CALIBRATION STATUS
     short m_inflowCalibrationStatus;

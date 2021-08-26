@@ -66,6 +66,11 @@ void DeviceAnalogCom::setState(int state)
     m_adcRequest = stateToAdc(state);
 }
 
+int DeviceAnalogCom::getState() const
+{
+    return m_state;
+}
+
 void DeviceAnalogCom::setInterlock(short interlock)
 {
     if(m_interlocked == interlock) return;

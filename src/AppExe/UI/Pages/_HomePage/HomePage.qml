@@ -2363,7 +2363,7 @@ ViewApp {
 
                 props.airflowMonitorEnable = Qt.binding(function(){return MachineData.airflowMonitorEnable})
                 /// show dialog progress when fan state will be switching
-                MachineData.fanPrimarySwithingStateTriggered.connect(props.showFanProgressSwitchingState)
+                MachineData.fanSwithingStateTriggered.connect(props.showFanProgressSwitchingState)
 
                 /// Power outage
                 props.powerOutage = MachineData.powerOutage
@@ -2416,7 +2416,7 @@ ViewApp {
 
                 /// THIS PAGE IS INVISIBLE,
                 /// TO PREVENT UNWANTED BEHAVIOUR, DISCONNECT THE SIGNAL
-                MachineData.fanPrimarySwithingStateTriggered.disconnect(props.showFanProgressSwitchingState)
+                MachineData.fanSwithingStateTriggered.disconnect(props.showFanProgressSwitchingState)
 
                 //                    props.currentPageIsForground = false
             }

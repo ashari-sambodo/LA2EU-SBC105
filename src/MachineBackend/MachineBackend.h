@@ -114,7 +114,10 @@ public slots:
     void setSerialNumber(QString value);
 
     void setFanState(short value);
+    void setFanPrimaryState(short value);
     void setFanPrimaryDutyCycle(short value);
+    void setFanInflowState(short value);
+    void setFanInflowDutyCycle(short value);
     //
     void setFanPrimaryNominalDutyCycleFactory(short value);
     void setFanPrimaryNominalRpmFactory(int value);
@@ -218,6 +221,10 @@ public slots:
                                      int velocity, int ducy, int rpm);
     ///
     //DOWNFLOW
+    void setDownflowSensorConstantTemporary(short value);
+    //
+    void setDownflowSensorConstant(short value);
+    void setDownflowTemperatureCalib(short value, int adc);
     //    void saveDownflowSensorConstant(short ifaConstant);
     //
     //    void saveDownflowAdcPointFactory(int pointZero, int pointMin, int pointNom);
@@ -445,7 +452,7 @@ private:
     void _insertAlarmLog(int alarmCode, const QString alarmText);
     void _insertEventLog(const QString logText);
 
-//    void _setFanDownflowDutyCycle(short value);
+    //    void _setFanDownflowDutyCycle(short value);
 
     void _setFanInflowStateNominal();
     void _setFanInflowStateMinimum();

@@ -16,6 +16,7 @@ public:
     void setSubBoard(AOmcp4725 *board);
 
     void setState(int state);
+    int getState() const;
 
     void setInterlock(short interlock);
 
