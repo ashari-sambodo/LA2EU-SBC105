@@ -119,6 +119,8 @@ public slots:
     void setFanInflowState(short value);
     void setFanInflowDutyCycle(short value);
     //
+    void setFanPrimaryMaximumDutyCycleFactory(short value);
+    void setFanPrimaryMaximumRpmFactory(int value);
     void setFanPrimaryNominalDutyCycleFactory(short value);
     void setFanPrimaryNominalRpmFactory(int value);
     void setFanPrimaryMinimumDutyCycleFactory(short value);
@@ -126,6 +128,8 @@ public slots:
     void setFanPrimaryStandbyDutyCycleFactory(short value);
     void setFanPrimaryStandbyRpmFactory(int value);
     //
+    void setFanPrimaryMaximumDutyCycleField(short value);
+    void setFanPrimaryMaximumRpmField(int value);
     void setFanPrimaryNominalDutyCycleField(short value);
     void setFanPrimaryNominalRpmField(int value);
     void setFanPrimaryMinimumDutyCycleField(short value);
@@ -228,12 +232,12 @@ public slots:
     //    void saveDownflowSensorConstant(short ifaConstant);
     //
     //    void saveDownflowAdcPointFactory(int pointZero, int pointMin, int pointNom);
-    void setDownflowVelocityPointFactory(int pointZero, int pointMin, int pointNom);
+    void setDownflowVelocityPointFactory(int pointZero, int pointMin, int pointNom, int pointMax);
     void setDownflowVelocityPointFactory(int point, int value);
     //    void saveDownflowTemperatureFactory(short ifaTemperatureFactory, int adc);
     //
     //    void saveDownflowAdcPointField(short point, int adc);
-    void setDownflowVelocityPointField(int pointZero, int pointMin, int pointNom);
+    void setDownflowVelocityPointField(int pointZero, int pointMin, int pointNom, int pointMax);
     void setDownflowVelocityPointField(int point, int value);
     //    void saveDownflowTemperatureField(short value, int adc);
     //
@@ -315,6 +319,7 @@ public slots:
     void setCurrentSystemAsKnown(bool value);
 
     void readSbcCurrentFullMacAddress();
+
 
 signals:
     void hasStopped();

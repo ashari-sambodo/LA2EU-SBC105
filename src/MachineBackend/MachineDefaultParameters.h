@@ -69,6 +69,9 @@
 //CALIB PHASE; NONE, FACTORY, or FIELD
 #define SKEY_AF_CALIB_PHASE             "afCalibPhase"
 ///FAN PRIMARY
+#define SKEY_FAN_PRI_MAX_DCY_FACTORY    "fanPriMaxDcyFac"
+#define SKEY_FAN_PRI_MAX_RPM_FACTORY    "fanPriMaxRpmFac"
+//
 #define SKEY_FAN_PRI_NOM_DCY_FACTORY    "fanPriNomDcyFac"
 #define SKEY_FAN_PRI_NOM_RPM_FACTORY    "fanPriNomRpmFac"
 //
@@ -77,6 +80,9 @@
 //
 #define SKEY_FAN_PRI_STB_DCY_FACTORY    "fanPriStbDcyFac"
 #define SKEY_FAN_PRI_STB_RPM_FACTORY    "fanPriStbRpmFac"
+//
+#define SKEY_FAN_PRI_MAX_DCY_FIELD      "fanPriMaxDcyFie"
+#define SKEY_FAN_PRI_MAX_RPM_FIELD      "fanPriMaxRpmFie"
 //
 #define SKEY_FAN_PRI_NOM_DCY_FIELD      "fanPriNomDcyFie"
 #define SKEY_FAN_PRI_NOM_RPM_FIELD      "fanPriNomRpmFie"
@@ -194,6 +200,7 @@
 //DFA
 #define SKEY_DFA_SENSOR_CONST           "dfaSenCon"
 #define SKEY_DFA_CAL_VEL_LOW_LIMIT      "dfaLowLim"
+#define SKEY_DFA_CAL_VEL_HIGH_LIMIT      "dfaHighLim"
 #define SKEY_DFA_CAL_TEMP               "dfaCalTem"
 #define SKEY_DFA_CAL_TEMP_ADC           "dfaCalTemAdc"
 //

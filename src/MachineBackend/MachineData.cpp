@@ -2263,6 +2263,26 @@ int MachineData::getFanPrimaryStandbyRpm() const
     return m_fanPrimaryStandbyRpm;
 }
 
+short MachineData::getFanPrimaryMaximumDutyCycleFactory() const
+{
+    return m_fanPrimaryMaximumDutyCycleFactory;
+}
+
+int MachineData::getFanPrimaryMaximumRpmFactory() const
+{
+    return m_fanPrimaryMaximumRpmFactory;
+}
+
+short MachineData::getFanPrimaryMaximumDutyCycleField() const
+{
+    return m_fanPrimaryMaximumDutyCycleField;
+}
+
+int MachineData::getFanPrimaryMaximumRpmField() const
+{
+    return m_fanPrimaryMaximumRpmField;
+}
+
 short MachineData::getTemperature() const
 {
     return m_temperature;
@@ -2631,6 +2651,24 @@ void MachineData::setFanPrimaryRpm(int value)
     emit fanPrimaryRpmChanged(m_fanPrimaryRpm);
 }
 
+void MachineData::setFanPrimaryMaximumDutyCycle(short value)
+{
+    if (m_fanPrimaryMaximumDutyCycle == value)
+        return;
+
+    m_fanPrimaryMaximumDutyCycle = value;
+    //emit fanPrimaryMaximumDutyCycleChanged(m_fanPrimaryMaximumDutyCycle);
+}
+
+void MachineData::setFanPrimaryMaximumRpm(short value)
+{
+    if (m_fanPrimaryMaximumRpm == value)
+        return;
+
+    m_fanPrimaryMaximumRpm = value;
+    //emit fanPrimaryMaximumRpmChanged(m_fanPrimaryMaximumRpm);
+}
+
 void MachineData::setFanPrimaryNominalDutyCycle(short value)
 {
     if (m_fanPrimaryNominalDutyCycle == value)
@@ -2685,6 +2723,38 @@ void MachineData::setFanPrimaryStandbyRpm(int fanPrimaryStandbyRpm)
     //    emit fanPrimaryStandbyRpmChanged(m_fanPrimaryStandbyRpm);
 }
 
+void MachineData::setFanPrimaryMaximumDutyCycleFactory(short fanPrimaryMaximumDutyCycleFactory)
+{
+    if (m_fanPrimaryMaximumDutyCycleFactory == fanPrimaryMaximumDutyCycleFactory)
+        return;
+
+    m_fanPrimaryMaximumDutyCycleFactory = fanPrimaryMaximumDutyCycleFactory;
+}
+
+void MachineData::setFanPrimaryMaximumRpmFactory(int fanPrimaryMaximumRpmFactory)
+{
+    if (m_fanPrimaryMaximumRpmFactory == fanPrimaryMaximumRpmFactory)
+        return;
+
+    m_fanPrimaryMaximumRpmFactory = fanPrimaryMaximumRpmFactory;
+}
+
+void MachineData::setFanPrimaryMaximumDutyCycleField(short fanPrimaryMaximumDutyCycleField)
+{
+    if (m_fanPrimaryMaximumDutyCycleField == fanPrimaryMaximumDutyCycleField)
+        return;
+
+    m_fanPrimaryMaximumDutyCycleField = fanPrimaryMaximumDutyCycleField;
+}
+
+void MachineData::setFanPrimaryMaximumRpmField(int fanPrimaryMaximumRpmField)
+{
+    if (m_fanPrimaryMaximumRpmField == fanPrimaryMaximumRpmField)
+        return;
+
+    m_fanPrimaryMaximumRpmField = fanPrimaryMaximumRpmField;
+}
+
 int MachineData::getInflowVelocity() const
 {
     return m_ifaVelocity;
@@ -2716,6 +2786,16 @@ void MachineData::setMachineProfile(QJsonObject machineProfile)
 int MachineData::getFanPrimaryRpm() const
 {
     return m_fanPrimaryRpm;
+}
+
+short MachineData::getFanPrimaryMaximumlDutyCycle() const
+{
+    return m_fanPrimaryMaximumDutyCycle;
+}
+
+int MachineData::getFanPrimaryMaximumRpm() const
+{
+    return m_fanPrimaryMaximumRpm;
 }
 
 short MachineData::getFanPrimaryNominalDutyCycle() const

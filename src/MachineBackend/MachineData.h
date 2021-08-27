@@ -1024,12 +1024,19 @@ public:
     //
     //    Q_INVOKABLE int     getFanDownflowDutyCycle() const;
     //
+    Q_INVOKABLE short   getFanPrimaryMaximumlDutyCycle() const;
+    Q_INVOKABLE int     getFanPrimaryMaximumRpm() const;
     Q_INVOKABLE short   getFanPrimaryNominalDutyCycle() const;
     Q_INVOKABLE int     getFanPrimaryNominalRpm() const;
     Q_INVOKABLE short   getFanPrimaryMinimumDutyCycle() const;
     Q_INVOKABLE int     getFanPrimaryMinimumRpm() const;
     Q_INVOKABLE short   getFanPrimaryStandbyDutyCycle() const;
     Q_INVOKABLE int     getFanPrimaryStandbyRpm() const;
+    //
+    Q_INVOKABLE short   getFanPrimaryMaximumDutyCycleFactory() const;
+    Q_INVOKABLE int     getFanPrimaryMaximumRpmFactory() const;
+    Q_INVOKABLE short   getFanPrimaryMaximumDutyCycleField() const;
+    Q_INVOKABLE int     getFanPrimaryMaximumRpmField() const;
     //
     Q_INVOKABLE short   getFanPrimaryNominalDutyCycleFactory() const;
     Q_INVOKABLE int     getFanPrimaryNominalRpmFactory() const;
@@ -1049,12 +1056,19 @@ public:
     void    setFanPrimaryDutyCycle(short value);
     void    setFanPrimaryRpm(int value);
     //
+    void    setFanPrimaryMaximumDutyCycle(short value);
+    void    setFanPrimaryMaximumRpm(short value);
     void    setFanPrimaryNominalDutyCycle(short value);
     void    setFanPrimaryNominalRpm(short value);
     void    setFanPrimaryMinimumDutyCycle(short value);
     void    setFanPrimaryMinimumRpm(short value);
     void    setFanPrimaryStandbyDutyCycle(short value);
     void    setFanPrimaryStandbyRpm(int fanPrimaryStandbyRpm);
+    //
+    void    setFanPrimaryMaximumDutyCycleFactory(short fanPrimaryMaximumDutyCycleFactory);
+    void    setFanPrimaryMaximumRpmFactory(int fanPrimaryMaximumRpmFactory);
+    void    setFanPrimaryMaximumDutyCycleField(short fanPrimaryMaximumDutyCycleField);
+    void    setFanPrimaryMaximumRpmField(int fanPrimaryMaximumRpmField);
     //
     void    setFanPrimaryNominalDutyCycleFactory(short fanPrimaryNominalDutyCycleFactory);
     void    setFanPrimaryNominalRpmFactory(int fanPrimaryNominalRpmFactory);
@@ -1068,7 +1082,6 @@ public:
     //
     void    setFanPrimaryStandbyDutyCycleFactory(short fanPrimaryStandbyDutyCycleFactory);
     void    setFanPrimaryStandbyRpmFactory(int fanPrimaryStandbyRpmFactory);
-    //
     void    setFanPrimaryStandbyDutyCycleField(short fanPrimaryStandbyDutyCycleField);
     void    setFanPrimaryStandbyRpmField(int fanPrimaryStandbyRpmField);
 
@@ -1918,12 +1931,20 @@ private:
     //FAN CALIBRATION
     short   m_fanPrimaryDutyCycle = 0;
     int     m_fanPrimaryRpm = 0;
+    short   m_fanPrimaryMaximumDutyCycle = 0;
+    int     m_fanPrimaryMaximumRpm = 0;
     short   m_fanPrimaryNominalDutyCycle = 0;
     int     m_fanPrimaryNominalRpm = 0;
     short   m_fanPrimaryMinimumDutyCycle = 0;
     int     m_fanPrimaryMinimumRpm = 0;
     short   m_fanPrimaryStandbyDutyCycle = 0;
     int     m_fanPrimaryStandbyRpm = 0;
+
+    short   m_fanPrimaryMaximumDutyCycleFactory = 0;
+    int     m_fanPrimaryMaximumRpmFactory = 0;
+    short   m_fanPrimaryMaximumDutyCycleField = 0;
+    int     m_fanPrimaryMaximumRpmField = 0;
+
     short   m_fanPrimaryNominalDutyCycleFactory = 0;
     int     m_fanPrimaryNominalRpmFactory = 0;
     short   m_fanPrimaryNominalDutyCycleField = 0;

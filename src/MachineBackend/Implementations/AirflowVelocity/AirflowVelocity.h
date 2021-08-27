@@ -4,7 +4,7 @@
 #include "../ClassManager.h"
 #include "BoardIO/Drivers/AImcp3422x/AIManage.h"
 
-#define AIRFLOWNANAGER_MAX_ADC_POINT    3
+#define AIRFLOWNANAGER_MAX_ADC_POINT    4
 
 class AirflowVelocity : public ClassManager
 {
@@ -23,6 +23,7 @@ public:
     void setVelocityPoint(int point, double value);
     void setConstant(int value);
     void initScope();
+    void setScopeCount(unsigned char scopeCount);
 
     int adc() const;
     int adcConpensation() const;
@@ -70,6 +71,7 @@ private:
     bool m_temperatureChanged = false;
     bool m_sensorConstantChanged = false;
     bool m_scopeChanged = false;
+    unsigned char m_scopeCount = AIRFLOWNANAGER_MAX_ADC_POINT;
 
     int m_adcPoint[AIRFLOWNANAGER_MAX_ADC_POINT] = { 0 };  /// fill all element to zero
     double m_velocityPoint[AIRFLOWNANAGER_MAX_ADC_POINT] = { 0 }; /// fill all element to zero
@@ -81,6 +83,9 @@ private:
     //scope 2
     double m_m2;
     double m_b2;
+    //scope 3
+    double m_m3;
+    double m_b3;
 
     short m_calibPointMode = 0;
 

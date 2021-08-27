@@ -1315,6 +1315,7 @@ void MachineBackend::setup()
         m_pAirflowInflow.reset(new AirflowVelocity());
         m_pAirflowInflow->setAIN(m_boardAnalogInput1.data());
         m_pAirflowInflow->setChannel(1);
+        m_pAirflowInflow->setScopeCount(3); // Default 4
         //m_pAirflowInflow->setAdcResolutionBits(12);
 
         /// CONNECTION
@@ -1339,6 +1340,7 @@ void MachineBackend::setup()
         m_pAirflowDownflow.reset(new AirflowVelocity());
         m_pAirflowDownflow->setAIN(m_boardAnalogInput2.data());
         m_pAirflowDownflow->setChannel(0);
+        m_pAirflowDownflow->setScopeCount(4); //Default 4
         //m_pAirflowDownflow->setAdcResolutionBits(12);
 
         /// CONNECTION
@@ -1509,6 +1511,9 @@ void MachineBackend::setup()
         QSettings settings;
 
         ///Fan Downflow
+        int fanDfaMaximumDutyCycleFactory  = settings.value(SKEY_FAN_PRI_MAX_DCY_FACTORY, 0).toInt();
+        int fanDfaMaximumRpmFactory        = settings.value(SKEY_FAN_PRI_MAX_RPM_FACTORY, 0).toInt();
+
         int fanDfaNominalDutyCycleFactory  = settings.value(SKEY_FAN_PRI_NOM_DCY_FACTORY, 0).toInt();
         int fanDfaNominalRpmFactory        = settings.value(SKEY_FAN_PRI_NOM_RPM_FACTORY, 0).toInt();
 
@@ -1517,6 +1522,9 @@ void MachineBackend::setup()
 
         int fanDfaStandbyDutyCycleFactory  = settings.value(SKEY_FAN_PRI_STB_DCY_FACTORY, 0).toInt();
         int fanDfaStandbyRpmFactory        = settings.value(SKEY_FAN_PRI_STB_RPM_FACTORY, 0).toInt();
+
+        int fanDfaMaximumDutyCycleField    = settings.value(SKEY_FAN_PRI_MAX_DCY_FIELD, 0).toInt();
+        int fanDfaMaximumRpmField          = settings.value(SKEY_FAN_PRI_MAX_RPM_FIELD, 0).toInt();
 
         int fanDfaNominalDutyCycleField    = settings.value(SKEY_FAN_PRI_NOM_DCY_FIELD, 0).toInt();
         int fanDfaNominalRpmField          = settings.value(SKEY_FAN_PRI_NOM_RPM_FIELD, 0).toInt();
@@ -1556,18 +1564,23 @@ void MachineBackend::setup()
         int dfaAdcZeroFactory = settings.value(QString(SKEY_DFA_CAL_ADC_FACTORY) + "0", 0).toInt();
         int dfaAdcMinFactory  = settings.value(QString(SKEY_DFA_CAL_ADC_FACTORY) + "1", 0).toInt();
         int dfaAdcNomFactory  = settings.value(QString(SKEY_DFA_CAL_ADC_FACTORY) + "2", 0).toInt();
+        int dfaAdcMaxFactory  = settings.value(QString(SKEY_DFA_CAL_ADC_FACTORY) + "3", 0).toInt();
 
-        int dfaVelMinFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "1", 53).toInt();
+        int dfaVelMinFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "1", 37).toInt();
         int dfaVelNomFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "2", 40).toInt();
+        int dfaVelMaxFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "3", 47).toInt();
 
         int dfaVelLowAlarm    = settings.value(QString(SKEY_DFA_CAL_VEL_LOW_LIMIT), dfaVelMinFactory).toInt();
+        int dfaVelHighAlarm   = settings.value(QString(SKEY_DFA_CAL_VEL_HIGH_LIMIT), dfaVelMaxFactory).toInt();
 
         int dfaAdcZeroField   = settings.value(QString(SKEY_DFA_CAL_ADC_FIELD) + "0", 0).toInt();
         int dfaAdcMinField    = settings.value(QString(SKEY_DFA_CAL_ADC_FIELD) + "1", 0).toInt();
         int dfaAdcNomField    = settings.value(QString(SKEY_DFA_CAL_ADC_FIELD) + "2", 0).toInt();
+        int dfaAdcMaxField    = settings.value(QString(SKEY_DFA_CAL_ADC_FIELD) + "3", 0).toInt();
 
         int dfaVelMinField    = settings.value(QString(SKEY_DFA_CAL_VEL_FIELD) + "1", 0).toInt();
         int dfaVelNomField    = settings.value(QString(SKEY_DFA_CAL_VEL_FIELD) + "2", 0).toInt();
+        int dfaVelMaxField    = settings.value(QString(SKEY_DFA_CAL_VEL_FIELD) + "3", 0).toInt();
 
         ///AIRFLOW INFLOW
         int ifaSensorConstant  = settings.value(SKEY_IFA_SENSOR_CONST, 0).toInt();
@@ -1648,6 +1661,9 @@ void MachineBackend::setup()
         //        if (fanStandbyDutyCycleField > 5) fanStandbyDutyCycleField = 5;
 #endif
         /// Set FAN DOWNFLOW
+        pData->setFanPrimaryMaximumDutyCycleFactory(static_cast<short>(fanDfaMaximumDutyCycleFactory));
+        pData->setFanPrimaryMaximumRpmFactory(fanDfaMaximumRpmFactory);
+
         pData->setFanPrimaryNominalDutyCycleFactory(static_cast<short>(fanDfaNominalDutyCycleFactory));
         pData->setFanPrimaryNominalRpmFactory(fanDfaNominalRpmFactory);
 
@@ -1656,6 +1672,9 @@ void MachineBackend::setup()
 
         pData->setFanPrimaryStandbyDutyCycleFactory(static_cast<short>(fanDfaStandbyDutyCycleFactory));
         pData->setFanPrimaryStandbyRpmFactory(fanDfaStandbyRpmFactory);
+
+        pData->setFanPrimaryMaximumDutyCycleField(static_cast<short>(fanDfaMaximumDutyCycleField));
+        pData->setFanPrimaryMaximumRpmField(fanDfaMaximumRpmField);
 
         pData->setFanPrimaryNominalDutyCycleField(static_cast<short>(fanDfaNominalDutyCycleField));
         pData->setFanPrimaryNominalRpmField(fanDfaNominalRpmField);
@@ -1693,21 +1712,23 @@ void MachineBackend::setup()
         pData->setDownflowAdcPointFactory(0, dfaAdcZeroFactory);
         pData->setDownflowAdcPointFactory(1, dfaAdcMinFactory);
         pData->setDownflowAdcPointFactory(2, dfaAdcNomFactory);
+        pData->setDownflowAdcPointFactory(3, dfaAdcMaxFactory);
 
         pData->setDownflowVelocityPointFactory(1, dfaVelMinFactory);
         pData->setDownflowVelocityPointFactory(2, dfaVelNomFactory);
+        pData->setDownflowVelocityPointFactory(3, dfaVelMaxFactory);
 
         pData->setDownflowLowLimitVelocity(dfaVelLowAlarm);
+        pData->setDownflowHighLimitVelocity(dfaVelHighAlarm);
 
         pData->setDownflowAdcPointField(0, dfaAdcZeroField);
         pData->setDownflowAdcPointField(1, dfaAdcMinField);
         pData->setDownflowAdcPointField(2, dfaAdcNomField);
+        pData->setDownflowAdcPointField(3, dfaAdcMaxField);
 
         pData->setDownflowVelocityPointField(1, dfaVelMinField);
         pData->setDownflowVelocityPointField(2, dfaVelNomField);
-
-        pData->setDownflowVelocityPointFactory(2, dfaVelNomFactory);
-        pData->setDownflowVelocityPointField(2, dfaVelNomField);
+        pData->setDownflowVelocityPointField(3, dfaVelMaxField);
 
         /// SET AIRFLOW INFLOW
         pData->setInflowSensorConstant(static_cast<short>(ifaSensorConstant));
@@ -1728,9 +1749,6 @@ void MachineBackend::setup()
         pData->setInflowAdcPointField(2, ifaAdcNomField);
 
         pData->setInflowVelocityPointField(1, ifaVelMinField);
-        pData->setInflowVelocityPointField(2, ifaVelNomField);
-
-        pData->setInflowVelocityPointFactory(2, ifaVelNomFactory);
         pData->setInflowVelocityPointField(2, ifaVelNomField);
 
         ///
@@ -3258,6 +3276,27 @@ void MachineBackend::setFanInflowState(short value)
     }
 }
 
+void MachineBackend::setFanPrimaryMaximumDutyCycleFactory(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    QSettings settings;
+    settings.setValue(SKEY_FAN_PRI_MAX_DCY_FACTORY, value);
+
+    pData->setFanPrimaryMaximumDutyCycleFactory(value);
+}
+
+void MachineBackend::setFanPrimaryMaximumRpmFactory(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    QSettings settings;
+    settings.setValue(SKEY_FAN_PRI_MAX_RPM_FACTORY, value);
+
+    pData->setFanPrimaryMaximumRpmFactory(value);
+}
 void MachineBackend::setFanPrimaryNominalDutyCycleFactory(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
@@ -3319,6 +3358,28 @@ void MachineBackend::setFanPrimaryStandbyRpmFactory(int value)
     settings.setValue(SKEY_FAN_PRI_STB_RPM_FACTORY, value);
 
     pData->setFanPrimaryStandbyRpmFactory(value);
+}
+
+void MachineBackend::setFanPrimaryMaximumDutyCycleField(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    QSettings settings;
+    settings.setValue(SKEY_FAN_PRI_MAX_DCY_FIELD, value);
+
+    pData->setFanPrimaryMaximumDutyCycleField(value);
+}
+
+void MachineBackend::setFanPrimaryMaximumRpmField(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    QSettings settings;
+    settings.setValue(SKEY_FAN_PRI_MAX_RPM_FIELD, value);
+
+    pData->setFanPrimaryMaximumRpmField(value);
 }
 
 void MachineBackend::setFanPrimaryNominalDutyCycleField(short value)
@@ -3988,21 +4049,6 @@ void MachineBackend::setDownflowTemperatureCalib(short value, int adc)
     pData->setDownflowTempCalibAdc(static_cast<short>(adc));
 }
 
-/**
- * @brief MachineBackend::setInflowSensorConstant
- * @param value
- * This only set the sensor inflow contant for temporary
- * after system restarting,
- */
-void MachineBackend::setInflowSensorConstantTemporary(short value)
-{
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    qDebug() << value;
-
-    m_pAirflowInflow->setConstant(value);
-    // force calling airflow routine task
-    m_pAirflowInflow->routineTask();
-}
 
 void MachineBackend::_setFanPrimaryDutyCycle(short dutyCycle)
 {
@@ -4088,6 +4134,22 @@ void MachineBackend::setInflowVelocityPointField(int point, int value)
     settings.setValue(QString(SKEY_IFA_CAL_VEL_FIELD) + QString::number(point), value);
 
     pData->setInflowVelocityPointField(static_cast<short>(point), value);
+}
+
+/**
+ * @brief MachineBackend::setInflowSensorConstant
+ * @param value
+ * This only set the sensor inflow constant for temporary
+ * after system restarting,
+ */
+void MachineBackend::setInflowSensorConstantTemporary(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    m_pAirflowInflow->setConstant(value);
+    // force calling airflow routine task
+    m_pAirflowInflow->routineTask();
 }
 
 void MachineBackend::setInflowSensorConstant(short value)
@@ -4279,14 +4341,16 @@ void MachineBackend::saveDownflowMeaNominalGrid(const QJsonArray grid, int total
     settings.endGroup();
 }
 
-void MachineBackend::setDownflowVelocityPointFactory(int /*pointZero*/, int pointMin, int pointNom)
+void MachineBackend::setDownflowVelocityPointFactory(int /*pointZero*/, int pointMin, int pointNom, int pointMax)
 {
     QSettings settings;
     settings.setValue(QString(SKEY_DFA_CAL_VEL_FACTORY) + "1", pointMin);
     settings.setValue(QString(SKEY_DFA_CAL_VEL_FACTORY) + "2", pointNom);
+    settings.setValue(QString(SKEY_DFA_CAL_VEL_FACTORY) + "3", pointMax);
 
     pData->setDownflowVelocityPointFactory(1, pointMin);
     pData->setDownflowVelocityPointFactory(2, pointNom);
+    pData->setDownflowVelocityPointFactory(3, pointMax);
 }
 
 void MachineBackend::setDownflowVelocityPointFactory(int point, int value)
@@ -4297,14 +4361,16 @@ void MachineBackend::setDownflowVelocityPointFactory(int point, int value)
     pData->setDownflowVelocityPointFactory(static_cast<short>(point), value);
 }
 
-void MachineBackend::setDownflowVelocityPointField(int /*pointZero*/, int pointMin, int pointNom)
+void MachineBackend::setDownflowVelocityPointField(int /*pointZero*/, int pointMin, int pointNom, int pointMax)
 {
     QSettings settings;
     settings.setValue(QString(SKEY_DFA_CAL_VEL_FIELD) + "1", pointMin);
     settings.setValue(QString(SKEY_DFA_CAL_VEL_FIELD) + "2", pointNom);
+    settings.setValue(QString(SKEY_DFA_CAL_VEL_FIELD) + "3", pointMax);
 
     pData->setDownflowVelocityPointField(1, pointMin);
     pData->setDownflowVelocityPointField(2, pointNom);
+    pData->setDownflowVelocityPointField(3, pointMax);
 }
 
 void MachineBackend::setDownflowVelocityPointField(int point, int value)
@@ -4333,6 +4399,8 @@ void MachineBackend::initAirflowCalibrationStatus(short value)
 void MachineBackend::_initAirflowCalibartionFactory()
 {
     /// DOWNFLOW
+    short fanDfaMaxDutyCycle   = pData->getFanPrimaryMaximumDutyCycleFactory();
+    int   fanDfaMaxRpm         = pData->getFanPrimaryMaximumRpmFactory();
     short fanDfaNomDutyCycle   = pData->getFanPrimaryNominalDutyCycleFactory();
     int   fanDfaNomRpm         = pData->getFanPrimaryNominalRpmFactory();
     short fanDfaMinDutyCycle   = pData->getFanPrimaryMinimumDutyCycleFactory();
@@ -4340,6 +4408,8 @@ void MachineBackend::_initAirflowCalibartionFactory()
     short fanDfaStbDutyCycle   = pData->getFanPrimaryStandbyDutyCycleFactory();
     int   fanDfaStbRpm         = pData->getFanPrimaryStandbyRpmFactory();
 
+    pData->setFanPrimaryMaximumDutyCycle(fanDfaMaxDutyCycle);
+    pData->setFanPrimaryMaximumRpm(static_cast<short>(fanDfaMaxRpm));
     pData->setFanPrimaryNominalDutyCycle(fanDfaNomDutyCycle);
     pData->setFanPrimaryNominalRpm(static_cast<short>(fanDfaNomRpm));
     pData->setFanPrimaryMinimumDutyCycle(fanDfaMinDutyCycle);
@@ -4351,11 +4421,15 @@ void MachineBackend::_initAirflowCalibartionFactory()
     int dfaAdcPointZero   = pData->getDownflowAdcPointFactory(0);
     int dfaAdcPointMin    = pData->getDownflowAdcPointFactory(1);
     int dfaAdcPointNom    = pData->getDownflowAdcPointFactory(2);
+    int dfaAdcPointMax    = pData->getDownflowAdcPointFactory(3);
     int dfaVelPointMin    = pData->getDownflowVelocityPointFactory(1);
     int dfaVelPointNom    = pData->getDownflowVelocityPointFactory(2);
+    int dfaVelPointMax    = pData->getDownflowVelocityPointFactory(3);
     int dfaVelLowAlarm    = pData->getDownflowLowLimitVelocity();
+    int dfaVelHighAlarm   = pData->getDownflowHighLimitVelocity();
     /// LOW LIMIT VELOCITY ALARM
     pData->setDownflowLowLimitVelocity(dfaVelLowAlarm);
+    pData->setDownflowHighLimitVelocity(dfaVelHighAlarm);
 
     /// INFLOW
     short fanIfaNomDutyCycle   = pData->getFanPrimaryNominalDutyCycleFactory();
@@ -4387,8 +4461,10 @@ void MachineBackend::_initAirflowCalibartionFactory()
     m_pAirflowDownflow->setAdcPoint(0, dfaAdcPointZero);
     m_pAirflowDownflow->setAdcPoint(1, dfaAdcPointMin);
     m_pAirflowDownflow->setAdcPoint(2, dfaAdcPointNom);
+    m_pAirflowDownflow->setAdcPoint(3, dfaAdcPointMax);
     m_pAirflowDownflow->setVelocityPoint(1, dfaVelPointMin);
     m_pAirflowDownflow->setVelocityPoint(2, dfaVelPointNom);
+    m_pAirflowDownflow->setVelocityPoint(3, dfaVelPointMax);
     m_pAirflowDownflow->initScope();
 
     /// AIRFLOW INFLOW
@@ -4407,15 +4483,19 @@ void MachineBackend::_initAirflowCalibartionField()
     //Get delta value between Factory Nominal Duty cycle and Factory Standby Duty Cycle
     short fanDfaNomDutyCycleFact   = pData->getFanPrimaryNominalDutyCycleFactory();
     short fanDfaStbDutyCycleFact   = pData->getFanPrimaryStandbyDutyCycleFactory();
-    int dfaDeltaValue = qAbs(fanDfaNomDutyCycleFact - fanDfaStbDutyCycleFact);
+    int dfaDeltaValueStb = qAbs(fanDfaNomDutyCycleFact - fanDfaStbDutyCycleFact);
 
+    int fanDfaMaxDutyCycle   = pData->getFanPrimaryMaximumDutyCycleField();
+    int   fanDfaMaxRpm         = pData->getFanPrimaryMaximumRpmField();
     int fanDfaNomDutyCycle   = pData->getFanPrimaryNominalDutyCycleField();
     int   fanDfaNomRpm         = pData->getFanPrimaryNominalRpmField();
     short fanDfaMinDutyCycle   = pData->getFanPrimaryMinimumDutyCycleField();
     int   fanDfaMinRpm         = pData->getFanPrimaryMinimumRpmField();
-    int fanDfaStbDutyCycle   = fanDfaNomDutyCycle - dfaDeltaValue;
+    int fanDfaStbDutyCycle   = fanDfaNomDutyCycle - dfaDeltaValueStb;
     int   fanDfaStbRpm         = pData->getFanPrimaryStandbyRpmField(); /// this not valid, still follow factory or just zero
 
+    pData->setFanPrimaryMaximumDutyCycle(static_cast<short>(fanDfaMaxDutyCycle));
+    pData->setFanPrimaryMaximumRpm(static_cast<short>(fanDfaMaxRpm));
     pData->setFanPrimaryNominalDutyCycle(static_cast<short>(fanDfaNomDutyCycle));
     pData->setFanPrimaryNominalRpm(static_cast<short>(fanDfaNomRpm));
     pData->setFanPrimaryMinimumDutyCycle(fanDfaMinDutyCycle);
@@ -4427,13 +4507,17 @@ void MachineBackend::_initAirflowCalibartionField()
     int dfaAdcPointZero   = pData->getDownflowAdcPointField(0);
     int dfaAdcPointMin    = pData->getDownflowAdcPointField(1);
     int dfaAdcPointNom    = pData->getDownflowAdcPointField(2);
+    int dfaAdcPointMax    = pData->getDownflowAdcPointField(3);
 
     int dfaVelPointMin    = pData->getDownflowVelocityPointField(1);
     int dfaVelPointNom    = pData->getDownflowVelocityPointField(2);
+    int dfaVelPointMax    = pData->getDownflowVelocityPointField(3);
     int dfaVelLowAlarm    = pData->getDownflowLowLimitVelocity();
+    int dfaVelHighAlarm    = pData->getDownflowHighLimitVelocity();
 
     /// LOW LIMIT VELOCITY ALARM
     pData->setDownflowLowLimitVelocity(dfaVelLowAlarm);
+    pData->setDownflowHighLimitVelocity(dfaVelHighAlarm);
 
     /// INFLOW
     //Get delta value between Factory Nominal Duty cycle and Factory Standby Duty Cycle
@@ -4472,8 +4556,10 @@ void MachineBackend::_initAirflowCalibartionField()
     m_pAirflowDownflow->setAdcPoint(0, dfaAdcPointZero);
     m_pAirflowDownflow->setAdcPoint(1, dfaAdcPointMin);
     m_pAirflowDownflow->setAdcPoint(2, dfaAdcPointNom);
+    m_pAirflowDownflow->setAdcPoint(3, dfaAdcPointMax);
     m_pAirflowDownflow->setVelocityPoint(1, dfaVelPointMin);
     m_pAirflowDownflow->setVelocityPoint(2, dfaVelPointNom);
+    m_pAirflowDownflow->setVelocityPoint(3, dfaVelPointMax);
     m_pAirflowDownflow->initScope();
     /// AIRFLOW INFLOW
     m_pAirflowInflow->setConstant(ifaSensorConstant);
