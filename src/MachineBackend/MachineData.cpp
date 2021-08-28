@@ -1250,6 +1250,34 @@ void MachineData::setAlarmBoardComError(short alarmBoardComError)
     emit alarmBoardComErrorChanged(m_alarmBoardComError);
 }
 
+short MachineData::getAlarmDownflowLow() const
+{
+    return m_alarmDownflowLow;
+}
+
+void MachineData::setAlarmDownflowLow(short alarmDownflowLow)
+{
+    if (m_alarmDownflowLow == alarmDownflowLow)
+        return;
+
+    m_alarmDownflowLow = alarmDownflowLow;
+    emit alarmDownflowLowChanged(m_alarmDownflowLow);
+}
+
+short MachineData::getAlarmDownflowHigh() const
+{
+    return m_alarmDownflowHigh;
+}
+
+void MachineData::setAlarmDownflowHigh(short alarmDownflowHigh)
+{
+    if (m_alarmDownflowHigh == alarmDownflowHigh)
+        return;
+
+    m_alarmDownflowHigh = alarmDownflowHigh;
+    emit alarmDownflowHighChanged(m_alarmDownflowHigh);
+}
+
 void MachineData::setAlarmsState(bool alarmsState)
 {
     if (m_alarmsState == alarmsState)

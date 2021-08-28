@@ -2976,7 +2976,7 @@ void MachineBackend::setMeasurementUnit(short value)
     setEnvTempHighestLimit(_tempHighestLimit);
 
     pData->setInflowLowLimitVelocity(_ifaVelPointLowAlarm);
-    pData->setDownflowLowLimitVelocity(_dfaVelPointLowAlarm);
+    pData->setDownflowLowLimitVelocity(_dfaVelPointHighAlarm);
 
     QSettings settings;
     settings.setValue(QString(SKEY_IFA_CAL_VEL_FACTORY) + "1", _ifaVelPointMinFactory);
@@ -5495,7 +5495,7 @@ void MachineBackend::_insertDataLog()
         return;
     }
     /// Only record the log when blower in nominal condition
-    if (pData->getFanPrimaryState() != MachineEnums::FAN_STATE_ON){
+    if (pData->getFanState() != MachineEnums::FAN_STATE_ON){
         /// if timer event for this task still running, do stop it
         if(m_timerEventForDataLog->isActive()){
             m_timerEventForDataLog->stop();
@@ -5526,8 +5526,9 @@ void MachineBackend::_insertDataLog()
         dataMap.insert("temp", pData->getTemperatureValueStrf());
         dataMap.insert("ifa",  pData->getInflowVelocityStr());
         dataMap.insert("dfa",  pData->getDownflowVelocityStr());
-        dataMap.insert("ifaAdc",  pData->getInflowAdcConpensation());
-        dataMap.insert("fanRPM",  pData->getFanPrimaryRpm());
+        dataMap.insert("adcIfa",  pData->getInflowAdcConpensation());
+        dataMap.insert("fanIfaRPM", pData->getFanPrimaryRpm());
+        dataMap.insert("adcDfa",  pData->getDownflowAdcConpensation());
 
         DataLogSql *sql = m_pDataLog->getPSqlInterface();
         bool success = sql->queryInsert(dataMap);
@@ -5752,14 +5753,19 @@ bool MachineBackend::isTempAmbientHigh() const
     return pData->getTempAmbientStatus() == MachineEnums::TEMP_AMB_HIGH;
 }
 
+bool MachineBackend::isFanStateDifferent() const
+{
+    return pData->getFanState() == MachineEnums::FAN_STATE_DIFFERENT;
+}
+
 bool MachineBackend::isFanStateNominal() const
 {
-    return pData->getFanPrimaryState() == MachineEnums::FAN_STATE_ON;
+    return pData->getFanState() == MachineEnums::FAN_STATE_ON;
 }
 
 bool MachineBackend::isFanStateStandby() const
 {
-    return pData->getFanPrimaryState() == MachineEnums::FAN_STATE_STANDBY;
+    return pData->getFanState() == MachineEnums::FAN_STATE_STANDBY;
 }
 
 bool MachineBackend::isAlarmActive(short alarm) const
@@ -6101,7 +6107,8 @@ void MachineBackend::_onTriggeredFanSchedulerAutoSet()
 {
     qDebug() << metaObject()->className() << __func__  << thread();
 
-    _setFanPrimaryStateNominal();
+    setFanState(MachineEnums::FAN_STATE_ON);
+    //    _setFanPrimaryStateNominal();
 
     _insertEventLog(EVENT_STR_FAN_ON_SCH);
 }
@@ -6550,6 +6557,10 @@ void MachineBackend::_machineState()
                 _setFanPrimaryInterlocked(MachineEnums::DIG_STATE_ZERO);
             }
 
+            if(pData->getFanInflowInterlocked()){
+                _setFanInflowInterlocked(MachineEnums::DIG_STATE_ZERO);
+            }
+
             /// CLEAR LAMP INTERLOCK
             if(pData->getLightInterlocked()){
                 m_pLight->setInterlock(MachineEnums::DIG_STATE_ZERO);
@@ -6648,20 +6659,50 @@ void MachineBackend::_machineState()
                 //OTHERWISE UNSET
                 {
                     bool alarmInflowAvailable = false;
+                    bool alarmDownflowAvailable = false;
                     if(isFanStateNominal() && pData->getAirflowMonitorEnable()){
                         if (isAirflowHasCalibrated()){
                             if (isTempAmbientNormal()){
                                 if (!pData->getWarmingUpActive()){
                                     alarmInflowAvailable = true;
+                                    alarmDownflowAvailable = true;
                                     //                                if(!pData->dataPostpurgeState()){
 
                                     //SET IF ACTUAL AF IS LOWER THAN MINIMUM, OTHERWISE UNSET
-                                    bool tooLow = false;
-                                    tooLow = pData->getInflowVelocity() <= pData->getInflowLowLimitVelocity();
+                                    bool ifaTooLow = false;
+                                    bool dfaTooLow = false;
+                                    bool dfaTooHigh = false;
+                                    ifaTooLow = pData->getInflowVelocity() <= pData->getInflowLowLimitVelocity();
+                                    dfaTooLow = pData->getInflowVelocity() <= pData->getDownflowLowLimitVelocity();
+                                    dfaTooHigh = pData->getInflowVelocity() >= pData->getDownflowHighLimitVelocity();
                                     //                                qDebug() << "tooLow: " << tooLow << pData->getInflowVelocity() << pData->getInflowLowLimitVelocity();
-
-                                    if(tooLow){
+                                    /// INFLOW
+                                    if(ifaTooLow){
                                         if(!isAlarmActive(pData->getAlarmInflowLow())){
+
+                                            pData->setAlarmInflowLow(MachineEnums::ALARM_ACTIVE_STATE);
+
+                                            QString text = QString("%1 (%2)")
+                                                    .arg(ALARM_LOG_TEXT_INFLOW_ALARM_TOO_LOW, pData->getInflowVelocityStr());
+                                            _insertAlarmLog(ALARM_LOG_CODE::ALC_INFLOW_ALARM_LOW, text);
+                                        }
+                                    }
+                                    else {
+                                        if(!isAlarmNormal(pData->getAlarmInflowLow())){
+                                            short prevState = pData->getAlarmInflowLow();
+                                            pData->setAlarmInflowLow(MachineEnums::ALARM_NORMAL_STATE);
+
+
+                                            if(isAlarmActive(prevState)) {
+                                                QString text = QString("%1 (%2)")
+                                                        .arg(ALARM_LOG_TEXT_INFLOW_ALARM_OK, pData->getInflowVelocityStr());
+                                                _insertAlarmLog(ALARM_LOG_CODE::ALC_INFLOW_ALARM_OK, text);
+                                            }//
+                                        }//
+                                    }//
+                                    /// DOWNFLOW
+                                    if(dfaTooLow){
+                                        if(!isAlarmActive(pData->getAlarmDownflowLow())){
 
                                             pData->setAlarmInflowLow(MachineEnums::ALARM_ACTIVE_STATE);
 

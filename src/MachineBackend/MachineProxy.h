@@ -177,12 +177,12 @@ public slots:
     //    void saveDownflowSensorConstant(short ifaConstant);
     //
     //    void saveDownflowAdcPointFactory(int pointZero, int pointMin, int pointNom);
-    void setDownflowVelocityPointFactory(int pointZero, int pointMin, int pointNom);
+    void setDownflowVelocityPointFactory(int pointZero, int pointMin, int pointNom, int pointMax);
     void setDownflowVelocityPointFactory(int point, int value);
     //    void saveDownflowTemperatureFactory(short ifaTemperatureFactory, int adc);
     //
     //    void saveDownflowAdcPointField(short point, int adc);
-    void setDownflowVelocityPointField(int pointZero, int pointMin, int pointNom);
+    void setDownflowVelocityPointField(int pointZero, int pointMin, int pointNom, int pointMax);
     void setDownflowVelocityPointField(int point, int value);
     //    void saveDownflowTemperatureField(short value, int adc);
     //

@@ -34,5 +34,6 @@ private:
         TH_DFA,
         TH_ADC_IFA,
         TH_FAN_RPM,
+        TH_ADC_DFA,
     };
 };

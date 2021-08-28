@@ -114,10 +114,9 @@ public slots:
     void setSerialNumber(QString value);
 
     void setFanState(short value);
+    //
     void setFanPrimaryState(short value);
     void setFanPrimaryDutyCycle(short value);
-    void setFanInflowState(short value);
-    void setFanInflowDutyCycle(short value);
     //
     void setFanPrimaryMaximumDutyCycleFactory(short value);
     void setFanPrimaryMaximumRpmFactory(int value);
@@ -138,6 +137,7 @@ public slots:
     void setFanPrimaryStandbyRpmField(int value);
 
     //Added for LA2-EU
+    void setFanInflowState(short value);
     void setFanInflowDutyCycle(short value);
     //
     void setFanInflowNominalDutyCycleFactory(short value);
@@ -561,6 +561,7 @@ private:
     bool isTempAmbientLow() const;
     bool isTempAmbientHigh() const;
 
+    bool isFanStateDifferent() const;
     bool isFanStateNominal() const;
     bool isFanStateStandby() const;
 

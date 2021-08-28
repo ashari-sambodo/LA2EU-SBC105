@@ -5,9 +5,9 @@
 
 #define DB_QUERY_INIT                       "\
 CREATE TABLE IF NOT EXISTS datalog_V1 \
-(date TEXT, time TEXT, temp TXT, ifa TXT, dfa TXT, adcIfa INT, fanRPM INT)"
+(date TEXT, time TEXT, temp TXT, ifa TXT, dfa TXT, adcIfa INT, fanIfaRPM INT, adcDfa INT)"
 
-#define DB_QUERY_ADD                        "INSERT INTO datalog_V1 VALUES (?, ?, ?, ?, ?, ?, ?)"
+#define DB_QUERY_ADD                        "INSERT INTO datalog_V1 VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 
 #define DB_QUERY_DELETE                     "DELETE FROM datalog_V1"
 #define DB_QUERY_COUNT_ROWS                 "SELECT COUNT(*) FROM datalog_V1"
@@ -57,7 +57,7 @@ bool DataLogSqlGet::queryInsert(const QVariantMap data)
     QSqlQuery query(QSqlDatabase::database(m_connectionName));
 
     bool prepared = query.prepare(DB_QUERY_ADD);
-    Q_UNUSED(prepared);
+    Q_UNUSED(prepared)
     //    qDebug() << prepared;
 
     query.addBindValue(data["date"].toString());
@@ -66,7 +66,8 @@ bool DataLogSqlGet::queryInsert(const QVariantMap data)
     query.addBindValue(data["ifa"].toString());
     query.addBindValue(data["dfa"].toString());
     query.addBindValue(data["adcIfa"].toInt());
-    query.addBindValue(data["fanRPM"].toInt());
+    query.addBindValue(data["fanIfaRPM"].toInt());
+    query.addBindValue(data["adcDfa"].toInt());
 
     //    qDebug() << query.lastQuery();
 
@@ -107,7 +108,8 @@ bool DataLogSqlGet::querySelect(QVariantList *data, const QString &dbQueryConfig
             dataItem.push_back(query.value(TableHeaderEnum::TH_IFA));
             dataItem.push_back(query.value(TableHeaderEnum::TH_DFA));
             dataItem.push_back(query.value(TableHeaderEnum::TH_ADC_IFA));
-            dataItem.push_back(query.value(TableHeaderEnum::TH_FAN_RPM));
+            dataItem.push_back(query.value(TableHeaderEnum::TH_FAN_IFA_RPM));
+            dataItem.push_back(query.value(TableHeaderEnum::TH_ADC_DFA));
 
             data->push_back(dataItem);
         }

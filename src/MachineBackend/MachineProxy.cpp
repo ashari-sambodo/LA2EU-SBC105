@@ -1306,10 +1306,10 @@ void MachineProxy::setInflowLowLimitVelocity(short value)
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setDownflowVelocityPointFactory(int pointZero, int pointMin, int pointNom)
+void MachineProxy::setDownflowVelocityPointFactory(int pointZero, int pointMin, int pointNom, int pointMax)
 {
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, pointZero, pointMin, pointNom](){
-        m_machineBackend->setDownflowVelocityPointFactory(pointZero, pointMin, pointNom);
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, pointZero, pointMin, pointNom, pointMax](){
+        m_machineBackend->setDownflowVelocityPointFactory(pointZero, pointMin, pointNom, pointMax);
     },
     Qt::QueuedConnection);
 }
@@ -1322,10 +1322,10 @@ void MachineProxy::setDownflowVelocityPointFactory(int point, int value)
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setDownflowVelocityPointField(int pointZero, int pointMin, int pointNom)
+void MachineProxy::setDownflowVelocityPointField(int pointZero, int pointMin, int pointNom, int pointMax)
 {
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, pointZero, pointMin, pointNom](){
-        m_machineBackend->setDownflowVelocityPointField(pointZero, pointMin, pointNom);
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, pointZero, pointMin, pointNom, pointMax](){
+        m_machineBackend->setDownflowVelocityPointField(pointZero, pointMin, pointNom, pointMax);
     },
     Qt::QueuedConnection);
 }

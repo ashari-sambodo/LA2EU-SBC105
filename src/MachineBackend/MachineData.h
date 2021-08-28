@@ -353,6 +353,16 @@ class MachineData : public QObject
                //               WRITE setAlarmInflowLow
                NOTIFY alarmInflowLowChanged)
     ///
+    Q_PROPERTY(short alarmDownflowLow
+               READ getAlarmDownflowLow
+               //               WRITE setAlarmInflowLow
+               NOTIFY alarmDownflowLowChanged)
+    ///
+    Q_PROPERTY(short alarmDownflowHigh
+               READ getAlarmDownflowHigh
+               //               WRITE setAlarmInflowLow
+               NOTIFY alarmDownflowHighChanged)
+    ///
     Q_PROPERTY(short alarmTempHigh
                READ getAlarmTempHigh
                //               WRITE setAlarmTempHigh
@@ -983,6 +993,11 @@ public:
     short getAlarmBoardComError() const;
     void setAlarmBoardComError(short alarmBoardComError);
     ///
+    short getAlarmDownflowLow() const;
+    void setAlarmDownflowLow(short alarmDownflowLow);
+    short getAlarmDownflowHigh() const;
+    void setAlarmDownflowHigh(short alarmDownflowHigh);
+    //
     short getAlarmInflowLow() const;
     void setAlarmInflowLow(short alarmInflowLow);
     ///
@@ -1572,6 +1587,8 @@ signals:
     void magSWStateChanged(short index, bool state);
 
     void alarmInflowLowChanged(short alarmInflowLow);
+    void alarmDownflowLowChanged(short alarmDownflowLow);
+    void alarmDownflowHighChanged(short alarmDownflowHigh);
     void alarmSashChanged(short alarmSash);
     void alarmSashUnsafeChanged(short alarmSashUnsafe);
 
@@ -1853,6 +1870,8 @@ private:
     bool m_alarmsState = false;
     short m_alarmBoardComError = 0;
     short m_alarmInflowLow = 0;
+    short m_alarmDownflowLow = 0;
+    short m_alarmDownflowHigh = 0;
     short m_alarmSash = 0;
     //    bool m_alarmDownflowLow = false;
     //    bool m_alarmDownflowHigh = false;

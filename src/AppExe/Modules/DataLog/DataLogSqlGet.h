@@ -36,7 +36,8 @@ private:
         TH_IFA,
         TH_DFA,
         TH_ADC_IFA,
-        TH_FAN_RPM,
+        TH_FAN_IFA_RPM,
+        TH_ADC_DFA
     };
 };
 

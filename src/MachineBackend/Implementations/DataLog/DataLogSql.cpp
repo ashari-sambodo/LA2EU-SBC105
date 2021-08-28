@@ -11,9 +11,10 @@ CREATE TABLE IF NOT EXISTS datalog_V1 \
  ifa TXT,\
  dfa TXT,\
  adcIfa INT,\
- fanRPM INT)"
+ fanIfaRPM INT,\
+ adcDfa INT)"
 
-#define DB_QUERY_ADD                        "INSERT INTO datalog_V1 VALUES (?, ?, ?, ?, ?, ?, ?)"
+#define DB_QUERY_ADD                        "INSERT INTO datalog_V1 VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 
 #define DB_QUERY_DELETE                     "DELETE FROM datalog_V1"
 #define DB_QUERY_COUNT_ROWS                 "SELECT COUNT(*) FROM datalog_V1"
@@ -80,6 +81,7 @@ bool DataLogSql::queryInsert(const QVariantMap data)
     query.addBindValue(data["dfa"].toString());
     query.addBindValue(data["adcIfa"].toInt());
     query.addBindValue(data["fanRPM"].toInt());
+    query.addBindValue(data["adcDfa"].toInt());
 
     //    qDebug() << query.lastQuery();
 
