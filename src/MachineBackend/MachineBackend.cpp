@@ -1321,7 +1321,7 @@ void MachineBackend::setup()
         /// CONNECTION
         connect(m_pAirflowInflow.data(), &AirflowVelocity::adcConpensationChanged,
                 pData, [&](int newVal){
-            //            qDebug() << newVal;
+            qDebug() << "m_pAirflowInflow adc" << newVal;
             pData->setInflowAdcConpensation(newVal);
             //            qDebug() << "convertADCtomVolt: " << m_boardAnalogInput1->getPAIModule()->convertADCtomVolt(newVal);
         });
@@ -1346,7 +1346,7 @@ void MachineBackend::setup()
         /// CONNECTION
         connect(m_pAirflowDownflow.data(), &AirflowVelocity::adcConpensationChanged,
                 pData, [&](int newVal){
-            //            qDebug() << newVal;
+            qDebug() << "m_pAirflowDownflow adc" << newVal;
             pData->setDownflowAdcConpensation(newVal);
             //            qDebug() << "convertADCtomVolt: " << m_boardAnalogInput2->getPAIModule()->convertADCtomVolt(newVal);
         });
@@ -1592,8 +1592,8 @@ void MachineBackend::setup()
         int ifaAdcMinFactory  = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "1", 0).toInt();
         int ifaAdcNomFactory  = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "2", 0).toInt();
 
-        int ifaVelMinFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "1", 53).toInt();
-        int ifaVelNomFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "2", 40).toInt();
+        int ifaVelMinFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "1", 40).toInt();
+        int ifaVelNomFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "2", 53).toInt();
 
         int ifaVelLowAlarm    = settings.value(QString(SKEY_IFA_CAL_VEL_LOW_LIMIT), ifaVelMinFactory).toInt();
 
@@ -1613,7 +1613,8 @@ void MachineBackend::setup()
         bool dfaCalibPhaseFactory = (dfaAdcZeroFactory < dfaAdcMinFactory)
                 && (dfaAdcMinFactory < dfaAdcNomFactory)
                 && (dfaVelMinFactory < dfaVelNomFactory)
-                && fanIfaNominalDutyCycleFactory;
+                && (dfaVelNomFactory < dfaVelMaxFactory)
+                && fanDfaNominalDutyCycleFactory;
 
         //        qDebug() << dfaAdcZeroField << dfaAdcMinField << dfaAdcNomField;
         //        qDebug() << dfaVelMinField << dfaVelNomField;
@@ -1621,7 +1622,8 @@ void MachineBackend::setup()
         bool dfaCalibPhaseField = (dfaAdcZeroField < dfaAdcMinField)
                 && (dfaAdcMinField< dfaAdcNomField)
                 && (dfaVelMinField < dfaVelNomField)
-                && fanIfaStandbyDutyCycleField;
+                && (dfaVelNomField < dfaVelMaxField)
+                && fanDfaStandbyDutyCycleField;
 
         int downflowCalibStatus = dfaCalibPhaseField ? MachineEnums::AF_CALIB_FIELD
                                                      : (dfaCalibPhaseFactory ? MachineEnums::AF_CALIB_FACTORY : MachineEnums::AF_CALIB_NONE);
@@ -1823,7 +1825,7 @@ void MachineBackend::setup()
         pData->setDataLogSpaceMaximum(DATALOG_MAX_ROW);
 
         m_timerEventForDataLog.reset(new QTimer);
-        m_timerEventForDataLog->setInterval(period * 60 * 1000);
+        m_timerEventForDataLog->setInterval(period * 1 * 1000);
         ///
         QObject::connect(m_timerEventForDataLog.data(), &QTimer::timeout,
                          this, &MachineBackend::_insertDataLog);
@@ -2567,7 +2569,7 @@ void MachineBackend::setDataLogPeriod(short dataLogPeriod)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << dataLogPeriod;
 
-    m_timerEventForDataLog->setInterval(dataLogPeriod * 60 * 1000); /// convert minute to ms
+    m_timerEventForDataLog->setInterval(dataLogPeriod * 1 * 1000); /// convert minute to ms
     if(pData->getDataLogEnable()) m_timerEventForDataLog->start();
 
     pData->setDataLogPeriod(dataLogPeriod);
@@ -5494,6 +5496,7 @@ void MachineBackend::_insertDataLog()
     if (currentRowCount >= DATALOG_MAX_ROW){
         return;
     }
+    /*
     /// Only record the log when blower in nominal condition
     if (pData->getFanState() != MachineEnums::FAN_STATE_ON){
         /// if timer event for this task still running, do stop it
@@ -5510,26 +5513,46 @@ void MachineBackend::_insertDataLog()
         }
         return;
     }
+    */
     QDateTime dateTime = QDateTime::currentDateTime();
     QString dateText = dateTime.toString("yyyy-MM-dd");
     QString timeText = dateTime.toString("hh:mm:ss");
+
+    QString temperature = pData->getTemperatureValueStrf();
+    QString dfaVelocity = pData->getDownflowVelocityStr();
+    int dfaVelAdc       = pData->getDownflowAdcConpensation();
+    int dfaFanDcy       = pData->getFanPrimaryDutyCycle();
+    int dfaFanRpm       = pData->getFanPrimaryRpm();
+    QString ifaVelocity = pData->getInflowVelocityStr();
+    int ifaVelAdc       = pData->getInflowAdcConpensation();
+    int ifaFanDcy       = pData->getFanInflowDutyCycle();
 
     /// execute this function in where thread the m_pDataLog live at
     QMetaObject::invokeMethod(m_pDataLog.data(),
                               [&,
                               dateText,
-                              timeText](){
+                              timeText,
+                              temperature,
+                              dfaVelocity,
+                              dfaVelAdc,
+                              dfaFanDcy,
+                              dfaFanRpm,
+                              ifaVelocity,
+                              ifaVelAdc,
+                              ifaFanDcy](){
 
         QVariantMap dataMap;
-        dataMap.insert("date", dateText);
-        dataMap.insert("time", timeText);
-        dataMap.insert("temp", pData->getTemperatureValueStrf());
-        dataMap.insert("ifa",  pData->getInflowVelocityStr());
-        dataMap.insert("dfa",  pData->getDownflowVelocityStr());
-        dataMap.insert("adcIfa",  pData->getInflowAdcConpensation());
-        dataMap.insert("fanIfaRPM", pData->getFanPrimaryRpm());
-        dataMap.insert("adcDfa",  pData->getDownflowAdcConpensation());
-
+        dataMap.insert("date",      dateText);
+        dataMap.insert("time",      timeText);
+        dataMap.insert("temp",      temperature);
+        dataMap.insert("dfa",       dfaVelocity);
+        dataMap.insert("dfaAdc",    dfaVelAdc);
+        dataMap.insert("dfaFanDcy", dfaFanDcy);
+        dataMap.insert("dfaFanRPM", dfaFanRpm);
+        dataMap.insert("ifa",       ifaVelocity);
+        dataMap.insert("ifaAdc",    ifaVelAdc);
+        dataMap.insert("ifaFanDcy", ifaFanDcy);
+        qDebug() << dataMap;
         DataLogSql *sql = m_pDataLog->getPSqlInterface();
         bool success = sql->queryInsert(dataMap);
 
@@ -5615,7 +5638,7 @@ void MachineBackend::_insertEventLog(const QString logText)
         dataMap.insert("logText",       logText);
         dataMap.insert("username",      usernameSigned);
         dataMap.insert("userfullname",  userfullnameSigned);
-
+        qDebug() << dataMap;
         EventLogSql *sql = m_pEventLog->getPSqlInterface();
         bool success = sql->queryInsert(dataMap);
 
@@ -5651,7 +5674,7 @@ void MachineBackend::_setFanInflowStateStandby()
 
 void MachineBackend::_setFanInflowStateOFF()
 {
-    short dutyCycle = MachineEnums::FAN_STATE_OFF;
+    short dutyCycle = MachineEnums::DIG_STATE_ZERO;
     _setFanInflowDutyCycle(dutyCycle);
 }
 
@@ -6658,14 +6681,12 @@ void MachineBackend::_machineState()
                 //IF AIFLOW CALIBRATED IN FACTORY OR FIELD
                 //OTHERWISE UNSET
                 {
-                    bool alarmInflowAvailable = false;
-                    bool alarmDownflowAvailable = false;
+                    bool alarmAirflowAvailable = false;
                     if(isFanStateNominal() && pData->getAirflowMonitorEnable()){
                         if (isAirflowHasCalibrated()){
                             if (isTempAmbientNormal()){
                                 if (!pData->getWarmingUpActive()){
-                                    alarmInflowAvailable = true;
-                                    alarmDownflowAvailable = true;
+                                    alarmAirflowAvailable = true;
                                     //                                if(!pData->dataPostpurgeState()){
 
                                     //SET IF ACTUAL AF IS LOWER THAN MINIMUM, OTHERWISE UNSET
@@ -6704,24 +6725,36 @@ void MachineBackend::_machineState()
                                     if(dfaTooLow){
                                         if(!isAlarmActive(pData->getAlarmDownflowLow())){
 
-                                            pData->setAlarmInflowLow(MachineEnums::ALARM_ACTIVE_STATE);
+                                            pData->setAlarmDownflowLow(MachineEnums::ALARM_ACTIVE_STATE);
 
                                             QString text = QString("%1 (%2)")
-                                                    .arg(ALARM_LOG_TEXT_INFLOW_ALARM_TOO_LOW, pData->getInflowVelocityStr());
-                                            _insertAlarmLog(ALARM_LOG_CODE::ALC_INFLOW_ALARM_LOW, text);
+                                                    .arg(ALARM_LOG_TEXT_DOWNFLOW_ALARM_TOO_LOW, pData->getDownflowVelocityStr());
+                                            _insertAlarmLog(ALARM_LOG_CODE::ALC_DOWNFLOW_ALARM_LOW, text);
+                                        }
+                                    }
+                                    else if(dfaTooHigh){
+                                        if(!isAlarmActive(pData->getAlarmDownflowHigh())){
+
+                                            pData->setAlarmDownflowHigh(MachineEnums::ALARM_ACTIVE_STATE);
+
+                                            QString text = QString("%1 (%2)")
+                                                    .arg(ALARM_LOG_TEXT_DOWNFLOW_ALARM_TOO_LOW, pData->getDownflowVelocityStr());
+                                            _insertAlarmLog(ALARM_LOG_CODE::ALC_DOWNFLOW_ALARM_HIGH, text);
                                         }
                                     }
                                     else {
-                                        if(!isAlarmNormal(pData->getAlarmInflowLow())){
-                                            short prevState = pData->getAlarmInflowLow();
-                                            pData->setAlarmInflowLow(MachineEnums::ALARM_NORMAL_STATE);
+                                        short prevState = pData->getAlarmDownflowLow();
+                                        short prevState1 = pData->getAlarmDownflowHigh();
 
+                                        if(isAlarmActive(prevState))
+                                            pData->setAlarmDownflowLow(MachineEnums::ALARM_NORMAL_STATE);
+                                        if(isAlarmActive(prevState1))
+                                            pData->setAlarmDownflowHigh(MachineEnums::ALARM_NORMAL_STATE);
 
-                                            if(isAlarmActive(prevState)) {
-                                                QString text = QString("%1 (%2)")
-                                                        .arg(ALARM_LOG_TEXT_INFLOW_ALARM_OK, pData->getInflowVelocityStr());
-                                                _insertAlarmLog(ALARM_LOG_CODE::ALC_INFLOW_ALARM_OK, text);
-                                            }//
+                                        if(isAlarmActive(prevState) || isAlarmActive(prevState1)) {
+                                            QString text = QString("%1 (%2)")
+                                                    .arg(ALARM_LOG_TEXT_DOWNFLOW_ALARM_OK, pData->getDownflowVelocityStr());
+                                            _insertAlarmLog(ALARM_LOG_CODE::ALC_DOWNFLOW_ALARM_OK, text);
                                         }//
                                     }//
                                 }//
@@ -6729,9 +6762,11 @@ void MachineBackend::_machineState()
                             //                    }
                         }
                     }
-                    if(!alarmInflowAvailable){
+                    if(!alarmAirflowAvailable){
                         if(!isAlarmNA(pData->getAlarmInflowLow())) {
                             pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);
+                            pData->setAlarmDownflowLow(MachineEnums::ALARM_NORMAL_STATE);
+                            pData->setAlarmDownflowHigh(MachineEnums::ALARM_NORMAL_STATE);
                         }
                     }
                 }
@@ -6859,6 +6894,13 @@ void MachineBackend::_machineState()
                 }
             }
 
+            ///LOCK FAN IF CURRENT STATE OFF
+            if(!pData->getFanInflowState()){
+                if(!pData->getFanInflowInterlocked()){
+                    _setFanInflowInterlocked(MachineEnums::DIG_STATE_ONE);
+                }
+            }
+
             //LOCK LAMP
             if(!pData->getLightInterlocked()){
                 m_pLight->setInterlock(MachineEnums::DIG_STATE_ONE);
@@ -6902,6 +6944,12 @@ void MachineBackend::_machineState()
             if(!isAlarmNA(pData->getAlarmInflowLow())){
                 pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);
             }
+            if(!isAlarmNA(pData->getAlarmDownflowLow())){
+                pData->setAlarmDownflowLow(MachineEnums::ALARM_NA_STATE);
+            }
+            if(!isAlarmNA(pData->getAlarmDownflowHigh())){
+                pData->setAlarmDownflowHigh(MachineEnums::ALARM_NA_STATE);
+            }
 
             if (!isAlarmNA(pData->getAlarmTempHigh())) {
                 pData->setAlarmTempHigh(MachineEnums::ALARM_NA_STATE);
@@ -6936,6 +6984,9 @@ void MachineBackend::_machineState()
             if(!pData->getFanPrimaryInterlocked()){
                 _setFanPrimaryInterlocked(MachineEnums::DIG_STATE_ONE);
             }
+            if(!pData->getFanInflowInterlocked()){
+                _setFanInflowInterlocked(MachineEnums::DIG_STATE_ONE);
+            }
 
             //LOCK LAMP
             if(!pData->getLightInterlocked()){
@@ -6964,6 +7015,12 @@ void MachineBackend::_machineState()
             ///NO APPLICABLE AIRFLOW ALARM IF THE SASH NOT IN WORKING HEIGHT
             if(!isAlarmNA(pData->getAlarmInflowLow())){
                 pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);
+            }
+            if(!isAlarmNA(pData->getAlarmDownflowLow())){
+                pData->setAlarmDownflowLow(MachineEnums::ALARM_NA_STATE);
+            }
+            if(!isAlarmNA(pData->getAlarmDownflowHigh())){
+                pData->setAlarmDownflowHigh(MachineEnums::ALARM_NA_STATE);
             }
             //            //UNSET EXHAUST ALARM IF EXIST
             //            if(pData->dataExhPressureInstalled()){
@@ -7027,10 +7084,13 @@ void MachineBackend::_machineState()
             if(pData->getFanPrimaryInterlocked()){
                 _setFanPrimaryInterlocked(MachineEnums::DIG_STATE_ZERO);
             }
+            if(pData->getFanInflowInterlocked()){
+                _setFanInflowInterlocked(MachineEnums::DIG_STATE_ZERO);
+            }
 
             //AUTOMATIC IO STATE
             if(m_pSashWindow->isSashStateChanged()){
-                if((pData->getFanPrimaryState() == MachineEnums::FAN_STATE_ON)){
+                if((pData->getFanState() == MachineEnums::FAN_STATE_ON)){
                     if(!eventTimerForDelaySafeHeightAction){
 
                         /// delayQuickModeAutoOn oject will be destroyed when the sash state is changed
@@ -7046,7 +7106,8 @@ void MachineBackend::_machineState()
 
                             qDebug() << "Sash Safe Height after delay turned on out put";
                             //TURN BLOWER TO STANDBY SPEED
-                            _setFanPrimaryStateStandby();
+                            setFanState(MachineEnums::FAN_STATE_STANDBY);
+                            //_setFanPrimaryStateStandby();
                         });
 
                         eventTimerForDelaySafeHeightAction->start();
@@ -7088,6 +7149,12 @@ void MachineBackend::_machineState()
             if(!isAlarmNA(pData->getAlarmInflowLow())){
                 pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);
             }
+            if(!isAlarmNA(pData->getAlarmDownflowLow())){
+                pData->setAlarmDownflowLow(MachineEnums::ALARM_NA_STATE);
+            }
+            if(!isAlarmNA(pData->getAlarmDownflowHigh())){
+                pData->setAlarmDownflowHigh(MachineEnums::ALARM_NA_STATE);
+            }
 
             //            //UNSET EXHAUST ALARM IF EXIST
             //            if(pData->dataExhPressureInstalled()){
@@ -7107,7 +7174,6 @@ void MachineBackend::_machineState()
             if(m_pSashWindow->isSashStateChanged()){
                 m_pSashWindow->clearFlagSashStateChanged();
             }
-
         }
             break;
         case MachineEnums::SASH_STATE_FULLY_OPEN_SSV:
@@ -7135,6 +7201,11 @@ void MachineBackend::_machineState()
             if(!pData->getFanPrimaryDutyCycle()){
                 if(pData->getFanPrimaryInterlocked()){
                     _setFanPrimaryInterlocked(MachineEnums::DIG_STATE_ZERO);
+                }
+            }
+            if(!pData->getFanInflowDutyCycle()){
+                if(pData->getFanInflowInterlocked()){
+                    _setFanInflowInterlocked(MachineEnums::DIG_STATE_ZERO);
                 }
             }
 
@@ -7179,6 +7250,12 @@ void MachineBackend::_machineState()
             ///NO APPLICABLE AIRFLOW ALARM IF THE SASH NOT IN WORKING HEIGHT
             if(!isAlarmNA(pData->getAlarmInflowLow())){
                 pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);
+            }
+            if(!isAlarmNA(pData->getAlarmDownflowLow())){
+                pData->setAlarmDownflowLow(MachineEnums::ALARM_NA_STATE);
+            }
+            if(!isAlarmNA(pData->getAlarmDownflowHigh())){
+                pData->setAlarmDownflowHigh(MachineEnums::ALARM_NA_STATE);
             }
 
             //            //UNSET EXHAUST ALARM IF EXIST
@@ -7228,6 +7305,11 @@ void MachineBackend::_machineState()
                     _setFanPrimaryInterlocked(MachineEnums::DIG_STATE_ONE);
                 }
             }
+            if(!pData->getFanInflowInterlocked()){
+                if(!pData->getFanInflowState()){
+                    _setFanInflowInterlocked(MachineEnums::DIG_STATE_ONE);
+                }
+            }
 
             //LOCK LAMP
             if(!pData->getLightInterlocked()){
@@ -7270,6 +7352,12 @@ void MachineBackend::_machineState()
             ///NO APPLICABLE AIRFLOW ALARM IF THE SASH NOT IN WORKING HEIGHT
             if(!isAlarmNA(pData->getAlarmInflowLow())){
                 pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);
+            }
+            if(!isAlarmNA(pData->getAlarmDownflowLow())){
+                pData->setAlarmDownflowLow(MachineEnums::ALARM_NA_STATE);
+            }
+            if(!isAlarmNA(pData->getAlarmDownflowHigh())){
+                pData->setAlarmDownflowHigh(MachineEnums::ALARM_NA_STATE);
             }
 
             //            //UNSET EXHAUST ALARM IF EXIST
@@ -7321,6 +7409,9 @@ void MachineBackend::_machineState()
         if(pData->getFanPrimaryInterlocked()){
             _setFanPrimaryInterlocked(MachineEnums::DIG_STATE_ZERO);
         }
+        if(pData->getFanInflowInterlocked()){
+            _setFanInflowInterlocked(MachineEnums::DIG_STATE_ZERO);
+        }
 
         ////CLEAR LIGHT GAS
         if(pData->getLightInterlocked()){
@@ -7347,6 +7438,12 @@ void MachineBackend::_machineState()
         }
         if(!isAlarmNA(pData->getAlarmInflowLow())){
             pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);
+        }
+        if(!isAlarmNA(pData->getAlarmDownflowLow())){
+            pData->setAlarmDownflowLow(MachineEnums::ALARM_NA_STATE);
+        }
+        if(!isAlarmNA(pData->getAlarmDownflowHigh())){
+            pData->setAlarmDownflowHigh(MachineEnums::ALARM_NA_STATE);
         }
         if(!isAlarmActive(pData->getAlarmSeasPressureLow())){
             pData->setSeasAlarmPressureLow(MachineEnums::ALARM_NA_STATE);
@@ -7391,6 +7488,8 @@ void MachineBackend::_machineState()
     {
         alarms |= isAlarmActive(pData->getAlarmBoardComError());
         alarms |= isAlarmActive(pData->getAlarmInflowLow());
+        alarms |= isAlarmActive(pData->getAlarmDownflowLow());
+        alarms |= isAlarmActive(pData->getAlarmDownflowHigh());
         alarms |= isAlarmActive(pData->getAlarmSeasPressureLow());
         alarms |= isAlarmActive(pData->getSeasFlapAlarmPressure());
         alarms |= isAlarmActive(pData->getAlarmSash());
@@ -7495,16 +7594,20 @@ void MachineBackend::onDummyStateNewConnection()
                 m_pFanPrimary->setDummyStateEnable(1);
             },
             Qt::QueuedConnection);
-            QMetaObject::invokeMethod(m_pFanInflow.data(),[&]{
-                m_pFanInflow->setDummyStateEnable(1);
-            },
-            Qt::QueuedConnection);
         }
         else if(message == QLatin1String("#fan#dummy#0")){
             QMetaObject::invokeMethod(m_pFanPrimary.data(),[&]{
                 m_pFanPrimary->setDummyStateEnable(0);
             },
             Qt::QueuedConnection);
+        }
+        else if(message == QLatin1String("#fanIfa#dummy#1")){
+            QMetaObject::invokeMethod(m_pFanInflow.data(),[&]{
+                m_pFanInflow->setDummyStateEnable(1);
+            },
+            Qt::QueuedConnection);
+        }
+        else if(message == QLatin1String("#fanIfa#dummy#0")){
             QMetaObject::invokeMethod(m_pFanInflow.data(),[&]{
                 m_pFanInflow->setDummyStateEnable(0);
             },
@@ -7517,19 +7620,23 @@ void MachineBackend::onDummyStateNewConnection()
                 m_pFanPrimary->setDummyState(static_cast<short>(value));
             },
             Qt::QueuedConnection);
+        }
+        else if(message.contains("#fanIfa#state#")){
+            QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
+            int value = std::atoi(adcStr.toStdString().c_str());
             QMetaObject::invokeMethod(m_pFanInflow.data(),[&, value]{
                 m_pFanInflow->setDummyState(static_cast<short>(value));
             },
             Qt::QueuedConnection);
         }
-        else if(message.contains("#fan#rpm#")){
-            QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
-            int value = std::atoi(adcStr.toStdString().c_str());
-            QMetaObject::invokeMethod(m_pFanPrimary.data(),[&, value]{
-                m_pFanPrimary->setDummyRpm(value);
-            },
-            Qt::QueuedConnection);
-        }
+        //        else if(message.contains("#fanIfa#rpm#")){
+        //            QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
+        //            int value = std::atoi(adcStr.toStdString().c_str());
+        //            QMetaObject::invokeMethod(m_pFanInflow.data(),[&, value]{
+        //                m_pFanInflow->setDummyRpm(value);
+        //            },
+        //            Qt::QueuedConnection);
+        //        }
 
         if(message == QLatin1String("#lamp#dummy#1")){
             m_pLight->setDummyStateEnable(1);
@@ -7576,6 +7683,11 @@ void MachineBackend::onDummyStateNewConnection()
         else if(message == QLatin1String("#lampdim#dummy#0")){
             m_pLightIntensity->setDummyStateEnable(0);
         }
+        else if(message.contains("#lampdim#state#")){
+            QString state = message.split("#", Qt::SkipEmptyParts)[2];
+            int dim = std::atoi(state.toStdString().c_str());
+            m_pLightIntensity->setDummyState(dim);
+        }
 
         if(message == QLatin1String("#uv#dummy#1")){
             m_pUV->setDummyStateEnable(1);
@@ -7600,6 +7712,18 @@ void MachineBackend::onDummyStateNewConnection()
             QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
             int adc = std::atoi(adcStr.toStdString().c_str());
             m_pAirflowInflow->setDummyState(adc);
+        }
+
+        if(message == QLatin1String("#dfadc#dummy#1")){
+            m_pAirflowDownflow->setDummyStateEnable(1);
+        }
+        else if(message == QLatin1String("#dfadc#dummy#0")){
+            m_pAirflowDownflow->setDummyStateEnable(0);
+        }
+        else if(message.contains("#dfadc#state#")){
+            QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
+            int adc = std::atoi(adcStr.toStdString().c_str());
+            m_pAirflowDownflow->setDummyState(adc);
         }
 
         if(message == QLatin1String("#sashmotor#dummy#1")){

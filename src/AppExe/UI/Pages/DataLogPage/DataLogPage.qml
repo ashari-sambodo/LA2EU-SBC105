@@ -205,7 +205,7 @@ ViewApp {
                                         anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
-                                        text: qsTr("Inflow")
+                                        text: qsTr("Downflow")
                                     }
                                 }
 
@@ -223,7 +223,7 @@ ViewApp {
                                         anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
-                                        text: qsTr("Downflow")
+                                        text: qsTr("Inflow")
                                     }//
                                 }//
                             }//
@@ -296,7 +296,7 @@ ViewApp {
                                         anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
-                                        text: modelData.ifa
+                                        text: modelData.dfa
                                     }
                                 }
 
@@ -308,7 +308,7 @@ ViewApp {
                                         anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
-                                        text: modelData.dfa
+                                        text: modelData.ifa
                                     }
                                 }
                             }

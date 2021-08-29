@@ -454,23 +454,23 @@ class MachineData : public QObject
 
     //AIRFLOW DOWNFLOW
     Q_PROPERTY(int dfaVelocity
-               READ getInflowVelocity
-               //               WRITE setIfaVelocity
+               READ getDownflowVelocity
+               //               WRITE setDfaVelocity
                NOTIFY dfaVelocityChanged)
 
     Q_PROPERTY(int      dfaAdc
-               READ     getInflowAdc
-               //               WRITE    setInflowAdc
+               READ     getDownflowAdc
+               //               WRITE    setDownflowAdc
                NOTIFY   dfaAdcChanged)
 
     Q_PROPERTY(int      dfaAdcConpensation
-               READ     getInflowAdcConpensation
-               //               WRITE    setInflowAdcConpensation
+               READ     getDownflowAdcConpensation
+               //               WRITE    setDownflowAdcConpensation
                NOTIFY   dfaAdcConpensationChanged)
 
     Q_PROPERTY(QString  dfaVelocityStr
-               READ     getInflowVelocityStr
-               //               WRITE    setInflowVelocityStr
+               READ     getDownflowVelocityStr
+               //               WRITE    setDownflowVelocityStr
                NOTIFY   dfaVelocityStrChanged)
 
     //AIRFLOW CALIBRATION STATUS

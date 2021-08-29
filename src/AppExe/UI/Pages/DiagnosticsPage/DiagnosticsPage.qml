@@ -166,10 +166,10 @@ ViewApp {
 
                                 onLoaded: {
                                     value1 = Qt.binding(function(){
-                                        return "%1\% / %2 RPM".arg(MachineData.fanPrimaryDutyCycle).arg(MachineData.fanPrimaryRpm).arg(MachineData.fanInflowDutyCycle)
+                                        return "%1 \% / %2 RPM".arg(MachineData.fanPrimaryDutyCycle).arg(MachineData.fanPrimaryRpm)
                                     })
                                     value2 = Qt.binding(function(){
-                                        return "%1\%".arg(MachineData.fanInflowDutyCycle)
+                                        return "%1 \%".arg(MachineData.fanInflowDutyCycle)
                                     })
                                 }
 
@@ -213,7 +213,7 @@ ViewApp {
 
                                 onLoaded: {
                                     value = Qt.binding(function(){
-                                        return MachineData.filterLifePercent + "%"
+                                        return MachineData.filterLifePercent + " %"
                                                 + " "
                                                 + "(" + utilsApp.strfSecsToHumanReadableShort(MachineData.filterLifeMinutes * 60)
                                                 + ")"
@@ -328,9 +328,9 @@ ViewApp {
                                 onLoaded: {
                                     value = Qt.binding(function(){
                                         if(MachineData.measurementUnit)
-                                            return MachineData.getDownflowTempCalib()+ "°F" /*+ " | " + MachineData.getInflowTempCalib()+ "°F"*/
+                                            return MachineData.getDownflowTempCalib()+ "°F"
                                         else
-                                            return MachineData.getDownflowTempCalib()+ "°C" /*+ " | " + MachineData.getInflowTempCalib()+ "°C"*/
+                                            return MachineData.getDownflowTempCalib()+ "°C"
                                     })
                                 }
 
@@ -643,16 +643,16 @@ ViewApp {
                                         const rpmDfa = MachineData.getFanPrimaryNominalRpmField()
                                         const ducyIfa = MachineData.getFanInflowNominalDutyCycleField()
 
-                                        value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
-                                        value2 = ducyIfa + " RPM"
+                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
+                                        value2 = ducyIfa + " %"
                                     }
                                     else {
                                         const ducyDfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
                                         const rpmDfa = MachineData.getFanPrimaryNominalRpmFactory()
                                         const ducyIfa = MachineData.getFanInflowNominalDutyCycleFactory()
 
-                                        value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
-                                        value2 = ducyIfa + " RPM"
+                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
+                                        value2 = ducyIfa + " %"
                                     }
                                 }
                             }//
@@ -672,7 +672,7 @@ ViewApp {
                                         const rpmDfa = MachineData.getFanPrimaryMinimumRpmField()
                                         const ducyIfa = MachineData.getFanInflowMinimumDutyCycleField()
 
-                                        value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
                                         value2 = ducyIfa + " RPM"
                                     }//
                                     else {
@@ -680,7 +680,7 @@ ViewApp {
                                         const rpmDfa = MachineData.getFanPrimaryMinimumRpmFactory()
                                         const ducyIfa = MachineData.getFanInflowMinimumDutyCycleFactory()
 
-                                        value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
                                         value2 = ducyIfa + " RPM"
                                     }//
                                 }//
@@ -701,7 +701,7 @@ ViewApp {
                                         const rpmDfa = MachineData.getFanPrimaryStandbyRpmField()
                                         const ducyIfa = MachineData.getFanInflowStandbyDutyCycleField()
 
-                                        value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
                                         value2 = ducyIfa + " RPM"
                                     }
                                     else {
@@ -709,7 +709,7 @@ ViewApp {
                                         const rpmDfa = MachineData.getFanPrimaryStandbyRpmFactory()
                                         const ducyIfa = MachineData.getFanInflowStandbyDutyCycleFactory()
 
-                                        value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
                                         value2 = ducyIfa + " RPM"
                                     }
                                 }
@@ -729,7 +729,7 @@ ViewApp {
                                     const rpmDfa = MachineData.getFanPrimaryNominalRpmFactory()
                                     const ducyIfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
 
-                                    value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                    value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
                                     value2 = ducyIfa + " RPM"
                                 }
                             }//
@@ -748,7 +748,7 @@ ViewApp {
                                     const rpmDfa = MachineData.getFanPrimaryMinimumRpmFactory()
                                     const ducyIfa = MachineData.getFanInflowMinimumDutyCycleFactory()
 
-                                    value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                    value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
                                     value2 = ducyIfa + " RPM"
                                 }
                             }//
@@ -767,7 +767,7 @@ ViewApp {
                                     const rpmDfa = MachineData.getFanPrimaryStandbyRpmFactory()
                                     const ducyIfa = MachineData.getFanInflowStandbyDutyCycleFactory()
 
-                                    value1 = ducyDfa + "%" + " / " + rpmDfa + " RPM"
+                                    value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
                                     value2 = ducyIfa + " RPM"
                                 }
                             }//

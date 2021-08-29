@@ -3,18 +3,20 @@
 #define DEFAULT_CONNECTION_NAME             "DATALOG_DB"
 #define DEFAULT_DB_LOCATION                 "datalog.db"
 
-#define DB_QUERY_INIT                       "\
+#define DB_QUERY_INIT "\
 CREATE TABLE IF NOT EXISTS datalog_V1 \
 (date TEXT,\
  time TEXT,\
  temp TXT,\
- ifa TXT,\
  dfa TXT,\
- adcIfa INT,\
- fanIfaRPM INT,\
- adcDfa INT)"
+ dfaAdc INT,\
+ dfaFanDcy INT,\
+ dfaFanRPM INT,\
+ ifa TXT,\
+ ifaAdc INT,\
+ ifaFanDcy INT)"
 
-#define DB_QUERY_ADD                        "INSERT INTO datalog_V1 VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+#define DB_QUERY_ADD                        "INSERT INTO datalog_V1 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
 #define DB_QUERY_DELETE                     "DELETE FROM datalog_V1"
 #define DB_QUERY_COUNT_ROWS                 "SELECT COUNT(*) FROM datalog_V1"
@@ -57,7 +59,7 @@ bool DataLogSql::init(const QString &uniqConnectionName, const QString &fileName
             return true;
         }
     }
-    //    qDebug() << m_dataBase.lastError().text();
+    qDebug() << m_dataBase.lastError().text();
     m_queryLastErrorStr = m_dataBase.lastError().text();
     return false;
 }
@@ -72,26 +74,31 @@ bool DataLogSql::queryInsert(const QVariantMap data)
 
     bool prepared = query.prepare(DB_QUERY_ADD);
     Q_UNUSED(prepared);
-    //    qDebug() << prepared;
+    qDebug() << prepared;
+    qDebug() << data["date"].toString()<<data["time"].toString()<<data["temp"].toString()<<data["dfa"].toString()<<data["ifa"].toString();
 
     query.addBindValue(data["date"].toString());
     query.addBindValue(data["time"].toString());
     query.addBindValue(data["temp"].toString());
-    query.addBindValue(data["ifa"].toString());
     query.addBindValue(data["dfa"].toString());
-    query.addBindValue(data["adcIfa"].toInt());
-    query.addBindValue(data["fanRPM"].toInt());
-    query.addBindValue(data["adcDfa"].toInt());
+    query.addBindValue(data["dfaAdc"].toInt());
+    query.addBindValue(data["dfaFanDcy"].toInt());
+    query.addBindValue(data["dfaFanRPM"].toInt());
+    query.addBindValue(data["ifa"].toString());
+    query.addBindValue(data["ifaAdc"].toInt());
+    query.addBindValue(data["ifaFanDcy"].toInt());
 
-    //    qDebug() << query.lastQuery();
+    qDebug() << query.lastQuery();
 
     if(query.exec()) {
         success = true;
     }
-    //    else {
-    //        //        qDebug() << "error";
-    //    }
+    else {
+
+        qDebug() << "error";
+    }
     m_queryLastErrorStr = query.lastError().text();
+    qDebug() << m_queryLastErrorStr;
     return success;
 }
 

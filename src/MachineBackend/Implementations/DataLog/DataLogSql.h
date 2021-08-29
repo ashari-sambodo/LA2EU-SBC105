@@ -30,10 +30,12 @@ private:
         TH_DATELOG,
         TH_TIMELOG,
         TH_TEMP,
-        TH_IFA,
         TH_DFA,
-        TH_ADC_IFA,
-        TH_FAN_RPM,
-        TH_ADC_DFA,
+        TH_DFA_ADC,
+        TH_DFA_FAN_DCY,
+        TH_DFA_FAN_RPM,
+        TH_IFA,
+        TH_IFA_ADC,
+        TH_IFA_FAN_DCY,
     };
 };

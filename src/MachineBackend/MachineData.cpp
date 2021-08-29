@@ -2472,8 +2472,14 @@ void MachineData::setInflowVelocityPointField(short point, int value)
     m_ifaVelocityPointField[point] = value;
     //    emit ifaAdcConpensationChanged(m_ifaAdcConpensation);
 }
+
+
 //
 ///AIRFLOW DOWNFLOW
+int MachineData::getDownflowVelocity() const
+{
+    return m_dfaVelocity;
+}
 int MachineData::getDownflowAdc() const
 {
     return m_dfaAdc;

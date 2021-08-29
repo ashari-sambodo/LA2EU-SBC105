@@ -9,6 +9,10 @@
 #define ALARM_LOG_TEXT_INFLOW_ALARM_OK      QObject::tr("Alarm Inflow | Normal")
 #define ALARM_LOG_TEXT_INFLOW_ALARM_TOO_LOW QObject::tr("Alarm Inflow | Fail | Too low")
 
+#define ALARM_LOG_TEXT_DOWNFLOW_ALARM_OK        QObject::tr("Alarm Downflow | Normal")
+#define ALARM_LOG_TEXT_DOWNFLOW_ALARM_TOO_LOW   QObject::tr("Alarm Downflow | Fail | Too low")
+#define ALARM_LOG_TEXT_DOWNFLOW_ALARM_TOO_HIGH  QObject::tr("Alarm Downflow | Fail | Too high")
+
 #define ALARM_LOG_TEXT_SEAS_OK              QObject::tr("Alarm Exhaust | Normal")
 #define ALARM_LOG_TEXT_SEAS_TOO_HIGH        QObject::tr("Alarm Exhaust | Fail | Too high")
 

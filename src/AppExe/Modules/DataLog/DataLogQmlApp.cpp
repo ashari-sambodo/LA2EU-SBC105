@@ -113,15 +113,17 @@ void DataLogQmlApp::selectDescendingWithPagination(int pageNumber)
                 itemTemp = logBuffer.at(i).toList();
                 //                qDebug() << itemTemp.length();
 
-                item.insert("rowid",itemTemp.at(0));
-                item.insert("date", itemTemp.at(1));
-                item.insert("time", itemTemp.at(2));
-                item.insert("temp", itemTemp.at(3));
-                item.insert("ifa",  itemTemp.at(4));
-                item.insert("dfa",  itemTemp.at(5));
-                item.insert("adcIfa", itemTemp.at(6));
-                item.insert("fanIfaRPM", itemTemp.at(7));
-                item.insert("adcDfa", itemTemp.at(8));
+                item.insert("rowid",    itemTemp.at(0));
+                item.insert("date",     itemTemp.at(1));
+                item.insert("time",     itemTemp.at(2));
+                item.insert("temp",     itemTemp.at(3));
+                item.insert("dfa",      itemTemp.at(4));
+                item.insert("dfaAdc",   itemTemp.at(5));
+                item.insert("dfaFanDcy", itemTemp.at(6));
+                item.insert("dfaFanRPM", itemTemp.at(7));
+                item.insert("ifa",      itemTemp.at(8));
+                item.insert("ifaAdc",   itemTemp.at(9));
+                item.insert("ifaFanDcy", itemTemp.at(10));
 
                 logReady.append(item);
             }
@@ -319,11 +321,13 @@ void DataLogQmlApp::exportLogs(int pageNumber,
                     item.insert("date",     itemTemp.at(1));
                     item.insert("time",     itemTemp.at(2));
                     item.insert("temp",     itemTemp.at(3));
-                    item.insert("ifa",      itemTemp.at(4));
-                    item.insert("dfa",      itemTemp.at(5));
-                    item.insert("adcIfa",   itemTemp.at(6));
-                    item.insert("fanRPM",   itemTemp.at(7));
-                    item.insert("adcDfa",   itemTemp.at(8));
+                    item.insert("dfa",      itemTemp.at(4));
+                    item.insert("dfaAdc",   itemTemp.at(5));
+                    item.insert("dfaFanDcy",   itemTemp.at(6));
+                    item.insert("dfaFanRPM",   itemTemp.at(7));
+                    item.insert("ifa",      itemTemp.at(8));
+                    item.insert("ifaAdc",   itemTemp.at(9));
+                    item.insert("ifaFanDcy",   itemTemp.at(10));
 
                     logReady.append(item);
                 }
@@ -409,7 +413,7 @@ void DataLogQmlApp::exportLogs(int pageNumber,
             int textWidthRectColumn1 = 150;
             int textWidthRectColumn2 = 250;
             int textWidthRectColumn3 = 200;
-            int textWidthForParam = (pPdfWriter->width() - (textWidthRectColumn1 + textWidthRectColumn2 + textWidthRectColumn3)) / 5;
+            int textWidthForParam = (pPdfWriter->width() - (textWidthRectColumn1 + textWidthRectColumn2 + textWidthRectColumn3)) / 8;
 
             int textWidthRectColumn4 = textWidthForParam;
             int textWidthRectColumn5 = textWidthForParam + 1;
@@ -417,6 +421,8 @@ void DataLogQmlApp::exportLogs(int pageNumber,
             int textWidthRectColumn7 = textWidthForParam + 1;
             int textWidthRectColumn8 = textWidthForParam + 1;
             int textWidthRectColumn9 = textWidthForParam + 1;
+            int textWidthRectColumn10 = textWidthForParam + 1;
+            int textWidthRectColumn11 = textWidthForParam + 1;
 
             int colBegin1 = 0;
             int colBegin2 = textWidthRectColumn1;
@@ -427,6 +433,8 @@ void DataLogQmlApp::exportLogs(int pageNumber,
             int colBegin7 = colBegin6 + textWidthRectColumn6;
             int colBegin8 = colBegin7 + textWidthRectColumn6;
             int colBegin9 = colBegin8 + textWidthRectColumn7;
+            int colBegin10 = colBegin9 + textWidthRectColumn8;
+            int colBegin11 = colBegin10 + textWidthRectColumn9;
 
             textOption.setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
@@ -452,23 +460,31 @@ void DataLogQmlApp::exportLogs(int pageNumber,
 
             rect.setRect(colBegin5, textMarginTop, textWidthRectColumn5, textHeightRect);
             pPdfPainter->drawRect(rect);
-            pPdfPainter->drawText(rect, QString::fromLocal8Bit("Inflow"), textOption);
+            pPdfPainter->drawText(rect, QString::fromLocal8Bit("Downflow"), textOption);
 
             rect.setRect(colBegin6, textMarginTop, textWidthRectColumn6, textHeightRect);
             pPdfPainter->drawRect(rect);
-            pPdfPainter->drawText(rect, QString::fromLocal8Bit("Downflow"), textOption);
+            pPdfPainter->drawText(rect, QString::fromLocal8Bit("ADC DF"), textOption);
 
             rect.setRect(colBegin7, textMarginTop, textWidthRectColumn7, textHeightRect);
             pPdfPainter->drawRect(rect);
-            pPdfPainter->drawText(rect, QString::fromLocal8Bit("ADC IF"), textOption);
+            pPdfPainter->drawText(rect, QString::fromLocal8Bit("Fan DF(Dcy)"), textOption);
 
             rect.setRect(colBegin8, textMarginTop, textWidthRectColumn8, textHeightRect);
             pPdfPainter->drawRect(rect);
-            pPdfPainter->drawText(rect, QString::fromLocal8Bit("Fan IF(RPM)"), textOption);
+            pPdfPainter->drawText(rect, QString::fromLocal8Bit("Fan DF(RPM)"), textOption);
 
             rect.setRect(colBegin9, textMarginTop, textWidthRectColumn9, textHeightRect);
             pPdfPainter->drawRect(rect);
-            pPdfPainter->drawText(rect, QString::fromLocal8Bit("ADC DF"), textOption);
+            pPdfPainter->drawText(rect, QString::fromLocal8Bit("Inflow"), textOption);
+
+            rect.setRect(colBegin10, textMarginTop, textWidthRectColumn10, textHeightRect);
+            pPdfPainter->drawRect(rect);
+            pPdfPainter->drawText(rect, QString::fromLocal8Bit("ADC IF"), textOption);
+
+            rect.setRect(colBegin11, textMarginTop, textWidthRectColumn11, textHeightRect);
+            pPdfPainter->drawRect(rect);
+            pPdfPainter->drawText(rect, QString::fromLocal8Bit("Fan IF(Dcy)"), textOption);
 
             ///
             //    pPdfPainter->setPen(QPen(Qt::red));
@@ -515,27 +531,37 @@ void DataLogQmlApp::exportLogs(int pageNumber,
 
                 rect.setRect(colBegin5, textMarginTop, textWidthRectColumn5, textHeightRect);
                 pPdfPainter->drawRect(rect);
-                textContent = dataHolderMap.value("ifa").toString();
+                textContent = dataHolderMap.value("dfa").toString();
                 pPdfPainter->drawText(rect, textContent, textOption);
 
                 rect.setRect(colBegin6, textMarginTop, textWidthRectColumn6, textHeightRect);
                 pPdfPainter->drawRect(rect);
-                textContent = dataHolderMap.value("dfa").toString();
+                textContent = dataHolderMap.value("dfaAdc").toString();
                 pPdfPainter->drawText(rect, textContent, textOption);
 
                 rect.setRect(colBegin7, textMarginTop, textWidthRectColumn7, textHeightRect);
                 pPdfPainter->drawRect(rect);
-                textContent = dataHolderMap.value("adcIfa").toString();
+                textContent = dataHolderMap.value("dfaFanDcy").toString();
                 pPdfPainter->drawText(rect, textContent, textOption);
 
                 rect.setRect(colBegin8, textMarginTop, textWidthRectColumn8, textHeightRect);
                 pPdfPainter->drawRect(rect);
-                textContent = dataHolderMap.value("fanIfaRPM").toString();
+                textContent = dataHolderMap.value("dfaFanRPM").toString();
                 pPdfPainter->drawText(rect, textContent, textOption);
 
                 rect.setRect(colBegin9, textMarginTop, textWidthRectColumn9, textHeightRect);
                 pPdfPainter->drawRect(rect);
-                textContent = dataHolderMap.value("adcDfa").toString();
+                textContent = dataHolderMap.value("ifa").toString();
+                pPdfPainter->drawText(rect, textContent, textOption);
+
+                rect.setRect(colBegin10, textMarginTop, textWidthRectColumn10, textHeightRect);
+                pPdfPainter->drawRect(rect);
+                textContent = dataHolderMap.value("ifaAdc").toString();
+                pPdfPainter->drawText(rect, textContent, textOption);
+
+                rect.setRect(colBegin11, textMarginTop, textWidthRectColumn11, textHeightRect);
+                pPdfPainter->drawRect(rect);
+                textContent = dataHolderMap.value("ifaFanDcy").toString();
                 pPdfPainter->drawText(rect, textContent, textOption);
 
                 textMarginTop = textMarginTop + textHeightRect;

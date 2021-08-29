@@ -3,11 +3,20 @@
 #define DEFAULT_CONNECTION_NAME             "DATALOG_DB"
 #define DEFAULT_DB_FILENAME                 "datalog.db"
 
-#define DB_QUERY_INIT                       "\
+#define DB_QUERY_INIT "\
 CREATE TABLE IF NOT EXISTS datalog_V1 \
-(date TEXT, time TEXT, temp TXT, ifa TXT, dfa TXT, adcIfa INT, fanIfaRPM INT, adcDfa INT)"
+(date TEXT,\
+ time TEXT,\
+ temp TXT,\
+ dfa TXT,\
+ dfaAdc INT,\
+ dfaFanDcy INT,\
+ dfaFanRPM INT,\
+ ifa TXT,\
+ ifaAdc INT,\
+ ifaFanDcy INT)"
 
-#define DB_QUERY_ADD                        "INSERT INTO datalog_V1 VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+#define DB_QUERY_ADD                        "INSERT INTO datalog_V1 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
 #define DB_QUERY_DELETE                     "DELETE FROM datalog_V1"
 #define DB_QUERY_COUNT_ROWS                 "SELECT COUNT(*) FROM datalog_V1"
@@ -58,26 +67,29 @@ bool DataLogSqlGet::queryInsert(const QVariantMap data)
 
     bool prepared = query.prepare(DB_QUERY_ADD);
     Q_UNUSED(prepared)
-    //    qDebug() << prepared;
+    qDebug() << prepared;
 
     query.addBindValue(data["date"].toString());
     query.addBindValue(data["time"].toString());
     query.addBindValue(data["temp"].toString());
-    query.addBindValue(data["ifa"].toString());
     query.addBindValue(data["dfa"].toString());
-    query.addBindValue(data["adcIfa"].toInt());
-    query.addBindValue(data["fanIfaRPM"].toInt());
-    query.addBindValue(data["adcDfa"].toInt());
+    query.addBindValue(data["dfaAdc"].toInt());
+    query.addBindValue(data["dfaFanDcy"].toInt());
+    query.addBindValue(data["dfaFanRPM"].toInt());
+    query.addBindValue(data["ifa"].toString());
+    query.addBindValue(data["ifaAdc"].toInt());
+    query.addBindValue(data["ifaFanDcy"].toInt());
 
-    //    qDebug() << query.lastQuery();
+    qDebug() << query.lastQuery();
 
     if(query.exec()) {
         success = true;
     }
-    //    else {
-    //        //        qDebug() << "error";
-    //    }
+    else {
+        qDebug() << "error";
+    }
     m_queryLastErrorStr = query.lastError().text();
+    qDebug() << m_queryLastErrorStr;
     return success;
 }
 
@@ -105,11 +117,13 @@ bool DataLogSqlGet::querySelect(QVariantList *data, const QString &dbQueryConfig
             dataItem.push_back(query.value(TableHeaderEnum::TH_DATELOG));
             dataItem.push_back(query.value(TableHeaderEnum::TH_TIMELOG));
             dataItem.push_back(query.value(TableHeaderEnum::TH_TEMP));
-            dataItem.push_back(query.value(TableHeaderEnum::TH_IFA));
             dataItem.push_back(query.value(TableHeaderEnum::TH_DFA));
-            dataItem.push_back(query.value(TableHeaderEnum::TH_ADC_IFA));
-            dataItem.push_back(query.value(TableHeaderEnum::TH_FAN_IFA_RPM));
-            dataItem.push_back(query.value(TableHeaderEnum::TH_ADC_DFA));
+            dataItem.push_back(query.value(TableHeaderEnum::TH_DFA_ADC));
+            dataItem.push_back(query.value(TableHeaderEnum::TH_DFA_FAN_DCY));
+            dataItem.push_back(query.value(TableHeaderEnum::TH_DFA_FAN_RPM));
+            dataItem.push_back(query.value(TableHeaderEnum::TH_IFA));
+            dataItem.push_back(query.value(TableHeaderEnum::TH_IFA_ADC));
+            dataItem.push_back(query.value(TableHeaderEnum::TH_IFA_FAN_DCY));
 
             data->push_back(dataItem);
         }
