@@ -124,11 +124,11 @@ void AirflowVelocity::routineTask(int parameter)
             velocity = 0;
 
             qDebug() << metaObject()->className() << __func__ << "m_adcPoint[0]" << m_adcPoint[0] << m_adcConpensation << "velocity" << velocity;
-        }else if(m_adcConpensation <= m_adcPoint[1]){
+        }else if(m_adcConpensation <= m_adcPoint[1] && m_scopeCount > 2){
             velocity = qRound((m_adcConpensation - m_b1) / m_m1);
 
             qDebug() << metaObject()->className() << __func__ << "m_adcPoint[1]"  << m_adcPoint[1] << m_adcConpensation << m_b1 << m_m1 << "velocity" << velocity;
-        }else if(m_adcConpensation <= m_adcPoint[2]){
+        }else if(m_adcConpensation <= m_adcPoint[2] && (m_scopeCount >= 2)){
             velocity = qRound((m_adcConpensation - m_b2) / m_m2);
             qDebug() << metaObject()->className() << __func__ << "m_adcPoint[2]" << m_adcPoint[2] << m_adcConpensation << m_b2 << m_m2 << "velocity" << velocity;
         }
@@ -136,7 +136,7 @@ void AirflowVelocity::routineTask(int parameter)
             if(m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT){
                 velocity = qRound((m_adcConpensation - m_b3) / m_m3);
                 qDebug() << metaObject()->className() << __func__ << "m_adcPoint[3]" << m_adcPoint[3] << m_adcConpensation << m_b3 << m_m3 << "velocity" << velocity;
-            }else{
+            }else {
                 velocity = qRound((m_adcConpensation - m_b2) / m_m2);
                 qDebug() << metaObject()->className() << __func__ << "m_adcPoint[2]" << m_adcPoint[2] << m_adcConpensation << m_b2 << m_m2 << "velocity" << velocity;
             }

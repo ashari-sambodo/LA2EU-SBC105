@@ -15,7 +15,7 @@ import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import AlarmLogQmlApp 1.0
 
-//import ModulesCpp.Machine 1.0
+import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
@@ -566,6 +566,7 @@ ViewApp {
                     //                    //console.debug(cycle + " : " + timeout)
                     if(cycle >= timeout){
                         //                        //console.debug("timeout")
+                        MachineAPI.refreshLogRowsCount("alarmlog")
                         viewApp.closeDialog();
                     }
                 })

@@ -58,7 +58,7 @@ Item {
 
         states: [
             State {
-                when: modelName === "LA2"
+                when: modelName === "LA2" || modelName === "LA2 EU"
                 PropertyChanges {
                     target: frameImage
                     source: frameModeSourceA

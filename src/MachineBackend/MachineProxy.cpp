@@ -792,6 +792,118 @@ void MachineProxy::setFanInflowDutyCycle(short value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setFanInflowNominalDutyCycleFactory(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowNominalDutyCycleFactory(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanInflowMinimumDutyCycleFactory(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowMinimumDutyCycleFactory(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanInflowStandbyDutyCycleFactory(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowStandbyDutyCycleFactory(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanInflowNominalDutyCycleField(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowNominalDutyCycleField(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanInflowMinimumDutyCycleField(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowMinimumDutyCycleField(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanInflowStandbyDutyCycleField(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowStandbyDutyCycleField(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanPrimaryMaximumDutyCycleFactory(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanPrimaryMaximumDutyCycleFactory(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanPrimaryMaximumRpmFactory(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanPrimaryMaximumRpmFactory(value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setFanPrimaryNominalDutyCycleFactory(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
@@ -872,6 +984,34 @@ void MachineProxy::setFanPrimaryStandbyRpmFactory(int value)
     /// this method will append pending task to target object then execute on target thread
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
         m_machineBackend->setFanPrimaryStandbyRpmFactory(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanPrimaryMaximumDutyCycleField(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanPrimaryMaximumDutyCycleField(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanPrimaryMaximumRpmField(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanPrimaryMaximumRpmField(value);
     },
     Qt::QueuedConnection);
 }
@@ -1306,6 +1446,39 @@ void MachineProxy::setInflowLowLimitVelocity(short value)
     Qt::QueuedConnection);
 }
 
+
+void MachineProxy::setDownflowSensorConstantTemporary(short value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setDownflowSensorConstantTemporary(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setDownflowSensorConstant(short value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setDownflowSensorConstant(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setDownflowAdcPointFactory(int pointZero, int pointMin, int pointNom, int pointMax)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, pointZero, pointMin, pointNom, pointMax](){
+        m_machineBackend->setDownflowAdcPointFactory(pointZero, pointMin, pointNom, pointMax);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setDownflowAdcPointFactory(int point, int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, point, value](){
+        m_machineBackend->setDownflowAdcPointFactory(point, value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setDownflowVelocityPointFactory(int pointZero, int pointMin, int pointNom, int pointMax)
 {
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, pointZero, pointMin, pointNom, pointMax](){
@@ -1322,6 +1495,22 @@ void MachineProxy::setDownflowVelocityPointFactory(int point, int value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setDownflowAdcPointField(int pointZero, int pointMin, int pointNom, int pointMax)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, pointZero, pointMin, pointNom, pointMax](){
+        m_machineBackend->setDownflowAdcPointField(pointZero, pointMin, pointNom, pointMax);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setDownflowAdcPointField(int point, int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, point, value](){
+        m_machineBackend->setDownflowAdcPointField(point, value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setDownflowVelocityPointField(int pointZero, int pointMin, int pointNom, int pointMax)
 {
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, pointZero, pointMin, pointNom, pointMax](){
@@ -1334,6 +1523,22 @@ void MachineProxy::setDownflowVelocityPointField(int point, int value)
 {
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, point, value](){
         m_machineBackend->setDownflowVelocityPointField(point, value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setDownflowLowLimitVelocity(short value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setDownflowLowLimitVelocity(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setDownflowHighLimitVelocity(short value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setDownflowHighLimitVelocity(value);
     },
     Qt::QueuedConnection);
 }

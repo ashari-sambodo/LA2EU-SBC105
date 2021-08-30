@@ -1100,8 +1100,8 @@ void MachineBackend::setup()
         m_pExhaustContact->setChannelIO(6);
 
         connect(m_pExhaustContact.data(), &DeviceDigitalOut::stateChanged,
-                pData, [&](int newVal){
-            pData->setExhaustContactState(static_cast<short>(newVal));
+                this, [&](int newVal){
+            setExhaustContactState(static_cast<short>(newVal));
         });
     }
 
@@ -1112,8 +1112,8 @@ void MachineBackend::setup()
         m_pAlarmContact->setChannelIO(7);
 
         connect(m_pAlarmContact.data(), &DeviceDigitalOut::stateChanged,
-                pData, [&](int newVal){
-            pData->setAlarmContactState(static_cast<short>(newVal));
+                this, [&](int newVal){
+            setAlarmContactState(static_cast<short>(newVal));
         });
     }
 
@@ -1315,7 +1315,7 @@ void MachineBackend::setup()
         m_pAirflowInflow.reset(new AirflowVelocity());
         m_pAirflowInflow->setAIN(m_boardAnalogInput1.data());
         m_pAirflowInflow->setChannel(1);
-        m_pAirflowInflow->setScopeCount(3); // Default 4
+        m_pAirflowInflow->setScopeCount(2); // Default 4
         //m_pAirflowInflow->setAdcResolutionBits(12);
 
         /// CONNECTION
@@ -1340,7 +1340,7 @@ void MachineBackend::setup()
         m_pAirflowDownflow.reset(new AirflowVelocity());
         m_pAirflowDownflow->setAIN(m_boardAnalogInput2.data());
         m_pAirflowDownflow->setChannel(0);
-        m_pAirflowDownflow->setScopeCount(4); //Default 4
+        m_pAirflowDownflow->setScopeCount(2); //Default 4
         //m_pAirflowDownflow->setAdcResolutionBits(12);
 
         /// CONNECTION
@@ -1566,9 +1566,9 @@ void MachineBackend::setup()
         int dfaAdcNomFactory  = settings.value(QString(SKEY_DFA_CAL_ADC_FACTORY) + "2", 0).toInt();
         int dfaAdcMaxFactory  = settings.value(QString(SKEY_DFA_CAL_ADC_FACTORY) + "3", 0).toInt();
 
-        int dfaVelMinFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "1", 37).toInt();
-        int dfaVelNomFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "2", 40).toInt();
-        int dfaVelMaxFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "3", 47).toInt();
+        int dfaVelMinFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "1", 27).toInt();
+        int dfaVelNomFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "2", 32).toInt();
+        int dfaVelMaxFactory  = settings.value(QString(SKEY_DFA_CAL_VEL_FACTORY) + "3", 37).toInt();
 
         int dfaVelLowAlarm    = settings.value(QString(SKEY_DFA_CAL_VEL_LOW_LIMIT), dfaVelMinFactory).toInt();
         int dfaVelHighAlarm   = settings.value(QString(SKEY_DFA_CAL_VEL_HIGH_LIMIT), dfaVelMaxFactory).toInt();
@@ -1593,7 +1593,7 @@ void MachineBackend::setup()
         int ifaAdcNomFactory  = settings.value(QString(SKEY_IFA_CAL_ADC_FACTORY) + "2", 0).toInt();
 
         int ifaVelMinFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "1", 40).toInt();
-        int ifaVelNomFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "2", 53).toInt();
+        int ifaVelNomFactory  = settings.value(QString(SKEY_IFA_CAL_VEL_FACTORY) + "2", 45).toInt();
 
         int ifaVelLowAlarm    = settings.value(QString(SKEY_IFA_CAL_VEL_LOW_LIMIT), ifaVelMinFactory).toInt();
 
@@ -1825,7 +1825,7 @@ void MachineBackend::setup()
         pData->setDataLogSpaceMaximum(DATALOG_MAX_ROW);
 
         m_timerEventForDataLog.reset(new QTimer);
-        m_timerEventForDataLog->setInterval(period * 1 * 1000);
+        m_timerEventForDataLog->setInterval(period * 60 * 1000);
         ///
         QObject::connect(m_timerEventForDataLog.data(), &QTimer::timeout,
                          this, &MachineBackend::_insertDataLog);
@@ -2569,7 +2569,7 @@ void MachineBackend::setDataLogPeriod(short dataLogPeriod)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << dataLogPeriod;
 
-    m_timerEventForDataLog->setInterval(dataLogPeriod * 1 * 1000); /// convert minute to ms
+    m_timerEventForDataLog->setInterval(dataLogPeriod * 60 * 1000); /// convert minute to ms
     if(pData->getDataLogEnable()) m_timerEventForDataLog->start();
 
     pData->setDataLogPeriod(dataLogPeriod);
@@ -3684,6 +3684,7 @@ void MachineBackend::setExhaustContactState(short exhaustContactState)
     qDebug() << exhaustContactState;
 
     m_pExhaustContact->setState(exhaustContactState);
+    pData->setExhaustContactState(exhaustContactState);
 }
 
 void MachineBackend::setAlarmContactState(short alarmContactState)
@@ -3692,6 +3693,7 @@ void MachineBackend::setAlarmContactState(short alarmContactState)
     qDebug() << alarmContactState;
 
     m_pAlarmContact->setState(alarmContactState);
+    pData->setAlarmContactState(alarmContactState);
 }
 
 void MachineBackend::setSashMotorizeInstalled(short value)
@@ -4051,6 +4053,31 @@ void MachineBackend::setDownflowTemperatureCalib(short value, int adc)
     pData->setDownflowTempCalibAdc(static_cast<short>(adc));
 }
 
+void MachineBackend::setDownflowAdcPointFactory(int pointZero, int pointMin, int pointNom, int pointMax)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QSettings settings;
+    settings.setValue(QString(SKEY_DFA_CAL_ADC_FACTORY) + "0", pointZero);
+    settings.setValue(QString(SKEY_DFA_CAL_ADC_FACTORY) + "1", pointMin);
+    settings.setValue(QString(SKEY_DFA_CAL_ADC_FACTORY) + "2", pointNom);
+    settings.setValue(QString(SKEY_DFA_CAL_ADC_FACTORY) + "3", pointMax);
+
+    pData->setDownflowAdcPointFactory(0, pointZero);
+    pData->setDownflowAdcPointFactory(1, pointMin);
+    pData->setDownflowAdcPointFactory(2, pointNom);
+    pData->setDownflowAdcPointFactory(3, pointMax);
+}
+
+void MachineBackend::setDownflowAdcPointFactory(int point, int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QSettings settings;
+    settings.setValue(QString(SKEY_DFA_CAL_ADC_FACTORY) + QString::number(point), value);
+
+    pData->setDownflowAdcPointFactory(static_cast<short>(point), value);
+}
 
 void MachineBackend::_setFanPrimaryDutyCycle(short dutyCycle)
 {
@@ -4363,6 +4390,31 @@ void MachineBackend::setDownflowVelocityPointFactory(int point, int value)
     pData->setDownflowVelocityPointFactory(static_cast<short>(point), value);
 }
 
+void MachineBackend::setDownflowAdcPointField(int pointZero, int pointMin, int pointNom, int pointMax)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << pointZero << pointMin << pointNom;
+
+    QSettings settings;
+    settings.setValue(QString(SKEY_DFA_CAL_ADC_FIELD) + "0", pointZero);
+    settings.setValue(QString(SKEY_DFA_CAL_ADC_FIELD) + "1", pointMin);
+    settings.setValue(QString(SKEY_DFA_CAL_ADC_FIELD) + "2", pointNom);
+    settings.setValue(QString(SKEY_DFA_CAL_ADC_FIELD) + "3", pointMax);
+
+    pData->setDownflowAdcPointField(0, pointZero);
+    pData->setDownflowAdcPointField(1, pointMin);
+    pData->setDownflowAdcPointField(2, pointNom);
+    pData->setDownflowAdcPointField(3, pointMax);
+}
+
+void MachineBackend::setDownflowAdcPointField(int point, int value)
+{
+    QSettings settings;
+    settings.setValue(QString(SKEY_DFA_CAL_ADC_FIELD) + QString::number(point), value);
+
+    pData->setDownflowAdcPointField(static_cast<short>(point), value);
+}
+
 void MachineBackend::setDownflowVelocityPointField(int /*pointZero*/, int pointMin, int pointNom, int pointMax)
 {
     QSettings settings;
@@ -4381,6 +4433,22 @@ void MachineBackend::setDownflowVelocityPointField(int point, int value)
     settings.setValue(QString(SKEY_DFA_CAL_VEL_FIELD) + QString::number(point), value);
 
     pData->setDownflowVelocityPointField(static_cast<short>(point), value);
+}
+
+void MachineBackend::setDownflowLowLimitVelocity(short value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_DFA_CAL_VEL_LOW_LIMIT, value);
+
+    pData->setDownflowLowLimitVelocity(value);
+}
+
+void MachineBackend::setDownflowHighLimitVelocity(short value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_DFA_CAL_VEL_HIGH_LIMIT, value);
+
+    pData->setDownflowHighLimitVelocity(value);
 }
 
 void MachineBackend::initAirflowCalibrationStatus(short value)
@@ -4770,6 +4838,8 @@ void MachineBackend::_onSashStateChanged(short state, short prevState)
 
 void MachineBackend::_onLightStateChanged(short state)
 {
+    qDebug() << metaObject()->className() << __FUNCTION__ << state << thread();
+
     pData->setLightState(state);
 
     /// MODBUS
@@ -4783,6 +4853,8 @@ void MachineBackend::_onLightStateChanged(short state)
 
 void MachineBackend::_onSocketStateChanged(short state)
 {
+    qDebug() << metaObject()->className() << __FUNCTION__ << state << thread();
+
     pData->setSocketState(state);
 
     /// MEDIUM
@@ -4795,6 +4867,8 @@ void MachineBackend::_onSocketStateChanged(short state)
 
 void MachineBackend::_onGasStateChanged(short state)
 {
+    qDebug() << metaObject()->className() << __FUNCTION__ << state << thread();
+
     pData->setGasState(state);
 
     /// MODBUS
@@ -4807,6 +4881,8 @@ void MachineBackend::_onGasStateChanged(short state)
 
 void MachineBackend::_onUVStateChanged(short state)
 {
+    qDebug() << metaObject()->className() << __FUNCTION__ << state << thread();
+
     pData->setUvState(state);
 
     /// TRIGGERING UV TIME AND FRIENDS
@@ -5496,7 +5572,7 @@ void MachineBackend::_insertDataLog()
     if (currentRowCount >= DATALOG_MAX_ROW){
         return;
     }
-    /*
+
     /// Only record the log when blower in nominal condition
     if (pData->getFanState() != MachineEnums::FAN_STATE_ON){
         /// if timer event for this task still running, do stop it
@@ -5505,15 +5581,15 @@ void MachineBackend::_insertDataLog()
         }
         return;
     }
-    /// Only record the log when airflow has calibrated
-    if (!pData->getAirflowCalibrationStatus()){
-        /// if timer event for this task still running, do stop it
-        if(m_timerEventForDataLog->isActive()){
-            m_timerEventForDataLog->stop();
-        }
-        return;
-    }
-    */
+    //    /// Only record the log when airflow has calibrated
+    //    if (!pData->getAirflowCalibrationStatus()){
+    //        /// if timer event for this task still running, do stop it
+    //        if(m_timerEventForDataLog->isActive()){
+    //            m_timerEventForDataLog->stop();
+    //        }
+    //        return;
+    //    }
+
     QDateTime dateTime = QDateTime::currentDateTime();
     QString dateText = dateTime.toString("yyyy-MM-dd");
     QString timeText = dateTime.toString("hh:mm:ss");
@@ -5540,7 +5616,6 @@ void MachineBackend::_insertDataLog()
                               ifaVelocity,
                               ifaVelAdc,
                               ifaFanDcy](){
-
         QVariantMap dataMap;
         dataMap.insert("date",      dateText);
         dataMap.insert("time",      timeText);
@@ -5552,7 +5627,7 @@ void MachineBackend::_insertDataLog()
         dataMap.insert("ifa",       ifaVelocity);
         dataMap.insert("ifaAdc",    ifaVelAdc);
         dataMap.insert("ifaFanDcy", ifaFanDcy);
-        qDebug() << dataMap;
+        //qDebug() << dataMap;
         DataLogSql *sql = m_pDataLog->getPSqlInterface();
         bool success = sql->queryInsert(dataMap);
 
@@ -5561,9 +5636,10 @@ void MachineBackend::_insertDataLog()
         success = sql->queryCount(&count);
         //        qDebug() << "success: " << success ;
         if(success){
-            pData->setDataLogCount(count);
-            //            qDebug() << count << maximumRowCount;
-            pData->setDataLogIsFull(count >= DATALOG_MAX_ROW);
+            setDataLogCount(count);
+            //            pData->setDataLogCount(count);
+            qDebug() << count << "to" << DATALOG_MAX_ROW;
+            //            pData->setDataLogIsFull(count >= DATALOG_MAX_ROW);
         }//
     },
     Qt::QueuedConnection);
@@ -5638,7 +5714,7 @@ void MachineBackend::_insertEventLog(const QString logText)
         dataMap.insert("logText",       logText);
         dataMap.insert("username",      usernameSigned);
         dataMap.insert("userfullname",  userfullnameSigned);
-        qDebug() << dataMap;
+        //qDebug() << dataMap;
         EventLogSql *sql = m_pEventLog->getPSqlInterface();
         bool success = sql->queryInsert(dataMap);
 
@@ -7521,19 +7597,23 @@ void MachineBackend::_machineState()
     //RELAY CONTACT STATE FOR BLOWER INDICATION
     //SET RELAY CONTACT ALARM IF INTERNAL BLOWER ON/STANDBY
     //OTHERWISE UNSET
-    if(pData->getFanPrimaryState()){
-        m_pExhaustContact->setState(MachineEnums::DIG_STATE_ONE);
+    if(pData->getFanState()){
+        if(!pData->getExhaustContactState())
+            setExhaustContactState(MachineEnums::DIG_STATE_ONE);
     }else{
-        m_pExhaustContact->setState(MachineEnums::DIG_STATE_ZERO);
+        if(pData->getExhaustContactState())
+            setExhaustContactState(MachineEnums::DIG_STATE_ZERO);
     }
 
     //RELAY CONTACT STATE FOR BLOWER INDICATION
     //SET RELAY CONTACT ALARM IF INTERNAL BLOWER ON/STANDBY
     //OTHERWISE UNSET
     if(pData->getAlarmsState()){
-        m_pAlarmContact->setState(MachineEnums::DIG_STATE_ONE);
+        if(!pData->getAlarmContactState())
+            setAlarmContactState(MachineEnums::DIG_STATE_ONE);
     }else{
-        m_pAlarmContact->setState(MachineEnums::DIG_STATE_ZERO);
+        if(pData->getAlarmContactState())
+            setAlarmContactState(MachineEnums::DIG_STATE_ZERO);
     }
 
     /// MODBUS ALARM STATUS
@@ -7686,7 +7766,7 @@ void MachineBackend::onDummyStateNewConnection()
         else if(message.contains("#lampdim#state#")){
             QString state = message.split("#", Qt::SkipEmptyParts)[2];
             int dim = std::atoi(state.toStdString().c_str());
-            m_pLightIntensity->setDummyState(dim);
+            m_pLightIntensity->setDummyState(static_cast<short>(dim));
         }
 
         if(message == QLatin1String("#uv#dummy#1")){

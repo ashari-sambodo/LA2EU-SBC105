@@ -67,103 +67,188 @@ ViewApp {
                                     id: parameterColumn
                                     anchors.centerIn: parent
                                     spacing: 10
+                                    Column{
+                                        spacing: 10
+                                        TextApp {
+                                            wrapMode: Text.WordWrap
+                                            text: qsTr("Downflow and Inflow fan should be turned off!")
+                                        }
+                                        TextApp {
+                                            wrapMode: Text.WordWrap
+                                            text: qsTr("Sensor Constant: %1 (D/F) | %2 (I/F)").arg(props.dfaSensorConstant).arg(props.ifaSensorConstant)
+                                        }
 
-                                    TextApp {
-                                        wrapMode: Text.WordWrap
-                                        text: qsTr("Internal fan should be turned off!")
+                                        TextApp {
+                                            text: qsTr("Temperature calib") + ": " + props.temperatureActualStr
+                                        }//
                                     }
+                                    Row{
+                                        spacing: 30
+                                        Column {
+                                            TextApp{
+                                                text: qsTr("Downflow sensor") + "<br>" + "ADC" + ":"
+                                            }//
 
-                                    TextApp {
-                                        text: qsTr("Temperature calib") + ": " + props.temperatureActualStr
-                                    }//
-
-                                    Column {
-                                        TextApp{
-                                            text: qsTr("Airflow sensor ADC") + ":"
+                                            TextApp{
+                                                id: currentTextApp1
+                                                font.pixelSize: 52
+                                                text: props.dfaAdcActual
+                                            }//
                                         }//
+                                        Column {
+                                            TextApp{
+                                                text: qsTr("Inflow sensor") + "<br>" + "ADC" + ":"
+                                            }//
 
-                                        TextApp{
-                                            font.pixelSize: 18
-                                            text:  "* " + qsTr("Please wait until the value stabilizes")
-                                            color: "#DEB887"
+                                            TextApp{
+                                                id: currentTextApp2
+                                                font.pixelSize: 52
+                                                text: props.ifaAdcActual
+                                            }//
                                         }//
-
-                                        TextApp{
-                                            id: currentTextApp
-                                            font.pixelSize: 52
-                                            text: props.adcActual
-                                        }//
+                                    }
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text:  "* " + qsTr("Please wait until the value are stable")
+                                        color: "#DEB887"
                                     }//
                                 }//
                             }//
 
                             Item {
                                 Layout.fillHeight: true
-                                Layout.minimumWidth: parent.width * 0.20
-
-                                Rectangle {
+                                Layout.minimumWidth: parent.width * 0.22
+                                Column{
                                     anchors.verticalCenter: parent.verticalCenter
-                                    width: parent.width
-                                    height: parent.height / 3 - 5
-                                    color: "#0F2952"
-                                    border.color: "#dddddd"
-                                    radius: 5
+                                    spacing: 5
+                                    Rectangle {
+                                        width: 220
+                                        height: 140
+                                        color: "#0F2952"
+                                        border.color: "#dddddd"
+                                        radius: 5
 
-                                    ColumnLayout {
-                                        anchors.fill: parent
-                                        anchors.margins: 2
-                                        spacing: 1
+                                        ColumnLayout {
+                                            anchors.fill: parent
+                                            anchors.margins: 2
+                                            spacing: 1
 
-                                        TextApp {
-                                            font.pixelSize: 14
-                                            text: qsTr("Press here to turning off")
-                                        }
+                                            TextApp {
+                                                font.pixelSize: 14
+                                                text: qsTr("Press here to turn off D/F Fan")
+                                            }
 
-                                        Item {
-                                            Layout.fillWidth: true
-                                            Layout.fillHeight: true
+                                            Item {
+                                                Layout.fillWidth: true
+                                                Layout.fillHeight: true
 
-                                            Image {
-                                                id: fanImage
-                                                source: "qrc:/UI/Pictures/controll/Fan_W.png"
-                                                anchors.fill: parent
-                                                fillMode: Image.PreserveAspectFit
+                                                Image {
+                                                    id: fanImage1
+                                                    source: "qrc:/UI/Pictures/controll/Fan_W.png"
+                                                    //anchors.fill: parent
+                                                    height: 70
+                                                    fillMode: Image.PreserveAspectFit
+                                                    anchors.centerIn: parent
 
-                                                states: State {
-                                                    name: "stateOn"
-                                                    when: props.fanDutyCycleActual
-                                                    PropertyChanges {
-                                                        target: fanImage
-                                                        source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                                    states: State {
+                                                        name: "stateOn"
+                                                        when: props.dfaFanDutyCycleActual
+                                                        PropertyChanges {
+                                                            target: fanImage1
+                                                            source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                                        }//
                                                     }//
                                                 }//
                                             }//
+
+                                            TextApp {
+                                                text: "Dcy: " + props.dfaFanDutyCycleActual
+                                            }//
+
+                                            TextApp {
+                                                text: "RPM: " + props.dfaFanRpmActual
+                                            }//
                                         }//
 
-                                        TextApp {
-                                            text: "Dcy: " + props.fanDutyCycleActual
-                                        }//
+                                        MouseArea {
+                                            anchors.fill: parent
+                                            onClicked: {
 
-                                        TextApp {
-                                            text: "RPM: " + props.fanRpmActual
+                                                MachineAPI.setFanPrimaryDutyCycle(0);
+
+                                                viewApp.showBusyPage(qsTr("Switching off D/F fan..."),
+                                                                     function onTriggered(cycle){
+                                                                         if(cycle === 5){
+                                                                             viewApp.dialogObject.close()
+                                                                         }
+                                                                     })
+                                            }//
                                         }//
                                     }//
+                                    Rectangle {
+                                        width: 220
+                                        height: 140
+                                        color: "#0F2952"
+                                        border.color: "#dddddd"
+                                        radius: 5
 
-                                    MouseArea {
-                                        anchors.fill: parent
-                                        onClicked: {
+                                        ColumnLayout {
+                                            anchors.fill: parent
+                                            anchors.margins: 2
+                                            spacing: 1
 
-                                            MachineAPI.setFanPrimaryDutyCycle(0);
+                                            TextApp {
+                                                font.pixelSize: 14
+                                                text: qsTr("Press here to turn off I/F Fan")
+                                            }
 
-                                            viewApp.showBusyPage(qsTr("Switching off fan..."),
-                                                                 function onTriggered(cycle){
-                                                                     if(cycle === 5){
-                                                                         viewApp.dialogObject.close()
-                                                                     }
-                                                                 })
+                                            Item {
+                                                Layout.fillWidth: true
+                                                Layout.fillHeight: true
+
+                                                Image {
+                                                    id: fanImage2
+                                                    source: "qrc:/UI/Pictures/controll/Fan_W.png"
+                                                    //anchors.fill: parent
+                                                    height: 70
+                                                    fillMode: Image.PreserveAspectFit
+                                                    anchors.centerIn: parent
+                                                    states: State {
+                                                        name: "stateOn"
+                                                        when: props.ifaFanDutyCycleActual
+                                                        PropertyChanges {
+                                                            target: fanImage2
+                                                            source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                                        }//
+                                                    }//
+                                                }//
+                                            }//
+
+                                            TextApp {
+                                                text: "Dcy: " + props.ifaFanDutyCycleActual
+                                            }//
+
+                                            //                                            TextApp {
+                                            //                                                text: "RPM: " + props.fanRpmActual
+                                            //                                            }//
+                                        }//
+
+                                        MouseArea {
+                                            anchors.fill: parent
+                                            onClicked: {
+
+                                                MachineAPI.setFanInflowDutyCycle(0);
+
+                                                viewApp.showBusyPage(qsTr("Switching off I/F fan..."),
+                                                                     function onTriggered(cycle){
+                                                                         if(cycle === 5){
+                                                                             viewApp.dialogObject.close()
+                                                                         }
+                                                                     })
+                                            }//
                                         }//
                                     }//
-                                }//
+                                }
                             }//
                         }//
                     }//
@@ -448,11 +533,18 @@ ViewApp {
 
             property string pid: ""
 
-            property int fanDutyCycleActual: 0
-            property int fanRpmActual: 0
+            property int dfaSensorConstant : 0
+            property int ifaSensorConstant : 0
 
-            property int adcActual: 0
-            property int adcResult: 0
+            property int dfaFanDutyCycleActual: 0
+            property int dfaFanRpmActual: 0
+            property int ifaFanDutyCycleActual: 0
+            //            property int ifaFanRpmActual: 0
+
+            property int dfaAdcActual: 0
+            property int dfaAdcResult: 0
+            property int ifaAdcActual: 0
+            property int ifaAdcResult: 0
 
             property int temperatureActual: 0
             property string temperatureActualStr: "0°C"
@@ -475,18 +567,24 @@ ViewApp {
                 if (extradata['pid'] !== undefined) {
                     //                        //console.debug(extradata['pid'])
                     props.pid = extradata['pid']
+                    props.dfaSensorConstant = extradata['dfaSensorConstant'] || 0
+                    props.ifaSensorConstant = extradata['ifaSensorConstant'] || 0
                 }
 
-                props.fanDutyCycleActual = Qt.binding(function(){ return MachineData.fanPrimaryDutyCycle })
-                props.fanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
+                props.dfaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanPrimaryDutyCycle })
+                props.dfaFanRpmActual       = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
+                props.ifaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanInflowDutyCycle })
+                //props.ifaFanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
 
-                props.adcActual = Qt.binding(function() { return MachineData.ifaAdcConpensation })
+                props.dfaAdcActual = Qt.binding(function() { return MachineData.dfaAdcConpensation })
+                props.ifaAdcActual = Qt.binding(function() { return MachineData.ifaAdcConpensation })
 
                 props.temperatureActual = Qt.binding(function(){ return MachineData.temperature })
                 props.temperatureActualStr = Qt.binding(function(){ return MachineData.temperatureValueStr })
 
                 /// Automatically turned off the blower
                 MachineAPI.setFanPrimaryDutyCycle(0);
+                MachineAPI.setFanInflowDutyCycle(0);
 
                 viewApp.showBusyPage(qsTr("Turning off the fan..."),
                                      function onTriggered(cycle){
@@ -494,6 +592,11 @@ ViewApp {
                                              viewApp.dialogObject.close()
                                          }
                                      })
+
+                if(!props.dfaSensorConstant && !props.ifaSensorConstant)
+                    countTimer.count = 30
+                else
+                    countTimer.count = 180
             }
 
             /// onPause

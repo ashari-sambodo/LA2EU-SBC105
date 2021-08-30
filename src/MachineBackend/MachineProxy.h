@@ -93,9 +93,9 @@ public slots:
     //// FAN
     void setFanState(short value);
     void setFanPrimaryDutyCycle(short value);
-    //Added for LA2-EU
-    void setFanInflowDutyCycle(short value);
     //
+    void setFanPrimaryMaximumDutyCycleFactory(short value);
+    void setFanPrimaryMaximumRpmFactory(int value);
     void setFanPrimaryNominalDutyCycleFactory(short value);
     void setFanPrimaryNominalRpmFactory(int value);
     void setFanPrimaryMinimumDutyCycleFactory(short value);
@@ -103,12 +103,32 @@ public slots:
     void setFanPrimaryStandbyDutyCycleFactory(short value);
     void setFanPrimaryStandbyRpmFactory(int value);
     //
+    void setFanPrimaryMaximumDutyCycleField(short value);
+    void setFanPrimaryMaximumRpmField(int value);
     void setFanPrimaryNominalDutyCycleField(short value);
     void setFanPrimaryNominalRpmField(int value);
     void setFanPrimaryMinimumDutyCycleField(short value);
     void setFanPrimaryMinimumRpmField(int value);
     void setFanPrimaryStandbyDutyCycleField(short value);
     void setFanPrimaryStandbyRpmField(int value);
+
+    //Added for LA2-EU
+    void setFanInflowDutyCycle(short value);
+    //
+    void setFanInflowNominalDutyCycleFactory(short value);
+    //    void setFanInflowNominalRpmFactory(int value);
+    void setFanInflowMinimumDutyCycleFactory(short value);
+    //    void setFanInflowMinimumRpmFactory(int value);
+    void setFanInflowStandbyDutyCycleFactory(short value);
+    //    void setFanInflowStandbyRpmFactory(int value);
+    //
+    void setFanInflowNominalDutyCycleField(short value);
+    //    void setFanInflowNominalRpmField(int value);
+    void setFanInflowMinimumDutyCycleField(short value);
+    //    void setFanInflowMinimumRpmField(int value);
+    void setFanInflowStandbyDutyCycleField(short value);
+    //    void setFanInflowStandbyRpmField(int value);
+
 
     void setLightIntensity(short lightIntensity);
     void saveLightIntensity(short lightIntensity);
@@ -174,17 +194,21 @@ public slots:
                                      int ducy, int rpm);
     //
     //DOWNFLOW
-    //    void saveDownflowSensorConstant(short ifaConstant);
+    void setDownflowSensorConstantTemporary(short value);
+    void setDownflowSensorConstant(short value);
     //
-    //    void saveDownflowAdcPointFactory(int pointZero, int pointMin, int pointNom);
+    void setDownflowAdcPointFactory(int pointZero, int pointMin, int pointNom, int pointMax);
+    void setDownflowAdcPointFactory(int point, int value);
     void setDownflowVelocityPointFactory(int pointZero, int pointMin, int pointNom, int pointMax);
     void setDownflowVelocityPointFactory(int point, int value);
-    //    void saveDownflowTemperatureFactory(short ifaTemperatureFactory, int adc);
     //
-    //    void saveDownflowAdcPointField(short point, int adc);
+    void setDownflowAdcPointField(int pointZero, int pointMin, int pointNom, int pointMax);
+    void setDownflowAdcPointField(int point, int value);
     void setDownflowVelocityPointField(int pointZero, int pointMin, int pointNom, int pointMax);
     void setDownflowVelocityPointField(int point, int value);
-    //    void saveDownflowTemperatureField(short value, int adc);
+    //
+    void setDownflowLowLimitVelocity(short value);
+    void setDownflowHighLimitVelocity(short value);
     //
     void saveDownflowMeaNominalGrid(const QJsonArray grid,
                                     int total,

@@ -5,7 +5,7 @@
  *  Author: Heri Cahyono
 **/
 
-import QtQuick 2.0
+import QtQuick 2.6
 import QtQuick.Layouts 1.0
 
 Item {
@@ -161,6 +161,7 @@ Item {
                             wrapMode: Text.WordWrap
                             font.pixelSize: 20
                             color: "#dddddd"
+                            padding: 5
                             //                            textFormat: Text.RichText
                             //                            text: qsTr("Text")
                             text: root.text

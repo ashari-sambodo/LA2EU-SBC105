@@ -18,7 +18,7 @@ import UI.CusCom 1.0
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import DataLogQmlApp 1.0
-//import ModulesCpp.Machine 1.0
+import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
@@ -542,6 +542,7 @@ ViewApp {
                     //                    //console.debug(cycle + " : " + timeout)
                     if(cycle >= timeout){
                         //                        //console.debug("timeout")
+                        MachineAPI.refreshLogRowsCount("datalog")
                         viewApp.closeDialog();
                     }
                 })

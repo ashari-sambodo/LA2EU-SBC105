@@ -399,26 +399,26 @@ ViewApp {
 
                             }//
 
-                            CusComPage.RowItemApp {
-                                id: iffADC
-                                width: view.width
-                                height: 50
-                                viewContentY: view.contentY
-                                viewSpan: view.span
+                            //                            CusComPage.RowItemApp {
+                            //                                id: iffADC
+                            //                                width: view.width
+                            //                                height: 50
+                            //                                viewContentY: view.contentY
+                            //                                viewSpan: view.span
 
-                                label: qsTr("ADC A/F Fail (D/F | I/F)")
+                            //                                label: qsTr("ADC A/F Fail (D/F | I/F)")
 
-                                onLoaded: {
-                                    if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                                        value1 = MachineData.getDownflowAdcPointField(1)
-                                        value2 = MachineData.getInflowAdcPointField(1);
-                                    }
-                                    else {
-                                        value1 = MachineData.getDownflowAdcPointFactory(1)
-                                        value2 = MachineData.getInflowAdcPointFactory(1)
-                                    }
-                                }
-                            }//
+                            //                                onLoaded: {
+                            //                                    if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
+                            //                                        value1 = MachineData.getDownflowAdcPointField(1)
+                            //                                        value2 = MachineData.getInflowAdcPointField(1);
+                            //                                    }
+                            //                                    else {
+                            //                                        value1 = MachineData.getDownflowAdcPointFactory(1)
+                            //                                        value2 = MachineData.getInflowAdcPointFactory(1)
+                            //                                    }
+                            //                                }
+                            //                            }//
 
                             CusComPage.RowItemApp {
                                 id: if2ADC
@@ -435,20 +435,20 @@ ViewApp {
                                 }
                             }//
 
-                            CusComPage.RowItemApp {
-                                id: if1ADC
-                                width: view.width
-                                height: 50
-                                viewContentY: view.contentY
-                                viewSpan: view.span
+                            //                            CusComPage.RowItemApp {
+                            //                                id: if1ADC
+                            //                                width: view.width
+                            //                                height: 50
+                            //                                viewContentY: view.contentY
+                            //                                viewSpan: view.span
 
-                                label: qsTr("ADC A/F 1 (D/F | I/F)")
+                            //                                label: qsTr("ADC A/F 1 (D/F | I/F)")
 
-                                onLoaded: {
-                                    value1 = MachineData.getDownflowAdcPointFactory(1)
-                                    value2 = MachineData.getInflowAdcPointFactory(1);
-                                }
-                            }//
+                            //                                onLoaded: {
+                            //                                    value1 = MachineData.getDownflowAdcPointFactory(1)
+                            //                                    value2 = MachineData.getInflowAdcPointFactory(1);
+                            //                                }
+                            //                            }//
 
                             CusComPage.RowItemApp {
                                 id: if0ADC
@@ -462,6 +462,46 @@ ViewApp {
                                 onLoaded: {
                                     value1 = MachineData.getDownflowAdcPointFactory(0)
                                     value2 = MachineData.getInflowAdcPointFactory(0);
+                                }
+                            }//
+
+                            CusComPage.RowItemApp {
+                                id: dfmVel
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
+                                label: qsTr("VEL A/F Maximum (D/F)")
+
+                                onLoaded: {
+                                    let velocityIfa = 0
+                                    let velocityDfa = 0
+                                    if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
+                                        //velocityIfa = MachineData.getInflowVelocityPointField(1) / 100
+                                        velocityDfa = MachineData.getDownflowVelocityPointField(3) / 100
+                                    }
+                                    else {
+                                        //velocityIfa = MachineData.getInflowVelocityPointFactory(1) / 100
+                                        velocityDfa = MachineData.getDownflowVelocityPointFactory(3) / 100
+                                    }
+
+                                    //let velocityIfaStr = ""
+                                    let velocityDfaStr = ""
+
+                                    if (MachineData.measurementUnit) {
+                                        /// imperial
+                                        //velocityIfaStr = velocityIfa.toFixed() + " fpm"
+                                        velocityDfaStr = velocityDfa.toFixed() + " fpm"
+                                    }
+                                    else {
+                                        /// metric
+                                        //velocityIfaStr = velocityIfa.toFixed(2) + " m/s"
+                                        velocityDfaStr = velocityDfa.toFixed(2) + " m/s"
+                                    }
+
+                                    value = velocityDfaStr
+                                    //value2 = velocityIfaStr
                                 }
                             }//
 
@@ -542,6 +582,40 @@ ViewApp {
 
                                     value1 = velocityDfaStr
                                     value2 = velocityIfaStr
+                                }
+                            }//
+
+                            CusComPage.RowItemApp {
+                                id: df3Vel
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
+                                label: qsTr("VEL A/F 3 (D/F)")
+
+                                onLoaded: {
+                                    let velocityDfa = 0
+                                    //let velocityIfa = 0
+
+                                    //velocityIfa = MachineData.getInflowVelocityPointFactory(2) / 100
+                                    velocityDfa = MachineData.getDownflowVelocityPointFactory(3) / 100
+
+                                    //let velocityIfaStr = ""
+                                    let velocityDfaStr = ""
+                                    if (MachineData.measurementUnit) {
+                                        /// imperial
+                                        //velocityIfaStr = velocityIfa.toFixed() + " fpm"
+                                        velocityDfaStr = velocityDfa.toFixed() + " fpm"
+                                    }
+                                    else {
+                                        /// metric
+                                        //velocityIfaStr = velocityIfa.toFixed(2) + " m/s"
+                                        velocityDfaStr = velocityDfa.toFixed(2) + " m/s"
+                                    }
+
+                                    value = velocityDfaStr
+                                    //value2 = velocityIfaStr
                                 }
                             }//
 
@@ -657,34 +731,34 @@ ViewApp {
                                 }
                             }//
 
-                            CusComPage.RowItemApp {
-                                id: fanDutyCycleMin
-                                width: view.width
-                                height: 50
-                                viewContentY: view.contentY
-                                viewSpan: view.span
+                            //                            CusComPage.RowItemApp {
+                            //                                id: fanDutyCycleMin
+                            //                                width: view.width
+                            //                                height: 50
+                            //                                viewContentY: view.contentY
+                            //                                viewSpan: view.span
 
-                                label: qsTr("Fan Minimum (D/F | I/F)")
+                            //                                label: qsTr("Fan Minimum (D/F | I/F)")
 
-                                onLoaded: {
-                                    if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                                        const ducyDfa = MachineData.getFanPrimaryMinimumDutyCycleField()
-                                        const rpmDfa = MachineData.getFanPrimaryMinimumRpmField()
-                                        const ducyIfa = MachineData.getFanInflowMinimumDutyCycleField()
+                            //                                onLoaded: {
+                            //                                    if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
+                            //                                        const ducyDfa = MachineData.getFanPrimaryMinimumDutyCycleField()
+                            //                                        const rpmDfa = MachineData.getFanPrimaryMinimumRpmField()
+                            //                                        const ducyIfa = MachineData.getFanInflowMinimumDutyCycleField()
 
-                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                        value2 = ducyIfa + " RPM"
-                                    }//
-                                    else {
-                                        const ducyDfa = MachineData.getFanPrimaryMinimumDutyCycleFactory()
-                                        const rpmDfa = MachineData.getFanPrimaryMinimumRpmFactory()
-                                        const ducyIfa = MachineData.getFanInflowMinimumDutyCycleFactory()
+                            //                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
+                            //                                        value2 = ducyIfa + " RPM"
+                            //                                    }//
+                            //                                    else {
+                            //                                        const ducyDfa = MachineData.getFanPrimaryMinimumDutyCycleFactory()
+                            //                                        const rpmDfa = MachineData.getFanPrimaryMinimumRpmFactory()
+                            //                                        const ducyIfa = MachineData.getFanInflowMinimumDutyCycleFactory()
 
-                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                        value2 = ducyIfa + " RPM"
-                                    }//
-                                }//
-                            }//
+                            //                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
+                            //                                        value2 = ducyIfa + " RPM"
+                            //                                    }//
+                            //                                }//
+                            //                            }//
 
                             CusComPage.RowItemApp {
                                 id: fanStandbyDutyCycle
@@ -734,24 +808,24 @@ ViewApp {
                                 }
                             }//
 
-                            CusComPage.RowItemApp {
-                                id: fanDutyCycleMinFactory
-                                width: view.width
-                                height: 50
-                                viewContentY: view.contentY
-                                viewSpan: view.span
+                            //                            CusComPage.RowItemApp {
+                            //                                id: fanDutyCycleMinFactory
+                            //                                width: view.width
+                            //                                height: 50
+                            //                                viewContentY: view.contentY
+                            //                                viewSpan: view.span
 
-                                label: qsTr("Fan A/F 1 (D/F | I/F)")
+                            //                                label: qsTr("Fan A/F 1 (D/F | I/F)")
 
-                                onLoaded: {
-                                    const ducyDfa = MachineData.getFanPrimaryMinimumDutyCycleFactory()
-                                    const rpmDfa = MachineData.getFanPrimaryMinimumRpmFactory()
-                                    const ducyIfa = MachineData.getFanInflowMinimumDutyCycleFactory()
+                            //                                onLoaded: {
+                            //                                    const ducyDfa = MachineData.getFanPrimaryMinimumDutyCycleFactory()
+                            //                                    const rpmDfa = MachineData.getFanPrimaryMinimumRpmFactory()
+                            //                                    const ducyIfa = MachineData.getFanInflowMinimumDutyCycleFactory()
 
-                                    value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                    value2 = ducyIfa + " RPM"
-                                }
-                            }//
+                            //                                    value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
+                            //                                    value2 = ducyIfa + " RPM"
+                            //                                }
+                            //                            }//
 
                             CusComPage.RowItemApp {
                                 id: fanDutyCycleStbFactory

@@ -35,7 +35,6 @@ ViewApp {
                     anchors.fill: parent
                     title: qsTr(viewApp.title)
                 }
-
             }
 
             /// BODY
@@ -43,49 +42,108 @@ ViewApp {
                 id: bodyItem
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                RowLayout{
+                    anchors.fill: parent
+                    spacing: 50
+                    Item{
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Column{
+                            id: parameterColumn
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
 
-                Column{
-                    id: parameterColumn
-                    anchors.centerIn: parent
+                            TextApp{
+                                text: qsTr("Current value (D/F)")
+                            }//
 
-                    TextApp{
-                        text: qsTr("Current value")
-                    }
+                            TextApp{
+                                font.pixelSize: 18
+                                text: "(" + qsTr("Tap to change") + ")"
+                                color: "#aaaaaa"
+                            }//
 
-                    TextApp{
-                        font.pixelSize: 18
-                        text: "(" + qsTr("Tap to change") + ")"
-                        color: "#aaaaaa"
+                            TextApp{
+                                id: currentTextApp
+                                font.pixelSize: 52
+                                text: props.dfaSensorConstant
+                            }//
+
+                        }//
+
+                        TextInput {
+                            id: bufferTextInput
+                            visible: false
+                            text: currentTextApp.text
+                            validator: IntValidator{bottom: 0; top: 99;}
+
+                            onAccepted: {
+                                //                        //console.debug("Hallo")
+                                let newConstant = Number(text);
+                                if(props.dfaSensorConstant !== newConstant){
+                                    props.dfaSensorConstant = newConstant
+                                    currentTextApp.text = newConstant
+                                    setButton.visible = true
+                                }
+                            }//
+                        }//
+
+                        MouseArea{
+                            anchors.fill: parameterColumn
+                            onClicked: {
+                                KeyboardOnScreenCaller.openNumpad(bufferTextInput, qsTr("Sensor Constant (D/F)"))
+                            }//
+                        }//
                     }//
+                    Item{
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Column{
+                            id: parameterColumn2
+                            anchors.left: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
 
-                    TextApp{
-                        id: currentTextApp
-                        font.pixelSize: 52
-                        text: props.sensorConstant
-                    }
+                            TextApp{
+                                text: qsTr("Current value (I/F)")
+                            }//
 
-                }//
+                            TextApp{
+                                font.pixelSize: 18
+                                text: "(" + qsTr("Tap to change") + ")"
+                                color: "#aaaaaa"
+                            }//
 
-                TextInput {
-                    id: bufferTextInput
-                    visible: false
-                    text: currentTextApp.text
-                    validator: IntValidator{bottom: 0; top: 99;}
+                            TextApp{
+                                id: currentTextApp2
+                                font.pixelSize: 52
+                                text: props.ifaSensorConstant
+                            }//
 
-                    onAccepted: {
-                        //                        //console.debug("Hallo")
-                        let newConstant = Number(text);
+                        }//
 
-                        props.sensorConstant = newConstant
-                        currentTextApp.text = newConstant
-                        setButton.visible = true
-                    }
-                }//
+                        TextInput {
+                            id: bufferTextInput2
+                            visible: false
+                            text: currentTextApp2.text
+                            validator: IntValidator{bottom: 0; top: 99;}
 
-                MouseArea{
-                    anchors.fill: parameterColumn
-                    onClicked: {
-                        KeyboardOnScreenCaller.openNumpad(bufferTextInput, qsTr("Sensor Constant"))
+                            onAccepted: {
+                                //                        //console.debug("Hallo")
+                                let newConstant = Number(text);
+                                if(props.ifaSensorConstant !== newConstant){
+                                    props.ifaSensorConstant = newConstant
+                                    currentTextApp2.text = newConstant
+                                    setButton.visible = true
+                                }
+                            }//
+                        }//
+
+                        MouseArea{
+                            anchors.fill: parameterColumn2
+                            onClicked: {
+                                KeyboardOnScreenCaller.openNumpad(bufferTextInput2, qsTr("Sensor Constant (I/F)"))
+                            }//
+                        }//
                     }//
                 }//
             }//
@@ -116,14 +174,16 @@ ViewApp {
                             text: qsTr("Back")
 
                             onClicked: {
-                                if (props.sensorContantHasSet) {
-                                    let intent = IntentApp.create(uri, {"pid": props.pid, "sensorConstant": props.sensorConstant })
+                                if (props.sensorContantHaveSet) {
+                                    let intent = IntentApp.create(uri, {"pid": props.pid,
+                                                                      "dfaSensorConstant": props.dfaSensorConstant,
+                                                                      "ifaSensorConstant": props.ifaSensorConstant })
                                     finishView(intent);
                                 } else {
                                     var intent = IntentApp.create(uri, {})
                                     finishView(intent)
                                 }
-                            }
+                            }//
                         }//
 
                         ButtonBarApp {
@@ -144,23 +204,26 @@ ViewApp {
                                 // So, AirflowSensor object can provide ADC value with current sensor constant in real-time
                                 // this is not permanent, this value withh revert to original sensor constant
                                 // if user not pressing the save button on _NavigationCalibratePage
-                                MachineAPI.setInflowSensorConstantTemporary(props.sensorConstant);
+                                MachineAPI.setInflowSensorConstantTemporary(props.ifaSensorConstant);
+                                MachineAPI.setDownflowSensorConstantTemporary(props.dfaSensorConstant);
 
-                                props.sensorContantHasSet = true;
+                                props.sensorContantHaveSet = true;
 
                                 /// give some time space to ensure the value has updated to AirflowSensor Object
                                 viewApp.showBusyPage(qsTr("Setting up..."),
                                                      function onTriggered(cycle){
                                                          if(cycle === 3){
                                                              showDialogMessage(qsTr("Sensor Constant"),
-                                                                               qsTr("Sensor constant value has been changed to ") + props.sensorConstant,
+                                                                               qsTr("Sensor constant value have been changed to %1 (D/F) and %2 (I/F)").arg(props.dfaSensorConstant).arg(props.ifaSensorConstant),
                                                                                dialogInfo,
                                                                                function onClosed(){
-                                                                                   let intent = IntentApp.create(uri, {"pid": props.pid, "sensorConstant": props.sensorConstant })
+                                                                                   let intent = IntentApp.create(uri, {"pid": props.pid,
+                                                                                                                     "dfaSensorConstant": props.dfaSensorConstant,
+                                                                                                                     "ifaSensorConstant": props.ifaSensorConstant })
                                                                                    finishView(intent);
                                                                                })
-                                                         }
-                                                     })
+                                                         }//
+                                                     })//
                             }//
                         }//
                     }//
@@ -176,7 +239,8 @@ ViewApp {
 
                 props.pid = extradata['pid']
 
-                props.sensorConstant = extradata['sensorConstant'] || 0
+                props.dfaSensorConstant = extradata['dfaSensorConstant'] || 0
+                props.ifaSensorConstant = extradata['ifaSensorConstant'] || 0
             }
         }//
 
@@ -185,9 +249,10 @@ ViewApp {
 
             property string pid: ""
 
-            property int sensorConstant: 0
+            property int dfaSensorConstant: 0
+            property int ifaSensorConstant: 0
 
-            property bool sensorContantHasSet: false
+            property bool sensorContantHaveSet: false
         }//
 
         /// Execute This Every This Screen Active/Visible

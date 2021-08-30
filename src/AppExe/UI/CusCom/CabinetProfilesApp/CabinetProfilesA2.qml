@@ -21,7 +21,7 @@ QtObject {
         {"name": "LA2-3|EU", "profilelId": "a9c3e3ba-f688-11eb-9a03-0242ac130003",
             "modelBase": 1,
             "classStr": "CLASS II A2",
-            "modelStr": "LA2",
+            "modelStr": "LA2 EU",
             "width": {
                 "meter": 0.9144 /*meter = 3 Feet*/,
                 "feet": 3
@@ -153,7 +153,7 @@ QtObject {
         {"name": "LA2-4|EU", "profilelId": "be1ad076-f688-11eb-9a03-0242ac130003",
             "modelBase": 1,
             "classStr": "CLASS II A2",
-            "modelStr": "LA2",
+            "modelStr": "LA2 EU",
             "width": {
                 "meter": 1.2192 /*meter = 4 Feet*/,
                 "feet": 4
@@ -285,7 +285,7 @@ QtObject {
         {"name": "LA2-5|EU", "profilelId": "cbf59b36-f688-11eb-9a03-0242ac130003",
             "modelBase": 1,
             "classStr": "CLASS II A2",
-            "modelStr": "LA2",
+            "modelStr": "LA2 EU",
             "width": {
                 "meter": 1.524 /*meter = 5 Feet*/,
                 "feet": 5
@@ -418,7 +418,7 @@ QtObject {
         {"name": "LA2-6|EU", "profilelId": "df81b63a-f688-11eb-9a03-0242ac130003",
             "modelBase": 1,
             "classStr": "CLASS II A2",
-            "modelStr": "LA2",
+            "modelStr": "LA2 EU",
             "width": {
                 "meter": 1.8288 /*meter = 6 Feet*/,
                 "feet": 6

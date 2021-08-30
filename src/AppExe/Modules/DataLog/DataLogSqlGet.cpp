@@ -67,7 +67,7 @@ bool DataLogSqlGet::queryInsert(const QVariantMap data)
 
     bool prepared = query.prepare(DB_QUERY_ADD);
     Q_UNUSED(prepared)
-    qDebug() << prepared;
+    //    qDebug() << prepared;
 
     query.addBindValue(data["date"].toString());
     query.addBindValue(data["time"].toString());
@@ -80,16 +80,16 @@ bool DataLogSqlGet::queryInsert(const QVariantMap data)
     query.addBindValue(data["ifaAdc"].toInt());
     query.addBindValue(data["ifaFanDcy"].toInt());
 
-    qDebug() << query.lastQuery();
+    //    qDebug() << query.lastQuery();
 
     if(query.exec()) {
         success = true;
     }
-    else {
-        qDebug() << "error";
-    }
+    //    else {
+    //        qDebug() << "error";
+    //    }
     m_queryLastErrorStr = query.lastError().text();
-    qDebug() << m_queryLastErrorStr;
+    //    qDebug() << m_queryLastErrorStr;
     return success;
 }
 

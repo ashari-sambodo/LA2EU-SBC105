@@ -229,17 +229,18 @@ public slots:
     //
     void setDownflowSensorConstant(short value);
     void setDownflowTemperatureCalib(short value, int adc);
-    //    void saveDownflowSensorConstant(short ifaConstant);
-    //
-    //    void saveDownflowAdcPointFactory(int pointZero, int pointMin, int pointNom);
+    void setDownflowAdcPointFactory(int pointZero, int pointMin, int pointNom, int pointMax);
+    void setDownflowAdcPointFactory(int point, int value);
     void setDownflowVelocityPointFactory(int pointZero, int pointMin, int pointNom, int pointMax);
     void setDownflowVelocityPointFactory(int point, int value);
-    //    void saveDownflowTemperatureFactory(short ifaTemperatureFactory, int adc);
     //
-    //    void saveDownflowAdcPointField(short point, int adc);
+    void setDownflowAdcPointField(int pointZero, int pointMin, int pointNom, int pointMax);
+    void setDownflowAdcPointField(int point, int value);
     void setDownflowVelocityPointField(int pointZero, int pointMin, int pointNom, int pointMax);
     void setDownflowVelocityPointField(int point, int value);
-    //    void saveDownflowTemperatureField(short value, int adc);
+    //
+    void setDownflowLowLimitVelocity(short value);
+    void setDownflowHighLimitVelocity(short value);
     //
     void saveDownflowMeaNominalGrid(const QJsonArray grid, int total,
                                     int velocity,

@@ -544,7 +544,7 @@ ViewApp {
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
 
-                props.countRows = Qt.binding(()=>{return MachineData.dataLogCount})
+                props.countRows = Qt.binding(function(){return MachineData.dataLogCount})
                 props.countRowsMax = MachineData.dataLogSpaceMaximum
 
                 enableSwitchApp.checked = MachineData.dataLogEnable

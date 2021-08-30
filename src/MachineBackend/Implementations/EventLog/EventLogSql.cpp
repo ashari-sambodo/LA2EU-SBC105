@@ -69,8 +69,8 @@ bool EventLogSql::queryInsert(const QVariantMap data)
     QSqlQuery query(QSqlDatabase::database(m_connectionName));
 
     bool prepared = query.prepare(DB_QUERY_ADD);
-    Q_UNUSED(prepared);
-    qDebug() << prepared;
+    Q_UNUSED(prepared)
+//    qDebug() << prepared;
 
     query.addBindValue(data["date"].toString());
     query.addBindValue(data["time"].toString());
@@ -81,16 +81,16 @@ bool EventLogSql::queryInsert(const QVariantMap data)
     query.addBindValue(data["username"].toString());
     query.addBindValue(data["userfullname"].toString());
 
-    qDebug() << query.lastQuery();
+    //    qDebug() << query.lastQuery();
 
     if(query.exec()) {
         success = true;
     }
-    else {
-        qWarning() << query.lastError().text();
-    }
+    //    else {
+    //        qWarning() << query.lastError().text();
+    //    }
     m_queryLastErrorStr = query.lastError().text();
-     qDebug() << m_queryLastErrorStr;
+    //     qDebug() << m_queryLastErrorStr;
     return success;
 }
 

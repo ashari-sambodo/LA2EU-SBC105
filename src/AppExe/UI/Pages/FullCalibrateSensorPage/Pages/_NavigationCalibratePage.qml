@@ -321,13 +321,16 @@ ViewApp {
                     let intent = IntentApp.create(uri,
                                                   {
                                                       'pid': pid,
-                                                      "sensorConstant": props.sensorConstant
+                                                      "dfaSensorConstant": props.dfaSensorConstant,
+                                                      "ifaSensorConstant": props.ifaSensorConstant
                                                   })
                     startView(intent)
                 }
                 else if (pid === 'adcz'){
 
-                    let intent = IntentApp.create(uri,{"pid": pid})
+                    let intent = IntentApp.create(uri,{"pid": pid,
+                                                      "dfaSensorConstant":props.dfaSensorConstant,
+                                                      "ifaSensorConstant":props.ifaSensorConstant})
                     startView(intent)
                 }
                 else if (pid === 'adcm'){
@@ -344,13 +347,13 @@ ViewApp {
                 }
                 else if (pid === 'adcn'){
 
-                    if(props.calibNewSensorConst && (!props.calibNewAdcZero || !props.calibNewAdcMin)){
+                    if(props.calibNewSensorConst && (!props.calibNewAdcZero || !props.calibNewAdcMin) && MachineData.machineModelName !== "LA2 EU"){
                         const message = "<b>" + qsTr("You have changed the sensor constant.") + "</b>" + "<br><br>" +
                                       qsTr("It's mandatory to re-calibrate ADC Zero and Minimum before going to ADC Nominal!")
                         showDialogMessage(qsTr("Notification"), message, dialogAlert, function(){}, false)
                         return
                     }
-                    else if(!props.calibNewAdcMin){
+                    else if(!props.calibNewAdcMin  && MachineData.machineModelName !== "LA2 EU"){
                         const message = "<b>" + qsTr("ADC Minimum not calibrated yet!") + "</b>" + "<br><br>" +
                                       qsTr("It's mandatory to calibrate ADC Minimum before going to ADC Nominal!")
                         showDialogMessage(qsTr("Notification"), message, dialogAlert, function(){}, false)
@@ -360,13 +363,17 @@ ViewApp {
                     let intent = IntentApp.create(uri,
                                                   {
                                                       'pid': pid,
-                                                      "measureUnit": props.measurementUnit,
-                                                      "sensorAdcZero": props.sensorAdcZero,
-                                                      "sensorAdcMinimum": props.sensorAdcMinimum,
-                                                      "sensorVelMinimum": props.sensorVelMinimum / 100,
-                                                      "sensorVelNominal": props.sensorVelNominal / 100,
-                                                      "sensorVelNominalDfa": props.sensorVelNominalDfa / 100,
-                                                      'fanDutyCycle': props.fanDutyCycleNominal
+                                                      "measureUnit"         : props.measurementUnit,
+                                                      "dfaSensorAdcZero"    : props.dfaSensorAdcZero,
+                                                      "dfaSensorAdcMinimum" : props.dfaSensorAdcMinimum,
+                                                      "dfaSensorVelMinimum" : props.dfaSensorVelMinimum / 100,
+                                                      "dfaSensorVelNominal" : props.dfaSensorVelNominal / 100,
+                                                      'dfaFanDutyCycle'     : props.dfaFanDutyCycleNominal,
+                                                      "ifaSensorAdcZero"    : props.ifaSensorAdcZero,
+                                                      "ifaSensorAdcMinimum" : props.ifaSensorAdcMinimum,
+                                                      "ifaSensorVelMinimum" : props.ifaSensorVelMinimum / 100,
+                                                      "ifaSensorVelNominal" : props.ifaSensorVelNominal / 100,
+                                                      'ifaFanDutyCycle'     : props.ifaFanDutyCycleNominal
                                                   })
                     startView(intent)
                 }
@@ -588,30 +595,47 @@ ViewApp {
             property int meaDfaNominalVelocityDeviation:    0
             property int meaDfaNominalVelocityDeviationp:   0
 
-            property int sensorConstant: 0
+            property int dfaSensorConstant: 0
+            property int ifaSensorConstant: 0
 
-            property int sensorAdcZero: 0
-            property int sensorAdcMinimum: 0
-            property int sensorAdcNominal: 0
+            property int dfaSensorAdcZero: 0
+            property int dfaSensorAdcMinimum: 0
+            property int dfaSensorAdcNominal: 0
+            property int dfaSensorAdcMaximum: 0
 
-            property int sensorVelStandby: 0 /*+ 40*/
-            property int sensorVelMinimum: 0 /*+ 40*/
-            property int sensorVelNominal: 0 /*+ 53*/
+            property int ifaSensorAdcZero: 0
+            property int ifaSensorAdcMinimum: 0
+            property int ifaSensorAdcNominal: 0
 
-            property int sensorVelLowAlarm: 0
+            property int dfaSensorVelStandby: 0 /*+ 40*/
+            property int dfaSensorVelMinimum: 0 /*+ 40*/
+            property int dfaSensorVelNominal: 0 /*+ 53*/
+            property int dfaSensorVelMaximum: 0 /*+ 53*/
+
+            property int ifaSensorVelStandby: 0 /*+ 40*/
+            property int ifaSensorVelMinimum: 0 /*+ 40*/
+            property int ifaSensorVelNominal: 0 /*+ 53*/
+
+            property int dfaSensorVelLowAlarm: 0
+            property int dfaSensorVelHighAlarm: 0
+            property int ifaSensorVelLowAlarm: 0
 
             property int sensorVelNominalDfa: 0 /*+ 33*/
 
-            property int fanDutyCycleNominal: 0 /*+ 15*/
-            property int fanDutyCycleMinimum: 0 /*+ 10*/
-            property int fanDutyCycleStandby: 0 /*+ 5*/
+            property int dfaFanDutyCycleMaximum: 0 /*+ 15*/
+            property int dfaFanDutyCycleNominal: 0 /*+ 15*/
+            property int dfaFanDutyCycleMinimum: 0 /*+ 10*/
+            property int dfaFanDutyCycleStandby: 0 /*+ 5*/
+            property int ifaFanDutyCycleNominal: 0 /*+ 15*/
+            property int ifaFanDutyCycleMinimum: 0 /*+ 10*/
+            property int ifaFanDutyCycleStandby: 0 /*+ 5*/
 
             property int temperatureCalib: 0
             property int temperatureAdcCalib: 0
 
-            property int fanRpmNominal: 0
-            property int fanRpmMinimum: 0
-            property int fanRpmStandby: 0
+            property int dfaFanRpmNominal: 0
+            property int dfaFanRpmMinimum: 0
+            property int dfaFanRpmStandby: 0
 
             property int measurementUnit: 0
 
@@ -625,7 +649,8 @@ ViewApp {
                 //                props.fanRpmMinimum = 300
                 //                props.fanRpmStandby = 100
 
-                //                props.sensorConstant = 53
+                //                props.dfaSensorConstant = 53
+                //                props.ifaSensorConstant = 53
 
                 //                props.sensorAdcZero     = 150
                 //                props.sensorAdcMinimum  = 1000
@@ -644,45 +669,54 @@ ViewApp {
 
                 viewApp.showBusyPage(qsTr("Setting up..."), function(cycle){
                     if (cycle === 5) {
-
                         /// Goto finished page
                         const intent = IntentApp.create("qrc:/UI/Pages/FullCalibrateSensorPage/Pages/_FinishCalibratePage.qml", {})
                         finishView(intent);
 
-                        //                                        viewApp.dialogObject.close()
+                        //viewApp.dialogObject.close()
                     }
                 })
 
-                //                console.log("grid " + props.meaIfaNominalGrid)
-                //                console.log("grid " + props.meaIfaNominalVolTotal)
-                //                console.log("grid " + props.meaIfaNominalVolAvg)
-                //                console.log("true atau false "+ props.calibNewInflowNom)
+                //console.log("grid " + props.meaIfaNominalGrid)
+                //console.log("grid " + props.meaIfaNominalVolTotal)
+                //console.log("grid " + props.meaIfaNominalVolAvg)
+                //console.log("true atau false "+ props.calibNewInflowNom)
 
                 if (props.calibNewSensorConst) {
-                    MachineAPI.setInflowSensorConstant(props.sensorConstant);
+                    MachineAPI.setInflowSensorConstant(props.ifaSensorConstant);
+                    MachineAPI.setDownflowSensorConstant(props.dfaSensorConstant);
                 }
 
                 /// clear field calibration
-                MachineAPI.setInflowAdcPointField(0, 0, 0)
-                MachineAPI.setInflowVelocityPointField(0, 0, 0)
+                MachineAPI.setInflowAdcPointField       (0, 0, 0)
+                MachineAPI.setInflowVelocityPointField  (0, 0, 0)
+                MachineAPI.setDownflowAdcPointField     (0, 0, 0, 0)
+                MachineAPI.setDownflowVelocityPointField(0, 0, 0, 0)
 
                 /// save new full calibration data
-                MachineAPI.setInflowAdcPointFactory(props.sensorAdcZero, props.sensorAdcMinimum, props.sensorAdcNominal)
-                MachineAPI.setInflowVelocityPointFactory(0, props.sensorVelMinimum, props.sensorVelNominal)
-                MachineAPI.setDownflowVelocityPointFactory(0, 0, props.sensorVelNominalDfa)
+                MachineAPI.setInflowAdcPointFactory         (props.ifaSensorAdcZero, props.ifaSensorAdcMinimum, props.ifaSensorAdcNominal)
+                MachineAPI.setInflowVelocityPointFactory    (0, props.ifaSensorVelMinimum, props.ifaSensorVelNominal)
+                MachineAPI.setDownflowAdcPointFactory       (props.dfaSensorAdcZero, props.dfaSensorAdcMinimum, props.dfaSensorAdcNominal, props.dfaSensorAdcMaximum)
+                MachineAPI.setDownflowVelocityPointFactory  (0, props.dfaSensorVelMinimum, props.dfaSensorVelNominal, props.dfaSensorVelMaximum)
 
-                MachineAPI.setInflowLowLimitVelocity(props.sensorVelLowAlarm);
+                MachineAPI.setInflowLowLimitVelocity    (props.sensorVelLowAlarm);
+                MachineAPI.setDownflowLowLimitVelocity  (props.dfaSensorVelLowAlarm);
+                MachineAPI.setDownflowHighLimitVelocity (props.dfaSensorVelHighAlarm);
 
-                MachineAPI.setInflowTemperatureCalib(props.temperatureCalib, props.temperatureAdcCalib)
+                MachineAPI.setInflowTemperatureCalib    (props.temperatureCalib, props.temperatureAdcCalib)
 
-                MachineAPI.setFanPrimaryNominalDutyCycleFactory(props.fanDutyCycleNominal)
-                MachineAPI.setFanPrimaryMinimumDutyCycleFactory(props.fanDutyCycleMinimum)
-                MachineAPI.setFanPrimaryStandbyDutyCycleFactory(props.fanDutyCycleStandby)
+                MachineAPI.setFanPrimaryMaximumDutyCycleFactory(props.dfaFanDutyCycleMaximum)
+                MachineAPI.setFanPrimaryNominalDutyCycleFactory(props.dfaFanDutyCycleNominal)
+                MachineAPI.setFanPrimaryMinimumDutyCycleFactory(props.dfaFanDutyCycleMinimum)
+                MachineAPI.setFanPrimaryStandbyDutyCycleFactory(props.dfaFanDutyCycleStandby)
 
-                MachineAPI.setFanPrimaryNominalRpmFactory(props.fanRpmNominal)
-                MachineAPI.setFanPrimaryMinimumRpmFactory(props.fanRpmMinimum)
-                MachineAPI.setFanPrimaryStandbyRpmFactory(props.fanRpmStandby)
+                MachineAPI.setFanPrimaryNominalRpmFactory(props.dfaFanRpmNominal)
+                MachineAPI.setFanPrimaryMinimumRpmFactory(props.dfaFanRpmMinimum)
+                MachineAPI.setFanPrimaryStandbyRpmFactory(props.dfaFanRpmStandby)
 
+                MachineAPI.setFanInflowNominalDutyCycleFactory(props.ifaFanDutyCycleNominal)
+                MachineAPI.setFanInflowMinimumDutyCycleFactory(props.ifaFanDutyCycleMinimum)
+                MachineAPI.setFanInflowStandbyDutyCycleFactory(props.ifaFanDutyCycleStandby)
 
                 if (props.calibNewInflowNom){
                     MachineAPI.saveInflowMeaDimNominalGrid(props.meaIfaNominalGrid,
@@ -690,10 +724,8 @@ ViewApp {
                                                            props.meaIfaNominalVolAvg,
                                                            props.meaIfaNominalVolume,
                                                            props.meaIfaNominalVelocity,
-                                                           props.fanDutyCycleNominal,
-                                                           props.fanRpmNominal)
-
-
+                                                           props.dfaFanDutyCycleNominal,
+                                                           props.dfaFanRpmNominal)
                 }
 
                 if (props.calibNewInflowMin) {
@@ -702,8 +734,8 @@ ViewApp {
                                                            props.meaIfaMinimumVolAvg,
                                                            props.meaIfaMinimumVolume,
                                                            props.meaIfaMinimumVelocity,
-                                                           props.fanDutyCycleMinimum,
-                                                           props.fanRpmMinimum)
+                                                           props.dfaFanDutyCycleMinimum,
+                                                           props.dfaFanRpmMinimum)
                 }
 
                 if (props.calibNewInflowStb) {
@@ -712,8 +744,8 @@ ViewApp {
                                                            props.meaIfaStandbyVolAvg,
                                                            props.meaIfaStandbyVolume,
                                                            props.meaIfaStandbyVelocity,
-                                                           props.fanDutyCycleStandby,
-                                                           props.fanRpmStandby)
+                                                           props.dfaFanDutyCycleStandby,
+                                                           props.dfaFanRpmStandby)
                 }
 
                 if (props.calibNewDownflowNom) {
@@ -731,11 +763,15 @@ ViewApp {
                 ///EVENT LOG
                 const message = qsTr("User: Full calibration sensor")
                               + "("
-                              + "ADC-IFZ: " + props.sensorAdcZero + ", "
-                              + "ADC-IF1: " + props.sensorAdcMinimum + ", "
-                              + "ADC-IF2: " + props.sensorAdcNominal + ", "
-                              + "VEL-IF1: " + (props.sensorVelMinimum / 100).toFixed(2) + ", "
-                              + "VEL-IF2: " + (props.sensorVelNominal / 100).toFixed(2) + ", "
+                              + "ADC-DFZ: " + props.dfaSensorAdcZero + ", "
+                              + "VEL-DF1: " + (props.dfaSensorVelMinimum / 100).toFixed(2) + ", "
+                              + "ADC-DF2: " + props.dfaSensorAdcNominal + ", "
+                              + "VEL-DF2: " + (props.dfaSensorVelNominal / 100).toFixed(2) + ", "
+                              + "VEL-DF3: " + (props.dfaSensorVelMaximum / 100).toFixed(2) + ", "
+                              + "ADC-IFZ: " + props.ifaSensorAdcZero + ", "
+                              + "VEL-IF1: " + (props.ifaSensorVelMinimum / 100).toFixed(2) + ", "
+                              + "ADC-IF2: " + props.ifaSensorAdcNominal + ", "
+                              + "VEL-IF2: " + (props.ifaSensorVelNominal / 100).toFixed(2)
                               + ")"
                 MachineAPI.insertEventLog(message);
             }
@@ -761,14 +797,24 @@ ViewApp {
 
                                      if(cycle === 1) {
 
-                                         props.sensorConstant       = MachineData.getInflowSensorConstant();
-                                         props.sensorAdcZero        = MachineData.getInflowAdcPointFactory(0);
-                                         props.sensorAdcMinimum     = MachineData.getInflowAdcPointFactory(1);
-                                         props.sensorVelMinimum     = MachineData.getInflowVelocityPointFactory(1);
-                                         props.sensorVelNominal     = MachineData.getInflowVelocityPointFactory(2);
-                                         props.sensorVelNominalDfa  = MachineData.getDownflowVelocityPointFactory(2);
+                                         props.dfaSensorConstant        = MachineData.getDownflowSensorConstant();
+                                         props.dfaSensorAdcZero         = MachineData.getDownflowAdcPointFactory(0);
+                                         props.dfaSensorAdcMinimum      = MachineData.getDownflowAdcPointFactory(1);
+                                         props.dfaSensorAdcNominal      = MachineData.getDownflowAdcPointFactory(2);
+                                         props.dfaSensorAdcMaximum      = MachineData.getDownflowAdcPointFactory(3);
+                                         props.dfaSensorVelMinimum      = MachineData.getDownflowVelocityPointFactory(1);
+                                         props.dfaSensorVelNominal      = MachineData.getDownflowVelocityPointFactory(2);
+                                         props.dfaSensorVelMaximum      = MachineData.getDownflowVelocityPointFactory(3);
+                                         props.dfaSensorVelLowAlarm     = MachineData.getDownflowLowLimitVelocity();
+                                         props.dfaSensorVelHighAlarm    = MachineData.getDownflowHighLimitVelocity();
 
-                                         props.sensorVelLowAlarm    = MachineData.getInflowLowLimitVelocity();
+                                         props.ifaSensorConstant        = MachineData.getInflowSensorConstant();
+                                         props.ifaSensorAdcZero         = MachineData.getInflowAdcPointFactory(0);
+                                         props.ifaSensorAdcMinimum      = MachineData.getInflowAdcPointFactory(1);
+                                         props.ifaSensorAdcNominal      = MachineData.getInflowAdcPointFactory(2);
+                                         props.ifaSensorVelMinimum      = MachineData.getInflowVelocityPointFactory(1);
+                                         props.ifaSensorVelNominal      = MachineData.getInflowVelocityPointFactory(2);
+                                         props.ifaSensorVelLowAlarm     = MachineData.getInflowLowLimitVelocity();
 
                                          props.initCalibrateSpecs(MachineData.machineProfile)
                                      }
@@ -949,11 +995,16 @@ ViewApp {
                     }//
 
                     else if (extradata['pid'] === 'senconst'){
-                        const sensorConst = extradata['sensorConstant'] || 0
+                        const dfaSensorConst = extradata['dfaSensorConstant'] || 0
+                        const ifaSensorConst = extradata['ifaSensorConstant'] || 0
                         let sensorConstHasChanged = false
 
-                        if(props.sensorConstant !== sensorConst) {
-                            props.sensorConstant = sensorConst
+                        if(props.dfaSensorConstant !== dfaSensorConst) {
+                            props.dfaSensorConstant = dfaSensorConst
+                            sensorConstHasChanged = true
+                        }
+                        if(props.ifaSensorConstant !== ifaSensorConst) {
+                            props.ifaSensorConstant = ifaSensorConst
                             sensorConstHasChanged = true
                         }
 
@@ -964,9 +1015,13 @@ ViewApp {
                             props.calibNewAdcMin    = false
                             props.calibNewAdcNom    = false
                             ///
-                            props.sensorAdcZero     = 0
-                            props.sensorAdcMinimum  = 0
-                            props.sensorAdcNominal  = 0
+                            props.dfaSensorAdcZero     = 0
+                            props.dfaSensorAdcMinimum  = 0
+                            props.dfaSensorAdcNominal  = 0
+                            props.dfaSensorAdcMaximum  = 0
+                            props.ifaSensorAdcZero     = 0
+                            props.ifaSensorAdcMinimum  = 0
+                            props.ifaSensorAdcNominal  = 0
                             /// set bagde value to main model
                             props.menuModelMicroADC[props.lastSelectedMenuIndex+1]['badge'] = 0
                             props.menuModelMicroADC[props.lastSelectedMenuIndex+2]['badge'] = 0
@@ -985,7 +1040,8 @@ ViewApp {
                     }//
 
                     else if (extradata['pid'] === 'adcz'){
-                        props.sensorAdcZero = extradata['sensorAdcZero'] || 0
+                        props.dfaSensorAdcZero = extradata['dfaSensorAdcZero'] || 0
+                        props.ifaSensorAdcZero = extradata['ifaSensorAdcZero'] || 0
 
                         if(props.calibNewAdcMin) {
                             props.calibNewAdcMin = false
@@ -1044,20 +1100,23 @@ ViewApp {
                     }//
 
                     else if (extradata['pid'] === 'adcn'){
-                        props.sensorAdcNominal = extradata['sensorAdcNominal'] || 0
+                        props.dfaSensorAdcNominal = extradata['dfaSensorAdcNominal'] || 0
+                        props.ifaSensorAdcNominal = extradata['ifaSensorAdcNominal'] || 0
 
-                        props.fanDutyCycleNominal  = extradata['fanDutyCycleResult']
-                        props.fanRpmNominal        = extradata['fanRpmResult']
+                        props.dfaFanDutyCycleNominal  = extradata['dfaFanDutyCycleNominal']
+                        props.dfaFanRpmNominal        = extradata['dfaFanRpmNominal']
+                        props.ifaFanDutyCycleNominal  = extradata['ifaFanDutyCycleNominal']
+                        /// props.ifaFanRpmNominal    = extradata['dfaFanRpmNominal']
 
-                        props.sensorAdcNominal      = extradata['sensorAdcNominal'] || 0
+                        let dfaVelocity = extradata['dfaSensorVelNominal']
+                        let ifaVelocity = extradata['ifaSensorVelNominal']
 
-                        let velocity = extradata['sensorVelNominal']
-                        if(props.measurementUnit) velocity = Math.round(velocity)
-                        props.sensorVelNominal = Math.round(velocity * 100)
-
-                        velocity = extradata['sensorVelNominalDfa']
-                        if(props.measurementUnit) velocity = Math.round(velocity)
-                        props.sensorVelNominalDfa   = Math.round(velocity * 100)
+                        if(props.measurementUnit) {
+                            dfaVelocity = Math.round(dfaVelocity)
+                            ifaVelocity = Math.round(ifaVelocity)
+                        }
+                        props.dfaSensorVelNominal = Math.round(dfaVelocity * 100)
+                        props.ifaSensorVelNominal = Math.round(ifaVelocity * 100)
 
                         props.temperatureCalib      = extradata['temperatureCalib'] || 0
                         props.temperatureAdcCalib   = extradata['temperatureCalibAdc'] || 0

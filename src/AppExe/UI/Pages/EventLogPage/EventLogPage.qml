@@ -545,6 +545,7 @@ ViewApp {
                     //                    //console.debug(cycle + " : " + timeout)
                     if(cycle >= timeout){
                         //                        //console.debug("timeout")
+                        //MachineAPI.refreshLogRowsCount("eventlog")
                         viewApp.closeDialog();
                     }
                 })
