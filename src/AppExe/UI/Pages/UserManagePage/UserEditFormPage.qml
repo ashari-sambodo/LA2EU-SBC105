@@ -255,7 +255,7 @@ ViewApp {
                                         }
 
                                         onPressed: {
-                                            KeyboardOnScreenCaller.openKeyboard(passwordTextField, qsTr("Creat New Password"))
+                                            KeyboardOnScreenCaller.openKeyboard(passwordTextField, qsTr("Create New Password"))
                                         }//
                                     }//
 

@@ -294,12 +294,12 @@ ViewApp {
                                         else {
                                             running = false
 
-                                            let adc = props.adcActual
-
+                                            let dfaAdc = props.dfaAdcActual
+                                            let ifaAdc = props.ifaAdcActual
                                             //                                            /// demo
                                             //                                            adc = 100
 
-                                            if (adc > 0) {
+                                            if (dfaAdc > 0 && ifaAdc > 0) {
                                                 // analog input have minimum constant adc value on each port
                                                 // known value is about 5 to 8
                                                 // if the value is <= zero (0) that mean there are some trouble in a port
@@ -307,30 +307,48 @@ ViewApp {
                                                 props.calibrateDone = true
                                             }
 
-                                            props.adcResult = adc
+                                            props.dfaAdcResult = dfaAdc
+                                            props.ifaAdcResult = ifaAdc
 
                                             fragmentStackView.replace(fragmentResultComp)
                                         }
                                     }//
 
                                     //                                    property int count: 2
-                                    property int count: 180
+                                    property int count: props.stabilizingTimer
+
+                                    Component.onCompleted: {count = Qt.binding(function(){return props.stabilizingTimer})}
                                 }//
                             }//
+                            Column{
+                                Row {
+                                    spacing: 10
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text: qsTr("Actual ADC (D/F)") + ":"
+                                        color: "#cccccc"
+                                    }//
 
-                            Row {
-                                spacing: 10
-                                TextApp{
-                                    font.pixelSize: 18
-                                    text: qsTr("Actual ADC") + ":"
-                                    color: "#cccccc"
-                                }//
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text: props.dfaAdcActual
+                                        color: "#cccccc"
+                                    }//
+                                }
+                                Row {
+                                    spacing: 10
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text: qsTr("Actual ADC (I/F)") + ":"
+                                        color: "#cccccc"
+                                    }//
 
-                                TextApp{
-                                    font.pixelSize: 18
-                                    text: props.adcActual
-                                    color: "#cccccc"
-                                }//
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text: props.ifaAdcActual
+                                        color: "#cccccc"
+                                    }//
+                                }
                             }//
                         }//
 
@@ -550,6 +568,8 @@ ViewApp {
             property string temperatureActualStr: "0°C"
 
             property bool calibrateDone: false
+
+            property int stabilizingTimer: 180
         }
 
         /// Called once but after onResume
@@ -594,9 +614,9 @@ ViewApp {
                                      })
 
                 if(!props.dfaSensorConstant && !props.ifaSensorConstant)
-                    countTimer.count = 30
+                    props.stabilizingTimer = 30
                 else
-                    countTimer.count = 180
+                    props.stabilizingTimer = 180
             }
 
             /// onPause

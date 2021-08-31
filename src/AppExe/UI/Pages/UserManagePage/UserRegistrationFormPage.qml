@@ -219,6 +219,7 @@ ViewApp {
                                         echoMode: TextFieldApp.Password
 
                                         onAccepted: {
+                                            console.debug(props.passwordStrengthString(props.calculatePasswordStrength(passwordTextField.text)))
 
                                             if(passwordTextField.text.length < props.passwordMinimumLength)
                                             {
@@ -234,7 +235,7 @@ ViewApp {
                                             }
                                         }
                                         onPressed: {
-                                            KeyboardOnScreenCaller.openKeyboard(passwordTextField, qsTr("Creat New Password"))
+                                            KeyboardOnScreenCaller.openKeyboard(passwordTextField, qsTr("Create New Password"))
                                         }//
                                     }//
 
@@ -282,6 +283,7 @@ ViewApp {
                                         }//
 
                                         onAccepted: {
+                                            props.calculatePasswordStrength(passwordConfirmTextField.text)
                                             if(passwordTextField.text == passwordConfirmTextField.text)
                                             {
                                                 //console.debug("true")
@@ -577,6 +579,98 @@ ViewApp {
             id: props
 
             property int passwordMinimumLength: 5
+
+            function isLowerCase(chr) {
+                if (/[a-z]/.test(chr))
+                    return 1
+                return 0
+            }
+            function isUpperCase(chr) {
+                if (/[A-Z]/.test(chr))
+                    return 1
+                return 0
+            }
+            function isLetter(chr){
+                if (/[a-z]/i.test(chr))
+                    return 1
+                return 0
+            }
+            function isNumber(chr){
+                return isNaN(chr) ? 0 : 1
+            }
+            function isSpecial(chr) {
+                var regex = /[ ~`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
+                return regex.test(chr) ? 1 : 0;
+            }
+
+            function calculatePasswordStrength(password){
+                let passwordStr = String(password)
+                let isHasUpperCase = 0
+                let isHasLowerCase = 0
+                let isLengthMoreEqual8Char = passwordStr.length >= 8 ? 1 : 0
+                let isHasNumbers = 0
+                let isHasSpecialChar = 0 ///(e.g. @#$%^&*()_+|~-=\`{}[]:";'<>/ etc)
+                let allCharNotLetter = 0
+                let allCharNotNumber = 0
+                let mixNumberLetterCase = 0
+                let index = 0
+
+                let seqNumberCount=0, seqLowCaseCount=0, seqUpCaseCount=0
+
+                while(index < passwordStr.length){
+                    let charPassword = passwordStr.charAt(index)
+                    if(!isHasUpperCase) isHasUpperCase      = isUpperCase(charPassword)
+                    if(!isHasLowerCase) isHasLowerCase      = isLowerCase(charPassword)
+                    if(!isHasNumbers)   isHasNumbers        = isNumber(charPassword)
+                    if(!isHasSpecialChar) isHasSpecialChar  = isSpecial(charPassword)
+                    if(!allCharNotLetter)  allCharNotLetter = isLetter(charPassword) ? 0 : 1
+                    if(!allCharNotNumber)  allCharNotNumber = isNumber(charPassword) ? 0 : 1
+
+                    if(seqNumberCount<3){
+                        if(isNumber(charPassword)) seqNumberCount++
+                        else seqNumberCount = 0
+                    }
+                    if(seqLowCaseCount<3){
+                        if(isLowerCase(charPassword)) seqLowCaseCount++
+                        else seqLowCaseCount = 0
+                    }
+                    if(seqUpCaseCount<3){
+                        if(isUpperCase(charPassword)) seqUpCaseCount++
+                        else seqUpCaseCount = 0
+                    }
+
+                    index++
+                }
+
+                if((seqNumberCount < 3 && seqLowCaseCount < 3 && seqUpCaseCount < 3) && allCharNotLetter && allCharNotNumber) mixNumberLetterCase = 1
+                else mixNumberLetterCase = 0
+
+                console.debug("isHasUpperCase", isHasUpperCase)
+                console.debug("isHasLowerCase", isHasLowerCase)
+                console.debug("isLengthMoreEqual8Char", isLengthMoreEqual8Char)
+                console.debug("isHasNumbers", isHasNumbers)
+                console.debug("isHasSpecialChar", isHasSpecialChar)
+
+                console.debug("seqNumberCount", seqNumberCount)
+                console.debug("seqLowCaseCount", seqLowCaseCount)
+                console.debug("seqUpCaseCount", seqUpCaseCount)
+                console.debug("allCharNotLetter", allCharNotLetter)
+                console.debug("allCharNotNumber", allCharNotNumber)
+                console.debug("mixNumberLetterCase", mixNumberLetterCase)
+                ///http://www.passwordmeter.com/
+                ///very weak, weak, Good, Strong, Very Strong
+                //1~6 (1 weakest ~ 6 strongest)
+                return (isHasUpperCase + isHasLowerCase + isLengthMoreEqual8Char + isHasNumbers + isHasSpecialChar + mixNumberLetterCase)
+            }
+
+            function passwordStrengthString(level){
+                if(level >= 6)      return "Very strong"
+                else if(level >= 5) return "Strong"
+                else if(level >= 3) return "Good"
+                else if(level >= 2)  return "Weak"
+                else                return "Very weak"
+            }
+
         }
 
         /// OnCreated

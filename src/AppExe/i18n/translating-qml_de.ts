@@ -6358,7 +6358,7 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="258"/>
-        <source>Creat New Password</source>
+        <source>Create New Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6568,7 +6568,7 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="237"/>
-        <source>Creat New Password</source>
+        <source>Create New Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

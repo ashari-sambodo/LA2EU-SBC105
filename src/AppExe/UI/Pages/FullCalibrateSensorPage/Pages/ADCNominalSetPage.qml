@@ -722,14 +722,21 @@ ViewApp {
 
             property string pid: ""
 
-            property int fanDutyCycleActual: 0
-            property int fanRpmActual: 0
+            property int dfaFanDutyCycleActual: 0
+            property int dfaFanRpmActual: 0
+            property int ifaFanDutyCycleActual: 0
+            //            property int ifaFanRpmActual: 0
 
-            property int sensorAdcZero: 0
-            property int sensorAdcMinimum: 0
+            property int dfaSensorAdcZero: 0
+            //            property int dfaSensorAdcMinimum: 0
+            property int ifaSensorAdcZero: 0
+            //            property int ifaSensorAdcMinimum: 0
 
-            property int adcActual: 0
-            property int adcResult: 0
+            property int dfaAdcActual: 0
+            property int dfaAdcResult: 0
+            property int ifaAdcActual: 0
+            property int ifaAdcResult: 0
+
             property int temperatureActual: 0
             property int temperatureAdcActual: 0
             property string temperatureActualStr: "0°C"
@@ -743,19 +750,26 @@ ViewApp {
             property int velocityDecimalPoint: measureUnit ? 0 : 2
 
             // Nominal
-            property real velocity: 0
-            property string velocityStrf: "0"
+            property real dfaVelocityNom: 0
+            property string dfaVelocityNomStrf: "0"
+            property real ifaVelocityNom: 0
+            property string ifaVelocityNomStrf: "0"
             //
-            property real velocityMin: 0
-            property string velocityMinStrf: "0"
+            property real dfaVelocityMin: 0
+            property string dfaVelocityMinStrf: "0"
+            property real ifaVelocityMin: 0
+            property string ifaVelocityMinStrf: "0"
 
-            property real velocityDfaNom: 0
-            property string velocityDfaNomStrf: "0"
+            property real dfaVelocityMax: 0
+            property string dfaVelocityMaxStrf: "0"
 
-            property int fanDutyCycleInitial: 0
+            property int dfaFanDutyCycleInitial: 0
+            property int ifaFanDutyCycleInitial: 0
 
-            property int fanDutyCycleResult: 0
-            property int fanRpmResult: 0
+            property int dfaFanDutyCycleResult: 0
+            property int dfaFanRpmResult: 0
+            property int ifaFanDutyCycleResult: 0
+            //            property int ifaFanRpmResult: 0
 
             property int temperatureCalib: 0
             property int temperatureCalibAdc: 0
