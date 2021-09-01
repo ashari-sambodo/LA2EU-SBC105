@@ -363,12 +363,14 @@ ViewApp {
                     let intent = IntentApp.create(uri,
                                                   {
                                                       'pid': pid,
-                                                      "measureUnit"         : props.measurementUnit,
+                                                      "measureUnit"         : props.measurementUnit,                                                      
+                                                      "dfaSensorConstant"   : props.dfaSensorConstant,
                                                       "dfaSensorAdcZero"    : props.dfaSensorAdcZero,
                                                       "dfaSensorAdcMinimum" : props.dfaSensorAdcMinimum,
                                                       "dfaSensorVelMinimum" : props.dfaSensorVelMinimum / 100,
                                                       "dfaSensorVelNominal" : props.dfaSensorVelNominal / 100,
                                                       'dfaFanDutyCycle'     : props.dfaFanDutyCycleNominal,
+                                                      "ifaSensorConstant"   : props.ifaSensorConstant,
                                                       "ifaSensorAdcZero"    : props.ifaSensorAdcZero,
                                                       "ifaSensorAdcMinimum" : props.ifaSensorAdcMinimum,
                                                       "ifaSensorVelMinimum" : props.ifaSensorVelMinimum / 100,
@@ -399,19 +401,19 @@ ViewApp {
                 }//
 
                 if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                    props.fanDutyCycleNominal = MachineData.getFanPrimaryNominalDutyCycleField()
-                    props.fanDutyCycleMinimum = MachineData.getFanPrimaryMinimumDutyCycleField()
-                    props.fanDutyCycleStandby = MachineData.getFanPrimaryStandbyDutyCycleField()
+                    props.ifaFanDutyCycleNominal = MachineData.getFanPrimaryNominalDutyCycleField()
+                    props.ifaFanDutyCycleMinimum = MachineData.getFanPrimaryMinimumDutyCycleField()
+                    props.ifaFanDutyCycleStandby = MachineData.getFanPrimaryStandbyDutyCycleField()
                 }
                 else if(MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FACTORY){
-                    props.fanDutyCycleNominal = MachineData.getFanPrimaryNominalDutyCycleFactory()
-                    props.fanDutyCycleMinimum = MachineData.getFanPrimaryMinimumDutyCycleFactory()
-                    props.fanDutyCycleStandby = MachineData.getFanPrimaryStandbyDutyCycleFactory()
+                    props.ifaFanDutyCycleNominal = MachineData.getFanPrimaryNominalDutyCycleFactory()
+                    props.ifaFanDutyCycleMinimum = MachineData.getFanPrimaryMinimumDutyCycleFactory()
+                    props.ifaFanDutyCycleStandby = MachineData.getFanPrimaryStandbyDutyCycleFactory()
                 }
                 else{
-                    props.fanDutyCycleNominal = profile['airflow']['ifa']['dim']['nominal']['fanDutyCycle']
-                    props.fanDutyCycleMinimum = profile['airflow']['ifa']['dim']['minimum']['fanDutyCycle']
-                    props.fanDutyCycleStandby = profile['airflow']['ifa']['dim']['stb']['fanDutyCycle']
+                    props.ifaFanDutyCycleNominal = profile['airflow']['ifa']['dim']['nominal']['fanDutyCycle']
+                    props.ifaFanDutyCycleMinimum = profile['airflow']['ifa']['dim']['minimum']['fanDutyCycle']
+                    props.ifaFanDutyCycleStandby = profile['airflow']['ifa']['dim']['stb']['fanDutyCycle']
                 }
 
                 /// downflow

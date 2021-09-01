@@ -44,19 +44,19 @@ void BlowerRbmDsi::updateActualDemand()
 {
 #ifdef QT_DEBUG
     if(m_dummyStateEnable){
-        int demandInPercent = 0;
-        switch (m_demandMode) {
-        case TORQUE_DEMMAND_BRDM:
-            /// convert from byte torque to percent representative
-            demandInPercent = pModule->torqueValToPercent(m_dummyState);
-            break;
-        case AIRVOLUME_DEMMAND_BRDM:
-            /// convert from byte torque to percent representative
-            demandInPercent = pModule->airVolumeCfmToPercent(m_dummyState, m_airVolumeScale);
-            break;
-        default:
-            break;
-        }
+        int demandInPercent = m_dummyState;
+        //        switch (m_demandMode) {
+        //        case TORQUE_DEMMAND_BRDM:
+        //            /// convert from byte torque to percent representative
+        //            demandInPercent = pModule->torqueValToPercent(m_dummyState);
+        //            break;
+        //        case AIRVOLUME_DEMMAND_BRDM:
+        //            /// convert from byte torque to percent representative
+        //            demandInPercent = pModule->airVolumeCfmToPercent(m_dummyState, m_airVolumeScale);
+        //            break;
+        //        default:
+        //            break;
+        //        }
 
         if(m_dutyCycle != demandInPercent){
             m_dutyCycle = demandInPercent;
@@ -66,7 +66,7 @@ void BlowerRbmDsi::updateActualDemand()
 
         if((m_speedDemand > 0) && m_interlocked) m_speedDemand = 0;
         if(m_speedDemand != m_dutyCycle){
-             m_dummyState = m_speedDemand;
+            m_dummyState = m_speedDemand;
         }
         return;
     }
@@ -111,7 +111,7 @@ void BlowerRbmDsi::updateActualDemand()
         }
 
         /// Update to demand value
-		int value = m_demandMode ? actualDemand : m_dutyCycle;
+        int value = m_demandMode ? actualDemand : m_dutyCycle;
         if((m_speedDemand > 0) && m_interlocked) m_speedDemand = 0;
         if(m_speedDemand != value){
 
@@ -149,6 +149,7 @@ void BlowerRbmDsi::updateActualDemand()
 
         pModule->increaseErrorComToleranceCount();
     }
+    //#endif
 }
 
 void BlowerRbmDsi::readActualSpeedRPM()
@@ -288,7 +289,7 @@ void BlowerRbmDsi::setDutyCycle(int newVal)
     qDebug() << metaObject()->className() << __FUNCTION__ << newVal << QObject::thread();
 
     if(m_interlocked) {
-	qDebug() << "Interlocked";
+        qDebug() << "Interlocked";
         if(m_speedDemand != 0) m_speedDemand = 0;
         return;
     }

@@ -1372,6 +1372,10 @@ void MachineProxy::setInflowTemperatureCalib(short value, int adc)
         m_machineBackend->setInflowTemperatureCalib(value, adc);
     },
     Qt::QueuedConnection);
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value, adc](){
+        m_machineBackend->setDownflowTemperatureCalib(value, adc);
+    },
+    Qt::QueuedConnection);
 }
 
 void MachineProxy::setInflowAdcPointFactory(int pointZero, int pointMin, int pointNom)

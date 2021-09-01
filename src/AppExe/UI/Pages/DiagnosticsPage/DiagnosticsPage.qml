@@ -166,10 +166,10 @@ ViewApp {
 
                                 onLoaded: {
                                     value1 = Qt.binding(function(){
-                                        return "%1 \% / %2 RPM".arg(MachineData.fanPrimaryDutyCycle).arg(MachineData.fanPrimaryRpm)
+                                        return "" + MachineData.fanPrimaryDutyCycle + " % / " + MachineData.fanPrimaryRpm + " RPM"
                                     })
                                     value2 = Qt.binding(function(){
-                                        return "%1 \%".arg(MachineData.fanInflowDutyCycle)
+                                        return "" + MachineData.fanInflowDutyCycle + " %"
                                     })
                                 }
 

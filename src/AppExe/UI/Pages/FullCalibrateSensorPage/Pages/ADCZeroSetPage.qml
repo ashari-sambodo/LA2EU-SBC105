@@ -71,7 +71,7 @@ ViewApp {
                                         spacing: 10
                                         TextApp {
                                             wrapMode: Text.WordWrap
-                                            text: qsTr("Downflow and Inflow fan should be turned off!")
+                                            text: qsTr("Downflow and Inflow fan must be off!")
                                         }
                                         TextApp {
                                             wrapMode: Text.WordWrap

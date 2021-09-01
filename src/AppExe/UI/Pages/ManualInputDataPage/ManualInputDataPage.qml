@@ -50,348 +50,487 @@ ViewApp {
                 id: bodyItem
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                ColumnLayout{
+                    anchors.fill: parent
+                    Item{
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        RowLayout{
+                            anchors.fill: parent
+                            Item{
+                                id: downflowInput
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                Column{
+                                    spacing: 30
+                                    anchors.centerIn: parent
+                                    Rectangle{
+                                        color: "transparent"
+                                        border.width: 0
+                                        height: 60
+                                        width: 200
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        TextApp {
+                                            text: qsTr("Downflow")
+                                            height: parent.height
+                                            width: parent.width
+                                            font.underline: true
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignBottom
+                                        }//
+                                    }
+                                    Row{
+                                        id: downflowRow
+                                        spacing: 5
+                                        Column{
+                                            spacing: 5
+                                            Column{
+                                                spacing: 5
+                                                TextApp {
+                                                    text: qsTr("Constant")
+                                                }//
 
-                Row{
-                    anchors.centerIn: parent
-                    spacing: 10
+                                                TextFieldApp {
+                                                    id: dfaSensorConstantTextField
+                                                    width: 110
+                                                    height: 40
+                                                    validator: IntValidator{bottom: 0; top: 99;}
 
-                    Column {
-                        spacing: 5
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Constant Downflow Sensor"))
+                                                    }//
+                                                }//
+                                            }
+                                            Column {
+                                                spacing: 5
 
-                        TextApp {
-                            text: qsTr("Constant")
-                        }//
+                                                TextApp {
+                                                    text: qsTr("Fan Stby")
+                                                }//
 
-                        TextFieldApp {
-                            id: sensorConstantTextField
-                            width: 100
-                            height: 40
-                            validator: IntValidator{bottom: 0; top: 99;}
+                                                TextFieldApp {
+                                                    id: dfaFanStandbyTextField
+                                                    width: 110
+                                                    height: 40
 
-                            onPressed: {
-                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Constant"))
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Fan Standby"))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: "%"
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Fan Nom")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: dfaFanNominalTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Fan Nominal"))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: "%"
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                        //////////////
+                                        Column {
+                                            spacing: 5
+
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Alarm Low")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: dfaVelLowAlarmTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Low Alarm"))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: props.meaUnitStr
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Nominal")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: dfaVelNomTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Nominal"))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: props.meaUnitStr
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Alarm High")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: dfaVelHighAlarmTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow High Alarm"))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: props.meaUnitStr
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                        ///////////////
+                                        Column {
+                                            spacing: 5
+
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("ADC DF0")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: dfaAdcZeroTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC DF0"))
+                                                    }//
+                                                }//
+                                            }//
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("ADC DF2")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: dfaAdcNomTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC DF2"))
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                    }//
+                                }//
+                            }//
+                            Item{
+                                id: inflowInput
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                Column{
+                                    spacing: 30
+                                    anchors.centerIn: parent
+                                    Rectangle{
+                                        color: "transparent"
+                                        border.width: 0
+                                        height: 60
+                                        width: 200
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        TextApp {
+                                            text: qsTr("Inflow")
+                                            height: parent.height
+                                            width: parent.width
+                                            font.underline: true
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignBottom
+                                        }//
+                                    }
+                                    Row{
+                                        id: inflowRow
+                                        spacing: 5
+                                        Column{
+                                            spacing: 5
+                                            TextApp {
+                                                text: qsTr("Constant")
+                                            }//
+
+                                            TextFieldApp {
+                                                id: ifaSensorConstantTextField
+                                                width: 110
+                                                height: 40
+                                                validator: IntValidator{bottom: 0; top: 99;}
+
+                                                onPressed: {
+                                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Constant Inflow Sensor"))
+                                                }//
+                                            }//
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Fan Stby")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: ifaFanStandbyTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan Standby"))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: "%"
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Fan Nom")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: ifaFanNominalTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan Nominal"))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: "%"
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                        ////////////////
+                                        Column {
+                                            spacing: 5
+
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Alarm Low")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: ifaVelLowAlarmTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Low Alarm"))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: props.meaUnitStr
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Nominal")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: ifaVelNomTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Nominal"))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: props.meaUnitStr
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                        //////////////////
+                                        Column {
+                                            spacing: 5
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("ADC IF0")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: ifaAdcZeroTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC IF0"))
+                                                    }//
+                                                }//
+                                            }//
+
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("ADC IF2")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: ifaAdcNomTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC IF2"))
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                    }//
+                                }//
                             }//
                         }//
                     }//
+                    Item{
+                        Layout.fillWidth: true
+                        Layout.minimumHeight: 100
 
-                    Column {
-                        spacing: 5
-
-                        Column {
+                        Row {
+                            id: temperatureRow
                             spacing: 5
-
-                            TextApp {
-                                text: qsTr("ADC IF0")
-                            }//
-
-                            TextFieldApp {
-                                id: adcIfaZeroTextField
-                                width: 110
-                                height: 40
-
-                                onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC IF0"))
-                                }//
-                            }//
-                        }//
-
-                        Column {
-                            spacing: 5
-
-                            TextApp {
-                                text: qsTr("ADC IF1")
-                            }//
-
-                            TextFieldApp {
-                                id: adcIfaMinTextField
-                                width: 110
-                                height: 40
-
-                                onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC IF1"))
-                                }//
-                            }//
-                        }//
-
-                        Column {
-                            spacing: 5
-
-                            TextApp {
-                                text: qsTr("ADC IF2")
-                            }//
-
-                            TextFieldApp {
-                                id: adcIfaNomTextField
-                                width: 110
-                                height: 40
-
-                                onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC IF2"))
-                                }//
-                            }//
-                        }//
-                    }//
-
-                    Column {
-                        spacing: 5
-
-                        Column {
-                            spacing: 5
-
-                            TextApp {
-                                text: qsTr("IF Alarm")
-                            }//
-
-                            TextFieldApp {
-                                id: velIfaAlarmTextField
-                                width: 110
-                                height: 40
-
-                                onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Alarm"))
-                                }//
+                            anchors.centerIn: parent
+                            Column {
+                                spacing: 5
 
                                 TextApp {
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: 5
-                                    verticalAlignment: Text.AlignVCenter
-                                    height: parent.height
-                                    text: props.meaUnitStr
-                                    color: "gray"
+                                    text: qsTr("Calib Temp")
+                                }//
+
+                                TextFieldApp {
+                                    id: calibTempTextField
+                                    width: 110
+                                    height: 40
+
+                                    onPressed: {
+                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Calib Temperature"))
+                                    }//
+
+                                    TextApp {
+                                        anchors.right: parent.right
+                                        anchors.rightMargin: 5
+                                        verticalAlignment: Text.AlignVCenter
+                                        height: parent.height
+                                        text: props.tempUnitStr
+                                        color: "gray"
+                                    }//
                                 }//
                             }//
-                        }//
-
-                        Column {
-                            spacing: 5
-
-                            TextApp {
-                                text: qsTr("IF Min")
-                            }//
-
-                            TextFieldApp {
-                                id: velIfaMinTextField
-                                width: 110
-                                height: 40
-
-                                onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Mininum"))
-                                }//
+                            Column {
+                                spacing: 5
 
                                 TextApp {
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: 5
-                                    verticalAlignment: Text.AlignVCenter
-                                    height: parent.height
-                                    text: props.meaUnitStr
-                                    color: "gray"
+                                    text: qsTr("ADC Temp")
+                                }//
+
+                                TextFieldApp {
+                                    id: calibTempAdcTextField
+                                    width: 110
+                                    height: 40
+
+                                    onPressed: {
+                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Temperature"))
+                                    }//
                                 }//
                             }//
                         }//
-
-                        Column {
-                            spacing: 5
-
-                            TextApp {
-                                text: qsTr("IF Nom")
-                            }//
-
-                            TextFieldApp {
-                                id: velIfaNomTextField
-                                width: 110
-                                height: 40
-
-                                onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Nominal"))
-                                }//
-
-                                TextApp {
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: 5
-                                    verticalAlignment: Text.AlignVCenter
-                                    height: parent.height
-                                    text: props.meaUnitStr
-                                    color: "gray"
-                                }//
-                            }//
-                        }//
-
-                        Column {
-                            spacing: 5
-
-                            TextApp {
-                                text: qsTr("DF Nom")
-                            }//
-
-                            TextFieldApp {
-                                id: velDfaNomTextField
-                                width: 110
-                                height: 40
-
-                                onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Nominal"))
-                                }//
-
-                                TextApp {
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: 5
-                                    verticalAlignment: Text.AlignVCenter
-                                    height: parent.height
-                                    text: props.meaUnitStr
-                                    color: "gray"
-                                }//
-                            }//
-                        }//
-                    }//
-
-                    Column {
-                        spacing: 5
-
-                        Column {
-                            spacing: 5
-
-                            TextApp {
-                                text: qsTr("ADC Temp")
-                            }//
-
-                            TextFieldApp {
-                                id: calibTempAdcTextField
-                                width: 110
-                                height: 40
-
-                                onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Temperature"))
-                                }//
-                            }//
-                        }//
-
-                        Column {
-                            spacing: 5
-
-                            TextApp {
-                                text: qsTr("Calib Temp")
-                            }//
-
-                            TextFieldApp {
-                                id: calibTempTextField
-                                width: 110
-                                height: 40
-
-                                onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Calib Temperature"))
-                                }//
-
-                                TextApp {
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: 5
-                                    verticalAlignment: Text.AlignVCenter
-                                    height: parent.height
-                                    text: props.tempUnitStr
-                                    color: "gray"
-                                }//
-                            }//
-                        }//
-                    }//
-
-                    Column {
-                        spacing: 5
-
-                        Column {
-                            spacing: 5
-
-                            TextApp {
-                                text: qsTr("Fan Nom")
-                            }//
-
-                            TextFieldApp {
-                                id: fanNominalTextField
-                                width: 110
-                                height: 40
-
-                                onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan Nominal"))
-                                }//
-
-                                TextApp {
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: 5
-                                    verticalAlignment: Text.AlignVCenter
-                                    height: parent.height
-                                    text: "%"
-                                    color: "gray"
-                                }//
-                            }//
-                        }//
-                        Column {
-                            spacing: 5
-
-                            TextApp {
-                                text: qsTr("Fan Min")
-                            }//
-
-                            TextFieldApp {
-                                id: fanMinimumTextField
-                                width: 110
-                                height: 40
-
-                                onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan Minimum"))
-                                }//
-
-                                TextApp {
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: 5
-                                    verticalAlignment: Text.AlignVCenter
-                                    height: parent.height
-                                    text: "%"
-                                    color: "gray"
-                                }//
-                            }//
-                        }//
-                        Column {
-                            spacing: 5
-
-                            TextApp {
-                                text: qsTr("Fan Stby")
-                            }//
-
-                            TextFieldApp {
-                                id: fanStandbyTextField
-                                width: 110
-                                height: 40
-
-                                onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan Standby"))
-                                }//
-
-                                TextApp {
-                                    anchors.right: parent.right
-                                    anchors.rightMargin: 5
-                                    verticalAlignment: Text.AlignVCenter
-                                    height: parent.height
-                                    text: "%"
-                                    color: "gray"
-                                }//
-                            }//
-                        }//
-                    }//
+                    }
                 }//
-
-                //                RowLayout {
-                //                    anchors.fill: parent
-
-                //                    Item {
-                //                        Layout.fillHeight: true
-                //                        Layout.fillWidth: true
-                //                    }//
-
-                //                    Item {
-                //                        Layout.fillHeight: true
-                //                        Layout.fillWidth: true
-                //                    }//
-                //                }//
             }//
-
             /// FOOTER
             Item {
                 id: footerItem
@@ -438,28 +577,32 @@ ViewApp {
                                                  }
                                              })
 
-                                let contant      = Number(sensorConstantTextField.text)
+                                let dfaConstant     = Number(dfaSensorConstantTextField.text)
+                                let ifaConstant     = Number(ifaSensorConstantTextField.text)
 
-                                let adcIfaZero   = Number(adcIfaZeroTextField.text)
-                                let adcIfaMin    = Number(adcIfaMinTextField.text)
-                                let adcIfaNom    = Number(adcIfaNomTextField.text)
+                                let dfaAdcZero      = Number(dfaAdcZeroTextField.text)
+                                let dfaAdcNom       = Number(dfaAdcNomTextField.text)
+                                //let dfaAdcMin     = Number(adcIfaMinTextField.text)
+                                let ifaAdcZero      = Number(ifaAdcZeroTextField.text)
+                                let ifaAdcNom       = Number(ifaAdcNomTextField.text)
+                                //let ifaAdcMin     = Number(adcIfaMinTextField.text)
 
-                                if (!((adcIfaZero < adcIfaMin)
-                                      && (adcIfaZero < adcIfaNom)
-                                      && (adcIfaMin < adcIfaNom))){
+                                if (!((dfaAdcNom > (dfaAdcZero + 80)) && (ifaAdcNom > (ifaAdcZero + 80)))){
                                     showDialogMessage(qsTr("Attention!"),
                                                       qsTr("ADC value is not valid!"),
                                                       dialogAlert)
                                     return
                                 }
 
-                                let velIfaAlarm  = Number(velIfaAlarmTextField.text) * 100
-                                let velIfaMin    = Number(velIfaMinTextField.text) * 100
-                                let velIfaNom    = Number(velIfaNomTextField.text) * 100
-                                let velDfaNom    = Number(velDfaNomTextField.text) * 100
+                                let dfaVelLowAlarm      = Number(dfaVelLowAlarmTextField.text) * 100
+                                let dfaVelHighAlarm     = Number(dfaVelHighAlarmTextField.text) * 100
+                                let dfaVelNom           = Number(dfaVelNomTextField.text) * 100
 
-                                if (!((velIfaMin < velIfaNom)
-                                      && (velDfaNom < velIfaNom))){
+                                let ifaVelLowAlarm      = Number(ifaVelLowAlarmTextField.text) * 100
+                                let ifaVelNom           = Number(ifaVelNomTextField.text) * 100
+
+                                if (!((dfaVelLowAlarm < dfaVelNom && dfaVelNom < dfaVelHighAlarm)
+                                      && (ifaVelLowAlarm < ifaVelNom))){
                                     showDialogMessage(qsTr("Attention!"),
                                                       qsTr("Velocity value is not valid!"),
                                                       dialogAlert)
@@ -469,46 +612,65 @@ ViewApp {
                                 let calibTempAdc = Number(calibTempAdcTextField.text)
                                 let calibTemp    = Number(calibTempTextField.text)
 
-                                let fanNominal = Number(fanNominalTextField.text)
-                                let fanMinimum = Number(fanMinimumTextField.text)
-                                let fanStandby = Number(fanStandbyTextField.text)
+                                let dfaFanNominal = Number(dfaFanNominalTextField.text)
+                                //let fanMinimum = Number(fanMinimumTextField.text)
+                                let dfaFanStandby = Number(dfaFanStandbyTextField.text)
+                                let ifaFanNominal = Number(ifaFanNominalTextField.text)
+                                //let ianMinimum = Number(fanMinimumTextField.text)
+                                let ifaFanStandby = Number(ifaFanStandbyTextField.text)
 
-                                if (fanStandby >= fanNominal || fanMinimum >= fanNominal) {
+                                if ((dfaFanStandby >= dfaFanNominal) || (ifaFanStandby >= ifaFanNominal)) {
                                     showDialogMessage(qsTr("Attention!"),
                                                       qsTr("Fan duty cycle value is not valid!"),
                                                       dialogAlert)
                                     return
                                 }
 
-                                console.debug("contant: "       + contant)
-                                console.debug("adcIfaZero: "    + adcIfaZero)
-                                console.debug("adcIfaMin: "     + adcIfaMin)
-                                console.debug("adcIfaNom: "     + adcIfaNom)
-                                console.debug("velIfaAlarm: "   + velIfaAlarm)
-                                console.debug("velIfaMin: "     + velIfaMin)
-                                console.debug("velIfaNom: "     + velIfaNom)
-                                console.debug("velDfaNom: "     + velDfaNom)
-                                console.debug("calibTempAdc: "  + calibTempAdc)
-                                console.debug("calibTemp: "     + calibTemp)
-                                console.debug("fanNominal: "    + fanNominal)
-                                console.debug("fanMinimum: "    + fanMinimum)
-                                console.debug("fanStandby: "    + fanStandby)
+                                console.debug("dfaConstant: "    + dfaConstant)
+                                console.debug("ifaConstant: "    + ifaConstant)
+                                console.debug("dfaAdcZero: "     + dfaAdcZero)
+                                console.debug("dfaAdcNom: "      + dfaAdcNom)
+                                console.debug("ifaAdcZero: "     + ifaAdcZero)
+                                console.debug("ifaAdcNom: "      + ifaAdcNom)
+                                console.debug("dfaVelLowAlarm: " + dfaVelLowAlarm)
+                                console.debug("dfaVelHighAlarm: "+ dfaVelHighAlarm)
+                                console.debug("dfaVelNom: "      + dfaVelNom)
+                                console.debug("ifaVelLowAlarm: " + ifaVelLowAlarm)
+                                console.debug("ifaVelNom: "      + ifaVelNom)
+                                console.debug("calibTempAdc: "   + calibTempAdc)
+                                console.debug("calibTemp: "      + calibTemp)
+
+                                console.debug("dfaFanNominal: "  + dfaFanNominal)
+                                console.debug("dfaFanStandby: "  + dfaFanStandby)
+                                console.debug("ifaFanNominal: "  + ifaFanNominal)
+                                console.debug("ifaFanStandby: "  + ifaFanStandby)
 
                                 /// clear field calibration
-                                MachineAPI.setInflowAdcPointField(0, 0, 0)
-                                MachineAPI.setInflowVelocityPointField(0, 0, 0)
+                                MachineAPI.setInflowAdcPointField       (0, 0, 0)
+                                MachineAPI.setInflowVelocityPointField  (0, 0, 0)
+                                MachineAPI.setDownflowAdcPointField     (0, 0, 0, 0)
+                                MachineAPI.setDownflowVelocityPointField(0, 0, 0, 0)
 
                                 /// set factory/full calibration
-                                MachineAPI.setInflowSensorConstant(contant)
-                                MachineAPI.setInflowAdcPointFactory(adcIfaZero, adcIfaMin, adcIfaNom)
-                                MachineAPI.setInflowVelocityPointFactory(0, velIfaMin, velIfaNom)
-                                MachineAPI.setDownflowVelocityPointFactory(0, 0, velDfaNom)
-                                MachineAPI.setInflowLowLimitVelocity(velIfaAlarm)
-                                MachineAPI.setInflowTemperatureCalib(calibTemp, calibTempAdc)
+                                MachineAPI.setInflowSensorConstant      (dfaConstant)
+                                MachineAPI.setInflowAdcPointFactory     (ifaAdcZero, 0, ifaAdcNom)
+                                MachineAPI.setInflowVelocityPointFactory(0, ifaVelLowAlarm, ifaVelNom)
+                                MachineAPI.setInflowLowLimitVelocity    (ifaVelLowAlarm)
+                                MachineAPI.setInflowTemperatureCalib    (calibTemp, calibTempAdc)
 
-                                MachineAPI.setFanPrimaryNominalDutyCycleFactory(fanNominal);
-                                MachineAPI.setFanPrimaryMinimumDutyCycleFactory(fanMinimum);
-                                MachineAPI.setFanPrimaryStandbyDutyCycleFactory(fanStandby);
+                                MachineAPI.setDownflowSensorConstant    (dfaConstant)
+                                MachineAPI.setDownflowAdcPointFactory   (dfaAdcZero, 0, dfaAdcNom, 0)
+                                MachineAPI.setDownflowVelocityPointFactory(0, dfaVelLowAlarm, dfaVelNom, dfaVelHighAlarm)
+                                MachineAPI.setDownflowLowLimitVelocity  (dfaVelLowAlarm)
+                                MachineAPI.setDownflowHighLimitVelocity (dfaVelHighAlarm)
+
+                                MachineAPI.setFanPrimaryNominalDutyCycleFactory(dfaFanNominal);
+                                //MachineAPI.setFanPrimaryMinimumDutyCycleFactory(fanMinimum);
+                                MachineAPI.setFanPrimaryStandbyDutyCycleFactory(dfaFanStandby);
+
+                                MachineAPI.setFanInflowNominalDutyCycleFactory(dfaFanNominal);
+                                //MachineAPI.setFanInflowMinimumDutyCycleFactory(dfaFanMinimum);
+                                MachineAPI.setFanInflowStandbyDutyCycleFactory(dfaFanStandby);
 
                                 MachineAPI.initAirflowCalibrationStatus(MachineAPI.AF_CALIB_FACTORY);
 
@@ -559,7 +721,7 @@ ViewApp {
                                                    }
                                                })
                               })
-            }
+            }//
         }//
 
         /// called Once but after onResume
@@ -582,11 +744,16 @@ ViewApp {
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
 
-                sensorConstantTextField.text = MachineData.getInflowSensorConstant()
+                dfaSensorConstantTextField.text = MachineData.getDownflowSensorConstant()
+                ifaSensorConstantTextField.text = MachineData.getInflowSensorConstant()
 
-                adcIfaZeroTextField.text     = MachineData.getInflowAdcPointFactory(0)
-                adcIfaMinTextField.text      = MachineData.getInflowAdcPointFactory(1)
-                adcIfaNomTextField.text      = MachineData.getInflowAdcPointFactory(2)
+                dfaAdcZeroTextField.text     = MachineData.getDownflowAdcPointFactory(0)
+                //adcIfaMinTextField.text      = MachineData.getInflowAdcPointFactory(1)
+                dfaAdcNomTextField.text      = MachineData.getDownflowAdcPointFactory(2)
+
+                ifaAdcZeroTextField.text     = MachineData.getInflowAdcPointFactory(0)
+                //adcIfaMinTextField.text      = MachineData.getInflowAdcPointFactory(1)
+                ifaAdcNomTextField.text      = MachineData.getInflowAdcPointFactory(2)
 
                 let fixedPoint = 2
                 const measureIsImperial = MachineData.measurementUnit
@@ -596,17 +763,22 @@ ViewApp {
                     props.tempUnitStr = "°F"
                 }
 
-                velIfaMinTextField.text   = (MachineData.getInflowVelocityPointFactory(1) / 100).toFixed(fixedPoint)
-                velIfaAlarmTextField.text = (MachineData.getInflowLowLimitVelocity() / 100).toFixed(fixedPoint)
-                velIfaNomTextField.text   = (MachineData.getInflowVelocityPointFactory(2) / 100).toFixed(fixedPoint)
-                velDfaNomTextField.text   = (MachineData.getDownflowVelocityPointFactory(2) / 100).toFixed(fixedPoint)
+                dfaVelLowAlarmTextField.text     = (MachineData.getDownflowLowLimitVelocity() / 100).toFixed(fixedPoint)
+                dfaVelNomTextField.text          = (MachineData.getDownflowVelocityPointFactory(2) / 100).toFixed(fixedPoint)
+                dfaVelHighAlarmTextField.text    = (MachineData.getDownflowHighLimitVelocity() / 100).toFixed(fixedPoint)
+
+                ifaVelLowAlarmTextField.text     = (MachineData.getInflowLowLimitVelocity() / 100).toFixed(fixedPoint)
+                ifaVelNomTextField.text          = (MachineData.getInflowVelocityPointFactory(2) / 100).toFixed(fixedPoint)
 
                 calibTempAdcTextField.text = MachineData.getInflowTempCalibAdc()
                 calibTempTextField.text = MachineData.getInflowTempCalib()
 
-                fanNominalTextField.text = MachineData.getFanPrimaryNominalDutyCycle()
-                fanMinimumTextField.text = MachineData.getFanPrimaryMinimumDutyCycle()
-                fanStandbyTextField.text = MachineData.getFanPrimaryStandbyDutyCycle()
+                dfaFanNominalTextField.text = MachineData.getFanPrimaryNominalDutyCycle()
+                //fanMinimumTextField.text = MachineData.getFanPrimaryMinimumDutyCycle()
+                dfaFanStandbyTextField.text = MachineData.getFanPrimaryStandbyDutyCycle()
+                ifaFanNominalTextField.text = MachineData.getFanInflowNominalDutyCycle()
+                //fanMinimumTextField.text = MachineData.getFanPrimaryMinimumDutyCycle()
+                ifaFanStandbyTextField.text = MachineData.getFanInflowStandbyDutyCycle()
             }//
 
             /// onPause

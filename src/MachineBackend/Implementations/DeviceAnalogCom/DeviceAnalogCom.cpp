@@ -27,6 +27,26 @@ void DeviceAnalogCom::routineTask(int parameter)
     if(m_dummyStateEnable){
         ival = stateToAdc(m_dummyState);
     }
+    //conevert ADC to percent
+    if(m_adc != ival){
+        m_adc = ival;
+        m_state = adcToState(m_adc);
+
+        emit adcChanged(m_adc);
+        emit stateChanged(m_state);
+
+        //        qDebug() << "DeviceAnalogCom::m_adc " << m_adc;
+        //        qDebug() << "DeviceAnalogCom::m_state " << m_state;
+    }
+
+    /// look the interlocked state
+    if(m_adcRequest && m_interlocked) m_adcRequest = 0;
+
+    /// send req state as a adc to board
+    if(m_adcRequest != m_adc)
+        m_dummyState = adcToState(m_adcRequest);
+    return;
+
 #endif
 
     //conevert ADC to percent
@@ -48,11 +68,11 @@ void DeviceAnalogCom::routineTask(int parameter)
     if(m_adcRequest != m_adc){
         pBoard->setDAC(m_adcRequest, ClassDriver::I2C_OUT_BUFFER);
 
-#ifdef QT_DEBUG
-        if(m_dummyStateEnable){
-            m_dummyState = adcToState(m_adcRequest);
-        }
-#endif
+        //#ifdef QT_DEBUG
+        //        if(m_dummyStateEnable){
+        //            m_dummyState = adcToState(m_adcRequest);
+        //        }
+        //#endif
     }
 }
 
