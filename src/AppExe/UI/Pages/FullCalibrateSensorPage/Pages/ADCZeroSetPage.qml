@@ -59,75 +59,33 @@ ViewApp {
                         RowLayout {
                             anchors.fill: parent
 
-                            Item{
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
-
-                                Column{
-                                    id: parameterColumn
-                                    anchors.centerIn: parent
-                                    spacing: 10
-                                    Column{
-                                        spacing: 10
-                                        TextApp {
-                                            wrapMode: Text.WordWrap
-                                            text: qsTr("Downflow and Inflow fan must be off!")
-                                        }
-                                        TextApp {
-                                            wrapMode: Text.WordWrap
-                                            text: qsTr("Sensor Constant: %1 (D/F) | %2 (I/F)").arg(props.dfaSensorConstant).arg(props.ifaSensorConstant)
-                                        }
-
-                                        TextApp {
-                                            text: qsTr("Temperature calib") + ": " + props.temperatureActualStr
-                                        }//
-                                    }
-                                    Row{
-                                        spacing: 30
-                                        Column {
-                                            TextApp{
-                                                text: qsTr("Downflow sensor") + "<br>" + "ADC" + ":"
-                                            }//
-
-                                            TextApp{
-                                                id: currentTextApp1
-                                                font.pixelSize: 52
-                                                text: props.dfaAdcActual
-                                            }//
-                                        }//
-                                        Column {
-                                            TextApp{
-                                                text: qsTr("Inflow sensor") + "<br>" + "ADC" + ":"
-                                            }//
-
-                                            TextApp{
-                                                id: currentTextApp2
-                                                font.pixelSize: 52
-                                                text: props.ifaAdcActual
-                                            }//
-                                        }//
-                                    }
-                                    TextApp{
-                                        font.pixelSize: 18
-                                        text:  "* " + qsTr("Please wait until the value are stable")
-                                        color: "#DEB887"
-                                    }//
-                                }//
-                            }//
-
                             Item {
+                                id: leftContentItem
                                 Layout.fillHeight: true
                                 Layout.minimumWidth: parent.width * 0.22
                                 Column{
                                     anchors.verticalCenter: parent.verticalCenter
                                     spacing: 5
+                                    Rectangle{
+                                        height: 40
+                                        width: leftContentItem.width
+                                        color: "transparent"
+                                        TextApp{
+                                            height: parent.height
+                                            width: parent.width
+                                            text: qsTr("Downflow")
+                                            font.underline: true
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                        }
+                                    }
                                     Rectangle {
                                         width: 220
-                                        height: 140
+                                        height: 150
                                         color: "#0F2952"
                                         border.color: "#dddddd"
                                         radius: 5
-
+                                        anchors.verticalCenter: parent.verticalCenter
                                         ColumnLayout {
                                             anchors.fill: parent
                                             anchors.margins: 2
@@ -135,7 +93,7 @@ ViewApp {
 
                                             TextApp {
                                                 font.pixelSize: 14
-                                                text: qsTr("Press here to turn off D/F Fan")
+                                                text: qsTr("Press here to turn off the Fan")
                                             }
 
                                             Item {
@@ -185,13 +143,140 @@ ViewApp {
                                             }//
                                         }//
                                     }//
+                                }//
+                            }//
+
+                            Item{
+                                id: parentId
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                Column{
+                                    spacing: 10
+                                    anchors.centerIn: parent
+                                    TextApp {
+                                        width: parentId.width
+                                        horizontalAlignment: Text.AlignHCenter
+                                        //verticalAlignment: Text.AlignBottom
+                                        wrapMode: Text.WordWrap
+                                        text: qsTr("Downflow and Inflow fan must be Off!")
+                                    }
+                                    Row{
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        TextApp {
+                                            width: 200
+                                            wrapMode: Text.WordWrap
+                                            text: qsTr("Sensors Constant")
+                                        }
+                                        TextApp {
+                                            width: 200
+                                            wrapMode: Text.WordWrap
+                                            text: (": DF: %1 | IF: %2").arg(props.dfaSensorConstant).arg(props.ifaSensorConstant)
+                                        }
+                                    }
+                                    Row{
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        TextApp {
+                                            width: 200
+                                            wrapMode: Text.WordWrap
+                                            text: qsTr("Temperature")
+                                        }
+                                        TextApp {
+                                            width: 200
+                                            wrapMode: Text.WordWrap
+                                            text: ": " + props.temperatureActualStr
+                                        }
+                                    }
+                                    Row{
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        spacing: 10
+                                        Rectangle {
+                                            width: 200
+                                            height: 150
+                                            color: "transparent"
+                                            border.color: "#e3dac9"
+                                            radius: 5
+                                            Column{
+                                                TextApp {
+                                                    width: 200
+                                                    height: 50
+                                                    wrapMode: Text.WordWrap
+                                                    text: "DF Sensor ADC:"
+                                                    padding: 5
+                                                }
+                                                TextApp {
+                                                    width: 200
+                                                    height: 100
+                                                    font.pixelSize: 52
+                                                    wrapMode: Text.WordWrap
+                                                    text: props.dfaAdcActual
+                                                    padding: 5
+                                                }
+                                            }
+                                        }
+                                        Rectangle {
+                                            width: 200
+                                            height: 150
+                                            color: "transparent"
+                                            border.color: "#e3dac9"
+                                            radius: 5
+                                            Column{
+                                                TextApp {
+                                                    width: 200
+                                                    height: 50
+                                                    wrapMode: Text.WordWrap
+                                                    text: "IF Sensor ADC:"
+                                                    padding: 5
+                                                }
+                                                TextApp {
+                                                    width: 200
+                                                    height: 100
+                                                    font.pixelSize: 52
+                                                    wrapMode: Text.WordWrap
+                                                    text: props.ifaAdcActual
+                                                    padding: 5
+                                                }
+                                            }
+                                        }
+                                    }
+                                    TextApp {
+                                        width: parentId.width
+                                        wrapMode: Text.WordWrap
+                                        padding: 10
+                                        text:  "* " + qsTr("Please wait until the values are stable")
+                                        font.italic: true
+                                        color: "#cda776"
+                                        horizontalAlignment: Text.AlignHCenter
+                                    }//
+                                }//
+                            }//
+
+                            Item {
+                                id: rightContentItem
+                                Layout.fillHeight: true
+                                Layout.minimumWidth: parent.width * 0.22
+                                Column{
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    spacing: 5
+                                    Rectangle{
+                                        height: 40
+                                        width: rightContentItem.width
+                                        color: "transparent"
+                                        TextApp{
+                                            height: parent.height
+                                            width: parent.width
+                                            text: qsTr("Inflow")
+                                            font.underline: true
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                        }
+                                    }
                                     Rectangle {
                                         width: 220
-                                        height: 140
+                                        height: 150
                                         color: "#0F2952"
                                         border.color: "#dddddd"
                                         radius: 5
-
+                                        anchors.verticalCenter: parent.verticalCenter
                                         ColumnLayout {
                                             anchors.fill: parent
                                             anchors.margins: 2
@@ -199,7 +284,7 @@ ViewApp {
 
                                             TextApp {
                                                 font.pixelSize: 14
-                                                text: qsTr("Press here to turn off I/F Fan")
+                                                text: qsTr("Press here to turn off the Fan")
                                             }
 
                                             Item {
@@ -213,6 +298,7 @@ ViewApp {
                                                     height: 70
                                                     fillMode: Image.PreserveAspectFit
                                                     anchors.centerIn: parent
+
                                                     states: State {
                                                         name: "stateOn"
                                                         when: props.ifaFanDutyCycleActual
@@ -228,9 +314,10 @@ ViewApp {
                                                 text: "Dcy: " + props.ifaFanDutyCycleActual
                                             }//
 
-                                            //                                            TextApp {
-                                            //                                                text: "RPM: " + props.fanRpmActual
-                                            //                                            }//
+                                            TextApp {
+                                                text: "RPM: " + props.fanRpmActual
+                                                color: "#0F2952"
+                                            }//
                                         }//
 
                                         MouseArea {
