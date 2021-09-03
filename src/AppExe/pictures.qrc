@@ -224,5 +224,6 @@
         <file>UI/Pictures/menu/dfa_nom_measure.png</file>
         <file>UI/Pictures/menu/dfa_stb_measure.png</file>
         <file>UI/Pictures/menu/dfa_max_measure.png</file>
+        <file>UI/Pictures/menu/fan-auto-control.png</file>
     </qresource>
 </RCC>

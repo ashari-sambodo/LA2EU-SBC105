@@ -393,6 +393,14 @@
                                  mlink     :   "qrc:/UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml"
                              })
 
+
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype         :   "menu",
+                                 mtitle     :   qsTr("Fan Auto Control"),
+                                 micon      :   "qrc:/UI/Pictures/menu/fan-auto-control.png",
+                                 mlink      :   "qrc:/UI/Pages/FanAutoControlPage/FanAutoControlPage.qml"
+                             })
+
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype         :   "menu",
                                  mtitle     :   qsTr("Shipping Setup"),
