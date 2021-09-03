@@ -860,7 +860,11 @@ class MachineData : public QObject
                //               WRITE setShippingModeEnable
                NOTIFY shippingModeEnableChanged)
 
-
+    /// SHIPPING MODE
+    Q_PROPERTY(bool fanCloseLoopControlEnable
+               READ getFanCloseLoopControlEnable
+               //               WRITE setFanCloseLoopControlEnable
+               NOTIFY fanCloseLoopControlEnableChanged)
 
 
 public:
@@ -1557,6 +1561,15 @@ public:
     Q_INVOKABLE QStringList getSbcCurrentSystemInformation()const;
     void setSbcCurrentSystemInformation(QStringList sbcCurrentSystemInformation);
 
+    bool getFanCloseLoopControlEnable() const;
+    void setFanCloseLoopControlEnable(bool value);
+    Q_INVOKABLE float getFanCloseLoopGainProportional(short index) const;
+    void setFanCloseLoopGainProportional(float value, short index);
+    Q_INVOKABLE float getFanCloseLoopGainIntegral(short index) const;
+    void setFanCloseLoopGainIntegral(float value, short index);
+    Q_INVOKABLE float getFanCloseLoopGainDerivatif(short index) const;
+    void setFanCloseLoopGainDerivatif(float value, short index);
+
 public slots:
     void initSingleton();
 
@@ -1823,6 +1836,12 @@ signals:
     void eventLogSpaceMaximumChanged(int eventLogSpaceMaximum);
 
     void shippingModeEnableChanged(bool shippingModeEnable);
+
+    ///Close Loop
+    void fanCloseLoopControlEnableChanged(bool value);
+    //    void fanCloseLoopGainProportionalChanged(bool value);
+    //    void fanCloseLoopGainIntegralChanged(float value);
+    //    void fanCloseLoopGainDerivatifChanged(float value);
 
 private:
     ///
@@ -2144,13 +2163,18 @@ private:
 
     bool m_shippingModeEnable = false;
 
-
     QString m_sbcSerialNumber;
     QString m_sbcCurrentFullMacAddress;
     QStringList m_sbcSystemInformation;
     bool m_sbcCurrentSerialNumberKnown = false;
     QString m_sbcCurrentSerialNumber;
     QStringList m_sbcCurrentSystemInformation;
+
+    bool m_fanCloseLoopControlEnable;
+    float m_fanCloseLoopGainProportional[2];//Index 0 for Downflow, 1 for Inflow
+    float m_fanCloseLoopGainIntegral[2];
+    float m_fanCloseLoopGainDerivatif[2];
+
 };
 
 

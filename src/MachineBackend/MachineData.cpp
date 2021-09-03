@@ -95,6 +95,51 @@ void MachineData::setSbcCurrentSystemInformation(QStringList sbcCurrentSystemInf
     m_sbcCurrentSystemInformation = sbcCurrentSystemInformation;
 }
 
+bool MachineData::getFanCloseLoopControlEnable() const
+{
+    return m_fanCloseLoopControlEnable;
+}
+
+void MachineData::setFanCloseLoopControlEnable(bool value)
+{
+    if(m_fanCloseLoopControlEnable == value)return;
+    m_fanCloseLoopControlEnable = value;
+    emit fanCloseLoopControlEnableChanged(m_fanCloseLoopControlEnable);
+}
+
+float MachineData::getFanCloseLoopGainProportional(short index) const
+{
+    return m_fanCloseLoopGainProportional[index];
+}
+
+void MachineData::setFanCloseLoopGainProportional(float value, short index)
+{
+    if(m_fanCloseLoopGainProportional[index] == value)return;
+    m_fanCloseLoopGainProportional[index] = value;
+}
+
+float MachineData::getFanCloseLoopGainIntegral(short index) const
+{
+    return m_fanCloseLoopGainIntegral[index];
+}
+
+void MachineData::setFanCloseLoopGainIntegral(float value, short index)
+{
+    if(m_fanCloseLoopGainIntegral[index] == value)return;
+    m_fanCloseLoopGainIntegral[index] = value;
+}
+
+float MachineData::getFanCloseLoopGainDerivatif(short index) const
+{
+    return m_fanCloseLoopGainDerivatif[index];
+}
+
+void MachineData::setFanCloseLoopGainDerivatif(float value, short index)
+{
+    if(m_fanCloseLoopGainDerivatif[index] == value)return;
+    m_fanCloseLoopGainDerivatif[index] = value;
+}
+
 QString MachineData::getSbcSerialNumber() const
 {
     return m_sbcSerialNumber;
