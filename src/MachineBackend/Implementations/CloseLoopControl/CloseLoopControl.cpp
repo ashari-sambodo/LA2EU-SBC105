@@ -1,27 +1,53 @@
 #include "CloseLoopControl.h"
 
-#define TEI_FOR_BOARD_IO               1500 //Timer Event Interrupt Sensor reading
 
 CloseLoopControl::CloseLoopControl(QObject *parent)
     : ClassManager(parent)
 {
     m_controlEnable = false;
-    m_sensorSamplingPeriod = TEI_FOR_BOARD_IO/1000.0; //Convert to second
+    m_samplingPeriod = 0.0; //Convert to second
     m_measurementUnit = 0;//metric
-    for(unsigned char i=0; i < CLOSE_LOOP_CONTROL_COUNT_MAX; i++){
-        m_gainProportional[i] = 0.0;
-        m_gainIntegral[i] = 0.0;
-        m_gainDerivatif[i] = 0.0;
-        m_error[i] = 0.0;
-        m_totalError[i] = 0.0;
 
-        for(unsigned char j=0; j < LAST_ERR_COUNT_MAX; j++)
-            m_lastError[i][j] = 0.0;
+    m_gainProportional = 0.0;
+    m_gainIntegral = 0.0;
+    m_gainDerivatif = 0.0;
+    m_error = 0.0;
 
-        m_outputControl[i] = 0;
-        m_setpoint[i] = 0.0;
-        m_processVariable[i] = 0.0;
+    for(unsigned char j=0; j < LAST_ERR_COUNT_MAX; j++)
+        m_lastError[j] = 0.0;
+
+    m_outputControl = 0;
+    m_setpoint = 0.0;
+    m_processVariable = 0.0;
+    m_setpointDcy = 0;
+}
+
+
+void CloseLoopControl::routineTask(int parameter)
+{
+    Q_UNUSED(parameter)
+    short outputControl = {0};
+
+    if(m_controlEnable){
+
+        /// Calculate Close Loop Controller
+        outputControl = getOutputControl();
+
+        if(outputControl != m_outputControl){
+            m_outputControl = outputControl;
+            emit outputControlChanged(m_outputControl);
+
+        }
+    }else{
+        /// Take value from Duty cycle Setpoint
+        outputControl = m_setpointDcy;
+
+        if(outputControl != m_outputControl){
+            m_outputControl = outputControl;
+            emit outputControlChanged(m_outputControl);
+        }
     }
+    emit workerFinished();
 }
 
 void CloseLoopControl::setControlEnable(bool value)
@@ -30,40 +56,45 @@ void CloseLoopControl::setControlEnable(bool value)
     m_controlEnable = value;
 }
 
-void CloseLoopControl::setGainProportional(float value, short index)
+void CloseLoopControl::setGainProportional(float value)
 {
-    if(m_gainProportional[index] == value)return;
-    m_gainProportional[index] = value;
+    m_gainProportional = value;
 }
 
-void CloseLoopControl::setGainIntegral(float value, short index)
+void CloseLoopControl::setGainIntegral(float value)
 {
-    if(m_gainIntegral[index] == value)return;
-    m_gainIntegral[index] = value;
+    m_gainIntegral = value;
 }
 
-void CloseLoopControl::setGainDerivatif(float value, short index)
+void CloseLoopControl::setGainDerivatif(float value)
 {
-    if(m_gainDerivatif[index] == value)return;
-    m_gainDerivatif[index] = value;
+    m_gainDerivatif = value;
 }
 
 void CloseLoopControl::setMeasurementUnit(unsigned char value)
 {
-    if(m_measurementUnit == value)return;
     m_measurementUnit = value;
 }
 
-void CloseLoopControl::setSetpoint(float value, short index)
+void CloseLoopControl::setSetpoint(float value)
 {
-    if(m_setpoint[index] == value)return;
-    m_setpoint[index] = value;
+    if(m_measurementUnit)
+        m_setpoint = fpm2Mps(static_cast<short>(value));
+    else
+        m_setpoint = value;
 }
 
-void CloseLoopControl::setProcessVariable(float value, short index)
+void CloseLoopControl::setProcessVariable(float value)
 {
-    if(m_processVariable[index] == value)return;
-    m_processVariable[index] = value;
+    if(m_measurementUnit)
+        m_processVariable = fpm2Mps(static_cast<short>(value));
+    else
+        m_processVariable = value;
+}
+
+void CloseLoopControl::setSamplingPeriod(float value)
+{
+    m_samplingPeriod = (value / static_cast<float>(1000.0));
 }
 
 bool CloseLoopControl::getDummyStateEnable() const
@@ -73,6 +104,79 @@ bool CloseLoopControl::getDummyStateEnable() const
 
 void CloseLoopControl::setDummyStateEnable(bool dummyStateEnable)
 {
-    if(m_dummyStateEnable == dummyStateEnable)return;
     m_dummyStateEnable = dummyStateEnable;
+}
+
+void CloseLoopControl::pushBackTotalLastError(float value)
+{
+    for(short i=(LAST_ERR_COUNT_MAX-1); i>0; i--){
+        m_lastError[i] = m_lastError[i-1];
+    }
+    m_lastError[0] = value;
+}
+
+float CloseLoopControl::getTotalLastError() const
+{
+    float totalError = 0.0;
+    for(short i=0; i<LAST_ERR_COUNT_MAX; i++)
+        totalError += m_lastError[i];
+    return totalError;
+}
+
+/// \brief CloseLoopControl::getOutputControl
+/// \param index
+/// e(n) = SP - PV(n)
+/// COp = Kp * e(n)
+/// COi = Ki * Ts * (e(n) + e(n-1) + ... + e(n-LAST_ERR_COUNT_MAX))
+/// COd = (Kd / Ts) (e(n) - e(n-1))
+/// CO  = COp + COi + COd
+/// .........................................................................................
+/// e(n) = Error / Deviation between setpoint velocity and Actual velocity at current sample
+/// SP = Setpoint value / Desired Output Velocity
+/// PV = Process Variable / Actual velocity (feedback)
+/// Kp = Gain Proportional
+/// Ki = Gain Integral
+/// Kd = Gain Derivatif
+/// Ts = Time sampling used (period between n and n-1)
+/// COp = Control Output Proportional
+/// COi = Control Output Integral
+/// COd = Control Output Derivatif
+/// CO = Control Output Final
+/// //////////////////////////////////////////////////////////////////////////////////////////
+
+short CloseLoopControl::getOutputControl() const
+{
+    short outputControl = 0;
+    float e, le, tle, sp, pv, kp, ki, kd, ts, COp, COi, COd;
+    short CO;
+
+    sp = m_setpoint;
+    pv = m_processVariable;
+    e = sp - pv;
+    le = m_lastError[0];
+    tle = getTotalLastError();
+    kp = m_gainProportional;
+    ki = m_gainIntegral;
+    kd = m_gainDerivatif;
+    ts = m_samplingPeriod;
+    COp = kp * e;
+    COi = ki * ts * tle;
+    COd = (kd/ts) * le;
+    CO = static_cast<short>(qRound(COp + COi + COd));
+
+    outputControl = m_setpointDcy + CO;
+
+    qDebug() << "Sp: " << sp <<"Pv:"<< pv;
+    qDebug() << "Error: " << e;
+    qDebug() << "Kp:" << kp <<"Ki:" << ki << "Kd:" << kd;
+    qDebug() << "Dcy:" << m_setpointDcy;
+    qDebug() << "CO:" << CO;
+    qDebug() << "OutputControl:" << outputControl;
+
+    return outputControl;
+}
+
+float CloseLoopControl::fpm2Mps(short value) const
+{
+    return static_cast<float>(value/196.85);
 }

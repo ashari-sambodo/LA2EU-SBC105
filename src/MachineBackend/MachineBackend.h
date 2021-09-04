@@ -38,6 +38,7 @@ class SashWindow;
 class DeviceDigitalOut;
 class MotorizeOnRelay;
 class AirflowVelocity;
+class CloseLoopControl;
 class Temperature;
 class ClassManager;
 
@@ -373,11 +374,15 @@ private:
     QScopedPointer<DeviceDigitalOut>    m_pExhaustContact;
     QScopedPointer<DeviceDigitalOut>    m_pAlarmContact;
     ///
-
     ///
     QScopedPointer<Temperature>     m_pTemperature;
     QScopedPointer<AirflowVelocity> m_pAirflowInflow;
     QScopedPointer<AirflowVelocity> m_pAirflowDownflow;
+    ///
+    QScopedPointer<CloseLoopControl> m_pIfaFanAutoControl;
+    QScopedPointer<CloseLoopControl> m_pDfaFanAutoControl;
+    QScopedPointer<QTimer>           m_timerEventForCloseLoopControl;
+    void _onTriggeredEventCloseLoopControl();
     ///
     QScopedPointer<QGpioSysfs>      m_pBuzzer;
     ///

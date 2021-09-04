@@ -58,14 +58,13 @@ ViewApp {
 
                         RowLayout {
                             anchors.fill: parent
-
                             Item {
                                 id: leftContentItem
                                 Layout.fillHeight: true
                                 Layout.minimumWidth: parent.width * 0.22
                                 Column{
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    spacing: 5
+                                    spacing: 5                                    
+                                    anchors.centerIn: parent
                                     Rectangle{
                                         height: 40
                                         width: leftContentItem.width
@@ -85,7 +84,6 @@ ViewApp {
                                         color: "#0F2952"
                                         border.color: "#dddddd"
                                         radius: 5
-                                        anchors.verticalCenter: parent.verticalCenter
                                         ColumnLayout {
                                             anchors.fill: parent
                                             anchors.margins: 2
@@ -255,8 +253,8 @@ ViewApp {
                                 Layout.fillHeight: true
                                 Layout.minimumWidth: parent.width * 0.22
                                 Column{
-                                    anchors.verticalCenter: parent.verticalCenter
                                     spacing: 5
+                                    anchors.centerIn: parent
                                     Rectangle{
                                         height: 40
                                         width: rightContentItem.width
@@ -276,7 +274,6 @@ ViewApp {
                                         color: "#0F2952"
                                         border.color: "#dddddd"
                                         radius: 5
-                                        anchors.verticalCenter: parent.verticalCenter
                                         ColumnLayout {
                                             anchors.fill: parent
                                             anchors.margins: 2

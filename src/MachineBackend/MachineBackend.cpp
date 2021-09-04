@@ -37,6 +37,7 @@
 #include "Implementations/DigitalOut/DeviceDigitalOut.h"
 #include "Implementations/MotorizeOnRelay/MotorizeOnRelay.h"
 #include "Implementations/AirflowVelocity/AirflowVelocity.h"
+#include "Implementations/CloseLoopControl/CloseLoopControl.h"
 #include "Implementations/Temperature/Temperature.h"
 #include "Implementations/PressureDiff/PressureDiff.h"
 #include "Implementations/ParticleCounter/ParticleCounter.h"
@@ -1309,6 +1310,31 @@ void MachineBackend::setup()
         }
     }
 
+    /// AIRFLOW_DOWNFLOW
+    {
+        ////CREATE INFLOW OBJECT
+        m_pAirflowDownflow.reset(new AirflowVelocity());
+        m_pAirflowDownflow->setAIN(m_boardAnalogInput2.data());
+        m_pAirflowDownflow->setChannel(0);
+        m_pAirflowDownflow->setScopeCount(2); //Default 4
+        //m_pAirflowDownflow->setAdcResolutionBits(12);
+
+        /// CONNECTION
+        connect(m_pAirflowDownflow.data(), &AirflowVelocity::adcConpensationChanged,
+                pData, [&](int newVal){
+            qDebug() << "m_pAirflowDownflow adc" << newVal;
+            pData->setDownflowAdcConpensation(newVal);
+            //            qDebug() << "convertADCtomVolt: " << m_boardAnalogInput2->getPAIModule()->convertADCtomVolt(newVal);
+        });
+        connect(m_pAirflowDownflow.data(), &AirflowVelocity::velocityChanged,
+                this, &MachineBackend::_onDownflowVelocityActualChanged);
+
+        /// Temperature has effecting to Airflow Reading
+        /// so, need to update temperature value on the Airflow Calculation
+        connect(m_pTemperature.data(), &Temperature::celciusChanged,
+                m_pAirflowDownflow.data(), &AirflowVelocity::setTemperature);
+    }
+
     /// AIRFLOW_INFLOW
     {
         ////CREATE INFLOW OBJECT
@@ -1334,29 +1360,36 @@ void MachineBackend::setup()
                 m_pAirflowInflow.data(), &AirflowVelocity::setTemperature);
     }
 
-    /// AIRFLOW_DOWNFLOW
+    /// FAN DOWNFLOW DUTY CYCLE AUTO COMPENSATE
     {
-        ////CREATE INFLOW OBJECT
-        m_pAirflowDownflow.reset(new AirflowVelocity());
-        m_pAirflowDownflow->setAIN(m_boardAnalogInput2.data());
-        m_pAirflowDownflow->setChannel(0);
-        m_pAirflowDownflow->setScopeCount(2); //Default 4
-        //m_pAirflowDownflow->setAdcResolutionBits(12);
+        ////CREATE DOWNFLOW CLOSE LOOP CONTROL OBJECT
+        m_pDfaFanAutoControl.reset(new CloseLoopControl());
+        m_pDfaFanAutoControl->setSamplingPeriod(static_cast<float>(TEI_FOR_CLOSE_LOOP_CONTROL));
 
         /// CONNECTION
-        connect(m_pAirflowDownflow.data(), &AirflowVelocity::adcConpensationChanged,
-                pData, [&](int newVal){
-            qDebug() << "m_pAirflowDownflow adc" << newVal;
-            pData->setDownflowAdcConpensation(newVal);
-            //            qDebug() << "convertADCtomVolt: " << m_boardAnalogInput2->getPAIModule()->convertADCtomVolt(newVal);
+        connect(m_pDfaFanAutoControl.data(), &CloseLoopControl::outputControlChanged,
+                pData, [&](short newVal){
+            qDebug() << "m_pDfaFanAutoControl dutyCycle" << newVal;
         });
-        connect(m_pAirflowDownflow.data(), &AirflowVelocity::velocityChanged,
-                this, &MachineBackend::_onDownflowVelocityActualChanged);
+    }
+    /// FAN INFLOW DUTY CYCLE AUTO COMPENSATE
+    {
+        ////CREATE INFLOW CLOSE LOOP CONTROL OBJECT
+        m_pIfaFanAutoControl.reset(new CloseLoopControl());
+        m_pIfaFanAutoControl->setSamplingPeriod(static_cast<float>(TEI_FOR_CLOSE_LOOP_CONTROL));
 
-        /// Temperature has effecting to Airflow Reading
-        /// so, need to update temperature value on the Airflow Calculation
-        connect(m_pTemperature.data(), &Temperature::celciusChanged,
-                m_pAirflowDownflow.data(), &AirflowVelocity::setTemperature);
+        /// CONNECTION
+        connect(m_pIfaFanAutoControl.data(), &CloseLoopControl::outputControlChanged,
+                pData, [&](short newVal){
+            qDebug() << "m_pIfaFanAutoControl dutyCycle" << newVal;
+        });
+
+        //// create Timer Event For Close loop control
+        m_timerEventForCloseLoopControl.reset(new QTimer);
+        m_timerEventForCloseLoopControl->setInterval(std::chrono::milliseconds(TEI_FOR_CLOSE_LOOP_CONTROL));
+
+        QObject::connect(m_timerEventForCloseLoopControl.data(), &QTimer::timeout,
+                         this, &MachineBackend::_onTriggeredEventCloseLoopControl);
     }
 
     /// AIRFLOW MONITOR ENABLE
@@ -2217,6 +2250,7 @@ void MachineBackend::deallocate()
     m_timerEventForDataLog->stop();
     m_timerEventForLcdToDimm->stop();
     m_timerEventForRTCWatchdogReset->stop();
+    m_timerEventForCloseLoopControl->stop();
 
     /// turned off the Downflow blower
     if(pData->getFanPrimaryState()){
@@ -2312,6 +2346,12 @@ void MachineBackend::deallocate()
 
     qDebug() << metaObject()->className() << __FUNCTION__ << "will be stopped" << thread();
     emit hasStopped();
+}
+
+void MachineBackend::_onTriggeredEventCloseLoopControl()
+{
+    m_pIfaFanAutoControl->routineTask();
+    m_pDfaFanAutoControl->routineTask();
 }
 
 /////////////////////////////////////////////////// API Group for General Object Operation

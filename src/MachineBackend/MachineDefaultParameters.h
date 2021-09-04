@@ -15,6 +15,13 @@
 
 /// TEI = TIMER EVENT INTERVAL
 #ifdef __arm__
+#define TEI_FOR_CLOSE_LOOP_CONTROL   1000 // ms
+#else
+#define TEI_FOR_CLOSE_LOOP_CONTROL   1500 // ms
+#endif
+
+/// TEI = TIMER EVENT INTERVAL
+#ifdef __arm__
 #define TEI_FOR_BLOWER_RBMDSI   130 // ms
 #else
 #define TEI_FOR_BLOWER_RBMDSI   1500 // ms
