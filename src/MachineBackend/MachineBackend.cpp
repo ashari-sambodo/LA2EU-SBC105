@@ -68,30 +68,31 @@ struct modbusRegisterAddress
     struct ifaFanState       {static const short addr = 6;   short rw = 0; uint16_t value;} ifaFanState;
     struct ifaFanDutyCycle   {static const short addr = 7;   short rw = 0; uint16_t value;} ifaFanDutyCycle;
     //struct ifaFanRpm       {static const short addr = 7;   short rw = 0; uint16_t value;} ifaFanRpm;
-    struct lightState        {static const short addr = 8;   short rw = 0; uint16_t value;} lightState;
-    struct lightIntensity    {static const short addr = 9;   short rw = 0; uint16_t value;} lightIntensity;
-    struct socketState       {static const short addr = 10;  short rw = 0; uint16_t value;} socketState;
-    struct gasState          {static const short addr = 11;  short rw = 0; uint16_t value;} gasState;
-    struct uvState           {static const short addr = 12;  short rw = 0; uint16_t value;} uvState;
-    struct sashMotorizeState {static const short addr = 13;  short rw = 0; uint16_t value;} sashMotorizeState;
-    struct sashCycle         {static const short addr = 14;  short rw = 0; uint16_t value;} sashCycle;
-    struct meaUnit           {static const short addr = 15;  short rw = 0; uint16_t value;} meaUnit;
-    struct temperature       {static const short addr = 16;  short rw = 0; uint16_t value;} temperature;
-    struct airflowInflow     {static const short addr = 17;  short rw = 0; uint16_t value;} airflowInflow;
-    struct airflowDownflow   {static const short addr = 18;  short rw = 0; uint16_t value;} airflowDownflow;
-    struct airflowExhaust    {static const short addr = 19;  short rw = 0; uint16_t value;} airflowExhaust;
-    struct pressureExhaust   {static const short addr = 20;  short rw = 0; uint16_t value;} pressureExhaust;
-    struct alarmSash         {static const short addr = 21;  short rw = 0; uint16_t value;} alarmSash;
-    struct alarmInflow       {static const short addr = 22;  short rw = 0; uint16_t value;} alarmInflow;
-    struct alarmDownflow     {static const short addr = 23;  short rw = 0; uint16_t value;} alarmDownflow;
-    struct alarmExhaust      {static const short addr = 24;  short rw = 0; uint16_t value;} alarmExhaust;
-    struct alarmCom          {static const short addr = 25;  short rw = 0; uint16_t value;} alarmCom;
-    struct filterLife        {static const short addr = 26;  short rw = 0; uint16_t value;} filterLife;
-    struct alarmFlapExhaust  {static const short addr = 27;  short rw = 0; uint16_t value;} alarmFlapExhaust;
+    struct fanAutoControl    {static const short addr = 8;   short rw = 0; uint16_t value;} fanAutoControl;
+    struct lightState        {static const short addr = 9;   short rw = 0; uint16_t value;} lightState;
+    struct lightIntensity    {static const short addr = 10;  short rw = 0; uint16_t value;} lightIntensity;
+    struct socketState       {static const short addr = 11;  short rw = 0; uint16_t value;} socketState;
+    struct gasState          {static const short addr = 12;  short rw = 0; uint16_t value;} gasState;
+    struct uvState           {static const short addr = 13;  short rw = 0; uint16_t value;} uvState;
+    struct sashMotorizeState {static const short addr = 14;  short rw = 0; uint16_t value;} sashMotorizeState;
+    struct sashCycle         {static const short addr = 15;  short rw = 0; uint16_t value;} sashCycle;
+    struct meaUnit           {static const short addr = 16;  short rw = 0; uint16_t value;} meaUnit;
+    struct temperature       {static const short addr = 17;  short rw = 0; uint16_t value;} temperature;
+    struct airflowInflow     {static const short addr = 18;  short rw = 0; uint16_t value;} airflowInflow;
+    struct airflowDownflow   {static const short addr = 19;  short rw = 0; uint16_t value;} airflowDownflow;
+    struct airflowExhaust    {static const short addr = 20;  short rw = 0; uint16_t value;} airflowExhaust;
+    struct pressureExhaust   {static const short addr = 21;  short rw = 0; uint16_t value;} pressureExhaust;
+    struct alarmSash         {static const short addr = 22;  short rw = 0; uint16_t value;} alarmSash;
+    struct alarmInflow       {static const short addr = 23;  short rw = 0; uint16_t value;} alarmInflow;
+    struct alarmDownflow     {static const short addr = 24;  short rw = 0; uint16_t value;} alarmDownflow;
+    struct alarmExhaust      {static const short addr = 25;  short rw = 0; uint16_t value;} alarmExhaust;
+    struct alarmCom          {static const short addr = 26;  short rw = 0; uint16_t value;} alarmCom;
+    struct filterLife        {static const short addr = 27;  short rw = 0; uint16_t value;} filterLife;
+    struct alarmFlapExhaust  {static const short addr = 28;  short rw = 0; uint16_t value;} alarmFlapExhaust;
 } modbusRegisterAddress;
 
 
-#define MODBUS_REGISTER_COUNT   28
+#define MODBUS_REGISTER_COUNT   29
 #define ALLOW_ANY_IP            "0.0.0.0"
 #define LOCALHOST_ONLY          "127.0.0.1"
 
@@ -1283,6 +1284,77 @@ void MachineBackend::setup()
         //        qDebug() << "SKEY_CAB_DISPLAY_NAME" << displayName;
     }//
 
+
+    {///Read Parameter for Close Loop Control
+        bool enable    = m_settings->value(SKEY_FAN_CLOSE_LOOP_ENABLE, false).toBool();
+        float dfaGainP = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_P + QString::number(Downflow), 1.5).toFloat();
+        float dfaGainI = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_I + QString::number(Downflow), 0).toFloat();
+        float dfaGainD = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_D + QString::number(Downflow), 0).toFloat();
+        float ifaGainP = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_P + QString::number(Inflow), 1.5).toFloat();
+        float ifaGainI = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_I + QString::number(Inflow), 0).toFloat();
+        float ifaGainD = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_D + QString::number(Inflow), 0).toFloat();
+
+        pData->setFanCloseLoopControlEnable(enable);
+        pData->setFanCloseLoopGainProportional(dfaGainP, Downflow);
+        pData->setFanCloseLoopGainIntegral(dfaGainI, Downflow);
+        pData->setFanCloseLoopGainDerivatif(dfaGainD, Downflow);
+        pData->setFanCloseLoopGainProportional(ifaGainP, Inflow);
+        pData->setFanCloseLoopGainIntegral(ifaGainI, Inflow);
+        pData->setFanCloseLoopGainDerivatif(ifaGainD, Inflow);
+
+        ///MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.fanAutoControl.addr, static_cast<ushort>(enable));
+    }
+
+    /// FAN DOWNFLOW DUTY CYCLE AUTO COMPENSATE
+    {
+        ////CREATE DOWNFLOW CLOSE LOOP CONTROL OBJECT
+        m_pDfaFanAutoControl.reset(new CloseLoopControl());
+        m_pDfaFanAutoControl->setControlEnable(pData->getFanCloseLoopControlEnable());
+        m_pDfaFanAutoControl->setGainProportional(pData->getFanCloseLoopGainProportional(Downflow));
+        m_pDfaFanAutoControl->setGainIntegral(pData->getFanCloseLoopGainIntegral(Downflow));
+        m_pDfaFanAutoControl->setGainDerivatif(pData->getFanCloseLoopGainDerivatif(Downflow));
+        m_pDfaFanAutoControl->setMeasurementUnit(pData->getMeasurementUnit());
+        m_pDfaFanAutoControl->setSamplingPeriod(static_cast<float>(TEI_FOR_CLOSE_LOOP_CONTROL));
+
+        /// CONNECTION
+        connect(m_pDfaFanAutoControl.data(), &CloseLoopControl::outputControlChanged,
+                this, [&](short dutyCycle){
+            qDebug() << "m_pDfaFanAutoControl dutyCycle" << dutyCycle;
+            //_setFanPrimaryDutyCycle(dutyCycle);
+        });
+    }
+    /// FAN INFLOW DUTY CYCLE AUTO COMPENSATE
+    {
+        ////CREATE INFLOW CLOSE LOOP CONTROL OBJECT
+        m_pIfaFanAutoControl.reset(new CloseLoopControl());
+        m_pIfaFanAutoControl->setControlEnable(pData->getFanCloseLoopControlEnable());
+        m_pIfaFanAutoControl->setGainProportional(pData->getFanCloseLoopGainProportional(Inflow));
+        m_pIfaFanAutoControl->setGainIntegral(pData->getFanCloseLoopGainIntegral(Inflow));
+        m_pIfaFanAutoControl->setGainDerivatif(pData->getFanCloseLoopGainDerivatif(Inflow));
+        m_pIfaFanAutoControl->setMeasurementUnit(pData->getMeasurementUnit());
+        m_pIfaFanAutoControl->setSamplingPeriod(static_cast<float>(TEI_FOR_CLOSE_LOOP_CONTROL));
+
+        /// CONNECTION
+        connect(m_pIfaFanAutoControl.data(), &CloseLoopControl::outputControlChanged,
+                this, [&](short dutyCycle){
+            qDebug() << "m_pIfaFanAutoControl dutyCycle" << dutyCycle;
+            //_setFanInflowDutyCycle(dutyCycle);
+        });
+    }
+    {
+        //// create Timer Event For Close loop control
+        m_timerEventForCloseLoopControl.reset(new QTimer);
+        m_timerEventForCloseLoopControl->setInterval(std::chrono::milliseconds(TEI_FOR_CLOSE_LOOP_CONTROL));
+
+        QObject::connect(m_timerEventForCloseLoopControl.data(), &QTimer::timeout,
+                         this, &MachineBackend::_onTriggeredEventCloseLoopControl);
+        //        QObject::connect(this, &MachineBackend::loopStarted,
+        //                         [&](){
+        //            m_timerEventForCloseLoopControl->start();
+        //        });
+    }
+
     /// TEMPERATURE
     {
         m_pTemperature.reset(new Temperature);
@@ -1358,38 +1430,6 @@ void MachineBackend::setup()
         /// so, need to update temperature value on the Airflow Calculation
         connect(m_pTemperature.data(), &Temperature::celciusChanged,
                 m_pAirflowInflow.data(), &AirflowVelocity::setTemperature);
-    }
-
-    /// FAN DOWNFLOW DUTY CYCLE AUTO COMPENSATE
-    {
-        ////CREATE DOWNFLOW CLOSE LOOP CONTROL OBJECT
-        m_pDfaFanAutoControl.reset(new CloseLoopControl());
-        m_pDfaFanAutoControl->setSamplingPeriod(static_cast<float>(TEI_FOR_CLOSE_LOOP_CONTROL));
-
-        /// CONNECTION
-        connect(m_pDfaFanAutoControl.data(), &CloseLoopControl::outputControlChanged,
-                pData, [&](short newVal){
-            qDebug() << "m_pDfaFanAutoControl dutyCycle" << newVal;
-        });
-    }
-    /// FAN INFLOW DUTY CYCLE AUTO COMPENSATE
-    {
-        ////CREATE INFLOW CLOSE LOOP CONTROL OBJECT
-        m_pIfaFanAutoControl.reset(new CloseLoopControl());
-        m_pIfaFanAutoControl->setSamplingPeriod(static_cast<float>(TEI_FOR_CLOSE_LOOP_CONTROL));
-
-        /// CONNECTION
-        connect(m_pIfaFanAutoControl.data(), &CloseLoopControl::outputControlChanged,
-                pData, [&](short newVal){
-            qDebug() << "m_pIfaFanAutoControl dutyCycle" << newVal;
-        });
-
-        //// create Timer Event For Close loop control
-        m_timerEventForCloseLoopControl.reset(new QTimer);
-        m_timerEventForCloseLoopControl->setInterval(std::chrono::milliseconds(TEI_FOR_CLOSE_LOOP_CONTROL));
-
-        QObject::connect(m_timerEventForCloseLoopControl.data(), &QTimer::timeout,
-                         this, &MachineBackend::_onTriggeredEventCloseLoopControl);
     }
 
     /// AIRFLOW MONITOR ENABLE
@@ -1938,16 +1978,16 @@ void MachineBackend::setup()
 
     /// Sensor Warming up
     {
-        int minutes = m_settings->value(SKEY_WARMUP_TIME, 3).toInt(); //3 minutes
-        pData->setWarmingUpTime(minutes);
-        pData->setWarmingUpCountdown(minutes * 60);
+        int seconds = m_settings->value(SKEY_WARMUP_TIME, 180).toInt(); //3 minutes
+        pData->setWarmingUpTime(seconds);
+        pData->setWarmingUpCountdown(seconds);
     }
 
     /// Post purging
     {
-        int minutes = m_settings->value(SKEY_POSTPURGE_TIME, 0).toInt(); //0 minutes, disabled
-        pData->setPostPurgingTime(minutes);
-        pData->setPostPurgingCountdown(minutes * 60);
+        int seconds = m_settings->value(SKEY_POSTPURGE_TIME, 0).toInt(); //0 minutes, disabled
+        pData->setPostPurgingTime(seconds);
+        pData->setPostPurgingCountdown(seconds);
     }
 
     /// Filter Meter
@@ -2350,6 +2390,7 @@ void MachineBackend::deallocate()
 
 void MachineBackend::_onTriggeredEventCloseLoopControl()
 {
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     m_pIfaFanAutoControl->routineTask();
     m_pDfaFanAutoControl->routineTask();
 }
@@ -2874,6 +2915,9 @@ void MachineBackend::setMeasurementUnit(short value)
     if(value == pData->getMeasurementUnit()) return;
 
     pData->setMeasurementUnit(value);
+    /// Update to Close Loop Control Object
+    m_pDfaFanAutoControl->setMeasurementUnit(value);
+    m_pIfaFanAutoControl->setMeasurementUnit(value);
 
     {
         QSettings settings;
@@ -3018,7 +3062,8 @@ void MachineBackend::setMeasurementUnit(short value)
     setEnvTempHighestLimit(_tempHighestLimit);
 
     pData->setInflowLowLimitVelocity(_ifaVelPointLowAlarm);
-    pData->setDownflowLowLimitVelocity(_dfaVelPointHighAlarm);
+    pData->setDownflowLowLimitVelocity(_dfaVelPointLowAlarm);
+    pData->setDownflowHighLimitVelocity(_dfaVelPointHighAlarm);
 
     QSettings settings;
     settings.setValue(QString(SKEY_IFA_CAL_VEL_FACTORY) + "1", _ifaVelPointMinFactory);
@@ -3035,6 +3080,7 @@ void MachineBackend::setMeasurementUnit(short value)
 
     settings.setValue(SKEY_IFA_CAL_VEL_LOW_LIMIT, _ifaVelPointLowAlarm);
     settings.setValue(SKEY_DFA_CAL_VEL_LOW_LIMIT, _dfaVelPointLowAlarm);
+    settings.setValue(SKEY_DFA_CAL_VEL_HIGH_LIMIT, _dfaVelPointHighAlarm);
 
     /// reinit calibration point
     initAirflowCalibrationStatus(pData->getAirflowCalibrationStatus());
@@ -3292,6 +3338,7 @@ void MachineBackend::setFanPrimaryDutyCycle(short value)
 
     if(value < 0) return;
     if(value > 100) return;
+
 
     _setFanPrimaryDutyCycle(value);
 }
@@ -3694,28 +3741,28 @@ void MachineBackend::setUvTimeSave(int minutes)
     settings.setValue(SKEY_UV_TIME, minutes);
 }
 
-void MachineBackend::setWarmingUpTimeSave(short minutes)
+void MachineBackend::setWarmingUpTimeSave(short seconds)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    qDebug() << minutes;
+    qDebug() << seconds;
 
-    pData->setWarmingUpTime(minutes);
-    pData->setWarmingUpCountdown(minutes * 60);
+    pData->setWarmingUpTime(seconds);
+    pData->setWarmingUpCountdown(seconds);
 
     QSettings settings;
-    settings.setValue(SKEY_WARMUP_TIME, minutes);
+    settings.setValue(SKEY_WARMUP_TIME, seconds);
 }
 
-void MachineBackend::setPostPurgeTimeSave(short minutes)
+void MachineBackend::setPostPurgeTimeSave(short seconds)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    qDebug() << minutes;
+    qDebug() << seconds;
 
-    pData->setPostPurgingTime(minutes);
-    pData->setPostPurgingCountdown(minutes * 60);
+    pData->setPostPurgingTime(seconds);
+    pData->setPostPurgingCountdown(seconds);
 
     QSettings settings;
-    settings.setValue(SKEY_POSTPURGE_TIME, minutes);
+    settings.setValue(SKEY_POSTPURGE_TIME, seconds);
 }
 
 void MachineBackend::setExhaustContactState(short exhaustContactState)
@@ -4139,6 +4186,7 @@ void MachineBackend::_setFanPrimaryInterlocked(bool interlocked)
         m_pFanPrimary->setInterlock(interlocked);
     },
     Qt::QueuedConnection);
+    pData->setFanPrimaryInterlocked(interlocked);
 }
 
 void MachineBackend::_setFanInflowDutyCycle(short dutyCycle)
@@ -4162,6 +4210,7 @@ void MachineBackend::_setFanInflowInterlocked(bool interlocked)
         m_pFanInflow->setInterlock(interlocked);
     },
     Qt::QueuedConnection);
+    pData->setFanInflowInterlocked(interlocked);
 }
 
 void MachineBackend::setInflowAdcPointField(int pointZero, int pointMin, int pointNom)
@@ -4585,6 +4634,9 @@ void MachineBackend::_initAirflowCalibartionFactory()
     m_pAirflowInflow->setVelocityPoint(1, ifaVelPointMin);
     m_pAirflowInflow->setVelocityPoint(2, ifaVelPointNom);
     m_pAirflowInflow->initScope();
+    /// CLOSE LOOP CONTROL
+    m_pDfaFanAutoControl->setSetpoint(dfaVelPointNom);
+    m_pIfaFanAutoControl->setSetpoint(ifaVelPointNom);
 }
 
 void MachineBackend::_initAirflowCalibartionField()
@@ -4679,6 +4731,9 @@ void MachineBackend::_initAirflowCalibartionField()
     m_pAirflowInflow->setVelocityPoint(1, ifaVelPointMin);
     m_pAirflowInflow->setVelocityPoint(2, ifaVelPointNom);
     m_pAirflowInflow->initScope();
+    /// CLOSE LOOP CONTROL
+    m_pDfaFanAutoControl->setSetpoint(dfaVelPointNom);
+    m_pIfaFanAutoControl->setSetpoint(ifaVelPointNom);
 }
 
 void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
@@ -4698,6 +4753,9 @@ void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
         _stopFanFilterLifeMeter();
         _cancelPowerOutageCapture();
 
+        if(m_timerEventForCloseLoopControl->isActive())
+            m_timerEventForCloseLoopControl->stop();
+
         /// PARTICLE COUNTER
         /// do not counting when internal blower is on
         if (pData->getParticleCounterSensorInstalled()) {
@@ -4713,6 +4771,9 @@ void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
             pData->setFanState(MachineEnums::FAN_STATE_STANDBY);
         else
             pData->setFanState(MachineEnums::FAN_STATE_DIFFERENT);
+        /// Disactivate CloseLoopControl when in Standby Mode
+        if(m_timerEventForCloseLoopControl->isActive())
+            m_timerEventForCloseLoopControl->stop();
     }
     else {
         pData->setFanPrimaryState(MachineEnums::FAN_STATE_ON);
@@ -4726,7 +4787,8 @@ void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
 
         if(!isMaintenanceModeActive()) {
             if(isAirflowHasCalibrated()) {
-                _startWarmingUpTime();
+                if(!pData->getWarmingUpActive())
+                    _startWarmingUpTime();
                 _startPowerOutageCapture();
             }
         }
@@ -4767,18 +4829,21 @@ void MachineBackend::_onFanInflowActualDucyChanged(short value)
         /// Set the Fan State to OFF if one of the blowers is Off
         pData->setFanState(MachineEnums::FAN_STATE_OFF);
 
-        //        _cancelWarmingUpTime();
-        //        _cancelPostPurgingTime();
-        //        _stopFanFilterLifeMeter();
-        //        _cancelPowerOutageCapture();
+        _cancelWarmingUpTime();
+        _cancelPostPurgingTime();
+        _stopFanFilterLifeMeter();
+        _cancelPowerOutageCapture();
 
-        //        /// PARTICLE COUNTER
-        //        /// do not counting when internal blower is on
-        //        if (pData->getParticleCounterSensorInstalled()) {
-        //            if (pData->getParticleCounterSensorFanState()){
-        //                m_pParticleCounter->setFanStatePaCo(MachineEnums::DIG_STATE_ZERO);
-        //            }
-        //        }
+        if(m_timerEventForCloseLoopControl->isActive())
+            m_timerEventForCloseLoopControl->stop();
+
+        /// PARTICLE COUNTER
+        /// do not counting when internal blower is on
+        if (pData->getParticleCounterSensorInstalled()) {
+            if (pData->getParticleCounterSensorFanState()){
+                m_pParticleCounter->setFanStatePaCo(MachineEnums::DIG_STATE_ZERO);
+            }
+        }
     }
     else if (value == pData->getFanInflowStandbyDutyCycle()) {
         pData->setFanInflowState(MachineEnums::FAN_STATE_STANDBY);
@@ -4787,6 +4852,9 @@ void MachineBackend::_onFanInflowActualDucyChanged(short value)
             pData->setFanState(MachineEnums::FAN_STATE_STANDBY);
         else
             pData->setFanState(MachineEnums::FAN_STATE_DIFFERENT);
+        /// Disactivate CloseLoopControl when in Standby Mode
+        if(m_timerEventForCloseLoopControl->isActive())
+            m_timerEventForCloseLoopControl->stop();
     }
     else {
         pData->setFanInflowState(MachineEnums::FAN_STATE_ON);
@@ -4796,22 +4864,23 @@ void MachineBackend::_onFanInflowActualDucyChanged(short value)
         else
             pData->setFanState(MachineEnums::FAN_STATE_DIFFERENT);
 
-        //        _startFanFilterLifeMeter();
+        _startFanFilterLifeMeter();
 
-        //        if(!isMaintenanceModeActive()) {
-        //            if(isAirflowHasCalibrated()) {
-        //                _startWarmingUpTime();
-        //                _startPowerOutageCapture();
-        //            }
-        //        }
+        if(!isMaintenanceModeActive()) {
+            if(isAirflowHasCalibrated()) {
+                if(!pData->getWarmingUpActive())
+                    _startWarmingUpTime();
+                _startPowerOutageCapture();
+            }
+        }
 
         /// PARTICLE COUNTER
         /// only counting when internal blower is on
-        //        if (pData->getParticleCounterSensorInstalled()) {
-        //            if (!pData->getParticleCounterSensorFanState()){
-        //                m_pParticleCounter->setFanStatePaCo(MachineEnums::DIG_STATE_ONE);
-        //            }
-        //        }
+        if (pData->getParticleCounterSensorInstalled()) {
+            if (!pData->getParticleCounterSensorFanState()){
+                m_pParticleCounter->setFanStatePaCo(MachineEnums::DIG_STATE_ONE);
+            }
+        }
     }
 
     /// MODBUS
@@ -5045,11 +5114,15 @@ void MachineBackend::_onInflowVelocityActualChanged(int value)
         int valueVel = qRound(value / 100.0);
         QString valueStr = QString::asprintf("%d fpm", valueVel);
         pData->setInflowVelocityStr(valueStr);
+        qDebug() << "Inflow fpm" << valueVel;
+        m_pIfaFanAutoControl->setProcessVariable(static_cast<float>(valueVel));
     }
     else {
         double valueVel = value / 100.0;
         QString valueStr = QString::asprintf("%.2f m/s", valueVel);
         pData->setInflowVelocityStr(valueStr);
+        qDebug() << "Inflow m/s" << valueVel;
+        m_pIfaFanAutoControl->setProcessVariable(static_cast<float>(valueVel));
     }
 
     /// MODBUS
@@ -5065,11 +5138,15 @@ void MachineBackend::_onDownflowVelocityActualChanged(int value)
         int valueVel = qRound(value / 100.0);
         QString valueStr = QString::asprintf("%d fpm", valueVel);
         pData->setDownflowVelocityStr(valueStr);
+        qDebug() << "Downflow fpm" << valueVel;
+        m_pDfaFanAutoControl->setProcessVariable(static_cast<float>(valueVel));
     }
     else {
         double valueVel = value / 100.0;
         QString valueStr = QString::asprintf("%.2f m/s", valueVel);
         pData->setDownflowVelocityStr(valueStr);
+        qDebug() << "Downflow m/s" << valueVel;
+        m_pDfaFanAutoControl->setProcessVariable(static_cast<float>(valueVel));
     }
 
     /// MODBUS
@@ -5236,6 +5313,10 @@ void MachineBackend::_onTimerEventWarmingUp()
 
         /// Turned bright LED
         _wakeupLcdBrightnessLevel();
+        /// Activate event timer for Fan Close Loop Control After WarmingUp Finished
+        /// Only if both fan state in Nominal
+        if(isFanStateNominal() && pData->getFanCloseLoopControlEnable())
+            m_timerEventForCloseLoopControl->start();
     }
     else {
         count--;
@@ -6564,6 +6645,85 @@ void MachineBackend::readSbcCurrentFullMacAddress()
     qDebug() << pData->getSbcCurrentFullMacAddress();
 }
 
+void MachineBackend::setFanCloseLoopControlEnable(bool value)
+{
+    qDebug() << metaObject()->className() << __func__  << thread();
+
+    if(pData->getFanCloseLoopControlEnable()==value)return;
+
+    pData->setFanCloseLoopControlEnable(value);
+    m_pDfaFanAutoControl->setControlEnable(value);
+    m_pIfaFanAutoControl->setControlEnable(value);
+    QSettings settings;
+    settings.setValue(SKEY_FAN_CLOSE_LOOP_ENABLE, value);
+
+    if(!value) {
+        if(m_timerEventForCloseLoopControl->isActive())
+            m_timerEventForCloseLoopControl->stop();
+    }else{
+        if(isFanStateNominal() && !pData->getWarmingUpActive())
+            m_timerEventForCloseLoopControl->start();
+    }
+}
+
+void MachineBackend::setFanCloseLoopGainProportionalDfa(float value)
+{
+    pData->setFanCloseLoopGainProportional(value, Downflow);
+    m_pDfaFanAutoControl->setGainProportional(value);
+    QSettings settings;
+    settings.setValue(SKEY_FAN_CLOSE_LOOP_GAIN_P + QString::number(Downflow), value);
+}
+
+void MachineBackend::setFanCloseLoopGainIntegralDfa(float value)
+{
+    qDebug() << metaObject()->className() << __func__  << thread();
+
+    pData->setFanCloseLoopGainIntegral(value, Downflow);
+    m_pDfaFanAutoControl->setGainIntegral(value);
+    QSettings settings;
+    settings.setValue(SKEY_FAN_CLOSE_LOOP_GAIN_I + QString::number(Downflow), value);
+}
+
+void MachineBackend::setFanCloseLoopGainDerivatifDfa(float value)
+{
+    qDebug() << metaObject()->className() << __func__  << thread();
+
+    pData->setFanCloseLoopGainDerivatif(value, Downflow);
+    m_pDfaFanAutoControl->setGainDerivatif(value);
+    QSettings settings;
+    settings.setValue(SKEY_FAN_CLOSE_LOOP_GAIN_D + QString::number(Downflow), value);
+}
+
+void MachineBackend::setFanCloseLoopGainProportionalIfa(float value)
+{
+    qDebug() << metaObject()->className() << __func__  << thread();
+
+    pData->setFanCloseLoopGainProportional(value, Inflow);
+    m_pIfaFanAutoControl->setGainProportional(value);
+    QSettings settings;
+    settings.setValue(SKEY_FAN_CLOSE_LOOP_GAIN_P + QString::number(Inflow), value);
+}
+
+void MachineBackend::setFanCloseLoopGainIntegralIfa(float value)
+{
+    qDebug() << metaObject()->className() << __func__  << thread();
+
+    pData->setFanCloseLoopGainIntegral(value, Inflow);
+    m_pIfaFanAutoControl->setGainIntegral(value);
+    QSettings settings;
+    settings.setValue(SKEY_FAN_CLOSE_LOOP_GAIN_I + QString::number(Inflow), value);
+}
+
+void MachineBackend::setFanCloseLoopGainDerivatifIfa(float value)
+{
+    qDebug() << metaObject()->className() << __func__  << thread();
+
+    pData->setFanCloseLoopGainDerivatif(value, Inflow);
+    m_pIfaFanAutoControl->setGainDerivatif(value);
+    QSettings settings;
+    settings.setValue(SKEY_FAN_CLOSE_LOOP_GAIN_D + QString::number(Inflow), value);
+}
+
 void MachineBackend::_machineState()
 {
     //    qDebug() << __func__;
@@ -6698,6 +6858,7 @@ void MachineBackend::_machineState()
             }
 
             if(pData->getFanInflowInterlocked()){
+                //qDebug()<<"case MachineEnums::SASH_STATE_WORK_SSV: 0";
                 _setFanInflowInterlocked(MachineEnums::DIG_STATE_ZERO);
             }
 
@@ -7014,6 +7175,7 @@ void MachineBackend::_machineState()
             ///LOCK FAN IF CURRENT STATE OFF
             if(!pData->getFanInflowState()){
                 if(!pData->getFanInflowInterlocked()){
+                    //qDebug()<<"case MachineEnums::SASH_STATE_UNSAFE_SSV: 1";
                     _setFanInflowInterlocked(MachineEnums::DIG_STATE_ONE);
                 }
             }
@@ -7102,6 +7264,7 @@ void MachineBackend::_machineState()
                 _setFanPrimaryInterlocked(MachineEnums::DIG_STATE_ONE);
             }
             if(!pData->getFanInflowInterlocked()){
+                //qDebug()<<"case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV: 1";
                 _setFanInflowInterlocked(MachineEnums::DIG_STATE_ONE);
             }
 
@@ -7202,6 +7365,7 @@ void MachineBackend::_machineState()
                 _setFanPrimaryInterlocked(MachineEnums::DIG_STATE_ZERO);
             }
             if(pData->getFanInflowInterlocked()){
+                //qDebug()<<"case MachineEnums::SASH_STATE_STANDBY_SSV: 0";
                 _setFanInflowInterlocked(MachineEnums::DIG_STATE_ZERO);
             }
 
@@ -7322,6 +7486,7 @@ void MachineBackend::_machineState()
             }
             if(!pData->getFanInflowDutyCycle()){
                 if(pData->getFanInflowInterlocked()){
+                    //qDebug()<<"case MachineEnums::SASH_STATE_FULLY_OPEN_SSV: 0";
                     _setFanInflowInterlocked(MachineEnums::DIG_STATE_ZERO);
                 }
             }
@@ -7424,6 +7589,7 @@ void MachineBackend::_machineState()
             }
             if(!pData->getFanInflowInterlocked()){
                 if(!pData->getFanInflowState()){
+                    //qDebug()<<"case MachineEnums::SASH SENSOR ERROR: 1";
                     _setFanInflowInterlocked(MachineEnums::DIG_STATE_ONE);
                 }
             }
@@ -7527,6 +7693,7 @@ void MachineBackend::_machineState()
             _setFanPrimaryInterlocked(MachineEnums::DIG_STATE_ZERO);
         }
         if(pData->getFanInflowInterlocked()){
+            //qDebug()<<"case MODE_OPERATION_MAINTENANCE : 0";
             _setFanInflowInterlocked(MachineEnums::DIG_STATE_ZERO);
         }
 

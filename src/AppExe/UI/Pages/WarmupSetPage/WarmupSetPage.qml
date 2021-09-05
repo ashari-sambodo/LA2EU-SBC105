@@ -72,11 +72,7 @@ ViewApp {
                             anchors.verticalCenter: parent.verticalCenter
                             textRole: "text"
                             
-                            model: [
-                                {text: qsTr("3 Minutes"),   value: 3},
-                                {text: qsTr("5 Minutes"),   value: 5},
-                                {text: qsTr("15 Minutes"),  value: 15}
-                            ]
+                            model: props.modelList
                             
                             onActivated: {
                                 ////console.debug(index)
@@ -159,6 +155,19 @@ This is to ensure that the sensors, the blower, and the control system are stabi
             id: props
 
             property int warmupTimer: 3
+            property var modelList1 : [
+                {text: qsTr("3 Minutes"),   value: 180},
+                {text: qsTr("5 Minutes"),   value: 300},
+                {text: qsTr("15 Minutes"),  value: 900}
+            ]
+            property var modelList2 : [
+                {text: qsTr("30 Seconds"),  value: 30},
+                {text: qsTr("1 Minute"),   value: 60},
+                {text: qsTr("3 Minutes"),   value: 180},
+                {text: qsTr("5 Minutes"),   value: 300},
+                {text: qsTr("15 Minutes"),  value: 900}
+            ]
+            property var modelList: []
         }
 
         /// called Once but after onResume
@@ -172,16 +181,37 @@ This is to ensure that the sensors, the blower, and the control system are stabi
             /// onResume
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
+                let constant = 0;
+                if(!MachineData.getDownflowSensorConstant() && !MachineData.getInflowSensorConstant())
+                    props.modelList = props.modelList2
+                else{
+                    props.modelList = props.modelList1
+                    constant = 1
+                }
 
                 props.warmupTimer = MachineData.warmingUpTime
                 //                    console.log(props.warmupTimer)
-                if(props.warmupTimer == 3)
-                    comboBox.currentIndex = 0
-                else if(props.warmupTimer == 5)
-                    comboBox.currentIndex = 1
-                else if(props.warmupTimer == 15)
-                    comboBox.currentIndex = 2
-                else comboBox.currentIndex = 0
+                if(constant){
+                    if(props.warmupTimer == 180)
+                        comboBox.currentIndex = 0
+                    else if(props.warmupTimer == 300)
+                        comboBox.currentIndex = 1
+                    else if(props.warmupTimer == 900)
+                        comboBox.currentIndex = 2
+                    else comboBox.currentIndex = 0
+                }else{
+                    if(props.warmupTimer == 30)//30 seconds
+                        comboBox.currentIndex = 0
+                    else if(props.warmupTimer == 60)//1 minute
+                        comboBox.currentIndex = 1
+                    else if(props.warmupTimer == 180)// 3 minutes
+                        comboBox.currentIndex = 2
+                    else if(props.warmupTimer == 300)// 5 minutes
+                        comboBox.currentIndex = 3
+                    else if(props.warmupTimer == 900)// 15 minutes
+                        comboBox.currentIndex = 4
+                    else comboBox.currentIndex = 0
+                }
             }
 
             /// onPause

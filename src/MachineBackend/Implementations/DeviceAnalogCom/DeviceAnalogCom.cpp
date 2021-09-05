@@ -14,6 +14,9 @@ DeviceAnalogCom::DeviceAnalogCom(QObject *parent) : ClassManager(parent)
     m_adcMax        = 4095;  /// MCP4725_AO_RESOLUTION
     m_stateMin      = 0;
     m_stateMax      = 100;
+
+    m_dummyState = 0;
+    m_dummyStateEnable = false;
 }
 
 void DeviceAnalogCom::routineTask(int parameter)
@@ -26,7 +29,11 @@ void DeviceAnalogCom::routineTask(int parameter)
 #ifdef QT_DEBUG
     if(m_dummyStateEnable){
         ival = stateToAdc(m_dummyState);
+        qDebug() << "DeviceAnalogCom::m_dummyState " << m_dummyState;
+        qDebug() << "DeviceAnalogCom::ival " << ival;
     }
+    //    qDebug() << "DeviceAnalogCom::m_dummyState " << m_dummyState;
+    //    qDebug() << "DeviceAnalogCom::ival " << ival;
     //conevert ADC to percent
     if(m_adc != ival){
         m_adc = ival;
@@ -35,16 +42,20 @@ void DeviceAnalogCom::routineTask(int parameter)
         emit adcChanged(m_adc);
         emit stateChanged(m_state);
 
-        //        qDebug() << "DeviceAnalogCom::m_adc " << m_adc;
-        //        qDebug() << "DeviceAnalogCom::m_state " << m_state;
+        //qDebug() << "DeviceAnalogCom::m_adc " << m_adc;
+        //qDebug() << "DeviceAnalogCom::m_state " << m_state;
     }
 
     /// look the interlocked state
-    if(m_adcRequest && m_interlocked) m_adcRequest = 0;
+    if(m_adcRequest > 0 && m_interlocked) m_adcRequest = 0;
+    if(m_interlocked && m_adc > 0) m_adc = 0;
+    else{
+        //qDebug() << "DeviceAnalogCom::m_adc " << m_adc;
+        m_adcRequest = m_adc;
+    }
+    m_dummyState = adcToState(m_adcRequest);
 
-    /// send req state as a adc to board
-    if(m_adcRequest != m_adc)
-        m_dummyState = adcToState(m_adcRequest);
+    //qDebug() << "DeviceAnalogCom::m_adcRequest " << m_adcRequest;
     return;
 
 #endif
@@ -84,6 +95,9 @@ void DeviceAnalogCom::setSubBoard(AOmcp4725 *board)
 void DeviceAnalogCom::setState(int state)
 {
     m_adcRequest = stateToAdc(state);
+#ifdef QT_DEBUG
+    m_dummyState = state;
+#endif
 }
 
 int DeviceAnalogCom::getState() const
@@ -93,6 +107,7 @@ int DeviceAnalogCom::getState() const
 
 void DeviceAnalogCom::setInterlock(short interlock)
 {
+    //qDebug() << "interlock:" << interlock;
     if(m_interlocked == interlock) return;
     m_interlocked = interlock;
     emit interlockChanged(m_interlocked);

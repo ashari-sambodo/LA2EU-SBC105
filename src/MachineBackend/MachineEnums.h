@@ -111,6 +111,13 @@ enum EnumItemDigitalInputPin {
     DIGITAL_INPUT_PIN_6
 };
 Q_ENUMS(EnumItemDigitalInputPin)
+
+enum FanList{
+    FAN_DOWNFLOW,
+    FAN_INFLOW
+};
+Q_ENUMS(FanList)
+
 }
 
 //class MachineEnums : public QObject

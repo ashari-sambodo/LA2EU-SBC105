@@ -776,7 +776,7 @@ ViewApp {
                                         const ducyIfa = MachineData.getFanInflowStandbyDutyCycleField()
 
                                         value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                        value2 = ducyIfa + " RPM"
+                                        value2 = ducyIfa + " %"
                                     }
                                     else {
                                         const ducyDfa = MachineData.getFanPrimaryStandbyDutyCycleFactory()
@@ -784,7 +784,7 @@ ViewApp {
                                         const ducyIfa = MachineData.getFanInflowStandbyDutyCycleFactory()
 
                                         value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                        value2 = ducyIfa + " RPM"
+                                        value2 = ducyIfa + " %"
                                     }
                                 }
                             }//
@@ -804,7 +804,7 @@ ViewApp {
                                     const ducyIfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
 
                                     value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                    value2 = ducyIfa + " RPM"
+                                    value2 = ducyIfa + " %"
                                 }
                             }//
 
@@ -842,7 +842,7 @@ ViewApp {
                                     const ducyIfa = MachineData.getFanInflowStandbyDutyCycleFactory()
 
                                     value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                    value2 = ducyIfa + " RPM"
+                                    value2 = ducyIfa + " %"
                                 }
                             }//
 

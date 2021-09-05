@@ -1129,23 +1129,42 @@ ViewApp {
                     }//
 
                     else if (extradata['pid'] === 'adcn'){
+                        props.dfaSensorAdcMinimum = extradata['dfaSensorAdcMinimum'] || 0
                         props.dfaSensorAdcNominal = extradata['dfaSensorAdcNominal'] || 0
-                        props.ifaSensorAdcNominal = extradata['ifaSensorAdcNominal'] || 0
+                        props.dfaSensorAdcMaximum = extradata['dfaSensorAdcMaximum'] || 0
+                        props.dfaFanDutyCycleNominal  = extradata['dfaFanDutyCycleResult']
+                        props.dfaFanRpmNominal        = extradata['dfaFanRpmResult']
 
-                        props.dfaFanDutyCycleNominal  = extradata['dfaFanDutyCycleNominal']
-                        props.dfaFanRpmNominal        = extradata['dfaFanRpmNominal']
-                        props.ifaFanDutyCycleNominal  = extradata['ifaFanDutyCycleNominal']
+                        props.ifaSensorAdcMinimum = extradata['ifaSensorAdcMinimum'] || 0
+                        props.ifaSensorAdcNominal = extradata['ifaSensorAdcNominal'] || 0
+                        //props.ifaSensorAdcNominal = extradata['ifaSensorAdcNominal'] || 0
+                        props.ifaFanDutyCycleNominal  = extradata['ifaFanDutyCycleResult']
                         /// props.ifaFanRpmNominal    = extradata['dfaFanRpmNominal']
 
-                        let dfaVelocity = extradata['dfaSensorVelNominal']
-                        let ifaVelocity = extradata['ifaSensorVelNominal']
+
+                        let dfaVelocityMin = extradata['dfaSensorVelMinimum']
+                        let dfaVelocityNom = extradata['dfaSensorVelNominal']
+                        let dfaVelocityMax = extradata['dfaSensorVelMaximum']
+
+                        let ifaVelocityMin = extradata['ifaSensorVelMinimum']
+                        let ifaVelocityNom = extradata['ifaSensorVelNominal']
 
                         if(props.measurementUnit) {
-                            dfaVelocity = Math.round(dfaVelocity)
-                            ifaVelocity = Math.round(ifaVelocity)
+                            dfaVelocityMin = Math.round(dfaVelocityMin)
+                            dfaVelocityNom = Math.round(dfaVelocityNom)
+                            dfaVelocityMax = Math.round(dfaVelocityMax)
+                            ifaVelocityMin = Math.round(ifaVelocityMin)
+                            ifaVelocityNom = Math.round(ifaVelocityNom)
                         }
-                        props.dfaSensorVelNominal = Math.round(dfaVelocity * 100)
-                        props.ifaSensorVelNominal = Math.round(ifaVelocity * 100)
+                        props.dfaSensorVelMinimum = Math.round(dfaVelocityMin * 100)
+                        props.dfaSensorVelNominal = Math.round(dfaVelocityNom * 100)
+                        props.dfaSensorVelMaximum = Math.round(dfaVelocityMax * 100)
+                        props.dfaSensorVelLowAlarm = props.dfaSensorVelMinimum
+                        props.dfaSensorVelHighAlarm = props.dfaSensorVelMaximum
+
+                        props.ifaSensorVelMinimum = Math.round(ifaVelocityMin * 100)
+                        props.ifaSensorVelNominal = Math.round(ifaVelocityNom * 100)
+                        props.ifaSensorVelLowAlarm = props.ifaSensorVelMinimum
 
                         props.temperatureCalib      = extradata['temperatureCalib'] || 0
                         props.temperatureAdcCalib   = extradata['temperatureCalibAdc'] || 0

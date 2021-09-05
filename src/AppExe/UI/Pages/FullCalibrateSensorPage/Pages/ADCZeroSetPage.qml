@@ -63,7 +63,7 @@ ViewApp {
                                 Layout.fillHeight: true
                                 Layout.minimumWidth: parent.width * 0.22
                                 Column{
-                                    spacing: 5                                    
+                                    spacing: 5
                                     anchors.centerIn: parent
                                     Rectangle{
                                         height: 40
@@ -355,7 +355,7 @@ ViewApp {
                             }//
 
                             TextApp {
-                                text: qsTr("Please wait for 3 minutes, time left") + ":"
+                                text: qsTr("Please wait for %1, time left").arg(utilsApp.strfSecsToHumanReadableShort(props.stabilizingTimer)) + ":"
                             }//
 
                             TextApp {
@@ -497,12 +497,28 @@ ViewApp {
                                 spacing: 10
 
                                 TextApp{
-                                    text: qsTr("ADC Zero") + ":"
+                                    text: qsTr("DF ADC Zero") + ":"
                                 }//
 
                                 TextApp{
                                     font.bold: true
-                                    text: props.adcResult
+                                    text: props.dfaAdcResult
+                                }//
+                            }//
+
+                            Rectangle {height: 1; width: parent.width; color: "#cccccc"}
+
+                            Row {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                spacing: 10
+
+                                TextApp{
+                                    text: qsTr("IF ADC Zero") + ":"
+                                }//
+
+                                TextApp{
+                                    font.bold: true
+                                    text: props.ifaAdcResult
                                 }//
                             }//
 
@@ -641,7 +657,7 @@ ViewApp {
             property int dfaFanDutyCycleActual: 0
             property int dfaFanRpmActual: 0
             property int ifaFanDutyCycleActual: 0
-            //            property int ifaFanRpmActual: 0
+            property int ifaFanRpmActual: 0
 
             property int dfaAdcActual: 0
             property int dfaAdcResult: 0

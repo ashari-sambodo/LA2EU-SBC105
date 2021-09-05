@@ -53,48 +53,98 @@ ViewApp {
                     spacing: 50
 
                     Column {
-
+                        spacing: 10
                         TextApp {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "Exhaust: " + fanInflowSlider.value + "%"
+                            text: "Inflow Fan"
                         }
+                        Row{
+                            spacing: 20
+                            TextFieldApp {
+                                id: ifaDcyTextField
+                                width: 70
+                                height: 60
+                                validator: IntValidator{bottom: 0; top: 100;}
 
-                        Slider {
-                            id: fanInflowSlider
-                            //                            anchors.horizontalCenter: parent.horizontalCenter
-                            width: 500
-                            stepSize: 1
-                            from: 0
-                            to: 100
+                                TextApp {
+                                    anchors.right: parent.right
+                                    anchors.rightMargin: 5
+                                    verticalAlignment: Text.AlignVCenter
+                                    height: parent.height
+                                    text: "%"
+                                    color: "gray"
+                                }//
 
-                            onValueChanged: {
-                                if (pressed) {
-                                    MachineAPI.setFanInflowDutyCycle(fanInflowSlider.value)
+                                onPressed: {
+                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan (%)"))
+                                }//
+                                onAccepted: {
+                                    fanInflowSlider.value = Number(text)
+                                }
+                            }//
+                            Slider {
+                                id: fanInflowSlider
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: 650
+                                stepSize: 1
+                                from: 0
+                                to: 100
+
+                                onValueChanged: {
+                                    if (pressed) {
+                                        MachineAPI.setFanInflowDutyCycle(fanInflowSlider.value)
+                                        ifaDcyTextField.text = fanInflowSlider.value
+                                    }//
                                 }//
                             }//
                         }//
-                    }//
+                    }
 
                     Column {
-
+                        spacing: 10
                         TextApp {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "Downflow: " + fanDownflowSlider.value + "%"
+                            text: "Downflow Fan"
                         }
+                        Row{
+                            spacing: 20
+                            TextFieldApp {
+                                id: dfaDcyTextField
+                                width: 70
+                                height: 60
+                                validator: IntValidator{bottom: 0; top: 100;}
 
-                        Slider {
-                            id: fanDownflowSlider
-                            //                            anchors.horizontalCenter: parent.horizontalCenter
-                            width: 500
-                            stepSize: 1
-                            from: 0
-                            to: 100
+                                TextApp {
+                                    anchors.right: parent.right
+                                    anchors.rightMargin: 5
+                                    verticalAlignment: Text.AlignVCenter
+                                    height: parent.height
+                                    text: "%"
+                                    color: "gray"
+                                }//
 
-                            onValueChanged: {
-                                console.debug(fanDownflowSlider.value)
-                                if (pressed) {
-                                    console.debug("MachineAPI.setFanPrimaryDutyCycle(fanDownflowSlider.value)")
-                                    MachineAPI.setFanPrimaryDutyCycle(fanDownflowSlider.value)
+                                onPressed: {
+                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Fan (%)"))
+                                }//
+                                onAccepted: {
+                                    fanDownflowSlider.value = Number(text)
+                                }
+                            }//
+                            Slider {
+                                id: fanDownflowSlider
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: 650
+                                stepSize: 1
+                                from: 0
+                                to: 100
+
+                                onValueChanged: {
+                                    console.debug(fanDownflowSlider.value)
+                                    if (pressed) {
+                                        //console.debug("MachineAPI.setFanPrimaryDutyCycle(fanDownflowSlider.value)")
+                                        MachineAPI.setFanPrimaryDutyCycle(fanDownflowSlider.value)
+                                        dfaDcyTextField.text = fanDownflowSlider.value
+                                    }//
                                 }//
                             }//
                         }//
@@ -150,6 +200,8 @@ ViewApp {
 
                 fanInflowSlider.value = MachineData.fanInflowDutyCycle
                 fanDownflowSlider.value = MachineData.fanPrimaryDutyCycle
+                ifaDcyTextField.text = fanInflowSlider.value
+                dfaDcyTextField.text = fanDownflowSlider.value
             }
 
             /// onPause

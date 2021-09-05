@@ -151,6 +151,6 @@
         <file>UI/Pages/SoftwareFailedStartPage/ButtonBlackApp.qml</file>
         <file>UI/Pages/SoftwareFailedStartPage/DateTimeSettingPage.qml</file>
         <file>UI/Pages/SystemInformationPage/SystemInformationPage.qml</file>
-        <file>UI/Pages/FanAutoControlPage/FanAutoControlPage.qml</file>
+        <file>UI/Pages/FanCloseLoopControlPage/FanCloseLoopControlPage.qml</file>
     </qresource>
 </RCC>

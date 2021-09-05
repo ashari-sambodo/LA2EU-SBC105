@@ -339,7 +339,7 @@ ViewApp {
                             }//
 
                             TextApp {
-                                text: qsTr("Please wait for 3 minutes, time left") + ":"
+                                text: qsTr("Please wait for %1, time left").arg(utilsApp.strfSecsToHumanReadableShort(props.stabilizingTimer)) + ":"
                             }//
 
                             TextApp {
@@ -391,6 +391,7 @@ ViewApp {
 
                                     //                                    property int count: 2
                                     property int count: 180
+                                    Component.onCompleted: {count = Qt.binding(function(){return props.stabilizingTimer})}
                                 }//
                             }//
 
@@ -656,6 +657,9 @@ ViewApp {
 
             property bool calibrateDone: false
 
+            property int dfaSensorConstant: 0
+            property int ifaSensorConstant: 0
+            property int stabilizingTimer: 180
         }
 
         /// Called once but after onResume
@@ -715,6 +719,11 @@ ViewApp {
                                                  }
                                              })
                     }
+
+                    if(!props.dfaSensorConstant && !props.ifaSensorConstant)
+                        props.stabilizingTimer = 30
+                    else
+                        props.stabilizingTimer = 180
                 }//
 
                 /// onPause

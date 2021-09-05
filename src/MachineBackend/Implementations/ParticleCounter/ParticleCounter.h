@@ -13,6 +13,7 @@ public:
 
     void setSubModule(ParticleCounterZH03B *module);
 
+    short getFanStatePaCo()const;
     void setFanStatePaCo(short state);
 
 signals:

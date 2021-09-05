@@ -77,6 +77,11 @@ void ParticleCounter::setSubModule(ParticleCounterZH03B *module)
     pModule = module;
 }
 
+short ParticleCounter::getFanStatePaCo() const
+{
+    return m_fanStatePaCoReq;
+}
+
 void ParticleCounter::setFanStatePaCo(short state)
 {
     if(m_fanStatePaCoReq == state) return;

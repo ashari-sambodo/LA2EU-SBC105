@@ -65,9 +65,11 @@ void BlowerRbmDsi::updateActualDemand()
         }
 
         if((m_speedDemand > 0) && m_interlocked) m_speedDemand = 0;
-        if(m_speedDemand != m_dutyCycle){
-            m_dummyState = m_speedDemand;
+        if(m_interlocked && m_dutyCycle) m_dutyCycle = 0;
+        else {
+            m_speedDemand = m_dutyCycle;
         }
+        m_dummyState = m_speedDemand;
         return;
     }
 #endif
@@ -308,6 +310,8 @@ void BlowerRbmDsi::setDutyCycle(int newVal)
     }
 
     m_speedDemand = newVal;
-
+#ifdef QT_DEBUG
+    m_dummyState = m_speedDemand;
+#endif
     qDebug() << __func__ << "m_speedDemand" << m_speedDemand;
 }

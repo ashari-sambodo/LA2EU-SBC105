@@ -125,7 +125,7 @@ ViewApp {
                                                         Layout.fillWidth: true
                                                         Layout.fillHeight: true
                                                         Image {
-                                                            id: fanImage
+                                                            id: fanImage1
                                                             source: "qrc:/UI/Pictures/controll/Fan_W.png"
                                                             height: parent.height
                                                             anchors.centerIn: parent
@@ -133,9 +133,9 @@ ViewApp {
 
                                                             states: State {
                                                                 name: "stateOn"
-                                                                when: props.dfaFanDutyCycleActual
+                                                                when: props.dfaFanDutyCycleActual > 0
                                                                 PropertyChanges {
-                                                                    target: fanImage
+                                                                    target: fanImage1
                                                                     source: "qrc:/UI/Pictures/controll/Fan_G.png"
                                                                 }//
                                                             }//
@@ -559,9 +559,9 @@ ViewApp {
 
                                                             states: State {
                                                                 name: "stateOn"
-                                                                when: props.ifaFanDutyCycleActual
+                                                                when: props.ifaFanDutyCycleActual > 0
                                                                 PropertyChanges {
-                                                                    target: fanImage
+                                                                    target: fanImage2
                                                                     source: "qrc:/UI/Pictures/controll/Fan_G.png"
                                                                 }//
                                                             }//
@@ -762,7 +762,7 @@ ViewApp {
                             }//
 
                             TextApp {
-                                text: qsTr("Please wait for 3 minutes, time left") + ":"
+                                text: qsTr("Please wait for %1, time left").arg(utilsApp.strfSecsToHumanReadableShort(props.stabilizingTimer)) + ":"
                             }//
 
                             TextApp {
@@ -788,16 +788,16 @@ ViewApp {
                                             let dfaAdc = props.dfaAdcActual
                                             let dfaFanDutyCycle = props.dfaFanDutyCycleActual
                                             let dfaFanRpm = props.dfaFanRpmActual
-                                            let dfaVelocityValid = (props.dfaVelocityNom > props.dfaVelocityMin && props.dfaVelocityMax > props.dfaVelocityNom) ? true : false
-                                            let dfaAdcNominalValid = (dfaAdc - props.dfaSensorAdcZero) >= 80 ? true : false
-                                            //let dfaAdcMinimumValid = (dfaAdc - props.sensorAdcMinimum) >= 80 ? true : false
+                                            let dfaVelocityValid = (props.dfaVelocityMin < props.dfaVelocityNom && props.dfaVelocityNom < props.dfaVelocityMax) ? true : false
+                                            let dfaAdcNominalValid = (dfaAdc - props.dfaSensorAdcZero) >= 100 ? true : false
+                                            //let dfaAdcMinimumValid = (dfaAdc - props.sensorAdcMinimum) >= 100 ? true : false
 
                                             let ifaAdc = props.ifaAdcActual
                                             let ifaFanDutyCycle = props.ifaFanDutyCycleActual
                                             //let ifaFanRpm = props.ifaFanRpmActual
                                             let ifaVelocityValid = (props.ifaVelocityNom > props.ifaVelocityMin) ? true : false
-                                            let ifaAdcNominalValid = (ifaAdc - props.ifaSensorAdcZero) >= 80 ? true : false
-                                            //let ifaAdcMinimumValid = (ifaAdc - props.sensorAdcMinimum) >= 80 ? true : false
+                                            let ifaAdcNominalValid = (ifaAdc - props.ifaSensorAdcZero) >= 100 ? true : false
+                                            //let ifaAdcMinimumValid = (ifaAdc - props.sensorAdcMinimum) >= 100 ? true : false
 
                                             let temperatureCalib = props.temperatureActual
                                             let temperatureCalibAdc = props.temperatureAdcActual
@@ -816,6 +816,20 @@ ViewApp {
                                             if (dfaAdcNominalValid && dfaVelocityValid && dfaFanDutyCycle &&
                                                     ifaAdcNominalValid && ifaVelocityValid && ifaFanDutyCycle) {
                                                 props.calibrateDone = true
+                                            }else{
+                                                if(!dfaAdcNominalValid) props.calibrationFailCode = 0x0001
+                                                if(!dfaVelocityValid)   props.calibrationFailCode = 0x0002
+                                                if(!dfaFanDutyCycle)    props.calibrationFailCode = 0x0004
+                                                if(!ifaAdcNominalValid) props.calibrationFailCode = 0x0008
+                                                if(!ifaVelocityValid)   props.calibrationFailCode = 0x0010
+                                                if(!ifaFanDutyCycle)    props.calibrationFailCode = 0x0020
+                                                console.debug("dfaAdcNominalValid   :", dfaAdcNominalValid, props.dfaSensorAdcZero, props.dfaAdcActual)
+                                                console.debug("dfaVelocityValid     :", dfaVelocityValid,   props.dfaVelocityMin, props.dfaVelocityNom, props.dfaVelocityMax)
+                                                console.debug("dfaFanDutyCycle      :", dfaFanDutyCycle,    props.dfaFanDutyCycleActual)
+                                                console.debug("ifaAdcNominalValid   :", ifaAdcNominalValid, props.ifaSensorAdcZero, props.ifaAdcActual)
+                                                console.debug("ifaVelocityValid     :", ifaVelocityValid,   props.ifaVelocityMin, props.ifaVelocityNom)
+                                                console.debug("ifaFanDutyCycle      :", ifaFanDutyCycle,    props.ifaFanDutyCycleActual)
+                                                console.debug("Fail Calibration Code:", props.calibrationFailCode)
                                             }
 
                                             props.dfaAdcResult = dfaAdc
@@ -950,11 +964,13 @@ ViewApp {
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Downflow vel. minimum") + ":"
+                                                text: qsTr("Downflow vel. minimum")
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.dfaVelocityMinStrf + " " + props.measureUnitStr
+                                                text: ":" + props.dfaVelocityMinStrf + " " + props.measureUnitStr
+                                                font.pixelSize: 18
                                             }
                                         }
 
@@ -963,11 +979,13 @@ ViewApp {
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Downflow vel. nominal") + ":"
+                                                text: qsTr("Downflow vel. nominal")
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.dfaVelocityNomStrf + " " + props.measureUnitStr
+                                                text: ":" + props.dfaVelocityNomStrf + " " + props.measureUnitStr
+                                                font.pixelSize: 18
                                             }
                                         }
 
@@ -976,11 +994,13 @@ ViewApp {
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Downflow vel. maximum") + ":"
+                                                text: qsTr("Downflow vel. maximum")
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.dfaVelocityMaxStrf + " " + props.measureUnitStr
+                                                text: ":" + props.dfaVelocityMaxStrf + " " + props.measureUnitStr
+                                                font.pixelSize: 18
                                             }
                                         }
 
@@ -991,11 +1011,13 @@ ViewApp {
 
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("ADC zero") + " (DF0)" + ":"
+                                                text: qsTr("ADC zero") + " (DF0)"
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.dfaSensorAdcZero
+                                                text: ":" + props.dfaSensorAdcZero
+                                                font.pixelSize: 18
                                             }
                                         }
 
@@ -1003,7 +1025,7 @@ ViewApp {
                                         //                                        Row {
                                         //                                            TextApp{
                                         //                                                width: 300
-                                        //                                                text: qsTr("ADC minimum") + " (IF1)" + ":"
+                                        //                                                text: qsTr("ADC minimum") + " (IF1)"
                                         //                                            }//
 
                                         //                                            TextApp {
@@ -1015,11 +1037,13 @@ ViewApp {
                                         Row {
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("ADC nominal") + " (DF2)" + ":"
+                                                text: qsTr("ADC nominal") + " (DF2)"
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.dfaAdcResult
+                                                text: ":" + props.dfaAdcResult
+                                                font.pixelSize: 18
                                             }
                                         }
 
@@ -1028,11 +1052,13 @@ ViewApp {
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Inflow vel. minimum") + ":"
+                                                text: qsTr("Inflow vel. minimum")
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.ifaVelocityMinStrf + " " + props.measureUnitStr
+                                                text: ":" + props.ifaVelocityMinStrf + " " + props.measureUnitStr
+                                                font.pixelSize: 18
                                             }
                                         }
 
@@ -1041,26 +1067,28 @@ ViewApp {
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Inflow vel. nominal") + ":"
+                                                text: qsTr("Inflow vel. nominal")
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.ifaVelocityNomStrf + " " + props.measureUnitStr
+                                                text: ":" + props.ifaVelocityNomStrf + " " + props.measureUnitStr
+                                                font.pixelSize: 18
                                             }
                                         }
 
-                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
+                                        //                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
 
-                                        Row{
-                                            TextApp{
-                                                width: 300
-                                                text: qsTr("Inflow vel. maximum") + ":"
-                                            }//
+                                        //                                        Row{
+                                        //                                            TextApp{
+                                        //                                                width: 300
+                                        //                                                text: qsTr("Inflow vel. maximum")
+                                        //                                            }//
 
-                                            TextApp {
-                                                text: props.ifaVelocityMaxStrf + " " + props.measureUnitStr
-                                            }
-                                        }
+                                        //                                            TextApp {
+                                        //                                                text: props.ifaVelocityMaxStrf + " " + props.measureUnitStr
+                                        //                                            }
+                                        //                                        }
 
                                         Rectangle {height: 1; width: parent.width; color: "#cccccc"}
 
@@ -1069,11 +1097,13 @@ ViewApp {
 
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("ADC zero") + " (IF0)" + ":"
+                                                text: qsTr("ADC zero") + " (IF0)"
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.ifaSensorAdcZero
+                                                text: ":" + props.ifaSensorAdcZero
+                                                font.pixelSize: 18
                                             }
                                         }
 
@@ -1081,7 +1111,7 @@ ViewApp {
                                         //                                        Row {
                                         //                                            TextApp{
                                         //                                                width: 300
-                                        //                                                text: qsTr("ADC minimum") + " (IF1)" + ":"
+                                        //                                                text: qsTr("ADC minimum") + " (IF1)"
                                         //                                            }//
 
                                         //                                            TextApp {
@@ -1093,11 +1123,13 @@ ViewApp {
                                         Row {
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("ADC nominal") + " (IF2)" + ":"
+                                                text: qsTr("ADC nominal") + " (IF2)"
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.idfaAdcResult
+                                                text: ":" + props.ifaAdcResult
+                                                font.pixelSize: 18
                                             }
                                         }
 
@@ -1109,23 +1141,28 @@ ViewApp {
 
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Fan nominal") + " (D/F)" + ":"
+                                                text: qsTr("Fan nominal") + " (D/F)"
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.dfaFanDutyCycleResult + "% / " + props.dfaFanRpmResult + " RPM"
+                                                text: ":" + props.dfaFanDutyCycleResult + "% / " + props.dfaFanRpmResult + " RPM"
+                                                font.pixelSize: 18
                                             }//
                                         }//
+                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
                                         Row {
                                             id: fanNomCalibRowIfa
 
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Fan nominal") + " (I/F)" + ":"
+                                                text: qsTr("Fan nominal") + " (I/F)"
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.ifaFanDutyCycleResult + "%"/* + props.ifaFanRpmResult + " RPM"*/
+                                                text: ":" + props.ifaFanDutyCycleResult + "%"/* + props.ifaFanRpmResult + " RPM"*/
+                                                font.pixelSize: 18
                                             }//
                                         }//
 
@@ -1136,11 +1173,13 @@ ViewApp {
 
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Temperature calib") + ":"
+                                                text: qsTr("Temperature calib")
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.temperatureCalibStrf + " / ADC: " + props.temperatureCalibAdc
+                                                text: ":" + props.temperatureCalibStrf + " / ADC: " + props.temperatureCalibAdc
+                                                font.pixelSize: 18
                                             }//
                                         }//
 
@@ -1163,7 +1202,15 @@ ViewApp {
                                 featureImage.source = "qrc:/UI/Pictures/fail-red-white.png"
                                 resultStattusText.text = qsTr("Failed")
                                 resultiInfoText.visible = true
-                                resultiInfoText.text = qsTr("The required ADC range between each point (IF0<IF1<IF2) is ") + "80"
+                                switch(props.calibrationFailCode){
+                                case 0x0001: resultiInfoText.text = qsTr("ADC DF2 ≥ (DF0 + 100) not met!"); break
+                                case 0x0002: resultiInfoText.text = qsTr("Vel DF1 < DF2 < DF3 not met!");   break
+                                case 0x0004: resultiInfoText.text = qsTr("Duty cycle DF2 not valid!");      break
+                                case 0x0008: resultiInfoText.text = qsTr("ADC IF2 ≥ (IF0 + 100) not met!"); break
+                                case 0x0010: resultiInfoText.text = qsTr("Vel IF1 < DF2 not met!");         break
+                                case 0x0020: resultiInfoText.text = qsTr("Duty cycle IF2 not valid!");      break
+                                default:     resultiInfoText.text = qsTr("There may be invalid values!");   break
+                                }
                             }
                             else {
                                 backButton.text = qsTr("Save")
@@ -1219,11 +1266,14 @@ ViewApp {
                                                                       {
                                                                           "pid": props.pid,
                                                                           "dfaSensorAdcNominal": props.dfaAdcResult,
+                                                                          "dfaSensorVelMinimum": props.dfaVelocityMin,
                                                                           "dfaSensorVelNominal": props.dfaVelocityNom,
+                                                                          "dfaSensorVelMaximum": props.dfaVelocityMax,
                                                                           "dfaFanDutyCycleResult": props.dfaFanDutyCycleResult,
                                                                           "dfaFanRpmResult": props.dfaFanRpmResult,
 
                                                                           "ifaSensorAdcNominal": props.ifaAdcResult,
+                                                                          "ifaSensorVelMinimum": props.ifaVelocityMin,
                                                                           "ifaSensorVelNominal": props.ifaVelocityNom,
                                                                           "ifaFanDutyCycleResult": props.ifaFanDutyCycleResult,
                                                                           //"ifaFanRpmResult": props.ifaFanRpmResult,
@@ -1321,6 +1371,7 @@ ViewApp {
             property string temperatureCalibStrf: ""
 
             property bool calibrateDone: false
+            property int calibrationFailCode: 0
             property int stabilizingTimer : 180
         }
 
@@ -1360,10 +1411,10 @@ ViewApp {
 
 
                     let dfaSensorVelMinimum = extradata['dfaSensorVelMinimum'] || 0
-                    props.dfaVelocityNom = dfaSensorVelMinimum
-                    props.dfaVelocityNomStrf = dfaSensorVelMinimum.toFixed(props.velocityDecimalPoint)
+                    props.dfaVelocityMin = dfaSensorVelMinimum
+                    props.dfaVelocityMinStrf = dfaSensorVelMinimum.toFixed(props.velocityDecimalPoint)
                     let dfaSensorVelNominal = extradata['dfaSensorVelNominal'] || 0
-                    props.dfaVelocityMax = dfaSensorVelNominal
+                    props.dfaVelocityNom = dfaSensorVelNominal
                     props.dfaVelocityNomStrf = dfaSensorVelNominal.toFixed(props.velocityDecimalPoint)
                     let dfaSensorVelMaximum = extradata['dfaSensorVelMaximum'] || 0
                     props.dfaVelocityMax = dfaSensorVelMaximum
@@ -1371,8 +1422,9 @@ ViewApp {
 
                     props.dfaSensorConstant = extradata['dfaSensorConstant'] || 0
                     props.ifaSensorConstant = extradata['ifaSensorConstant'] || 0
-                    //                //console.debug(props.velocity)
-                    //                //console.debug(props.velocityStrf)
+
+                    //console.debug("dfaVelocityNom :", props.dfaVelocityNom)
+                    //console.debug("dfaVelocityNomStrf :", props.dfaVelocityNomStrf)
                 }
 
                 props.dfaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanPrimaryDutyCycle })

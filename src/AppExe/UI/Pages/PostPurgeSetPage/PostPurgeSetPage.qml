@@ -75,9 +75,9 @@ ViewApp {
 
                             model: [
                                 {text: qsTr("Disabled"),    value: 0},
-                                {text: qsTr("1 Minute"),    value: 1},
-                                {text: qsTr("3 Minutes"),   value: 3},
-                                {text: qsTr("5 Minutes"),   value: 5}
+                                {text: qsTr("1 Minute"),    value: 60},
+                                {text: qsTr("3 Minutes"),   value: 180},
+                                {text: qsTr("5 Minutes"),   value: 300}
                             ]
 
                             onActivated: {
@@ -164,7 +164,7 @@ ViewApp {
         QtObject {
             id: props
 
-            property int postpurgeTimer: 1
+            property int postpurgeTimer: 60
         }
 
         /// called Once but after onResume
@@ -182,11 +182,11 @@ ViewApp {
                     //                    //console.debug("StackView.Active");
 
                     props.postpurgeTimer = MachineData.postPurgingTime
-                    if(props.postpurgeTimer == 1)
+                    if(props.postpurgeTimer == 60)
                         comboBox.currentIndex = 1
-                    else if(props.postpurgeTimer == 3)
+                    else if(props.postpurgeTimer == 180)
                         comboBox.currentIndex = 2
-                    else if(props.postpurgeTimer == 5)
+                    else if(props.postpurgeTimer == 300)
                         comboBox.currentIndex = 3
                     else comboBox.currentIndex = 0
                 }

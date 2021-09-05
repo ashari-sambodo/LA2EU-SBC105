@@ -170,8 +170,8 @@ public slots:
     void setUvState(short uvState);
     void setUvTimeSave(int minutes);
 
-    void setWarmingUpTimeSave(short minutes);
-    void setPostPurgeTimeSave(short minutes);
+    void setWarmingUpTimeSave(short seconds);
+    void setPostPurgeTimeSave(short seconds);
 
     void setExhaustContactState(short exhaustContactState);
 
@@ -322,6 +322,13 @@ public slots:
 
     void readSbcCurrentFullMacAddress();
 
+    void setFanCloseLoopControlEnable(bool value);
+    void setFanCloseLoopGainIntegralDfa(float value);
+    void setFanCloseLoopGainProportionalDfa(float value);
+    void setFanCloseLoopGainDerivatifDfa(float value);
+    void setFanCloseLoopGainIntegralIfa(float value);
+    void setFanCloseLoopGainProportionalIfa(float value);
+    void setFanCloseLoopGainDerivatifIfa(float value);
 
 signals:
     void hasStopped();

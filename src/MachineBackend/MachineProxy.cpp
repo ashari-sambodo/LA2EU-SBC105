@@ -651,6 +651,76 @@ void MachineProxy::readSbcCurrentFullMacAddress()
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setFanCloseLoopControlEnable(bool value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanCloseLoopControlEnable(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanCloseLoopGainIntegralDfa(float value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanCloseLoopGainIntegralDfa(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanCloseLoopGainProportionalDfa(float value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanCloseLoopGainProportionalDfa(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanCloseLoopGainDerivatifDfa(float value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanCloseLoopGainDerivatifDfa(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanCloseLoopGainIntegralIfa(float value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanCloseLoopGainIntegralIfa(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanCloseLoopGainProportionalIfa(float value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanCloseLoopGainProportionalIfa(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanCloseLoopGainDerivatifIfa(float value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanCloseLoopGainDerivatifIfa(value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setOperationModeSave(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
@@ -1220,22 +1290,22 @@ void MachineProxy::setUvTimeSave(int minutes)
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setWarmingUpTimeSave(short minutes)
+void MachineProxy::setWarmingUpTimeSave(short seconds)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, minutes](){
-        m_machineBackend->setWarmingUpTimeSave(minutes);
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, seconds](){
+        m_machineBackend->setWarmingUpTimeSave(seconds);
     },
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setPostPurgeTimeSave(short minutes)
+void MachineProxy::setPostPurgeTimeSave(short seconds)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, minutes](){
-        m_machineBackend->setPostPurgeTimeSave(minutes);
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, seconds](){
+        m_machineBackend->setPostPurgeTimeSave(seconds);
     },
     Qt::QueuedConnection);
 }
