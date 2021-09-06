@@ -5265,7 +5265,7 @@ void MachineBackend::_startWarmingUpTime()
 {
     qDebug() << __FUNCTION__ ;
 
-    int seconds = pData->getWarmingUpTime() * 60;
+    int seconds = pData->getWarmingUpTime();
     pData->setWarmingUpCountdown(seconds);
     pData->setWarmingUpActive(MachineEnums::DIG_STATE_ONE);
 
@@ -5285,7 +5285,7 @@ void MachineBackend::_cancelWarmingUpTime()
 
     if(!pData->getWarmingUpActive()) return;
 
-    int seconds = pData->getWarmingUpTime() * 60;
+    int seconds = pData->getWarmingUpTime();
     pData->setWarmingUpCountdown(seconds);
     pData->setWarmingUpActive(MachineEnums::DIG_STATE_ZERO);
 }
@@ -5299,7 +5299,7 @@ void MachineBackend::_onTimerEventWarmingUp()
         disconnect(m_timerEventEverySecond.data(), &QTimer::timeout,
                    this, &MachineBackend::_onTimerEventWarmingUp);
 
-        int seconds = pData->getWarmingUpTime() * 60;
+        int seconds = pData->getWarmingUpTime();
         pData->setWarmingUpCountdown(seconds);
         pData->setWarmingUpActive(MachineEnums::DIG_STATE_ZERO);
 
@@ -5328,7 +5328,7 @@ void MachineBackend::_startPostPurgingTime()
 {
     qDebug() << __FUNCTION__ ;
 
-    int seconds = pData->getPostPurgingTime() * 60;
+    int seconds = pData->getPostPurgingTime();
     pData->setPostPurgingCountdown(seconds);
     pData->setPostPurgingActive(MachineEnums::DIG_STATE_ONE);
 
@@ -5350,7 +5350,7 @@ void MachineBackend::_cancelPostPurgingTime()
 
     if(!pData->getPostPurgingActive()) return;
 
-    int seconds = pData->getPostPurgingTime() * 60;
+    int seconds = pData->getPostPurgingTime();
     pData->setPostPurgingCountdown(seconds);
     pData->setPostPurgingActive(MachineEnums::DIG_STATE_ZERO);
 }
@@ -5364,7 +5364,7 @@ void MachineBackend::_onTimerEventPostPurging()
         disconnect(m_timerEventEverySecond.data(), &QTimer::timeout,
                    this, &MachineBackend::_onTimerEventPostPurging);
 
-        int seconds = pData->getPostPurgingTime() * 60;
+        int seconds = pData->getPostPurgingTime();
         pData->setPostPurgingCountdown(seconds);
         pData->setPostPurgingActive(MachineEnums::DIG_STATE_ZERO);
 

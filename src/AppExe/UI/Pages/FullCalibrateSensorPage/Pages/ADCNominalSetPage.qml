@@ -813,7 +813,7 @@ ViewApp {
                                             //                                            temperatureCalib = props.measureUnit ? 20 : 67
                                             //                                            temperatureCalibStrf = props.measureUnit ? "20°C" : "20°F"
 
-                                            if (dfaAdcNominalValid && dfaVelocityValid && dfaFanDutyCycle &&
+                                            if (dfaAdcNominalValid && dfaVelocityValid && dfaFanDutyCycle && dfaFanRpm &&
                                                     ifaAdcNominalValid && ifaVelocityValid && ifaFanDutyCycle) {
                                                 props.calibrateDone = true
                                             }else{
@@ -823,12 +823,14 @@ ViewApp {
                                                 if(!ifaAdcNominalValid) props.calibrationFailCode = 0x0008
                                                 if(!ifaVelocityValid)   props.calibrationFailCode = 0x0010
                                                 if(!ifaFanDutyCycle)    props.calibrationFailCode = 0x0020
+                                                if(!dfaFanRpm)          props.calibrationFailCode = 0x0040
                                                 console.debug("dfaAdcNominalValid   :", dfaAdcNominalValid, props.dfaSensorAdcZero, props.dfaAdcActual)
                                                 console.debug("dfaVelocityValid     :", dfaVelocityValid,   props.dfaVelocityMin, props.dfaVelocityNom, props.dfaVelocityMax)
                                                 console.debug("dfaFanDutyCycle      :", dfaFanDutyCycle,    props.dfaFanDutyCycleActual)
                                                 console.debug("ifaAdcNominalValid   :", ifaAdcNominalValid, props.ifaSensorAdcZero, props.ifaAdcActual)
                                                 console.debug("ifaVelocityValid     :", ifaVelocityValid,   props.ifaVelocityMin, props.ifaVelocityNom)
                                                 console.debug("ifaFanDutyCycle      :", ifaFanDutyCycle,    props.ifaFanDutyCycleActual)
+                                                console.debug("dfaFanRpm            :", dfaFanRpm,          props.dfaFanRpmActual)
                                                 console.debug("Fail Calibration Code:", props.calibrationFailCode)
                                             }
 
@@ -1209,6 +1211,7 @@ ViewApp {
                                 case 0x0008: resultiInfoText.text = qsTr("ADC IF2 ≥ (IF0 + 100) not met!"); break
                                 case 0x0010: resultiInfoText.text = qsTr("Vel IF1 < DF2 not met!");         break
                                 case 0x0020: resultiInfoText.text = qsTr("Duty cycle IF2 not valid!");      break
+                                case 0x0040: resultiInfoText.text = qsTr("DF Fan RPM not valid!");          break
                                 default:     resultiInfoText.text = qsTr("There may be invalid values!");   break
                                 }
                             }

@@ -369,6 +369,7 @@ ViewApp {
                                                       "dfaSensorAdcMinimum" : props.dfaSensorAdcMinimum,
                                                       "dfaSensorVelMinimum" : props.dfaSensorVelMinimum / 100,
                                                       "dfaSensorVelNominal" : props.dfaSensorVelNominal / 100,
+                                                      "dfaSensorVelMaximum" : props.dfaSensorVelMaximum / 100,
                                                       'dfaFanDutyCycle'     : props.dfaFanDutyCycleNominal,
                                                       "ifaSensorConstant"   : props.ifaSensorConstant,
                                                       "ifaSensorAdcZero"    : props.ifaSensorAdcZero,
@@ -491,15 +492,15 @@ ViewApp {
                     badgeText  : qsTr("Done"),
                     pid         : "meadfamax",
                 },
-                {
-                    mtype         : "menu",
-                    mtitle     : qsTr("Measure Downflow Standby"),
-                    micon      : "qrc:/UI/Pictures/menu/dfa_stb_measure.png",
-                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
-                    badge      : 0,
-                    badgeText  : qsTr("Done"),
-                    pid         : "meadfastb",
-                },
+                //                {
+                //                    mtype         : "menu",
+                //                    mtitle     : qsTr("Measure Downflow Standby"),
+                //                    micon      : "qrc:/UI/Pictures/menu/dfa_stb_measure.png",
+                //                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
+                //                    badge      : 0,
+                //                    badgeText  : qsTr("Done"),
+                //                    pid         : "meadfastb",
+                //                },
             ]//
             property var menuModelMicroADC: [
                 {
@@ -844,6 +845,9 @@ ViewApp {
                                          props.ifaSensorVelMinimum      = MachineData.getInflowVelocityPointFactory(1);
                                          props.ifaSensorVelNominal      = MachineData.getInflowVelocityPointFactory(2);
                                          props.ifaSensorVelLowAlarm     = MachineData.getInflowLowLimitVelocity();
+
+                                         props.dfaFanDutyCycleNominal   = MachineData.getFanPrimaryNominalDutyCycleFactory()
+                                         props.ifaFanDutyCycleNominal   = MachineData.getFanInflowNominalDutyCycleFactory()
 
                                          props.initCalibrateSpecs(MachineData.machineProfile)
                                      }

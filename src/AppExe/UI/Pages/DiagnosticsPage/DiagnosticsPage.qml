@@ -393,7 +393,7 @@ ViewApp {
                                     }
                                     else {
                                         value1 = MachineData.getDownflowAdcPointFactory(2)
-                                        value2 = MachineData.getInflowAdcPointField(2)
+                                        value2 = MachineData.getInflowAdcPointFactory(2)
                                     }
                                 }
 
