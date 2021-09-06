@@ -111,10 +111,10 @@ ViewApp {
                                                       message,
                                                       dialogAlert,
                                                       function(){})
-
                                     return
                                 }
-
+                                MachineAPI.setFanCloseLoopControlEnablePrevState(MachineData.fanCloseLoopControlEnable)
+                                if(MachineData.fanCloseLoopControlEnable) MachineAPI.setFanCloseLoopControlEnable(false)
                                 var intent = IntentApp.create("qrc:/UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml", {})
                                 finishView(intent)
                             }//

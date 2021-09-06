@@ -157,6 +157,30 @@ ViewApp {
                             }//
                             ,
                             State {
+                                when: props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE
+                                PropertyChanges {
+                                    target: headerBgImage
+                                    visible: true
+                                }//
+                                PropertyChanges {
+                                    target: headerStatusText
+                                    text: qsTr("ALARM: DOWNFLOW LOW")
+                                }//
+                            }//
+                            ,
+                            State {
+                                when: props.alarmDownflowHigh == MachineAPI.ALARM_ACTIVE_STATE
+                                PropertyChanges {
+                                    target: headerBgImage
+                                    visible: true
+                                }//
+                                PropertyChanges {
+                                    target: headerStatusText
+                                    text: qsTr("ALARM: DOWNFLOW HIGH")
+                                }//
+                            }//
+                            ,
+                            State {
                                 when: props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE
                                 PropertyChanges {
                                     target: headerBgImage
@@ -164,7 +188,7 @@ ViewApp {
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
-                                    text: qsTr("ALARM: AIRFLOW FAIL")
+                                    text: qsTr("ALARM: INFLOW LOW")
                                 }//
                             }//
                             ,
@@ -619,7 +643,33 @@ ViewApp {
                                                 }//
                                                 ,
                                                 State {
-                                                    when: props.alarmInflowLow == MachineAPI.ALARM_NORMAL_STATE
+                                                    when: props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE
+                                                    PropertyChanges {
+                                                        target: downflowStatus
+                                                        textValue: props.downflowStr + " (" + qsTr("Too Low") + ")"
+                                                    }//
+                                                    PropertyChanges {
+                                                        target: downflowStatus
+                                                        hightlighted: true
+                                                    }//
+                                                }//
+                                                ,
+
+                                                State {
+                                                    when: props.alarmDownflowHigh == MachineAPI.ALARM_ACTIVE_STATE
+                                                    PropertyChanges {
+                                                        target: downflowStatus
+                                                        textValue: props.downflowStr + " (" + qsTr("Too High") + ")"
+                                                    }//
+                                                    PropertyChanges {
+                                                        target: downflowStatus
+                                                        hightlighted: true
+                                                    }//
+                                                }//
+                                                ,
+                                                State {
+                                                    when: (props.alarmDownflowLow != MachineAPI.ALARM_ACTIVE_STATE)
+                                                          && (props.alarmDownflowHigh != MachineAPI.ALARM_ACTIVE_STATE)
                                                     PropertyChanges {
                                                         target: downflowStatus
                                                         color: "#3742fa"
@@ -1267,6 +1317,20 @@ ViewApp {
                                                 }
                                             },
                                             State {
+                                                when: props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE
+                                                PropertyChanges {
+                                                    target: textTeleprompter
+                                                    text: qsTr("The Downflow value is too low!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, grill and ventilation paths are not obstructed.")
+                                                }
+                                            },
+                                            State {
+                                                when: props.alarmDownflowHigh == MachineAPI.ALARM_ACTIVE_STATE
+                                                PropertyChanges {
+                                                    target: textTeleprompter
+                                                    text: qsTr("The Downflow value is too high!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, grill and ventilation paths are not obstructed.")
+                                                }
+                                            },
+                                            State {
                                                 when: props.alarmSeasTooPositive
                                                 PropertyChanges {
                                                     target: textTeleprompter
@@ -1324,6 +1388,9 @@ ViewApp {
                                             return true
                                         }
                                         else if (props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE) {
+                                            return true
+                                        }
+                                        else if (props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE || props.alarmDownflowHigh == MachineAPI.ALARM_ACTIVE_STATE) {
                                             return true
                                         }
                                         else if (props.alarmSeasTooPositive) {
@@ -2185,6 +2252,8 @@ ViewApp {
             property bool alarmSashFullyOpen: false
             property bool alarmSashUnknown: false
             property int  alarmInflowLow: 0
+            property int  alarmDownflowLow: 0
+            property int  alarmDownflowHigh: 0
             property int  alarmTempHigh: 0
             property int  alarmTempLow: 0
             //            onAlarmInflowLowChanged: console.log("alarmInflowLow: " + alarmInflowLow)
@@ -2267,6 +2336,8 @@ ViewApp {
                 props.alarmSashUnknown = Qt.binding(function(){ return MachineData.alarmSash === MachineAPI.ALARM_SASH_ACTIVE_ERROR_STATE })
 
                 props.alarmInflowLow = Qt.binding(function(){ return MachineData.alarmInflowLow})
+                props.alarmDownflowLow = Qt.binding(function(){ return MachineData.alarmDownflowLow})
+                props.alarmDownflowHigh = Qt.binding(function(){ return MachineData.alarmDownflowHigh})
 
                 props.alarmTempHigh = Qt.binding(function(){ return MachineData.alarmTempHigh})
                 props.alarmTempLow = Qt.binding(function(){ return MachineData.alarmTempLow})

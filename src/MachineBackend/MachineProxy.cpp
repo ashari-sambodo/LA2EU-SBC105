@@ -661,6 +661,26 @@ void MachineProxy::setFanCloseLoopControlEnable(bool value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setFanCloseLoopControlEnablePrevState(bool value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanCloseLoopControlEnablePrevState(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanCloseLoopSamplingTime(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanCloseLoopSamplingTime(value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setFanCloseLoopGainIntegralDfa(float value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();

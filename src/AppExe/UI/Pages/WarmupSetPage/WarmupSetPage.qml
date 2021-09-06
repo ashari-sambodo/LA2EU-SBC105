@@ -72,7 +72,7 @@ ViewApp {
                             anchors.verticalCenter: parent.verticalCenter
                             textRole: "text"
                             
-                            model: props.modelList
+                            //model: props.modelList
                             
                             onActivated: {
                                 ////console.debug(index)
@@ -167,7 +167,6 @@ This is to ensure that the sensors, the blower, and the control system are stabi
                 {text: qsTr("5 Minutes"),   value: 300},
                 {text: qsTr("15 Minutes"),  value: 900}
             ]
-            property var modelList: []
         }
 
         /// called Once but after onResume
@@ -183,14 +182,13 @@ This is to ensure that the sensors, the blower, and the control system are stabi
                 //                    //console.debug("StackView.Active");
                 let constant = 0;
                 if(!MachineData.getDownflowSensorConstant() && !MachineData.getInflowSensorConstant())
-                    props.modelList = props.modelList2
+                    comboBox.model = props.modelList2
                 else{
-                    props.modelList = props.modelList1
+                    comboBox.model = props.modelList1
                     constant = 1
                 }
-
                 props.warmupTimer = MachineData.warmingUpTime
-                //                    console.log(props.warmupTimer)
+                console.debug("Constant Df:", MachineData.getDownflowSensorConstant(),"Constant If:", MachineData.getInflowSensorConstant())
                 if(constant){
                     if(props.warmupTimer == 180)
                         comboBox.currentIndex = 0

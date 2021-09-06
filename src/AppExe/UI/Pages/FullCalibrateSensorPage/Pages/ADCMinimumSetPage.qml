@@ -339,7 +339,7 @@ ViewApp {
                             }//
 
                             TextApp {
-                                text: qsTr("Please wait for %1, time left").arg(utilsApp.strfSecsToHumanReadableShort(props.stabilizingTimer)) + ":"
+                                text: qsTr("Please wait for %1, time left").arg(utilsApp.strfSecsToHumanReadable(props.stabilizingTimer)) + ":"
                             }//
 
                             TextApp {

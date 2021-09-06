@@ -119,6 +119,8 @@
 #define SKEY_FAN_INF_STB_RPM_FIELD      "fanInfStbRpmFie"
 ///CLOSE LOOP
 #define SKEY_FAN_CLOSE_LOOP_ENABLE      "fanClEnable"
+#define SKEY_FAN_CLOSE_LOOP_ENABLE_PREV      "fanClEnablePrev"
+#define SKEY_FAN_CLOSE_LOOP_STIME      "fanClStime"
 #define SKEY_FAN_CLOSE_LOOP_GAIN_P      "fanClGainP"
 #define SKEY_FAN_CLOSE_LOOP_GAIN_I      "fanClGainI"
 #define SKEY_FAN_CLOSE_LOOP_GAIN_D      "fanClGainD"

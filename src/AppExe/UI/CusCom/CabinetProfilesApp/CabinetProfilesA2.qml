@@ -183,19 +183,19 @@ QtObject {
                             "fanDutyCycle": 39,
                             "metric": {
                                 "volume": 132,
-                                "velocity": 0.53,
-                                "velocityTol": 0.025,
-                                "velocityTolLow": 0.505,
-                                "velocityTolHigh": 0.555,
-                                "openingArea": 0.248,
+                                "velocity": 0.45,
+                                "velocityTol": 0.01,
+                                "velocityTolLow": 0.44,
+                                "velocityTolHigh": 0.46,
+                                "openingArea": 0.244,
                             },
                             "imp": {
                                 "volume": 280,
-                                "velocity": 105,
-                                "velocityTol": 5,
-                                "velocityTolLow": 100,
-                                "velocityTolHigh": 110,
-                                "openingArea": 2.667,
+                                "velocity": 90,
+                                "velocityTol": 2,
+                                "velocityTolLow": 88,
+                                "velocityTolHigh": 92,
+                                "openingArea": 2.625,
                             },
                         },
                         "minimum": {
@@ -203,18 +203,18 @@ QtObject {
                             "metric": {
                                 "volume": 101,
                                 "velocity": 0.40,
-                                "velocityTol": 0.025,
-                                "velocityTolLow": 0.375,
-                                "velocityTolHigh": 0.425,
-                                "openingArea": 0.248,
+                                "velocityTol": 0.01,
+                                "velocityTolLow": 0.39,
+                                "velocityTolHigh": 0.41,
+                                "openingArea": 0.244,
                             },
                             "imp": {
                                 "volume": 213,
                                 "velocity": 80,
-                                "velocityTol": 5,
-                                "velocityTolLow": 75,
-                                "velocityTolHigh": 85,
-                                "openingArea": 2.667,
+                                "velocityTol": 2,
+                                "velocityTolLow": 78,
+                                "velocityTolHigh": 82,
+                                "openingArea": 2.625,
                             },
                         },
                         "stb": {
@@ -222,17 +222,17 @@ QtObject {
                             "metric": {
                                 "volume": 61,
                                 "velocity": 1,
-                                "velocityTol": 0.025,
-                                "velocityTolLow": 0.975,
-                                "velocityTolHigh": 1.025,
+                                "velocityTol": 0.01,
+                                "velocityTolLow": 0.99,
+                                "velocityTolHigh": 1.01,
                                 "openingArea": 0.061,
                             },
                             "imp": {
                                 "volume": 129,
                                 "velocity": 197,
-                                "velocityTol": 5,
-                                "velocityTolLow": 192,
-                                "velocityTolHigh": 202,
+                                "velocityTol": 2,
+                                "velocityTolLow": 195,
+                                "velocityTolHigh": 199,
                                 "openingArea": 0.656,
                             },
                         }
@@ -243,16 +243,16 @@ QtObject {
                             "correctionFactor": 0.410,
                             "gridCount": 8, // 2 times from cabinet width
                             "metric": {
-                                "velocity": 0.53,
-                                "velocityTol": 0.025,
-                                "velocityTolLow": 0.505,
-                                "velocityTolHigh": 0.555,
+                                "velocity": 0.45,
+                                "velocityTol": 0.01,
+                                "velocityTolLow": 0.44,
+                                "velocityTolHigh": 0.46,
                             },
                             "imp": {
-                                "velocity": 105,
-                                "velocityTol": 5,
-                                "velocityTolLow": 100,
-                                "velocityTolHigh": 110,
+                                "velocity": 90,
+                                "velocityTol": 2,
+                                "velocityTolLow": 88,
+                                "velocityTolHigh": 92,
                             },
                         }
                     }
@@ -261,21 +261,61 @@ QtObject {
                     "nominal": {
                         "fanDutyCycle": 39,
                         "metric": {
-                            "velocity": 0.30,
-                            "velocityTol": 0.025,
-                            "velocityTolLow": 0.275,
-                            "velocityTolHigh": 0.325,
+                            "velocity": 0.32,
+                            "velocityTol": 0.01,
+                            "velocityTolLow": 0.31,
+                            "velocityTolHigh": 0.33,
                         },
                         "imp": {
-                            "velocity": 60,
-                            "velocityTol": 5,
-                            "velocityTolLow": 55,
-                            "velocityTolHigh": 65,
+                            "velocity": 64,
+                            "velocityTol": 2,
+                            "velocityTolLow": 62,
+                            "velocityTolHigh": 66,
                         },
                         "velDevp": 20, /*%*/
                         "grid": {
-                            "count": 21,
-                            "columns": 7,
+                            "count": 8,
+                            "columns": 4,
+                        }
+                    },
+                    "minimum": {
+                        "fanDutyCycle": 29,
+                        "metric": {
+                            "velocity": 0.27,
+                            "velocityTol": 0.01,
+                            "velocityTolLow": 0.26,
+                            "velocityTolHigh": 0.28,
+                        },
+                        "imp": {
+                            "velocity": 55,
+                            "velocityTol": 2,
+                            "velocityTolLow": 53,
+                            "velocityTolHigh": 57,
+                        },
+                        "velDevp": 20, /*%*/
+                        "grid": {
+                            "count": 8,
+                            "columns": 4,
+                        }
+                    },
+                    "maximum": {
+                        "fanDutyCycle": 19,
+                        "metric": {
+                            "velocity": 0.37,
+                            "velocityTol": 0.01,
+                            "velocityTolLow": 0.36,
+                            "velocityTolHigh": 0.38,
+                        },
+                        "imp": {
+                            "velocity": 74,
+                            "velocityTol": 2,
+                            "velocityTolLow": 72,
+                            "velocityTolHigh": 76,
+                        },
+                        "velDevp": 20, /*%*/
+                        "grid": {
+                            "count": 8,
+                            "columns": 4,
                         }
                     }
                 }

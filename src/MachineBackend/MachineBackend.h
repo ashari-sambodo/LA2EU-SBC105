@@ -323,6 +323,8 @@ public slots:
     void readSbcCurrentFullMacAddress();
 
     void setFanCloseLoopControlEnable(bool value);
+    void setFanCloseLoopControlEnablePrevState(bool value);
+    void setFanCloseLoopSamplingTime(int value);
     void setFanCloseLoopGainIntegralDfa(float value);
     void setFanCloseLoopGainProportionalDfa(float value);
     void setFanCloseLoopGainDerivatifDfa(float value);
@@ -386,8 +388,8 @@ private:
     QScopedPointer<AirflowVelocity> m_pAirflowInflow;
     QScopedPointer<AirflowVelocity> m_pAirflowDownflow;
     ///
-    QScopedPointer<CloseLoopControl> m_pIfaFanAutoControl;
-    QScopedPointer<CloseLoopControl> m_pDfaFanAutoControl;
+    QScopedPointer<CloseLoopControl> m_pIfaFanCloseLoopControl;
+    QScopedPointer<CloseLoopControl> m_pDfaFanCloseLoopControl;
     QScopedPointer<QTimer>           m_timerEventForCloseLoopControl;
     void _onTriggeredEventCloseLoopControl();
     ///

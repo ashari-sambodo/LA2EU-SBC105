@@ -290,6 +290,8 @@ public slots:
     void readSbcCurrentFullMacAddress();
 
     void setFanCloseLoopControlEnable(bool value);
+    void setFanCloseLoopControlEnablePrevState(bool value);// needed in Calibration page
+    void setFanCloseLoopSamplingTime(int value);
     void setFanCloseLoopGainIntegralDfa(float value);
     void setFanCloseLoopGainProportionalDfa(float value);
     void setFanCloseLoopGainDerivatifDfa(float value);

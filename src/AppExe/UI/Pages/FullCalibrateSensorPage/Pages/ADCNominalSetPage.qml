@@ -762,7 +762,7 @@ ViewApp {
                             }//
 
                             TextApp {
-                                text: qsTr("Please wait for %1, time left").arg(utilsApp.strfSecsToHumanReadableShort(props.stabilizingTimer)) + ":"
+                                text: qsTr("Please wait for %1, time left").arg(utilsApp.strfSecsToHumanReadable(props.stabilizingTimer)) + ":"
                             }//
 
                             TextApp {
@@ -966,7 +966,7 @@ ViewApp {
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Downflow vel. minimum")
+                                                text: qsTr("Downflow low alarm")
                                                 font.pixelSize: 18
                                             }//
 
@@ -981,7 +981,7 @@ ViewApp {
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Downflow vel. nominal")
+                                                text: qsTr("Downflow nominal")
                                                 font.pixelSize: 18
                                             }//
 
@@ -996,7 +996,7 @@ ViewApp {
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Downflow vel. maximum")
+                                                text: qsTr("Downflow high alarm")
                                                 font.pixelSize: 18
                                             }//
 
@@ -1013,7 +1013,7 @@ ViewApp {
 
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("ADC zero") + " (DF0)"
+                                                text: qsTr("Downflow ADC zero") + " (DF0)"
                                                 font.pixelSize: 18
                                             }//
 
@@ -1039,7 +1039,7 @@ ViewApp {
                                         Row {
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("ADC nominal") + " (DF2)"
+                                                text: qsTr("Downflow ADC nominal") + " (DF2)"
                                                 font.pixelSize: 18
                                             }//
 
@@ -1054,7 +1054,7 @@ ViewApp {
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Inflow vel. minimum")
+                                                text: qsTr("Inflow low alarm")
                                                 font.pixelSize: 18
                                             }//
 
@@ -1069,7 +1069,7 @@ ViewApp {
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Inflow vel. nominal")
+                                                text: qsTr("Inflow nominal")
                                                 font.pixelSize: 18
                                             }//
 
@@ -1099,7 +1099,7 @@ ViewApp {
 
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("ADC zero") + " (IF0)"
+                                                text: qsTr("Inflow ADC zero") + " (IF0)"
                                                 font.pixelSize: 18
                                             }//
 
@@ -1125,7 +1125,7 @@ ViewApp {
                                         Row {
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("ADC nominal") + " (IF2)"
+                                                text: qsTr("Inflow ADC nominal") + " (IF2)"
                                                 font.pixelSize: 18
                                             }//
 
@@ -1143,7 +1143,7 @@ ViewApp {
 
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Fan nominal") + " (D/F)"
+                                                text: qsTr("Downflow Fan nominal")
                                                 font.pixelSize: 18
                                             }//
 
@@ -1158,7 +1158,7 @@ ViewApp {
 
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Fan nominal") + " (I/F)"
+                                                text: qsTr("Inflow Fan nominal")
                                                 font.pixelSize: 18
                                             }//
 

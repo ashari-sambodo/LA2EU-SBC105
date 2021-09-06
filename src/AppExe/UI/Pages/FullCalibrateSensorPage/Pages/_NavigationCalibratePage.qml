@@ -713,6 +713,7 @@ ViewApp {
                 //console.log("true atau false "+ props.calibNewInflowNom)
 
                 if (props.calibNewSensorConst) {
+                    console.debug("Saving Constant value:", props.dfaSensorConstant, props.ifaSensorConstant)
                     MachineAPI.setInflowSensorConstant(props.ifaSensorConstant);
                     MachineAPI.setDownflowSensorConstant(props.dfaSensorConstant);
                 }
@@ -729,7 +730,7 @@ ViewApp {
                 MachineAPI.setDownflowAdcPointFactory       (props.dfaSensorAdcZero, props.dfaSensorAdcMinimum, props.dfaSensorAdcNominal, props.dfaSensorAdcMaximum)
                 MachineAPI.setDownflowVelocityPointFactory  (0, props.dfaSensorVelMinimum, props.dfaSensorVelNominal, props.dfaSensorVelMaximum)
 
-                MachineAPI.setInflowLowLimitVelocity    (props.sensorVelLowAlarm);
+                MachineAPI.setInflowLowLimitVelocity    (props.ifaSensorVelLowAlarm);
                 MachineAPI.setDownflowLowLimitVelocity  (props.dfaSensorVelLowAlarm);
                 MachineAPI.setDownflowHighLimitVelocity (props.dfaSensorVelHighAlarm);
 
@@ -804,7 +805,7 @@ ViewApp {
                               + "VEL-IF2: " + (props.ifaSensorVelNominal / 100).toFixed(2)
                               + ")"
                 MachineAPI.insertEventLog(message);
-            }
+            }//
         }//
 
         /// called Once but after onResume
@@ -1058,7 +1059,7 @@ ViewApp {
                             /// set bagde value to main model
                             props.menuModelMicroADC[props.lastSelectedMenuIndex+1]['badge'] = 0
                             props.menuModelMicroADC[props.lastSelectedMenuIndex+2]['badge'] = 0
-                            props.menuModelMicroADC[props.lastSelectedMenuIndex+3]['badge'] = 0
+                            //props.menuModelMicroADC[props.lastSelectedMenuIndex+3]['badge'] = 0
                         }//
 
                         let done  = props.menuModelMicroADC[props.lastSelectedMenuIndex]['badge']
@@ -1069,7 +1070,8 @@ ViewApp {
                             menuStackView.currentItem.model = props.menuModelMicroADC
                         }
 
-                        props.calibNewSensorConst = true
+                        props.calibNewSensorConst = true                        
+                        console.debug("calibNewSensorConst:", props.calibNewSensorConst, props.dfaSensorConstant, props.ifaSensorConstant)
                     }//
 
                     else if (extradata['pid'] === 'adcz'){
@@ -1096,7 +1098,8 @@ ViewApp {
                             menuStackView.currentItem.model = props.menuModelMicroADC
                         }
 
-                        props.calibNewAdcZero = true
+                        props.calibNewAdcZero = true                        
+                        console.debug("calibNewAdcZero:", props.calibNewAdcZero, props.dfaSensorAdcZero, props.ifaSensorAdcZero)
                     }//
 
                     else if (extradata['pid'] === 'adcm'){

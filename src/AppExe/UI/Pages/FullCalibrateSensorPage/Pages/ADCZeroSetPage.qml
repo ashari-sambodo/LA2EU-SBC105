@@ -355,7 +355,7 @@ ViewApp {
                             }//
 
                             TextApp {
-                                text: qsTr("Please wait for %1, time left").arg(utilsApp.strfSecsToHumanReadableShort(props.stabilizingTimer)) + ":"
+                                text: qsTr("Please wait for %1, time left").arg(utilsApp.strfSecsToHumanReadable(props.stabilizingTimer)) + ":"
                             }//
 
                             TextApp {
@@ -606,7 +606,11 @@ ViewApp {
 
                                 if (fragmentStackView.currentItem.idname === "result"){
                                     if(props.calibrateDone) {
-                                        let intent = IntentApp.create(uri, { "pid": props.pid, "sensorAdcZero": props.adcResult })
+                                        let intent = IntentApp.create(uri, {
+                                                                          "pid": props.pid,
+                                                                          "dfaSensorAdcZero": props.dfaAdcResult,
+                                                                          "ifaSensorAdcZero": props.ifaAdcResult
+                                                                      })
                                         finishView(intent);
                                         return
                                     }
@@ -714,7 +718,7 @@ ViewApp {
                                      })
 
                 if(!props.dfaSensorConstant && !props.ifaSensorConstant)
-                    props.stabilizingTimer = 30
+                    props.stabilizingTimer = MachineData.warmingUpTime <= 180 ? MachineData.warmingUpTime : 180
                 else
                     props.stabilizingTimer = 180
             }

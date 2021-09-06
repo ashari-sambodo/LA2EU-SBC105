@@ -26,8 +26,10 @@ public:
 
     void setMeasurementUnit(unsigned char value);
     void setSetpoint(float value);
+    void setSetpointDcy(short value);
     void setProcessVariable(float value);
     void setSamplingPeriod(float value);
+    void setActualFanDutyCycle(float value);
 
     //// Dummy
     bool getDummyStateEnable() const;
@@ -41,7 +43,7 @@ signals:
 private:
     void pushBackTotalLastError(float value);
     float getTotalLastError() const;
-    short getOutputControl() const;
+    short getOutputControl();
     float fpm2Mps(short value) const;
 
     bool m_controlEnable = false;
@@ -56,6 +58,7 @@ private:
     //// we will use metric
     float m_setpoint;    //nominal velocity
     short m_setpointDcy;
+    float m_actualDutyCycle;
     float m_processVariable;//velocity actual
     unsigned char m_measurementUnit;//0 metric, 1 imperial
 

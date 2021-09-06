@@ -107,6 +107,18 @@ void MachineData::setFanCloseLoopControlEnable(bool value)
     emit fanCloseLoopControlEnableChanged(m_fanCloseLoopControlEnable);
 }
 
+bool MachineData::getFanFanCloseLoopControlEnablePrevState() const
+{
+        return m_fanFanCloseLoopControlEnablePrevState;
+}
+
+void MachineData::setFanFanCloseLoopControlEnablePrevState(bool value)
+{
+    if(m_fanFanCloseLoopControlEnablePrevState == value)return;
+    m_fanFanCloseLoopControlEnablePrevState = value;
+    emit fanFanCloseLoopControlEnablePrevStateChanged(m_fanFanCloseLoopControlEnablePrevState);
+}
+
 float MachineData::getFanCloseLoopGainProportional(short index) const
 {
     return m_fanCloseLoopGainProportional[index];
@@ -138,6 +150,17 @@ void MachineData::setFanCloseLoopGainDerivatif(float value, short index)
 {
     if(m_fanCloseLoopGainDerivatif[index] == value)return;
     m_fanCloseLoopGainDerivatif[index] = value;
+}
+
+int MachineData::getFanCloseLoopSamplingTime() const
+{
+    return m_fanCloseLoopSamplingTime;
+}
+
+void MachineData::setFanCloseLoopSamplingTime(int value)
+{
+    if(m_fanCloseLoopSamplingTime == value)return;
+    m_fanCloseLoopSamplingTime = value;
 }
 
 QString MachineData::getSbcSerialNumber() const

@@ -20,6 +20,7 @@ CloseLoopControl::CloseLoopControl(QObject *parent)
     m_setpoint = 0.0;
     m_processVariable = 0.0;
     m_setpointDcy = 0;
+    m_actualDutyCycle = 0.0;
 }
 
 
@@ -78,10 +79,16 @@ void CloseLoopControl::setMeasurementUnit(unsigned char value)
 
 void CloseLoopControl::setSetpoint(float value)
 {
+    value = value/static_cast<float>(100.0);
     if(m_measurementUnit)
         m_setpoint = fpm2Mps(static_cast<short>(value));
     else
         m_setpoint = value;
+}
+
+void CloseLoopControl::setSetpointDcy(short value)
+{
+    m_setpointDcy = value;
 }
 
 void CloseLoopControl::setProcessVariable(float value)
@@ -95,6 +102,11 @@ void CloseLoopControl::setProcessVariable(float value)
 void CloseLoopControl::setSamplingPeriod(float value)
 {
     m_samplingPeriod = (value / static_cast<float>(1000.0));
+}
+
+void CloseLoopControl::setActualFanDutyCycle(float value)
+{
+    m_actualDutyCycle = value;
 }
 
 bool CloseLoopControl::getDummyStateEnable() const
@@ -144,11 +156,10 @@ float CloseLoopControl::getTotalLastError() const
 /// CO = Control Output Final
 /// //////////////////////////////////////////////////////////////////////////////////////////
 
-short CloseLoopControl::getOutputControl() const
+short CloseLoopControl::getOutputControl()
 {
-    short outputControl = 0;
     float e, le, tle, sp, pv, kp, ki, kd, ts, COp, COi, COd;
-    short CO;
+    float CO;
 
     sp = m_setpoint;
     pv = m_processVariable;
@@ -162,18 +173,18 @@ short CloseLoopControl::getOutputControl() const
     COp = kp * e;
     COi = ki * ts * tle;
     COd = (kd/ts) * le;
-    CO = static_cast<short>(qRound(COp + COi + COd));
+    CO = COp + COi + COd;
 
-    outputControl = m_setpointDcy + CO;
+    m_actualDutyCycle += CO;
 
     qDebug() << "Sp: " << sp <<"Pv:"<< pv;
     qDebug() << "Error: " << e;
     qDebug() << "Kp:" << kp <<"Ki:" << ki << "Kd:" << kd;
-    qDebug() << "Dcy:" << m_setpointDcy;
-    qDebug() << "CO:" << CO;
-    qDebug() << "OutputControl:" << outputControl;
+    qDebug() << "CO:" << CO << "from" << COp << COi << COd;
+    qDebug() << "Dcy nom:" << m_setpointDcy << "actual:" << m_actualDutyCycle;
+    qDebug() << "OutputControl:" << m_actualDutyCycle;
 
-    return outputControl;
+    return static_cast<short>(qRound(m_actualDutyCycle));
 }
 
 float CloseLoopControl::fpm2Mps(short value) const

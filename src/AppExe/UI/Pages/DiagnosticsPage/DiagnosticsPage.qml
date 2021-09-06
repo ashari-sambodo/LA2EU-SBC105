@@ -472,19 +472,19 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("VEL A/F Maximum (D/F)")
+                                label: qsTr("VEL A/F High Alarm (D/F)")
 
                                 onLoaded: {
                                     let velocityIfa = 0
-                                    let velocityDfa = 0
-                                    if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                                        //velocityIfa = MachineData.getInflowVelocityPointField(1) / 100
-                                        velocityDfa = MachineData.getDownflowVelocityPointField(3) / 100
-                                    }
-                                    else {
-                                        //velocityIfa = MachineData.getInflowVelocityPointFactory(1) / 100
-                                        velocityDfa = MachineData.getDownflowVelocityPointFactory(3) / 100
-                                    }
+                                    let velocityDfa = MachineData.getDownflowHighLimitVelocity() / 100
+                                    //                                    if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
+                                    //                                        //velocityIfa = MachineData.getInflowVelocityPointField(1) / 100
+                                    //                                        velocityDfa = MachineData.getDownflowVelocityPointField(3) / 100
+                                    //                                    }
+                                    //                                    else {
+                                    //                                        //velocityIfa = MachineData.getInflowVelocityPointFactory(1) / 100
+                                    //                                        velocityDfa = MachineData.getDownflowVelocityPointFactory(3) / 100
+                                    //                                    }
 
                                     //let velocityIfaStr = ""
                                     let velocityDfaStr = ""
@@ -552,20 +552,20 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("VEL A/F Fail (D/F | I/F)")
+                                label: qsTr("VEL A/F Low Alarm (D/F | I/F)")
 
                                 onLoaded: {
-                                    let velocityDfa = 0
-                                    let velocityIfa = 0
+                                    let velocityDfa = MachineData.getDownflowLowLimitVelocity() / 100
+                                    let velocityIfa = MachineData.getInflowLowLimitVelocity() / 100
 
-                                    if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
-                                        velocityDfa = MachineData.getDownflowVelocityPointField(1) / 100
-                                        velocityIfa = MachineData.getInflowVelocityPointField(1) / 100
-                                    }
-                                    else {
-                                        velocityDfa = MachineData.getDownflowVelocityPointFactory(1) / 100
-                                        velocityIfa = MachineData.getInflowVelocityPointFactory(1) / 100
-                                    }
+                                    //                                    if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
+                                    //                                        velocityDfa = MachineData.getDownflowVelocityPointField(1) / 100
+                                    //                                        velocityIfa = MachineData.getInflowVelocityPointField(1) / 100
+                                    //                                    }
+                                    //                                    else {
+                                    //                                        velocityDfa = MachineData.getDownflowVelocityPointFactory(1) / 100
+                                    //                                        velocityIfa = MachineData.getInflowVelocityPointFactory(1) / 100
+                                    //                                    }
 
                                     let velocityIfaStr = ""
                                     let velocityDfaStr = ""
