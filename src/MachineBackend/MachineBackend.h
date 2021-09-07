@@ -38,7 +38,7 @@ class SashWindow;
 class DeviceDigitalOut;
 class MotorizeOnRelay;
 class AirflowVelocity;
-class CloseLoopControl;
+class ClosedLoopControl;
 class Temperature;
 class ClassManager;
 
@@ -322,15 +322,15 @@ public slots:
 
     void readSbcCurrentFullMacAddress();
 
-    void setFanCloseLoopControlEnable(bool value);
-    void setFanCloseLoopControlEnablePrevState(bool value);
-    void setFanCloseLoopSamplingTime(int value);
-    void setFanCloseLoopGainIntegralDfa(float value);
-    void setFanCloseLoopGainProportionalDfa(float value);
-    void setFanCloseLoopGainDerivatifDfa(float value);
-    void setFanCloseLoopGainIntegralIfa(float value);
-    void setFanCloseLoopGainProportionalIfa(float value);
-    void setFanCloseLoopGainDerivatifIfa(float value);
+    void setFanClosedLoopControlEnable(bool value);
+    void setFanClosedLoopControlEnablePrevState(bool value);
+    void setFanClosedLoopSamplingTime(int value);
+    void setFanClosedLoopGainIntegralDfa(float value);
+    void setFanClosedLoopGainProportionalDfa(float value);
+    void setFanClosedLoopGainDerivatifDfa(float value);
+    void setFanClosedLoopGainIntegralIfa(float value);
+    void setFanClosedLoopGainProportionalIfa(float value);
+    void setFanClosedLoopGainDerivatifIfa(float value);
 
 signals:
     void hasStopped();
@@ -388,10 +388,10 @@ private:
     QScopedPointer<AirflowVelocity> m_pAirflowInflow;
     QScopedPointer<AirflowVelocity> m_pAirflowDownflow;
     ///
-    QScopedPointer<CloseLoopControl> m_pIfaFanCloseLoopControl;
-    QScopedPointer<CloseLoopControl> m_pDfaFanCloseLoopControl;
-    QScopedPointer<QTimer>           m_timerEventForCloseLoopControl;
-    void _onTriggeredEventCloseLoopControl();
+    QScopedPointer<ClosedLoopControl> m_pIfaFanClosedLoopControl;
+    QScopedPointer<ClosedLoopControl> m_pDfaFanClosedLoopControl;
+    QScopedPointer<QTimer>           m_timerEventForClosedLoopControl;
+    void _onTriggeredEventClosedLoopControl();
     ///
     QScopedPointer<QGpioSysfs>      m_pBuzzer;
     ///

@@ -10,11 +10,11 @@ enum FanEnum{
     Inflow
 };
 
-class CloseLoopControl : public ClassManager
+class ClosedLoopControl : public ClassManager
 {
     Q_OBJECT
 public:
-    explicit CloseLoopControl(QObject *parent = nullptr);
+    explicit ClosedLoopControl(QObject *parent = nullptr);
 
     void routineTask(int parameter = 0) override;
 

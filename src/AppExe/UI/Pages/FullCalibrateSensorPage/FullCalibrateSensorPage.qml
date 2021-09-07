@@ -113,9 +113,9 @@ ViewApp {
                                                        if(secs === 1) {
                                                            //                                                           MachineAPI.setOperationMode(props.operationModeBackup)
                                                            MachineAPI.setOperationPreviousMode()
-                                                           MachineAPI.setFanCloseLoopControlEnable(MachineData.fanCloseLoopControlEnablePrevState)
-                                                           if(MachineData.fanCloseLoopControlEnablePrevState)
-                                                               MachineAPI.setFanCloseLoopControlEnablePrevState(false)
+                                                           MachineAPI.setFanClosedLoopControlEnable(MachineData.fanClosedLoopControlEnablePrevState)
+                                                           if(MachineData.fanClosedLoopControlEnablePrevState)
+                                                               MachineAPI.setFanClosedLoopControlEnablePrevState(false)
                                                        }
                                                        if(secs === 3) {
                                                            /// Back to Main Menu
@@ -158,9 +158,9 @@ ViewApp {
                                                            //                                                           MachineAPI.setOperationMode(props.operationModeBackup)
                                                            MachineAPI.setOperationPreviousMode()
                                                            MachineAPI.setInflowSensorConstantTemporary(MachineData.getInflowSensorConstant())
-                                                           MachineAPI.setFanCloseLoopControlEnable(MachineData.fanCloseLoopControlEnablePrevState)
-                                                           if(MachineData.fanCloseLoopControlEnablePrevState)
-                                                               MachineAPI.setFanCloseLoopControlEnablePrevState(false)
+                                                           MachineAPI.setFanClosedLoopControlEnable(MachineData.fanClosedLoopControlEnablePrevState)
+                                                           if(MachineData.fanClosedLoopControlEnablePrevState)
+                                                               MachineAPI.setFanClosedLoopControlEnablePrevState(false)
                                                        }
                                                        if(secs === 3) {
 

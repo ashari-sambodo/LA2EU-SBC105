@@ -19,7 +19,7 @@ import "Components" as CusComPage
 
 ViewApp {
     id: viewApp
-    title: "Diagnostic"
+    title: "Diagnostics"
 
     background.sourceComponent: Item {}
 
@@ -42,7 +42,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr("Diagnostic")
+                    title: qsTr("Diagnostics")
                 }
             }
 

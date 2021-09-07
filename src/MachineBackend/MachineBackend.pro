@@ -29,7 +29,8 @@ SOURCES +=  \
     Implementations/BlowerRbm/BlowerRbmDsi.cpp \
     Implementations/ClassManager.cpp \
     Implementations/AirflowVelocity/AirflowVelocity.cpp \
-    Implementations/CloseLoopControl/CloseLoopControl.cpp \
+    Implementations/ClosedLoopControl/ClosedLoopControl.cpp \
+    Implementations/ClosedLoopControl/ClosedLoopControl.cpp \
     Implementations/DataLog/DataLogSql.cpp \
     Implementations/DataLog/DataLog.cpp \
     Implementations/DeviceAnalogCom/DeviceAnalogCom.cpp \
@@ -58,7 +59,8 @@ HEADERS +=  \
     Implementations/BlowerRbm/BlowerRbmDsi.h \
     Implementations/ClassManager.h \
     Implementations/AirflowVelocity/AirflowVelocity.h \
-    Implementations/CloseLoopControl/CloseLoopControl.h \
+    Implementations/ClosedLoopControl/ClosedLoopControl.h \
+    Implementations/ClosedLoopControl/ClosedLoopControl.h \
     Implementations/DataLog/DataLogSql.h \
     Implementations/DataLog/DataLog.h \
     Implementations/DeviceAnalogCom/DeviceAnalogCom.h \

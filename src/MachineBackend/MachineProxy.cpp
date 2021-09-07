@@ -651,92 +651,92 @@ void MachineProxy::readSbcCurrentFullMacAddress()
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanCloseLoopControlEnable(bool value)
+void MachineProxy::setFanClosedLoopControlEnable(bool value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setFanCloseLoopControlEnable(value);
+        m_machineBackend->setFanClosedLoopControlEnable(value);
     },
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanCloseLoopControlEnablePrevState(bool value)
+void MachineProxy::setFanClosedLoopControlEnablePrevState(bool value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setFanCloseLoopControlEnablePrevState(value);
+        m_machineBackend->setFanClosedLoopControlEnablePrevState(value);
     },
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanCloseLoopSamplingTime(int value)
+void MachineProxy::setFanClosedLoopSamplingTime(int value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setFanCloseLoopSamplingTime(value);
+        m_machineBackend->setFanClosedLoopSamplingTime(value);
     },
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanCloseLoopGainIntegralDfa(float value)
+void MachineProxy::setFanClosedLoopGainIntegralDfa(float value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setFanCloseLoopGainIntegralDfa(value);
+        m_machineBackend->setFanClosedLoopGainIntegralDfa(value);
     },
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanCloseLoopGainProportionalDfa(float value)
+void MachineProxy::setFanClosedLoopGainProportionalDfa(float value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setFanCloseLoopGainProportionalDfa(value);
+        m_machineBackend->setFanClosedLoopGainProportionalDfa(value);
     },
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanCloseLoopGainDerivatifDfa(float value)
+void MachineProxy::setFanClosedLoopGainDerivatifDfa(float value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setFanCloseLoopGainDerivatifDfa(value);
+        m_machineBackend->setFanClosedLoopGainDerivatifDfa(value);
     },
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanCloseLoopGainIntegralIfa(float value)
+void MachineProxy::setFanClosedLoopGainIntegralIfa(float value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setFanCloseLoopGainIntegralIfa(value);
+        m_machineBackend->setFanClosedLoopGainIntegralIfa(value);
     },
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanCloseLoopGainProportionalIfa(float value)
+void MachineProxy::setFanClosedLoopGainProportionalIfa(float value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setFanCloseLoopGainProportionalIfa(value);
+        m_machineBackend->setFanClosedLoopGainProportionalIfa(value);
     },
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanCloseLoopGainDerivatifIfa(float value)
+void MachineProxy::setFanClosedLoopGainDerivatifIfa(float value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setFanCloseLoopGainDerivatifIfa(value);
+        m_machineBackend->setFanClosedLoopGainDerivatifIfa(value);
     },
     Qt::QueuedConnection);
 }

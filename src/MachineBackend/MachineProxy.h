@@ -289,15 +289,15 @@ public slots:
 
     void readSbcCurrentFullMacAddress();
 
-    void setFanCloseLoopControlEnable(bool value);
-    void setFanCloseLoopControlEnablePrevState(bool value);// needed in Calibration page
-    void setFanCloseLoopSamplingTime(int value);
-    void setFanCloseLoopGainIntegralDfa(float value);
-    void setFanCloseLoopGainProportionalDfa(float value);
-    void setFanCloseLoopGainDerivatifDfa(float value);
-    void setFanCloseLoopGainIntegralIfa(float value);
-    void setFanCloseLoopGainProportionalIfa(float value);
-    void setFanCloseLoopGainDerivatifIfa(float value);
+    void setFanClosedLoopControlEnable(bool value);
+    void setFanClosedLoopControlEnablePrevState(bool value);// needed in Calibration page
+    void setFanClosedLoopSamplingTime(int value);
+    void setFanClosedLoopGainIntegralDfa(float value);
+    void setFanClosedLoopGainProportionalDfa(float value);
+    void setFanClosedLoopGainDerivatifDfa(float value);
+    void setFanClosedLoopGainIntegralIfa(float value);
+    void setFanClosedLoopGainProportionalIfa(float value);
+    void setFanClosedLoopGainDerivatifIfa(float value);
 
 private slots:
     void doStopping();

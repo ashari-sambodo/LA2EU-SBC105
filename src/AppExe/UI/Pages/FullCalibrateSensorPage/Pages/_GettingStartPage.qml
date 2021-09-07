@@ -125,8 +125,8 @@ ViewApp {
                             text: qsTr("Next")
 
                             onClicked: {
-                                MachineAPI.setFanCloseLoopControlEnablePrevState(MachineData.fanCloseLoopControlEnable)
-                                if(MachineData.fanCloseLoopControlEnable) MachineAPI.setFanCloseLoopControlEnable(false)
+                                MachineAPI.setFanClosedLoopControlEnablePrevState(MachineData.fanClosedLoopControlEnable)
+                                if(MachineData.fanClosedLoopControlEnable) MachineAPI.setFanClosedLoopControlEnable(false)
                                 var intent = IntentApp.create("qrc:/UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml", {})
                                 finishView(intent)
                             }//

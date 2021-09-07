@@ -63,7 +63,7 @@ ViewApp {
                             TextFieldApp {
                                 id: ifaDcyTextField
                                 width: 70
-                                height: 60
+                                height: 50
                                 validator: IntValidator{bottom: 0; top: 100;}
 
                                 TextApp {
@@ -82,13 +82,14 @@ ViewApp {
                                     fanInflowSlider.value = Number(text)
                                 }
                             }//
-                            Slider {
+                            SliderApp {
                                 id: fanInflowSlider
                                 anchors.verticalCenter: parent.verticalCenter
-                                width: 650
+                                width: 700
                                 stepSize: 1
                                 from: 0
                                 to: 100
+                                padding: 0
 
                                 onValueChanged: {
                                     if (pressed) {
@@ -98,7 +99,7 @@ ViewApp {
                                 }//
                             }//
                         }//
-                    }
+                    }//
 
                     Column {
                         spacing: 10
@@ -111,7 +112,7 @@ ViewApp {
                             TextFieldApp {
                                 id: dfaDcyTextField
                                 width: 70
-                                height: 60
+                                height: 50
                                 validator: IntValidator{bottom: 0; top: 100;}
 
                                 TextApp {
@@ -130,18 +131,17 @@ ViewApp {
                                     fanDownflowSlider.value = Number(text)
                                 }
                             }//
-                            Slider {
+                            SliderApp {
                                 id: fanDownflowSlider
                                 anchors.verticalCenter: parent.verticalCenter
-                                width: 650
+                                width: 700
                                 stepSize: 1
                                 from: 0
                                 to: 100
+                                padding: 0
 
                                 onValueChanged: {
-                                    console.debug(fanDownflowSlider.value)
                                     if (pressed) {
-                                        //console.debug("MachineAPI.setFanPrimaryDutyCycle(fanDownflowSlider.value)")
                                         MachineAPI.setFanPrimaryDutyCycle(fanDownflowSlider.value)
                                         dfaDcyTextField.text = fanDownflowSlider.value
                                     }//

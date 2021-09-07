@@ -396,9 +396,9 @@
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype         :   "menu",
-                                 mtitle     :   qsTr("Fan Close Loop Control"),
+                                 mtitle     :   qsTr("Fan Closed Loop Control"),
                                  micon      :   "qrc:/UI/Pictures/menu/fan-auto-control.png",
-                                 mlink      :   "qrc:/UI/Pages/FanCloseLoopControlPage/FanCloseLoopControlPage.qml"
+                                 mlink      :   "qrc:/UI/Pages/FanClosedLoopControlPage/FanClosedLoopControlPage.qml"
                              })
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}

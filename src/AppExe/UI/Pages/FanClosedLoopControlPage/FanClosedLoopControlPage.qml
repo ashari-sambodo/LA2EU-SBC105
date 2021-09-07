@@ -17,7 +17,7 @@ import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
-    title: "Fan Close Loop Control"
+    title: "Fan Closed Loop Control"
 
     background.sourceComponent: Item {}
 
@@ -44,7 +44,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr("Fan Close Loop Control")
+                    title: qsTr("Fan Closed Loop Control")
                 }
             }
 
@@ -163,10 +163,10 @@ ViewApp {
 
                             onClicked: {
                                 visible = false
-                                MachineAPI.setFanCloseLoopControlEnable(props.enableSet)
+                                MachineAPI.setFanClosedLoopControlEnable(props.enableSet)
 
-                                const message = props.enableSet ? qsTr("User: Close loop control enabled")
-                                                                : qsTr("User: Close loop control disabled")
+                                const message = props.enableSet ? qsTr("User: Closed loop control enabled")
+                                                                : qsTr("User: Closed loop control disabled")
                                 MachineAPI.insertEventLog(message)
 
                                 showBusyPage(qsTr("Setting up..."), function(seconds){
@@ -175,6 +175,20 @@ ViewApp {
                                         closeDialog();
                                     }//
                                 })
+                            }//
+                        }//
+                        ButtonBarApp {
+                            id: tunningButton
+                            width: 194
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.right: parent.right
+                            visible: !setButton.visible && MachineData.fanClosedLoopControlEnable
+
+                            imageSource: "qrc:/UI/Pictures/tuning.png"
+                            text: qsTr("Tuning")
+
+                            onClicked: {
+
                             }//
                         }//
                     }//
@@ -202,7 +216,7 @@ ViewApp {
             /// onResume
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
-                props.enableSet = Qt.binding(function(){return MachineData.fanCloseLoopControlEnable})
+                props.enableSet = Qt.binding(function(){return MachineData.fanClosedLoopControlEnable})
                 props.prevEnableSet = props.enableSet
                 enableSwitch.initialized = true
             }

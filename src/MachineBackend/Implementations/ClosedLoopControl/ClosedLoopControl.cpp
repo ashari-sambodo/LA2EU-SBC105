@@ -1,7 +1,7 @@
-#include "CloseLoopControl.h"
+#include "ClosedLoopControl.h"
 
 
-CloseLoopControl::CloseLoopControl(QObject *parent)
+ClosedLoopControl::ClosedLoopControl(QObject *parent)
     : ClassManager(parent)
 {
     m_controlEnable = false;
@@ -24,7 +24,7 @@ CloseLoopControl::CloseLoopControl(QObject *parent)
 }
 
 
-void CloseLoopControl::routineTask(int parameter)
+void ClosedLoopControl::routineTask(int parameter)
 {
     Q_UNUSED(parameter)
     short outputControl = {0};
@@ -51,33 +51,33 @@ void CloseLoopControl::routineTask(int parameter)
     emit workerFinished();
 }
 
-void CloseLoopControl::setControlEnable(bool value)
+void ClosedLoopControl::setControlEnable(bool value)
 {
     if(m_controlEnable == value)return;
     m_controlEnable = value;
 }
 
-void CloseLoopControl::setGainProportional(float value)
+void ClosedLoopControl::setGainProportional(float value)
 {
     m_gainProportional = value;
 }
 
-void CloseLoopControl::setGainIntegral(float value)
+void ClosedLoopControl::setGainIntegral(float value)
 {
     m_gainIntegral = value;
 }
 
-void CloseLoopControl::setGainDerivatif(float value)
+void ClosedLoopControl::setGainDerivatif(float value)
 {
     m_gainDerivatif = value;
 }
 
-void CloseLoopControl::setMeasurementUnit(unsigned char value)
+void ClosedLoopControl::setMeasurementUnit(unsigned char value)
 {
     m_measurementUnit = value;
 }
 
-void CloseLoopControl::setSetpoint(float value)
+void ClosedLoopControl::setSetpoint(float value)
 {
     value = value/static_cast<float>(100.0);
     if(m_measurementUnit)
@@ -86,12 +86,12 @@ void CloseLoopControl::setSetpoint(float value)
         m_setpoint = value;
 }
 
-void CloseLoopControl::setSetpointDcy(short value)
+void ClosedLoopControl::setSetpointDcy(short value)
 {
     m_setpointDcy = value;
 }
 
-void CloseLoopControl::setProcessVariable(float value)
+void ClosedLoopControl::setProcessVariable(float value)
 {
     if(m_measurementUnit)
         m_processVariable = fpm2Mps(static_cast<short>(value));
@@ -99,27 +99,27 @@ void CloseLoopControl::setProcessVariable(float value)
         m_processVariable = value;
 }
 
-void CloseLoopControl::setSamplingPeriod(float value)
+void ClosedLoopControl::setSamplingPeriod(float value)
 {
     m_samplingPeriod = (value / static_cast<float>(1000.0));
 }
 
-void CloseLoopControl::setActualFanDutyCycle(float value)
+void ClosedLoopControl::setActualFanDutyCycle(float value)
 {
     m_actualDutyCycle = value;
 }
 
-bool CloseLoopControl::getDummyStateEnable() const
+bool ClosedLoopControl::getDummyStateEnable() const
 {
     return m_dummyStateEnable;
 }
 
-void CloseLoopControl::setDummyStateEnable(bool dummyStateEnable)
+void ClosedLoopControl::setDummyStateEnable(bool dummyStateEnable)
 {
     m_dummyStateEnable = dummyStateEnable;
 }
 
-void CloseLoopControl::pushBackTotalLastError(float value)
+void ClosedLoopControl::pushBackTotalLastError(float value)
 {
     for(short i=(LAST_ERR_COUNT_MAX-1); i>0; i--){
         m_lastError[i] = m_lastError[i-1];
@@ -127,7 +127,7 @@ void CloseLoopControl::pushBackTotalLastError(float value)
     m_lastError[0] = value;
 }
 
-float CloseLoopControl::getTotalLastError() const
+float ClosedLoopControl::getTotalLastError() const
 {
     float totalError = 0.0;
     for(short i=0; i<LAST_ERR_COUNT_MAX; i++)
@@ -135,7 +135,7 @@ float CloseLoopControl::getTotalLastError() const
     return totalError;
 }
 
-/// \brief CloseLoopControl::getOutputControl
+/// \brief ClosedLoopControl::getOutputControl
 /// \param index
 /// e(n) = SP - PV(n)
 /// COp = Kp * e(n)
@@ -156,7 +156,7 @@ float CloseLoopControl::getTotalLastError() const
 /// CO = Control Output Final
 /// //////////////////////////////////////////////////////////////////////////////////////////
 
-short CloseLoopControl::getOutputControl()
+short ClosedLoopControl::getOutputControl()
 {
     float e, le, tle, sp, pv, kp, ki, kd, ts, COp, COi, COd;
     float CO;
@@ -187,7 +187,7 @@ short CloseLoopControl::getOutputControl()
     return static_cast<short>(qRound(m_actualDutyCycle));
 }
 
-float CloseLoopControl::fpm2Mps(short value) const
+float ClosedLoopControl::fpm2Mps(short value) const
 {
     return static_cast<float>(value/196.85);
 }

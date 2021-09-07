@@ -860,16 +860,16 @@ class MachineData : public QObject
                //               WRITE setShippingModeEnable
                NOTIFY shippingModeEnableChanged)
 
-    /// Close Loop Enable
-    Q_PROPERTY(bool fanCloseLoopControlEnable
-               READ getFanCloseLoopControlEnable
-               //               WRITE setFanCloseLoopControlEnable
-               NOTIFY fanCloseLoopControlEnableChanged)
+    /// Closed Loop Enable
+    Q_PROPERTY(bool fanClosedLoopControlEnable
+               READ getFanClosedLoopControlEnable
+               //               WRITE setFanClosedLoopControlEnable
+               NOTIFY fanClosedLoopControlEnableChanged)
 
-    Q_PROPERTY(bool fanCloseLoopControlEnablePrevState
-               READ getFanFanCloseLoopControlEnablePrevState
-               //               WRITE setFanFanCloseLoopControlEnablePrevState
-               NOTIFY fanFanCloseLoopControlEnablePrevStateChanged)
+    Q_PROPERTY(bool fanClosedLoopControlEnablePrevState
+               READ getFanFanClosedLoopControlEnablePrevState
+               //               WRITE setFanFanClosedLoopControlEnablePrevState
+               NOTIFY fanFanClosedLoopControlEnablePrevStateChanged)
 
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
@@ -1565,18 +1565,18 @@ public:
     Q_INVOKABLE QStringList getSbcCurrentSystemInformation()const;
     void setSbcCurrentSystemInformation(QStringList sbcCurrentSystemInformation);
 
-    bool getFanCloseLoopControlEnable() const;
-    void setFanCloseLoopControlEnable(bool value);
-    bool getFanFanCloseLoopControlEnablePrevState() const;
-    void setFanFanCloseLoopControlEnablePrevState(bool value);
-    Q_INVOKABLE float getFanCloseLoopGainProportional(short index) const;
-    void setFanCloseLoopGainProportional(float value, short index);
-    Q_INVOKABLE float getFanCloseLoopGainIntegral(short index) const;
-    void setFanCloseLoopGainIntegral(float value, short index);
-    Q_INVOKABLE float getFanCloseLoopGainDerivatif(short index) const;
-    void setFanCloseLoopGainDerivatif(float value, short index);
-    Q_INVOKABLE int getFanCloseLoopSamplingTime() const;
-    void setFanCloseLoopSamplingTime(int value);
+    bool getFanClosedLoopControlEnable() const;
+    void setFanClosedLoopControlEnable(bool value);
+    bool getFanFanClosedLoopControlEnablePrevState() const;
+    void setFanFanClosedLoopControlEnablePrevState(bool value);
+    Q_INVOKABLE float getFanClosedLoopGainProportional(short index) const;
+    void setFanClosedLoopGainProportional(float value, short index);
+    Q_INVOKABLE float getFanClosedLoopGainIntegral(short index) const;
+    void setFanClosedLoopGainIntegral(float value, short index);
+    Q_INVOKABLE float getFanClosedLoopGainDerivatif(short index) const;
+    void setFanClosedLoopGainDerivatif(float value, short index);
+    Q_INVOKABLE int getFanClosedLoopSamplingTime() const;
+    void setFanClosedLoopSamplingTime(int value);
 
 
 public slots:
@@ -1846,12 +1846,12 @@ signals:
 
     void shippingModeEnableChanged(bool shippingModeEnable);
 
-    ///Close Loop
-    void fanCloseLoopControlEnableChanged(bool value);
-    void fanFanCloseLoopControlEnablePrevStateChanged(bool value);
-    //    void fanCloseLoopGainProportionalChanged(bool value);
-    //    void fanCloseLoopGainIntegralChanged(float value);
-    //    void fanCloseLoopGainDerivatifChanged(float value);
+    ///Closed Loop
+    void fanClosedLoopControlEnableChanged(bool value);
+    void fanFanClosedLoopControlEnablePrevStateChanged(bool value);
+    //    void fanClosedLoopGainProportionalChanged(bool value);
+    //    void fanClosedLoopGainIntegralChanged(float value);
+    //    void fanClosedLoopGainDerivatifChanged(float value);
 
 private:
     ///
@@ -2180,12 +2180,12 @@ private:
     QString m_sbcCurrentSerialNumber;
     QStringList m_sbcCurrentSystemInformation;
 
-    bool m_fanCloseLoopControlEnable;
-    bool m_fanFanCloseLoopControlEnablePrevState;
-    float m_fanCloseLoopGainProportional[2];//Index 0 for Downflow, 1 for Inflow
-    float m_fanCloseLoopGainIntegral[2];
-    float m_fanCloseLoopGainDerivatif[2];
-    int m_fanCloseLoopSamplingTime;
+    bool m_fanClosedLoopControlEnable;
+    bool m_fanFanClosedLoopControlEnablePrevState;
+    float m_fanClosedLoopGainProportional[2];//Index 0 for Downflow, 1 for Inflow
+    float m_fanClosedLoopGainIntegral[2];
+    float m_fanClosedLoopGainDerivatif[2];
+    int m_fanClosedLoopSamplingTime;
 
 };
 

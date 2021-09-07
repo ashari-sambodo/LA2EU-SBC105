@@ -95,72 +95,72 @@ void MachineData::setSbcCurrentSystemInformation(QStringList sbcCurrentSystemInf
     m_sbcCurrentSystemInformation = sbcCurrentSystemInformation;
 }
 
-bool MachineData::getFanCloseLoopControlEnable() const
+bool MachineData::getFanClosedLoopControlEnable() const
 {
-    return m_fanCloseLoopControlEnable;
+    return m_fanClosedLoopControlEnable;
 }
 
-void MachineData::setFanCloseLoopControlEnable(bool value)
+void MachineData::setFanClosedLoopControlEnable(bool value)
 {
-    if(m_fanCloseLoopControlEnable == value)return;
-    m_fanCloseLoopControlEnable = value;
-    emit fanCloseLoopControlEnableChanged(m_fanCloseLoopControlEnable);
+    if(m_fanClosedLoopControlEnable == value)return;
+    m_fanClosedLoopControlEnable = value;
+    emit fanClosedLoopControlEnableChanged(m_fanClosedLoopControlEnable);
 }
 
-bool MachineData::getFanFanCloseLoopControlEnablePrevState() const
+bool MachineData::getFanFanClosedLoopControlEnablePrevState() const
 {
-        return m_fanFanCloseLoopControlEnablePrevState;
+        return m_fanFanClosedLoopControlEnablePrevState;
 }
 
-void MachineData::setFanFanCloseLoopControlEnablePrevState(bool value)
+void MachineData::setFanFanClosedLoopControlEnablePrevState(bool value)
 {
-    if(m_fanFanCloseLoopControlEnablePrevState == value)return;
-    m_fanFanCloseLoopControlEnablePrevState = value;
-    emit fanFanCloseLoopControlEnablePrevStateChanged(m_fanFanCloseLoopControlEnablePrevState);
+    if(m_fanFanClosedLoopControlEnablePrevState == value)return;
+    m_fanFanClosedLoopControlEnablePrevState = value;
+    emit fanFanClosedLoopControlEnablePrevStateChanged(m_fanFanClosedLoopControlEnablePrevState);
 }
 
-float MachineData::getFanCloseLoopGainProportional(short index) const
+float MachineData::getFanClosedLoopGainProportional(short index) const
 {
-    return m_fanCloseLoopGainProportional[index];
+    return m_fanClosedLoopGainProportional[index];
 }
 
-void MachineData::setFanCloseLoopGainProportional(float value, short index)
+void MachineData::setFanClosedLoopGainProportional(float value, short index)
 {
-    if(m_fanCloseLoopGainProportional[index] == value)return;
-    m_fanCloseLoopGainProportional[index] = value;
+    if(m_fanClosedLoopGainProportional[index] == value)return;
+    m_fanClosedLoopGainProportional[index] = value;
 }
 
-float MachineData::getFanCloseLoopGainIntegral(short index) const
+float MachineData::getFanClosedLoopGainIntegral(short index) const
 {
-    return m_fanCloseLoopGainIntegral[index];
+    return m_fanClosedLoopGainIntegral[index];
 }
 
-void MachineData::setFanCloseLoopGainIntegral(float value, short index)
+void MachineData::setFanClosedLoopGainIntegral(float value, short index)
 {
-    if(m_fanCloseLoopGainIntegral[index] == value)return;
-    m_fanCloseLoopGainIntegral[index] = value;
+    if(m_fanClosedLoopGainIntegral[index] == value)return;
+    m_fanClosedLoopGainIntegral[index] = value;
 }
 
-float MachineData::getFanCloseLoopGainDerivatif(short index) const
+float MachineData::getFanClosedLoopGainDerivatif(short index) const
 {
-    return m_fanCloseLoopGainDerivatif[index];
+    return m_fanClosedLoopGainDerivatif[index];
 }
 
-void MachineData::setFanCloseLoopGainDerivatif(float value, short index)
+void MachineData::setFanClosedLoopGainDerivatif(float value, short index)
 {
-    if(m_fanCloseLoopGainDerivatif[index] == value)return;
-    m_fanCloseLoopGainDerivatif[index] = value;
+    if(m_fanClosedLoopGainDerivatif[index] == value)return;
+    m_fanClosedLoopGainDerivatif[index] = value;
 }
 
-int MachineData::getFanCloseLoopSamplingTime() const
+int MachineData::getFanClosedLoopSamplingTime() const
 {
-    return m_fanCloseLoopSamplingTime;
+    return m_fanClosedLoopSamplingTime;
 }
 
-void MachineData::setFanCloseLoopSamplingTime(int value)
+void MachineData::setFanClosedLoopSamplingTime(int value)
 {
-    if(m_fanCloseLoopSamplingTime == value)return;
-    m_fanCloseLoopSamplingTime = value;
+    if(m_fanClosedLoopSamplingTime == value)return;
+    m_fanClosedLoopSamplingTime = value;
 }
 
 QString MachineData::getSbcSerialNumber() const

@@ -117,9 +117,9 @@ ViewApp {
                 //                    //console.debug("StackView.Active");
                 /// set back operation mode
                 MachineAPI.setOperationPreviousMode();
-                MachineAPI.setFanCloseLoopControlEnable(MachineData.fanCloseLoopControlEnablePrevState)
-                if(MachineData.fanCloseLoopControlEnablePrevState)
-                    MachineAPI.setFanCloseLoopControlEnablePrevState(false)
+                MachineAPI.setFanClosedLoopControlEnable(MachineData.fanClosedLoopControlEnablePrevState)
+                if(MachineData.fanClosedLoopControlEnablePrevState)
+                    MachineAPI.setFanClosedLoopControlEnablePrevState(false)
             }
 
             /// onPause
