@@ -29,8 +29,8 @@ void DeviceAnalogCom::routineTask(int parameter)
 #ifdef QT_DEBUG
     if(m_dummyStateEnable){
         ival = stateToAdc(m_dummyState);
-        qDebug() << "DeviceAnalogCom::m_dummyState " << m_dummyState;
-        qDebug() << "DeviceAnalogCom::ival " << ival;
+        //        qDebug() << "DeviceAnalogCom::m_dummyState " << m_dummyState;
+        //        qDebug() << "DeviceAnalogCom::ival " << ival;
     }
     //    qDebug() << "DeviceAnalogCom::m_dummyState " << m_dummyState;
     //    qDebug() << "DeviceAnalogCom::ival " << ival;

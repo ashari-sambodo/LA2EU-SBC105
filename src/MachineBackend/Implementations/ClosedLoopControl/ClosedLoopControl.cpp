@@ -10,7 +10,7 @@ ClosedLoopControl::ClosedLoopControl(QObject *parent)
 
     m_gainProportional = 0.0;
     m_gainIntegral = 0.0;
-    m_gainDerivatif = 0.0;
+    m_gainDerivative = 0.0;
     m_error = 0.0;
 
     for(unsigned char j=0; j < LAST_ERR_COUNT_MAX; j++)
@@ -67,9 +67,9 @@ void ClosedLoopControl::setGainIntegral(float value)
     m_gainIntegral = value;
 }
 
-void ClosedLoopControl::setGainDerivatif(float value)
+void ClosedLoopControl::setGainDerivative(float value)
 {
-    m_gainDerivatif = value;
+    m_gainDerivative = value;
 }
 
 void ClosedLoopControl::setMeasurementUnit(unsigned char value)
@@ -148,11 +148,11 @@ float ClosedLoopControl::getTotalLastError() const
 /// PV = Process Variable / Actual velocity (feedback)
 /// Kp = Gain Proportional
 /// Ki = Gain Integral
-/// Kd = Gain Derivatif
+/// Kd = Gain Derivative
 /// Ts = Time sampling used (period between n and n-1)
 /// COp = Control Output Proportional
 /// COi = Control Output Integral
-/// COd = Control Output Derivatif
+/// COd = Control Output Derivative
 /// CO = Control Output Final
 /// //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -168,7 +168,7 @@ short ClosedLoopControl::getOutputControl()
     tle = getTotalLastError();
     kp = m_gainProportional;
     ki = m_gainIntegral;
-    kd = m_gainDerivatif;
+    kd = m_gainDerivative;
     ts = m_samplingPeriod;
     COp = kp * e;
     COi = ki * ts * tle;
@@ -177,12 +177,12 @@ short ClosedLoopControl::getOutputControl()
 
     m_actualDutyCycle += CO;
 
-    qDebug() << "Sp: " << sp <<"Pv:"<< pv;
-    qDebug() << "Error: " << e;
-    qDebug() << "Kp:" << kp <<"Ki:" << ki << "Kd:" << kd;
-    qDebug() << "CO:" << CO << "from" << COp << COi << COd;
-    qDebug() << "Dcy nom:" << m_setpointDcy << "actual:" << m_actualDutyCycle;
-    qDebug() << "OutputControl:" << m_actualDutyCycle;
+    //    qDebug() << "Sp: " << sp <<"Pv:"<< pv;
+    //    qDebug() << "Error: " << e;
+    //    qDebug() << "Kp:" << kp <<"Ki:" << ki << "Kd:" << kd;
+    //    qDebug() << "CO:" << CO << "from" << COp << COi << COd;
+    //    qDebug() << "Dcy nom:" << m_setpointDcy << "actual:" << m_actualDutyCycle;
+    //    qDebug() << "OutputControl:" << m_actualDutyCycle;
 
     return static_cast<short>(qRound(m_actualDutyCycle));
 }

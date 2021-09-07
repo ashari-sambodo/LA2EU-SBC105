@@ -141,15 +141,15 @@ void MachineData::setFanClosedLoopGainIntegral(float value, short index)
     m_fanClosedLoopGainIntegral[index] = value;
 }
 
-float MachineData::getFanClosedLoopGainDerivatif(short index) const
+float MachineData::getFanClosedLoopGainDerivative(short index) const
 {
-    return m_fanClosedLoopGainDerivatif[index];
+    return m_fanClosedLoopGainDerivative[index];
 }
 
-void MachineData::setFanClosedLoopGainDerivatif(float value, short index)
+void MachineData::setFanClosedLoopGainDerivative(float value, short index)
 {
-    if(m_fanClosedLoopGainDerivatif[index] == value)return;
-    m_fanClosedLoopGainDerivatif[index] = value;
+    if(m_fanClosedLoopGainDerivative[index] == value)return;
+    m_fanClosedLoopGainDerivative[index] = value;
 }
 
 int MachineData::getFanClosedLoopSamplingTime() const
@@ -161,6 +161,17 @@ void MachineData::setFanClosedLoopSamplingTime(int value)
 {
     if(m_fanClosedLoopSamplingTime == value)return;
     m_fanClosedLoopSamplingTime = value;
+}
+
+int MachineData::getFanClosedLoopSetpoint(short index) const
+{
+    return m_fanClosedLoopSetpoint[index];
+}
+
+void MachineData::setFanClosedLoopSetpoint(int value, short index)
+{
+    if(m_fanClosedLoopSetpoint[index] == value)return;
+    m_fanClosedLoopSetpoint[index] = value;
 }
 
 QString MachineData::getSbcSerialNumber() const
@@ -1412,6 +1423,18 @@ void MachineData::setWarmingUpActive(bool warmingUpActive)
 
     m_warmingUpActive = warmingUpActive;
     emit warmingUpActiveChanged(m_warmingUpActive);
+}
+
+bool MachineData::getWarmingUpExecuted() const
+{
+    return m_warmingUpStateExecuted;
+}
+
+void MachineData::setWarmingUpExecuted(bool warmingUpExecuted)
+{
+    if(m_warmingUpStateExecuted == warmingUpExecuted) return;
+    m_warmingUpStateExecuted = warmingUpExecuted;
+    emit warmingUpExecutedChanged(m_warmingUpStateExecuted);
 }
 
 void MachineData::setWarmingUpTime(int warmingUpTime)

@@ -22,7 +22,7 @@ public:
     void setControlEnable(bool value);
     void setGainProportional(float value);
     void setGainIntegral(float value);
-    void setGainDerivatif(float value);
+    void setGainDerivative(float value);
 
     void setMeasurementUnit(unsigned char value);
     void setSetpoint(float value);
@@ -49,7 +49,7 @@ private:
     bool m_controlEnable = false;
     float m_gainProportional;
     float m_gainIntegral;
-    float m_gainDerivatif;
+    float m_gainDerivative;
     float m_error;//current error
     float m_lastError[LAST_ERR_COUNT_MAX];//previousError
     short m_outputControl;//in duty cycle(%)

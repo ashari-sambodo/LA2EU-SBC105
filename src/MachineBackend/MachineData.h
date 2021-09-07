@@ -496,6 +496,11 @@ class MachineData : public QObject
                //               WRITE setWarmingUpRunning
                NOTIFY warmingUpActiveChanged)
     ///
+    Q_PROPERTY(bool warmingUpExecuted
+               READ getWarmingUpExecuted
+               //               WRITE setWarmingUpExecuted
+               NOTIFY warmingUpExecutedChanged)
+    ///
     Q_PROPERTY(int warmingUpTime
                READ getWarmingUpTime
                //               WRITE setWarmingUpTime
@@ -1323,6 +1328,8 @@ public:
     ///WARMING-UP
     bool getWarmingUpActive() const;
     void setWarmingUpActive(bool warmingUpActive);
+    bool getWarmingUpExecuted() const;
+    void setWarmingUpExecuted(bool warmingUpExecuted);
     ///
     int getWarmingUpTime() const;
     void setWarmingUpTime(int warmingUpTime);
@@ -1573,11 +1580,12 @@ public:
     void setFanClosedLoopGainProportional(float value, short index);
     Q_INVOKABLE float getFanClosedLoopGainIntegral(short index) const;
     void setFanClosedLoopGainIntegral(float value, short index);
-    Q_INVOKABLE float getFanClosedLoopGainDerivatif(short index) const;
-    void setFanClosedLoopGainDerivatif(float value, short index);
+    Q_INVOKABLE float getFanClosedLoopGainDerivative(short index) const;
+    void setFanClosedLoopGainDerivative(float value, short index);
     Q_INVOKABLE int getFanClosedLoopSamplingTime() const;
     void setFanClosedLoopSamplingTime(int value);
-
+    Q_INVOKABLE int getFanClosedLoopSetpoint(short index) const;
+    void setFanClosedLoopSetpoint(int value, short index);
 
 public slots:
     void initSingleton();
@@ -1714,6 +1722,7 @@ signals:
     void sashWindowMotorizeInstalledChanged(bool sashWindowMotorizeInstalled);
 
     void warmingUpActiveChanged(bool warmingUpRunning);
+    void warmingUpExecutedChanged(bool warmingUpExecuted);
     void warmingUpTimeChanged(int warmingUpTime);
     void warmingUpCountdownChanged(int warmingUpCountdown);
 
@@ -1851,7 +1860,7 @@ signals:
     void fanFanClosedLoopControlEnablePrevStateChanged(bool value);
     //    void fanClosedLoopGainProportionalChanged(bool value);
     //    void fanClosedLoopGainIntegralChanged(float value);
-    //    void fanClosedLoopGainDerivatifChanged(float value);
+    //    void fanClosedLoopGainDerivativeChanged(float value);
 
 private:
     ///
@@ -2065,6 +2074,7 @@ private:
 
     ///WARMING-UP
     bool m_warmingUpActive = false;
+    bool m_warmingUpStateExecuted = false;
     int  m_warmingUpTime = 0;
     int  m_warmingUpCountdown = 0;
 
@@ -2184,8 +2194,9 @@ private:
     bool m_fanFanClosedLoopControlEnablePrevState;
     float m_fanClosedLoopGainProportional[2];//Index 0 for Downflow, 1 for Inflow
     float m_fanClosedLoopGainIntegral[2];
-    float m_fanClosedLoopGainDerivatif[2];
+    float m_fanClosedLoopGainDerivative[2];
     int m_fanClosedLoopSamplingTime;
+    int m_fanClosedLoopSetpoint[2];
 
 };
 

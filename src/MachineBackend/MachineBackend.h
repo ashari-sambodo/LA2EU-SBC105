@@ -327,10 +327,10 @@ public slots:
     void setFanClosedLoopSamplingTime(int value);
     void setFanClosedLoopGainIntegralDfa(float value);
     void setFanClosedLoopGainProportionalDfa(float value);
-    void setFanClosedLoopGainDerivatifDfa(float value);
+    void setFanClosedLoopGainDerivativeDfa(float value);
     void setFanClosedLoopGainIntegralIfa(float value);
     void setFanClosedLoopGainProportionalIfa(float value);
-    void setFanClosedLoopGainDerivatifIfa(float value);
+    void setFanClosedLoopGainDerivativeIfa(float value);
 
 signals:
     void hasStopped();

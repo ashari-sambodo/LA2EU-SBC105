@@ -1305,10 +1305,10 @@ void MachineBackend::setup()
         pData->setFanClosedLoopSamplingTime(samplingTime);
         pData->setFanClosedLoopGainProportional(dfaGainP, Downflow);
         pData->setFanClosedLoopGainIntegral(dfaGainI, Downflow);
-        pData->setFanClosedLoopGainDerivatif(dfaGainD, Downflow);
+        pData->setFanClosedLoopGainDerivative(dfaGainD, Downflow);
         pData->setFanClosedLoopGainProportional(ifaGainP, Inflow);
         pData->setFanClosedLoopGainIntegral(ifaGainI, Inflow);
-        pData->setFanClosedLoopGainDerivatif(ifaGainD, Inflow);
+        pData->setFanClosedLoopGainDerivative(ifaGainD, Inflow);
 
         ///MODBUS
         _setModbusRegHoldingValue(modbusRegisterAddress.fanClosedLoopControl.addr, static_cast<ushort>(enable));
@@ -1321,14 +1321,14 @@ void MachineBackend::setup()
         m_pDfaFanClosedLoopControl->setControlEnable(pData->getFanClosedLoopControlEnable());
         m_pDfaFanClosedLoopControl->setGainProportional(pData->getFanClosedLoopGainProportional(Downflow));
         m_pDfaFanClosedLoopControl->setGainIntegral(pData->getFanClosedLoopGainIntegral(Downflow));
-        m_pDfaFanClosedLoopControl->setGainDerivatif(pData->getFanClosedLoopGainDerivatif(Downflow));
+        m_pDfaFanClosedLoopControl->setGainDerivative(pData->getFanClosedLoopGainDerivative(Downflow));
         m_pDfaFanClosedLoopControl->setMeasurementUnit(static_cast<uchar>(pData->getMeasurementUnit()));
         m_pDfaFanClosedLoopControl->setSamplingPeriod(static_cast<float>(pData->getFanClosedLoopSamplingTime()));
 
         /// CONNECTION
         connect(m_pDfaFanClosedLoopControl.data(), &ClosedLoopControl::outputControlChanged,
                 this, [&](short dutyCycle){
-            qDebug() << "m_pDfaFanClosedLoopControl dutyCycle" << dutyCycle;
+            //qDebug() << "m_pDfaFanClosedLoopControl dutyCycle" << dutyCycle;
             _setFanPrimaryDutyCycle(dutyCycle);
         });
     }
@@ -1339,14 +1339,14 @@ void MachineBackend::setup()
         m_pIfaFanClosedLoopControl->setControlEnable(pData->getFanClosedLoopControlEnable());
         m_pIfaFanClosedLoopControl->setGainProportional(pData->getFanClosedLoopGainProportional(Inflow));
         m_pIfaFanClosedLoopControl->setGainIntegral(pData->getFanClosedLoopGainIntegral(Inflow));
-        m_pIfaFanClosedLoopControl->setGainDerivatif(pData->getFanClosedLoopGainDerivatif(Inflow));
+        m_pIfaFanClosedLoopControl->setGainDerivative(pData->getFanClosedLoopGainDerivative(Inflow));
         m_pIfaFanClosedLoopControl->setMeasurementUnit(static_cast<uchar>(pData->getMeasurementUnit()));
         m_pIfaFanClosedLoopControl->setSamplingPeriod(static_cast<float>(pData->getFanClosedLoopSamplingTime()));
 
         /// CONNECTION
         connect(m_pIfaFanClosedLoopControl.data(), &ClosedLoopControl::outputControlChanged,
                 this, [&](short dutyCycle){
-            qDebug() << "m_pIfaFanClosedLoopControl dutyCycle" << dutyCycle;
+            //qDebug() << "m_pIfaFanClosedLoopControl dutyCycle" << dutyCycle;
             _setFanInflowDutyCycle(dutyCycle);
         });
     }
@@ -2194,6 +2194,14 @@ void MachineBackend::setup()
             }
         }
     }
+    /// General connection for Debugging
+    QObject::connect(pData, &MachineData::fanStateChanged,
+                     this, [&](short value){
+        if(value == MachineEnums::FAN_STATE_OFF) qDebug() << "***** FAN OFF *****";
+        else if(value == MachineEnums::FAN_STATE_ON) qDebug() << "***** FAN ON *****";
+        else if(value == MachineEnums::FAN_STATE_STANDBY) qDebug() << "***** FAN STANDBY *****";
+        else if(value == MachineEnums::FAN_STATE_DIFFERENT) qDebug() << "***** FAN DIFFERENT *****";
+    });
 
     /// Buzzer indication
     {
@@ -2397,7 +2405,7 @@ void MachineBackend::deallocate()
 
 void MachineBackend::_onTriggeredEventClosedLoopControl()
 {
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    //qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     m_pIfaFanClosedLoopControl->routineTask();
     m_pDfaFanClosedLoopControl->routineTask();
 }
@@ -4642,6 +4650,8 @@ void MachineBackend::_initAirflowCalibartionFactory()
     m_pAirflowInflow->setVelocityPoint(2, ifaVelPointNom);
     m_pAirflowInflow->initScope();
     /// CLOSE LOOP CONTROL
+    pData->setFanClosedLoopSetpoint(dfaVelPointNom, Downflow);
+    pData->setFanClosedLoopSetpoint(ifaVelPointNom, Inflow);
     m_pDfaFanClosedLoopControl->setSetpoint(static_cast<short>(dfaVelPointNom));
     m_pDfaFanClosedLoopControl->setSetpointDcy(static_cast<short>(fanDfaNomDutyCycle));
     m_pIfaFanClosedLoopControl->setSetpoint(static_cast<short>(ifaVelPointNom));
@@ -4741,6 +4751,8 @@ void MachineBackend::_initAirflowCalibartionField()
     m_pAirflowInflow->setVelocityPoint(2, ifaVelPointNom);
     m_pAirflowInflow->initScope();
     /// CLOSE LOOP CONTROL
+    pData->setFanClosedLoopSetpoint(dfaVelPointNom, Downflow);
+    pData->setFanClosedLoopSetpoint(ifaVelPointNom, Inflow);
     m_pDfaFanClosedLoopControl->setSetpoint(static_cast<short>(dfaVelPointNom));
     m_pDfaFanClosedLoopControl->setSetpointDcy(static_cast<short>(fanDfaNomDutyCycle));
     m_pIfaFanClosedLoopControl->setSetpoint(static_cast<short>(ifaVelPointNom));
@@ -4758,6 +4770,7 @@ void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
         pData->setFanPrimaryState(MachineEnums::FAN_STATE_OFF);
         /// Set the Fan State to OFF if one of the blowers is Off
         pData->setFanState(MachineEnums::FAN_STATE_OFF);
+        pData->setWarmingUpExecuted(false); //reset Warming up executed
 
         _cancelWarmingUpTime();
         _cancelPostPurgingTime();
@@ -4778,10 +4791,13 @@ void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
     else if (value == pData->getFanPrimaryStandbyDutyCycle()) {
         pData->setFanPrimaryState(MachineEnums::FAN_STATE_STANDBY);
         /// Check Another Fan State
-        if(pData->getFanInflowState() == MachineEnums::FAN_STATE_STANDBY && pData->getFanState() != MachineEnums::FAN_STATE_STANDBY)
+        if(pData->getFanInflowState() == MachineEnums::FAN_STATE_STANDBY)
             pData->setFanState(MachineEnums::FAN_STATE_STANDBY);
         else
             pData->setFanState(MachineEnums::FAN_STATE_DIFFERENT);
+
+        pData->setWarmingUpExecuted(false); //reset Warming up executed
+
         /// Disactivate ClosedLoopControl when in Standby Mode
         if(m_timerEventForClosedLoopControl->isActive())
             m_timerEventForClosedLoopControl->stop();
@@ -4789,7 +4805,7 @@ void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
     else {
         pData->setFanPrimaryState(MachineEnums::FAN_STATE_ON);
         /// Check Another Fan State
-        if(pData->getFanInflowState() == MachineEnums::FAN_STATE_ON && pData->getFanState() != MachineEnums::FAN_STATE_ON)
+        if(pData->getFanInflowState() == MachineEnums::FAN_STATE_ON)
             pData->setFanState(MachineEnums::FAN_STATE_ON);
         else
             pData->setFanState(MachineEnums::FAN_STATE_DIFFERENT);
@@ -4799,9 +4815,11 @@ void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
 
             if(!isMaintenanceModeActive()) {
                 if(isAirflowHasCalibrated()) {
-                    if(!pData->getWarmingUpActive())
+                    if(!pData->getWarmingUpActive() && !pData->getWarmingUpExecuted())
+                    {
                         _startWarmingUpTime();
-                    _startPowerOutageCapture();
+                        _startPowerOutageCapture();
+                    }
                 }
             }
         }
@@ -4842,6 +4860,8 @@ void MachineBackend::_onFanInflowActualDucyChanged(short value)
         /// Set the Fan State to OFF if one of the blowers is Off
         pData->setFanState(MachineEnums::FAN_STATE_OFF);
 
+        pData->setWarmingUpExecuted(false); //reset Warming up executed
+
         _cancelWarmingUpTime();
         _cancelPostPurgingTime();
         _stopFanFilterLifeMeter();
@@ -4861,10 +4881,13 @@ void MachineBackend::_onFanInflowActualDucyChanged(short value)
     else if (value == pData->getFanInflowStandbyDutyCycle()) {
         pData->setFanInflowState(MachineEnums::FAN_STATE_STANDBY);
         /// Check Another Fan State
-        if(pData->getFanPrimaryState() == MachineEnums::FAN_STATE_STANDBY && pData->getFanState() != MachineEnums::FAN_STATE_STANDBY)
+        if(pData->getFanPrimaryState() == MachineEnums::FAN_STATE_STANDBY)
             pData->setFanState(MachineEnums::FAN_STATE_STANDBY);
         else
             pData->setFanState(MachineEnums::FAN_STATE_DIFFERENT);
+
+        pData->setWarmingUpExecuted(false); //reset Warming up executed
+
         /// Disactivate ClosedLoopControl when in Standby Mode
         if(m_timerEventForClosedLoopControl->isActive())
             m_timerEventForClosedLoopControl->stop();
@@ -4872,7 +4895,7 @@ void MachineBackend::_onFanInflowActualDucyChanged(short value)
     else {
         pData->setFanInflowState(MachineEnums::FAN_STATE_ON);
         /// Check Another Fan State
-        if(pData->getFanPrimaryState() == MachineEnums::FAN_STATE_ON && pData->getFanState() != MachineEnums::FAN_STATE_ON)
+        if(pData->getFanPrimaryState() == MachineEnums::FAN_STATE_ON)
             pData->setFanState(MachineEnums::FAN_STATE_ON);
         else
             pData->setFanState(MachineEnums::FAN_STATE_DIFFERENT);
@@ -4882,9 +4905,11 @@ void MachineBackend::_onFanInflowActualDucyChanged(short value)
 
             if(!isMaintenanceModeActive()) {
                 if(isAirflowHasCalibrated()) {
-                    if(!pData->getWarmingUpActive())
+                    if(!pData->getWarmingUpActive() && !pData->getWarmingUpExecuted())
+                    {
                         _startWarmingUpTime();
-                    _startPowerOutageCapture();
+                        _startPowerOutageCapture();
+                    }
                 }
             }
         }
@@ -5316,6 +5341,7 @@ void MachineBackend::_onTimerEventWarmingUp()
         int seconds = pData->getWarmingUpTime();
         pData->setWarmingUpCountdown(seconds);
         pData->setWarmingUpActive(MachineEnums::DIG_STATE_ZERO);
+        pData->setWarmingUpExecuted(true);
 
         /// IF IN NORMAL MODE, AFTER WARMING UP COMPLETE, TURN ON LAMP AUTOMATICALLY
         bool normalMode = pData->getOperationMode() == MachineEnums::MODE_OPERATION_NORMAL;
@@ -6713,14 +6739,14 @@ void MachineBackend::setFanClosedLoopSamplingTime(int value)
     settings.setValue(SKEY_FAN_CLOSE_LOOP_STIME, value);
 
     if(m_timerEventForClosedLoopControl->isActive()){
-        m_timerEventForClosedLoopControl->isActive();
+        m_timerEventForClosedLoopControl->stop();
         needToActivate = true;
     }
 
     m_pDfaFanClosedLoopControl->setSamplingPeriod(static_cast<float>(value));
     m_pIfaFanClosedLoopControl->setSamplingPeriod(static_cast<float>(value));
     /// Adjust timer event for m_timerEventForClosedLoopControl
-    m_timerEventForClosedLoopControl->setInterval(std::chrono::milliseconds(value));
+    m_timerEventForClosedLoopControl->setInterval(std::chrono::milliseconds(static_cast<int>(value)));
     if(needToActivate)
         m_timerEventForClosedLoopControl->start();
 }
@@ -6743,12 +6769,12 @@ void MachineBackend::setFanClosedLoopGainIntegralDfa(float value)
     settings.setValue(SKEY_FAN_CLOSE_LOOP_GAIN_I + QString::number(Downflow), value);
 }
 
-void MachineBackend::setFanClosedLoopGainDerivatifDfa(float value)
+void MachineBackend::setFanClosedLoopGainDerivativeDfa(float value)
 {
     qDebug() << metaObject()->className() << __func__  << thread();
 
-    pData->setFanClosedLoopGainDerivatif(value, Downflow);
-    m_pDfaFanClosedLoopControl->setGainDerivatif(value);
+    pData->setFanClosedLoopGainDerivative(value, Downflow);
+    m_pDfaFanClosedLoopControl->setGainDerivative(value);
     QSettings settings;
     settings.setValue(SKEY_FAN_CLOSE_LOOP_GAIN_D + QString::number(Downflow), value);
 }
@@ -6773,12 +6799,12 @@ void MachineBackend::setFanClosedLoopGainIntegralIfa(float value)
     settings.setValue(SKEY_FAN_CLOSE_LOOP_GAIN_I + QString::number(Inflow), value);
 }
 
-void MachineBackend::setFanClosedLoopGainDerivatifIfa(float value)
+void MachineBackend::setFanClosedLoopGainDerivativeIfa(float value)
 {
     qDebug() << metaObject()->className() << __func__  << thread();
 
-    pData->setFanClosedLoopGainDerivatif(value, Inflow);
-    m_pIfaFanClosedLoopControl->setGainDerivatif(value);
+    pData->setFanClosedLoopGainDerivative(value, Inflow);
+    m_pIfaFanClosedLoopControl->setGainDerivative(value);
     QSettings settings;
     settings.setValue(SKEY_FAN_CLOSE_LOOP_GAIN_D + QString::number(Inflow), value);
 }
@@ -7024,7 +7050,7 @@ void MachineBackend::_machineState()
                             if (isTempAmbientNormal()){
                                 if (!pData->getWarmingUpActive()){
                                     alarmAirflowAvailable = true;
-                                    //                                if(!pData->dataPostpurgeState()){
+                                    //if(!pData->dataPostpurgeState()){
 
                                     //SET IF ACTUAL AF IS LOWER THAN MINIMUM, OTHERWISE UNSET
                                     bool ifaTooLow = false;
@@ -7034,9 +7060,9 @@ void MachineBackend::_machineState()
                                     dfaTooLow = pData->getDownflowVelocity() <= pData->getDownflowLowLimitVelocity();
                                     dfaTooHigh = pData->getDownflowVelocity() >= pData->getDownflowHighLimitVelocity();
 
-                                    qDebug() << "ifaTooLow: " << ifaTooLow << pData->getInflowVelocity() << pData->getInflowLowLimitVelocity();
-                                    qDebug() << "dfaTooLow: " << dfaTooLow << pData->getDownflowVelocity() << pData->getDownflowLowLimitVelocity();
-                                    qDebug() << "dfaTooHigh: " << dfaTooHigh << pData->getDownflowVelocity() << pData->getDownflowHighLimitVelocity();
+                                    //qDebug() << "ifaTooLow: " << ifaTooLow << pData->getInflowVelocity() << pData->getInflowLowLimitVelocity();
+                                    //qDebug() << "dfaTooLow: " << dfaTooLow << pData->getDownflowVelocity() << pData->getDownflowLowLimitVelocity();
+                                    //qDebug() << "dfaTooHigh: " << dfaTooHigh << pData->getDownflowVelocity() << pData->getDownflowHighLimitVelocity();
                                     /// INFLOW
                                     if(ifaTooLow){
                                         if(!isAlarmActive(pData->getAlarmInflowLow())){
