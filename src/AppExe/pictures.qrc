@@ -226,10 +226,8 @@
         <file>UI/Pictures/menu/dfa_max_measure.png</file>
         <file>UI/Pictures/menu/fan-auto-control.png</file>
         <file>UI/Pictures/tuning.png</file>
-        <file>UI/Pictures/pid/Effect of increasing a parameter independently.png</file>
-        <file>UI/Pictures/pid/PID_Compensation_Animated.gif</file>
-        <file>UI/Pictures/pid/Respons PID Controller_new.png</file>
-        <file>UI/Pictures/pid/text for gif.txt</file>
+        <file>UI/Pictures/pid/Respons_PID_Controller.png</file>
         <file>UI/Pictures/pid/small-info.png</file>
+        <file>UI/Pictures/pid/tune-help.png</file>
     </qresource>
 </RCC>

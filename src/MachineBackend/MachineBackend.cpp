@@ -6704,7 +6704,7 @@ void MachineBackend::setFanClosedLoopControlEnable(bool value)
             //_setFanPrimaryDutyCycle(dutyCycle);
         }
     }else{
-        if(isFanStateNominal() && !pData->getWarmingUpActive()){
+        if(isFanStateNominal() && !pData->getWarmingUpActive() && isAirflowHasCalibrated()){
             /// Set Initial Actual Fan Duty Cycle before m_timerEventForClosedLoopControl is activated
             m_pDfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanPrimaryDutyCycle());
             m_pIfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanInflowDutyCycle());

@@ -188,7 +188,7 @@ ViewApp {
                             text: qsTr("Tuning")
 
                             onClicked: {
-                                var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/ClosedLoopTunning.qml", {"message":""})
+                                var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTunningParameters.qml", {"message":""})
                                 startView(intent)
                             }//
                         }//

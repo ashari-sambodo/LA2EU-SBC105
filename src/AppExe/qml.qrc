@@ -152,6 +152,7 @@
         <file>UI/Pages/SoftwareFailedStartPage/DateTimeSettingPage.qml</file>
         <file>UI/Pages/SystemInformationPage/SystemInformationPage.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/FanClosedLoopControlPage.qml</file>
-        <file>UI/Pages/FanClosedLoopControlPage/ClosedLoopTunning.qml</file>
+        <file>UI/Pages/FanClosedLoopControlPage/Pages/CloseLoopTuningHelp.qml</file>
+        <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTunningParameters.qml</file>
     </qresource>
 </RCC>
