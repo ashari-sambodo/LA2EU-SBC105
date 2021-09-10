@@ -115,6 +115,5 @@
         <file>UI/CusCom/ScrollDownNotifApp.qml</file>
         <file>UI/CusCom/ContentItemApp.qml</file>
         <file>UI/CusCom/CheckBoxApp.qml</file>
-        <file>UI/CusCom/CabinetProfilesApp/CabinetProfilesA2_copy.qml</file>
     </qresource>
 </RCC>
