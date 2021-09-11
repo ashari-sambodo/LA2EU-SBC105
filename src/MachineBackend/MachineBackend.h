@@ -211,7 +211,7 @@ public slots:
                                      int total, int average,
                                      int volume, int velocity,
                                      int ducy, int rpm,
-                                     int fullField);
+                                     int fullField = 0);
     void saveInflowMeaDimMinimumGrid(const QJsonArray grid,
                                      int total, int average,
                                      int volume, int velocity,
@@ -247,17 +247,17 @@ public slots:
                                     int velocity,
                                     int velocityLowest, int velocityHighest,
                                     int deviation, int deviationp,
-                                    int fullField, int ducy, int rpm);
+                                     int ducy, int rpm, int fullField = 0);
     void saveDownflowMeaMinimumGrid(const QJsonArray grid, int total,
                                     int velocity,
                                     int velocityLowest, int velocityHighest,
                                     int deviation, int deviationp,
-                                    int fullField, int ducy, int rpm);
+                                    int ducy, int rpm);
     void saveDownflowMeaMaximumGrid(const QJsonArray grid, int total,
                                     int velocity,
                                     int velocityLowest, int velocityHighest,
                                     int deviation, int deviationp,
-                                    int fullField, int ducy, int rpm);
+                                    int ducy, int rpm);
     //
     void initAirflowCalibrationStatus(short value);
 

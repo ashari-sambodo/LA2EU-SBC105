@@ -167,18 +167,6 @@ ViewApp {
 
                                             property int lastIndexAccessed: 0
 
-                                            //                                        Connections {
-                                            //                                            target: gridLoader.item
-
-                                            //                                            function onClickedItem(index, value, valueStrf) {
-                                            //                                                //                                        //console.debug(index)
-                                            //                                                bufferTextInput.text = valueStrf
-                                            //                                                bufferTextInput.lastIndexAccessed = index
-
-                                            //                                                KeyboardOnScreenCaller.openNumpad(bufferTextInput, "P-" + (index + 1))
-                                            //                                            }//
-                                            //                                        }//
-
                                             onAccepted: {
                                                 //                                                //console.debug(text)
                                                 let valid = Number(text)
@@ -298,89 +286,188 @@ ViewApp {
                             anchors.verticalCenter: parent.verticalCenter
                             spacing: 5
 
-                            Rectangle {
-                                //                                anchors.verticalCenter: parent.verticalCenter
-                                width: rightContentItem.width
-                                height: rightContentItem.height / 3 - 5
-                                color: "#0F2952"
-                                border.color: "#dddddd"
-                                radius: 5
+                            Row{
+                                Rectangle {
+                                    //                                anchors.verticalCenter: parent.verticalCenter
+                                    width: rightContentItem.width/2
+                                    height: rightContentItem.height / 3 - 5
+                                    color: "#0F2952"
+                                    border.color: "#dddddd"
+                                    radius: 5
 
-                                ColumnLayout {
-                                    anchors.fill: parent
-                                    anchors.margins: 3
-                                    spacing: 1
+                                    ColumnLayout {
+                                        anchors.fill: parent
+                                        anchors.margins: 3
+                                        spacing: 1
 
-                                    TextApp {
-                                        font.pixelSize: 14
-                                        text: qsTr("Press here to adjust")
-                                    }
+                                        Item{
+                                            Layout.fillWidth: true
+                                            Layout.minimumHeight: 30
+                                            TextApp {
+                                                width: parent.width
+                                                height: parent.height
+                                                wrapMode: Text.WordWrap
+                                                font.pixelSize: 12
+                                                text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Downflow"))
+                                            }
+                                        }
 
-                                    Item {
-                                        Layout.fillWidth: true
-                                        Layout.fillHeight: true
+                                        Item {
+                                            Layout.fillWidth: true
+                                            Layout.fillHeight: true
 
-                                        Image {
-                                            id: fanImage
-                                            source: "qrc:/UI/Pictures/controll/Fan_W.png"
-                                            anchors.fill: parent
-                                            fillMode: Image.PreserveAspectFit
+                                            Image {
+                                                id: dfaFanImage
+                                                source: "qrc:/UI/Pictures/controll/Fan_W.png"
+                                                anchors.fill: parent
+                                                fillMode: Image.PreserveAspectFit
 
-                                            states: State {
-                                                name: "stateOn"
-                                                when: props.fanDutyCycleActual
-                                                PropertyChanges {
-                                                    target: fanImage
-                                                    source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                                states: State {
+                                                    name: "stateOn"
+                                                    when: props.dfaFanDutyCycleActual
+                                                    PropertyChanges {
+                                                        target: dfaFanImage
+                                                        source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                                    }//
                                                 }//
                                             }//
                                         }//
-                                    }//
 
-                                    TextApp {
-                                        text: "Dcy: " + props.fanDutyCycleActual
-                                    }//
+                                        TextApp {
+                                            text: "Dcy: " + props.dfaFanDutyCycleActual
+                                        }//
 
-                                    TextApp {
-                                        color: "#0F2952"
-                                        text: "RPM: " /*+ props.fanRpmActual*/
-                                    }//
-                                }//
-
-                                MouseArea {
-                                    id: fanSpeedMouseArea
-                                    anchors.fill: parent
-                                }//
-
-                                TextInput {
-                                    id: fanSpeedBufferTextInput
-                                    visible: false
-                                    validator: IntValidator{bottom: 0; top: 99;}
-
-                                    Connections {
-                                        target: fanSpeedMouseArea
-
-                                        function onClicked() {
-                                            //                                        //console.debug(index)
-                                            fanSpeedBufferTextInput.text = props.fanDutyCycleActual
-
-                                            KeyboardOnScreenCaller.openNumpad(fanSpeedBufferTextInput, qsTr("Fan Duty Cycle") + " " + "(0-99)")
+                                        TextApp {
+                                            //                                            color: "#0F2952"
+                                            text: "RPM: " + props.dfaFanRpmActual
                                         }//
                                     }//
 
-                                    onAccepted: {
-                                        let val = Number(text)
-                                        if(isNaN(val)) return
+                                    MouseArea {
+                                        id: dfaFanSpeedMouseArea
+                                        anchors.fill: parent
+                                    }//
 
-                                        MachineAPI.setFanInflowDutyCycle(val)
+                                    TextInput {
+                                        id: dfaFanSpeedBufferTextInput
+                                        visible: false
+                                        validator: IntValidator{bottom: 0; top: 99;}
 
-                                        viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
-                                                             function onTriggered(cycle){
-                                                                 if(cycle === 5){ viewApp.dialogObject.close() }
-                                                             })
+                                        Connections {
+                                            target: dfaFanSpeedMouseArea
+
+                                            function onClicked() {
+                                                //                                        //console.debug(index)
+                                                dfaFanSpeedBufferTextInput.text = props.dfaFanDutyCycleActual
+
+                                                KeyboardOnScreenCaller.openNumpad(dfaFanSpeedBufferTextInput, qsTr("Fan Duty Cycle") + " " + "(0-99)")
+                                            }//
+                                        }//
+
+                                        onAccepted: {
+                                            let val = Number(text)
+                                            if(isNaN(val)) return
+
+                                            MachineAPI.setFanPrimaryDutyCycle(val)
+
+                                            viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
+                                                                 function onTriggered(cycle){
+                                                                     if(cycle === 5){ viewApp.dialogObject.close() }
+                                                                 })
+                                        }//
                                     }//
                                 }//
-                            }//
+                                Rectangle {
+                                    //                                anchors.verticalCenter: parent.verticalCenter
+                                    width: rightContentItem.width/2
+                                    height: rightContentItem.height / 3 - 5
+                                    color: "#0F2952"
+                                    border.color: "#dddddd"
+                                    radius: 5
+
+                                    ColumnLayout {
+                                        anchors.fill: parent
+                                        anchors.margins: 3
+                                        spacing: 1
+
+                                        Item{
+                                            Layout.fillWidth: true
+                                            Layout.minimumHeight: 30
+                                            TextApp {
+                                                width: parent.width
+                                                height: parent.height
+                                                wrapMode: Text.WordWrap
+                                                font.pixelSize: 12
+                                                text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Inflow"))
+                                            }
+                                        }
+
+                                        Item {
+                                            Layout.fillWidth: true
+                                            Layout.fillHeight: true
+
+                                            Image {
+                                                id: fanImage
+                                                source: "qrc:/UI/Pictures/controll/Fan_W.png"
+                                                anchors.fill: parent
+                                                fillMode: Image.PreserveAspectFit
+
+                                                states: State {
+                                                    name: "stateOn"
+                                                    when: props.ifaFanDutyCycleActual
+                                                    PropertyChanges {
+                                                        target: fanImage
+                                                        source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+
+                                        TextApp {
+                                            text: "Dcy: " + props.ifaFanDutyCycleActual
+                                        }//
+
+                                        TextApp {
+                                            color: "#0F2952"
+                                            text: "RPM: " /*+ props.fanRpmActual*/
+                                        }//
+                                    }//
+
+                                    MouseArea {
+                                        id: fanSpeedMouseArea
+                                        anchors.fill: parent
+                                    }//
+
+                                    TextInput {
+                                        id: fanSpeedBufferTextInput
+                                        visible: false
+                                        validator: IntValidator{bottom: 0; top: 99;}
+
+                                        Connections {
+                                            target: fanSpeedMouseArea
+
+                                            function onClicked() {
+                                                //                                        //console.debug(index)
+                                                fanSpeedBufferTextInput.text = props.ifaFanDutyCycleActual
+
+                                                KeyboardOnScreenCaller.openNumpad(fanSpeedBufferTextInput, qsTr("Fan Duty Cycle") + " " + "(0-99)")
+                                            }//
+                                        }//
+
+                                        onAccepted: {
+                                            let val = Number(text)
+                                            if(isNaN(val)) return
+
+                                            MachineAPI.setFanInflowDutyCycle(val)
+
+                                            viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
+                                                                 function onTriggered(cycle){
+                                                                     if(cycle === 5){ viewApp.dialogObject.close() }
+                                                                 })
+                                        }//
+                                    }//
+                                }//
+                            }
 
                             Rectangle {
                                 //                                anchors.verticalCenter: parent.verticalCenter
@@ -823,12 +910,16 @@ ViewApp {
 
             property bool   autoSaveToDraftAfterCalculated: false
 
-            property int    fanDutyCycleActual: 0
+            property int    ifaFanDutyCycleActual: 0
             //property int    fanRpmActual: 0
 
-            property int    fanDutyCycleInitial: 0
-            property int    fanDutyCycleResult: 0
+            property int    ifaFanDutyCycleInitial: 0
+            property int    ifaFanDutyCycleResult: 0
             //property int    fanRpmResult: 0
+
+            property int    dfaFanDutyCycleActual: 0
+            property int    dfaFanRpmActual: 0
+            property int    dfaFanDutyCycleInitial: 0
 
             property real   gridLastPositionX: 0
 
@@ -847,7 +938,7 @@ ViewApp {
                     'velHigh':  velocityHighest,
                     'velAvg':   velocityAverage,
                     'velocity': velocityConpensate,
-                    'fanDucy':  fanDutyCycleActual,
+                    'fanDucy':  ifaFanDutyCycleActual,
                     //'fanRpm':   fanRpmActual,
                 }
                 return result;
@@ -905,7 +996,8 @@ ViewApp {
 
                     props.measureUnit = extradata['measureUnit']
 
-                    props.fanDutyCycleInitial = extradata['fanDutyCycle'] || 0
+                    props.ifaFanDutyCycleInitial = extradata['ifaFanDutyCycle'] || 0
+                    props.dfaFanDutyCycleInitial = extradata['dfaFanDutyCycle'] || 0
 
                     props.airflowGridItems = extradata['grid']
                     //                        //console.debug(JSON.stringify(props.airflowGridItems))
@@ -930,13 +1022,17 @@ ViewApp {
                     }
                 }
 
-                props.fanDutyCycleActual = Qt.binding(function(){ return MachineData.fanInflowDutyCycle })
+                props.ifaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanInflowDutyCycle })
                 //props.fanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
+                props.dfaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanPrimaryDutyCycle })
+                props.dfaFanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
 
                 /// Automatically adjust the fan duty cycle to common initial duty cycle
-                if (props.fanDutyCycleActual != props.fanDutyCycleInitial) {
+                if (props.ifaFanDutyCycleActual != props.ifaFanDutyCycleInitial
+                        || props.dfaFanDutyCycleActual != props.dfaFanDutyCycleInitial) {
 
-                    MachineAPI.setFanInflowDutyCycle(props.fanDutyCycleInitial);
+                    MachineAPI.setFanInflowDutyCycle(props.ifaFanDutyCycleInitial);
+                    MachineAPI.setFanPrimaryDutyCycle(props.dfaFanDutyCycleInitial);
 
                     viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                          function onTriggered(cycle){

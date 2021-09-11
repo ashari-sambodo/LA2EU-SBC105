@@ -32,7 +32,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("ADC Nominal")
                 }
             }
 
@@ -1458,7 +1458,7 @@ ViewApp {
                                          })
                 }
                 if(!props.dfaSensorConstant && !props.ifaSensorConstant)
-                    props.stabilizingTimer = 30
+                    props.stabilizingTimer = MachineData.warmingUpTime <= 180 ? MachineData.warmingUpTime : 180
                 else
                     props.stabilizingTimer = 180
             }

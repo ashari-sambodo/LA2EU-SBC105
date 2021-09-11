@@ -323,7 +323,7 @@ ViewApp {
                                                 height: parent.height
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
-                                                text: qsTr("Press here to adjust Downflow fan")
+                                                text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Downflow"))
                                             }
                                         }
                                         Item {
@@ -338,7 +338,7 @@ ViewApp {
 
                                                 states: State {
                                                     name: "stateOn"
-                                                    when: props.fanDutyCycleActual
+                                                    when: props.dfaFanDutyCycleActual
                                                     PropertyChanges {
                                                         target: fanImage
                                                         source: "qrc:/UI/Pictures/controll/Fan_G.png"
@@ -348,11 +348,11 @@ ViewApp {
                                         }//
 
                                         TextApp {
-                                            text: "Dcy: " + props.fanDutyCycleActual
+                                            text: "Dcy: " + props.dfaFanDutyCycleActual
                                         }//
 
                                         TextApp {
-                                            text: "RPM: " + props.fanRpmActual
+                                            text: "RPM: " + props.dfaFanRpmActual
                                         }//
                                     }//
 
@@ -371,7 +371,7 @@ ViewApp {
 
                                             function onClicked() {
                                                 //                                        //console.debug(index)
-                                                fanSpeedBufferTextInput.text = props.fanDutyCycleActual
+                                                fanSpeedBufferTextInput.text = props.dfaFanDutyCycleActual
 
                                                 KeyboardOnScreenCaller.openNumpad(fanSpeedBufferTextInput, qsTr("Fan Duty Cycle") + " " + "(0-99)")
                                             }//
@@ -411,7 +411,7 @@ ViewApp {
                                                 height: parent.height
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
-                                                text: qsTr("Press here to adjust Inflow fan")
+                                                text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Inflow"))
                                             }
                                         }
 
@@ -427,7 +427,7 @@ ViewApp {
 
                                                 states: State {
                                                     name: "stateOn"
-                                                    when: MachineData.fanInflowDutyCycle
+                                                    when: props.ifaFanDutyCycleActual
                                                     PropertyChanges {
                                                         target: ifaFanImage
                                                         source: "qrc:/UI/Pictures/controll/Fan_G.png"
@@ -437,12 +437,12 @@ ViewApp {
                                         }//
 
                                         TextApp {
-                                            text: "Dcy: " + MachineData.fanInflowDutyCycle
+                                            text: "Dcy: " + props.ifaFanDutyCycleActual
                                         }//
 
                                         TextApp {
                                             color: "#0F2952"
-                                            text: "RPM: "/* + props.fanRpmActual*/
+                                            text: "RPM: " /*+ props.fanRpmActual*/
                                         }//
                                     }//
 
@@ -461,7 +461,7 @@ ViewApp {
 
                                             function onClicked() {
                                                 //                                        //console.debug(index)
-                                                ifaFanSpeedBufferTextInput.text = MachineData.fanInflowDutyCycle
+                                                ifaFanSpeedBufferTextInput.text = props.ifaFanDutyCycleActual
 
                                                 KeyboardOnScreenCaller.openNumpad(ifaFanSpeedBufferTextInput, qsTr("Fan Duty Cycle") + " " + "(0-99)")
                                             }//
@@ -729,8 +729,8 @@ ViewApp {
                             text: qsTr("Set")
 
                             onClicked: {
-                                //                                let data = JSON.stringify(props.airflowGridItems)
-                                //                                //console.debug(data)
+                                //let data = JSON.stringify(props.airflowGridItems)
+                                ////console.debug(data)
                                 if (!props.gridAcceptedAll) {
                                     viewApp.showDialogMessage(qsTr(viewApp.title),
                                                               qsTr("Please fill up all the fields!"),
@@ -742,9 +742,9 @@ ViewApp {
                                 const velFromHighIsValid    = (props.velocityAverage > props.velocityHighestLimit) ? true : false
                                 const devIsValid            = props.velocityDeviationPercent > props.deviationMaxLimit ? true : false
 
-                                //                                //console.debug("velFromLowIsValid: " + velFromLowIsValid + " " + props.velocityAverage + " " + props.velocityLowestLimit)
-                                //                                //console.debug("velFromHighIsValid: " + velFromHighIsValid + " " + props.velocityAverage + " " + props.velocityHighestLimit)
-                                //                                //console.debug("devIsValid: " + devIsValid)
+                                ////console.debug("velFromLowIsValid: " + velFromLowIsValid + " " + props.velocityAverage + " " + props.velocityLowestLimit)
+                                ////console.debug("velFromHighIsValid: " + velFromHighIsValid + " " + props.velocityAverage + " " + props.velocityHighestLimit)
+                                ////console.debug("devIsValid: " + devIsValid)
 
                                 if (velFromLowIsValid || velFromHighIsValid || devIsValid) {
                                     var message = devIsValid ? qsTr("The deviation is out of specs") : qsTr("The velocity is out of specs")
@@ -761,7 +761,7 @@ ViewApp {
                         }//
                     }//
                 }//
-            }
+            }//
         }//
 
         WorkerScript {
@@ -938,12 +938,17 @@ ViewApp {
 
             property bool   autoSaveToDraftAfterCalculated: false
 
-            property int    fanDutyCycleActual: 0
-            property int    fanRpmActual: 0
+            property int    dfaFanDutyCycleActual: 0
+            property int    dfaFanRpmActual: 0
+            property int    ifaFanDutyCycleActual: 0
+            //property int    ifaFanRpmActual: 0
 
-            property int    fanDutyCycleInitial: 0
+            property int    dfaFanDutyCycleInitial: 0
             property int    fanDutyCycleResult: 0
             property int    fanRpmResult: 0
+            property int    ifaFanDutyCycleInitial: 0
+            //property int    fanDutyCycleResult: 0
+            //property int    fanRpmResult1: 0
 
             /// 0: metric, m/s
             /// 1: imperial, fpm
@@ -964,8 +969,10 @@ ViewApp {
                     'velDev':   velocityDeviation,
                     'velDevp':  velocityDeviationPercent,
                     'velSum':   velocitySum,
-                    'fanDucy':  fanDutyCycleActual,
-                    'fanRpm':   fanRpmActual,
+                    'fanDucy':  dfaFanDutyCycleActual,
+                    'fanRpm':   dfaFanRpmActual,
+                    'fanDucy1':  ifaFanDutyCycleActual,
+                    //'fanRpm1':   fanRpmActual1,
                 }
                 return result;
             }
@@ -1017,7 +1024,8 @@ ViewApp {
 
                     props.measureUnit = extradata['measureUnit']
 
-                    props.fanDutyCycleInitial = extradata['fanDutyCycle'] || 0
+                    props.dfaFanDutyCycleInitial = extradata['dfaFanDutyCycle'] || 0
+                    props.ifaFanDutyCycleInitial = extradata['ifaFanDutyCycle'] || 0
 
                     props.airflowGridItems = extradata['grid']
                     //                        //console.debug(JSON.stringify(props.airflowGridItems))
@@ -1045,13 +1053,17 @@ ViewApp {
                     //                                            props.velocityDecimalPoint)
                 }
 
-                props.fanDutyCycleActual = Qt.binding(function(){ return MachineData.fanPrimaryDutyCycle })
-                props.fanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
+                props.dfaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanPrimaryDutyCycle })
+                props.dfaFanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
+                props.ifaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanInflowDutyCycle })
+                //props.fanRpmActual1 = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
 
                 /// Automatically adjust the fan duty cycle to common initial duty cycle
-                if (props.fanDutyCycleActual != props.fanDutyCycleInitial) {
+                if ((props.dfaFanDutyCycleActual != props.dfaFanDutyCycleInitial)
+                        || (props.ifaFanDutyCycleActual != props.ifaFanDutyCycleInitial)) {
 
-                    MachineAPI.setFanPrimaryDutyCycle(props.fanDutyCycleInitial);
+                    MachineAPI.setFanPrimaryDutyCycle(props.dfaFanDutyCycleInitial);
+                    MachineAPI.setFanInflowDutyCycle(props.ifaFanDutyCycleInitial);
 
                     viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                          function onTriggered(cycle){

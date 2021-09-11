@@ -32,7 +32,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("ADC Nominal")
                 }
             }
 
@@ -57,55 +57,31 @@ ViewApp {
 
                         RowLayout {
                             anchors.fill: parent
-
-                            Item{
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
-
-                                Column{
-                                    id: parameterColumn
-                                    anchors.centerIn: parent
-                                    spacing: 10
-
-                                    TextApp{
-                                        text: qsTr("Temperature calib") + ": " + props.temperatureActualStr
-                                    }//
-
-                                    Column {
-                                        TextApp{
-                                            text: qsTr("Airflow sensor ADC") + ":"
-                                        }//
-
-                                        TextApp{
-                                            font.pixelSize: 18
-                                            text:  "* " + qsTr("Please wait until the value stabilizes")
-                                            color: "#DEB887"
-                                        }//
-
-                                        TextApp{
-                                            id: currentTextApp
-                                            font.pixelSize: 52
-                                            text: props.adcActual
-                                        }//
-
-                                    }//
-                                }//
-                            }//
-
-
                             Item {
                                 id: rightContentItem
                                 Layout.fillHeight: true
                                 Layout.minimumWidth: parent.width * 0.20
 
                                 Column {
-                                    anchors.verticalCenter: parent.verticalCenter
+                                    //anchors.verticalCenter: parent.verticalCenter
                                     spacing: 5
-
-                                    Rectangle {
-                                        //                                anchors.verticalCenter: parent.verticalCenter
+                                    Rectangle{
+                                        height: 40
                                         width: rightContentItem.width
-                                        height: rightContentItem.height / 3 - 5
+                                        color: "transparent"
+                                        TextApp{
+                                            height: parent.height
+                                            width: parent.width
+                                            text: qsTr("Downflow")
+                                            font.underline: true
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                        }
+                                    }
+                                    Rectangle {
+                                        //anchors.verticalCenter: parent.verticalCenter
+                                        width: rightContentItem.width
+                                        height: rightContentItem.height / 4 - 15
                                         color: "#0F2952"
                                         border.color: "#dddddd"
                                         radius: 5
@@ -123,30 +99,49 @@ ViewApp {
                                             Item {
                                                 Layout.fillWidth: true
                                                 Layout.fillHeight: true
-
-                                                Image {
-                                                    id: fanImage
-                                                    source: "qrc:/UI/Pictures/controll/Fan_W.png"
+                                                RowLayout{
                                                     anchors.fill: parent
-                                                    fillMode: Image.PreserveAspectFit
+                                                    Item{
+                                                        Layout.fillWidth: true
+                                                        Layout.fillHeight: true
+                                                        ColumnLayout{
+                                                            anchors.fill: parent
+                                                            Item{
+                                                                Layout.fillWidth: true
+                                                                Layout.fillHeight: true
+                                                                Column{
+                                                                    anchors.verticalCenter: parent.verticalCenter
+                                                                    TextApp {
+                                                                        text: "Dcy: " + props.dfaFanDutyCycleActual
+                                                                    }//
+                                                                    TextApp {
+                                                                        text: "RPM: " + props.dfaFanRpmActual
+                                                                    }//
+                                                                }//
+                                                            }
+                                                        }//
+                                                    }
+                                                    Item {
+                                                        Layout.fillWidth: true
+                                                        Layout.fillHeight: true
+                                                        Image {
+                                                            id: fanImage1
+                                                            source: "qrc:/UI/Pictures/controll/Fan_W.png"
+                                                            height: parent.height
+                                                            anchors.centerIn: parent
+                                                            fillMode: Image.PreserveAspectFit
 
-                                                    states: State {
-                                                        name: "stateOn"
-                                                        when: props.fanDutyCycleActual
-                                                        PropertyChanges {
-                                                            target: fanImage
-                                                            source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                                            states: State {
+                                                                name: "stateOn"
+                                                                when: props.dfaFanDutyCycleActual > 0
+                                                                PropertyChanges {
+                                                                    target: fanImage1
+                                                                    source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                                                }//
+                                                            }//
                                                         }//
                                                     }//
                                                 }//
-                                            }//
-
-                                            TextApp {
-                                                text: "Dcy: " + props.fanDutyCycleActual
-                                            }//
-
-                                            TextApp {
-                                                text: "RPM: " + props.fanRpmActual
                                             }//
                                         }//
 
@@ -165,7 +160,7 @@ ViewApp {
 
                                                 function onClicked() {
                                                     //                                        //console.debug(index)
-                                                    fanSpeedBufferTextInput.text = props.fanDutyCycleActual
+                                                    fanSpeedBufferTextInput.text = props.dfaFanDutyCycleActual
 
                                                     KeyboardOnScreenCaller.openNumpad(fanSpeedBufferTextInput, qsTr("Fan Duty Cycle") + " " + "(0-99)")
                                                 }//
@@ -188,7 +183,7 @@ ViewApp {
                                     Rectangle {
                                         //                                anchors.verticalCenter: parent.verticalCenter
                                         width: rightContentItem.width
-                                        height: rightContentItem.height / 3 - 5
+                                        height: rightContentItem.height / 4 - 15
                                         color: "#0F2952"
                                         border.color: "#dddddd"
                                         radius: 5
@@ -199,7 +194,7 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
-                                                text: qsTr("Set inflow") + ":"
+                                                text: qsTr("Set DF Nominal") + ":"
                                             }//
 
                                             TextApp {
@@ -217,7 +212,7 @@ ViewApp {
                                                     font.pixelSize: 24
                                                     horizontalAlignment: Text.AlignHCenter
                                                     color: "#dddddd"
-                                                    text: props.velocityStrf
+                                                    text: props.dfaVelocityNomStrf
 
                                                     background: Rectangle {
                                                         height: parent.height
@@ -232,34 +227,256 @@ ViewApp {
                                                     }//
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set inflow"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow Nominal"))
                                                     }//
 
                                                     onAccepted: {
                                                         const val = Number(text)
                                                         if(isNaN(val)) return
 
-                                                        //                                                        //console.debug("val: " + val)
+                                                        ////console.debug("val: " + val)
+                                                        props.dfaVelocityNom = val
+                                                        props.dfaVelocityNomStrf = text
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                    }//
+                                }//
+                            }//
+                            ////////////////////////////////
+                            Item{
+                                id: parentId
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                Column{
+                                    spacing: 10
+                                    anchors.centerIn: parent
+                                    TextApp {
+                                        width: parentId.width
+                                        horizontalAlignment: Text.AlignHCenter
+                                        //verticalAlignment: Text.AlignBottom
+                                        wrapMode: Text.WordWrap
+                                        text: qsTr("Downflow and Inflow fan must be at Nominal speed!")
+                                    }
+                                    Row{
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        TextApp {
+                                            width: 200
+                                            wrapMode: Text.WordWrap
+                                            text: qsTr("Sensors Constant")
+                                        }
+                                        TextApp {
+                                            width: 200
+                                            wrapMode: Text.WordWrap
+                                            text: (": DF: %1 | IF: %2").arg(props.dfaSensorConstant).arg(props.ifaSensorConstant)
+                                        }
+                                    }
+                                    Row{
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        TextApp {
+                                            width: 200
+                                            wrapMode: Text.WordWrap
+                                            text: qsTr("Temperature")
+                                        }
+                                        TextApp {
+                                            width: 200
+                                            wrapMode: Text.WordWrap
+                                            text: ": " + props.temperatureActualStr
+                                        }
+                                    }
+                                    Row{
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        spacing: 10
+                                        Rectangle {
+                                            width: 200
+                                            height: 150
+                                            color: "transparent"
+                                            border.color: "#e3dac9"
+                                            radius: 5
+                                            Column{
+                                                TextApp {
+                                                    width: 200
+                                                    height: 50
+                                                    wrapMode: Text.WordWrap
+                                                    text: "DF Sensor ADC:"
+                                                    padding: 5
+                                                }
+                                                TextApp {
+                                                    width: 200
+                                                    height: 100
+                                                    font.pixelSize: 52
+                                                    wrapMode: Text.WordWrap
+                                                    text: props.dfaAdcActual
+                                                    padding: 5
+                                                }
+                                            }
+                                        }
+                                        Rectangle {
+                                            width: 200
+                                            height: 150
+                                            color: "transparent"
+                                            border.color: "#e3dac9"
+                                            radius: 5
+                                            Column{
+                                                TextApp {
+                                                    width: 200
+                                                    height: 50
+                                                    wrapMode: Text.WordWrap
+                                                    text: "IF Sensor ADC:"
+                                                    padding: 5
+                                                }
+                                                TextApp {
+                                                    width: 200
+                                                    height: 100
+                                                    font.pixelSize: 52
+                                                    wrapMode: Text.WordWrap
+                                                    text: props.ifaAdcActual
+                                                    padding: 5
+                                                }
+                                            }
+                                        }
+                                    }
+                                    TextApp {
+                                        width: parentId.width
+                                        wrapMode: Text.WordWrap
+                                        padding: 10
+                                        text:  "* " + qsTr("Please wait until the values are stable")
+                                        font.italic: true
+                                        color: "#cda776"
+                                        horizontalAlignment: Text.AlignHCenter
+                                    }//
+                                }//
+                            }//
+                            /////////////////////////////////
+                            Item {
+                                id: rightContentItem2
+                                Layout.fillHeight: true
+                                Layout.minimumWidth: parent.width * 0.20
 
-                                                        props.velocity = val
-                                                        props.velocityStrf = text
+                                Column {
+                                    //anchors.verticalCenter: parent.verticalCenter
+                                    spacing: 5
+                                    Rectangle{
+                                        height: 40
+                                        width: rightContentItem2.width
+                                        color: "transparent"
+                                        TextApp{
+                                            height: parent.height
+                                            width: parent.width
+                                            text: qsTr("Inflow")
+                                            font.underline: true
+                                            horizontalAlignment: Text.AlignHCenter
+                                            verticalAlignment: Text.AlignVCenter
+                                        }
+                                    }
+                                    Rectangle {
+                                        //                                anchors.verticalCenter: parent.verticalCenter
+                                        width: rightContentItem2.width
+                                        height: rightContentItem2.height / 4 - 15
+                                        color: "#0F2952"
+                                        border.color: "#dddddd"
+                                        radius: 5
+
+                                        ColumnLayout {
+                                            anchors.fill: parent
+                                            anchors.margins: 3
+                                            spacing: 1
+
+                                            TextApp {
+                                                font.pixelSize: 14
+                                                text: qsTr("Press here to adjust")
+                                            }
+
+                                            Item {
+                                                Layout.fillWidth: true
+                                                Layout.fillHeight: true
+                                                RowLayout{
+                                                    anchors.fill: parent
+                                                    Item{
+                                                        Layout.fillWidth: true
+                                                        Layout.fillHeight: true
+                                                        ColumnLayout{
+                                                            anchors.fill: parent
+                                                            Item{
+                                                                Layout.fillWidth: true
+                                                                Layout.fillHeight: true
+                                                                Column{
+                                                                    anchors.verticalCenter: parent.verticalCenter
+                                                                    TextApp {
+                                                                        text: "Dcy: " + props.ifaFanDutyCycleActual
+                                                                    }//
+                                                                    TextApp {
+                                                                        text: "I"
+                                                                        color: "#0F2952"
+                                                                    }//
+                                                                }//
+                                                            }
+                                                        }//
+                                                    }
+                                                    Item {
+                                                        Layout.fillWidth: true
+                                                        Layout.fillHeight: true
+                                                        Image {
+                                                            id: fanImage2
+                                                            source: "qrc:/UI/Pictures/controll/Fan_W.png"
+                                                            height: parent.height
+                                                            anchors.centerIn: parent
+                                                            fillMode: Image.PreserveAspectFit
+
+                                                            states: State {
+                                                                name: "stateOn"
+                                                                when: props.ifaFanDutyCycleActual > 0
+                                                                PropertyChanges {
+                                                                    target: fanImage2
+                                                                    source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                                                }//
+                                                            }//
+                                                        }//
                                                     }//
                                                 }//
                                             }//
                                         }//
 
-                                        //                                MouseArea {
-                                        //                                    anchors.fill: parent
-                                        //                                    onClicked: {
-                                        //                                        //                                        witBusyPageBlockApp.open()
-                                        //                                    }//
-                                        //                                }//
+                                        MouseArea {
+                                            id: fanSpeedMouseArea2
+                                            anchors.fill: parent
+                                        }//
+
+                                        TextInput {
+                                            id: fanSpeedBufferTextInput2
+                                            visible: false
+                                            validator: IntValidator{bottom: 0; top: 99;}
+
+                                            Connections {
+                                                target: fanSpeedMouseArea2
+
+                                                function onClicked() {
+                                                    //                                        //console.debug(index)
+                                                    fanSpeedBufferTextInput2.text = props.ifaFanDutyCycleActual
+
+                                                    KeyboardOnScreenCaller.openNumpad(fanSpeedBufferTextInput2, qsTr("Fan Duty Cycle") + " " + "(0-99)")
+                                                }//
+                                            }//
+
+                                            onAccepted: {
+                                                let val = Number(text)
+                                                if(isNaN(val)) return
+
+                                                MachineAPI.setFanInflowDutyCycle(val)
+
+                                                viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
+                                                                     function onTriggered(cycle){
+                                                                         if(cycle === 5){ viewApp.dialogObject.close() }
+                                                                     })
+                                            }//
+                                        }
                                     }//
 
                                     Rectangle {
                                         //                                anchors.verticalCenter: parent.verticalCenter
-                                        width: rightContentItem.width
-                                        height: rightContentItem.height / 3 - 5
+                                        width: rightContentItem2.width
+                                        height: rightContentItem2.height / 4 - 15
                                         color: "#0F2952"
                                         border.color: "#dddddd"
                                         radius: 5
@@ -270,7 +487,7 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
-                                                text: qsTr("Set downflow") + ":"
+                                                text: qsTr("Set IF Nominal") + ":"
                                             }//
 
                                             TextApp {
@@ -288,7 +505,7 @@ ViewApp {
                                                     font.pixelSize: 24
                                                     horizontalAlignment: Text.AlignHCenter
                                                     color: "#dddddd"
-                                                    text: props.velocityDfaNomStrf
+                                                    text: props.ifaVelocityNomStrf
 
                                                     background: Rectangle {
                                                         height: parent.height
@@ -303,17 +520,16 @@ ViewApp {
                                                     }//
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set downflow"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Inflow Nominal"))
                                                     }//
 
                                                     onAccepted: {
                                                         const val = Number(text)
                                                         if(isNaN(val)) return
 
-                                                        //                                                        //console.debug("val: " + val)
-
-                                                        props.velocityDfaNom = val
-                                                        props.velocityDfaNomStrf = text
+                                                        ////console.debug("val: " + val)
+                                                        props.ifaVelocityNom = val
+                                                        props.ifaVelocityNomStrf = text
                                                     }//
                                                 }//
                                             }//
@@ -342,7 +558,7 @@ ViewApp {
                             }//
 
                             TextApp {
-                                text: qsTr("Please wait for 3 minutes, time left") + ":"
+                                text: qsTr("Please wait for %1, time left").arg(utilsApp.strfSecsToHumanReadable(props.stabilizingTimer)) + ":"
                             }//
 
                             TextApp {
@@ -426,21 +642,38 @@ ViewApp {
 
                                     //                                    property int count: 2
                                     property int count: 180
+                                    Component.onCompleted: {count = Qt.binding(function(){return props.stabilizingTimer})}
                                 }//
                             }//
 
-                            Row {
-                                spacing: 10
-                                TextApp{
-                                    font.pixelSize: 18
-                                    text: qsTr("Actual ADC") + ":"
-                                    color: "#cccccc"
-                                }//
+                            Column{
+                                Row {
+                                    spacing: 10
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text: qsTr("Actual ADC (D/F)") + ":"
+                                        color: "#cccccc"
+                                    }//
 
-                                TextApp{
-                                    font.pixelSize: 18
-                                    text: props.adcActual
-                                    color: "#cccccc"
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text: props.dfaAdcActual
+                                        color: "#cccccc"
+                                    }//
+                                }//
+                                Row {
+                                    spacing: 10
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text: qsTr("Actual ADC (I/F)") + ":"
+                                        color: "#cccccc"
+                                    }//
+
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text: props.ifaAdcActual
+                                        color: "#cccccc"
+                                    }//
                                 }//
                             }//
                         }//
@@ -524,24 +757,78 @@ ViewApp {
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Inflow vel. nominal") + ":"
+                                                text: qsTr("Downflow nominal")
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.velocityStrf + " " + props.measureUnitStr
+                                                text: ":" + props.dfaVelocityNomStrf + " " + props.measureUnitStr
+                                                font.pixelSize: 18
                                             }
                                         }
 
                                         Rectangle {height: 1; width: parent.width; color: "#cccccc"}
+
+                                        Row {
+                                            id: zeroAdcRow
+
+                                            TextApp{
+                                                width: 300
+                                                text: qsTr("Downflow ADC zero") + " (DF0)"
+                                                font.pixelSize: 18
+                                            }//
+
+                                            TextApp {
+                                                text: ":" + props.dfaSensorAdcZero
+                                                font.pixelSize: 18
+                                            }
+                                        }
+
+                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
+                                                                               Rectangle {height: 1; width: parent.width; color: "#cccccc"}
+                                        Row {
+                                            TextApp{
+                                                width: 300
+                                                text: qsTr("Downflow ADC nominal") + " (DF2)"
+                                                font.pixelSize: 18
+                                            }//
+
+                                            TextApp {
+                                                text: ":" + props.dfaAdcResult
+                                                font.pixelSize: 18
+                                            }
+                                        }
+
+                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
+                                        ////////////////////////////
 
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Downflow vel. nominal") + ":"
+                                                text: qsTr("Inflow nominal")
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.velocityDfaNomStrf + " " + props.measureUnitStr
+                                                text: ":" + props.ifaVelocityNomStrf + " " + props.measureUnitStr
+                                                font.pixelSize: 18
+                                            }
+                                        }
+
+                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
+
+                                        Row {
+                                            id: zeroAdcRowIfa
+
+                                            TextApp{
+                                                width: 300
+                                                text: qsTr("Inflow ADC zero") + " (IF0)"
+                                                font.pixelSize: 18
+                                            }//
+
+                                            TextApp {
+                                                text: ":" + props.ifaSensorAdcZero
+                                                font.pixelSize: 18
                                             }
                                         }
 
@@ -550,39 +837,48 @@ ViewApp {
                                         Row {
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("ADC nominal") + " (IFN)" + ":"
+                                                text: qsTr("Inflow ADC nominal") + " (IF2)"
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.adcNominalResult
+                                                text: ":" + props.ifaAdcResult
+                                                font.pixelSize: 18
                                             }
                                         }
 
                                         Rectangle {height: 1; width: parent.width; color: "#cccccc"}
+                                        ///////////////////////////
 
                                         Row {
+                                            id: fanNomCalibRow
+
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("ADC minimum") + " (IFF)" + ":"
+                                                text: qsTr("Downflow Fan nominal")
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.adcMinimumResult
-                                            }
-                                        }
-
+                                                text: ":" + props.dfaFanDutyCycleResult + "% / " + props.dfaFanRpmResult + " RPM"
+                                                font.pixelSize: 18
+                                            }//
+                                        }//
                                         Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-
                                         Row {
+                                            id: fanNomCalibRowIfa
+
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("ADC Zero") + ":"
+                                                text: qsTr("Inflow Fan nominal")
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.sensorAdcZero
-                                            }
-                                        }
+                                                text: ":" + props.ifaFanDutyCycleResult + "%"/* + props.ifaFanRpmResult + " RPM"*/
+                                                font.pixelSize: 18
+                                            }//
+                                        }//
 
                                         Rectangle {height: 1; width: parent.width; color: "#cccccc"}
 
@@ -591,26 +887,13 @@ ViewApp {
 
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Temperature calib") + ":"
+                                                text: qsTr("Temperature calib")
+                                                font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: props.temperatureCalibStrf
-                                            }//
-                                        }//
-
-                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-
-                                        Row {
-                                            id: fanNomCalibRow
-
-                                            TextApp{
-                                                width: 300
-                                                text: qsTr("Fan nominal") + ":"
-                                            }//
-
-                                            TextApp {
-                                                text: props.fanDutyCycleResult + "% / " + props.fanRpmResult + " RPM"
+                                                text: ":" + props.temperatureCalibStrf + " / ADC: " + props.temperatureCalibAdc
+                                                font.pixelSize: 18
                                             }//
                                         }//
 
@@ -678,33 +961,33 @@ ViewApp {
                                                               //                                                              //console.debug("Y")
                                                               var intent = IntentApp.create(uri, {})
                                                               finishView(intent)
-                                                          })
-
+                                                          })//
                                     return
-                                }
+                                }//
 
                                 if (fragmentStackView.currentItem.idname === "result"){
                                     if(props.calibrateDone) {
                                         let intent = IntentApp.create(uri,
                                                                       {
                                                                           "pid": props.pid,
-                                                                          "sensorAdcNominal": props.adcNominalResult,
-                                                                          "sensorVelNominal": props.velocity,
-                                                                          "sensorVelNominalDfa": props.velocityDfaNom,
-                                                                          "sensorAdcMinimum": props.adcMinimumResult,
-                                                                          "fanDutyCycleResult": props.fanDutyCycleResult,
-                                                                          "fanRpmResult": props.fanRpmResult,
+                                                                          "ifaSensorAdcNominal": props.ifaAdcNominalResult,
+                                                                          "ifaSensorVelNominal": props.ifaVelocity,
+                                                                          "dfaSensorAdcNominal": props.dfaAdcNominalResult,
+                                                                          "dfaSensorVelNominal": props.dfaVelocity,
+                                                                          "ifaFanDutyCycleResult": props.ifaFanDutyCycleResult,
+                                                                          "dfaFanDutyCycleResult": props.dfaFanDutyCycleResult,
+                                                                          "dfaFanRpmResult": props.dfaFanRpmResult,
                                                                           "temperatureCalib": props.temperatureCalib,
                                                                           "temperatureCalibAdc": props.temperatureCalibAdc
-                                                                      })
+                                                                      })//
                                         finishView(intent);
                                         return
-                                    }
-                                }
+                                    }//
+                                }//
 
                                 var intent = IntentApp.create(uri, {})
                                 finishView(intent)
-                            }
+                            }//
                         }//
 
                         ButtonBarApp {
@@ -722,7 +1005,7 @@ ViewApp {
                         }//
                     }//
                 }//
-            }
+            }//
         }//
 
         QtObject {
@@ -730,15 +1013,21 @@ ViewApp {
 
             property string pid: ""
 
-            property int fanDutyCycleActual: 0
-            property int fanRpmActual: 0
+            property int ifaFanDutyCycleActual: 0
+            property int ifaFanRpmActual: 0
+            property int dfaFanDutyCycleActual: 0
+            property int dfaFanRpmActual: 0
 
-            property int adcActual: 0
+            property int ifaAdcActual: 0
+            property int dfaAdcActual: 0
 
-            property int sensorAdcZero: 0
+            property int ifaSensorAdcZero: 0
+            property int ifaAdcNominalResult: 0
+            //property int ifaAdcMinimumResult: 0
 
-            property int adcNominalResult: 0
-            property int adcMinimumResult: 0
+            property int dfaSensorAdcZero: 0
+            property int dfaAdcNominalResult: 0
+            //property int dfaAdcMinimumResult: 0
 
             property int temperatureActual: 0
             property int temperatureAdcActual: 0
@@ -753,31 +1042,43 @@ ViewApp {
             property int velocityDecimalPoint: measureUnit ? 0 : 2
 
             // Nominal
-            property real   velocity: 0
-            property string velocityStrf: "0"
+            property real   ifaVelocity: 0
+            property string ifaVelocityStrf: "0"
+            property real   ifaVelocityDfaNom: 0
+            property string ifaVelocityDfaNomStrf: "0"
 
-            property real   velocityDfaNom: 0
-            property string velocityDfaNomStrf: "0"
+            property real   dfaVelocity: 0
+            property string dfaVelocityStrf: "0"
+            property real   dfaVelocityDfaNom: 0
+            property string dfaVelocityDfaNomStrf: "0"
 
             // Required for interpolation formula
             // a - ((x2 - x1) / (y2 - y1) * (b - y1))
             // IFF = newNomAdc - ((velocityNomAdcRef - velocityMinAdcRef) / (velocityNomRef - velocityMinRef) * (newNomVelocity - velocityMinRef))
-            property real velocityNomAdcRef: 0
-            property real velocityNomRef: 0
+            property real ifaVelocityNomAdcRef: 0
+            property real ifaVelocityNomRef: 0
             //
-            property real velocityMinAdcRef: 0
-            property real velocityMinRef: 0
+            //            property real velocityMinAdcRef: 0
+            //            property real velocityMinRef: 0
+            property real dfaVelocityNomAdcRef: 0
+            property real dfaVelocityNomRef: 0
 
-            property int fanDutyCycleInitial: 0
-            property int fanDutyCycleResult: 0
-            property int fanRpmResult: 0
+            property int ifaFanDutyCycleInitial: 0
+            property int ifaFanDutyCycleResult: 0
+            //property int ifaFanRpmResult: 0
+
+            property int dfaFanDutyCycleInitial: 0
+            property int dfaFanDutyCycleResult: 0
+            property int dfaFanRpmResult: 0
 
             property int temperatureCalib: 0
             property int temperatureCalibAdc: 0
             property string temperatureCalibStrf: ""
 
+            property int stabilizingTimer : 180
+
             property bool calibrateDone: false
-        }
+        }//
 
         /// Called once but after onResume
         Component.onCompleted: {
@@ -798,50 +1099,58 @@ ViewApp {
 
                     props.measureUnit = extradata['measureUnit']
 
-                    props.fanDutyCycleInitial = extradata['fanDutyCycle'] || 0
+                    props.ifaFanDutyCycleInitial = extradata['ifaFanDutyCycle'] || 0
+                    props.dfaFanDutyCycleInitial = extradata['dfaFanDutyCycle'] || 0
 
-                    props.sensorAdcZero     = extradata['sensorAdcZero'] || 0
+                    props.ifaSensorAdcZero     = extradata['ifaSensorAdcZero'] || 0
+                    props.dfaSensorAdcZero     = extradata['dfaSensorAdcZero'] || 0
 
-                    let velocity = extradata['sensorVelNominal'] || 0
-                    props.velocity = velocity
-                    props.velocityStrf = velocity.toFixed(props.velocityDecimalPoint)
+                    let ifaVelocity = extradata['ifaSensorVelNominal'] || 0
+                    props.ifaVelocity = ifaVelocity
+                    props.ifaVelocityStrf = ifaVelocity.toFixed(props.velocityDecimalPoint)
 
-                    let velocityDfaNominal = extradata['sensorVelNominalDfa'] || 0
-                    props.velocityDfaNom = velocityDfaNominal
-                    props.velocityDfaNomStrf = velocityDfaNominal.toFixed(props.velocityDecimalPoint)
+                    let dfaVelocity = extradata['dfaSensorVelNominal'] || 0
+                    props.dfaVelocity = dfaVelocity
+                    props.dfaVelocityStrf = dfaVelocity.toFixed(props.velocityDecimalPoint)
 
                     /// Ref. for interpolation
-                    let velocityNomAdcRef = extradata['velNomAdcRef'] || 0
+                    let ifaVelocityNomAdcRef = extradata['ifaVelNomAdcRef'] || 0
                     //                        //console.debug(velocityNomAdcRef)
-                    props.velocityNomAdcRef = velocityNomAdcRef
+                    props.ifaVelocityNomAdcRef = ifaVelocityNomAdcRef
 
-                    let velocityNomRef = extradata['velNomRef'] || 0
+                    let ifaVelocityNomRef = extradata['ifaVelNomRef'] || 0
                     //                        //console.debug(velocityNomRef)
-                    props.velocityNomRef = velocityNomRef
+                    props.ifaVelocityNomRef = ifaVelocityNomRef
 
-                    let velocityMinAdcRef = extradata['velMinAdcRef'] || 0
-                    //                        //console.debug(velocityMinAdcRef)
-                    props.velocityMinAdcRef = velocityMinAdcRef
+                    ////
+                    let dfaVelocityNomAdcRef = extradata['dfaVelNomAdcRef'] || 0
+                    //                        //console.debug(velocityNomAdcRef)
+                    props.dfaVelocityNomAdcRef = dfaVelocityNomAdcRef
 
-                    let velocityMinRef = extradata['velMinRef'] || 0
-                    //                        //console.debug(velocityMinRef)
-                    props.velocityMinRef = velocityMinRef
+                    let dfaVelocityNomRef = extradata['dfaVelNomRef'] || 0
+                    //                        //console.debug(velocityNomRef)
+                    props.dfaVelocityNomRef = dfaVelocityNomRef
                 }//
 
                 /// Real-Time update
-                props.fanDutyCycleActual = Qt.binding(function(){ return MachineData.fanPrimaryDutyCycle })
-                props.fanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
+                props.ifaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanInflowDutyCycle })
+                //props.ifaFanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
+                props.dfaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanPrimaryDutyCycle })
+                props.dfaFanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
                 //
-                props.adcActual = Qt.binding(function(){ return MachineData.ifaAdcConpensation })
+                props.ifaAdcActual = Qt.binding(function(){ return MachineData.ifaAdcConpensation })
+                props.dfaAdcActual = Qt.binding(function(){ return MachineData.dfaAdcConpensation })
                 //
                 props.temperatureActual = Qt.binding(function(){ return MachineData.temperature })
                 props.temperatureActualStr = Qt.binding(function(){ return MachineData.temperatureValueStr })
 
                 /// Automatically adjust the fan duty cycle
                 //                    //console.debug(props.fanDutyCycleActual + " vs " + props.fanDutyCycleInitial)
-                if (props.fanDutyCycleActual != props.fanDutyCycleInitial) {
+                if ((props.ifaFanDutyCycleActual != props.ifaFanDutyCycleInitial)
+                        || props.dfaFanDutyCycleActual != props.dfaFanDutyCycleInitial) {
 
-                    MachineAPI.setFanPrimaryDutyCycle(props.fanDutyCycleInitial);
+                    MachineAPI.setFanInflowDutyCycle(props.ifaFanDutyCycleInitial);
+                    MachineAPI.setFanPrimaryDutyCycle(props.dfaFanDutyCycleInitial);
 
                     viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                          function onTriggered(cycle){
@@ -849,8 +1158,13 @@ ViewApp {
                                                  // close this pop up dialog
                                                  viewApp.dialogObject.close()
                                              }
-                                         })
+                                         })//
                 }//
+
+                if(!MachineData.getDownflowSensorConstant() && !MachineData.getInflowSensorConstant())
+                    props.stabilizingTimer = MachineData.warmingUpTime <= 180 ? MachineData.warmingUpTime : 180
+                else
+                    props.stabilizingTimer = 180
             }//
 
             /// onPause
