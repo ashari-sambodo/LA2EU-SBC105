@@ -225,6 +225,7 @@
 #define SKEY_DFA_CAL_VEL_FIELD          "dfaCalVelFie"
 
 //// FULL CALIBRATION
+/// Nominal
 #define SKEY_DFA_CAL_GRID_NOM           "dfaCalGridNom"
 #define SKEY_DFA_CAL_GRID_NOM_VEL       "dfaCalGridNomVel"
 #define SKEY_DFA_CAL_GRID_NOM_VEL_TOT   "dfaCalGridNomVelTot"
@@ -240,7 +241,47 @@
 #define SKEY_DFA_CAL_GRID_NOM_VEL_DEV_IMP   "dfaCalGridNomVelDevImp"
 #define SKEY_DFA_CAL_GRID_NOM_VEL_DEVP_IMP  "dfaCalGridNomVelDevpImp"
 
+#define SKEY_DFA_CAL_GRID_NOM_DCY       "dfaCalGridNomDcy"
+#define SKEY_DFA_CAL_GRID_NOM_RPM       "dfaCalGridNomRpm"
+/// Minimum
+#define SKEY_DFA_CAL_GRID_MIN           "dfaCalGridMin"
+#define SKEY_DFA_CAL_GRID_MIN_VEL       "dfaCalGridMinVel"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_TOT   "dfaCalGridMinVelTot"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_LOW   "dfaCalGridMinVelLow"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_HIGH  "dfaCalGridMinVelHigh"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_DEV   "dfaCalGridMinVelDev"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_DEVP  "dfaCalGridMinVelDevp"
+
+#define SKEY_DFA_CAL_GRID_MIN_VEL_IMP     "dfaCalGridMinVelImp"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_TOT_IMP   "dfaCalGridMinVelTotImp"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_LOW_IMP   "dfaCalGridMinVelLowImp"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_HIGH_IMP  "dfaCalGridMinVelHighImp"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_DEV_IMP   "dfaCalGridMinVelDevImp"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_DEVP_IMP  "dfaCalGridMinVelDevpImp"
+
+#define SKEY_DFA_CAL_GRID_MIN_DCY       "dfaCalGridMinDcy"
+#define SKEY_DFA_CAL_GRID_MIN_RPM       "dfaCalGridMinRpm"
+/// Maximum
+#define SKEY_DFA_CAL_GRID_MAX           "dfaCalGridMax"
+#define SKEY_DFA_CAL_GRID_MAX_VEL       "dfaCalGridMaxVel"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_TOT   "dfaCalGridMaxVelTot"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_LOW   "dfaCalGridMaxVelLow"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_HIGH  "dfaCalGridMaxVelHigh"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_DEV   "dfaCalGridMaxVelDev"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_DEVP  "dfaCalGridMaxVelDevp"
+
+#define SKEY_DFA_CAL_GRID_MAX_VEL_IMP     "dfaCalGridMaxVelImp"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_TOT_IMP   "dfaCalGridMaxVelTotImp"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_LOW_IMP   "dfaCalGridMaxVelLowImp"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_HIGH_IMP  "dfaCalGridMaxVelHighImp"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_DEV_IMP   "dfaCalGridMaxVelDevImp"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_DEVP_IMP  "dfaCalGridMaxVelDevpImp"
+
+#define SKEY_DFA_CAL_GRID_MAX_DCY       "dfaCalGridMaxDcy"
+#define SKEY_DFA_CAL_GRID_MAX_RPM       "dfaCalGridMaxRpm"
+
 //// FIELD CALIBRATION
+/// Nominal
 #define SKEY_DFA_CAL_GRID_NOM_FIL           "dfaCalGridNomFil"
 #define SKEY_DFA_CAL_GRID_NOM_VEL_FIL       "dfaCalGridNomVelFil"
 #define SKEY_DFA_CAL_GRID_NOM_VEL_TOT_FIL   "dfaCalGridNomVelTotFil"
@@ -255,7 +296,44 @@
 #define SKEY_DFA_CAL_GRID_NOM_VEL_DEV_FIL_IMP   "dfaCalGridNomVelDevFilImp"
 #define SKEY_DFA_CAL_GRID_NOM_VEL_DEVP_FIL_IMP  "dfaCalGridNomVelDevpFilImp"
 
-//DATALOG
+#define SKEY_DFA_CAL_GRID_NOM_DCY_FIL       "dfaCalGridNomDcyFil"
+#define SKEY_DFA_CAL_GRID_NOM_RPM_FIL       "dfaCalGridNomRpmFil"
+/// Minimum
+#define SKEY_DFA_CAL_GRID_MIN_FIL           "dfaCalGridMinFil"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_FIL       "dfaCalGridMinVelFil"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_TOT_FIL   "dfaCalGridMinVelTotFil"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_LOW_FIL   "dfaCalGridMinVelLowFil"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_HIGH_FIL  "dfaCalGridMinVelHighFil"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_DEV_FIL   "dfaCalGridMinVelDevFil"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_DEVP_FIL  "dfaCalGridMinVelDevpFil"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_FIL_IMP       "dfaCalGridMinVelFilImp"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_TOT_FIL_IMP   "dfaCalGridMinVelTotFilImp"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_LOW_FIL_IMP   "dfaCalGridMinVelLowFilImp"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_HIGH_FIL_IMP  "dfaCalGridMinVelHighFilImp"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_DEV_FIL_IMP   "dfaCalGridMinVelDevFilImp"
+#define SKEY_DFA_CAL_GRID_MIN_VEL_DEVP_FIL_IMP  "dfaCalGridMinVelDevpFilImp"
+
+#define SKEY_DFA_CAL_GRID_MIN_DCY_FIL       "dfaCalGridMinDcyFil"
+#define SKEY_DFA_CAL_GRID_MIN_RPM_FIL       "dfaCalGridMinRpmFil"
+/// Maximum
+#define SKEY_DFA_CAL_GRID_MAX_FIL           "dfaCalGridMaxFil"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_FIL       "dfaCalGridMaxVelFil"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_TOT_FIL   "dfaCalGridMaxVelTotFil"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_LOW_FIL   "dfaCalGridMaxVelLowFil"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_HIGH_FIL  "dfaCalGridMaxVelHighFil"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_DEV_FIL   "dfaCalGridMaxVelDevFil"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_DEVP_FIL  "dfaCalGridMaxVelDevpFil"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_FIL_IMP       "dfaCalGridMaxVelFilImp"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_TOT_FIL_IMP   "dfaCalGridMaxVelTotFilImp"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_LOW_FIL_IMP   "dfaCalGridMaxVelLowFilImp"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_HIGH_FIL_IMP  "dfaCalGridMaxVelHighFilImp"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_DEV_FIL_IMP   "dfaCalGridMaxVelDevFilImp"
+#define SKEY_DFA_CAL_GRID_MAX_VEL_DEVP_FIL_IMP  "dfaCalGridMaxVelDevpFilImp"
+
+#define SKEY_DFA_CAL_GRID_MAX_DCY_FIL       "dfaCalGridMaxDcyFil"
+#define SKEY_DFA_CAL_GRID_MAX_RPM_FIL       "dfaCalGridMaxRpmFil"
+
+/// DATALOG
 #define SKEY_DATALOG_ENABLE             "dtLogEn"
 #define SKEY_DATALOG_PERIOD             "dtLogPer"
 

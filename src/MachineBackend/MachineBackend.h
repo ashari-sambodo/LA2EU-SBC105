@@ -247,7 +247,17 @@ public slots:
                                     int velocity,
                                     int velocityLowest, int velocityHighest,
                                     int deviation, int deviationp,
-                                    int fullField);
+                                    int fullField, int ducy, int rpm);
+    void saveDownflowMeaMinimumGrid(const QJsonArray grid, int total,
+                                    int velocity,
+                                    int velocityLowest, int velocityHighest,
+                                    int deviation, int deviationp,
+                                    int fullField, int ducy, int rpm);
+    void saveDownflowMeaMaximumGrid(const QJsonArray grid, int total,
+                                    int velocity,
+                                    int velocityLowest, int velocityHighest,
+                                    int deviation, int deviationp,
+                                    int fullField, int ducy, int rpm);
     //
     void initAirflowCalibrationStatus(short value);
 

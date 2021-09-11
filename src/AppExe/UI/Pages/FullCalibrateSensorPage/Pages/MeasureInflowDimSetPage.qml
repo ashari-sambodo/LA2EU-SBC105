@@ -314,7 +314,7 @@ ViewApp {
                     Item {
                         id: rightContentItem
                         Layout.fillHeight: true
-                        Layout.minimumWidth: parent.width * 0.20
+                        Layout.minimumWidth: parent.width * 0.25
 
                         Column {
                             anchors.verticalCenter: parent.verticalCenter
@@ -364,7 +364,8 @@ ViewApp {
                                     }//
 
                                     TextApp {
-                                        text: "RPM: " + props.fanRpmActual
+                                        text: "RPM: " /*+ props.fanRpmActual*/
+                                        color: "#0F2952"
                                     }//
                                 }//
 
@@ -396,7 +397,7 @@ ViewApp {
                                         let val = Number(text)
                                         if(isNaN(val)) return
 
-                                        MachineAPI.setFanPrimaryDutyCycle(val)
+                                        MachineAPI.setFanInflowDutyCycle(val)
 
                                         //Demo
                                         //                                        props.fanDutyCycleActual = val
@@ -866,7 +867,7 @@ ViewApp {
             property bool   autoSaveToDraftAfterCalculated: false
 
             property int    fanDutyCycleActual: 0 /*+ 45*/
-            property int    fanRpmActual: 0 /*+ 900*/
+            //property int    fanRpmActual: 0 /*+ 900*/
 
             property int    fanDutyCycleInitial: 0
             //            property int    fanDutyCycleResult: 0
@@ -891,7 +892,7 @@ ViewApp {
                     'volTotal': volumeTotal,
                     'velocity': velocity,
                     'fanDucy':  fanDutyCycleActual/*fanDutyCycleInitial*/,
-                    'fanRpm':   fanRpmActual,
+                    //'fanRpm':   fanRpmActual,
                 }
                 return result;
             }
@@ -961,13 +962,13 @@ ViewApp {
                     //                                            props.velocityDecimalPoint)
                 }
 
-                props.fanDutyCycleActual = Qt.binding(function(){ return MachineData.fanPrimaryDutyCycle })
-                props.fanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
+                props.fanDutyCycleActual = Qt.binding(function(){ return MachineData.fanInflowDutyCycle })
+                //props.fanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
 
                 /// Automatically adjust the fan duty cycle to common initial duty cycle
                 if (props.fanDutyCycleActual != props.fanDutyCycleInitial) {
 
-                    MachineAPI.setFanPrimaryDutyCycle(props.fanDutyCycleInitial);
+                    MachineAPI.setFanInflowDutyCycle(props.fanDutyCycleInitial);
 
                     viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                          function onTriggered(cycle){

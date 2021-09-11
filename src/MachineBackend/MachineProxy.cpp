@@ -1639,16 +1639,48 @@ void MachineProxy::setDownflowHighLimitVelocity(short value)
 
 void MachineProxy::saveDownflowMeaNominalGrid(const QJsonArray grid, int total,
                                               int velocity, int velocityLowest, int velocityHighest,
-                                              int deviation, int deviationp, int fullField)
+                                              int deviation, int deviationp, int fullField, int ducy, int rpm)
 {
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, grid, total,
                               velocity,
                               velocityLowest, velocityHighest,
-                              deviation, deviationp, fullField](){
+                              deviation, deviationp, fullField, ducy, rpm](){
         m_machineBackend->saveDownflowMeaNominalGrid(grid, total,
                                                      velocity,
                                                      velocityLowest, velocityHighest,
-                                                     deviation, deviationp, fullField);
+                                                     deviation, deviationp, fullField, ducy, rpm);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::saveDownflowMeaMinimumGrid(const QJsonArray grid, int total,
+                                              int velocity, int velocityLowest, int velocityHighest,
+                                              int deviation, int deviationp, int fullField, int ducy, int rpm)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, grid, total,
+                              velocity,
+                              velocityLowest, velocityHighest,
+                              deviation, deviationp, fullField, ducy, rpm](){
+        m_machineBackend->saveDownflowMeaMinimumGrid(grid, total,
+                                                     velocity,
+                                                     velocityLowest, velocityHighest,
+                                                     deviation, deviationp, fullField, ducy, rpm);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::saveDownflowMeaMaximumGrid(const QJsonArray grid, int total,
+                                              int velocity, int velocityLowest, int velocityHighest,
+                                              int deviation, int deviationp, int fullField, int ducy, int rpm)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, grid, total,
+                              velocity,
+                              velocityLowest, velocityHighest,
+                              deviation, deviationp, fullField, ducy, rpm](){
+        m_machineBackend->saveDownflowMeaMaximumGrid(grid, total,
+                                                     velocity,
+                                                     velocityLowest, velocityHighest,
+                                                     deviation, deviationp, fullField, ducy, rpm);
     },
     Qt::QueuedConnection);
 }

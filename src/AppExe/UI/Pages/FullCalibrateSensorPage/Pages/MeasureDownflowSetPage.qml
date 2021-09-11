@@ -296,95 +296,191 @@ ViewApp {
                     Item {
                         id: rightContentItem
                         Layout.fillHeight: true
-                        Layout.minimumWidth: parent.width * 0.20
+                        Layout.minimumWidth: parent.width * 0.25
 
                         Column {
                             anchors.verticalCenter: parent.verticalCenter
                             spacing: 5
+                            Row{
+                                Rectangle {
+                                    //                                anchors.verticalCenter: parent.verticalCenter
+                                    width: rightContentItem.width/2
+                                    height: rightContentItem.height / 3 - 5
+                                    color: "#0F2952"
+                                    border.color: "#dddddd"
+                                    radius: 5
 
-                            Rectangle {
-                                //                                anchors.verticalCenter: parent.verticalCenter
-                                width: rightContentItem.width
-                                height: rightContentItem.height / 3 - 5
-                                color: "#0F2952"
-                                border.color: "#dddddd"
-                                radius: 5
+                                    ColumnLayout {
+                                        anchors.fill: parent
+                                        anchors.margins: 3
+                                        spacing: 1
 
-                                ColumnLayout {
-                                    anchors.fill: parent
-                                    anchors.margins: 3
-                                    spacing: 1
+                                        Item{
+                                            Layout.fillWidth: true
+                                            Layout.minimumHeight: 30
+                                            TextApp {
+                                                width: parent.width
+                                                height: parent.height
+                                                wrapMode: Text.WordWrap
+                                                font.pixelSize: 12
+                                                text: qsTr("Press here to adjust Downflow fan")
+                                            }
+                                        }
+                                        Item {
+                                            Layout.fillWidth: true
+                                            Layout.fillHeight: true
 
-                                    TextApp {
-                                        font.pixelSize: 14
-                                        text: qsTr("Press here to adjust")
-                                    }
+                                            Image {
+                                                id: fanImage
+                                                source: "qrc:/UI/Pictures/controll/Fan_W.png"
+                                                anchors.fill: parent
+                                                fillMode: Image.PreserveAspectFit
 
-                                    Item {
-                                        Layout.fillWidth: true
-                                        Layout.fillHeight: true
-
-                                        Image {
-                                            id: fanImage
-                                            source: "qrc:/UI/Pictures/controll/Fan_W.png"
-                                            anchors.fill: parent
-                                            fillMode: Image.PreserveAspectFit
-
-                                            states: State {
-                                                name: "stateOn"
-                                                when: props.fanDutyCycleActual
-                                                PropertyChanges {
-                                                    target: fanImage
-                                                    source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                                states: State {
+                                                    name: "stateOn"
+                                                    when: props.fanDutyCycleActual
+                                                    PropertyChanges {
+                                                        target: fanImage
+                                                        source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                                    }//
                                                 }//
                                             }//
                                         }//
-                                    }//
 
-                                    TextApp {
-                                        text: "Dcy: " + props.fanDutyCycleActual
-                                    }//
+                                        TextApp {
+                                            text: "Dcy: " + props.fanDutyCycleActual
+                                        }//
 
-                                    TextApp {
-                                        text: "RPM: " + props.fanRpmActual
-                                    }//
-                                }//
-
-                                MouseArea {
-                                    id: fanSpeedMouseArea
-                                    anchors.fill: parent
-                                }//
-
-                                TextInput {
-                                    id: fanSpeedBufferTextInput
-                                    visible: false
-                                    validator: IntValidator{bottom: 0; top: 99;}
-
-                                    Connections {
-                                        target: fanSpeedMouseArea
-
-                                        function onClicked() {
-                                            //                                        //console.debug(index)
-                                            fanSpeedBufferTextInput.text = props.fanDutyCycleActual
-
-                                            KeyboardOnScreenCaller.openNumpad(fanSpeedBufferTextInput, qsTr("Fan Duty Cycle") + " " + "(0-99)")
+                                        TextApp {
+                                            text: "RPM: " + props.fanRpmActual
                                         }//
                                     }//
 
-                                    onAccepted: {
-                                        let val = Number(text)
-                                        if(isNaN(val)) return
+                                    MouseArea {
+                                        id: fanSpeedMouseArea
+                                        anchors.fill: parent
+                                    }//
 
-                                        MachineAPI.setFanPrimaryDutyCycle(val)
+                                    TextInput {
+                                        id: fanSpeedBufferTextInput
+                                        visible: false
+                                        validator: IntValidator{bottom: 0; top: 99;}
 
-                                        viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
-                                                             function onTriggered(cycle){
-                                                                 if(cycle === 5){ viewApp.dialogObject.close() }
-                                                             })
+                                        Connections {
+                                            target: fanSpeedMouseArea
+
+                                            function onClicked() {
+                                                //                                        //console.debug(index)
+                                                fanSpeedBufferTextInput.text = props.fanDutyCycleActual
+
+                                                KeyboardOnScreenCaller.openNumpad(fanSpeedBufferTextInput, qsTr("Fan Duty Cycle") + " " + "(0-99)")
+                                            }//
+                                        }//
+
+                                        onAccepted: {
+                                            let val = Number(text)
+                                            if(isNaN(val)) return
+
+                                            MachineAPI.setFanPrimaryDutyCycle(val)
+
+                                            viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
+                                                                 function onTriggered(cycle){
+                                                                     if(cycle === 5){ viewApp.dialogObject.close() }
+                                                                 })
+                                        }//
                                     }//
                                 }//
-                            }//
+                                Rectangle {
+                                    //                                anchors.verticalCenter: parent.verticalCenter
+                                    width: rightContentItem.width/2
+                                    height: rightContentItem.height / 3 - 5
+                                    color: "#0F2952"
+                                    border.color: "#dddddd"
+                                    radius: 5
 
+                                    ColumnLayout {
+                                        anchors.fill: parent
+                                        anchors.margins: 3
+                                        spacing: 1
+
+                                        Item{
+                                            Layout.fillWidth: true
+                                            Layout.minimumHeight: 30
+                                            TextApp {
+                                                width: parent.width
+                                                height: parent.height
+                                                wrapMode: Text.WordWrap
+                                                font.pixelSize: 12
+                                                text: qsTr("Press here to adjust Inflow fan")
+                                            }
+                                        }
+
+                                        Item {
+                                            Layout.fillWidth: true
+                                            Layout.fillHeight: true
+
+                                            Image {
+                                                id: ifaFanImage
+                                                source: "qrc:/UI/Pictures/controll/Fan_W.png"
+                                                anchors.fill: parent
+                                                fillMode: Image.PreserveAspectFit
+
+                                                states: State {
+                                                    name: "stateOn"
+                                                    when: MachineData.fanInflowDutyCycle
+                                                    PropertyChanges {
+                                                        target: ifaFanImage
+                                                        source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+
+                                        TextApp {
+                                            text: "Dcy: " + MachineData.fanInflowDutyCycle
+                                        }//
+
+                                        TextApp {
+                                            color: "#0F2952"
+                                            text: "RPM: "/* + props.fanRpmActual*/
+                                        }//
+                                    }//
+
+                                    MouseArea {
+                                        id: ifaFanSpeedMouseArea
+                                        anchors.fill: parent
+                                    }//
+
+                                    TextInput {
+                                        id: ifaFanSpeedBufferTextInput
+                                        visible: false
+                                        validator: IntValidator{bottom: 0; top: 99;}
+
+                                        Connections {
+                                            target: ifaFanSpeedMouseArea
+
+                                            function onClicked() {
+                                                //                                        //console.debug(index)
+                                                ifaFanSpeedBufferTextInput.text = MachineData.fanInflowDutyCycle
+
+                                                KeyboardOnScreenCaller.openNumpad(ifaFanSpeedBufferTextInput, qsTr("Fan Duty Cycle") + " " + "(0-99)")
+                                            }//
+                                        }//
+
+                                        onAccepted: {
+                                            let val = Number(text)
+                                            if(isNaN(val)) return
+
+                                            MachineAPI.setFanInflowDutyCycle(val)
+
+                                            viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
+                                                                 function onTriggered(cycle){
+                                                                     if(cycle === 5){ viewApp.dialogObject.close() }
+                                                                 })
+                                        }//
+                                    }//
+                                }//
+                            }
                             Rectangle {
                                 //                                anchors.verticalCenter: parent.verticalCenter
                                 width: rightContentItem.width

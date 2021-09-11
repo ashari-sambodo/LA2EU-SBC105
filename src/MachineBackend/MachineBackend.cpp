@@ -4361,7 +4361,7 @@ void MachineBackend::saveDownflowMeaNominalGrid(const QJsonArray grid, int total
                                                 int velocity,
                                                 int velocityLowest, int velocityHighest,
                                                 int deviation, int deviationp,
-                                                int fullField)
+                                                int fullField, int ducy, int rpm)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
@@ -4407,6 +4407,9 @@ void MachineBackend::saveDownflowMeaNominalGrid(const QJsonArray grid, int total
             settings.setValue(SKEY_DFA_CAL_GRID_NOM_VEL_DEVP_IMP, (deviationp));
         }
 
+        settings.setValue(SKEY_DFA_CAL_GRID_NOM_DCY, ducy);
+        settings.setValue(SKEY_DFA_CAL_GRID_NOM_RPM, rpm);
+
         //        qDebug() << "FULL_CALIBRATION_DOWNFLOW_BACKEND" << strJson;
 
         /// If performe factory/full calibration
@@ -4425,6 +4428,9 @@ void MachineBackend::saveDownflowMeaNominalGrid(const QJsonArray grid, int total
         settings.remove(SKEY_DFA_CAL_GRID_NOM_VEL_HIGH_FIL_IMP);
         settings.remove(SKEY_DFA_CAL_GRID_NOM_VEL_DEV_FIL_IMP);
         settings.remove(SKEY_DFA_CAL_GRID_NOM_VEL_DEVP_FIL_IMP);
+
+        settings.remove(SKEY_DFA_CAL_GRID_NOM_DCY_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_NOM_RPM_FIL);
         break;
 
     case MachineEnums::FIELD_CALIBRATION:
@@ -4460,6 +4466,8 @@ void MachineBackend::saveDownflowMeaNominalGrid(const QJsonArray grid, int total
             settings.setValue(SKEY_DFA_CAL_GRID_NOM_VEL_DEVP_FIL_IMP, (deviationp));
         }
 
+        settings.setValue(SKEY_DFA_CAL_GRID_NOM_DCY_FIL, ducy);
+        settings.setValue(SKEY_DFA_CAL_GRID_NOM_RPM_FIL, rpm);
         //        qDebug() << "FIELD_CALIBRATION_DOWNFLOW_BACKEND" << strJson;
         break;
     default:
@@ -4470,6 +4478,256 @@ void MachineBackend::saveDownflowMeaNominalGrid(const QJsonArray grid, int total
     settings.remove("drafAirflowGridStr");
     settings.endGroup();
     settings.beginGroup("meadfanomfieldDraft");
+    settings.remove("drafAirflowGridStr");
+    settings.endGroup();
+}
+
+void MachineBackend::saveDownflowMeaMinimumGrid(const QJsonArray grid,
+                                                int total,
+                                                int velocity,
+                                                int velocityLowest,
+                                                int velocityHighest,
+                                                int deviation,
+                                                int deviationp,
+                                                int fullField, int ducy, int rpm)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QJsonDocument doc(grid);
+    QByteArray docByteArray = doc.toJson(QJsonDocument::Compact);
+    QString strJson = QLatin1String(docByteArray);
+
+    //    qDebug() << strJson;
+
+    QSettings settings;
+
+    switch (fullField) {
+    case MachineEnums::FULL_CALIBRATION:
+        settings.setValue(SKEY_DFA_CAL_GRID_MIN, strJson);
+        if(pData->getMeasurementUnit())//Imperial
+        {
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_IMP, velocity);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_TOT_IMP, total);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_LOW_IMP, velocityLowest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_HIGH_IMP, velocityHighest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEV_IMP, deviation);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEVP_IMP, deviationp);
+            //convert to metric
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL, __convertFpmToMps(velocity));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_TOT, __convertFpmToMps(total));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_LOW, __convertFpmToMps(velocityLowest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_HIGH, __convertFpmToMps(velocityHighest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEV, __convertFpmToMps(deviation));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEVP, (deviationp));
+        }else{
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL, velocity);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_TOT, total);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_LOW, velocityLowest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_HIGH, velocityHighest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEV, deviation);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEVP, deviationp);
+            //convert to imperial
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_IMP, __convertMpsToFpm(velocity));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_TOT_IMP, __convertMpsToFpm(total));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_LOW_IMP, __convertMpsToFpm(velocityLowest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_HIGH_IMP, __convertMpsToFpm(velocityHighest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEV_IMP, __convertMpsToFpm(deviation));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEVP_IMP, (deviationp));
+        }
+
+        settings.setValue(SKEY_DFA_CAL_GRID_MIN_DCY, ducy);
+        settings.setValue(SKEY_DFA_CAL_GRID_MIN_RPM, rpm);
+        //        qDebug() << "FULL_CALIBRATION_DOWNFLOW_BACKEND" << strJson;
+
+        /// If performe factory/full calibration
+        /// it's necessary to remove field calibration value
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_VEL_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_VEL_TOT_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_VEL_LOW_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_VEL_HIGH_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_VEL_DEV_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_VEL_DEVP_FIL);
+
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_VEL_FIL_IMP);
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_VEL_TOT_FIL_IMP);
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_VEL_LOW_FIL_IMP);
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_VEL_HIGH_FIL_IMP);
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_VEL_DEV_FIL_IMP);
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_VEL_DEVP_FIL_IMP);
+
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_DCY_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MIN_RPM_FIL);
+        break;
+
+    case MachineEnums::FIELD_CALIBRATION:
+        settings.setValue(SKEY_DFA_CAL_GRID_MIN_FIL, strJson);
+        if(pData->getMeasurementUnit())//Imperial
+        {
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_FIL_IMP, velocity);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_TOT_FIL_IMP, total);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_LOW_FIL_IMP, velocityLowest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_HIGH_FIL_IMP, velocityHighest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEV_FIL_IMP, deviation);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEVP_FIL_IMP, deviationp);
+            //convert to metric
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_FIL, __convertFpmToMps(velocity));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_TOT_FIL, __convertFpmToMps(total));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_LOW_FIL, __convertFpmToMps(velocityLowest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_HIGH_FIL, __convertFpmToMps(velocityHighest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEV_FIL, __convertFpmToMps(deviation));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEVP_FIL, (deviationp));
+        }else{
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_FIL, velocity);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_TOT_FIL, total);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_LOW_FIL, velocityLowest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_HIGH_FIL, velocityHighest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEV_FIL, deviation);
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEVP_FIL, deviationp);
+            //convert to imperial
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_FIL_IMP, __convertMpsToFpm(velocity));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_TOT_FIL_IMP, __convertMpsToFpm(total));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_LOW_FIL_IMP, __convertMpsToFpm(velocityLowest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_HIGH_FIL_IMP, __convertMpsToFpm(velocityHighest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEV_FIL_IMP, __convertMpsToFpm(deviation));
+            settings.setValue(SKEY_DFA_CAL_GRID_MIN_VEL_DEVP_FIL_IMP, (deviationp));
+        }
+        settings.setValue(SKEY_DFA_CAL_GRID_MIN_DCY_FIL, ducy);
+        settings.setValue(SKEY_DFA_CAL_GRID_MIN_RPM_FIL, rpm);
+        //        qDebug() << "FIELD_CALIBRATION_DOWNFLOW_BACKEND" << strJson;
+        break;
+    default:
+        break;
+    }
+
+    settings.beginGroup("meadfaminDraft");
+    settings.remove("drafAirflowGridStr");
+    settings.endGroup();
+    settings.beginGroup("meadfaminfieldDraft");
+    settings.remove("drafAirflowGridStr");
+    settings.endGroup();
+}
+
+void MachineBackend::saveDownflowMeaMaximumGrid(const QJsonArray grid,
+                                                int total,
+                                                int velocity,
+                                                int velocityLowest,
+                                                int velocityHighest,
+                                                int deviation,
+                                                int deviationp,
+                                                int fullField, int ducy, int rpm)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QJsonDocument doc(grid);
+    QByteArray docByteArray = doc.toJson(QJsonDocument::Compact);
+    QString strJson = QLatin1String(docByteArray);
+
+    //    qDebug() << strJson;
+
+    QSettings settings;
+
+    switch (fullField) {
+    case MachineEnums::FULL_CALIBRATION:
+        settings.setValue(SKEY_DFA_CAL_GRID_MAX, strJson);
+        if(pData->getMeasurementUnit())//Imperial
+        {
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_IMP, velocity);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_TOT_IMP, total);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_LOW_IMP, velocityLowest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_HIGH_IMP, velocityHighest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEV_IMP, deviation);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEVP_IMP, deviationp);
+            //convert to metric
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL, __convertFpmToMps(velocity));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_TOT, __convertFpmToMps(total));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_LOW, __convertFpmToMps(velocityLowest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_HIGH, __convertFpmToMps(velocityHighest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEV, __convertFpmToMps(deviation));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEVP, (deviationp));
+        }else{
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL, velocity);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_TOT, total);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_LOW, velocityLowest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_HIGH, velocityHighest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEV, deviation);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEVP, deviationp);
+            //convert to imperial
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_IMP, __convertMpsToFpm(velocity));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_TOT_IMP, __convertMpsToFpm(total));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_LOW_IMP, __convertMpsToFpm(velocityLowest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_HIGH_IMP, __convertMpsToFpm(velocityHighest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEV_IMP, __convertMpsToFpm(deviation));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEVP_IMP, (deviationp));
+        }
+        settings.setValue(SKEY_DFA_CAL_GRID_MAX_DCY, ducy);
+        settings.setValue(SKEY_DFA_CAL_GRID_MAX_RPM, rpm);
+        //        qDebug() << "FULL_CALIBRATION_DOWNFLOW_BACKEND" << strJson;
+
+        /// If performe factory/full calibration
+        /// it's necessary to remove field calibration value
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_VEL_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_VEL_TOT_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_VEL_LOW_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_VEL_HIGH_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_VEL_DEV_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_VEL_DEVP_FIL);
+
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_VEL_FIL_IMP);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_VEL_TOT_FIL_IMP);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_VEL_LOW_FIL_IMP);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_VEL_HIGH_FIL_IMP);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_VEL_DEV_FIL_IMP);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_VEL_DEVP_FIL_IMP);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_DCY_FIL);
+        settings.remove(SKEY_DFA_CAL_GRID_MAX_RPM_FIL);
+        break;
+
+    case MachineEnums::FIELD_CALIBRATION:
+        settings.setValue(SKEY_DFA_CAL_GRID_MAX_FIL, strJson);
+        if(pData->getMeasurementUnit())//Imperial
+        {
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_FIL_IMP, velocity);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_TOT_FIL_IMP, total);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_LOW_FIL_IMP, velocityLowest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_HIGH_FIL_IMP, velocityHighest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEV_FIL_IMP, deviation);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEVP_FIL_IMP, deviationp);
+            //convert to metric
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_FIL, __convertFpmToMps(velocity));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_TOT_FIL, __convertFpmToMps(total));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_LOW_FIL, __convertFpmToMps(velocityLowest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_HIGH_FIL, __convertFpmToMps(velocityHighest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEV_FIL, __convertFpmToMps(deviation));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEVP_FIL, (deviationp));
+        }else{
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_FIL, velocity);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_TOT_FIL, total);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_LOW_FIL, velocityLowest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_HIGH_FIL, velocityHighest);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEV_FIL, deviation);
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEVP_FIL, deviationp);
+            //convert to imperial
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_FIL_IMP, __convertMpsToFpm(velocity));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_TOT_FIL_IMP, __convertMpsToFpm(total));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_LOW_FIL_IMP, __convertMpsToFpm(velocityLowest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_HIGH_FIL_IMP, __convertMpsToFpm(velocityHighest));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEV_FIL_IMP, __convertMpsToFpm(deviation));
+            settings.setValue(SKEY_DFA_CAL_GRID_MAX_VEL_DEVP_FIL_IMP, (deviationp));
+        }
+        settings.setValue(SKEY_DFA_CAL_GRID_MAX_DCY_FIL, ducy);
+        settings.setValue(SKEY_DFA_CAL_GRID_MAX_RPM_FIL, rpm);
+        //        qDebug() << "FIELD_CALIBRATION_DOWNFLOW_BACKEND" << strJson;
+        break;
+    default:
+        break;
+    }
+
+    settings.beginGroup("meadfamaxDraft");
+    settings.remove("drafAirflowGridStr");
+    settings.endGroup();
+    settings.beginGroup("meadfamaxfieldDraft");
     settings.remove("drafAirflowGridStr");
     settings.endGroup();
 }
