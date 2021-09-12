@@ -9,54 +9,135 @@ import "../Components" as LocalComp
 
 Item {
 
+
     ColumnLayout {
         anchors.fill: parent
-
-        Item {
-            Layout.minimumHeight: 50
-            Layout.fillHeight: false
+        Item{
+            Layout.fillHeight: true
             Layout.fillWidth: true
+            RowLayout{
+                anchors.fill: parent
+                Item{
+                    Layout.fillHeight: true
+                    Layout.minimumWidth: 300
+                    Column{
+                        anchors.verticalCenter: parent.verticalCenter
+                        TextApp {
+                            text: qsTr("Downflow Nominal")
+                            font.bold: true
+                        }
+                        TextApp {
+                            id: velocityTextAppNom
+                            text: qsTr("Average") + ": "+ valueStrf
 
-            TextApp {
-                text: qsTr("Downflow")
-                font.bold: true
-                anchors.verticalCenter: parent.verticalCenter
-            }
+                            property string valueStrf: "0.32 m/s"
+                        }//
+                        TextApp {
+                            id: deviationTextAppNom
+                            text: qsTr("Max Deviation") + ": "+ valueStrf
 
-            Row {
-                spacing: 10
-                anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
-
-                TextApp {
-                    id: velocityTextApp
-                    text: qsTr("Average") + ": "+ valueStrf
-
-                    property string valueStrf: "0.32 m/s"
+                            property string valueStrf: "0.04 m/s (12.5%)"
+                        }//
+                    }//
                 }//
-
-                TextApp {
-                    text: "-"
-                }
-
-                TextApp {
-                    id: deviationTextApp
-                    text: qsTr("Max Deviation") + ": "+ valueStrf
-
-                    property string valueStrf: "0.04 m/s (12.5%)"
+                Item{
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    LocalComp.AirflowGridWrapper {
+                        id: loaderDfaNomGrid
+                        anchors.fill: parent
+                        visibleHorizontalScroll: true
+                        visibleVerticalScroll: true
+                    }//
                 }//
             }//
         }//
-
-        Item {
+        Rectangle{
+            Layout.minimumHeight: 1
+            Layout.fillWidth: true
+        }
+        Item{
             Layout.fillHeight: true
             Layout.fillWidth: true
-
-            LocalComp.AirflowGridWrapper {
-                id: loaderDfaNomGrid
+            RowLayout{
                 anchors.fill: parent
-                visibleHorizontalScroll: true
-                visibleVerticalScroll: true
+                Item{
+                    Layout.fillHeight: true
+                    Layout.minimumWidth: 300
+                    Column{
+                        anchors.verticalCenter: parent.verticalCenter
+                        TextApp {
+                            text: qsTr("Downflow Minimum")
+                            font.bold: true
+                        }
+                        TextApp {
+                            id: velocityTextAppMin
+                            text: qsTr("Average") + ": "+ valueStrf
+
+                            property string valueStrf: "0.32 m/s"
+                        }//
+                        TextApp {
+                            id: deviationTextAppMin
+                            text: qsTr("Max Deviation") + ": "+ valueStrf
+
+                            property string valueStrf: "0.04 m/s (12.5%)"
+                        }//
+                    }//
+                }//
+                Item{
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    LocalComp.AirflowGridWrapper {
+                        id: loaderDfaMinGrid
+                        anchors.fill: parent
+                        visibleHorizontalScroll: true
+                        visibleVerticalScroll: true
+                    }//
+                }//
+            }//
+        }//
+        Rectangle{
+            Layout.minimumHeight: 1
+            Layout.fillWidth: true
+        }
+        Item{
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            RowLayout{
+                anchors.fill: parent
+                Item{
+                    Layout.fillHeight: true
+                    Layout.minimumWidth: 300
+                    Column{
+                        anchors.verticalCenter: parent.verticalCenter
+                        TextApp {
+                            text: qsTr("Downflow Maximum")
+                            font.bold: true
+                        }
+                        TextApp {
+                            id: velocityTextAppMax
+                            text: qsTr("Average") + ": "+ valueStrf
+
+                            property string valueStrf: "0.32 m/s"
+                        }//
+                        TextApp {
+                            id: deviationTextAppMax
+                            text: qsTr("Max Deviation") + ": "+ valueStrf
+
+                            property string valueStrf: "0.04 m/s (12.5%)"
+                        }//
+                    }//
+                }//
+                Item{
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    LocalComp.AirflowGridWrapper {
+                        id: loaderDfaMaxGrid
+                        anchors.fill: parent
+                        visibleHorizontalScroll: true
+                        visibleVerticalScroll: true
+                    }//
+                }//
             }//
         }//
     }//
@@ -92,6 +173,44 @@ Item {
                                                       "valueMaximum": dfaCalGridNomVelHigh,
                                                   })
             }//
+            if(messageObject.id === "loaderDfaMinGrid"){
+                const grid = messageObject.data || [{}]
+
+                let dfaCalGridMinVelHigh    =  MachineData.measurementUnit ? (settings.dfaCalGridMinVelHighImp / 100) : (settings.dfaCalGridMinVelHigh / 100)
+                let dfaCalGridMinVelLow     =  MachineData.measurementUnit ? (settings.dfaCalGridMinVelLowImp / 100) : (settings.dfaCalGridMinVelLow / 100)
+                let dfaCalGridMinVelDev     =  MachineData.measurementUnit ? (settings.dfaCalGridMinVelDevImp / 100) : (settings.dfaCalGridMinVelDev / 100)
+                let dfaCalGridMinVelDevp    =  MachineData.measurementUnit ? (settings.dfaCalGridMinVelDevpImp / 100) : (settings.dfaCalGridMinVelDevp / 100)
+
+                let columns = MachineData.machineProfile['airflow']['dfa']['minimum']['grid']['columns']
+
+                loaderDfaMinGrid.loader.setSource("../Components/AirflowGrid.qml",
+                                                  {
+                                                      "measureUnit": MachineData.measurementUnit,
+                                                      "columns": columns,
+                                                      "model": grid,
+                                                      "valueMinimum": dfaCalGridMinVelLow,
+                                                      "valueMaximum": dfaCalGridMinVelHigh,
+                                                  })
+            }//
+            if(messageObject.id === "loaderDfaMaxGrid"){
+                const grid = messageObject.data || [{}]
+
+                let dfaCalGridMaxVelHigh    =  MachineData.measurementUnit ? (settings.dfaCalGridMaxVelHighImp / 100) : (settings.dfaCalGridMaxVelHigh / 100)
+                let dfaCalGridMaxVelLow     =  MachineData.measurementUnit ? (settings.dfaCalGridMaxVelLowImp / 100) : (settings.dfaCalGridMaxVelLow / 100)
+                let dfaCalGridMaxVelDev     =  MachineData.measurementUnit ? (settings.dfaCalGridMaxVelDevImp / 100) : (settings.dfaCalGridMaxVelDev / 100)
+                let dfaCalGridMaxVelDevp    =  MachineData.measurementUnit ? (settings.dfaCalGridMaxVelDevpImp / 100) : (settings.dfaCalGridMaxVelDevp / 100)
+
+                let columns = MachineData.machineProfile['airflow']['dfa']['maximum']['grid']['columns']
+
+                loaderDfaMaxGrid.loader.setSource("../Components/AirflowGrid.qml",
+                                                  {
+                                                      "measureUnit": MachineData.measurementUnit,
+                                                      "columns": columns,
+                                                      "model": grid,
+                                                      "valueMinimum": dfaCalGridMaxVelLow,
+                                                      "valueMaximum": dfaCalGridMaxVelHigh,
+                                                  })
+            }//
         }//
     }//
 
@@ -115,7 +234,34 @@ Item {
         property int    dfaCalGridNomVelHighImp:   0
         property int    dfaCalGridNomVelLowImp:    0
 
+        property string dfaCalGridMin:          "[]"
+        property int    dfaCalGridMinVel:       0
+        property int    dfaCalGridMinVelDev:    0
+        property int    dfaCalGridMinVelDevp:   0
+        property int    dfaCalGridMinVelHigh:   0
+        property int    dfaCalGridMinVelLow:    0
+
+        property int    dfaCalGridMinVelImp:       0
+        property int    dfaCalGridMinVelDevImp:    0
+        property int    dfaCalGridMinVelDevpImp:   0
+        property int    dfaCalGridMinVelHighImp:   0
+        property int    dfaCalGridMinVelLowImp:    0
+
+        property string dfaCalGridMax:          "[]"
+        property int    dfaCalGridMaxVel:       0
+        property int    dfaCalGridMaxVelDev:    0
+        property int    dfaCalGridMaxVelDevp:   0
+        property int    dfaCalGridMaxVelHigh:   0
+        property int    dfaCalGridMaxVelLow:    0
+
+        property int    dfaCalGridMaxVelImp:       0
+        property int    dfaCalGridMaxVelDevImp:    0
+        property int    dfaCalGridMaxVelDevpImp:   0
+        property int    dfaCalGridMaxVelHighImp:   0
+        property int    dfaCalGridMaxVelLowImp:    0
+
         Component.onCompleted: {
+            /// Nominal
             jsonStringify.s2j('loaderDfaNomGrid', dfaCalGridNom)
 
             let dfaCalGridNomVel
@@ -124,7 +270,7 @@ Item {
             else
                 dfaCalGridNomVel = utils.strfVelocityByUnit(MachineData.measurementUnit, settings.dfaCalGridNomVel / 100)
 
-            velocityTextApp.valueStrf = dfaCalGridNomVel
+            velocityTextAppNom.valueStrf = dfaCalGridNomVel
 
             let dfaCalGridNomVelDev
             if(MachineData.measurementUnit)
@@ -133,7 +279,47 @@ Item {
                 dfaCalGridNomVelDev = utils.strfVelocityByUnit(MachineData.measurementUnit, settings.dfaCalGridNomVelDev / 100)
 
             let dfaCalGridNomVelDevp = (settings.dfaCalGridNomVelDevp / 100).toFixed(2) + "%"
-            deviationTextApp.valueStrf = dfaCalGridNomVelDev + " (" + dfaCalGridNomVelDevp + ")"
+            deviationTextAppNom.valueStrf = dfaCalGridNomVelDev + " (" + dfaCalGridNomVelDevp + ")"
+
+            /// Minimum
+            jsonStringify.s2j('loaderDfaMinGrid', dfaCalGridMin)
+
+            let dfaCalGridMinVel
+            if(MachineData.measurementUnit)
+                dfaCalGridMinVel = utils.strfVelocityByUnit(MachineData.measurementUnit, settings.dfaCalGridMinVelImp / 100)
+            else
+                dfaCalGridMinVel = utils.strfVelocityByUnit(MachineData.measurementUnit, settings.dfaCalGridMinVel / 100)
+
+            velocityTextAppMin.valueStrf = dfaCalGridMinVel
+
+            let dfaCalGridMinVelDev
+            if(MachineData.measurementUnit)
+                dfaCalGridMinVelDev = utils.strfVelocityByUnit(MachineData.measurementUnit, settings.dfaCalGridMinVelDevImp / 100)
+            else
+                dfaCalGridMinVelDev = utils.strfVelocityByUnit(MachineData.measurementUnit, settings.dfaCalGridMinVelDev / 100)
+
+            let dfaCalGridMinVelDevp = (settings.dfaCalGridMinVelDevp / 100).toFixed(2) + "%"
+            deviationTextAppMin.valueStrf = dfaCalGridMinVelDev + " (" + dfaCalGridMinVelDevp + ")"
+
+            /// Maximum
+            jsonStringify.s2j('loaderDfaMaxGrid', dfaCalGridMax)
+
+            let dfaCalGridMaxVel
+            if(MachineData.measurementUnit)
+                dfaCalGridMaxVel = utils.strfVelocityByUnit(MachineData.measurementUnit, settings.dfaCalGridMaxVelImp / 100)
+            else
+                dfaCalGridMaxVel = utils.strfVelocityByUnit(MachineData.measurementUnit, settings.dfaCalGridMaxVel / 100)
+
+            velocityTextAppMax.valueStrf = dfaCalGridMaxVel
+
+            let dfaCalGridMaxVelDev
+            if(MachineData.measurementUnit)
+                dfaCalGridMaxVelDev = utils.strfVelocityByUnit(MachineData.measurementUnit, settings.dfaCalGridMaxVelDevImp / 100)
+            else
+                dfaCalGridMaxVelDev = utils.strfVelocityByUnit(MachineData.measurementUnit, settings.dfaCalGridMaxVelDev / 100)
+
+            let dfaCalGridMaxVelDevp = (settings.dfaCalGridMaxVelDevp / 100).toFixed(2) + "%"
+            deviationTextAppMax.valueStrf = dfaCalGridMaxVelDev + " (" + dfaCalGridMaxVelDevp + ")"
         }//
     }//
 }//
