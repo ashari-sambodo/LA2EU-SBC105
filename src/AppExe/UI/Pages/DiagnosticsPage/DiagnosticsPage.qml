@@ -162,7 +162,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Fan state (D/F | I/F)")
+                                label: qsTr("Fan state (DF | IF)")
 
                                 onLoaded: {
                                     value1 = Qt.binding(function(){
@@ -186,7 +186,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Fan usage meter (D/F | I/F)")
+                                label: qsTr("Fan usage meter (DF | IF)")
 
                                 onLoaded: {
                                     value1 = Qt.binding(function(){
@@ -364,7 +364,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("ADC A/F Actual (D/F | I/F)")
+                                label: qsTr("ADC A/F Actual (DF | IF)")
 
                                 onLoaded: {
                                     value1 = Qt.binding(function(){return MachineData.dfaAdcConpensation})
@@ -384,7 +384,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("ADC A/F Nominal (D/F | I/F)")
+                                label: qsTr("ADC A/F Nominal (DF | IF)")
 
                                 onLoaded: {
                                     if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
@@ -406,7 +406,7 @@ ViewApp {
                             //                                viewContentY: view.contentY
                             //                                viewSpan: view.span
 
-                            //                                label: qsTr("ADC A/F Fail (D/F | I/F)")
+                            //                                label: qsTr("ADC A/F Fail (DF | IF)")
 
                             //                                onLoaded: {
                             //                                    if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
@@ -427,7 +427,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("ADC A/F 2 (D/F | I/F)")
+                                label: qsTr("ADC A/F 2 (DF | IF)")
 
                                 onLoaded: {
                                     value1 = MachineData.getDownflowAdcPointFactory(2)
@@ -442,7 +442,7 @@ ViewApp {
                             //                                viewContentY: view.contentY
                             //                                viewSpan: view.span
 
-                            //                                label: qsTr("ADC A/F 1 (D/F | I/F)")
+                            //                                label: qsTr("ADC A/F 1 (DF | IF)")
 
                             //                                onLoaded: {
                             //                                    value1 = MachineData.getDownflowAdcPointFactory(1)
@@ -457,7 +457,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("ADC A/F 0 (D/F | I/F)")
+                                label: qsTr("ADC A/F 0 (DF | IF)")
 
                                 onLoaded: {
                                     value1 = MachineData.getDownflowAdcPointFactory(0)
@@ -472,7 +472,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("VEL A/F High Alarm (D/F)")
+                                label: qsTr("VEL A/F High Alarm (DF)")
 
                                 onLoaded: {
                                     let velocityIfa = 0
@@ -512,7 +512,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("VEL A/F Nominal (D/F | I/F)")
+                                label: qsTr("VEL A/F Nominal (DF | IF)")
 
                                 onLoaded: {
                                     let velocityIfa = 0
@@ -552,7 +552,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("VEL A/F Low Alarm (D/F | I/F)")
+                                label: qsTr("VEL A/F Low Alarm (DF | IF)")
 
                                 onLoaded: {
                                     let velocityDfa = MachineData.getDownflowLowLimitVelocity() / 100
@@ -592,7 +592,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("VEL A/F 3 (D/F)")
+                                label: qsTr("VEL A/F 3 (DF)")
 
                                 onLoaded: {
                                     let velocityDfa = 0
@@ -626,7 +626,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("VEL A/F 2 (D/F | I/F)")
+                                label: qsTr("VEL A/F 2 (DF | IF)")
 
                                 onLoaded: {
                                     let velocityDfa = 0
@@ -660,7 +660,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("VEL A/F 1 (D/F | I/F)")
+                                label: qsTr("VEL A/F 1 (DF | IF)")
 
                                 onLoaded: {
                                     let velocityDfa = 0
@@ -695,7 +695,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Sensor Contant (D/F | I/F)")
+                                label: qsTr("Sensor Contant (DF | IF)")
 
                                 onLoaded: {
                                     value = MachineData.getDownflowSensorConstant() + " | " + MachineData.getInflowSensorConstant()
@@ -709,7 +709,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Fan Nominal (D/F | I/F)")
+                                label: qsTr("Fan Nominal (DF | IF)")
 
                                 onLoaded: {
                                     if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
@@ -738,7 +738,7 @@ ViewApp {
                             //                                viewContentY: view.contentY
                             //                                viewSpan: view.span
 
-                            //                                label: qsTr("Fan Minimum (D/F | I/F)")
+                            //                                label: qsTr("Fan Minimum (DF | IF)")
 
                             //                                onLoaded: {
                             //                                    if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
@@ -767,7 +767,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Fan Standby (D/F | I/F)")
+                                label: qsTr("Fan Standby (DF | IF)")
 
                                 onLoaded: {
                                     if (MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD) {
@@ -796,7 +796,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Fan A/F 2 (D/F | I/F)")
+                                label: qsTr("Fan A/F 2 (DF | IF)")
 
                                 onLoaded: {
                                     const ducyDfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
@@ -815,7 +815,7 @@ ViewApp {
                             //                                viewContentY: view.contentY
                             //                                viewSpan: view.span
 
-                            //                                label: qsTr("Fan A/F 1 (D/F | I/F)")
+                            //                                label: qsTr("Fan A/F 1 (DF | IF)")
 
                             //                                onLoaded: {
                             //                                    const ducyDfa = MachineData.getFanPrimaryMinimumDutyCycleFactory()
@@ -834,7 +834,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Fan A/F S (D/F | I/F)")
+                                label: qsTr("Fan A/F S (DF | IF)")
 
                                 onLoaded: {
                                     const ducyDfa = MachineData.getFanPrimaryStandbyDutyCycleFactory()

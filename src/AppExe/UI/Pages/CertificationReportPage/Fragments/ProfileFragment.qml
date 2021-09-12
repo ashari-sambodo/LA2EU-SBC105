@@ -261,7 +261,7 @@ Item {
             spacing: 5
 
             TextApp {
-                text: qsTr("D/F Particle Penetration")
+                text: qsTr("DF Particle Penetration")
             }//
 
             Row {
@@ -274,7 +274,7 @@ Item {
                     text: "0.00"
 
                     onPressed: {
-                        KeyboardOnScreenCaller.openNumpad(this, qsTr("D/F Particle Penetration"))
+                        KeyboardOnScreenCaller.openNumpad(this, qsTr("DF Particle Penetration"))
                     }//
 
                     onAccepted: {
@@ -346,7 +346,7 @@ Item {
             spacing: 5
 
             TextApp {
-                text: qsTr("I/F Particle Penetration")
+                text: qsTr("IF Particle Penetration")
             }//
 
             Row {
@@ -359,7 +359,7 @@ Item {
                     text: "0.00"
 
                     onPressed: {
-                        KeyboardOnScreenCaller.openNumpad(this, qsTr("I/F Particle Penetration"))
+                        KeyboardOnScreenCaller.openNumpad(this, qsTr("IF Particle Penetration"))
                     }//
 
                     onAccepted: {

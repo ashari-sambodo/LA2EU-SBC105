@@ -1700,11 +1700,16 @@ void MachineBackend::setup()
         //        qDebug() << dfaAdcZeroField << dfaAdcMinField << dfaAdcNomField;
         //        qDebug() << dfaVelMinField << dfaVelNomField;
         //        qDebug() << fanStandbyDutyCycleField;
-        bool dfaCalibPhaseField = ((dfaAdcZeroField + 100) <= dfaVelNomField)
+        bool dfaCalibPhaseField = ((dfaAdcZeroField + 100) <= dfaAdcNomField)
                 //                && (dfaAdcMinField< dfaAdcNomField)
                 && (dfaVelMinField < dfaVelNomField)
                 && (dfaVelNomField < dfaVelMaxField)
                 && fanDfaNominalDutyCycleField;
+
+        //        qDebug() << dfaAdcZeroField << dfaVelNomField;
+        //        qDebug() << dfaVelMinField << dfaVelNomField;
+        //        qDebug() << dfaVelNomField << dfaVelMaxField;
+        //        qDebug() << fanDfaNominalDutyCycleField;
 
         int downflowCalibStatus = dfaCalibPhaseField ? MachineEnums::AF_CALIB_FIELD
                                                      : (dfaCalibPhaseFactory ? MachineEnums::AF_CALIB_FACTORY : MachineEnums::AF_CALIB_NONE);
@@ -1835,6 +1840,9 @@ void MachineBackend::setup()
         pData->setInflowVelocityPointField(2, ifaVelNomField);
 
         /// \brief initAirflowCalibrationStatus
+        qDebug() << "downflowCalibStatus" << downflowCalibStatus;
+        qDebug() << "inflowCalibStatus" << inflowCalibStatus;
+        qDebug() << "airflowCalibStatus" << airflowCalibStatus;
         pData->setDownflowCalibrationStatus(static_cast<short>(downflowCalibStatus));
         pData->setInflowCalibrationStatus(static_cast<short>(inflowCalibStatus));
         initAirflowCalibrationStatus(static_cast<short>(airflowCalibStatus));
@@ -3966,12 +3974,12 @@ void MachineBackend::saveInflowMeaDimNominalGrid(QJsonArray grid, int total,
     }
 
     /// remove the draf
-    settings.beginGroup("meaifanomDraft");
-    settings.remove("drafAirflowGridStr");
-    settings.endGroup();
-    settings.beginGroup("meaifanomdimfieldDraft");
-    settings.remove("drafAirflowGridStr");
-    settings.endGroup();
+    //    settings.beginGroup("meaifanomDraft");
+    //    settings.remove("drafAirflowGridStr");
+    //    settings.endGroup();
+    //    settings.beginGroup("meaifanomdimfieldDraft");
+    //    settings.remove("drafAirflowGridStr");
+    //    settings.endGroup();
 }
 
 void MachineBackend::saveInflowMeaDimMinimumGrid(QJsonArray grid,
@@ -4013,9 +4021,9 @@ void MachineBackend::saveInflowMeaDimMinimumGrid(QJsonArray grid,
     settings.setValue(SKEY_IFA_CAL_GRID_MIN_DCY, ducy);
     settings.setValue(SKEY_IFA_CAL_GRID_MIN_RPM, rpm);
 
-    settings.beginGroup("meaifaminDraft");
-    settings.remove("drafAirflowGridStr");
-    settings.endGroup();
+    //    settings.beginGroup("meaifaminDraft");
+    //    settings.remove("drafAirflowGridStr");
+    //    settings.endGroup();
 }
 
 void MachineBackend::saveInflowMeaDimStandbyGrid(QJsonArray grid, int total,
@@ -4057,9 +4065,9 @@ void MachineBackend::saveInflowMeaDimStandbyGrid(QJsonArray grid, int total,
     settings.setValue(SKEY_IFA_CAL_GRID_STB_DCY, ducy);
     settings.setValue(SKEY_IFA_CAL_GRID_STB_RPM, rpm);
 
-    settings.beginGroup("meaifastbDraft");
-    settings.remove("drafAirflowGridStr");
-    settings.endGroup();
+    //    settings.beginGroup("meaifastbDraft");
+    //    settings.remove("drafAirflowGridStr");
+    //    settings.endGroup();
 
     //    qDebug() << "StandBy Value Cal " << volume << velocity << average << total << ducy;
 }
@@ -4114,13 +4122,13 @@ void MachineBackend::saveInflowMeaSecNominalGrid(const QJsonArray grid,
     settings.remove(SKEY_IFA_CAL_GRID_NOM_DCY_FIL);
     settings.remove(SKEY_IFA_CAL_GRID_NOM_RPM_FIL);
 
-    settings.beginGroup("meaifanomsecDraft");
-    settings.remove("drafAirflowGridStr");
-    settings.endGroup();
+    //    settings.beginGroup("meaifanomsecDraft");
+    //    settings.remove("drafAirflowGridStr");
+    //    settings.endGroup();
 
-    settings.beginGroup("meaifanomsecfieldDraft");
-    settings.remove("drafAirflowGridStr");
-    settings.endGroup();
+    //    settings.beginGroup("meaifanomsecfieldDraft");
+    //    settings.remove("drafAirflowGridStr");
+    //    settings.endGroup();
 }
 
 void MachineBackend::setDownflowSensorConstantTemporary(short value)
@@ -4474,12 +4482,12 @@ void MachineBackend::saveDownflowMeaNominalGrid(const QJsonArray grid, int total
         break;
     }
 
-    settings.beginGroup("meadfanomDraft");
-    settings.remove("drafAirflowGridStr");
-    settings.endGroup();
-    settings.beginGroup("meadfanomfieldDraft");
-    settings.remove("drafAirflowGridStr");
-    settings.endGroup();
+    //    settings.beginGroup("meadfanomDraft");
+    //    settings.remove("drafAirflowGridStr");
+    //    settings.endGroup();
+    //    settings.beginGroup("meadfanomfieldDraft");
+    //    settings.remove("drafAirflowGridStr");
+    //    settings.endGroup();
 }
 
 void MachineBackend::saveDownflowMeaMinimumGrid(const QJsonArray grid,
@@ -4537,9 +4545,9 @@ void MachineBackend::saveDownflowMeaMinimumGrid(const QJsonArray grid,
     settings.setValue(SKEY_DFA_CAL_GRID_MIN_RPM, rpm);
     //        qDebug() << "FULL_CALIBRATION_DOWNFLOW_BACKEND" << strJson;
 
-    settings.beginGroup("meadfaminDraft");
-    settings.remove("drafAirflowGridStr");
-    settings.endGroup();
+    //    settings.beginGroup("meadfaminDraft");
+    //    settings.remove("drafAirflowGridStr");
+    //    settings.endGroup();
 }
 
 void MachineBackend::saveDownflowMeaMaximumGrid(const QJsonArray grid,
@@ -4596,9 +4604,9 @@ void MachineBackend::saveDownflowMeaMaximumGrid(const QJsonArray grid,
     settings.setValue(SKEY_DFA_CAL_GRID_MAX_RPM, rpm);
     //        qDebug() << "FULL_CALIBRATION_DOWNFLOW_BACKEND" << strJson;
 
-    settings.beginGroup("meadfamaxDraft");
-    settings.remove("drafAirflowGridStr");
-    settings.endGroup();
+    //    settings.beginGroup("meadfamaxDraft");
+    //    settings.remove("drafAirflowGridStr");
+    //    settings.endGroup();
 }
 
 void MachineBackend::setDownflowVelocityPointFactory(int /*pointZero*/, int pointMin, int pointNom, int pointMax)

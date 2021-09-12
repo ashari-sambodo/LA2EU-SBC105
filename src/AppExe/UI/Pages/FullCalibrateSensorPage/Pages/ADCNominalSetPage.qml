@@ -112,10 +112,30 @@ ViewApp {
                                                                 Column{
                                                                     anchors.verticalCenter: parent.verticalCenter
                                                                     TextApp {
+                                                                        id: dfaDcyText
                                                                         text: "Dcy: " + props.dfaFanDutyCycleActual
+                                                                        states: [
+                                                                            State {
+                                                                                when: props.dfaFanDutyCycleActual == 0
+                                                                                PropertyChanges {
+                                                                                    target: dfaDcyText
+                                                                                    color: "red"
+                                                                                }
+                                                                            }//
+                                                                        ]//
                                                                     }//
                                                                     TextApp {
+                                                                        id: dfaRpmText
                                                                         text: "RPM: " + props.dfaFanRpmActual
+                                                                        states: [
+                                                                            State {
+                                                                                when: props.dfaFanRpmActual == 0
+                                                                                PropertyChanges {
+                                                                                    target: dfaRpmText
+                                                                                    color: "red"
+                                                                                }
+                                                                            }//
+                                                                        ]//
                                                                     }//
                                                                 }//
                                                             }
@@ -194,6 +214,81 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
+                                                text: qsTr("Set DF Nominal") + ":"
+                                            }//
+
+                                            TextApp {
+                                                text: props.measureUnitStr
+                                            }//
+
+                                            Item {
+                                                Layout.fillWidth: true
+                                                Layout.fillHeight: true
+
+                                                TextField {
+                                                    id: dfaNomText
+                                                    anchors.verticalCenter: parent.verticalCenter
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    width: parent.width - 2
+                                                    font.pixelSize: 24
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    color: "#dddddd"
+                                                    text: props.dfaVelocityNomStrf
+
+                                                    background: Rectangle {
+                                                        height: parent.height
+                                                        width: parent.width
+                                                        color: "#55000000"
+
+                                                        Rectangle {
+                                                            height: 1
+                                                            width: parent.width
+                                                            anchors.bottom: parent.bottom
+                                                        }//
+                                                    }//
+
+                                                    states: [
+                                                        State {
+                                                            when: props.dfaVelocityNom <= props.dfaVelocityMin
+                                                                  || props.dfaVelocityNom >= props.dfaVelocityMax
+                                                            PropertyChanges {
+                                                                target: dfaNomText
+                                                                color: "red"
+                                                            }
+                                                        }
+                                                    ]//
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow Nominal"))
+                                                    }//
+
+                                                    onAccepted: {
+                                                        const val = Number(text)
+                                                        if(isNaN(val)) return
+
+                                                        ////console.debug("val: " + val)
+                                                        props.dfaVelocityNom = val
+                                                        props.dfaVelocityNomStrf = text
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                    }//
+
+                                    Rectangle {
+                                        //                                anchors.verticalCenter: parent.verticalCenter
+                                        width: rightContentItem.width
+                                        height: rightContentItem.height / 4 - 15
+                                        color: "#0F2952"
+                                        border.color: "#dddddd"
+                                        radius: 5
+
+                                        ColumnLayout {
+                                            anchors.fill: parent
+                                            anchors.margins: 3
+                                            spacing: 1
+
+                                            TextApp {
                                                 text: qsTr("Set DF Low Alarm") + ":"
                                             }//
 
@@ -206,6 +301,7 @@ ViewApp {
                                                 Layout.fillHeight: true
 
                                                 TextField {
+                                                    id: dfaMinText
                                                     anchors.verticalCenter: parent.verticalCenter
                                                     anchors.horizontalCenter: parent.horizontalCenter
                                                     width: parent.width - 2
@@ -225,6 +321,16 @@ ViewApp {
                                                             anchors.bottom: parent.bottom
                                                         }//
                                                     }//
+
+                                                    states: [
+                                                        State {
+                                                            when: props.dfaVelocityMin >= props.dfaVelocityNom
+                                                            PropertyChanges {
+                                                                target: dfaMinText
+                                                                color: "red"
+                                                            }
+                                                        }
+                                                    ]//
 
                                                     onPressed: {
                                                         KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow Low Alarm"))
@@ -265,68 +371,6 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
-                                                text: qsTr("Set DF Nominal") + ":"
-                                            }//
-
-                                            TextApp {
-                                                text: props.measureUnitStr
-                                            }//
-
-                                            Item {
-                                                Layout.fillWidth: true
-                                                Layout.fillHeight: true
-
-                                                TextField {
-                                                    anchors.verticalCenter: parent.verticalCenter
-                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                    width: parent.width - 2
-                                                    font.pixelSize: 24
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    color: "#dddddd"
-                                                    text: props.dfaVelocityNomStrf
-
-                                                    background: Rectangle {
-                                                        height: parent.height
-                                                        width: parent.width
-                                                        color: "#55000000"
-
-                                                        Rectangle {
-                                                            height: 1
-                                                            width: parent.width
-                                                            anchors.bottom: parent.bottom
-                                                        }//
-                                                    }//
-
-                                                    onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow Nominal"))
-                                                    }//
-
-                                                    onAccepted: {
-                                                        const val = Number(text)
-                                                        if(isNaN(val)) return
-
-                                                        ////console.debug("val: " + val)
-                                                        props.dfaVelocityNom = val
-                                                        props.dfaVelocityNomStrf = text
-                                                    }//
-                                                }//
-                                            }//
-                                        }//
-                                    }//
-                                    Rectangle {
-                                        //                                anchors.verticalCenter: parent.verticalCenter
-                                        width: rightContentItem.width
-                                        height: rightContentItem.height / 4 - 15
-                                        color: "#0F2952"
-                                        border.color: "#dddddd"
-                                        radius: 5
-
-                                        ColumnLayout {
-                                            anchors.fill: parent
-                                            anchors.margins: 3
-                                            spacing: 1
-
-                                            TextApp {
                                                 text: qsTr("Set DF High Alarm") + ":"
                                             }//
 
@@ -339,6 +383,7 @@ ViewApp {
                                                 Layout.fillHeight: true
 
                                                 TextField {
+                                                    id: dfaMaxText
                                                     anchors.verticalCenter: parent.verticalCenter
                                                     anchors.horizontalCenter: parent.horizontalCenter
                                                     width: parent.width - 2
@@ -358,11 +403,18 @@ ViewApp {
                                                             anchors.bottom: parent.bottom
                                                         }//
                                                     }//
-
+                                                    states: [
+                                                        State {
+                                                            when: props.dfaVelocityMax <= props.dfaVelocityNom
+                                                            PropertyChanges {
+                                                                target: dfaMaxText
+                                                                color: "red"
+                                                            }
+                                                        }
+                                                    ]//
                                                     onPressed: {
                                                         KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow High Alarm"))
                                                     }//
-
                                                     onAccepted: {
                                                         const val = Number(text)
                                                         if(isNaN(val)) return
@@ -537,7 +589,17 @@ ViewApp {
                                                                 Column{
                                                                     anchors.verticalCenter: parent.verticalCenter
                                                                     TextApp {
+                                                                        id: ifaDcyText
                                                                         text: "Dcy: " + props.ifaFanDutyCycleActual
+                                                                        states: [
+                                                                            State {
+                                                                                when: props.ifaFanDutyCycleActual == 0
+                                                                                PropertyChanges {
+                                                                                    target: ifaDcyText
+                                                                                    color: "red"
+                                                                                }
+                                                                            }//
+                                                                        ]//
                                                                     }//
                                                                     TextApp {
                                                                         text: "I"
@@ -620,6 +682,78 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
+                                                text: qsTr("Set IF Nominal") + ":"
+                                            }//
+
+                                            TextApp {
+                                                text: props.measureUnitStr
+                                            }//
+
+                                            Item {
+                                                Layout.fillWidth: true
+                                                Layout.fillHeight: true
+
+                                                TextField {
+                                                    id: ifaNomText
+                                                    anchors.verticalCenter: parent.verticalCenter
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    width: parent.width - 2
+                                                    font.pixelSize: 24
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    color: "#dddddd"
+                                                    text: props.ifaVelocityNomStrf
+
+                                                    background: Rectangle {
+                                                        height: parent.height
+                                                        width: parent.width
+                                                        color: "#55000000"
+
+                                                        Rectangle {
+                                                            height: 1
+                                                            width: parent.width
+                                                            anchors.bottom: parent.bottom
+                                                        }//
+                                                    }//
+                                                    states: [
+                                                        State {
+                                                            when: props.ifaVelocityNom <= props.ifaVelocityMin
+                                                            PropertyChanges {
+                                                                target: ifaNomText
+                                                                color: "red"
+                                                            }
+                                                        }
+                                                    ]//
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Inflow Nominal"))
+                                                    }//
+
+                                                    onAccepted: {
+                                                        const val = Number(text)
+                                                        if(isNaN(val)) return
+
+                                                        ////console.debug("val: " + val)
+                                                        props.ifaVelocityNom = val
+                                                        props.ifaVelocityNomStrf = text
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                    }//
+
+                                    Rectangle {
+                                        //                                anchors.verticalCenter: parent.verticalCenter
+                                        width: rightContentItem2.width
+                                        height: rightContentItem2.height / 4 - 15
+                                        color: "#0F2952"
+                                        border.color: "#dddddd"
+                                        radius: 5
+
+                                        ColumnLayout {
+                                            anchors.fill: parent
+                                            anchors.margins: 3
+                                            spacing: 1
+
+                                            TextApp {
                                                 text: qsTr("Set IF Low Alarm") + ":"
                                             }//
 
@@ -632,6 +766,7 @@ ViewApp {
                                                 Layout.fillHeight: true
 
                                                 TextField {
+                                                    id: ifaMinText
                                                     anchors.verticalCenter: parent.verticalCenter
                                                     anchors.horizontalCenter: parent.horizontalCenter
                                                     width: parent.width - 2
@@ -651,7 +786,15 @@ ViewApp {
                                                             anchors.bottom: parent.bottom
                                                         }//
                                                     }//
-
+                                                    states: [
+                                                        State {
+                                                            when: props.ifaVelocityMin >= props.ifaVelocityNom
+                                                            PropertyChanges {
+                                                                target: ifaMinText
+                                                                color: "red"
+                                                            }
+                                                        }
+                                                    ]//
                                                     onPressed: {
                                                         KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow Low Alarm"))
                                                     }//
@@ -677,68 +820,7 @@ ViewApp {
                                         //                                }//
                                     }//
 
-                                    Rectangle {
-                                        //                                anchors.verticalCenter: parent.verticalCenter
-                                        width: rightContentItem2.width
-                                        height: rightContentItem2.height / 4 - 15
-                                        color: "#0F2952"
-                                        border.color: "#dddddd"
-                                        radius: 5
 
-                                        ColumnLayout {
-                                            anchors.fill: parent
-                                            anchors.margins: 3
-                                            spacing: 1
-
-                                            TextApp {
-                                                text: qsTr("Set IF Nominal") + ":"
-                                            }//
-
-                                            TextApp {
-                                                text: props.measureUnitStr
-                                            }//
-
-                                            Item {
-                                                Layout.fillWidth: true
-                                                Layout.fillHeight: true
-
-                                                TextField {
-                                                    anchors.verticalCenter: parent.verticalCenter
-                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                    width: parent.width - 2
-                                                    font.pixelSize: 24
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    color: "#dddddd"
-                                                    text: props.ifaVelocityNomStrf
-
-                                                    background: Rectangle {
-                                                        height: parent.height
-                                                        width: parent.width
-                                                        color: "#55000000"
-
-                                                        Rectangle {
-                                                            height: 1
-                                                            width: parent.width
-                                                            anchors.bottom: parent.bottom
-                                                        }//
-                                                    }//
-
-                                                    onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Inflow Nominal"))
-                                                    }//
-
-                                                    onAccepted: {
-                                                        const val = Number(text)
-                                                        if(isNaN(val)) return
-
-                                                        ////console.debug("val: " + val)
-                                                        props.ifaVelocityNom = val
-                                                        props.ifaVelocityNomStrf = text
-                                                    }//
-                                                }//
-                                            }//
-                                        }//
-                                    }//
                                 }//
                             }//
                         }//
@@ -860,7 +942,7 @@ ViewApp {
                                     spacing: 10
                                     TextApp{
                                         font.pixelSize: 18
-                                        text: qsTr("Actual ADC (D/F)") + ":"
+                                        text: qsTr("Actual ADC (DF)") + ":"
                                         color: "#cccccc"
                                     }//
 
@@ -874,7 +956,7 @@ ViewApp {
                                     spacing: 10
                                     TextApp{
                                         font.pixelSize: 18
-                                        text: qsTr("Actual ADC (I/F)") + ":"
+                                        text: qsTr("Actual ADC (IF)") + ":"
                                         color: "#cccccc"
                                     }//
 
@@ -1205,10 +1287,10 @@ ViewApp {
                                 resultStattusText.text = qsTr("Failed")
                                 resultiInfoText.visible = true
                                 switch(props.calibrationFailCode){
-                                case 0x0001: resultiInfoText.text = qsTr("ADC DF2 ≥ (DF0 + 100) not met!"); break
+                                case 0x0001: resultiInfoText.text = qsTr("ADC DF2 ≥ (ADC DF0 + 100) not met!"); break
                                 case 0x0002: resultiInfoText.text = qsTr("Vel DF1 < DF2 < DF3 not met!");   break
                                 case 0x0004: resultiInfoText.text = qsTr("Duty cycle DF2 not valid!");      break
-                                case 0x0008: resultiInfoText.text = qsTr("ADC IF2 ≥ (IF0 + 100) not met!"); break
+                                case 0x0008: resultiInfoText.text = qsTr("ADC IF2 ≥ (ADC IF0 + 100) not met!"); break
                                 case 0x0010: resultiInfoText.text = qsTr("Vel IF1 < DF2 not met!");         break
                                 case 0x0020: resultiInfoText.text = qsTr("Duty cycle IF2 not valid!");      break
                                 case 0x0040: resultiInfoText.text = qsTr("DF Fan RPM not valid!");          break

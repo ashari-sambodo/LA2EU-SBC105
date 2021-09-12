@@ -210,7 +210,7 @@ Item {
                     selectDate.setDate(model.day)
                     selectDate.setMonth(model.month)
                     selectDate.setFullYear(model.year)
-                    //                    //console.debug(Qt.formatDate(selectDate, "yyyy-MMM-dd"))
+                    //console.debug(Qt.formatDate(selectDate, "yyyy-MMM-dd"))
                     control.clicked(selectDate)
                 }
             }//

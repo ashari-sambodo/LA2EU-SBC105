@@ -206,7 +206,7 @@ Item {
 
         ScriptAction {
             script: {
-                console.debug("Arrow animation is running")
+                //console.debug("Arrow animation is running")
             }//
         }//
 

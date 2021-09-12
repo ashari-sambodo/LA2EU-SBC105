@@ -100,7 +100,7 @@ ViewApp {
 
                             onClicked: {
                                 const calibPhase = props.airflowCalibPhase
-                                //                                console.log("calibPhase: " + calibPhase)
+                                console.log("calibPhase: " + calibPhase)
 
                                 if (calibPhase < MachineAPI.AF_CALIB_FACTORY){
 

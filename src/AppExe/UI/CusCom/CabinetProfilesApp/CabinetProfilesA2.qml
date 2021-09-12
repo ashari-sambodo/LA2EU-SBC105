@@ -262,17 +262,17 @@ QtObject {
                             "metric": {
                                 "volume": 61,
                                 "velocity": 1,
-                                "velocityTol": 0.01,
-                                "velocityTolLow": 0.99,
-                                "velocityTolHigh": 1.01,
+                                "velocityTol": 0.025,
+                                "velocityTolLow": 0.975,
+                                "velocityTolHigh": 1.025,
                                 "openingArea": 0.061,
                             },
                             "imp": {
                                 "volume": 129,
                                 "velocity": 197,
-                                "velocityTol": 2,
-                                "velocityTolLow": 195,
-                                "velocityTolHigh": 199,
+                                "velocityTol": 5,
+                                "velocityTolLow": 192,
+                                "velocityTolHigh": 202,
                                 "openingArea": 0.656,
                             },
                         }
@@ -284,7 +284,7 @@ QtObject {
                             "gridCount": 8, // 2 times from cabinet width
                             "metric": {
                                 "velocity": 0.45,
-                                "velocityTol": 0.25,
+                                "velocityTol": 0.025,
                                 "velocityTolLow": 0.425,
                                 "velocityTolHigh": 0.475,
                             },

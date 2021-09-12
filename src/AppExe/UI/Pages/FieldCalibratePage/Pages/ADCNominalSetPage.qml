@@ -112,10 +112,30 @@ ViewApp {
                                                                 Column{
                                                                     anchors.verticalCenter: parent.verticalCenter
                                                                     TextApp {
+                                                                        id: dfaDcyText
                                                                         text: "Dcy: " + props.dfaFanDutyCycleActual
+                                                                        states: [
+                                                                            State {
+                                                                                when: props.dfaFanDutyCycleActual == 0
+                                                                                PropertyChanges {
+                                                                                    target: dfaDcyText
+                                                                                    color: "red"
+                                                                                }
+                                                                            }//
+                                                                        ]//
                                                                     }//
                                                                     TextApp {
+                                                                        id: dfaRpmText
                                                                         text: "RPM: " + props.dfaFanRpmActual
+                                                                        states: [
+                                                                            State {
+                                                                                when: props.dfaFanRpmActual == 0
+                                                                                PropertyChanges {
+                                                                                    target: dfaRpmText
+                                                                                    color: "red"
+                                                                                }
+                                                                            }//
+                                                                        ]//
                                                                     }//
                                                                 }//
                                                             }
@@ -206,13 +226,14 @@ ViewApp {
                                                 Layout.fillHeight: true
 
                                                 TextField {
+                                                    id: nomFieldText
                                                     anchors.verticalCenter: parent.verticalCenter
                                                     anchors.horizontalCenter: parent.horizontalCenter
                                                     width: parent.width - 2
                                                     font.pixelSize: 24
                                                     horizontalAlignment: Text.AlignHCenter
                                                     color: "#dddddd"
-                                                    text: props.dfaVelocityNomStrf
+                                                    text: props.dfaSensorVelNomFieldStrf
 
                                                     background: Rectangle {
                                                         height: parent.height
@@ -226,6 +247,17 @@ ViewApp {
                                                         }//
                                                     }//
 
+                                                    states: [
+                                                        State {
+                                                            when: props.dfaSensorVelNomField <= props.dfaSensorVelMinFactory ||
+                                                                  props.dfaSensorVelNomField >= props.dfaSensorVelMaxFactory
+                                                            PropertyChanges {
+                                                                target: nomFieldText
+                                                                color: "red"
+                                                            }
+                                                        }
+                                                    ]
+
                                                     onPressed: {
                                                         KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow Nominal"))
                                                     }//
@@ -235,8 +267,132 @@ ViewApp {
                                                         if(isNaN(val)) return
 
                                                         ////console.debug("val: " + val)
-                                                        props.dfaVelocityNom = val
-                                                        props.dfaVelocityNomStrf = text
+                                                        props.dfaSensorVelNomField = val
+                                                        props.dfaSensorVelNomFieldStrf = text
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                    }//
+                                    Rectangle {
+                                        //                                anchors.verticalCenter: parent.verticalCenter
+                                        width: rightContentItem.width
+                                        height: rightContentItem.height / 4 - 15
+                                        color: "#0F2952"
+                                        border.color: "#dddddd"
+                                        radius: 5
+
+                                        ColumnLayout {
+                                            anchors.fill: parent
+                                            anchors.margins: 3
+                                            spacing: 1
+
+                                            TextApp {
+                                                text: qsTr("DF1 Velocity") + ":"
+                                            }//
+
+                                            TextApp {
+                                                text: props.measureUnitStr
+                                            }//
+
+                                            Item {
+                                                Layout.fillWidth: true
+                                                Layout.fillHeight: true
+
+                                                TextField {
+                                                    anchors.verticalCenter: parent.verticalCenter
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    width: parent.width - 2
+                                                    font.pixelSize: 24
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    color: "#dddddd"
+                                                    text: props.dfaSensorVelMinFactoryStrf
+                                                    enabled: false
+                                                    background: Rectangle {
+                                                        height: parent.height
+                                                        width: parent.width
+                                                        color: "gray"
+
+                                                        Rectangle {
+                                                            height: 1
+                                                            width: parent.width
+                                                            anchors.bottom: parent.bottom
+                                                        }//
+                                                    }//
+
+                                                    onPressed: {
+                                                        //KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow Nominal"))
+                                                    }//
+
+                                                    onAccepted: {
+                                                        //const val = Number(text)
+                                                        //if(isNaN(val)) return
+
+                                                        ////console.debug("val: " + val)
+                                                        //props.dfaSensorVelNomField = val
+                                                        //props.dfaSensorVelNomFieldStrf = text
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                    }//
+                                    Rectangle {
+                                        //                                anchors.verticalCenter: parent.verticalCenter
+                                        width: rightContentItem.width
+                                        height: rightContentItem.height / 4 - 15
+                                        color: "#0F2952"
+                                        border.color: "#dddddd"
+                                        radius: 5
+
+                                        ColumnLayout {
+                                            anchors.fill: parent
+                                            anchors.margins: 3
+                                            spacing: 1
+
+                                            TextApp {
+                                                text: qsTr("DF3 Velocity") + ":"
+                                            }//
+
+                                            TextApp {
+                                                text: props.measureUnitStr
+                                            }//
+
+                                            Item {
+                                                Layout.fillWidth: true
+                                                Layout.fillHeight: true
+
+                                                TextField {
+                                                    anchors.verticalCenter: parent.verticalCenter
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    width: parent.width - 2
+                                                    font.pixelSize: 24
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    color: "#dddddd"
+                                                    text: props.dfaSensorVelMaxFactoryStrf
+                                                    enabled: false
+                                                    background: Rectangle {
+                                                        height: parent.height
+                                                        width: parent.width
+                                                        color: "gray"
+
+                                                        Rectangle {
+                                                            height: 1
+                                                            width: parent.width
+                                                            anchors.bottom: parent.bottom
+                                                        }//
+                                                    }//
+
+                                                    onPressed: {
+                                                        //KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow Nominal"))
+                                                    }//
+
+                                                    onAccepted: {
+                                                        //const val = Number(text)
+                                                        //if(isNaN(val)) return
+
+                                                        ////console.debug("val: " + val)
+                                                        //props.dfaSensorVelNomField = val
+                                                        //props.dfaSensorVelNomFieldStrf = text
                                                     }//
                                                 }//
                                             }//
@@ -259,19 +415,19 @@ ViewApp {
                                         wrapMode: Text.WordWrap
                                         text: qsTr("Downflow and Inflow fan must be at Nominal speed!")
                                     }
-                                    Row{
-                                        anchors.horizontalCenter: parent.horizontalCenter
-                                        TextApp {
-                                            width: 200
-                                            wrapMode: Text.WordWrap
-                                            text: qsTr("Sensors Constant")
-                                        }
-                                        TextApp {
-                                            width: 200
-                                            wrapMode: Text.WordWrap
-                                            text: (": DF: %1 | IF: %2").arg(props.dfaSensorConstant).arg(props.ifaSensorConstant)
-                                        }
-                                    }
+                                    //                                    Row{
+                                    //                                        anchors.horizontalCenter: parent.horizontalCenter
+                                    //                                        TextApp {
+                                    //                                            width: 200
+                                    //                                            wrapMode: Text.WordWrap
+                                    //                                            text: qsTr("Sensors Constant")
+                                    //                                        }
+                                    //                                        TextApp {
+                                    //                                            width: 200
+                                    //                                            wrapMode: Text.WordWrap
+                                    //                                            text: (": DF: %1 | IF: %2").arg(props.dfaSensorConstant).arg(props.ifaSensorConstant)
+                                    //                                        }
+                                    //                                    }
                                     Row{
                                         anchors.horizontalCenter: parent.horizontalCenter
                                         TextApp {
@@ -404,7 +560,17 @@ ViewApp {
                                                                 Column{
                                                                     anchors.verticalCenter: parent.verticalCenter
                                                                     TextApp {
+                                                                        id: ifaDcyText
                                                                         text: "Dcy: " + props.ifaFanDutyCycleActual
+                                                                        states: [
+                                                                            State {
+                                                                                when: props.ifaFanDutyCycleActual == 0
+                                                                                PropertyChanges {
+                                                                                    target: ifaDcyText
+                                                                                    color: "red"
+                                                                                }
+                                                                            }//
+                                                                        ]//
                                                                     }//
                                                                     TextApp {
                                                                         text: "I"
@@ -499,13 +665,14 @@ ViewApp {
                                                 Layout.fillHeight: true
 
                                                 TextField {
+                                                    id: nomFieldText1
                                                     anchors.verticalCenter: parent.verticalCenter
                                                     anchors.horizontalCenter: parent.horizontalCenter
                                                     width: parent.width - 2
                                                     font.pixelSize: 24
                                                     horizontalAlignment: Text.AlignHCenter
                                                     color: "#dddddd"
-                                                    text: props.ifaVelocityNomStrf
+                                                    text: props.ifaSensorVelNomFieldStrf
 
                                                     background: Rectangle {
                                                         height: parent.height
@@ -519,6 +686,16 @@ ViewApp {
                                                         }//
                                                     }//
 
+                                                    states: [
+                                                        State {
+                                                            when: props.ifaSensorVelNomField <= props.ifaSensorVelMinFactory
+                                                            PropertyChanges {
+                                                                target: nomFieldText1
+                                                                color: "red"
+                                                            }
+                                                        }
+                                                    ]//
+
                                                     onPressed: {
                                                         KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Inflow Nominal"))
                                                     }//
@@ -528,8 +705,70 @@ ViewApp {
                                                         if(isNaN(val)) return
 
                                                         ////console.debug("val: " + val)
-                                                        props.ifaVelocityNom = val
-                                                        props.ifaVelocityNomStrf = text
+                                                        props.ifaSensorVelNomField = val
+                                                        props.ifaSensorVelNomFieldStrf = text
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                    }//
+                                    Rectangle {
+                                        //                                anchors.verticalCenter: parent.verticalCenter
+                                        width: rightContentItem2.width
+                                        height: rightContentItem2.height / 4 - 15
+                                        color: "#0F2952"
+                                        border.color: "#dddddd"
+                                        radius: 5
+
+                                        ColumnLayout {
+                                            anchors.fill: parent
+                                            anchors.margins: 3
+                                            spacing: 1
+
+                                            TextApp {
+                                                text: qsTr("IF1 Velocity") + ":"
+                                            }//
+
+                                            TextApp {
+                                                text: props.measureUnitStr
+                                            }//
+
+                                            Item {
+                                                Layout.fillWidth: true
+                                                Layout.fillHeight: true
+
+                                                TextField {
+                                                    anchors.verticalCenter: parent.verticalCenter
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    width: parent.width - 2
+                                                    font.pixelSize: 24
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    color: "#dddddd"
+                                                    text: props.ifaSensorVelMinFactoryStrf
+                                                    enabled: false
+                                                    background: Rectangle {
+                                                        height: parent.height
+                                                        width: parent.width
+                                                        color: "gray"
+
+                                                        Rectangle {
+                                                            height: 1
+                                                            width: parent.width
+                                                            anchors.bottom: parent.bottom
+                                                        }//
+                                                    }//
+
+                                                    onPressed: {
+                                                        //KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Inflow Nominal"))
+                                                    }//
+
+                                                    onAccepted: {
+                                                        //const val = Number(text)
+                                                        //if(isNaN(val)) return
+
+                                                        ////console.debug("val: " + val)
+                                                        //props.ifaSensorVelNomField = val
+                                                        //props.ifaSensorVelNomFieldStrf = text
                                                     }//
                                                 }//
                                             }//
@@ -580,67 +819,60 @@ ViewApp {
                                         }
                                         else {
                                             running = false
+                                            const ifaAdc = props.ifaAdcActual
+                                            const dfaAdc = props.dfaAdcActual
+                                            const ifaVelocity = props.ifaSensorVelNomField
+                                            const dfaVelocity = props.dfaSensorVelNomField
+                                            const ifaFanDutyCycle = props.ifaFanDutyCycleActual
+                                            const dfaFanDutyCycle = props.dfaFanDutyCycleActual
+                                            const dfaFanRpm = props.dfaFanRpmActual
 
-                                            let adc = props.adcActual
-                                            ////                                            //demo
-                                            //                                            adc = 2010
+                                            const ifaAdcZero = MachineData.getInflowAdcPointFactory(0)
+                                            const dfaAdcZero = MachineData.getDownflowAdcPointFactory(0)
 
-                                            let fanDutyCycle = props.fanDutyCycleActual
-                                            let fanRpm = props.fanRpmActual
-                                            let temperatureCalib = props.temperatureActual
-                                            let temperatureCalibAdc = props.temperatureAdcActual
-                                            let temperatureCalibStrf = props.temperatureActualStr
+                                            let ifaAdcCalibValid = (ifaAdc - 100) >= ifaAdcZero
+                                            let dfaAdcCalibValid = (dfaAdc - 100) >= dfaAdcZero
+                                            let ifaVelocityValid = (ifaVelocity > props.ifaSensorVelMinFactory)
+                                            let dfaVelocityValid = (dfaVelocity > props.dfaSensorVelMinFactory) && (dfaVelocity < props.dfaSensorVelMaxFactory)
+                                            let ifaFanValid = ifaFanDutyCycle > 0
+                                            let dfaFanValid = (dfaFanDutyCycle > 0) && (dfaFanRpm > 0)
 
-                                            let velocityValid = props.velocity > props.velocityMinRef ? true : false
-
-
-                                            // a - ((x2 - x1) / (y2 - y1) * (b - y1))
-                                            // IFF = newNomAdc - ((velocityNomAdcRef - velocityMinAdcRef) / (velocityNomRef - velocityMinRef) * (newNomVelocity - velocityMinRef))
-                                            let adcMinimumInterpolation = utilsApp.interpolation(adc, props.velocity,
-                                                                                                 props.velocityMinAdcRef, props.velocityMinRef,
-                                                                                                 props.velocityNomAdcRef, props.velocityNomRef)
-
-                                            let adcCalibValid;
-                                            adcCalibValid = adc > 0
-                                            adcCalibValid = adcCalibValid && (adcMinimumInterpolation > props.sensorAdcZero)
-                                            /// consider if the adc required different with previous adc calibration
-                                            /// this based on sentinel micro logic, but in this system will not consider taht
-                                            //                                            adcCalibValid = adcCalibValid && (Math.abs(props.velocityNomAdcRef - adc) >= 2)
-
-                                            //                                            //console.debug("adcCalibValid: " + adcCalibValid)
-
-                                            //                                            //console.debug("a: " + adc
-                                            //                                                          + " b: " + props.velocity
-                                            //                                                          + " x1: " + props.velocityMinAdcRef
-                                            //                                                          + " y1: " + props.velocityMinRef
-                                            //                                                          + " x2: " + props.velocityNomAdcRef
-                                            //                                                          + " y2: " + props.velocityNomRef)
-                                            //                                            //console.debug("adcInterpolation: " + adcMinimumInterpolation)
-
-                                            //                                            /// Demo
-                                            //                                            fanDutyCycle = 50
-                                            //                                            fanRpm = 700
-                                            //                                            velocityValid = true
-                                            //                                            temperatureCalib = props.measureUnit ? 20 : 67
-                                            //                                            temperatureCalibStrf = props.measureUnit ? "20°C" : "20°F"
-
-                                            props.adcNominalResult = adc
-                                            props.adcMinimumResult = adcMinimumInterpolation
-                                            props.fanDutyCycleResult = fanDutyCycle
-                                            props.fanRpmResult = fanRpm
-                                            props.temperatureCalib = temperatureCalib
-                                            props.temperatureCalibAdc = temperatureCalibAdc
-                                            props.temperatureCalibStrf = temperatureCalibStrf
-
-                                            if (adc && adcCalibValid && velocityValid && fanDutyCycle && fanRpm) {
+                                            if (ifaAdcCalibValid && dfaAdcCalibValid && ifaVelocityValid && dfaVelocityValid && ifaFanValid && dfaFanValid) {
+                                                props.ifaSensorAdcNomField = ifaAdc
+                                                props.ifaSensorVelNomField = ifaVelocity
+                                                props.ifaSensorVelNomFieldStrf = ifaVelocity.toFixed(props.velocityDecimalPoint)
+                                                props.dfaSensorAdcNomField = dfaAdc
+                                                props.dfaSensorVelNomField = dfaVelocity
+                                                props.dfaSensorVelNomFieldStrf = dfaVelocity.toFixed(props.velocityDecimalPoint)
+                                                props.ifaFanDutyCycleField = ifaFanDutyCycle
+                                                props.dfaFanDutyCycleField = dfaFanDutyCycle
+                                                props.dfaFanRpmField = dfaFanRpm
+                                                props.temperatureCalib = props.temperatureActual
+                                                props.temperatureCalibStrf = props.temperatureActualStr
+                                                props.temperatureCalibAdc = props.temperatureAdcActual
                                                 props.calibrateDone = true
+                                            }else{
+                                                if(!ifaAdcCalibValid)   props.calibrationFailCode = 0x0001
+                                                if(!dfaAdcCalibValid)   props.calibrationFailCode = 0x0002
+                                                if(!ifaVelocityValid)   props.calibrationFailCode = 0x0004
+                                                if(!dfaVelocityValid)   props.calibrationFailCode = 0x0008
+                                                if(!ifaFanValid)        props.calibrationFailCode = 0x0010
+                                                if(!dfaFanValid)        props.calibrationFailCode = 0x0020
+                                                console.debug("ifaAdcCalibValid :", ifaAdcCalibValid,   ifaAdcZero, ifaAdc)
+                                                console.debug("dfaAdcCalibValid :", dfaAdcCalibValid,   dfaAdcZero, dfaAdc)
+                                                console.debug("dfaVelocityValid :", dfaVelocityValid,   props.ifaSensorVelMinFactory, ifaVelocity)
+                                                console.debug("dfaVelocityValid :", dfaVelocityValid,   props.dfaSensorVelMinFactory, dfaVelocity, props.dfaSensorVelMaxFactory)
+                                                console.debug("ifaFanValid      :", ifaFanValid,        ifaFanDutyCyle)
+                                                console.debug("dfaFanValid      :", dfaFanValid,        dfaFanDutyCycle, dfaFanRpm)
+
+                                                console.debug("Fail Calibration Code:", props.calibrationFailCode)
                                             }
 
                                             fragmentStackView.replace(fragmentResultComp)
-                                        }
+                                        }//
                                     }//
 
-                                    //                                    property int count: 2
+                                    //property int count: 2
                                     property int count: 180
                                     Component.onCompleted: {count = Qt.binding(function(){return props.stabilizingTimer})}
                                 }//
@@ -651,7 +883,7 @@ ViewApp {
                                     spacing: 10
                                     TextApp{
                                         font.pixelSize: 18
-                                        text: qsTr("Actual ADC (D/F)") + ":"
+                                        text: qsTr("Actual ADC (DF)") + ":"
                                         color: "#cccccc"
                                     }//
 
@@ -665,7 +897,7 @@ ViewApp {
                                     spacing: 10
                                     TextApp{
                                         font.pixelSize: 18
-                                        text: qsTr("Actual ADC (I/F)") + ":"
+                                        text: qsTr("Actual ADC (IF)") + ":"
                                         color: "#cccccc"
                                     }//
 
@@ -762,30 +994,12 @@ ViewApp {
                                             }//
 
                                             TextApp {
-                                                text: ":" + props.dfaVelocityNomStrf + " " + props.measureUnitStr
+                                                text: ":" + props.dfaSensorVelNomFieldStrf + " " + props.measureUnitStr
                                                 font.pixelSize: 18
                                             }
                                         }
 
                                         Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-
-                                        Row {
-                                            id: zeroAdcRow
-
-                                            TextApp{
-                                                width: 300
-                                                text: qsTr("Downflow ADC zero") + " (DF0)"
-                                                font.pixelSize: 18
-                                            }//
-
-                                            TextApp {
-                                                text: ":" + props.dfaSensorAdcZero
-                                                font.pixelSize: 18
-                                            }
-                                        }
-
-                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-                                                                               Rectangle {height: 1; width: parent.width; color: "#cccccc"}
                                         Row {
                                             TextApp{
                                                 width: 300
@@ -794,7 +1008,7 @@ ViewApp {
                                             }//
 
                                             TextApp {
-                                                text: ":" + props.dfaAdcResult
+                                                text: ":" + props.dfaSensorAdcNomField
                                                 font.pixelSize: 18
                                             }
                                         }
@@ -810,24 +1024,7 @@ ViewApp {
                                             }//
 
                                             TextApp {
-                                                text: ":" + props.ifaVelocityNomStrf + " " + props.measureUnitStr
-                                                font.pixelSize: 18
-                                            }
-                                        }
-
-                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-
-                                        Row {
-                                            id: zeroAdcRowIfa
-
-                                            TextApp{
-                                                width: 300
-                                                text: qsTr("Inflow ADC zero") + " (IF0)"
-                                                font.pixelSize: 18
-                                            }//
-
-                                            TextApp {
-                                                text: ":" + props.ifaSensorAdcZero
+                                                text: ":" + props.ifaSensorVelNomFieldStrf + " " + props.measureUnitStr
                                                 font.pixelSize: 18
                                             }
                                         }
@@ -842,7 +1039,7 @@ ViewApp {
                                             }//
 
                                             TextApp {
-                                                text: ":" + props.ifaAdcResult
+                                                text: ":" + props.ifaSensorAdcNomField
                                                 font.pixelSize: 18
                                             }
                                         }
@@ -860,7 +1057,7 @@ ViewApp {
                                             }//
 
                                             TextApp {
-                                                text: ":" + props.dfaFanDutyCycleResult + "% / " + props.dfaFanRpmResult + " RPM"
+                                                text: ":" + props.dfaFanDutyCycleField + "% / " + props.dfaFanRpmField + " RPM"
                                                 font.pixelSize: 18
                                             }//
                                         }//
@@ -875,7 +1072,7 @@ ViewApp {
                                             }//
 
                                             TextApp {
-                                                text: ":" + props.ifaFanDutyCycleResult + "%"/* + props.ifaFanRpmResult + " RPM"*/
+                                                text: ":" + props.ifaFanDutyCycleField + "%"/* + props.ifaFanRpmResult + " RPM"*/
                                                 font.pixelSize: 18
                                             }//
                                         }//
@@ -915,8 +1112,16 @@ ViewApp {
                             if (!props.calibrateDone){
                                 featureImage.source = "qrc:/UI/Pictures/fail-red-white.png"
                                 resultStattusText.text = qsTr("Failed")
-                                //                                resultiInfoText.visible = true
-                                //                                resultiInfoText.text = qsTr("There no much ADC value dirrefent from full calibration. No need field calibration.")
+                                resultiInfoText.visible = true
+                                switch(props.calibrationFailCode){
+                                case 0x0001: resultiInfoText.text = qsTr("IF ADC Nominal ≥ (ADC IF0 + 100) not met!"); break
+                                case 0x0002: resultiInfoText.text = qsTr("DF ADC Nominal ≥ (ADC DF0 + 100) not met!"); break
+                                case 0x0004: resultiInfoText.text = qsTr("IF Vel Nominal > Vel IF1 not met!");         break
+                                case 0x0008: resultiInfoText.text = qsTr("Vel DF1 < DF Vel Nominal < Vel DF3 not met!"); break
+                                case 0x0010: resultiInfoText.text = qsTr("IF Fan Duty cycle not valid!");   break
+                                case 0x0020: resultiInfoText.text = qsTr("DF Fan Duty cycle or RPM not valid!");   break
+                                default:     resultiInfoText.text = qsTr("There may be invalid values!");   break
+                                }
                             }
                             else {
                                 backButton.text = qsTr("Save")
@@ -970,13 +1175,13 @@ ViewApp {
                                         let intent = IntentApp.create(uri,
                                                                       {
                                                                           "pid": props.pid,
-                                                                          "ifaSensorAdcNominal": props.ifaAdcNominalResult,
-                                                                          "ifaSensorVelNominal": props.ifaVelocity,
-                                                                          "dfaSensorAdcNominal": props.dfaAdcNominalResult,
-                                                                          "dfaSensorVelNominal": props.dfaVelocity,
-                                                                          "ifaFanDutyCycleResult": props.ifaFanDutyCycleResult,
-                                                                          "dfaFanDutyCycleResult": props.dfaFanDutyCycleResult,
-                                                                          "dfaFanRpmResult": props.dfaFanRpmResult,
+                                                                          "ifaSensorAdcNominal": props.ifaSensorAdcNomField,
+                                                                          "ifaSensorVelNominal": props.ifaSensorVelNomField,
+                                                                          "dfaSensorAdcNominal": props.dfaSensorAdcNomField,
+                                                                          "dfaSensorVelNominal": props.dfaSensorVelNomField,
+                                                                          "ifaFanDutyCycleResult": props.ifaFanDutyCycleField,
+                                                                          "dfaFanDutyCycleResult": props.dfaFanDutyCycleField,
+                                                                          "dfaFanRpmResult": props.dfaFanRpmField,
                                                                           "temperatureCalib": props.temperatureCalib,
                                                                           "temperatureCalibAdc": props.temperatureCalibAdc
                                                                       })//
@@ -1013,20 +1218,19 @@ ViewApp {
 
             property string pid: ""
 
+            property int ifaAdcActual: 0
+            property int dfaAdcActual: 0
+
             property int ifaFanDutyCycleActual: 0
             property int ifaFanRpmActual: 0
             property int dfaFanDutyCycleActual: 0
             property int dfaFanRpmActual: 0
 
-            property int ifaAdcActual: 0
-            property int dfaAdcActual: 0
-
-            property int ifaSensorAdcZero: 0
-            property int ifaAdcNominalResult: 0
+            property int ifaSensorAdcNomFactory: 0
+            property int ifaSensorAdcNomField: 0
             //property int ifaAdcMinimumResult: 0
-
-            property int dfaSensorAdcZero: 0
-            property int dfaAdcNominalResult: 0
+            property int dfaSensorAdcNomFactory: 0
+            property int dfaSensorAdcNomField: 0
             //property int dfaAdcMinimumResult: 0
 
             property int temperatureActual: 0
@@ -1042,34 +1246,29 @@ ViewApp {
             property int velocityDecimalPoint: measureUnit ? 0 : 2
 
             // Nominal
-            property real   ifaVelocity: 0
-            property string ifaVelocityStrf: "0"
-            property real   ifaVelocityDfaNom: 0
-            property string ifaVelocityDfaNomStrf: "0"
+            property real   ifaSensorVelNomField: 0
+            property string ifaSensorVelNomFieldStrf: "0"
+            property real   ifaSensorVelNomFactory: 0
+            property string ifaSensorVelNomFactoryStrf: "0"
+            property real   ifaSensorVelMinFactory: 0
+            property string ifaSensorVelMinFactoryStrf: "0"
 
-            property real   dfaVelocity: 0
-            property string dfaVelocityStrf: "0"
-            property real   dfaVelocityDfaNom: 0
-            property string dfaVelocityDfaNomStrf: "0"
-
-            // Required for interpolation formula
-            // a - ((x2 - x1) / (y2 - y1) * (b - y1))
-            // IFF = newNomAdc - ((velocityNomAdcRef - velocityMinAdcRef) / (velocityNomRef - velocityMinRef) * (newNomVelocity - velocityMinRef))
-            property real ifaVelocityNomAdcRef: 0
-            property real ifaVelocityNomRef: 0
-            //
-            //            property real velocityMinAdcRef: 0
-            //            property real velocityMinRef: 0
-            property real dfaVelocityNomAdcRef: 0
-            property real dfaVelocityNomRef: 0
+            property real   dfaSensorVelNomField: 0
+            property string dfaSensorVelNomFieldStrf: "0"
+            property real   dfaSensorVelNomFactory: 0
+            property string dfaSensorVelNomFactoryStrf: "0"
+            property real   dfaSensorVelMinFactory: 0
+            property string dfaSensorVelMinFactoryStrf: "0"
+            property real   dfaSensorVelMaxFactory: 0
+            property string dfaSensorVelMaxFactoryStrf: "0"
 
             property int ifaFanDutyCycleInitial: 0
-            property int ifaFanDutyCycleResult: 0
+            property int ifaFanDutyCycleField: 0
             //property int ifaFanRpmResult: 0
 
             property int dfaFanDutyCycleInitial: 0
-            property int dfaFanDutyCycleResult: 0
-            property int dfaFanRpmResult: 0
+            property int dfaFanDutyCycleField: 0
+            property int dfaFanRpmField: 0
 
             property int temperatureCalib: 0
             property int temperatureCalibAdc: 0
@@ -1078,6 +1277,7 @@ ViewApp {
             property int stabilizingTimer : 180
 
             property bool calibrateDone: false
+            property int calibrationFailCode: 0
         }//
 
         /// Called once but after onResume
@@ -1099,37 +1299,38 @@ ViewApp {
 
                     props.measureUnit = extradata['measureUnit']
 
+                    props.ifaSensorAdcNomFactory = extradata['ifaSensorAdcNominal'] || 0
+                    props.ifaSensorVelNomFactory = extradata['ifaSensorVelNominal'] || 0
+                    props.ifaSensorVelMinFactory = extradata['ifaSensorVelMinimum'] || 0
+                    props.ifaSensorVelNomField   = extradata['ifaSensorVelNominalField'] || 0
+
+                    props.dfaSensorAdcNomFactory = extradata['dfaSensorAdcNominal'] || 0
+                    props.dfaSensorVelNomFactory = extradata['dfaSensorVelNominal'] || 0
+                    props.dfaSensorVelMinFactory = extradata['dfaSensorVelMinimum'] || 0
+                    props.dfaSensorVelMaxFactory = extradata['dfaSensorVelMaximum'] || 0
+                    props.dfaSensorVelNomField   = extradata['dfaSensorVelNominalField'] || 0
+
                     props.ifaFanDutyCycleInitial = extradata['ifaFanDutyCycle'] || 0
                     props.dfaFanDutyCycleInitial = extradata['dfaFanDutyCycle'] || 0
 
-                    props.ifaSensorAdcZero     = extradata['ifaSensorAdcZero'] || 0
-                    props.dfaSensorAdcZero     = extradata['dfaSensorAdcZero'] || 0
+                    let velocity
 
-                    let ifaVelocity = extradata['ifaSensorVelNominal'] || 0
-                    props.ifaVelocity = ifaVelocity
-                    props.ifaVelocityStrf = ifaVelocity.toFixed(props.velocityDecimalPoint)
+                    velocity = props.ifaSensorVelNomFactory
+                    props.ifaSensorVelNomFactoryStrf = velocity.toFixed(props.velocityDecimalPoint)
+                    velocity = props.ifaSensorVelMinFactory
+                    props.ifaSensorVelMinFactoryStrf = velocity.toFixed(props.velocityDecimalPoint)
+                    velocity = props.ifaSensorVelNomField
+                    props.ifaSensorVelNomFieldStrf = velocity.toFixed(props.velocityDecimalPoint)
 
-                    let dfaVelocity = extradata['dfaSensorVelNominal'] || 0
-                    props.dfaVelocity = dfaVelocity
-                    props.dfaVelocityStrf = dfaVelocity.toFixed(props.velocityDecimalPoint)
+                    velocity = props.dfaSensorVelNomFactory
+                    props.dfaSensorVelNomFactoryStrf = velocity.toFixed(props.velocityDecimalPoint)
+                    velocity = props.dfaSensorVelMinFactory
+                    props.dfaSensorVelMinFactoryStrf = velocity.toFixed(props.velocityDecimalPoint)
+                    velocity = props.dfaSensorVelMaxFactory
+                    props.dfaSensorVelMaxFactoryStrf = velocity.toFixed(props.velocityDecimalPoint)
+                    velocity = props.dfaSensorVelNomField
+                    props.dfaSensorVelNomFieldStrf = velocity.toFixed(props.velocityDecimalPoint)
 
-                    /// Ref. for interpolation
-                    let ifaVelocityNomAdcRef = extradata['ifaVelNomAdcRef'] || 0
-                    //                        //console.debug(velocityNomAdcRef)
-                    props.ifaVelocityNomAdcRef = ifaVelocityNomAdcRef
-
-                    let ifaVelocityNomRef = extradata['ifaVelNomRef'] || 0
-                    //                        //console.debug(velocityNomRef)
-                    props.ifaVelocityNomRef = ifaVelocityNomRef
-
-                    ////
-                    let dfaVelocityNomAdcRef = extradata['dfaVelNomAdcRef'] || 0
-                    //                        //console.debug(velocityNomAdcRef)
-                    props.dfaVelocityNomAdcRef = dfaVelocityNomAdcRef
-
-                    let dfaVelocityNomRef = extradata['dfaVelNomRef'] || 0
-                    //                        //console.debug(velocityNomRef)
-                    props.dfaVelocityNomRef = dfaVelocityNomRef
                 }//
 
                 /// Real-Time update
@@ -1143,6 +1344,7 @@ ViewApp {
                 //
                 props.temperatureActual = Qt.binding(function(){ return MachineData.temperature })
                 props.temperatureActualStr = Qt.binding(function(){ return MachineData.temperatureValueStr })
+                props.temperatureAdcActual = Qt.binding(function(){ return MachineData.temperatureAdc })
 
                 /// Automatically adjust the fan duty cycle
                 //                    //console.debug(props.fanDutyCycleActual + " vs " + props.fanDutyCycleInitial)

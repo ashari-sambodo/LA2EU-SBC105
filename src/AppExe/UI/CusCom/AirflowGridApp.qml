@@ -97,9 +97,9 @@ Grid{
                     Component.onCompleted: {
                         let value = measureUnit ? modelData.valImp : modelData.val
 
-                        //                        //console.debug("modelData:" + value)
-                        //                        //console.debug(pointCalGrid.valueMinimum)
-                        //                        //console.debug(pointCalGrid.valueMaximum)
+                        //console.debug("modelData:" + value)
+                        //console.debug(pointCalGrid.valueMinimum)
+                        //console.debug(pointCalGrid.valueMaximum)
 
                         let colorHeader = "#27ae60"
                         if (value <= pointCalGrid.valueMinimum) {
@@ -133,7 +133,7 @@ Grid{
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    //                                        //console.debug("Press")
+                    //console.debug("Press")
                     pointCalGrid.clickedItem(index, modelData.value, (measureUnit? modelData.valImpSf : modelData.valSf))
                 }
             }

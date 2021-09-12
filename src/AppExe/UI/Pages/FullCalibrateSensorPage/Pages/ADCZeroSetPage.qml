@@ -132,7 +132,7 @@ ViewApp {
 
                                                 MachineAPI.setFanPrimaryDutyCycle(0);
 
-                                                viewApp.showBusyPage(qsTr("Switching off D/F fan..."),
+                                                viewApp.showBusyPage(qsTr("Switching off DF fan..."),
                                                                      function onTriggered(cycle){
                                                                          if(cycle === 5){
                                                                              viewApp.dialogObject.close()
@@ -323,7 +323,7 @@ ViewApp {
 
                                                 MachineAPI.setFanInflowDutyCycle(0);
 
-                                                viewApp.showBusyPage(qsTr("Switching off I/F fan..."),
+                                                viewApp.showBusyPage(qsTr("Switching off IF fan..."),
                                                                      function onTriggered(cycle){
                                                                          if(cycle === 5){
                                                                              viewApp.dialogObject.close()
@@ -409,7 +409,7 @@ ViewApp {
                                     spacing: 10
                                     TextApp{
                                         font.pixelSize: 18
-                                        text: qsTr("Actual ADC (D/F)") + ":"
+                                        text: qsTr("Actual ADC (DF)") + ":"
                                         color: "#cccccc"
                                     }//
 
@@ -423,7 +423,7 @@ ViewApp {
                                     spacing: 10
                                     TextApp{
                                         font.pixelSize: 18
-                                        text: qsTr("Actual ADC (I/F)") + ":"
+                                        text: qsTr("Actual ADC (IF)") + ":"
                                         color: "#cccccc"
                                     }//
 

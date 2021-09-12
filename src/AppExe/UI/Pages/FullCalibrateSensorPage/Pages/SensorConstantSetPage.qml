@@ -54,7 +54,7 @@ ViewApp {
                             anchors.verticalCenter: parent.verticalCenter
 
                             TextApp{
-                                text: qsTr("Current value (D/F)")
+                                text: qsTr("Current value (DF)")
                             }//
 
                             TextApp{
@@ -91,7 +91,7 @@ ViewApp {
                         MouseArea{
                             anchors.fill: parameterColumn
                             onClicked: {
-                                KeyboardOnScreenCaller.openNumpad(bufferTextInput, qsTr("Sensor Constant (D/F)"))
+                                KeyboardOnScreenCaller.openNumpad(bufferTextInput, qsTr("Sensor Constant (DF)"))
                             }//
                         }//
                     }//
@@ -104,7 +104,7 @@ ViewApp {
                             anchors.verticalCenter: parent.verticalCenter
 
                             TextApp{
-                                text: qsTr("Current value (I/F)")
+                                text: qsTr("Current value (IF)")
                             }//
 
                             TextApp{
@@ -141,7 +141,7 @@ ViewApp {
                         MouseArea{
                             anchors.fill: parameterColumn2
                             onClicked: {
-                                KeyboardOnScreenCaller.openNumpad(bufferTextInput2, qsTr("Sensor Constant (I/F)"))
+                                KeyboardOnScreenCaller.openNumpad(bufferTextInput2, qsTr("Sensor Constant (IF)"))
                             }//
                         }//
                     }//
@@ -214,7 +214,7 @@ ViewApp {
                                                      function onTriggered(cycle){
                                                          if(cycle === 3){
                                                              showDialogMessage(qsTr("Sensor Constant"),
-                                                                               qsTr("Sensor constant value have been changed to %1 (D/F) and %2 (I/F)").arg(props.dfaSensorConstant).arg(props.ifaSensorConstant),
+                                                                               qsTr("Sensor constant value have been changed to %1 (DF) and %2 (IF)").arg(props.dfaSensorConstant).arg(props.ifaSensorConstant),
                                                                                dialogInfo,
                                                                                function onClosed(){
                                                                                    let intent = IntentApp.create(uri, {"pid": props.pid,

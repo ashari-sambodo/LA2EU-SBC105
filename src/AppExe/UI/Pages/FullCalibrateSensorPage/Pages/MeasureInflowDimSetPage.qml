@@ -428,7 +428,7 @@ ViewApp {
                                     width: rightContentItem.width/2
                                     height: rightContentItem.height / 3 - 5
                                     color: "#0F2952"
-                                    border.color: "#dddddd"
+                                    border.color: "#05c46b"
                                     radius: 5
 
                                     ColumnLayout {
