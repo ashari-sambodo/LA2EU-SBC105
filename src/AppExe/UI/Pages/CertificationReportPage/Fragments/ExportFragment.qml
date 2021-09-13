@@ -152,6 +152,7 @@ Item {
     Settings {
         id: settingsGeneral
 
+        ////////// INFLOW
         property string ifaCalGridNom: "[]"
         //metric
         property int    ifaCalGridNomTot: 0
@@ -165,7 +166,8 @@ Item {
         property int    ifaCalGridNomVelImp: 0
         //
         property int    ifaCalGridNomDcy: 0
-
+        property int    ifaCalGridNomRpm: 0
+        ///___________________________________
         property string ifaCalGridMin: "[]"
         //metric
         property int    ifaCalGridMinTot: 0
@@ -179,7 +181,8 @@ Item {
         property int    ifaCalGridMinVelImp: 0
         //
         property int    ifaCalGridMinDcy: 0
-
+        property int    ifaCalGridMinRpm: 0
+        ///___________________________________
         property string ifaCalGridStb: "[]"
         //metric
         property int    ifaCalGridStbTot: 0
@@ -193,7 +196,9 @@ Item {
         property int    ifaCalGridStbVelImp: 0
         //
         property int    ifaCalGridStbDcy: 0
-
+        property int    ifaCalGridStbRpm: 0
+        ///___________________________________
+        ////////// DOWNFLOW
         property string dfaCalGridNom:          "[]"
         //metric
         property int    dfaCalGridNomVel:       0
@@ -209,6 +214,47 @@ Item {
         //        property int    dfaCalGridNomVelDevp:   0
         property int    dfaCalGridNomVelHighImp:   0
         property int    dfaCalGridNomVelLowImp:    0
+        property int    dfaCalGridNomDcy: 0
+        property int    dfaCalGridNomRpm: 0
+        ///_________________________________
+        property string dfaCalGridMin:          "[]"
+        //metric
+        property int    dfaCalGridMinVel:       0
+        property int    dfaCalGridMinVelTot:    0
+        property int    dfaCalGridMinVelDev:    0
+        property int    dfaCalGridMinVelDevp:   0
+        property int    dfaCalGridMinVelHigh:   0
+        property int    dfaCalGridMinVelLow:    0
+        //imperial
+        property int    dfaCalGridMinVelImp:       0
+        property int    dfaCalGridMinVelTotImp:    0
+        property int    dfaCalGridMinVelDevImp:    0
+        //                property int    dfaCalGridMinVelDevp:   0
+        property int    dfaCalGridMinVelHighImp:   0
+        property int    dfaCalGridMinVelLowImp:    0
+
+        property int    dfaCalGridMinDcy: 0
+        property int    dfaCalGridMinRpm: 0
+        ///_________________________________
+        property string dfaCalGridMax:          "[]"
+        //metric
+        property int    dfaCalGridMaxVel:       0
+        property int    dfaCalGridMaxVelTot:    0
+        property int    dfaCalGridMaxVelDev:    0
+        property int    dfaCalGridMaxVelDevp:   0
+        property int    dfaCalGridMaxVelHigh:   0
+        property int    dfaCalGridMaxVelLow:    0
+        //imperial
+        property int    dfaCalGridMaxVelImp:       0
+        property int    dfaCalGridMaxVelTotImp:    0
+        property int    dfaCalGridMaxVelDevImp:    0
+        //                property int    dfaCalGridMaxVelDevp:   0
+        property int    dfaCalGridMaxVelHighImp:   0
+        property int    dfaCalGridMaxVelLowImp:    0
+
+        property int    dfaCalGridMaxDcy: 0
+        property int    dfaCalGridMaxRpm: 0
+        ///_________________________________
     }//
 
     Settings {
@@ -232,8 +278,10 @@ Item {
         property string    damperOpen:         "10"
         property string    damperOpenImp:         "2/5"
 
-        property int    mvInitialFanDucy:   0
-        property int    mvInitialFanRpm:    0
+        property int    mvInitialFanDucyDfa:   0
+        property int    mvInitialFanRpmDfa:    0
+        property int    mvInitialFanDucyIfa:   0
+        property int    mvInitialFanRpmIfa:    0
         //metric
         property string mvInitialDfa:       "0"
         property string mvInitialIfa:       "0"
@@ -243,8 +291,10 @@ Item {
         //
         property string mvInitialPower:     "0"
 
-        property int    mvBlockFanDucy:     0
-        property int    mvBlockFanRpm:      0
+        property int    mvBlockFanDucyDfa:     0
+        property int    mvBlockFanRpmDfa:      0
+        property int    mvBlockFanDucyIfa:     0
+        property int    mvBlockFanRpmIfa:      0
         //metric
         property string mvBlockDfa:         "0"
         property string mvBlockIfa:         "0"
@@ -253,14 +303,21 @@ Item {
         property string mvBlockIfaImp:      "0"
         property string mvBlockPower:       "0"
 
-        property int    mvFinalFanDucy:     0
-        property int    mvFinalFanRpm:      0
+        property int    mvFinalFanDucyDfa:     0
+        property int    mvFinalFanRpmDfa:      0
+        property int    mvFinalFanDucyIfa:     0
+        property int    mvFinalFanRpmIfa:      0
         //metric
         property string mvFinalDfa:         "0"
         property string mvFinalIfa:         "0"
         //imperial
         property string mvFinalDfaImp:      "0"
         property string mvFinalIfaImp:      "0"
+
+        property string dfaSensorVdc:   "0"
+        property int dfaAdcActual:      -1
+        property string ifaSensorVdc:   "0"
+        property int ifaAdcActual:      -1
 
         property string testerName:         ""
         property string testerSignature:    ""
@@ -309,19 +366,22 @@ Item {
             "grid_ifa_nom_total":   MachineData.measurementUnit ? settingsGeneral.ifaCalGridNomTotImp : settingsGeneral.ifaCalGridNomTot,
             "grid_ifa_nom_avg":     MachineData.measurementUnit ? settingsGeneral.ifaCalGridNomAvgImp : settingsGeneral.ifaCalGridNomAvg,
             "grid_ifa_nom_vel":     MachineData.measurementUnit ? settingsGeneral.ifaCalGridNomVelImp : settingsGeneral.ifaCalGridNomVel,
-            "ducy_nom":             settingsGeneral.ifaCalGridNomDcy,
+            "ducy_nom_ifa":             settingsGeneral.ifaCalGridNomDcy,
+            "rpm_nom_ifa":             settingsGeneral.ifaCalGridNomRpm,
 
             "grid_ifa_fail":        settingsGeneral.ifaCalGridMin,
             "grid_ifa_fail_total":  MachineData.measurementUnit ? settingsGeneral.ifaCalGridMinTotImp : settingsGeneral.ifaCalGridMinTot,
             "grid_ifa_fail_avg":    MachineData.measurementUnit ? settingsGeneral.ifaCalGridMinAvgImp : settingsGeneral.ifaCalGridMinAvg,
             "grid_ifa_fail_vel":    MachineData.measurementUnit ? settingsGeneral.ifaCalGridMinVelImp : settingsGeneral.ifaCalGridMinVel,
-            "ducy_fail":            settingsGeneral.ifaCalGridMinDcy,
+            "ducy_fail_ifa":            settingsGeneral.ifaCalGridMinDcy,
+            "rpm_fail_ifa":            settingsGeneral.ifaCalGridMinRpm,
 
             "grid_ifa_stb":         settingsGeneral.ifaCalGridStb,
             "grid_ifa_stb_total":   MachineData.measurementUnit ? settingsGeneral.ifaCalGridStbTotImp : settingsGeneral.ifaCalGridStbTot,
             "grid_ifa_stb_avg":     MachineData.measurementUnit ? settingsGeneral.ifaCalGridStbAvgImp : settingsGeneral.ifaCalGridStbAvg,
             "grid_ifa_stb_vel":     MachineData.measurementUnit ? settingsGeneral.ifaCalGridStbVelImp : settingsGeneral.ifaCalGridStbVel,
-            "ducy_stb":             settingsGeneral.ifaCalGridStbDcy,
+            "ducy_stb_ifa":             settingsGeneral.ifaCalGridStbDcy,
+            "rpm_stb_ifa":             settingsGeneral.ifaCalGridStbRpm,
 
             "grid_dfa_nom":         settingsGeneral.dfaCalGridNom,
             "grid_dfa_nom_avg":     MachineData.measurementUnit ? settingsGeneral.dfaCalGridNomVelImp : settingsGeneral.dfaCalGridNomVel,
@@ -332,33 +392,77 @@ Item {
             "grid_dfa_nom_highest": MachineData.measurementUnit ? settingsGeneral.dfaCalGridNomVelHighImp : settingsGeneral.dfaCalGridNomVelHigh,
             "grid_dfa_nom_count":   MachineData.machineProfile['airflow']['dfa']['nominal']['grid']['count'],
             "grid_dfa_nom_columns": MachineData.machineProfile['airflow']['dfa']['nominal']['grid']['columns'],
+            "ducy_nom_dfa":         settingsGeneral.dfaCalGridNomDcy,
+            "rpm_nom_dfa":          settingsGeneral.dfaCalGridNomRpm,
+
+            "grid_dfa_min":         settingsGeneral.dfaCalGridMin,
+            "grid_dfa_min_avg":     MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelImp : settingsGeneral.dfaCalGridMinVel,
+            "grid_dfa_min_total":   MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelTotImp : settingsGeneral.dfaCalGridMinVelTot,
+            "grid_dfa_min_dev":     MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelDevImp : settingsGeneral.dfaCalGridMinVelDev,
+            "grid_dfa_min_devp":    settingsGeneral.dfaCalGridMinVelDevp,
+            "grid_dfa_min_lowest":  MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelLowImp : settingsGeneral.dfaCalGridMinVelLow,
+            "grid_dfa_min_highest": MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelHighImp : settingsGeneral.dfaCalGridMinVelHigh,
+            "grid_dfa_min_count":   MachineData.machineProfile['airflow']['dfa']['minimum']['grid']['count'],
+            "grid_dfa_min_columns": MachineData.machineProfile['airflow']['dfa']['minimum']['grid']['columns'],
+            "ducy_min_dfa":         settingsGeneral.dfaCalGridMinDcy,
+            "rpm_min_dfa":          settingsGeneral.dfaCalGridMinRpm,
+
+            "grid_dfa_max":         settingsGeneral.dfaCalGridMax,
+            "grid_dfa_max_avg":     MachineData.measurementUnit ? settingsGeneral.dfaCalGridMaxVelImp : settingsGeneral.dfaCalGridMaxVel,
+            "grid_dfa_max_total":   MachineData.measurementUnit ? settingsGeneral.dfaCalGridMaxVelTotImp : settingsGeneral.dfaCalGridMaxVelTot,
+            "grid_dfa_max_dev":     MachineData.measurementUnit ? settingsGeneral.dfaCalGridMaxVelDevImp : settingsGeneral.dfaCalGridMaxVelDev,
+            "grid_dfa_max_devp":    settingsGeneral.dfaCalGridMaxVelDevp,
+            "grid_dfa_max_lowest":  MachineData.measurementUnit ? settingsGeneral.dfaCalGridMaxVelLowImp : settingsGeneral.dfaCalGridMaxVelLow,
+            "grid_dfa_max_highest": MachineData.measurementUnit ? settingsGeneral.dfaCalGridMaxVelHighImp : settingsGeneral.dfaCalGridMaxVelHigh,
+            "grid_dfa_max_count":   MachineData.machineProfile['airflow']['dfa']['maximum']['grid']['count'],
+            "grid_dfa_max_columns": MachineData.machineProfile['airflow']['dfa']['maximum']['grid']['columns'],
+            "ducy_max_dfa":         settingsGeneral.dfaCalGridMaxDcy,
+            "rpm_max_dfa":          settingsGeneral.dfaCalGridMaxRpm,
 
             "adc_iff":              MachineData.getInflowAdcPointFactory(1),
             "adc_ifn":              MachineData.getInflowAdcPointFactory(2),
-            "adc_ifa":              settingsCert.adcActual,
+            "adc_ifa":              settingsCert.ifaAdcActual,
             "adc_if0":              MachineData.getInflowAdcPointFactory(0),
             "adc_if1":              MachineData.getInflowAdcPointFactory(1),
             "adc_if2":              MachineData.getInflowAdcPointFactory(2),
-            "adc_range":            MachineData.getInflowAdcPointFactory(2) - MachineData.getInflowAdcPointFactory(1),
+            "adc_range_ifa":            MachineData.getInflowAdcPointFactory(2) - MachineData.getInflowAdcPointFactory(0),
+
+            "adc_dff":              MachineData.getDownflowAdcPointFactory(1),
+            "adc_dfn":              MachineData.getDownflowAdcPointFactory(2),
+            "adc_dfa":              settingsCert.dfaAdcActual,
+            "adc_df0":              MachineData.getDownflowAdcPointFactory(0),
+            "adc_df1":              MachineData.getDownflowAdcPointFactory(1),
+            "adc_df2":              MachineData.getDownflowAdcPointFactory(2),
+            "adc_range_dfa":            MachineData.getDownflowAdcPointFactory(2) - MachineData.getDownflowAdcPointFactory(0),
+
             "calib_temp_adc":       MachineData.getInflowTempCalibAdc(),
             "calib_temp":           MachineData.getInflowTempCalib(),
-            "sensor_voltage":       settingsCert.sensorVdc,
-            "sensor_constant":      MachineData.getInflowSensorConstant(),
 
-            "mv_initial_ducy":      settingsCert.mvInitialFanDucy,
-            "mv_initial_rpm":       settingsCert.mvInitialFanRpm,
+            "sensor_voltage_dfa":       settingsCert.dfaSensorVdc,
+            "sensor_voltage_ifa":       settingsCert.ifaSensorVdc,
+            "sensor_constant_dfa":      MachineData.getDownflowSensorConstant(),
+            "sensor_constant_ifa":      MachineData.getInflowSensorConstant(),
+
+            "mv_initial_ducy_dfa":      settingsCert.mvInitialFanDucyDfa,
+            "mv_initial_rpm_dfa":       settingsCert.mvInitialFanRpmDfa,
+            "mv_initial_ducy_ifa":      settingsCert.mvInitialFanDucyIfa,
+            "mv_initial_rpm_ifa":       settingsCert.mvInitialFanRpmIfa,
             "mv_initial_downflow":  MachineData.measurementUnit ? settingsCert.mvInitialDfaImp : settingsCert.mvInitialDfa,
             "mv_initial_inflow":    MachineData.measurementUnit ? settingsCert.mvInitialIfaImp : settingsCert.mvInitialIfa,
             "mv_initial_power":     settingsCert.mvInitialPower,
 
-            "mv_blocked_ducy":      settingsCert.mvBlockFanDucy,
-            "mv_blocked_rpm":       settingsCert.mvBlockFanRpm,
+            "mv_blocked_ducy_dfa":      settingsCert.mvBlockFanDucyDfa,
+            "mv_blocked_rpm_dfa":       settingsCert.mvBlockFanRpmDfa,
+            "mv_blocked_ducy_ifa":      settingsCert.mvBlockFanDucyIfa,
+            "mv_blocked_rpm_ifa":       settingsCert.mvBlockFanRpmIfa,
             "mv_blocked_downflow":  MachineData.measurementUnit ? settingsCert.mvBlockDfaImp : settingsCert.mvBlockDfa,
             "mv_blocked_inflow":    MachineData.measurementUnit ? settingsCert.mvBlockIfaImp : settingsCert.mvBlockIfa,
             "mv_blocked_power":     settingsCert.mvBlockPower,
 
-            "mv_final_ducy":        settingsCert.mvFinalFanDucy,
-            "mv_final_rpm":         settingsCert.mvFinalFanRpm,
+            "mv_final_ducy_dfa":        settingsCert.mvFinalFanDucyDfa,
+            "mv_final_rpm_dfa":         settingsCert.mvFinalFanRpmDfa,
+            "mv_final_ducy_ifa":        settingsCert.mvFinalFanDucyIfa,
+            "mv_final_rpm_ifa":         settingsCert.mvFinalFanRpmIfa,
             "mv_final_downflow":    MachineData.measurementUnit ? settingsCert.mvFinalDfaImp : settingsCert.mvFinalDfa,
             "mv_final_inflow":      MachineData.measurementUnit ? settingsCert.mvFinalIfaImp : settingsCert.mvFinalIfa,
 

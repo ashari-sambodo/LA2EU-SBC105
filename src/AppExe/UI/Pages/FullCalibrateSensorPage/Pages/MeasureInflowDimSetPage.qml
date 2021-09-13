@@ -845,9 +845,9 @@ ViewApp {
                     if(messageObject["status"] === "finished") {
 
                         let volume = messageObject["avgVal"]
-                        props.volumetric = volume
+                        props.volumetric = Math.round(volume)
                         /// update to view
-                        avgTextField.text = Math.round(volume)
+                        avgTextField.text = props.volumetric
 
                         let velocity = messageObject["velVal"]
                         props.velocity = velocity

@@ -396,6 +396,7 @@ Item {
         Component.onCompleted: {
             cabModelTextField.text = cabinetModel
             calibProTextField.text = calibProc
+            serialNumber = MachineData.serialNumber
             serialNumberTextField.text = serialNumber
             powerRatingTextField.text = powerRating
             if(MachineData.measurementUnit)

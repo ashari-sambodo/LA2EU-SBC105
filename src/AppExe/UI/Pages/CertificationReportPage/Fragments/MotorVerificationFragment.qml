@@ -24,50 +24,97 @@ Item {
                     color: "#e3dac9"
                 }//
 
-                Column {
-                    spacing: 5
-
-                    TextApp {
-                        text: qsTr("Fan duty cycle") + " (%)" + " / " + "RPM"
-                    }//
-
-                    Row {
+                //                Column {
+                Row{
+                    spacing: 10
+                    Column{
                         spacing: 5
-
-                        TextFieldApp {
-                            id: initialDutyCycleTextField
-                            width: 50
-                            height: 40
-                            //                        text: "48"
-                            //colorBorder: "#f39c12"
-                            //enabled: false
-                            onPressed: {
-                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan duty cycle"))
-                            }//
-
-                            onAccepted: {
-                                const val = Number(text)
-                                settings.mvInitialFanDucy = val
-                            }//
+                        TextApp {
+                            text: qsTr("DF Dcy") + "(%)" + "/" + "RPM"
                         }//
 
-                        TextFieldApp {
-                            id: initialRpmTextField
-                            width: 145
-                            height: 40
-                            //                        text: "700"
+                        Row {
+                            spacing: 5
 
-                            onPressed: {
-                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan RPM"))
+                            TextFieldApp {
+                                id: dfaInitialDutyCycleTextField
+                                width: 50
+                                height: 40
+                                //                        text: "48"
+                                //colorBorder: "#f39c12"
+                                //enabled: false
+                                onPressed: {
+                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("DF Fan duty cycle"))
+                                }//
+
+                                onAccepted: {
+                                    const val = Number(text)
+                                    settings.mvInitialFanDucyDfa = val
+                                }//
                             }//
 
-                            onAccepted: {
-                                const val = Number(text)
-                                settings.mvInitialFanRpm = val
+                            TextFieldApp {
+                                id: dfaInitialRpmTextField
+                                width: 70
+                                height: 40
+                                //                        text: "700"
+
+                                onPressed: {
+                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("DF Fan RPM"))
+                                }//
+
+                                onAccepted: {
+                                    const val = Number(text)
+                                    settings.mvInitialFanRpmDfa = val
+                                }//
+                            }//
+                        }//
+                    }//
+                    Column{
+                        spacing: 5
+                        TextApp {
+                            text: qsTr("IF Dcy") + "(%)" + "/" + "RPM"
+                        }//
+
+                        Row {
+                            spacing: 5
+
+                            TextFieldApp {
+                                id: ifaInitialDutyCycleTextField
+                                width: 50
+                                height: 40
+                                //                        text: "48"
+                                //colorBorder: "#f39c12"
+                                //enabled: false
+                                onPressed: {
+                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("IF Fan duty cycle"))
+                                }//
+
+                                onAccepted: {
+                                    const val = Number(text)
+                                    settings.mvInitialFanDucyIfa = val
+                                }//
+                            }//
+
+                            TextFieldApp {
+                                id: ifaInitialRpmTextField
+                                width: 70
+                                height: 40
+                                //                        text: "700"
+
+                                onPressed: {
+                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("IF Fan RPM"))
+                                }//
+
+                                onAccepted: {
+                                    const val = Number(text)
+                                    settings.mvInitialFanRpmIfa = val
+                                }//
                             }//
                         }//
                     }//
                 }//
+                //                }//
 
                 Column {
                     spacing: 5
@@ -184,14 +231,18 @@ Item {
                     text: qsTr("Capture")
 
                     onClicked: {
-                        initialDutyCycleTextField.text = MachineData.fanPrimaryDutyCycle
-                        initialRpmTextField.text = MachineData.fanPrimaryRpm
+                        dfaInitialDutyCycleTextField.text = MachineData.fanPrimaryDutyCycle
+                        dfaInitialRpmTextField.text = MachineData.fanPrimaryRpm
+                        ifaInitialDutyCycleTextField.text = MachineData.fanInflowDutyCycle
+                        ifaInitialRpmTextField.text = MachineData.fanInflowRpm
 
                         initialDfaTextField.text = MachineData.dfaVelocityStr.split(" ")[0] || "0"
                         initialIfaTextField.text = MachineData.ifaVelocityStr.split(" ")[0] || "0"
 
-                        settings.mvInitialFanDucy = initialDutyCycleTextField.text
-                        settings.mvInitialFanRpm = initialRpmTextField.text
+                        settings.mvInitialFanDucyDfa = dfaInitialDutyCycleTextField.text
+                        settings.mvInitialFanRpmDfa = dfaInitialRpmTextField.text
+                        settings.mvInitialFanDucyIfa = ifaInitialDutyCycleTextField.text
+                        settings.mvInitialFanRpmIfa = ifaInitialRpmTextField.text
 
                         if(MachineData.measurementUnit){
                             settings.mvInitialDfaImp = initialDfaTextField.text
@@ -217,50 +268,97 @@ Item {
                     color: "#e3dac9"
                 }//
 
-                Column {
-                    spacing: 5
-
-                    TextApp {
-                        text: qsTr("Fan duty cycle") + " (%)" + " / " + "RPM"
-                    }//
-
-                    Row {
+                //                Column {
+                Row{
+                    spacing: 10
+                    Column{
                         spacing: 5
-
-                        TextFieldApp {
-                            id: blockedDutyCycleTextField
-                            width: 50
-                            height: 40
-                            //                        text: "48"
-                            colorBorder: "#f39c12"
-                            enabled: false
-                            onPressed: {
-                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan duty cycle"))
-                            }//
-
-                            onAccepted: {
-                                const val = Number(text)
-                                settings.mvBlockFanDucy = val
-                            }//
+                        TextApp {
+                            text: qsTr("DF Dcy") + "(%)" + "/" + "RPM"
                         }//
 
-                        TextFieldApp {
-                            id: blockedRpmTextField
-                            width: 145
-                            height: 40
-                            //                        text: "735"
+                        Row {
+                            spacing: 5
 
-                            onPressed: {
-                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan RPM"))
+                            TextFieldApp {
+                                id: dfaBlockedDutyCycleTextField
+                                width: 50
+                                height: 40
+                                //                        text: "48"
+                                colorBackground: "gray"
+                                enabled: false
+                                onPressed: {
+                                    //KeyboardOnScreenCaller.openNumpad(this, qsTr("DF Fan duty cycle"))
+                                }//
+
+                                onAccepted: {
+                                    //const val = Number(text)
+                                    //settings.mvBlockFanDucyDfa = val
+                                }//
                             }//
 
-                            onAccepted: {
-                                const val = Number(text)
-                                settings.mvBlockFanRpm = val
+                            TextFieldApp {
+                                id: dfaBlockedRpmTextField
+                                width: 70
+                                height: 40
+                                //                        text: "700"
+
+                                onPressed: {
+                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("DF Fan RPM"))
+                                }//
+
+                                onAccepted: {
+                                    const val = Number(text)
+                                    settings.mvBlockFanRpmDfa = val
+                                }//
+                            }//
+                        }//
+                    }//
+                    Column{
+                        spacing: 5
+                        TextApp {
+                            text: qsTr("IF Dcy") + "(%)" + "/" + "RPM"
+                        }//
+
+                        Row {
+                            spacing: 5
+
+                            TextFieldApp {
+                                id: ifaBlockedDutyCycleTextField
+                                width: 50
+                                height: 40
+                                //                        text: "48"
+                                colorBackground: "gray"
+                                enabled: false
+                                onPressed: {
+                                    ///KeyboardOnScreenCaller.openNumpad(this, qsTr("IF Fan duty cycle"))
+                                }//
+
+                                onAccepted: {
+                                    ///const val = Number(text)
+                                    //settings.mvBlockFanDucyIfa = val
+                                }//
+                            }//
+
+                            TextFieldApp {
+                                id: ifaBlockedRpmTextField
+                                width: 70
+                                height: 40
+                                //                        text: "700"
+
+                                onPressed: {
+                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("IF Fan RPM"))
+                                }//
+
+                                onAccepted: {
+                                    const val = Number(text)
+                                    settings.mvBlockFanRpmIfa = val
+                                }//
                             }//
                         }//
                     }//
                 }//
+                //                }//
 
                 Column {
                     spacing: 5
@@ -381,14 +479,18 @@ Item {
                     text: qsTr("Capture")
 
                     onClicked: {
-                        blockedDutyCycleTextField.text = settings.mvInitialFanDucy/*MachineData.fanPrimaryDutyCycle*/
-                        blockedRpmTextField.text = MachineData.fanPrimaryRpm
+                        dfaBlockedDutyCycleTextField.text = settings.mvInitialFanDucyDfa/*MachineData.fanPrimaryDutyCycle*/
+                        dfaBlockedRpmTextField.text = MachineData.fanPrimaryRpm
+                        ifaBlockedDutyCycleTextField.text = settings.mvInitialFanDucyIfa/*MachineData.fanPrimaryDutyCycle*/
+                        ifaBlockedRpmTextField.text = MachineData.fanInflowRpm
 
                         blockedDfaTextField.text = MachineData.dfaVelocityStr.split(" ")[0] || "0"
                         blockedIfaTextField.text = MachineData.ifaVelocityStr.split(" ")[0] || "0"
 
-                        settings.mvBlockFanDucy = blockedDutyCycleTextField.text
-                        settings.mvBlockFanRpm = blockedRpmTextField.text
+                        settings.mvBlockFanDucyDfa = dfaBlockedDutyCycleTextField.text
+                        settings.mvBlockFanRpmDfa = dfaBlockedRpmTextField.text
+                        settings.mvBlockFanDucyIfa = ifaBlockedDutyCycleTextField.text
+                        settings.mvBlockFanRpmIfa = ifaBlockedRpmTextField.text
 
                         if(MachineData.measurementUnit){
                             settings.mvBlockDfaImp = blockedDfaTextField.text
@@ -414,50 +516,97 @@ Item {
                     color: "#e3dac9"
                 }//
 
-                Column {
-                    spacing: 5
-
-                    TextApp {
-                        text: qsTr("Fan duty cycle") + " (%)" + " / " + "RPM"
-                    }//
-
-                    Row {
+                //                Column {
+                Row{
+                    spacing: 10
+                    Column{
                         spacing: 5
-
-                        TextFieldApp {
-                            id: finalDutyCycleTextField
-                            width: 50
-                            height: 40
-                            //                        text: "48"
-                            colorBorder: "#f39c12"
-                            enabled: false
-                            onPressed: {
-                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan duty cycle"))
-                            }//
-
-                            onAccepted: {
-                                const val = Number(text)
-                                settings.mvFinalFanDucy = val
-                            }//
+                        TextApp {
+                            text: qsTr("DF Dcy") + "(%)" + "/" + "RPM"
                         }//
 
-                        TextFieldApp {
-                            id: finalRpmTextField
-                            width: 145
-                            height: 40
-                            //                        text: "735"
+                        Row {
+                            spacing: 5
 
-                            onPressed: {
-                                KeyboardOnScreenCaller.openNumpad(this, qsTr("Fan RPM"))
+                            TextFieldApp {
+                                id: dfaFinalDutyCycleTextField
+                                width: 50
+                                height: 40
+                                //                        text: "48"
+                                colorBackground: "gray"
+                                enabled: false
+                                onPressed: {
+                                    //KeyboardOnScreenCaller.openNumpad(this, qsTr("DF Fan duty cycle"))
+                                }//
+
+                                onAccepted: {
+                                   // const val = Number(text)
+                                    //settings.mvFinalFanDucyDfa = val
+                                }//
                             }//
 
-                            onAccepted: {
-                                const val = Number(text)
-                                settings.mvFinalFanRpm = val
+                            TextFieldApp {
+                                id: dfaFinalRpmTextField
+                                width: 70
+                                height: 40
+                                //                        text: "700"
+
+                                onPressed: {
+                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("DF Fan RPM"))
+                                }//
+
+                                onAccepted: {
+                                    const val = Number(text)
+                                    settings.mvFinalFanRpmDfa = val
+                                }//
+                            }//
+                        }//
+                    }//
+                    Column{
+                        spacing: 5
+                        TextApp {
+                            text: qsTr("IF Dcy") + "(%)" + "/" + "RPM"
+                        }//
+
+                        Row {
+                            spacing: 5
+
+                            TextFieldApp {
+                                id: ifaFinalDutyCycleTextField
+                                width: 50
+                                height: 40
+                                //                        text: "48"
+                                colorBackground: "gray"
+                                enabled: false
+                                onPressed: {
+                                    //KeyboardOnScreenCaller.openNumpad(this, qsTr("IF Fan duty cycle"))
+                                }//
+
+                                onAccepted: {
+                                    //const val = Number(text)
+                                    //settings.mvFinalFanDucyIfa = val
+                                }//
+                            }//
+
+                            TextFieldApp {
+                                id: ifaFinalRpmTextField
+                                width: 70
+                                height: 40
+                                //                        text: "700"
+
+                                onPressed: {
+                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("IF Fan RPM"))
+                                }//
+
+                                onAccepted: {
+                                    const val = Number(text)
+                                    settings.mvFinalFanRpmIfa = val
+                                }//
                             }//
                         }//
                     }//
                 }//
+                //                }//
 
                 Column {
                     spacing: 5
@@ -546,14 +695,18 @@ Item {
                     text: qsTr("Capture")
 
                     onClicked: {
-                        finalDutyCycleTextField.text = settings.mvInitialFanDucy/*MachineData.fanPrimaryDutyCycle*/
-                        finalRpmTextField.text = MachineData.fanPrimaryRpm
+                        dfaFinalDutyCycleTextField.text = settings.mvInitialFanDucyDfa/*MachineData.fanPrimaryDutyCycle*/
+                        dfaFinalRpmTextField.text = MachineData.fanPrimaryRpm
+                        ifaFinalDutyCycleTextField.text = settings.mvInitialFanDucyIfa/*MachineData.fanPrimaryDutyCycle*/
+                        ifaFinalRpmTextField.text = MachineData.fanInflowRpm
 
                         finalDfaTextField.text = MachineData.dfaVelocityStr.split(" ")[0] || "0"
                         finalIfaTextField.text = MachineData.ifaVelocityStr.split(" ")[0] || "0"
 
-                        settings.mvFinalFanDucy = finalDutyCycleTextField.text
-                        settings.mvFinalFanRpm = finalRpmTextField.text
+                        settings.mvFinalFanDucyDfa = dfaFinalDutyCycleTextField.text
+                        settings.mvFinalFanRpmDfa = dfaFinalRpmTextField.text
+                        settings.mvFinalFanDucyIfa = ifaFinalDutyCycleTextField.text
+                        settings.mvFinalFanRpmIfa = ifaFinalRpmTextField.text
 
                         if(MachineData.measurementUnit){
                             settings.mvFinalDfaImp = finalDfaTextField.text
@@ -562,7 +715,6 @@ Item {
                             settings.mvFinalDfa = finalDfaTextField.text
                             settings.mvFinalIfa = finalIfaTextField.text
                         }
-
                     }//
                 }//
             }//
@@ -591,32 +743,41 @@ Item {
         id: settings
         category: "certification"
 
-        property int    mvInitialFanDucy: 0
-        property int    mvInitialFanRpm:  0
+        property int    mvInitialFanDucyDfa: 0
+        property int    mvInitialFanRpmDfa:  0
+        property int    mvInitialFanDucyIfa: 0
+        property int    mvInitialFanRpmIfa:  0
         property string mvInitialDfa:     "0"
         property string mvInitialIfa:     "0"
         property string mvInitialDfaImp:  "0"
         property string mvInitialIfaImp:  "0"
         property string mvInitialPower:   "0"
 
-        property int    mvBlockFanDucy:   0
-        property int    mvBlockFanRpm:    0
+        property int    mvBlockFanDucyDfa:   0
+        property int    mvBlockFanRpmDfa:    0
+        property int    mvBlockFanDucyIfa:   0
+        property int    mvBlockFanRpmIfa:    0
         property string mvBlockDfa:       "0"
         property string mvBlockIfa:       "0"
         property string mvBlockDfaImp:    "0"
         property string mvBlockIfaImp:    "0"
         property string mvBlockPower:     "0"
 
-        property int    mvFinalFanDucy:   0
-        property int    mvFinalFanRpm:    0
+        property int    mvFinalFanDucyDfa:   0
+        property int    mvFinalFanRpmDfa:    0
+        property int    mvFinalFanDucyIfa:   0
+        property int    mvFinalFanRpmIfa:    0
         property string mvFinalDfa:       "0"
         property string mvFinalIfa:       "0"
         property string mvFinalDfaImp:    "0"
         property string mvFinalIfaImp:    "0"
 
         Component.onCompleted: {
-            initialDutyCycleTextField.text = mvInitialFanDucy
-            initialRpmTextField.text = mvInitialFanRpm
+            dfaInitialDutyCycleTextField.text = mvInitialFanDucyDfa
+            dfaInitialRpmTextField.text = mvInitialFanRpmDfa
+            ifaInitialDutyCycleTextField.text = mvInitialFanDucyIfa
+            ifaInitialRpmTextField.text = mvInitialFanRpmIfa
+
             if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
                 initialDfaTextField.text = mvInitialDfaImp
                 initialIfaTextField.text = mvInitialIfaImp
@@ -626,8 +787,10 @@ Item {
             }
             initialPowerTextField.text = mvInitialPower
 
-            blockedDutyCycleTextField.text = mvBlockFanDucy
-            blockedRpmTextField.text = mvBlockFanRpm
+            dfaBlockedDutyCycleTextField.text = mvBlockFanDucyDfa
+            dfaBlockedRpmTextField.text = mvBlockFanRpmDfa
+            ifaBlockedDutyCycleTextField.text = mvBlockFanDucyIfa
+            ifaBlockedRpmTextField.text = mvBlockFanRpmIfa
             if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
                 blockedDfaTextField.text = mvBlockDfaImp
                 blockedIfaTextField.text = mvBlockIfaImp
@@ -637,8 +800,10 @@ Item {
             }
             blockedPowerTextField.text = mvBlockPower
 
-            finalDutyCycleTextField.text = mvFinalFanDucy
-            finalRpmTextField.text = mvFinalFanRpm
+            dfaFinalDutyCycleTextField.text = mvFinalFanDucyDfa
+            dfaFinalRpmTextField.text = mvFinalFanRpmDfa
+            ifaFinalDutyCycleTextField.text = mvFinalFanDucyIfa
+            ifaFinalRpmTextField.text = mvFinalFanRpmIfa
             if(MachineData.measurementUnit === MachineAPI.MEA_UNIT_IMPERIAL){
                 finalDfaTextField.text = mvFinalDfaImp
                 finalIfaTextField.text = mvFinalIfaImp

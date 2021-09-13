@@ -29,44 +29,45 @@ Item {
 
         Grid{
             spacing: 10
-
+            columns: 6
+            /// DOWNFLOW
             Rectangle {
                 //            height: children[0].height + 10
                 //            width: children[0].width + 10
                 height: 110
                 width: 150
-                color: "#aaf39c12"
+                color: /*"#aaf39c12"*/"#aa0F2952"
                 radius: 5
                 border.width: 1
-                border.color: "#f39c12"
+                border.color: /*"#f39c12"*/"#e3dac9"
 
                 Column {
                     anchors.centerIn: parent
                     spacing: 5
 
                     TextApp {
-                        text: qsTr("Sensor\n(VDC)")
+                        text: qsTr("DF Sensor") + "<br>" + qsTr("(VDC)")
                     }//
 
                     TextFieldApp {
-                        id: sensorVoltageTextField
+                        id: dfaSensorVoltageTextField
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: 100
                         height: 40
                         //                    enabled: false
-                        colorBorder: "#f39c12"
+                        colorBorder: "#e3dac9"
                         //                text: "10"
 
                         onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Sensor voltage (VDC)"))
+                            KeyboardOnScreenCaller.openNumpad(this, qsTr("DF Sensor voltage (VDC)"))
                         }//
 
                         onAccepted: {
-                            settings.sensorVdc = text
+                            settings.dfaSensorVdc = text
                         }//
                     }//
                 }//
-            }
+            }//
 
             Rectangle {
                 //            height: children[0].height + 10
@@ -82,20 +83,21 @@ Item {
                     spacing: 5
 
                     TextApp {
-                        id: adcActualText
-                        text: qsTr("ADC Actual\n(IFA)")
+                        id: dfaAdcActualText
+                        text: qsTr("DF ADC Actual") + "<br>" + qsTr("(DFA)")
                     }//
 
                     TextFieldApp {
-                        id: adcActualTextField
+                        id: dfaAdcActualTextField
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: 100
                         height: 40
                         enabled: false
-                        text: props.adcActual
+                        colorBackground: "gray"
+                        text: props.dfaAdcActual
 
                         Component.onCompleted: {
-                            text = Qt.binding(function(){return props.adcActual})
+                            text = Qt.binding(function(){return props.dfaAdcActual})
                         }
                     }//
                 }//
@@ -104,7 +106,7 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         //console.log("onClicked")
-                        adcActualTextField.text = MachineData.ifaAdcConpensation
+                        dfaAdcActualTextField.text = props.dfaAdcActual
                         //settings.adcActual = MachineData.ifaAdcConpensation
                     }//
                 }//
@@ -125,62 +127,25 @@ Item {
                     spacing: 5
 
                     TextApp {
-                        id: modelText
-                        text: qsTr("ADC Min\nField (IFF)")
-                    }//
-
-                    TextFieldApp {
-                        id: adcMinTextField
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        width: 100
-                        height: 40
-                        enabled: false
-                        //                text: "LA2-4S8 NS"
-
-                        onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Minimum - Field (IFF)"))
-                        }//
-
-                        onAccepted: {
-                            settings.adcMinField = text
-                        }//
-                    }//
-                }//
-            }//
-
-            Rectangle {
-                //            height: children[0].height + 10
-                //            width: children[0].width + 10
-                height: 110
-                width: 150
-                color: "#aa0F2952"
-                radius: 5
-                border.width: 1
-                border.color: "#e3dac9"
-
-                Column {
-                    anchors.centerIn: parent
-                    spacing: 5
-
-                    TextApp {
                         id: calibProText
-                        text: qsTr("ADC Nominal\nField (IFN)")
+                        text: qsTr("DF ADC Nom")+"<br>"+qsTr("Field (DFN)")
                     }//
 
                     TextFieldApp {
-                        id: adcNomTextField
+                        id: dfaAdcNomTextField
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: 100
                         height: 40
                         enabled: false
+                        colorBackground: "gray"
                         //                text: "LA2-4S8 NS"
 
                         onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this,  qsTr("ADC Nominal - Field (IFN)"))
+                            //KeyboardOnScreenCaller.openNumpad(this,  qsTr("DF ADC Nominal - Field (DFN)"))
                         }//
 
                         onAccepted: {
-                            settings.adcNomField = text
+                            //settings.adcNomField = text
                         }//
                     }//
                 }//
@@ -201,23 +166,24 @@ Item {
                     spacing: 5
 
                     TextApp {
-                        text: qsTr("ADC Zero\nFactory (IF0)")
+                        text: qsTr("DF ADC Zero") + "<br>" + qsTr("Factory (DF0)")
                     }//
 
                     TextFieldApp {
-                        id: adcZeroFactoryTextField
+                        id: dfaAdcZeroFactoryTextField
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: 100
                         height: 40
                         enabled: false
+                        colorBackground: "gray"
                         //                text: "120 VAC / 50Hz"
 
                         onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Zero - Factory (IF0)"))
+                            //KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Zero - Factory (IF0)"))
                         }//
 
                         onAccepted: {
-                            settings.adcZeroFac = text
+                            //settings.adcZeroFac = text
                         }//
                     }//
                 }//
@@ -238,60 +204,24 @@ Item {
                     spacing: 5
 
                     TextApp {
-                        text: qsTr("ADC Min\nFactory (IF1)")
+                        text: qsTr("DF ADC Nom") + "<br>" + qsTr("Factory (DF2)")
                     }//
 
                     TextFieldApp {
-                        id: adcMinFactoryTextField
+                        id: dfaAdcNomFactoryTextField
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: 100
                         height: 40
                         enabled: false
-                        //                text: "0.0005"
-
-                        onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Minimum - Factory (IF1)"))
-                        }//
-
-                        onAccepted: {
-                            settings.adcMinFac = text
-                        }//
-                    }//
-                }//
-            }//
-
-            Rectangle {
-                //            height: children[0].height + 10
-                //            width: children[0].width + 10
-                height: 110
-                width: 150
-                color: "#aa0F2952"
-                radius: 5
-                border.width: 1
-                border.color: "#e3dac9"
-
-                Column {
-                    anchors.centerIn: parent
-                    spacing: 5
-
-                    TextApp {
-                        text: qsTr("ADC Nom\nFactory (IF2)")
-                    }//
-
-                    TextFieldApp {
-                        id: adcNomFactoryTextField
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        width: 100
-                        height: 40
-                        enabled: false
+                        colorBackground: "gray"
                         //                text: "2"
 
                         onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Nominal - Factory (IF2)"))
+                            //KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Nominal - Factory (IF2)"))
                         }//
 
                         onAccepted: {
-                            settings.adcNomFac = text
+                            //settings.adcNomFac = text
                         }//
                     }//
                 }//
@@ -312,23 +242,63 @@ Item {
                     spacing: 5
 
                     TextApp {
-                        text: qsTr("\nIF2 - IF1")
+                        text: "<br>" + qsTr("DF2 - DF0")
                     }//
 
                     TextFieldApp {
-                        id: adcRangeTextField
+                        id: dfaAdcRangeTextField
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: 100
                         height: 40
                         enabled: false
+                        colorBackground: "gray"
                         //                text: "10"
 
                         onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Range"))
+                            //KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Range"))
                         }//
 
                         onAccepted: {
-                            settings.adcRangeFac = text
+                            //settings.adcRangeFac = text
+                        }//
+                    }//
+                }//
+            }//
+
+            ///INFLOW
+            Rectangle {
+                //            height: children[0].height + 10
+                //            width: children[0].width + 10
+                height: 110
+                width: 150
+                color: /*"#aaf39c12"*/"#aa0F2952"
+                radius: 5
+                border.width: 1
+                border.color: /*"#f39c12"*/"#e3dac9"
+
+                Column {
+                    anchors.centerIn: parent
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("IF Sensor") + "<br>" + qsTr("(VDC)")
+                    }//
+
+                    TextFieldApp {
+                        id: ifaSensorVoltageTextField
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: 100
+                        height: 40
+                        //                    enabled: false
+                        colorBorder: "#e3dac9"
+                        //                text: "10"
+
+                        onPressed: {
+                            KeyboardOnScreenCaller.openNumpad(this, qsTr("IF Sensor voltage (VDC)"))
+                        }//
+
+                        onAccepted: {
+                            settings.ifaSensorVdc = text
                         }//
                     }//
                 }//
@@ -343,29 +313,73 @@ Item {
                 radius: 5
                 border.width: 1
                 border.color: "#e3dac9"
-
                 Column {
                     anchors.centerIn: parent
                     spacing: 5
 
                     TextApp {
-                        text: qsTr("Sensor\nConstant")
+                        id: ifaAdcActualText
+                        text: qsTr("IF ADC Actual") + "<br>" + qsTr("(IFA)")
                     }//
 
                     TextFieldApp {
-                        id: sensorConstantTextField
+                        id: ifaAdcActualTextField
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: 100
                         height: 40
                         enabled: false
-                        //                text: "10"
+                        colorBackground: "gray"
+                        text: props.ifaAdcActual
+
+                        Component.onCompleted: {
+                            text = Qt.binding(function(){return props.ifaAdcActual})
+                        }
+                    }//
+                }//
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        //console.log("onClicked")
+                        ifaAdcActualTextField.text = props.ifaAdcActual
+                        //settings.adcActual = MachineData.ifaAdcConpensation
+                    }//
+                }//
+            }//
+
+            Rectangle {
+                //            height: children[0].height + 10
+                //            width: children[0].width + 10
+                height: 110
+                width: 150
+                color: "#aa0F2952"
+                radius: 5
+                border.width: 1
+                border.color: "#e3dac9"
+
+                Column {
+                    anchors.centerIn: parent
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("IF ADC Nom")+"<br>"+qsTr("Field (IFN)")
+                    }//
+
+                    TextFieldApp {
+                        id: ifaAdcNomTextField
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: 100
+                        height: 40
+                        enabled: false
+                        colorBackground: "gray"
+                        //                text: "LA2-4S8 NS"
 
                         onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Sensor Constant"))
+                            //KeyboardOnScreenCaller.openNumpad(this,  qsTr("DF ADC Nominal - Field (DFN)"))
                         }//
 
                         onAccepted: {
-                            settings.sensorConst = text
+                            //settings.adcNomField = text
                         }//
                     }//
                 }//
@@ -386,7 +400,196 @@ Item {
                     spacing: 5
 
                     TextApp {
-                        text: qsTr("Calibration\nTemp") + " (" + degreeMeaStr + ")"
+                        text: qsTr("IF ADC Zero") + "<br>" + qsTr("Factory (IF0)")
+                    }//
+
+                    TextFieldApp {
+                        id: ifaAdcZeroFactoryTextField
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: 100
+                        height: 40
+                        enabled: false
+                        colorBackground: "gray"
+                        //                text: "120 VAC / 50Hz"
+
+                        onPressed: {
+                            //KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Zero - Factory (IF0)"))
+                        }//
+
+                        onAccepted: {
+                            //settings.adcZeroFac = text
+                        }//
+                    }//
+                }//
+            }//
+
+            Rectangle {
+                //            height: children[0].height + 10
+                //            width: children[0].width + 10
+                height: 110
+                width: 150
+                color: "#aa0F2952"
+                radius: 5
+                border.width: 1
+                border.color: "#e3dac9"
+
+                Column {
+                    anchors.centerIn: parent
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("IF ADC Nom") + "<br>" + qsTr("Factory (IF2)")
+                    }//
+
+                    TextFieldApp {
+                        id: ifaAdcNomFactoryTextField
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: 100
+                        height: 40
+                        enabled: false
+                        colorBackground: "gray"
+                        //                text: "2"
+
+                        onPressed: {
+                            //KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Nominal - Factory (IF2)"))
+                        }//
+
+                        onAccepted: {
+                            //settings.adcNomFac = text
+                        }//
+                    }//
+                }//
+            }//
+
+            Rectangle {
+                //            height: children[0].height + 10
+                //            width: children[0].width + 10
+                height: 110
+                width: 150
+                color: "#aa0F2952"
+                radius: 5
+                border.width: 1
+                border.color: "#e3dac9"
+
+                Column {
+                    anchors.centerIn: parent
+                    spacing: 5
+
+                    TextApp {
+                        text: "<br>" + qsTr("IF2 - IF0")
+                    }//
+
+                    TextFieldApp {
+                        id: ifaAdcRangeTextField
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: 100
+                        height: 40
+                        enabled: false
+                        colorBackground: "gray"
+                        //                text: "10"
+
+                        onPressed: {
+                            //KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC Range"))
+                        }//
+
+                        onAccepted: {
+                            //settings.adcRangeFac = text
+                        }//
+                    }//
+                }//
+            }//
+
+            ///GENERAL
+            Rectangle {
+                //            height: children[0].height + 10
+                //            width: children[0].width + 10
+                height: 110
+                width: 150
+                color: "#aa0F2952"
+                radius: 5
+                border.width: 1
+                border.color: "#e3dac9"
+
+                Column {
+                    anchors.centerIn: parent
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("DF Sensor")+"<br>"+qsTr("Constant")
+                    }//
+
+                    TextFieldApp {
+                        id: dfaSensorConstantTextField
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: 100
+                        height: 40
+                        enabled: false
+                        colorBackground: "gray"
+                        //                text: "10"
+
+                        onPressed: {
+                            //KeyboardOnScreenCaller.openNumpad(this, qsTr("Sensor Constant"))
+                        }//
+
+                        onAccepted: {
+                            //settings.sensorConst = text
+                        }//
+                    }//
+                }//
+            }//
+            Rectangle {
+                //            height: children[0].height + 10
+                //            width: children[0].width + 10
+                height: 110
+                width: 150
+                color: "#aa0F2952"
+                radius: 5
+                border.width: 1
+                border.color: "#e3dac9"
+
+                Column {
+                    anchors.centerIn: parent
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("IF Sensor")+"<br>"+qsTr("Constant")
+                    }//
+
+                    TextFieldApp {
+                        id: ifaSensorConstantTextField
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: 100
+                        height: 40
+                        enabled: false
+                        colorBackground: "gray"
+                        //                text: "10"
+
+                        onPressed: {
+                            //KeyboardOnScreenCaller.openNumpad(this, qsTr("Sensor Constant"))
+                        }//
+
+                        onAccepted: {
+                            //settings.sensorConst = text
+                        }//
+                    }//
+                }//
+            }//
+            Rectangle {
+                //height: children[0].height + 10
+                //width: children[0].width + 10
+                height: 110
+                width: 150
+                color: "#aa0F2952"
+                radius: 5
+                border.width: 1
+                border.color: "#e3dac9"
+
+                Column {
+                    anchors.centerIn: parent
+                    spacing: 5
+
+                    TextApp {
+                        text: qsTr("Calibration")+"<br>"+qsTr("Temp") + " (" + degreeMeaStr + ")"
 
                         property int degreeMea: 0
                         property string degreeMeaStr: degreeMea ? "°F" : "°C"
@@ -402,14 +605,15 @@ Item {
                         width: 100
                         height: 40
                         enabled: false
+                        colorBackground: "gray"
                         //                text: "10"
 
                         onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Calibration Temp"))
+                            //KeyboardOnScreenCaller.openNumpad(this, qsTr("Calibration Temp"))
                         }//
 
                         onAccepted: {
-                            settings.calibTemp = text
+                            //settings.calibTemp = text
                         }//
                     }//
                 }//
@@ -430,7 +634,7 @@ Item {
                     spacing: 5
 
                     TextApp {
-                        text: qsTr("Calibration\nTemp ADC")
+                        text: qsTr("Calibration") + "<br>" + qsTr("Temp ADC")
                     }//
 
                     TextFieldApp {
@@ -439,31 +643,36 @@ Item {
                         width: 100
                         height: 40
                         enabled: false
-                        //                text: "10"
+                        colorBackground: "gray"
+                        //text: "10"
 
                         onPressed: {
-                            KeyboardOnScreenCaller.openNumpad(this, qsTr("Calibration Temp ADC"))
+                            //KeyboardOnScreenCaller.openNumpad(this, qsTr("Calibration Temp ADC"))
                         }//
 
                         onAccepted: {
-                            settings.calibTempAdc = text
+                            //settings.calibTempAdc = text
                         }//
                     }//
                 }//
             }//
         }//
-    }
+    }//
 
     QtObject{
         id: props
-        property int adcActual: 0
+        property int dfaAdcActual: 0
+        property int ifaAdcActual: 0
 
-        onAdcActualChanged: {
-            settings.adcActual = adcActual
+        onDfaAdcActualChanged: {
+            settings.dfaAdcActual = dfaAdcActual
         }
-
+        onIfaAdcActualChanged: {
+            settings.ifaAdcActual = ifaAdcActual
+        }
         Component.onCompleted: {
-            adcActual = Qt.binding(function(){return MachineData.ifaAdcConpensation})
+            dfaAdcActual = Qt.binding(function(){return MachineData.dfaAdcConpensation})
+            ifaAdcActual = Qt.binding(function(){return MachineData.ifaAdcConpensation})
         }
     }
 
@@ -476,24 +685,33 @@ Item {
         id: settings
         category: "certification"
 
-        property string sensorVdc: "0"
-        property int adcActual: 0
+        property string dfaSensorVdc: "0"
+        property string ifaSensorVdc: "0"
+        property int dfaAdcActual: 0
+        property int ifaAdcActual: 0
 
         Component.onCompleted: {
-            sensorVoltageTextField.text     = sensorVdc
-
-            adcActual                       = MachineData.ifaAdcConpensation
-            adcActualTextField.text         = adcActual
-            adcMinTextField.text            = MachineData.getInflowAdcPointFactory(1)
-            adcNomTextField.text            = MachineData.getInflowAdcPointFactory(2)
-            adcNomFactoryTextField.text     = MachineData.getInflowAdcPointFactory(2)
-            adcMinFactoryTextField.text     = MachineData.getInflowAdcPointFactory(1)
-            adcZeroFactoryTextField.text    = MachineData.getInflowAdcPointFactory(0)
-            sensorConstantTextField.text    = MachineData.getInflowSensorConstant()
+            /// DOWNFLOW
+            dfaSensorVoltageTextField.text  = dfaSensorVdc
+            dfaAdcActual                    = MachineData.dfaAdcConpensation
+            dfaAdcActualTextField.text      = dfaAdcActual
+            dfaAdcNomTextField.text         = MachineData.getDownflowAdcPointFactory(2)
+            dfaAdcZeroFactoryTextField.text = MachineData.getDownflowAdcPointFactory(0)
+            dfaAdcNomFactoryTextField.text  = MachineData.getDownflowAdcPointFactory(2)
+            dfaAdcRangeTextField.text       = MachineData.getDownflowAdcPointFactory(2) - MachineData.getDownflowAdcPointFactory(0)
+            /// INFLOW
+            ifaSensorVoltageTextField.text  = dfaSensorVdc
+            ifaAdcActual                    = MachineData.ifaAdcConpensation
+            ifaAdcActualTextField.text      = ifaAdcActual
+            ifaAdcNomTextField.text         = MachineData.getInflowAdcPointFactory(2)
+            ifaAdcZeroFactoryTextField.text = MachineData.getInflowAdcPointFactory(0)
+            ifaAdcNomFactoryTextField.text  = MachineData.getInflowAdcPointFactory(2)
+            ifaAdcRangeTextField.text       = MachineData.getInflowAdcPointFactory(2) - MachineData.getInflowAdcPointFactory(0)
+            /// GENERAL
+            dfaSensorConstantTextField.text = MachineData.getDownflowSensorConstant()
+            ifaSensorConstantTextField.text = MachineData.getInflowSensorConstant()
             calibTempTextField.text         = MachineData.getInflowTempCalib()
             calibTempAdcTextField.text      = MachineData.getInflowTempCalibAdc()
-
-            adcRangeTextField.text          = MachineData.getInflowAdcPointFactory(2) - MachineData.getInflowAdcPointFactory(1)
         }//
     }//
 }//

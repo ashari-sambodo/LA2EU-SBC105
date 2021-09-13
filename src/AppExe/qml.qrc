@@ -127,7 +127,6 @@
         <file>UI/Pages/ShortCutMenuPage/ShortCutMenuPage.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/ExportFragment.qml</file>
         <file>UI/Pages/CertificationShortCut/CertificationShortCut.qml</file>
-        <file>UI/Pages/CertificationReportPage/Fragments/InflowGridFieldFragment.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/TesterFieldFragment.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/DownflowGridFieldFragment.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/ExportFieldFragment.qml</file>
@@ -144,7 +143,6 @@
         <file>UI/Pages/ShippingSetupPage/ShippingSetupPage.qml</file>
         <file>UI/Pages/InstallationWizardPage/InstallationWizardPage.qml</file>
         <file>UI/Pages/InstallationWizardPage/InstallationWizardDonePage.qml</file>
-        <file>UI/Pages/CertificationReportPage/Fragments/SendTestReportFragment_copy.qml</file>
         <file>UI/Pages/AirflowMonitorPage/AirflowMonitorPage.qml</file>
         <file>UI/Pages/SoftwareFailedStartPage/SoftwareFailedStartPage.qml</file>
         <file>UI/Pages/SoftwareLicensePage/SoftwareLicensePage.qml</file>
@@ -154,5 +152,6 @@
         <file>UI/Pages/FanClosedLoopControlPage/FanClosedLoopControlPage.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Pages/CloseLoopTuningHelp.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTunningParameters.qml</file>
+        <file>UI/Pages/CertificationReportPage/Fragments/InflowGridFieldFragment.qml</file>
     </qresource>
 </RCC>

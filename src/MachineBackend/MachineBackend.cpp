@@ -3956,18 +3956,18 @@ void MachineBackend::saveInflowMeaDimNominalGrid(QJsonArray grid, int total,
         settings.setValue(SKEY_IFA_CAL_GRID_NOM_DCY_FIL, ducy);
         settings.setValue(SKEY_IFA_CAL_GRID_NOM_RPM_FIL, rpm);
 
-        ///clear secondary method in field calibration
-        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_FIL);
-        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_TOT_FIL);
-        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_AVG_FIL);
-        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_VEL_FIL);
+        //        ///clear secondary method in field calibration
+        //        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_FIL);
+        //        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_TOT_FIL);
+        //        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_AVG_FIL);
+        //        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_VEL_FIL);
 
-        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_TOT_FIL_IMP);
-        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_AVG_FIL_IMP);
-        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_VEL_FIL_IMP);
+        //        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_TOT_FIL_IMP);
+        //        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_AVG_FIL_IMP);
+        //        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_VEL_FIL_IMP);
 
-        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_DCY_FIL);
-        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_RPM_FIL);
+        //        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_DCY_FIL);
+        //        settings.remove(SKEY_IFA_CAL_GRID_NOM_SEC_RPM_FIL);
         break;
     default:
         break;
@@ -4107,20 +4107,20 @@ void MachineBackend::saveInflowMeaSecNominalGrid(const QJsonArray grid,
     settings.setValue(SKEY_IFA_CAL_GRID_NOM_SEC_DCY_FIL, ducy);
     settings.setValue(SKEY_IFA_CAL_GRID_NOM_SEC_RPM_FIL, rpm);
 
-    /// clear DIM Method in field calibration
-    settings.remove(SKEY_IFA_CAL_GRID_NOM_FIL);
-    settings.remove(SKEY_IFA_CAL_GRID_NOM_VOL_FIL);
-    settings.remove(SKEY_IFA_CAL_GRID_NOM_VEL_FIL);
-    settings.remove(SKEY_IFA_CAL_GRID_NOM_AVG_FIL);
-    settings.remove(SKEY_IFA_CAL_GRID_NOM_TOT_FIL);
+    //    /// clear DIM Method in field calibration
+    //    settings.remove(SKEY_IFA_CAL_GRID_NOM_FIL);
+    //    settings.remove(SKEY_IFA_CAL_GRID_NOM_VOL_FIL);
+    //    settings.remove(SKEY_IFA_CAL_GRID_NOM_VEL_FIL);
+    //    settings.remove(SKEY_IFA_CAL_GRID_NOM_AVG_FIL);
+    //    settings.remove(SKEY_IFA_CAL_GRID_NOM_TOT_FIL);
 
-    settings.remove(SKEY_IFA_CAL_GRID_NOM_VOL_FIL_IMP);
-    settings.remove(SKEY_IFA_CAL_GRID_NOM_VEL_FIL_IMP);
-    settings.remove(SKEY_IFA_CAL_GRID_NOM_AVG_FIL_IMP);
-    settings.remove(SKEY_IFA_CAL_GRID_NOM_TOT_FIL_IMP);
+    //    settings.remove(SKEY_IFA_CAL_GRID_NOM_VOL_FIL_IMP);
+    //    settings.remove(SKEY_IFA_CAL_GRID_NOM_VEL_FIL_IMP);
+    //    settings.remove(SKEY_IFA_CAL_GRID_NOM_AVG_FIL_IMP);
+    //    settings.remove(SKEY_IFA_CAL_GRID_NOM_TOT_FIL_IMP);
 
-    settings.remove(SKEY_IFA_CAL_GRID_NOM_DCY_FIL);
-    settings.remove(SKEY_IFA_CAL_GRID_NOM_RPM_FIL);
+    //    settings.remove(SKEY_IFA_CAL_GRID_NOM_DCY_FIL);
+    //    settings.remove(SKEY_IFA_CAL_GRID_NOM_RPM_FIL);
 
     //    settings.beginGroup("meaifanomsecDraft");
     //    settings.remove("drafAirflowGridStr");
@@ -7476,8 +7476,25 @@ void MachineBackend::_machineState()
 
                 if(m_pSashWindow->isSashStateChanged()){
                     if(pData->getSashWindowMotorizeState()){
-                        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                        m_pSasWindowMotorize->routineTask();
+                        if(m_sashMotorizedOffAtFullyClosedDelayTimeMsec){
+                            if(!eventTimerForDelayMotorizedOffAtFullyClosed){
+                                /// Give a delay for a moment for sash moving down after fully closed detected
+                                 eventTimerForDelayMotorizedOffAtFullyClosed = new QTimer();
+                                 eventTimerForDelayMotorizedOffAtFullyClosed->setInterval(m_sashMotorizedOffAtFullyClosedDelayTimeMsec);
+                                 eventTimerForDelayMotorizedOffAtFullyClosed->setSingleShot(true);
+                                 ///Ececute this block after a certain time (m_sashMotorizedOffAtFullyClosedDelayTimeMsec)
+                                 QObject::connect(eventTimerForDelayMotorizedOffAtFullyClosed, &QTimer::timeout,
+                                                  eventTimerForDelayMotorizedOffAtFullyClosed, [=](){
+                                     m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                                     m_pSasWindowMotorize->routineTask();
+                                 });
+
+                                 eventTimerForDelayMotorizedOffAtFullyClosed->start();
+                            }
+                        }else{
+                            m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                            m_pSasWindowMotorize->routineTask();
+                        }
                     }
                 }
             }

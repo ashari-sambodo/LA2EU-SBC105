@@ -51,6 +51,7 @@ Item {
                             Component.onCompleted: {
                                 const meaVol = MachineData.measurementUnit ? "cfm" : "l/s"
                                 valueStrf = (MachineData.measurementUnit ? settings.ifaCalGridNomTotFilImp : settings.ifaCalGridNomTotFil) + " " + meaVol
+
                             }//
                         }//
 
@@ -72,7 +73,6 @@ Item {
                             property string valueStrf: "0"
 
                             Component.onCompleted: {
-
                                 const meaVel = MachineData.measurementUnit ? "fpm" : "m/s"
                                 let vel = (MachineData.measurementUnit ? settings.ifaCalGridNomVelFilImp : settings.ifaCalGridNomVelFil)
                                 if(MachineData.measurementUnit) vel = (vel/100).toFixed()
@@ -89,20 +89,10 @@ Item {
                     Layout.fillWidth: true
 
                     LocalComp.AirflowGridWrapper {
-                        id: loaderIfaNomGrid
+                        id: loaderIfaNomGridFil
                         anchors.fill: parent
-                        visibleHorizontalScroll: true
-                        visibleVerticalScroll: true
-                    }//
-
-                    Loader {
-                        active: props.gridCountDim == 0
-                        anchors.centerIn: parent
-                        sourceComponent: TextApp {
-                            text: qsTr("NA")
-                            font.pixelSize: 32
-                            //                        visible: settings.ifaCalGridNomFil.length < 10
-                        }//
+                        visibleHorizontalScroll: false
+                        visibleVerticalScroll: false
                     }//
                 }//
             }//
@@ -137,7 +127,6 @@ Item {
                         }//
 
                         TextApp {
-                            //                            text: fieldOrFull ? qsTr("Duty cycle") + ": " + "<b>" + valueStrf + "</b>" : ""
                             text: qsTr("Duty cycle") + ": " + "<b>" + valueStrf + "</b>"
 
                             property string valueStrf: "0%"
@@ -153,7 +142,7 @@ Item {
                             property string valueStrf: "0"
 
                             Component.onCompleted: {
-                                const meaVel = MachineData.measurementUnit ?  "fpm" : "m/s"
+                                const meaVel = MachineData.measurementUnit ? "fpm" : "m/s"
                                 let vel = (MachineData.measurementUnit ? settings.ifaCalGridNomTotSecFilImp : settings.ifaCalGridNomTotSecFil)
                                 if(MachineData.measurementUnit) vel = (vel/100).toFixed()
                                 else vel = (vel/100).toFixed(2)
@@ -198,19 +187,8 @@ Item {
                     LocalComp.AirflowGridWrapper {
                         id: loaderIfaNomSecGrid
                         anchors.fill: parent
-                        visibleHorizontalScroll: true
-                        visibleVerticalScroll: true
-                    }//
-
-                    Loader {
-                        active: props.gridCountSec == 0
-                        anchors.centerIn: parent
-                        sourceComponent:TextApp {
-                            anchors.centerIn: parent
-                            text: qsTr("NA")
-                            font.pixelSize: 32
-                            //                        visible: settings.ifaCalGridNomSecFil.length < 10 //make the setting overiten, don't do this
-                        }//
+                        visibleHorizontalScroll: false
+                        visibleVerticalScroll: false
                     }//
                 }//
             }//
@@ -225,13 +203,11 @@ Item {
         //        }//
 
         onMessage: {
-            //            console.debug(JSON.stringify(messageObject))
+            //console.debug(JSON.stringify(messageObject))
 
-            if(messageObject.id === "loaderIfaNomGrid"){
+            if(messageObject.id === "loaderIfaNomGridFil"){
                 const grid = messageObject.data || [{}]
-                props.gridCountDim = grid.length
-                console.log("gridCountDim: " + props.gridCountDim)
-                loaderIfaNomGrid.loader.setSource("../Components/AirflowGrid.qml",
+                loaderIfaNomGridFil.loader.setSource("../Components/AirflowGrid.qml",
                                                   {
                                                       "measureUnit": MachineData.measurementUnit,
                                                       "columns": 5,
@@ -239,39 +215,31 @@ Item {
                                                       "valueMinimum": 0,
                                                       "valueMaximum": 1000,
                                                   })
-                //                console.log("Nominal grid")
+                //console.log("Nominal grid")
+                //console.log(settings.ifaCalGridMin)
                 jsonStringify.s2j('loaderIfaNomSecGrid', settings.ifaCalGridNomSecFil)
             }
+
             else if(messageObject.id === "loaderIfaNomSecGrid"){
+
                 const grid = messageObject.data || [{}]
-                //                console.log("grid-length:" + grid.length)
-                //                console.log("grid:" + grid)
-                props.gridCountSec = grid.length
-                console.log("gridCountSec: " + props.gridCountSec)
                 loaderIfaNomSecGrid.loader.setSource("../Components/AirflowGrid.qml",
-                                                     {
-                                                         "measureUnit": MachineData.measurementUnit,
-                                                         "columns": props.gridCountSec,
-                                                         "model": grid,
-                                                         "valueMinimum": 0,
-                                                         "valueMaximum": 1000,
-                                                     })
-                //                console.log("Minimum grid")
+                                                  {
+                                                      "measureUnit": MachineData.measurementUnit,
+                                                      "columns": 5,
+                                                      "model": grid,
+                                                      "valueMinimum": 0,
+                                                      "valueMaximum": 1000,
+                                                  })
+                //console.log("Minimum grid")
             }//
         }//
-    }//
-
-    QtObject {
-        id: props
-
-        property int gridCountDim: 0
-        property int gridCountSec: 0
     }//
 
     Settings {
         id: settings
 
-        property string ifaCalGridNomFil:   "[]"
+        property string ifaCalGridNomFil: "[]"
         property int    ifaCalGridNomTotFil: 0
         property int    ifaCalGridNomAvgFil: 0
         property int    ifaCalGridNomVolFil: 0
@@ -282,7 +250,7 @@ Item {
         property int    ifaCalGridNomVelFilImp: 0
         property int    ifaCalGridNomDcyFil: 0
 
-        property string ifaCalGridNomSecFil:   "[]"
+        property string ifaCalGridNomSecFil: "[]"
         property int    ifaCalGridNomTotSecFil: 0
         property int    ifaCalGridNomAvgSecFil: 0
         property int    ifaCalGridNomVelSecFil: 0
@@ -292,11 +260,9 @@ Item {
         property int    ifaCalGridNomDcySecFil: 0
 
         Component.onCompleted: {
-            //            const jdata = {"hello": "hello", "world": "world"}
-            //            jsonStringify.s2j('loaderIfaStbGrid', ifaCalGridStb)
-
-            jsonStringify.s2j('loaderIfaNomGrid', ifaCalGridNomFil)
-            //            jsonStringify.s2j('loaderIfaNomSecGrid', ifaCalGridNomSecFil)
+            jsonStringify.s2j('loaderIfaNomGridFil', ifaCalGridNomFil)
+            //jsonStringify.s2j('loaderIfaMinGrid', ifaCalGridMin)
+            //jsonStringify.s2j('loaderIfaStbGrid', ifaCalGridStb)
         }//
     }//
 }//

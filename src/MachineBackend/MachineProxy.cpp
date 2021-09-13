@@ -1434,7 +1434,7 @@ void MachineProxy::saveInflowMeaDimStandbyGrid(const QJsonArray grid, int total,
 
 void MachineProxy::saveInflowMeaSecNominalGrid(const QJsonArray grid, int total, int average, int velocity, int ducy, int rpm)
 {
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, grid, average, velocity, ducy, rpm](){
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, grid, total, average, velocity, ducy, rpm](){
         m_machineBackend->saveInflowMeaSecNominalGrid(grid, total, average, velocity, ducy, rpm);
     },
     Qt::QueuedConnection);

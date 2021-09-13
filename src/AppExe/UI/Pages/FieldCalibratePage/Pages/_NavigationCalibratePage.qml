@@ -615,7 +615,20 @@ ViewApp {
                 //MachineAPI.setFanPrimaryMinimumRpmField(props.fanRpmMinimum)
                 //MachineAPI.setFanPrimaryStandbyRpmField(props.dfaFanRpmStandby)
 
+                console.debug("calibNewInflowNom",       props.calibNewInflowNom)
+                console.debug("calibNewInflowNomSec",    props.calibNewInflowNomSec)
+                console.debug("calibNewDownflowNom",     props.calibNewDownflowNom)
+
                 if (props.calibNewInflowNom){
+                    console.debug("meaIfaNominalGrid",      props.meaIfaNominalGrid)
+                    console.debug("meaIfaNominalTotal",     props.meaIfaNominalTotal)
+                    console.debug("meaIfaNominalAverage",   props.meaIfaNominalAverage)
+                    console.debug("meaIfaNominalVolume",     props.meaIfaNominalVolume)
+                    console.debug("meaIfaNominalVelocity",  props.meaIfaNominalVelocity)
+                    console.debug("ifaFanDutyCycleNominal", props.ifaFanDutyCycleNominal)
+                    console.debug("ifaFanRpmNominal",       props.ifaFanRpmNominal)
+                    console.debug("meaFieldCalibModeOn",    props.meaFieldCalibModeOn)
+
                     MachineAPI.saveInflowMeaDimNominalGrid(props.meaIfaNominalGrid,
                                                            props.meaIfaNominalTotal,
                                                            props.meaIfaNominalAverage,
@@ -627,6 +640,12 @@ ViewApp {
                 }//
 
                 if (props.calibNewInflowNomSec){
+                    console.debug("meaIfaNominalSecGrid",   props.meaIfaNominalSecGrid)
+                    console.debug("meaIfaNominalSecTot",    props.meaIfaNominalSecTot)
+                    console.debug("meaIfaNominalSecAvg",    props.meaIfaNominalSecAvg)
+                    console.debug("meaIfaNominalSecVelocity", props.meaIfaNominalSecVelocity)
+                    console.debug("ifaFanDutyCycleNominal", props.ifaFanDutyCycleNominal)
+                    console.debug("ifaFanRpmNominal",       props.ifaFanRpmNominal)
                     MachineAPI.saveInflowMeaSecNominalGrid(props.meaIfaNominalSecGrid,
                                                            props.meaIfaNominalSecTot,
                                                            props.meaIfaNominalSecAvg,
@@ -644,6 +663,17 @@ ViewApp {
                 //                }
 
                 if (props.calibNewDownflowNom) {
+                    console.debug("meaDfaNominalGrid",          props.meaDfaNominalGrid)
+                    console.debug("meaDfaNominalVelocityTotal", props.meaDfaNominalVelocityTotal)
+                    console.debug("meaDfaNominalVelocity",      props.meaDfaNominalVelocity)
+                    console.debug("meaDfaNominalVelocityLowest", props.meaDfaNominalVelocityLowest)
+                    console.debug("meaDfaNominalVelocityHighest", props.meaDfaNominalVelocityHighest)
+                    console.debug("meaDfaNominalVelocityDeviation", props.meaDfaNominalVelocityDeviation)
+                    console.debug("meaDfaNominalVelocityDeviationp", props.meaDfaNominalVelocityDeviationp)
+                    console.debug("dfaFanDutyCycleNominal",     props.dfaFanDutyCycleNominal)
+                    console.debug("dfaFanRpmNominal",           props.dfaFanRpmNominal)
+                    console.debug("meaFieldCalibModeOn",        props.meaFieldCalibModeOn)
+
                     MachineAPI.saveDownflowMeaNominalGrid(props.meaDfaNominalGrid,
                                                           props.meaDfaNominalVelocityTotal,
                                                           props.meaDfaNominalVelocity,
