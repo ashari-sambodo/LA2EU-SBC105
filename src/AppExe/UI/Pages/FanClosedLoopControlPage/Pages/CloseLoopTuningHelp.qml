@@ -62,23 +62,23 @@ ViewApp {
                         Layout.minimumHeight: 280
                         Layout.fillWidth: true
 
-                        //                        Image{
-                        //                            asynchronous: true
-                        //                            anchors.centerIn: parent
-                        //                            height: parent.height
-                        //                            anchors.margins: 10
-                        //                            source: "qrc:/UI/Pictures/pid/Respons_PID_Controller.png"
-                        //                            fillMode: Image.PreserveAspectFit
-                        //                        }//
-
-                        AnimatedImage{
+                        Image{
                             asynchronous: true
                             anchors.centerIn: parent
                             height: parent.height
                             anchors.margins: 10
-                            source: "qrc:/UI/GeneralResource/Animation/PID_Compensation_Animated.gif"
+                            source: "qrc:/UI/Pictures/pid/Respons_PID_Controller.png"
                             fillMode: Image.PreserveAspectFit
                         }//
+
+                        //                        AnimatedImage{
+                        //                            asynchronous: true
+                        //                            anchors.centerIn: parent
+                        //                            height: parent.height
+                        //                            anchors.margins: 10
+                        //                            source: "qrc:/UI/GeneralResource/Animation/PID_Compensation_Animated.gif"
+                        //                            fillMode: Image.PreserveAspectFit
+                        //                        }//
                     }//
                     Item{
                         id: table
