@@ -433,6 +433,51 @@ void MachineProxy::setUVAutoWeeklyDay(int uvAutoSetWeeklyDay)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setUVAutoEnabledOff(int uvAutoSetEnabledOff)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << uvAutoSetEnabledOff;
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, uvAutoSetEnabledOff](){
+        m_machineBackend->setUVAutoEnabledOff(uvAutoSetEnabledOff);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setUVAutoTimeOff(int uvAutoSetTimeOff)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << uvAutoSetTimeOff;
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, uvAutoSetTimeOff](){
+        m_machineBackend->setUVAutoTimeOff(uvAutoSetTimeOff);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setUVAutoDayRepeatOff(int uvAutoSetDayRepeatOff)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << uvAutoSetDayRepeatOff;
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, uvAutoSetDayRepeatOff](){
+        m_machineBackend->setUVAutoDayRepeatOff(uvAutoSetDayRepeatOff);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setUVAutoWeeklyDayOff(int uvAutoSetWeeklyDayOff)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << uvAutoSetWeeklyDayOff;
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, uvAutoSetWeeklyDayOff](){
+        m_machineBackend->setUVAutoWeeklyDayOff(uvAutoSetWeeklyDayOff);
+    },
+    Qt::QueuedConnection);
+}
+
+/// FAN ON SCHEDULER
 void MachineProxy::setFanAutoEnabled(int fanAutoSetEnabled)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
@@ -473,6 +518,50 @@ void MachineProxy::setFanAutoWeeklyDay(int fanAutoSetWeeklyDay)
 
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, fanAutoSetWeeklyDay](){
         m_machineBackend->setFanAutoWeeklyDay(fanAutoSetWeeklyDay);
+    },
+    Qt::QueuedConnection);
+}
+/// FAN OFF SCHEDULER
+void MachineProxy::setFanAutoEnabledOff(int fanAutoSetEnabledOff)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << fanAutoSetEnabledOff;
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, fanAutoSetEnabledOff](){
+        m_machineBackend->setFanAutoEnabledOff(fanAutoSetEnabledOff);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanAutoTimeOff(int fanAutoSetTimeOff)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << fanAutoSetTimeOff;
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, fanAutoSetTimeOff](){
+        m_machineBackend->setFanAutoTimeOff(fanAutoSetTimeOff);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanAutoDayRepeatOff(int fanAutoSetDayRepeatOff)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << fanAutoSetDayRepeatOff;
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, fanAutoSetDayRepeatOff](){
+        m_machineBackend->setFanAutoDayRepeatOff(fanAutoSetDayRepeatOff);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanAutoWeeklyDayOff(int fanAutoSetWeeklyDayOff)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << fanAutoSetWeeklyDayOff;
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, fanAutoSetWeeklyDayOff](){
+        m_machineBackend->setFanAutoWeeklyDayOff(fanAutoSetWeeklyDayOff);
     },
     Qt::QueuedConnection);
 }

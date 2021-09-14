@@ -99,6 +99,7 @@ RESOURCES += qml.qrc \
 #    QuickTourUvScheduler.qrc \
 #    QuickTourUvSchedulerSecond.qrc \
 #   QuickTourPage.qrc \
+    QtGeneralResources.qrc \
     components.qrc \
     i18n.qrc \
     pictures.qrc \

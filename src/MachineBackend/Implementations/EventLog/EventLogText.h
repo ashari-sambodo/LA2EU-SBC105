@@ -15,8 +15,10 @@
 #define EVENT_STR_SASH_STB          QObject::tr("Sash fully standby")
 #define EVENT_STR_SASH_ERROR        QObject::tr("Sash unknown state")
 
-#define EVENT_STR_FAN_ON_SCH        QObject::tr("Fan scheduler has trigger")
-#define EVENT_STR_UV_ON_SCH         QObject::tr("UV scheduler has trigger")
+#define EVENT_STR_FAN_ON_SCH        QObject::tr("Fan On scheduler has trigger")
+#define EVENT_STR_FAN_OFF_SCH        QObject::tr("Fan Off scheduler has trigger")
+#define EVENT_STR_UV_ON_SCH         QObject::tr("UV On scheduler has trigger")
+#define EVENT_STR_UV_OFF_SCH         QObject::tr("UV Off scheduler has trigger")
 
 #define EVENT_STR_FAN_ON            QObject::tr("Set Fan on")
 #define EVENT_STR_FAN_STANDBY       QObject::tr("Set Fan standby")

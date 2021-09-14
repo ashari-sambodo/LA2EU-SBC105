@@ -61,12 +61,22 @@ ViewApp {
                         id: response
                         Layout.minimumHeight: 280
                         Layout.fillWidth: true
-                        Image{
+
+                        //                        Image{
+                        //                            asynchronous: true
+                        //                            anchors.centerIn: parent
+                        //                            height: parent.height
+                        //                            anchors.margins: 10
+                        //                            source: "qrc:/UI/Pictures/pid/Respons_PID_Controller.png"
+                        //                            fillMode: Image.PreserveAspectFit
+                        //                        }//
+
+                        AnimatedImage{
                             asynchronous: true
                             anchors.centerIn: parent
                             height: parent.height
                             anchors.margins: 10
-                            source: "qrc:/UI/Pictures/pid/Respons_PID_Controller.png"
+                            source: "qrc:/UI/GeneralResource/Animation/PID_Compensation_Animated.gif"
                             fillMode: Image.PreserveAspectFit
                         }//
                     }//

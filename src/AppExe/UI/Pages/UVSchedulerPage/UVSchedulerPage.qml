@@ -43,7 +43,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("UV Scheduler")
                 }
             }
 
@@ -54,213 +54,444 @@ ViewApp {
                 Layout.fillWidth: true
                 Layout.topMargin: 5
                 Layout.bottomMargin: 5
+                RowLayout{
+                    anchors.fill: parent
+                    Item{
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Column {
+                            anchors.centerIn: parent
+                            spacing: 10
 
-                Column {
-                    anchors.centerIn: parent
-                    spacing: 10
-
-                    Row {
-                        spacing: 10
-
-                        Item {
-                            height: 100
-                            width: 200
-                            //                    radius: 5
-                            //                    color: "#dd0F2952"
-                            //                    border.color: "#dddddd"
-
-                            Rectangle {
-                                id: enableRectangle
-                                anchors.fill: parent
-                                color: "#0F2952"
-                                border.color: "#e3dac9"
-                                radius: 5
-                                states: [
-                                    State{
-                                        when: enableSwitch.checked
-                                        PropertyChanges {
-                                            target: enableRectangle
-                                            color: "#1e824c"
-                                        }
-                                    }
-                                ]
-                            }
-
-                            ColumnLayout{
-                                anchors.fill: parent
-                                anchors.margins: 5
-
-                                TextApp {
-                                    text: qsTr("Scheduler")
-                                }//
+                            Row {
+                                spacing: 10
 
                                 Item {
-                                    Layout.fillHeight: true
-                                    Layout.fillWidth: true
+                                    height: 100
+                                    width: 200
+                                    //                    radius: 5
+                                    //                    color: "#dd0F2952"
+                                    //                    border.color: "#dddddd"
 
-                                    SwitchApp{
-                                        id: enableSwitch
-                                        anchors.centerIn: parent
+                                    Rectangle {
+                                        id: onEnableRectangle
+                                        anchors.fill: parent
+                                        color: "#0F2952"
+                                        border.color: "#e3dac9"
+                                        radius: 5
+                                        states: [
+                                            State{
+                                                when: onEnableSwitch.checked
+                                                PropertyChanges {
+                                                    target: onEnableRectangle
+                                                    color: "#1e824c"
+                                                }
+                                            }
+                                        ]
+                                    }
 
-                                        onCheckedChanged: {
-                                            if (!initialized) return
+                                    ColumnLayout{
+                                        anchors.fill: parent
+                                        anchors.margins: 5
 
-                                            props.enableSet = checked ? 1 : 0
+                                        TextApp {
+                                            text: qsTr("Scheduler On")
+                                        }//
 
-                                            setButton.visible = true
+                                        Item {
+                                            Layout.fillHeight: true
+                                            Layout.fillWidth: true
+
+                                            SwitchApp{
+                                                id: onEnableSwitch
+                                                anchors.centerIn: parent
+
+                                                onCheckedChanged: {
+                                                    if (!initialized) return
+
+                                                    props.onEnableSet = checked ? 1 : 0
+
+                                                    //setButton.visible = true
+                                                }//
+                                            }//
                                         }//
                                     }//
                                 }//
-                            }//
-                        }//
-
-                        Item {
-                            id: timeScheduleRect
-                            height: 100
-                            width: 200
-                            //                    radius: 5
-                            //                    color: "#dd0F2952"
-                            //                    border.color: "#dddddd"
-                            //                    visible: false
-
-                            visible: enableSwitch.checked
-                            //                            scale: visible ? 1.0 : 0.1
-                            //                            Behavior on scale {
-                            //                                NumberAnimation { duration: 100}
-                            //                            }
-
-                            Rectangle {
-                                anchors.fill: parent
-                                color: "#0F2952"
-                                border.color: "#e3dac9"
-                                radius: 5
-                            }//
-
-                            ColumnLayout{
-                                anchors.fill: parent
-                                anchors.margins: 5
-
-                                TextApp {
-                                    text: qsTr("Time")
-                                }//
 
                                 Item {
-                                    id: uvAutoSetTimeItem
-                                    Layout.fillHeight: true
-                                    Layout.fillWidth: true
+                                    id: onTimeScheduleRect
+                                    height: 100
+                                    width: 200
+                                    //                    radius: 5
+                                    //                    color: "#dd0F2952"
+                                    //                    border.color: "#dddddd"
+                                    //                    visible: false
 
-                                    TextApp{
-                                        id: timeText
+                                    visible: onEnableSwitch.checked
+                                    //                            scale: visible ? 1.0 : 0.1
+                                    //                            Behavior on scale {
+                                    //                                NumberAnimation { duration: 100}
+                                    //                            }
+
+                                    Rectangle {
                                         anchors.fill: parent
-                                        horizontalAlignment: Text.AlignHCenter
-                                        verticalAlignment: Text.AlignVCenter
-                                        font.bold: true
-                                        font.pixelSize: 22
+                                        color: "#0F2952"
+                                        border.color: "#e3dac9"
+                                        radius: 5
+                                    }//
+
+                                    ColumnLayout{
+                                        anchors.fill: parent
+                                        anchors.margins: 5
+
+                                        TextApp {
+                                            text: qsTr("Time")
+                                        }//
+
+                                        Item {
+                                            id: onUvAutoSetTimeItem
+                                            Layout.fillHeight: true
+                                            Layout.fillWidth: true
+
+                                            TextApp{
+                                                id: onTimeText
+                                                anchors.fill: parent
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                font.bold: true
+                                                font.pixelSize: 22
+                                            }//
+                                        }//
+                                    }//
+
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            ////console.debug("Open time picker")
+                                            finishViewReturned.connect(props.onReturnFromTimePickerPage)
+                                            let hour = props.onTimeSet/60
+                                            let minute = props.onTimeSet%60
+                                            const intent = IntentApp.create("qrc:/UI/Pages/TimePickerPage/TimePickerPage.qml",
+                                                                            {   "pid": "on",
+                                                                                "temp": props.parameterOnHasChanged,
+                                                                                "hour": hour,
+                                                                                "minute": minute,
+                                                                                "periodMode": props.timePeriodMode
+                                                                            })
+                                            startView(intent)
+                                        }//
                                     }//
                                 }//
-                            }//
-
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    ////console.debug("Open time picker")
-                                    finishViewReturned.connect(props.onReturnFromTimePickerPage)
-                                    const intent = IntentApp.create("qrc:/UI/Pages/TimePickerPage/TimePickerPage.qml",
-                                                                    {"periodMode": props.timePeriodMode
-                                                                    })
-                                    startView(intent)
-                                }//
-                            }//
-                        }//
-                    }//
-
-                    Item {
-                        id: repeatScheduleRect
-                        height: 100
-                        width: 410
-                        //                    radius: 5
-                        //                    color: "#dd0F2952"
-                        //                    border.color: "#dddddd"
-                        //                    visible: false
-
-                        visible: enableSwitch.checked
-                        //                        scale: visible ? 1.0 : 0.1
-                        //                        Behavior on scale {
-                        //                            NumberAnimation { duration: 100}
-                        //                        }
-
-                        Rectangle {
-                            anchors.fill: parent
-                            color: "#0F2952"
-                            border.color: "#e3dac9"
-                            radius: 5
-                        }//
-
-                        ColumnLayout{
-                            anchors.fill: parent
-                            anchors.margins: 5
-
-                            TextApp {
-                                text: qsTr("Repeat")
                             }//
 
                             Item {
-                                Layout.fillHeight: true
-                                Layout.fillWidth: true
+                                id: onRepeatScheduleRect
+                                height: 100
+                                width: 410
+                                //                    radius: 5
+                                //                    color: "#dd0F2952"
+                                //                    border.color: "#dddddd"
+                                //                    visible: false
 
-                                ComboBoxApp {
-                                    id: repeatDayComboBox
+                                visible: onEnableSwitch.checked
+                                //                        scale: visible ? 1.0 : 0.1
+                                //                        Behavior on scale {
+                                //                            NumberAnimation { duration: 100}
+                                //                        }
+
+                                Rectangle {
                                     anchors.fill: parent
-                                    backgroundColor: "#0F2952"
-                                    backgroundBorderColor: "#dddddd"
-                                    backgroundBorderWidth: 2
-                                    font.pixelSize: 20
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    textRole: "text"
+                                    color: "#0F2952"
+                                    border.color: "#e3dac9"
+                                    radius: 5
+                                }//
 
-                                    model: [
-                                        {text: qsTr("Once")},
-                                        {text: qsTr("Everyday")},
-                                        {text: qsTr("Weekdays - Monday to Friday")},
-                                        {text: qsTr("Weekends - Saturday & Sunday")},
-                                        {text: qsTr("Weekly - Monday")},
-                                        {text: qsTr("Weekly - Tuesday")},
-                                        {text: qsTr("Weekly - Wednesday")},
-                                        {text: qsTr("Weekly - Thursday")},
-                                        {text: qsTr("Weekly - Friday")},
-                                        {text: qsTr("Weekly - Saturday")},
-                                        {text: qsTr("Weekly - Sunday")},
-                                    ]
+                                ColumnLayout{
+                                    anchors.fill: parent
+                                    anchors.margins: 5
 
-                                    onActivated: {
-                                        //                                        console.log("onActivated")
-                                        props.repeatSet = index < 4 ? index : 4
-                                        if (index >= 4) {
-                                            props.repeatDaySet = (index - 4) + 1;
-                                        }//
-
-                                        setButton.visible = true
+                                    TextApp {
+                                        text: qsTr("Repeat")
                                     }//
 
-                                    //                                    Component.onCompleted: {
-                                    //                                        let repeat = props.uvAutoSetDayRepeat
-                                    //                                        let day = props.uvAutoSetWeeklyDay
+                                    Item {
+                                        Layout.fillHeight: true
+                                        Layout.fillWidth: true
 
-                                    //                                        ////console.debug(repeat)
-                                    //                                        ////console.debug(day)
+                                        ComboBoxApp {
+                                            id: onRepeatDayComboBox
+                                            anchors.fill: parent
+                                            backgroundColor: "#0F2952"
+                                            backgroundBorderColor: "#dddddd"
+                                            backgroundBorderWidth: 2
+                                            font.pixelSize: 20
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            textRole: "text"
 
-                                    //                                        let index = repeat;
-                                    //                                        if (repeat >= 4) {
-                                    //                                            index = repeat + (day - 1)
-                                    //                                        }//
-                                    //                                        currentIndex = index
-                                    //                                    }//
+                                            model: [
+                                                {text: qsTr("Once")},
+                                                {text: qsTr("Everyday")},
+                                                {text: qsTr("Weekdays - Monday to Friday")},
+                                                {text: qsTr("Weekends - Saturday & Sunday")},
+                                                {text: qsTr("Weekly - Monday")},
+                                                {text: qsTr("Weekly - Tuesday")},
+                                                {text: qsTr("Weekly - Wednesday")},
+                                                {text: qsTr("Weekly - Thursday")},
+                                                {text: qsTr("Weekly - Friday")},
+                                                {text: qsTr("Weekly - Saturday")},
+                                                {text: qsTr("Weekly - Sunday")},
+                                            ]
+
+                                            onActivated: {
+                                                //                                        console.log("onActivated")
+                                                props.onRepeatSet = index < 4 ? index : 4
+                                                if (index >= 4) {
+                                                    props.onRepeatDaySet = (index - 4) + 1;
+                                                }//
+
+                                                //setButton.visible = true
+                                            }//
+
+                                            //                                    Component.onCompleted: {
+                                            //                                        let repeat = props.uvAutoSetDayRepeat
+                                            //                                        let day = props.uvAutoSetWeeklyDay
+
+                                            //                                        ////console.debug(repeat)
+                                            //                                        ////console.debug(day)
+
+                                            //                                        let index = repeat;
+                                            //                                        if (repeat >= 4) {
+                                            //                                            index = repeat + (day - 1)
+                                            //                                        }//
+                                            //                                        currentIndex = index
+                                            //                                    }//
+                                        }//
+                                    }//
                                 }//
                             }//
                         }//
-                    }//
-                }//
+                    }
+                    Rectangle{
+                        Layout.fillHeight: true
+                        Layout.minimumWidth: 1
+                        color: "#dddddd"
+                    }
+                    Item{
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Column {
+                            anchors.centerIn: parent
+                            spacing: 10
 
+                            Row {
+                                spacing: 10
+
+                                Item {
+                                    height: 100
+                                    width: 200
+                                    //                    radius: 5
+                                    //                    color: "#dd0F2952"
+                                    //                    border.color: "#dddddd"
+
+                                    Rectangle {
+                                        id: offEnableRectangle
+                                        anchors.fill: parent
+                                        color: "#0F2952"
+                                        border.color: "#e3dac9"
+                                        radius: 5
+                                        states: [
+                                            State{
+                                                when: offEnableSwitch.checked
+                                                PropertyChanges {
+                                                    target: offEnableRectangle
+                                                    color: "#1e824c"
+                                                }
+                                            }
+                                        ]
+                                    }
+
+                                    ColumnLayout{
+                                        anchors.fill: parent
+                                        anchors.margins: 5
+
+                                        TextApp {
+                                            text: qsTr("Scheduler Off")
+                                        }//
+
+                                        Item {
+                                            Layout.fillHeight: true
+                                            Layout.fillWidth: true
+
+                                            SwitchApp{
+                                                id: offEnableSwitch
+                                                anchors.centerIn: parent
+
+                                                onCheckedChanged: {
+                                                    if (!initialized) return
+
+                                                    props.offEnableSet = checked ? 1 : 0
+
+                                                    //setButton.visible = true
+                                                }//
+                                            }//
+                                        }//
+                                    }//
+                                }//
+
+                                Item {
+                                    id: offTimeScheduleRect
+                                    height: 100
+                                    width: 200
+                                    //                    radius: 5
+                                    //                    color: "#dd0F2952"
+                                    //                    border.color: "#dddddd"
+                                    //                    visible: false
+
+                                    visible: offEnableSwitch.checked
+                                    //                            scale: visible ? 1.0 : 0.1
+                                    //                            Behavior on scale {
+                                    //                                NumberAnimation { duration: 100}
+                                    //                            }
+
+                                    Rectangle {
+                                        anchors.fill: parent
+                                        color: "#0F2952"
+                                        border.color: "#e3dac9"
+                                        radius: 5
+                                    }//
+
+                                    ColumnLayout{
+                                        anchors.fill: parent
+                                        anchors.margins: 5
+
+                                        TextApp {
+                                            text: qsTr("Time")
+                                        }//
+
+                                        Item {
+                                            id: offUvAutoSetTimeItem
+                                            Layout.fillHeight: true
+                                            Layout.fillWidth: true
+
+                                            TextApp{
+                                                id: offTimeText
+                                                anchors.fill: parent
+                                                horizontalAlignment: Text.AlignHCenter
+                                                verticalAlignment: Text.AlignVCenter
+                                                font.bold: true
+                                                font.pixelSize: 22
+                                            }//
+                                        }//
+                                    }//
+
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            ////console.debug("Open time picker")
+                                            finishViewReturned.connect(props.onReturnFromTimePickerPage)
+                                            let hour = props.offTimeSet/60
+                                            let minute = props.offTimeSet%60
+                                            const intent = IntentApp.create("qrc:/UI/Pages/TimePickerPage/TimePickerPage.qml",
+                                                                            {   "pid": "off",
+                                                                                "temp": props.parameterOffHasChanged,
+                                                                                "hour": hour,
+                                                                                "minute": minute,
+                                                                                "periodMode": props.timePeriodMode
+                                                                            })
+                                            startView(intent)
+                                        }//
+                                    }//
+                                }//
+                            }//
+
+                            Item {
+                                id: offRepeatScheduleRect
+                                height: 100
+                                width: 410
+                                //                    radius: 5
+                                //                    color: "#dd0F2952"
+                                //                    border.color: "#dddddd"
+                                //                    visible: false
+
+                                visible: offEnableSwitch.checked
+                                //                        scale: visible ? 1.0 : 0.1
+                                //                        Behavior on scale {
+                                //                            NumberAnimation { duration: 100}
+                                //                        }
+
+                                Rectangle {
+                                    anchors.fill: parent
+                                    color: "#0F2952"
+                                    border.color: "#e3dac9"
+                                    radius: 5
+                                }//
+
+                                ColumnLayout{
+                                    anchors.fill: parent
+                                    anchors.margins: 5
+
+                                    TextApp {
+                                        text: qsTr("Repeat")
+                                    }//
+
+                                    Item {
+                                        Layout.fillHeight: true
+                                        Layout.fillWidth: true
+
+                                        ComboBoxApp {
+                                            id: offRepeatDayComboBox
+                                            anchors.fill: parent
+                                            backgroundColor: "#0F2952"
+                                            backgroundBorderColor: "#dddddd"
+                                            backgroundBorderWidth: 2
+                                            font.pixelSize: 20
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            textRole: "text"
+
+                                            model: [
+                                                {text: qsTr("Once")},
+                                                {text: qsTr("Everyday")},
+                                                {text: qsTr("Weekdays - Monday to Friday")},
+                                                {text: qsTr("Weekends - Saturday & Sunday")},
+                                                {text: qsTr("Weekly - Monday")},
+                                                {text: qsTr("Weekly - Tuesday")},
+                                                {text: qsTr("Weekly - Wednesday")},
+                                                {text: qsTr("Weekly - Thursday")},
+                                                {text: qsTr("Weekly - Friday")},
+                                                {text: qsTr("Weekly - Saturday")},
+                                                {text: qsTr("Weekly - Sunday")},
+                                            ]
+
+                                            onActivated: {
+                                                //                                        console.log("onActivated")
+                                                props.offRepeatSet = index < 4 ? index : 4
+                                                if (index >= 4) {
+                                                    props.offRepeatDaySet = (index - 4) + 1;
+                                                }//
+
+                                                //setButton.visible = true
+                                            }//
+
+                                            //                                    Component.onCompleted: {
+                                            //                                        let repeat = props.uvAutoSetDayRepeat
+                                            //                                        let day = props.uvAutoSetWeeklyDay
+
+                                            //                                        ////console.debug(repeat)
+                                            //                                        ////console.debug(day)
+
+                                            //                                        let index = repeat;
+                                            //                                        if (repeat >= 4) {
+                                            //                                            index = repeat + (day - 1)
+                                            //                                        }//
+                                            //                                        currentIndex = index
+                                            //                                    }//
+                                        }//
+                                    }//
+                                }//
+                            }//
+                        }//
+                    }
+                }
             }//
 
             /// FOOTER
@@ -304,22 +535,36 @@ ViewApp {
                             text: qsTr("Save")
 
                             onClicked: {
-                                visible = false
-                                MachineAPI.setUVAutoTime(props.timeSet)
-                                MachineAPI.setUVAutoDayRepeat(props.repeatSet)
-                                MachineAPI.setUVAutoWeeklyDay(props.repeatDaySet)
-                                MachineAPI.setUVAutoEnabled(props.enableSet)
-
-                                const message = props.enableSet ? qsTr("User: UV Scheduler enabled")
-                                                                : qsTr("User: UV Scheduler disabled")
-                                MachineAPI.insertEventLog(message)
+                                if(props.parameterOnHasChanged){
+                                    console.debug("On setting")
+                                    MachineAPI.setUVAutoTime(props.onTimeSet)
+                                    MachineAPI.setUVAutoDayRepeat(props.onRepeatSet)
+                                    MachineAPI.setUVAutoWeeklyDay(props.onRepeatDaySet)
+                                    MachineAPI.setUVAutoEnabled(props.onEnableSet)
+                                    const message = props.onEnableSet ? qsTr("User: UV On Scheduler enabled")
+                                                                      : qsTr("User: UV On Scheduler disabled")
+                                    MachineAPI.insertEventLog(message)
+                                }
+                                if(props.parameterOffHasChanged){
+                                    console.debug("Off setting")
+                                    MachineAPI.setUVAutoTimeOff(props.offTimeSet)
+                                    MachineAPI.setUVAutoDayRepeatOff(props.offRepeatSet)
+                                    MachineAPI.setUVAutoWeeklyDayOff(props.offRepeatDaySet)
+                                    MachineAPI.setUVAutoEnabledOff(props.offEnableSet)
+                                    const message = props.offEnableSet ? qsTr("User: UV Off Scheduler enabled")
+                                                                       : qsTr("User: UV Off Scheduler disabled")
+                                    MachineAPI.insertEventLog(message)
+                                }
 
                                 showBusyPage(qsTr("Setting up..."), function(seconds){
                                     if (seconds === 3){
+                                        props.parameterOnHasChanged = 0
+                                        props.parameterOffHasChanged = 0
                                         closeDialog();
                                     }
                                 })
                             }//
+                            Component.onCompleted: visible = Qt.binding(function(){return (props.parameterOnHasChanged > 0 || props.parameterOffHasChanged > 0)})
                         }//
                     }//
                 }//
@@ -336,10 +581,28 @@ ViewApp {
             id: props
 
             //frontend variable
-            property int enableSet:    -1
-            property int timeSet:      0
-            property int repeatSet:    0
-            property int repeatDaySet: 0
+            property int onEnableSet:    -1
+            property int onTimeSet:      0
+            property int onRepeatSet:    0
+            property int onRepeatDaySet: 0
+
+            onOnEnableSetChanged:   {if(onEnableSet != MachineData.uvAutoSetEnabled) parameterOnHasChanged |= 0x0001;else parameterOnHasChanged &= ~0x0001}
+            onOnTimeSetChanged:     {if(onTimeSet != MachineData.uvAutoSetDayRepeat) parameterOnHasChanged |= 0x0002;else parameterOnHasChanged &= ~0x0002}
+            onOnRepeatSetChanged:   {if(onRepeatSet != MachineData.uvAutoSetDayRepeat) parameterOnHasChanged |= 0x0004;else parameterOnHasChanged &= ~0x0004}
+            onOnRepeatDaySetChanged:{if(onRepeatDaySet != MachineData.uvAutoSetWeeklyDay) parameterOnHasChanged |= 0x0008;else parameterOnHasChanged &= ~0x0008}
+
+            property int offEnableSet:    -1
+            property int offTimeSet:      0
+            property int offRepeatSet:    0
+            property int offRepeatDaySet: 0
+
+            onOffEnableSetChanged:   {if(offEnableSet != MachineData.uvAutoSetEnabledOff) parameterOffHasChanged |= 0x0001;else parameterOffHasChanged &= ~0x0001}
+            onOffTimeSetChanged:     {if(offTimeSet != MachineData.uvAutoSetTimeOff) parameterOffHasChanged |= 0x0002;else parameterOffHasChanged &= ~0x0002}
+            onOffRepeatSetChanged:   {if(offRepeatSet != MachineData.uvAutoSetDayRepeatOff) parameterOffHasChanged |= 0x0004;else parameterOffHasChanged &= ~0x0004}
+            onOffRepeatDaySetChanged:{if(offRepeatDaySet != MachineData.uvAutoSetWeeklyDayOff) parameterOffHasChanged |= 0x0008;else parameterOffHasChanged &= ~0x0008}
+
+            property int parameterOnHasChanged: 0
+            property int parameterOffHasChanged: 0
 
             property int timePeriodMode: 24 //12h
             property string uvAutoTimeText: ""
@@ -349,7 +612,12 @@ ViewApp {
 
                 const extraData  = IntentApp.getExtraData(returnIntent)
                 //                console.log(extraData)
-                if (extraData['hour'] === undefined) return // Do not continue proceed, user not press set button
+                const pid        = extraData['pid']       || "on"
+                const temp       = extraData['temp']      || 0
+                if(pid === "on") props.parameterOnHasChanged = temp
+                else props.parameterOffHasChanged = temp
+                const set        = extraData['set']       || 0
+                if(!set) return
 
                 const hour       = extraData['hour']      || 0
                 const minute     = extraData['minute']    || 0
@@ -362,36 +630,70 @@ ViewApp {
                 let clockSchedule = utilsApp.formatMinutesToClockHourMinuteFormat(minuteSchedule, periodMode)
                 //                console.log(minuteSchedule + " - " + clockSchedule)
 
-                timeText.text = clockSchedule
-                props.timeSet = minuteSchedule
+                if(pid === "on"){
+                    onTimeText.text = clockSchedule
+                    props.onTimeSet = minuteSchedule
+                }
+                else{
+                    offTimeText.text = clockSchedule
+                    props.offTimeSet = minuteSchedule
+                }
 
-                setButton.visible = true
+                //setButton.visible = true
             }
         }//
 
         /// called Once but after onResume
         Component.onCompleted: {
             props.timePeriodMode = MachineData.timeClockPeriod
-            const minutesSchedule = MachineData.uvAutoSetTime
-            props.timeSet = minutesSchedule
-            let clockFromMinutes = utilsApp.formatMinutesToClockHourMinuteFormat(minutesSchedule, props.timePeriodMode)
-            //            console.log("clockFromMinutes: " + clockFromMinutes)
-            timeText.text = clockFromMinutes
 
-            let repeat = MachineData.uvAutoSetDayRepeat
-            props.repeatSet = repeat
-            let day = MachineData.uvAutoSetWeeklyDay
-            props.repeatDaySet = day
+            const onMinutesSchedule = MachineData.uvAutoSetTime
+            const offMinutesSchedule = MachineData.uvAutoSetTimeOff
+
+            props.onTimeSet = onMinutesSchedule
+            props.offTimeSet = offMinutesSchedule
+
+            let onClockFromMinutes = utilsApp.formatMinutesToClockHourMinuteFormat(onMinutesSchedule, props.timePeriodMode)
+            let offClockFromMinutes = utilsApp.formatMinutesToClockHourMinuteFormat(offMinutesSchedule, props.timePeriodMode)
+
+            //            console.log("clockFromMinutes: " + clockFromMinutes)
+            onTimeText.text = onClockFromMinutes
+            offTimeText.text = offClockFromMinutes
+
+            let onRepeat = MachineData.uvAutoSetDayRepeat
+            let offRepeat = MachineData.uvAutoSetDayRepeatOff
+
+            props.onRepeatSet = onRepeat
+            props.offRepeatSet = offRepeat
+
+            let onDay = MachineData.uvAutoSetWeeklyDay
+            let offDay = MachineData.uvAutoSetWeeklyDayOff
+
+            props.onRepeatDaySet = onDay
+            props.offRepeatDaySet = offDay
+
             //                                    console.log(repeat)
             //                                    console.log(day)
-            let index = repeat;
-            if (repeat >= 4) {
-                index = repeat + (day - 1)
-            }//
-            repeatDayComboBox.currentIndex = index
+            let onIndex = onRepeat;
+            let offIndex = offRepeat;
 
-            enableSwitch.checked = MachineData.uvAutoSetEnabled
-            enableSwitch.initialized = true
+            if (onRepeat >= 4) {
+                onIndex = onRepeat + (onDay - 1)
+            }//
+            if (offRepeat >= 4) {
+                offIndex = offRepeat + (offDay - 1)
+            }//
+
+            onRepeatDayComboBox.currentIndex = onIndex
+            offRepeatDayComboBox.currentIndex = offIndex
+
+            onEnableSwitch.checked = MachineData.uvAutoSetEnabled
+            onEnableSwitch.initialized = true
+            offEnableSwitch.checked = MachineData.uvAutoSetEnabledOff
+            offEnableSwitch.initialized = true
+
+            props.parameterOnHasChanged = 0
+            props.parameterOffHasChanged = 0
         }//
 
         /// Execute This Every This Screen Active/Visible

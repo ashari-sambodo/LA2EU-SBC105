@@ -502,6 +502,54 @@ void MachineData::setFanAutoWeeklyDay(int fanAutoSetWeeklyDay)
     emit fanAutoWeeklyDayChanged(m_fanAutoSetWeeklyDay);
 }
 
+int MachineData::getFanAutoEnabledOff() const
+{
+    return m_fanAutoSetEnabledOff;
+}
+
+void MachineData::setFanAutoEnabledOff(int fanAutoSetEnabledOff)
+{
+    if(m_fanAutoSetEnabledOff == fanAutoSetEnabledOff)return;
+    m_fanAutoSetEnabledOff = fanAutoSetEnabledOff;
+    emit fanAutoEnabledOffChanged(m_fanAutoSetEnabledOff);
+}
+
+int MachineData::getFanAutoTimeOff() const
+{
+    return m_fanAutoSetTimeOff;
+}
+
+void MachineData::setFanAutoTimeOff(int fanAutoSetTimeOff)
+{
+    if(m_fanAutoSetTimeOff == fanAutoSetTimeOff)return;
+    m_fanAutoSetTimeOff = fanAutoSetTimeOff;
+    emit fanAutoTimeOffChanged(m_fanAutoSetTimeOff);
+}
+
+int MachineData::getFanAutoDayRepeatOff() const
+{
+    return m_fanAutoSetDayRepeatOff;
+}
+
+void MachineData::setFanAutoDayRepeatOff(int fanAutoSetDayRepeatOff)
+{
+    if(m_fanAutoSetDayRepeatOff == fanAutoSetDayRepeatOff)return;
+    m_fanAutoSetDayRepeatOff = fanAutoSetDayRepeatOff;
+    emit fanAutoDayRepeatOffChanged(m_fanAutoSetDayRepeatOff);
+}
+
+int MachineData::getFanAutoWeeklyDayOff() const
+{
+    return m_fanAutoSetWeeklyDayOff;
+}
+
+void MachineData::setFanAutoWeeklyDayOff(int fanAutoSetWeeklyDayOff)
+{
+    if(m_fanAutoSetWeeklyDayOff == fanAutoSetWeeklyDayOff)return;
+    m_fanAutoSetWeeklyDayOff = fanAutoSetWeeklyDayOff;
+    emit fanAutoWeeklyDayOffChanged(m_fanAutoSetWeeklyDayOff);
+}
+
 short MachineData::getSecurityAccessMode() const
 {
     return m_securityAccessMode;
@@ -596,6 +644,62 @@ void MachineData::setUVAutoWeeklyDay(int uvAutoSetWeeklyDay)
 
     m_uvAutoSetWeeklyDay = uvAutoSetWeeklyDay;
     emit uvAutoWeeklyDayChanged(m_uvAutoSetWeeklyDay);
+}
+
+int MachineData::getUVAutoEnabledOff() const
+{
+    return m_uvAutoSetEnabledOff;
+}
+
+void MachineData::setUVAutoEnabledOff(int uvAutoSetEnabledOff)
+{
+    if (m_uvAutoSetEnabledOff == uvAutoSetEnabledOff)
+        return;
+
+    m_uvAutoSetEnabledOff = uvAutoSetEnabledOff;
+    emit uvAutoEnabledOffChanged(m_uvAutoSetEnabledOff);
+}
+
+int MachineData::getUVAutoTimeOff() const
+{
+    return m_uvAutoSetTimeOff;
+}
+
+void MachineData::setUVAutoTimeOff(int uvAutoSetTimeOff)
+{
+    if (m_uvAutoSetTimeOff == uvAutoSetTimeOff)
+        return;
+
+    m_uvAutoSetTimeOff = uvAutoSetTimeOff;
+    emit uvAutoTimeOffChanged(m_uvAutoSetTimeOff);
+}
+
+int MachineData::getUVAutoDayRepeatOff() const
+{
+    return m_uvAutoSetDayRepeatOff;
+}
+
+void MachineData::setUVAutoDayRepeatOff(int uvAutoSetDayRepeatOff)
+{
+    if (m_uvAutoSetDayRepeatOff == uvAutoSetDayRepeatOff)
+        return;
+
+    m_uvAutoSetDayRepeatOff = uvAutoSetDayRepeatOff;
+    emit uvAutoDayRepeatOffChanged(m_uvAutoSetDayRepeatOff);
+}
+
+int MachineData::getUVAutoWeeklyDayOff() const
+{
+    return m_uvAutoSetWeeklyDayOff;
+}
+
+void MachineData::setUVAutoWeeklyDayOff(int uvAutoSetWeeklyDayOff)
+{
+    if (m_uvAutoSetWeeklyDayOff == uvAutoSetWeeklyDayOff)
+        return;
+
+    m_uvAutoSetWeeklyDayOff = uvAutoSetWeeklyDayOff;
+    emit uvAutoWeeklyDayOffChanged(m_uvAutoSetWeeklyDayOff);
 }
 
 int MachineData::getFanAutoEnabled() const

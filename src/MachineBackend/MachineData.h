@@ -124,6 +124,23 @@ class MachineData : public QObject
                //               WRITE    setFanAutoWeeklyDay
                NOTIFY   fanAutoWeeklyDayChanged)
 
+    Q_PROPERTY(int      fanAutoSetEnabledOff
+               READ     getFanAutoEnabledOff
+               //               WRITE    setFanAutoEnabled
+               NOTIFY   fanAutoEnabledOffChanged)
+    Q_PROPERTY(int      fanAutoSetTimeOff
+               READ     getFanAutoTimeOff
+               //               WRITE    setFanAutoTime
+               NOTIFY   fanAutoTimeOffChanged)
+    Q_PROPERTY(int      fanAutoSetDayRepeatOff
+               READ     getFanAutoDayRepeatOff
+               //               WRITE    setFanAutoDayRepeat
+               NOTIFY   fanAutoDayRepeatOffChanged)
+    Q_PROPERTY(int      fanAutoSetWeeklyDayOff
+               READ     getFanAutoWeeklyDayOff
+               //               WRITE    setFanAutoWeeklyDay
+               NOTIFY   fanAutoWeeklyDayOffChanged)
+
     ////LIGHT
     Q_PROPERTY(short lightState
                READ getLightState
@@ -181,6 +198,7 @@ class MachineData : public QObject
                NOTIFY uvInstalledChanged)
 
     ///UV Auto Set
+    /// ON
     Q_PROPERTY(int      uvAutoSetEnabled
                READ     getUVAutoEnabled
                //               WRITE    setUVAutoEnabled
@@ -197,6 +215,24 @@ class MachineData : public QObject
                READ     getUVAutoWeeklyDay
                //               WRITE    setUVAutoWeeklyDay
                NOTIFY   uvAutoWeeklyDayChanged)
+    /// OFF
+    Q_PROPERTY(int      uvAutoSetEnabledOff
+               READ     getUVAutoEnabledOff
+               //               WRITE    setUVAutoEnabled
+               NOTIFY   uvAutoEnabledOffChanged)
+    Q_PROPERTY(int      uvAutoSetTimeOff
+               READ     getUVAutoTimeOff
+               //               WRITE    setUVAutoTime
+               NOTIFY   uvAutoTimeOffChanged)
+    Q_PROPERTY(int      uvAutoSetDayRepeatOff
+               READ     getUVAutoDayRepeatOff
+               //               WRITE    setUVAutoDayRepeat
+               NOTIFY   uvAutoDayRepeatOffChanged)
+    Q_PROPERTY(int      uvAutoSetWeeklyDayOff
+               READ     getUVAutoWeeklyDayOff
+               //               WRITE    setUVAutoWeeklyDay
+               NOTIFY   uvAutoWeeklyDayOffChanged)
+
 
     /// SEAS BOARD FLAP
     Q_PROPERTY(bool seasFlapInstalled
@@ -1455,6 +1491,7 @@ public:
     void setEventLogIsFull(bool eventLogIsFull);
 
     /// UV AUTO SET
+    /// ON
     int getUVAutoEnabled() const;
     void setUVAutoEnabled(int uvAutoSetEnabled);
     ///
@@ -1466,8 +1503,21 @@ public:
     ///
     int getUVAutoWeeklyDay() const;
     void setUVAutoWeeklyDay(int uvAutoSetWeeklyDay);
+    /// OFF
+    int getUVAutoEnabledOff() const;
+    void setUVAutoEnabledOff(int uvAutoSetEnabledOff);
+    ///
+    int getUVAutoTimeOff() const;
+    void setUVAutoTimeOff(int uvAutoSetTimeOff);
+    ///
+    int getUVAutoDayRepeatOff() const;
+    void setUVAutoDayRepeatOff(int uvAutoSetDayRepeatOff);
+    ///
+    int getUVAutoWeeklyDayOff() const;
+    void setUVAutoWeeklyDayOff(int uvAutoSetWeeklyDayOff);
 
     /// FAN AUTO SET
+    /// ON
     int getFanAutoEnabled() const;
     void setFanAutoEnabled(int fanAutoSetEnabled);
     ///
@@ -1479,6 +1529,18 @@ public:
     ///
     int getFanAutoWeeklyDay() const;
     void setFanAutoWeeklyDay(int fanAutoSetWeeklyDay);
+    /// OFF
+    int getFanAutoEnabledOff() const;
+    void setFanAutoEnabledOff(int fanAutoSetEnabledOff);
+    ///
+    int getFanAutoTimeOff() const;
+    void setFanAutoTimeOff(int fanAutoSetTimeOff);
+    ///
+    int getFanAutoDayRepeatOff() const;
+    void setFanAutoDayRepeatOff(int fanAutoSetDayRepeatOff);
+    ///
+    int getFanAutoWeeklyDayOff() const;
+    void setFanAutoWeeklyDayOff(int fanAutoSetWeeklyDayOff);
 
     ///Security Accsess
     short getSecurityAccessMode() const;
@@ -1788,20 +1850,24 @@ signals:
     void eventLogIsFullChanged(bool eventLogIsFull);
 
     void uvAutoEnabledChanged(int uvAutoSetEnabled);
-
     void uvAutoTimeChanged(int uvAutoSetTime);
-
     void uvAutoDayRepeatChanged(int uvAutoSetDayRepeat);
-
     void uvAutoWeeklyDayChanged(int uvAutoSetWeeklyDay);
 
+    void uvAutoEnabledOffChanged(int uvAutoSetEnabledOff);
+    void uvAutoTimeOffChanged(int uvAutoSetTimeOff);
+    void uvAutoDayRepeatOffChanged(int uvAutoSetDayRepeatOff);
+    void uvAutoWeeklyDayOffChanged(int uvAutoSetWeeklyDayOff);
+
     void fanAutoEnabledChanged(int fanAutoSetEnabled);
-
     void fanAutoTimeChanged(int fanAutoSetTime);
-
     void fanAutoDayRepeatChanged(int fanAutoSetDayRepeat);
-
     void fanAutoWeeklyDayChanged(int fanAutoSetWeeklyDay);
+
+    void fanAutoEnabledOffChanged(int fanAutoSetEnabledOff);
+    void fanAutoTimeOffChanged(int fanAutoSetTimeOff);
+    void fanAutoDayRepeatOffChanged(int fanAutoSetDayRepeatOff);
+    void fanAutoWeeklyDayOffChanged(int fanAutoSetWeeklyDayOff);
 
     void securityAccessChanged(short securityAccessMode);
 
@@ -2139,11 +2205,19 @@ private:
     int m_uvAutoSetTime = 0;
     int m_uvAutoSetDayRepeat = 0;
     int m_uvAutoSetWeeklyDay = 0;
+    int m_uvAutoSetEnabledOff = 0;
+    int m_uvAutoSetTimeOff = 0;
+    int m_uvAutoSetDayRepeatOff = 0;
+    int m_uvAutoSetWeeklyDayOff = 0;
 
     int m_fanAutoSetEnabled = 0;
     int m_fanAutoSetTime = 0;
     int m_fanAutoSetDayRepeat = 0;
     int m_fanAutoSetWeeklyDay = 0;
+    int m_fanAutoSetEnabledOff = 0;
+    int m_fanAutoSetTimeOff = 0;
+    int m_fanAutoSetDayRepeatOff = 0;
+    int m_fanAutoSetWeeklyDayOff = 0;
 
     short m_securityAccessMode = 0;
 

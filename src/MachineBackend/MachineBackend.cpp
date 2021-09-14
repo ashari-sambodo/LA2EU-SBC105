@@ -1854,14 +1854,14 @@ void MachineBackend::setup()
 
     /// Output Auto Set
     {
-        /// UV SCHEDULER
+        /// UV SCHEDULER ON
         {
             m_uvSchedulerAutoSet.reset(new SchedulerDayOutput);
 
-            bool enable    = m_settings->value(SKEY_SCHEO_UV_ENABLE, false).toInt();
-            int  time      = m_settings->value(SKEY_SCHEO_UV_TIME, 480/*8:00 AM*/).toInt();
-            int  repeat    = m_settings->value(SKEY_SCHEO_UV_REPEAT, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
-            int  repeatDay = m_settings->value(SKEY_SCHEO_UV_REPEAT_DAY, SchedulerDayOutput::DAY_MONDAY).toInt();
+            bool enable    = m_settings->value(SKEY_SCHED_UV_ENABLE, false).toInt();
+            int  time      = m_settings->value(SKEY_SCHED_UV_TIME, 480/*8:00 AM*/).toInt();
+            int  repeat    = m_settings->value(SKEY_SCHED_UV_REPEAT, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
+            int  repeatDay = m_settings->value(SKEY_SCHED_UV_REPEAT_DAY, SchedulerDayOutput::DAY_MONDAY).toInt();
 
             pData->setUVAutoEnabled(enable);
             pData->setUVAutoTime(time);
@@ -1876,16 +1876,39 @@ void MachineBackend::setup()
             /// call this when schedulling spec is same
             QObject::connect(m_uvSchedulerAutoSet.data(), &SchedulerDayOutput::activated,
                              this, &MachineBackend::_onTriggeredUvSchedulerAutoSet);
-        }
+        }//
+        /// UV SCHEDULER OFF
+        {
+            m_uvSchedulerAutoSetOff.reset(new SchedulerDayOutput);
 
-        /// FAN SCHEDULER
+            bool enable    = m_settings->value(SKEY_SCHED_UV_ENABLE_OFF, false).toInt();
+            int  time      = m_settings->value(SKEY_SCHED_UV_TIME_OFF, 490/*8:10 AM*/).toInt();
+            int  repeat    = m_settings->value(SKEY_SCHED_UV_REPEAT_OFF, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
+            int  repeatDay = m_settings->value(SKEY_SCHED_UV_REPEAT_DAY_OFF, SchedulerDayOutput::DAY_MONDAY).toInt();
+
+            pData->setUVAutoEnabledOff(enable);
+            pData->setUVAutoTimeOff(time);
+            pData->setUVAutoDayRepeatOff(repeat);
+            pData->setUVAutoWeeklyDayOff(repeatDay);
+
+            m_uvSchedulerAutoSetOff->setEnabled(enable);
+            m_uvSchedulerAutoSetOff->setTime(time);
+            m_uvSchedulerAutoSetOff->setDayRepeat(repeat);
+            m_uvSchedulerAutoSetOff->setWeeklyDay(repeatDay);
+
+            /// call this when schedulling spec is same
+            QObject::connect(m_uvSchedulerAutoSetOff.data(), &SchedulerDayOutput::activated,
+                             this, &MachineBackend::_onTriggeredUvSchedulerAutoSetOff);
+        }//
+
+        /// FAN SCHEDULER ON
         {
             m_fanSchedulerAutoSet.reset(new SchedulerDayOutput);
 
-            bool enable    = m_settings->value(SKEY_SCHEO_FAN_ENABLE, false).toInt();
-            int  time      = m_settings->value(SKEY_SCHEO_FAN_TIME, 480/*8:00 AM*/).toInt();
-            int  repeat    = m_settings->value(SKEY_SCHEO_FAN_REPEAT, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
-            int  repeatDay = m_settings->value(SKEY_SCHEO_FAN_REPEAT_DAY, SchedulerDayOutput::DAY_MONDAY).toInt();
+            bool enable    = m_settings->value(SKEY_SCHED_FAN_ENABLE, false).toInt();
+            int  time      = m_settings->value(SKEY_SCHED_FAN_TIME, 480/*8:00 AM*/).toInt();
+            int  repeat    = m_settings->value(SKEY_SCHED_FAN_REPEAT, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
+            int  repeatDay = m_settings->value(SKEY_SCHED_FAN_REPEAT_DAY, SchedulerDayOutput::DAY_MONDAY).toInt();
 
             pData->setFanAutoEnabled(enable);
             pData->setFanAutoTime(time);
@@ -1897,11 +1920,34 @@ void MachineBackend::setup()
             m_fanSchedulerAutoSet->setDayRepeat(repeat);
             m_fanSchedulerAutoSet->setWeeklyDay(repeatDay);
 
-            /// call this when schedulling spec is same
+            /// call this when schedulling spec is the same
             QObject::connect(m_fanSchedulerAutoSet.data(), &SchedulerDayOutput::activated,
                              this, &MachineBackend::_onTriggeredFanSchedulerAutoSet);
-        }
-    }
+        }//
+        /// FAN SCHEDULER OFF
+        {
+            m_fanSchedulerAutoSetOff.reset(new SchedulerDayOutput);
+
+            bool enable    = m_settings->value(SKEY_SCHED_FAN_ENABLE_OFF, false).toInt();
+            int  time      = m_settings->value(SKEY_SCHED_FAN_TIME_OFF, 490/*8:10 AM*/).toInt();
+            int  repeat    = m_settings->value(SKEY_SCHED_FAN_REPEAT_OFF, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
+            int  repeatDay = m_settings->value(SKEY_SCHED_FAN_REPEAT_DAY_OFF, SchedulerDayOutput::DAY_MONDAY).toInt();
+
+            pData->setFanAutoEnabledOff(enable);
+            pData->setFanAutoTimeOff(time);
+            pData->setFanAutoDayRepeatOff(repeat);
+            pData->setFanAutoWeeklyDayOff(repeatDay);
+
+            m_fanSchedulerAutoSetOff->setEnabled(enable);
+            m_fanSchedulerAutoSetOff->setTime(time);
+            m_fanSchedulerAutoSetOff->setDayRepeat(repeat);
+            m_fanSchedulerAutoSetOff->setWeeklyDay(repeatDay);
+
+            /// call this when schedulling spec is the same
+            QObject::connect(m_fanSchedulerAutoSetOff.data(), &SchedulerDayOutput::activated,
+                             this, &MachineBackend::_onTriggeredFanSchedulerAutoSetOff);
+        }//
+    }//
 
     /// DATA LOG
     {
@@ -6463,6 +6509,8 @@ void MachineBackend::_onTriggeredEventEveryMinute()
 
     m_uvSchedulerAutoSet->routineTask();
     m_fanSchedulerAutoSet->routineTask();
+    m_uvSchedulerAutoSetOff->routineTask();
+    m_fanSchedulerAutoSetOff->routineTask();
 
     //// SYNC LINUX TIME TO RTC
 #ifdef __arm__
@@ -6503,6 +6551,15 @@ void MachineBackend::_onTriggeredUvSchedulerAutoSet()
     _insertEventLog(EVENT_STR_UV_ON_SCH);
 }
 
+void MachineBackend::_onTriggeredUvSchedulerAutoSetOff()
+{
+    qDebug() << metaObject()->className() <<  __func__  << thread();
+
+    m_pUV->setState(MachineEnums::DIG_STATE_ZERO);
+
+    _insertEventLog(EVENT_STR_UV_OFF_SCH);
+}
+
 void MachineBackend::_onTriggeredFanSchedulerAutoSet()
 {
     qDebug() << metaObject()->className() << __func__  << thread();
@@ -6513,6 +6570,16 @@ void MachineBackend::_onTriggeredFanSchedulerAutoSet()
     _insertEventLog(EVENT_STR_FAN_ON_SCH);
 }
 
+void MachineBackend::_onTriggeredFanSchedulerAutoSetOff()
+{
+    qDebug() << metaObject()->className() << __func__  << thread();
+
+    setFanState(MachineEnums::FAN_STATE_OFF);
+    //    _setFanPrimaryStateNominal();
+
+    _insertEventLog(EVENT_STR_FAN_OFF_SCH);
+}
+
 void MachineBackend::setUVAutoEnabled(int uvAutoSetEnabled)
 {
     qDebug() << __func__  << thread();
@@ -6521,7 +6588,7 @@ void MachineBackend::setUVAutoEnabled(int uvAutoSetEnabled)
     pData->setUVAutoEnabled(uvAutoSetEnabled);
 
     QSettings settings;
-    settings.setValue(SKEY_SCHEO_UV_ENABLE, uvAutoSetEnabled);
+    settings.setValue(SKEY_SCHED_UV_ENABLE, uvAutoSetEnabled);
 }
 
 void MachineBackend::setUVAutoTime(int uvAutoSetTime)
@@ -6532,7 +6599,7 @@ void MachineBackend::setUVAutoTime(int uvAutoSetTime)
     pData->setUVAutoTime(uvAutoSetTime);
 
     QSettings settings;
-    settings.setValue(SKEY_SCHEO_UV_TIME, uvAutoSetTime);
+    settings.setValue(SKEY_SCHED_UV_TIME, uvAutoSetTime);
 }
 
 void MachineBackend::setUVAutoDayRepeat(int uvAutoSetDayRepeat)
@@ -6543,7 +6610,7 @@ void MachineBackend::setUVAutoDayRepeat(int uvAutoSetDayRepeat)
     pData->setUVAutoDayRepeat(uvAutoSetDayRepeat);
 
     QSettings settings;
-    settings.setValue(SKEY_SCHEO_UV_REPEAT, uvAutoSetDayRepeat);
+    settings.setValue(SKEY_SCHED_UV_REPEAT, uvAutoSetDayRepeat);
 }
 
 void MachineBackend::setUVAutoWeeklyDay(int uvAutoSetWeeklyDay)
@@ -6554,9 +6621,54 @@ void MachineBackend::setUVAutoWeeklyDay(int uvAutoSetWeeklyDay)
     pData->setUVAutoWeeklyDay(uvAutoSetWeeklyDay);
 
     QSettings settings;
-    settings.setValue(SKEY_SCHEO_UV_REPEAT_DAY, uvAutoSetWeeklyDay);
+    settings.setValue(SKEY_SCHED_UV_REPEAT_DAY, uvAutoSetWeeklyDay);
 }
 
+void MachineBackend::setUVAutoEnabledOff(int uvAutoSetEnabledOff)
+{
+    qDebug() << __func__  << thread();
+    m_uvSchedulerAutoSetOff->setEnabled(uvAutoSetEnabledOff);
+
+    pData->setUVAutoEnabledOff(uvAutoSetEnabledOff);
+
+    QSettings settings;
+    settings.setValue(SKEY_SCHED_UV_ENABLE_OFF, uvAutoSetEnabledOff);
+}
+
+void MachineBackend::setUVAutoTimeOff(int uvAutoSetTimeOff)
+{
+    qDebug() << __func__  << thread();
+    m_uvSchedulerAutoSetOff->setTime(uvAutoSetTimeOff);
+
+    pData->setUVAutoTimeOff(uvAutoSetTimeOff);
+
+    QSettings settings;
+    settings.setValue(SKEY_SCHED_UV_TIME_OFF, uvAutoSetTimeOff);
+}
+
+void MachineBackend::setUVAutoDayRepeatOff(int uvAutoSetDayRepeatOff)
+{
+    qDebug() << __func__  << thread();
+    m_uvSchedulerAutoSetOff->setDayRepeat(uvAutoSetDayRepeatOff);
+
+    pData->setUVAutoDayRepeatOff(uvAutoSetDayRepeatOff);
+
+    QSettings settings;
+    settings.setValue(SKEY_SCHED_UV_REPEAT_OFF, uvAutoSetDayRepeatOff);
+}
+
+void MachineBackend::setUVAutoWeeklyDayOff(int uvAutoSetWeeklyDayOff)
+{
+    qDebug() << __func__  << thread();
+    m_uvSchedulerAutoSetOff->setWeeklyDay(uvAutoSetWeeklyDayOff);
+
+    pData->setUVAutoWeeklyDayOff(uvAutoSetWeeklyDayOff);
+
+    QSettings settings;
+    settings.setValue(SKEY_SCHED_UV_REPEAT_DAY_OFF, uvAutoSetWeeklyDayOff);
+}
+
+/// FAN ON SCHEDULER
 void MachineBackend::setFanAutoEnabled(int fanAutoSetEnabled)
 {
     qDebug() << __func__  << thread();
@@ -6565,7 +6677,7 @@ void MachineBackend::setFanAutoEnabled(int fanAutoSetEnabled)
     pData->setFanAutoEnabled(fanAutoSetEnabled);
 
     QSettings settings;
-    settings.setValue(SKEY_SCHEO_FAN_ENABLE, fanAutoSetEnabled);
+    settings.setValue(SKEY_SCHED_FAN_ENABLE, fanAutoSetEnabled);
 }
 
 void MachineBackend::setFanAutoTime(int fanAutoSetTime)
@@ -6576,7 +6688,7 @@ void MachineBackend::setFanAutoTime(int fanAutoSetTime)
     pData->setFanAutoTime(fanAutoSetTime);
 
     QSettings settings;
-    settings.setValue(SKEY_SCHEO_FAN_TIME, fanAutoSetTime);
+    settings.setValue(SKEY_SCHED_FAN_TIME, fanAutoSetTime);
 }
 
 void MachineBackend::setFanAutoDayRepeat(int fanAutoSetDayRepeat)
@@ -6587,7 +6699,7 @@ void MachineBackend::setFanAutoDayRepeat(int fanAutoSetDayRepeat)
     pData->setFanAutoDayRepeat(fanAutoSetDayRepeat);
 
     QSettings settings;
-    settings.setValue(SKEY_SCHEO_FAN_REPEAT, fanAutoSetDayRepeat);
+    settings.setValue(SKEY_SCHED_FAN_REPEAT, fanAutoSetDayRepeat);
 }
 
 void MachineBackend::setFanAutoWeeklyDay(int fanAutoSetWeeklyDay)
@@ -6598,8 +6710,53 @@ void MachineBackend::setFanAutoWeeklyDay(int fanAutoSetWeeklyDay)
     pData->setFanAutoWeeklyDay(fanAutoSetWeeklyDay);
 
     QSettings settings;
-    settings.setValue(SKEY_SCHEO_FAN_REPEAT_DAY, fanAutoSetWeeklyDay);
+    settings.setValue(SKEY_SCHED_FAN_REPEAT_DAY, fanAutoSetWeeklyDay);
 }
+/// FAN OFF SCHEDULER
+void MachineBackend::setFanAutoEnabledOff(int fanAutoSetEnabledOff)
+{
+    qDebug() << __func__  << thread();
+    m_fanSchedulerAutoSetOff->setEnabled(fanAutoSetEnabledOff);
+
+    pData->setFanAutoEnabledOff(fanAutoSetEnabledOff);
+
+    QSettings settings;
+    settings.setValue(SKEY_SCHED_FAN_ENABLE_OFF, fanAutoSetEnabledOff);
+}
+
+void MachineBackend::setFanAutoTimeOff(int fanAutoSetTimeOff)
+{
+    qDebug() << __func__  << thread();
+    m_fanSchedulerAutoSetOff->setTime(fanAutoSetTimeOff);
+
+    pData->setFanAutoTimeOff(fanAutoSetTimeOff);
+
+    QSettings settings;
+    settings.setValue(SKEY_SCHED_FAN_TIME_OFF, fanAutoSetTimeOff);
+}
+
+void MachineBackend::setFanAutoDayRepeatOff(int fanAutoSetDayRepeatOff)
+{
+    qDebug() << __func__  << thread();
+    m_fanSchedulerAutoSetOff->setDayRepeat(fanAutoSetDayRepeatOff);
+
+    pData->setFanAutoDayRepeatOff(fanAutoSetDayRepeatOff);
+
+    QSettings settings;
+    settings.setValue(SKEY_SCHED_FAN_REPEAT_OFF, fanAutoSetDayRepeatOff);
+}
+
+void MachineBackend::setFanAutoWeeklyDayOff(int fanAutoSetWeeklyDayOff)
+{
+    qDebug() << __func__  << thread();
+    m_fanSchedulerAutoSetOff->setWeeklyDay(fanAutoSetWeeklyDayOff);
+
+    pData->setFanAutoWeeklyDayOff(fanAutoSetWeeklyDayOff);
+
+    QSettings settings;
+    settings.setValue(SKEY_SCHED_FAN_REPEAT_DAY_OFF, fanAutoSetWeeklyDayOff);
+}
+
 
 void MachineBackend::setEscoLockServiceEnable(int escoLockServiceEnable)
 {

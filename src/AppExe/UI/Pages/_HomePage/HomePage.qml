@@ -1633,7 +1633,7 @@ ViewApp {
                                 sourceImage: "qrc:/UI/Pictures/controll/Fan_W.png"
 
                                 Loader {
-                                    active: MachineData.fanAutoSetEnabled
+                                    active: MachineData.fanAutoSetEnabled || MachineData.fanAutoSetEnabledOff
                                     anchors.left: parent.left
                                     anchors.leftMargin: 5
                                     anchors.top: parent.top
@@ -1988,7 +1988,7 @@ ViewApp {
                                     sourceImage: "qrc:/UI/Pictures/controll/UV_W.png"
 
                                     Loader {
-                                        active: MachineData.uvAutoSetEnabled
+                                        active: MachineData.uvAutoSetEnabled || MachineData.uvAutoSetEnabledOff
                                         anchors.left: parent.left
                                         anchors.leftMargin: 5
                                         anchors.top: parent.top

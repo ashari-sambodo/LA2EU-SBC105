@@ -357,15 +357,26 @@
 #define SKEY_MODBUS_RW_GAS              "modRwGas"
 #define SKEY_MODBUS_RW_UV               "modRwUv"
 
-#define SKEY_SCHEO_UV_ENABLE            "scoUvEn"
-#define SKEY_SCHEO_UV_TIME              "scoUvTime"
-#define SKEY_SCHEO_UV_REPEAT            "scoUvRep"
-#define SKEY_SCHEO_UV_REPEAT_DAY        "scoUvRepd"
-
-#define SKEY_SCHEO_FAN_ENABLE           "scoFanEn"
-#define SKEY_SCHEO_FAN_TIME             "scoFanTime"
-#define SKEY_SCHEO_FAN_REPEAT           "scoFanRep"
-#define SKEY_SCHEO_FAN_REPEAT_DAY       "scoFanRepd"
+/// UV SCHEDULER
+#define SKEY_SCHED_UV_ENABLE            "schdUvEn"
+#define SKEY_SCHED_UV_TIME              "schdUvTime"
+#define SKEY_SCHED_UV_REPEAT            "schdUvRep"
+#define SKEY_SCHED_UV_REPEAT_DAY        "schdUvRepd"
+//
+#define SKEY_SCHED_UV_ENABLE_OFF            "schdUvEnOff"
+#define SKEY_SCHED_UV_TIME_OFF              "schdUvTimeOff"
+#define SKEY_SCHED_UV_REPEAT_OFF            "schdUvRepOff"
+#define SKEY_SCHED_UV_REPEAT_DAY_OFF        "schdUvRepdOff"
+/// FAN SCHEDULER
+#define SKEY_SCHED_FAN_ENABLE           "schdFanEn"
+#define SKEY_SCHED_FAN_TIME             "schdFanTime"
+#define SKEY_SCHED_FAN_REPEAT           "schdFanRep"
+#define SKEY_SCHED_FAN_REPEAT_DAY       "schdFanRepd"
+//
+#define SKEY_SCHED_FAN_ENABLE_OFF           "schdFanEnOff"
+#define SKEY_SCHED_FAN_TIME_OFF             "schdFanTimeOff"
+#define SKEY_SCHED_FAN_REPEAT_OFF           "schdFanRepOff"
+#define SKEY_SCHED_FAN_REPEAT_DAY_OFF       "schdFanRepdOff"
 
 #define SKEY_ENV_TEMP_HIGH_LIMIT        "envHig"
 #define SKEY_ENV_TEMP_LOW_LIMIT         "envLow"

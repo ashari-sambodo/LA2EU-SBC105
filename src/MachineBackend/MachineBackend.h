@@ -284,16 +284,28 @@ public slots:
     void refreshLogRowsCount(const QString table);
 
     /// UV AUTO SET
+    /// ON
     void setUVAutoEnabled(int uvAutoSetEnabled);
     void setUVAutoTime(int uvAutoSetTime);
     void setUVAutoDayRepeat(int uvAutoSetDayRepeat);
     void setUVAutoWeeklyDay(int uvAutoSetWeeklyDay);
+    /// OFF
+    void setUVAutoEnabledOff(int uvAutoSetEnabledOff);
+    void setUVAutoTimeOff(int uvAutoSetTimeOff);
+    void setUVAutoDayRepeatOff(int uvAutoSetDayRepeatOff);
+    void setUVAutoWeeklyDayOff(int uvAutoSetWeeklyDayOff);
 
     /// FAN AUTO SET
+    /// ON
     void setFanAutoEnabled(int fanAutoSetEnabled);
     void setFanAutoTime(int fanAutoSetTime);
     void setFanAutoDayRepeat(int fanAutoSetDayRepeat);
     void setFanAutoWeeklyDay(int fanAutoSetWeeklyDay);
+    /// OFF
+    void setFanAutoEnabledOff(int fanAutoSetEnabledOff);
+    void setFanAutoTimeOff(int fanAutoSetTimeOff);
+    void setFanAutoDayRepeatOff(int fanAutoSetDayRepeatOff);
+    void setFanAutoWeeklyDayOff(int fanAutoSetWeeklyDayOff);
 
     /// ESCO LOCK SERVICE
     void setEscoLockServiceEnable(int escoLockServiceEnable);
@@ -461,9 +473,13 @@ private:
     /// UV SCHEDULER
     QScopedPointer<SchedulerDayOutput> m_uvSchedulerAutoSet;
     void _onTriggeredUvSchedulerAutoSet();
+    QScopedPointer<SchedulerDayOutput> m_uvSchedulerAutoSetOff;
+    void _onTriggeredUvSchedulerAutoSetOff();
     /// FAN SCHEDULER
     QScopedPointer<SchedulerDayOutput> m_fanSchedulerAutoSet;
     void _onTriggeredFanSchedulerAutoSet();
+    QScopedPointer<SchedulerDayOutput> m_fanSchedulerAutoSetOff;
+    void _onTriggeredFanSchedulerAutoSetOff();
 
     /// MODBUS
     QModbusTcpServer                            *m_pModbusServer;

@@ -35,9 +35,9 @@ bool RegisterExternalResources::setResourcePath(short pathCode)
         break;
     case Resource_General:
 #ifdef __arm__
-        m_resourcePath = "/usr/local/share/QtGeneralQResource.rcc";
+        m_resourcePath = "/usr/local/share/QtGeneralResources.rcc";
 #else
-        m_resourcePath = QDir::currentPath() + "/QtGeneralQResource.rcc";
+        m_resourcePath = QDir::currentPath() + "/QtGeneralResources.rcc";
 #endif
         m_pathCode = pathCode;
         break;
