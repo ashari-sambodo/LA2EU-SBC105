@@ -118,6 +118,12 @@ enum FanList{
 };
 Q_ENUMS(FanList)
 
+enum ExternalResourcePathCode{
+    Resource_QuickTourAsset,
+    Resource_General
+};
+Q_ENUMS(ExternalResourcePathCode)
+
 }
 
 //class MachineEnums : public QObject

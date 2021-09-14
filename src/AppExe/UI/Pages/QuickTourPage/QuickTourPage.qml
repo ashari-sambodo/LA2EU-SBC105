@@ -400,8 +400,8 @@ ViewApp {
             /// onResume
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
-
-                registerExResources.importResource();
+                if(registerExResources.setResourcePath(MachineAPI.Resource_QuickTourAsset))
+                    registerExResources.importResource();
 
                 props.serialNumber = MachineData.serialNumber
             }
