@@ -401,7 +401,12 @@ ViewApp {
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
                 if(registerExResources.setResourcePath(MachineAPI.Resource_QuickTourAsset))
+                {
+                    console.debug("Success to set Resource_QuickTourAsset")
                     registerExResources.importResource();
+                }
+                else
+                    console.debug("Failed to set Resource_QuickTourAsset!")
 
                 props.serialNumber = MachineData.serialNumber
             }

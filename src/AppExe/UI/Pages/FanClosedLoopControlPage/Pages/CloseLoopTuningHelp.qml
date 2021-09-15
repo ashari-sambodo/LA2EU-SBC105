@@ -15,6 +15,7 @@ import UI.CusCom 1.0
 import "../../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
+import ModulesCpp.RegisterExternalResources 1.0
 import "../Components" as CusCom
 
 ViewApp {
@@ -63,24 +64,51 @@ ViewApp {
                         Layout.minimumHeight: 280
                         Layout.fillWidth: true
 
-                        //                        Image{
-                        //                            enabled: __osplatform__ ? false : true
-                        //                            visible: enabled
-                        //                            asynchronous: true
-                        //                            anchors.centerIn: parent
-                        //                            height: parent.height
-                        //                            anchors.margins: 10
-                        //                            source: "qrc:/UI/Pictures/pid/Respons_PID_Controller.png"
-                        //                            fillMode: Image.PreserveAspectFit
-                        //                        }//
-
-                        CusCom.PidTuningAnimationApp{
-                            //enabled: __osplatform__ ? true : false
-                            visible: enabled
-                            anchors.centerIn: parent
-                            height: parent.height
-                            anchors.margins: 10
-                            running: true
+                        RowLayout{
+                            anchors.fill: parent
+                            Item{
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                Image{
+                                    id: pidCurve1
+                                    asynchronous: true
+                                    anchors.centerIn: parent
+                                    height: parent.height
+                                    anchors.margins: 10
+                                    source: "qrc:/UI/Pictures/pid/Respons_PID_Controller.png"
+                                    fillMode: Image.PreserveAspectFit
+                                    opacity: mouseAreaCurve1.pressed ? 0.6 : 1
+                                    MouseArea{
+                                        id: mouseAreaCurve1
+                                        enabled: __osplatform__ ? false : true
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            props.showInfo(6, qsTr("Manual tuning"))
+                                        }
+                                    }//
+                                }//
+                            }
+                            Item{
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                enabled: __osplatform__
+                                visible: __osplatform__
+                                CusCom.PidTuningAnimationApp{
+                                    id: pidCurve2
+                                    anchors.centerIn: parent
+                                    height: parent.height
+                                    anchors.margins: 10
+                                    running: __osplatform__
+                                    opacity: mouseAreaCurve2.pressed ? 0.6 : 1
+                                    MouseArea{
+                                        id: mouseAreaCurve2
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            props.showInfo(6, qsTr("Manual tuning"))
+                                        }
+                                    }//
+                                }//
+                            }//
                         }//
                     }//
                     Item{
@@ -237,10 +265,15 @@ ViewApp {
             }//
         }//
 
+        RegisterExResources {
+            id: registerExResources
+        }
+
         ///// Put all private property inside here
         ///// if none, please comment this block to optimize the code
         QtObject {
             id: props
+            //property bool init: false
 
             function showInfo(index, title){
                 let msg = ""
@@ -250,6 +283,11 @@ ViewApp {
                 case 3: msg = "<i>" + qsTr("The time it takes for the system to converge to its steady state.") + "</i>"; break
                 case 4: msg = "<i>" + qsTr("The difference between the steady-state output and the desired output.") + "</i>"; break
                 case 5: msg = "<i>" + qsTr("The ability of the controller to keep its output at the setpoint value") + "</i>"; break
+                case 6: msg = "<i>" + qsTr("1) Set Ki and Kd values to zero.")
+                        + "<br>" + qsTr("2) Increase the Kp until the loop gets its best performance.")
+                        + "<br>" + qsTr("3) Increase the Ki until any offset corrected, be careful too much Ki will cause instability.")
+                        + "<br>" + qsTr("4) Increase Kd (if required), until the loop is acceptably quick to reach the setpoint after a load disturbance.")
+                        + "</i>"; break
                 default: break
                 }
                 showDialogMessage(title, msg, dialogInfo, undefined, false)
@@ -267,12 +305,14 @@ ViewApp {
             /// onResume
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
-            }
+
+            }//
 
             /// onPause
             Component.onDestruction: {
                 ////console.debug("StackView.DeActivating");
-            }
+                registerExResources.releaseResource();
+            }//
         }//
     }//
 }//

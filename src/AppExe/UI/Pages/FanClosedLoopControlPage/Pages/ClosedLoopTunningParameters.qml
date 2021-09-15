@@ -13,6 +13,7 @@ import QtQuick.Controls 2.7
 import UI.CusCom 1.0
 import "../../../CusCom/JS/IntentApp.js" as IntentApp
 
+import ModulesCpp.RegisterExternalResources 1.0
 import ModulesCpp.Machine 1.0
 
 ViewApp {
@@ -616,29 +617,99 @@ are errors.") + "</i>"
                                 }//
                             }//
                         }//
+                        Rectangle {
+                            //                                anchors.verticalCenter: parent.verticalCenter
+                            width: 150
+                            height: 100
+                            color: "#0F2952"
+                            border.color: "#dddddd"
+                            radius: 5
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            Column{
+                                anchors.centerIn: parent
+                                spacing: 5
+                                TextApp{
+                                    width: 150
+                                    text: (MachineData.fanPrimaryDutyCycle || MachineData.fanInflowDutyCycle) ? qsTr("Switch Off") : qsTr("Switch On")
+                                    //font.pixelSize: 16
+                                    wrapMode: Text.WordWrap
+                                    horizontalAlignment: Text.AlignHCenter
+                                }
+                                Image {
+                                    id: fanImage
+                                    source: "qrc:/UI/Pictures/controll/Fan_W.png"
+                                    height: 60
+                                    //                                    anchors.margins: 10
+                                    //                                    anchors.fill: parent
+                                    fillMode: Image.PreserveAspectFit
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    states: State {
+                                        name: "stateOn"
+                                        when: MachineData.fanPrimaryDutyCycle || MachineData.fanInflowDutyCycle
+                                        PropertyChanges {
+                                            target: fanImage
+                                            source: "qrc:/UI/Pictures/controll/Fan_G.png"
+                                        }//
+                                    }//
+                                }//
+                            }//
+                            MouseArea{
+                                id: fanMouseArea
+                                anchors.fill: parent
+                                onClicked: {
+                                    let msg
+                                    if(MachineData.fanPrimaryDutyCycle || MachineData.fanInflowDutyCycle){
+                                        MachineAPI.setFanState(MachineAPI.FAN_STATE_OFF)
+                                        msg = qsTr("Switching Off the Fan...")
+                                    }
+                                    else{
+                                        msg = qsTr("Switching On the Fan...")
+                                        MachineAPI.setFanState(MachineAPI.FAN_STATE_ON)
+                                    }
+
+                                    viewApp.showBusyPage(msg, function onTriggered(cycle){
+                                        if(cycle === 5){ viewApp.dialogObject.close() }
+                                    })
+                                }
+                            }//
+                        }//
+
                         Column{
                             anchors.horizontalCenter: parent.horizontalCenter
+
                             Image{
                                 id: tuneHelpIcon
                                 source: "qrc:/UI/Pictures/pid/tune-help.png"
+                                height: 100
                                 fillMode: Image.PreserveAspectFit
                                 opacity: tuneHelpMa.pressed ? 0.5 : 1
+                                anchors.horizontalCenter: parent.horizontalCenter
                                 MouseArea{
                                     id: tuneHelpMa
                                     anchors.fill: parent
                                     onClicked: {
+                                        if(registerExResources.setResourcePath(MachineAPI.Resource_General))
+                                        {
+                                            //console.debug("Success to set Resource_General")
+                                            registerExResources.importResource();
+                                        }else{
+                                            //console.debug("Failed to set Resource_General!")
+                                        }
                                         var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/Pages/CloseLoopTuningHelp.qml", {"message":""})
                                         startView(intent)
                                     }
                                 }
                             }
                             TextApp{
-                                width: tuneHelpIcon.width
+                                width: 150
                                 text: qsTr("Learn how to tune the parameters")
+                                //font.pixelSize: 20
                                 wrapMode: Text.WordWrap
                                 horizontalAlignment: Text.AlignHCenter
                             }
-                        }
+                        }//
+
+
                     }//
                 }//
             }//
@@ -715,6 +786,10 @@ are errors.") + "</i>"
                 }//
             }//
         }//
+
+        RegisterExResources {
+            id: registerExResources
+        }
 
         ///// Put all private property inside here
         ///// if none, please comment this block to optimize the code
@@ -806,6 +881,7 @@ are errors.") + "</i>"
             /// onPause
             Component.onDestruction: {
                 ////console.debug("StackView.DeActivating");
+                //registerExResources.releaseResource();
             }
         }//
     }//

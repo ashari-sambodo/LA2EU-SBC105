@@ -12,6 +12,7 @@ import QtQuick.Controls 2.7
 
 import UI.CusCom 1.0
 import "../../CusCom/JS/IntentApp.js" as IntentApp
+//import ModulesCpp.RegisterExternalResources 1.0
 
 import ModulesCpp.Machine 1.0
 
@@ -196,6 +197,10 @@ ViewApp {
                 }//
             }//
         }//
+
+        //        RegisterExResources {
+        //            id: registerExResources
+        //        }
 
         ///// Put all private property inside here
         ///// if none, please comment this block to optimize the code

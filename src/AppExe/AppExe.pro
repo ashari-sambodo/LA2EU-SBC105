@@ -99,7 +99,8 @@ RESOURCES += qml.qrc \
 #    QuickTourUvScheduler.qrc \
 #    QuickTourUvSchedulerSecond.qrc \
 #   QuickTourPage.qrc \
-    QtGeneralResources.qrc \
+#    QtGeneralResources.qrc \
+#    GeneralResources.qrc \
     components.qrc \
     i18n.qrc \
     pictures.qrc \
@@ -159,3 +160,6 @@ QMAKE_CXXFLAGS += -ltcg
 
 #win32:LIBS += -lws2_32
 #win32:LIBS += -lwsock32
+
+DISTFILES += \
+    GeneralResources.qml

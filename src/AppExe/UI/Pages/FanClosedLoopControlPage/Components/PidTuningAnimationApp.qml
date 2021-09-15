@@ -10,11 +10,11 @@ Item {
 
     property bool running: false
 
-    property int delayPerFrame: 50
+    property int delayPerFrame: 100
     property int delayAfterComplete: 2500
     property int noOfFrames: 250
 
-    property string imageSource: "qrc:/UI/GeneralResource/Animation/TuningPID/frame_%1_delay-%2s.gif"
+    property string imageSource: "qrc:/GeneralResources/Animation/TuningPID/frame_%1_delay-%2s.gif"
     property int imageSourceState: 0
     property int state : 0
 
@@ -26,12 +26,17 @@ Item {
         }
     }
     //0:2.50s,99:2.00s,174:2.00s,249:2.50s
+    //    Image{
+    //        visible: control.running
+    //        source: "qrc:/GeneralResources/Animation/TuningPID/frame_bkg.png"
+    //        fillMode: Image.PreserveAspectFit
+    //        height: control.height
+    //    }
     Image{
         id: image
-        asynchronous: true
+        //asynchronous: true
         visible: control.running
         source: imageSource.arg(utils.fixStrLength(String(imageSourceState), 3, "0", 1)).arg((imageSourceState == 0 || imageSourceState == 249) ? "2.50" : ((imageSourceState == 99 || imageSourceState == 174) ? "2.00" : "0.05"))
-        anchors.fill: parent
         onSourceChanged: console.debug(source)
         fillMode: Image.PreserveAspectFit
         height: control.height
