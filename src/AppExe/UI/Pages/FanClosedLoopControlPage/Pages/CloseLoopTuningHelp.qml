@@ -15,6 +15,7 @@ import UI.CusCom 1.0
 import "../../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
+import "../Components" as CusCom
 
 ViewApp {
     id: viewApp
@@ -62,23 +63,25 @@ ViewApp {
                         Layout.minimumHeight: 280
                         Layout.fillWidth: true
 
-                        Image{
-                            asynchronous: true
-                            anchors.centerIn: parent
-                            height: parent.height
-                            anchors.margins: 10
-                            source: "qrc:/UI/Pictures/pid/Respons_PID_Controller.png"
-                            fillMode: Image.PreserveAspectFit
-                        }//
-
-                        //                        AnimatedImage{
+                        //                        Image{
+                        //                            enabled: __osplatform__ ? false : true
+                        //                            visible: enabled
                         //                            asynchronous: true
                         //                            anchors.centerIn: parent
                         //                            height: parent.height
                         //                            anchors.margins: 10
-                        //                            source: "qrc:/UI/GeneralResource/Animation/PID_Compensation_Animated.gif"
+                        //                            source: "qrc:/UI/Pictures/pid/Respons_PID_Controller.png"
                         //                            fillMode: Image.PreserveAspectFit
                         //                        }//
+
+                        CusCom.PidTuningAnimationApp{
+                            //enabled: __osplatform__ ? true : false
+                            visible: enabled
+                            anchors.centerIn: parent
+                            height: parent.height
+                            anchors.margins: 10
+                            running: true
+                        }//
                     }//
                     Item{
                         id: table

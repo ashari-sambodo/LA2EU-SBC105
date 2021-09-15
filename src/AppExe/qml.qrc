@@ -153,5 +153,6 @@
         <file>UI/Pages/FanClosedLoopControlPage/Pages/CloseLoopTuningHelp.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTunningParameters.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/InflowGridFieldFragment.qml</file>
+        <file>UI/Pages/FanClosedLoopControlPage/Components/PidTuningAnimationApp.qml</file>
     </qresource>
 </RCC>
