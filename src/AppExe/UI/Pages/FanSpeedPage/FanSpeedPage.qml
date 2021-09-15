@@ -56,7 +56,7 @@ ViewApp {
                         spacing: 10
                         TextApp {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "Inflow Fan"
+                            text: qsTr("Inflow Fan")
                         }
                         Row{
                             spacing: 20
@@ -80,6 +80,7 @@ ViewApp {
                                 }//
                                 onAccepted: {
                                     fanInflowSlider.value = Number(text)
+                                    MachineAPI.setFanInflowDutyCycle(Number(text))
                                 }
                             }//
                             SliderApp {
@@ -105,7 +106,7 @@ ViewApp {
                         spacing: 10
                         TextApp {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "Downflow Fan"
+                            text: qsTr("Downflow Fan")
                         }
                         Row{
                             spacing: 20
@@ -129,6 +130,7 @@ ViewApp {
                                 }//
                                 onAccepted: {
                                     fanDownflowSlider.value = Number(text)
+                                    MachineAPI.setFanPrimaryDutyCycle(Number(text))
                                 }
                             }//
                             SliderApp {
