@@ -63,7 +63,7 @@ class MachineBackend : public QObject
     Q_OBJECT
 public:
     explicit MachineBackend(QObject *parent = nullptr);
-    ~MachineBackend() override;
+    ~MachineBackend();
 
 public slots:
     void routineTask();

@@ -686,6 +686,9 @@ ViewApp {
             onRepeatDayComboBox.currentIndex = onIndex
             offRepeatDayComboBox.currentIndex = offIndex
 
+            props.onEnableSet = MachineData.fanAutoSetEnabled
+            props.offEnableSet = MachineData.fanAutoSetEnabledOff
+
             onEnableSwitch.checked = MachineData.fanAutoSetEnabled
             onEnableSwitch.initialized = true
             offEnableSwitch.checked = MachineData.fanAutoSetEnabledOff

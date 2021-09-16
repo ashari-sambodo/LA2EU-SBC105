@@ -917,7 +917,7 @@ public:
     static void singletonDelete();
 
     explicit MachineData(QObject *parent = nullptr);
-    ~MachineData() override;
+    ~MachineData();
 
     Q_INVOKABLE short getMachineBackendState() const;
     void setMachineBackendState(short getMachineBackendState);

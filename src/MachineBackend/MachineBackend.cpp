@@ -102,7 +102,7 @@ MachineBackend::MachineBackend(QObject *parent) : QObject(parent)
 
 MachineBackend::~MachineBackend()
 {
-    //    qDebug() << metaObject()->className() << __FUNCTION__<< thread();
+    //qDebug() << metaObject()->className() << __FUNCTION__<< thread();
 }
 
 void MachineBackend::routineTask()
@@ -375,7 +375,7 @@ void MachineBackend::setup()
                 //DEFINE_CHANNEL_FOR_AIRFLOW_INFLOW
                 m_boardAnalogInput1->setChannelDoPoll(1, true);
                 m_boardAnalogInput1->setChannelDoAverage(1, true);
-                m_boardAnalogInput1->setChannelSamples(1, 50);
+                m_boardAnalogInput1->setChannelSamples(1, 60);
 
                 ////MONITORING COMMUNICATION STATUS
                 QObject::connect(m_boardAnalogInput1.data(), &AIManage::errorComToleranceReached,
@@ -402,10 +402,10 @@ void MachineBackend::setup()
 
                 pData->setBoardStatusAnalogInput(!response);
 
-                //DEFINE_CHANNEL_FOR_AIRFLOW_INFLOW
+                //DEFINE_CHANNEL_FOR_AIRFLOW_DOWNFLOW
                 m_boardAnalogInput2->setChannelDoPoll(0, true);
                 m_boardAnalogInput2->setChannelDoAverage(1, true);
-                m_boardAnalogInput2->setChannelSamples(1, 50);
+                m_boardAnalogInput2->setChannelSamples(1, 100);
 
                 ////MONITORING COMMUNICATION STATUS
                 QObject::connect(m_boardAnalogInput2.data(), &AIManage::errorComToleranceReached,
@@ -2354,21 +2354,27 @@ void MachineBackend::deallocate()
     m_pModbusServer->disconnectDevice();
 
     m_timerEventEverySecond->stop();
-    m_timerEventEveryMinute->stop();
+    if(m_timerEventEveryMinute->isActive())
+        m_timerEventEveryMinute->stop();
     m_timerEventEveryHour->stop();
     m_timerEventForDataLog->stop();
     m_timerEventForLcdToDimm->stop();
     m_timerEventForRTCWatchdogReset->stop();
-    m_timerEventForClosedLoopControl->stop();
+    if(m_timerEventForClosedLoopControl->isActive())
+        m_timerEventForClosedLoopControl->stop();
 
+    /// Turn Off the Blowers
+    if(pData->getFanState())
+        setFanState(MachineEnums::FAN_STATE_OFF);
     /// turned off the Downflow blower
     if(pData->getFanPrimaryState()){
         _setFanPrimaryStateOFF();
         QEventLoop waitLoop;
         /// https://www.kdab.com/nailing-13-signal-slot-mistakes-clazy-1-3/
+        //m_pFanPrimary->setInterlock(MachineEnums::DIG_STATE_ZERO);
         QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::dutyCycleChanged,
                          &waitLoop, [this, &waitLoop] (int dutyCycle){
-            //            qDebug() << "waitLoop" << dutyCycle;
+            qDebug() << "waitLoop" << dutyCycle;
             if (dutyCycle == 0){
                 waitLoop.quit();
             }
@@ -2384,9 +2390,10 @@ void MachineBackend::deallocate()
         _setFanInflowStateOFF();
         QEventLoop waitLoop;
         /// https://www.kdab.com/nailing-13-signal-slot-mistakes-clazy-1-3/
+        //m_pFanInflow->setInterlock(MachineEnums::DIG_STATE_ZERO);
         QObject::connect(m_pFanInflow.data(), &DeviceAnalogCom::stateChanged,
                          &waitLoop, [this, &waitLoop] (int state){
-            //            qDebug() << "waitLoop" << dutyCycle;
+            qDebug() << "waitLoop" << state;
             if (state == 0){
                 waitLoop.quit();
             }
@@ -2397,7 +2404,7 @@ void MachineBackend::deallocate()
         waitLoop.exec();
     }
 
-    //    qDebug() << metaObject()->className() << __FUNCTION__ << "phase-2";
+    qDebug() << metaObject()->className() << __FUNCTION__ << "phase-2";
     if(m_threadForBoardIO){
         m_threadForBoardIO->quit();
         m_threadForBoardIO->wait();
@@ -5248,7 +5255,7 @@ void MachineBackend::_onTemperatureActualChanged(int value)
         int fahrenheit = __convertCtoF(value);
         pData->setTemperature(static_cast<short>(fahrenheit));
 
-        valueStr = QString::asprintf("%dÂ°F", fahrenheit);
+        valueStr = QString::asprintf("%d°F", fahrenheit);
         pData->setTemperatureValueStrf(valueStr);
 
         //        tempBasedOnMeaUnit = static_cast<short>(fahrenheit);
@@ -5256,7 +5263,7 @@ void MachineBackend::_onTemperatureActualChanged(int value)
     else {
         pData->setTemperature(static_cast<short>(value));
 
-        valueStr = QString::asprintf("%dÂ°C", value);
+        valueStr = QString::asprintf("%d°C", value);
         pData->setTemperatureValueStrf(valueStr);
         //        tempBasedOnMeaUnit = value;
     }
@@ -6493,14 +6500,22 @@ void MachineBackend::refreshLogRowsCount(const QString table)
                 pData->setEventLogIsFull(count >= ALARMEVENTLOG_MAX_ROW);
             }//
         });
-    }
-}
+    }//
+}//
 
 void MachineBackend::_onTriggeredEventEverySecond()
 {
     //    qDebug() << metaObject()->className() << __func__  << thread();
 
     _readRTCActualTime();
+    /// Start the eventTimerEveryMinute when current time second value is 0
+    if(!m_timerEventEveryMinute->isActive()){
+        int currentTimeSecond = QTime::currentTime().second();
+        qDebug() << currentTimeSecond;
+        if(currentTimeSecond == 9){ /// tolerance +9_+10 seconds
+            m_timerEventEveryMinute->start();
+        }
+    }
 }
 
 void MachineBackend::_onTriggeredEventEveryMinute()
@@ -6549,6 +6564,10 @@ void MachineBackend::_onTriggeredUvSchedulerAutoSet()
     m_pUV->setState(MachineEnums::DIG_STATE_ONE);
 
     _insertEventLog(EVENT_STR_UV_ON_SCH);
+    /// Disable Scheduler if the repeat just once
+    if(pData->getUVAutoDayRepeat() == 0){
+        setUVAutoEnabled(MachineEnums::DIG_STATE_ZERO);
+    }
 }
 
 void MachineBackend::_onTriggeredUvSchedulerAutoSetOff()
@@ -6558,6 +6577,10 @@ void MachineBackend::_onTriggeredUvSchedulerAutoSetOff()
     m_pUV->setState(MachineEnums::DIG_STATE_ZERO);
 
     _insertEventLog(EVENT_STR_UV_OFF_SCH);
+    /// Disable Scheduler if the repeat just once
+    if(pData->getUVAutoDayRepeatOff() == 0){
+        setUVAutoEnabledOff(MachineEnums::DIG_STATE_ZERO);
+    }
 }
 
 void MachineBackend::_onTriggeredFanSchedulerAutoSet()
@@ -6568,6 +6591,10 @@ void MachineBackend::_onTriggeredFanSchedulerAutoSet()
     //    _setFanPrimaryStateNominal();
 
     _insertEventLog(EVENT_STR_FAN_ON_SCH);
+    /// Disable Scheduler if the repeat just once
+    if(pData->getFanAutoDayRepeat() == 0){
+        setFanAutoEnabled(MachineEnums::DIG_STATE_ZERO);
+    }
 }
 
 void MachineBackend::_onTriggeredFanSchedulerAutoSetOff()
@@ -6578,6 +6605,10 @@ void MachineBackend::_onTriggeredFanSchedulerAutoSetOff()
     //    _setFanPrimaryStateNominal();
 
     _insertEventLog(EVENT_STR_FAN_OFF_SCH);
+    /// Disable Scheduler if the repeat just once
+    if(pData->getFanAutoDayRepeatOff() == 0){
+        setFanAutoEnabledOff(MachineEnums::DIG_STATE_ZERO);
+    }
 }
 
 void MachineBackend::setUVAutoEnabled(int uvAutoSetEnabled)
@@ -7636,17 +7667,17 @@ void MachineBackend::_machineState()
                         if(m_sashMotorizedOffAtFullyClosedDelayTimeMsec){
                             if(!eventTimerForDelayMotorizedOffAtFullyClosed){
                                 /// Give a delay for a moment for sash moving down after fully closed detected
-                                 eventTimerForDelayMotorizedOffAtFullyClosed = new QTimer();
-                                 eventTimerForDelayMotorizedOffAtFullyClosed->setInterval(m_sashMotorizedOffAtFullyClosedDelayTimeMsec);
-                                 eventTimerForDelayMotorizedOffAtFullyClosed->setSingleShot(true);
-                                 ///Ececute this block after a certain time (m_sashMotorizedOffAtFullyClosedDelayTimeMsec)
-                                 QObject::connect(eventTimerForDelayMotorizedOffAtFullyClosed, &QTimer::timeout,
-                                                  eventTimerForDelayMotorizedOffAtFullyClosed, [=](){
-                                     m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                                     m_pSasWindowMotorize->routineTask();
-                                 });
+                                eventTimerForDelayMotorizedOffAtFullyClosed = new QTimer();
+                                eventTimerForDelayMotorizedOffAtFullyClosed->setInterval(m_sashMotorizedOffAtFullyClosedDelayTimeMsec);
+                                eventTimerForDelayMotorizedOffAtFullyClosed->setSingleShot(true);
+                                ///Ececute this block after a certain time (m_sashMotorizedOffAtFullyClosedDelayTimeMsec)
+                                QObject::connect(eventTimerForDelayMotorizedOffAtFullyClosed, &QTimer::timeout,
+                                                 eventTimerForDelayMotorizedOffAtFullyClosed, [=](){
+                                    m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                                    m_pSasWindowMotorize->routineTask();
+                                });
 
-                                 eventTimerForDelayMotorizedOffAtFullyClosed->start();
+                                eventTimerForDelayMotorizedOffAtFullyClosed->start();
                             }
                         }else{
                             m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
