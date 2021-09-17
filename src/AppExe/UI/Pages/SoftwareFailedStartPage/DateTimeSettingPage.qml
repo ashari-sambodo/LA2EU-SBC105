@@ -85,7 +85,7 @@ ViewApp {
                             width: parent.width
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
-                            text: viewApp.title
+                            text: "Date & Time Setting"
                             font.bold: true
                             //                            font.family: "Courier";
                             font.pixelSize: 20

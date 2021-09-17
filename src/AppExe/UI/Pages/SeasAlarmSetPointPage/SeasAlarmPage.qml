@@ -37,7 +37,7 @@ ViewApp {
                 HeaderApp {
                     id: headerApp
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Seas Alarm Set Point")
                 }
             }
 

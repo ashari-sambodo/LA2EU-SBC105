@@ -34,7 +34,7 @@ ViewApp {
                 HeaderApp {
                     id: headerApp
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Field Sensor Calibration")
                 }
             }
 

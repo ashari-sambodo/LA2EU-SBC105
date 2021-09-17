@@ -114,7 +114,7 @@ ViewApp {
                                                               + "<br><br>"
                                                               + qsTr("USB port can be found on top of the cabinet, near by power inlet.")
                                                 const autoclosed = false
-                                                showDialogAsk(qsTr(viewApp.title), message, dialogAlert,
+                                                showDialogAsk(qsTr("Event Log Options"), message, dialogAlert,
                                                               function onAccepted(){
                                                                   KeyboardOnScreenCaller.openNumpad(exportNumberPageTextEdit, qsTr("Page to Export (ex. 1 or 1-10, max. 10 pages per export)"))
                                                               },

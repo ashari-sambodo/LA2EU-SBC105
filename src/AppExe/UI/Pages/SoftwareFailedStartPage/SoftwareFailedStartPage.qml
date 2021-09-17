@@ -99,7 +99,7 @@ ViewApp {
                             width: parent.width
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
-                            text: viewApp.title
+                            text: "Software Failed Start"
                             font.bold: true
                             //                            font.family: "Courier";
                             font.pixelSize: 20

@@ -33,7 +33,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Clean LCD")
                 }
             }
 

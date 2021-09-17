@@ -43,7 +43,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Event Log")
                 }
             }
 

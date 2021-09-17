@@ -45,7 +45,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Booking Options")
                 }//
             }//
 
@@ -118,7 +118,7 @@ ViewApp {
                                                               + "<br><br>"
                                                               + qsTr("USB port can be found on top of the cabinet, near by power inlet.")
                                                 const autoclosed = false
-                                                showDialogAsk(qsTr(viewApp.title), message, dialogAlert,
+                                                showDialogAsk(qsTr("Booking Options"), message, dialogAlert,
                                                               function onAccepted(){
                                                                   bookingScheduleQmlApp.exportAsDocument()
                                                               },

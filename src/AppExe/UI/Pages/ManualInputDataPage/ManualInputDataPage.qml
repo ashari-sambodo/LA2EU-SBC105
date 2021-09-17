@@ -41,7 +41,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Manual Input Calibration Point")
                 }
             }
 

@@ -46,6 +46,13 @@
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype        : "menu",
+                                 mtitle    : qsTr("Curve Test"),
+                                 micon     : "qrc:/UI/Pictures/menu/Light-Intensity.png",
+                                 mlink     : "qrc:/UI/Pages/BlankPage/CurveTestPage.qml"
+                             })
+
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype        : "menu",
                                  mtitle    : qsTr("LCD"),
                                  micon     : "qrc:/UI/Pictures/menu/Adjust-Brightness.png",
                                  mlink     : "qrc:/UI/Pages/LcdBrightnessPage/LcdBrightnessPage.qml"

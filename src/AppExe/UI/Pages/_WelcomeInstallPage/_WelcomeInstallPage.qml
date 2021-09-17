@@ -17,7 +17,7 @@ import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
-    title: "Blank Page"
+    title: "Welcome"
 
     background.sourceComponent: Item {}
 
@@ -44,7 +44,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Welcome")
                 }
             }
 

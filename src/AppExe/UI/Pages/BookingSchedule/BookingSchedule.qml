@@ -32,7 +32,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Booking Schedule")
                 }
             }
 
@@ -431,7 +431,7 @@ ViewApp {
             }//
 
             function bookingCancel(time) {
-                showDialogAsk(viewApp.title, qsTr("Are you sure to cencel?"), dialogAlert, function onAccepted(){
+                showDialogAsk("Booking Schedule", qsTr("Are you sure to cencel?"), dialogAlert, function onAccepted(){
                     showBusyPage(qsTr("Loading"), function(){})
                     bookingScheduleQmlApp.deleteByDateTime(targetDate, time)
                 })

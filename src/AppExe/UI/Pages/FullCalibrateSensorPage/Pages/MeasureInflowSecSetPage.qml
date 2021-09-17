@@ -34,7 +34,7 @@ ViewApp {
                 HeaderApp {
                     id: headerApp
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Inflow Secondary Method")
                 }
             }
 
@@ -662,7 +662,7 @@ ViewApp {
                                                   + "<br><br>"
                                                   + qsTr("Current values will be lost.")
 
-                                    viewApp.showDialogAsk(qsTr(viewApp.title),
+                                    viewApp.showDialogAsk(qsTr("Inflow Secondary Method"),
                                                           message,
                                                           viewApp.dialogInfo,
                                                           function onAccepted(){
@@ -686,7 +686,7 @@ ViewApp {
                                                   + "<br><br>"
                                                   + qsTr("Current values and drafted values will be removed.")
 
-                                    viewApp.showDialogAsk(qsTr(viewApp.title),
+                                    viewApp.showDialogAsk(qsTr("Inflow Secondary Method"),
                                                           message,
                                                           viewApp.dialogAlert,
                                                           function onAccepted(){
@@ -710,7 +710,7 @@ ViewApp {
                                 //                                let data = JSON.stringify(props.airflowGridItems)
                                 //                                //console.debug(data)
                                 if (!props.gridAcceptedAll) {
-                                    viewApp.showDialogMessage(qsTr(viewApp.title),
+                                    viewApp.showDialogMessage(qsTr("Inflow Secondary Method"),
                                                               qsTr("Please fill up all the fields!"),
                                                               viewApp.dialogAlert)
                                     return;
@@ -720,7 +720,7 @@ ViewApp {
                                            && (props.velocityConpensate > props.velocityLowestLimit)
                                            && (props.velocityConpensate < props.velocityHighestLimit)
                                 if (!pass) {
-                                    viewApp.showDialogMessage(qsTr(viewApp.title),
+                                    viewApp.showDialogMessage(qsTr("Inflow Secondary Method"),
                                                               qsTr("The velocity is out of specs"),
                                                               viewApp.dialogAlert)
                                     return;
@@ -840,7 +840,7 @@ ViewApp {
                                              })
 
                         ///show message
-                        //                        viewApp.showDialogMessage(qsTr(viewApp.title),
+                        //                        viewApp.showDialogMessage(qsTr("Inflow Secondary Method"),
                         //                                                  qsTr("Value from temporary storage has been loaded!"),
                         //                                                  viewApp.dialogInfo)
 

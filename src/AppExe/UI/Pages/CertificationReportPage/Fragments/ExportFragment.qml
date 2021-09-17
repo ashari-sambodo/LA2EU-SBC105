@@ -101,7 +101,7 @@ Item {
                                                   + "<br><br>"
                                                   + qsTr("USB port can be found on top of the cabinet, near by power inlet.")
                                     const autoclosed = false
-                                    showDialogAsk(qsTr(viewApp.title), message, dialogAlert,
+                                    showDialogAsk(qsTr("Export"), message, dialogAlert,
                                                   function onAccepted(){
 
                                                       let fileName = String(MachineData.cabinetDisplayName).replace(" ", "_")

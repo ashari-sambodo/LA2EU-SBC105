@@ -34,7 +34,7 @@ ViewApp {
                 HeaderApp {
                     id: headerApp
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Measure Downflow")
                 }
             }
 
@@ -684,7 +684,7 @@ ViewApp {
                                                   + "<br><br>"
                                                   + qsTr("Current values will be lost.")
 
-                                    viewApp.showDialogAsk(qsTr(viewApp.title),
+                                    viewApp.showDialogAsk(qsTr("Measure Downflow"),
                                                           message,
                                                           viewApp.dialogInfo,
                                                           function onAccepted(){
@@ -708,7 +708,7 @@ ViewApp {
                                                   + "<br><br>"
                                                   + qsTr("Current values and drafted values will be removed.")
 
-                                    viewApp.showDialogAsk(qsTr(viewApp.title),
+                                    viewApp.showDialogAsk(qsTr("Measure Downflow"),
                                                           message,
                                                           viewApp.dialogAlert,
                                                           function onAccepted(){
@@ -732,7 +732,7 @@ ViewApp {
                                 //let data = JSON.stringify(props.airflowGridItems)
                                 ////console.debug(data)
                                 if (!props.gridAcceptedAll) {
-                                    viewApp.showDialogMessage(qsTr(viewApp.title),
+                                    viewApp.showDialogMessage(qsTr("Measure Downflow"),
                                                               qsTr("Please fill up all the fields!"),
                                                               viewApp.dialogAlert)
                                     return;
@@ -748,7 +748,7 @@ ViewApp {
 
                                 if (velFromLowIsValid || velFromHighIsValid || devIsValid) {
                                     var message = devIsValid ? qsTr("The deviation is out of specs") : qsTr("The velocity is out of specs")
-                                    viewApp.showDialogMessage(qsTr(viewApp.title),
+                                    viewApp.showDialogMessage(qsTr("Measure Downflow"),
                                                               message,
                                                               viewApp.dialogAlert)
                                     return;
@@ -871,7 +871,7 @@ ViewApp {
                                              })
 
                         ///show message
-                        //                        viewApp.showDialogMessage(qsTr(viewApp.title),
+                        //                        viewApp.showDialogMessage(qsTr("Measure Downflow"),
                         //                                                  qsTr("Value from temporary storage has been loaded!"),
                         //                                                  viewApp.dialogInfo)
 

@@ -34,7 +34,7 @@ ViewApp {
                 HeaderApp {
                     id: headerApp
                     anchors.fill: parent
-                    title: qsTr(viewApp.title)
+                    title: qsTr("Measure Inflow")
                 }
             }
 
@@ -736,7 +736,7 @@ ViewApp {
                                                   + "<br><br>"
                                                   + qsTr("Current values will be lost.")
 
-                                    viewApp.showDialogAsk(qsTr(viewApp.title),
+                                    viewApp.showDialogAsk(qsTr("Measure Inflow"),
                                                           message,
                                                           viewApp.dialogInfo,
                                                           function onAccepted(){
@@ -760,7 +760,7 @@ ViewApp {
                                                   + "<br><br>"
                                                   + qsTr("Current values and drafted values will be removed.")
 
-                                    viewApp.showDialogAsk(qsTr(viewApp.title),
+                                    viewApp.showDialogAsk(qsTr("Measure Inflow"),
                                                           message,
                                                           viewApp.dialogAlert,
                                                           function onAccepted(){
@@ -782,7 +782,7 @@ ViewApp {
 
                             onClicked: {
                                 if (!props.gridAcceptedAll) {
-                                    viewApp.showDialogMessage(qsTr(viewApp.title),
+                                    viewApp.showDialogMessage(qsTr("Measure Inflow"),
                                                               qsTr("Please fill up all the fields!"),
                                                               viewApp.dialogAlert)
                                     return;
@@ -791,7 +791,7 @@ ViewApp {
                                 if ((props.velocity > props.velocityHighestLimit) ||
                                         (props.velocity < props.velocityLowestLimit)) {
 
-                                    viewApp.showDialogMessage(qsTr(viewApp.title),
+                                    viewApp.showDialogMessage(qsTr("Measure Inflow"),
                                                               qsTr("Velocity result is out of specs"),
                                                               viewApp.dialogAlert)
                                     return;
@@ -906,7 +906,7 @@ ViewApp {
                                              })
 
                         ///show message
-                        //                        viewApp.showDialogMessage(qsTr(viewApp.title),
+                        //                        viewApp.showDialogMessage(qsTr("Measure Inflow"),
                         //                                                  qsTr("Value from temporary storage has been loaded!"),
                         //                                                  viewApp.dialogInfo)
 

@@ -3,7 +3,6 @@
         <file>main.qml</file>
         <file>UI/Pages/_HomePage/HomePage.qml</file>
         <file>UI/Pages/__StartupPage/StartupPage.qml</file>
-        <file>UI/Pages/WiFiSettingPage/WiFiSettingPage.qml</file>
         <file>UI/Pages/ClosingPage/ClosingPage.qml</file>
         <file>UI/Pages/_HomePage/Components/ControlButtonApp.qml</file>
         <file>UI/Pages/_HomePage/Components/StatusHorizontalApp.qml</file>
@@ -67,7 +66,6 @@
         <file>UI/Pages/BluetoothPage/BluetoothPage.qml</file>
         <file>UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml</file>
         <file>UI/Pages/FullCalibrateSensorPage/Pages/Components/WorkerScriptInflowSecHelper.mjs</file>
-        <file>UI/Pages/WiFiSettingPage/WiFiSettingPage_copy.qml</file>
         <file>UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml</file>
         <file>UI/Pages/LoginPage/LoginPage.qml</file>
         <file>UI/Pages/FullCalibrateSensorPage/Pages/_FinishCalibratePage.qml</file>
@@ -154,5 +152,6 @@
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTunningParameters.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/InflowGridFieldFragment.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Components/PidTuningAnimationApp.qml</file>
+        <file>UI/Pages/BlankPage/CurveTestPage.qml</file>
     </qresource>
 </RCC>
