@@ -148,10 +148,11 @@
         <file>UI/Pages/SoftwareFailedStartPage/DateTimeSettingPage.qml</file>
         <file>UI/Pages/SystemInformationPage/SystemInformationPage.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/FanClosedLoopControlPage.qml</file>
-        <file>UI/Pages/FanClosedLoopControlPage/Pages/CloseLoopTuningHelp.qml</file>
-        <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTunningParameters.qml</file>
+        <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml</file>
+        <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningParameters.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/InflowGridFieldFragment.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Components/PidTuningAnimationApp.qml</file>
-        <file>UI/Pages/BlankPage/CurveTestPage.qml</file>
+        <file>UI/Pages/FanClosedLoopControlPage/Components/CurveTuningApp.qml</file>
+        <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopResponse.qml</file>
     </qresource>
 </RCC>

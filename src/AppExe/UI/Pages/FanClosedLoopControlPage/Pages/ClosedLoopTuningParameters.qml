@@ -695,7 +695,7 @@ are errors.") + "</i>"
                                         }else{
                                             //console.debug("Failed to set Resource_General!")
                                         }
-                                        var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/Pages/CloseLoopTuningHelp.qml", {"message":""})
+                                        var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml", {"message":""})
                                         startView(intent)
                                     }
                                 }
@@ -730,19 +730,33 @@ are errors.") + "</i>"
                     Item {
                         anchors.fill: parent
                         anchors.margins: 5
+                        Row{
+                            spacing: 5
+                            ButtonBarApp {
+                                id: back
+                                width: 194
+                                anchors.verticalCenter: parent.verticalCenter
 
-                        ButtonBarApp {
-                            width: 194
-                            anchors.verticalCenter: parent.verticalCenter
+                                imageSource: "qrc:/UI/Pictures/back-step.png"
+                                text: qsTr("Back")
 
-                            imageSource: "qrc:/UI/Pictures/back-step.png"
-                            text: qsTr("Back")
+                                onClicked: {
+                                    var intent = IntentApp.create(uri, {"message":""})
+                                    finishView(intent)
+                                }
+                            }//
+                            ButtonBarApp {
+                                width: 194
+                                anchors.verticalCenter: parent.verticalCenter
+                                imageSource: "qrc:/UI/Pictures/back-step.png"
+                                text: qsTr("Response")
 
-                            onClicked: {
-                                var intent = IntentApp.create(uri, {"message":""})
-                                finishView(intent)
-                            }
-                        }//
+                                onClicked: {
+                                    var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopResponse.qml", {"message":""})
+                                    startView(intent)
+                                }
+                            }//
+                        }
                         ButtonBarApp {
                             id: setButton
                             width: 194

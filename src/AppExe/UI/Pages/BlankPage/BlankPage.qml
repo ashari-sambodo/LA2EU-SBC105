@@ -58,17 +58,18 @@ ViewApp {
                 //                RowLayout {
                 //                    anchors.fill: parent
 
-                //                    Item {
+                //                    CurveTestPage{
+                //                        id: curve1
                 //                        Layout.fillHeight: true
                 //                        Layout.fillWidth: true
-
-                //                    }//
-
-                //                    Item {
-                //                        Layout.fillHeight: true
-                //                        Layout.fillWidth: true
+                //                        title: qsTr("Downflow")
                 //                    }
-                //                    //
+                //                    CurveTestPage{
+                //                        id: curve2
+                //                        Layout.fillHeight: true
+                //                        Layout.fillWidth: true
+                //                        title: qsTr("Inflow")
+                //                    }//
                 //                }//
             }//
 

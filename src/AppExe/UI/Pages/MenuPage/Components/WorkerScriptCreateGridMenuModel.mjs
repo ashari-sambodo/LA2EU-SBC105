@@ -48,7 +48,7 @@
             //            menu[index].push({mtype        : "menu",
             //                                 mtitle    : qsTr("Curve Test"),
             //                                 micon     : "qrc:/UI/Pictures/menu/Light-Intensity.png",
-            //                                 mlink     : "qrc:/UI/Pages/BlankPage/CurveTestPage.qml"
+            //                                 mlink     : "qrc:/UI/Pages/BlankPage/BlankPage.qml"
             //                             })
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
