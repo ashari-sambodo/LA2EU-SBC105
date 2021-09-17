@@ -625,7 +625,8 @@ private:
     int  m_sashSafeAutoOnOutputDelayTimeMsec = 100; /// 100ms //original 3 seconds
 
     QTimer* eventTimerForDelayMotorizedOffAtFullyClosed = nullptr;
-    int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 5000; /// 5000ms
+    int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 2000; /// 2000ms
+    bool  m_delaySashMotorFullyClosedExecuted = false;
 
 #ifdef QT_DEBUG
     QScopedPointer<QWebSocketServer> m_pWebSocketServerDummyState;

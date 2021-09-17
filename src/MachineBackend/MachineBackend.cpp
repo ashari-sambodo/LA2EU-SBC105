@@ -5255,7 +5255,7 @@ void MachineBackend::_onTemperatureActualChanged(int value)
         int fahrenheit = __convertCtoF(value);
         pData->setTemperature(static_cast<short>(fahrenheit));
 
-        valueStr = QString::asprintf("%d°F", fahrenheit);
+        valueStr = QString::asprintf("%dÂ°F", fahrenheit);
         pData->setTemperatureValueStrf(valueStr);
 
         //        tempBasedOnMeaUnit = static_cast<short>(fahrenheit);
@@ -5263,7 +5263,7 @@ void MachineBackend::_onTemperatureActualChanged(int value)
     else {
         pData->setTemperature(static_cast<short>(value));
 
-        valueStr = QString::asprintf("%d°C", value);
+        valueStr = QString::asprintf("%dÂ°C", value);
         pData->setTemperatureValueStrf(valueStr);
         //        tempBasedOnMeaUnit = value;
     }
@@ -7658,14 +7658,11 @@ void MachineBackend::_machineState()
                     m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
                 }
 
-                if(!pData->getSashWindowMotorizeDownInterlocked()){
-                    m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ONE);
-                }
-
                 if(m_pSashWindow->isSashStateChanged()){
                     if(pData->getSashWindowMotorizeState()){
                         if(m_sashMotorizedOffAtFullyClosedDelayTimeMsec){
                             if(!eventTimerForDelayMotorizedOffAtFullyClosed){
+                                m_delaySashMotorFullyClosedExecuted = false;
                                 /// Give a delay for a moment for sash moving down after fully closed detected
                                 eventTimerForDelayMotorizedOffAtFullyClosed = new QTimer();
                                 eventTimerForDelayMotorizedOffAtFullyClosed->setInterval(m_sashMotorizedOffAtFullyClosedDelayTimeMsec);
@@ -7675,6 +7672,7 @@ void MachineBackend::_machineState()
                                                  eventTimerForDelayMotorizedOffAtFullyClosed, [=](){
                                     m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                                     m_pSasWindowMotorize->routineTask();
+                                    m_delaySashMotorFullyClosedExecuted = true;
                                 });
 
                                 eventTimerForDelayMotorizedOffAtFullyClosed->start();
@@ -7683,6 +7681,16 @@ void MachineBackend::_machineState()
                             m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                             m_pSasWindowMotorize->routineTask();
                         }
+                    }
+                }
+                if(m_delaySashMotorFullyClosedExecuted){
+                    if(!pData->getSashWindowMotorizeDownInterlocked()){
+                        m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ONE);
+                    }
+                    if (eventTimerForDelayMotorizedOffAtFullyClosed != nullptr) {
+                        eventTimerForDelayMotorizedOffAtFullyClosed->stop();
+                        delete eventTimerForDelayMotorizedOffAtFullyClosed;
+                        eventTimerForDelayMotorizedOffAtFullyClosed = nullptr;
                     }
                 }
             }
