@@ -752,11 +752,24 @@ are errors.") + "</i>"
                                 text: qsTr("Response")
 
                                 onClicked: {
-                                    var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopResponse.qml", {"message":""})
+                                    var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopResponse.qml",
+                                                                  {
+                                                                      "dfaKp"               : props.dfaGainProportional,
+                                                                      "dfaKi"               : props.dfaGainIntegral,
+                                                                      "dfaKd"               : props.dfaGainDerivative,
+                                                                      "dfaSetpoint"         : props.dfaSetpoint,
+                                                                      "dfaModel"            : props.dfaActualVelocityModel,
+                                                                      "ifaKp"               : props.ifaGainProportional,
+                                                                      "ifaKi"               : props.ifaGainIntegral,
+                                                                      "ifaKd"               : props.ifaGainDerivative,
+                                                                      "ifaSetpoint"         : props.ifaSetpoint,
+                                                                      "ifaModel"            : props.ifaActualVelocityModel,
+                                                                      "samplingTime"        : props.samplingTime,
+                                                                  })
                                     startView(intent)
-                                }
+                                }//
                             }//
-                        }
+                        }//
                         ButtonBarApp {
                             id: setButton
                             width: 194
@@ -820,6 +833,9 @@ are errors.") + "</i>"
             readonly property real kdMin: 0
             readonly property real tsMin: 200
 
+            property var dfaActualVelocityModel: []
+            property var ifaActualVelocityModel: []
+
             property bool dfaKpChanged:    false
             property bool dfaKiChanged:    false
             property bool dfaKdChanged:    false
@@ -841,10 +857,10 @@ are errors.") + "</i>"
 
             onDfaGainProportionalChanged: {dfaGainProportional !== MachineData.getFanClosedLoopGainProportional(0)  ? dfaKpChanged = true : dfaKpChanged = false}
             onDfaGainIntegralChanged:     {dfaGainIntegral     !== MachineData.getFanClosedLoopGainIntegral(0)      ? dfaKiChanged = true : dfaKiChanged = false}
-            onDfaGainDerivativeChanged:    {dfaGainDerivative    !== MachineData.getFanClosedLoopGainDerivative(0)     ? dfaKdChanged = true : dfaKdChanged = false}
+            onDfaGainDerivativeChanged:    {dfaGainDerivative  !== MachineData.getFanClosedLoopGainDerivative(0)    ? dfaKdChanged = true : dfaKdChanged = false}
             onIfaGainProportionalChanged: {ifaGainProportional !== MachineData.getFanClosedLoopGainProportional(1)  ? ifaKpChanged = true : ifaKpChanged = false}
             onIfaGainIntegralChanged:     {ifaGainIntegral     !== MachineData.getFanClosedLoopGainIntegral(1)      ? ifaKiChanged = true : ifaKiChanged = false}
-            onIfaGainDerivativeChanged:    {ifaGainDerivative    !== MachineData.getFanClosedLoopGainDerivative(1)     ? ifaKdChanged = true : ifaKdChanged = false}
+            onIfaGainDerivativeChanged:    {ifaGainDerivative  !== MachineData.getFanClosedLoopGainDerivative(1)    ? ifaKdChanged = true : ifaKdChanged = false}
             onSamplingTimeChanged:        {samplingTime        !== MachineData.getFanClosedLoopSamplingTime()       ? tsChanged    = true : tsChanged    = false}
 
             function showWarningOutRange(lowLimit, highLimit){

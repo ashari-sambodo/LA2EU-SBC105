@@ -56,46 +56,29 @@ ViewApp {
 
                 RowLayout {
                     anchors.fill: parent
-                    Item{
+                    CusCom.CurveTuningApp{
+                        id: curve1
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        Loader {
-                            id: dfaLoader
-                            active: false
-                            anchors.fill: parent
-                            sourceComponent: CusCom.CurveTuningApp{
-                                id: curve1
-                                anchors.fill: parent
-                                title: qsTr("Downflow")
-                                modelY: props.dfaActualVelocity
-                                kp: props.dfaKp
-                                ki: props.dfaKi
-                                kd: props.dfaKd
-                                setpoint: props.dfaSetpoint
-                                samplingTime: props.samplingTime
-                            }
-                        }
+                        //enabled: false
+                        //visible: false
+                        title: qsTr("Downflow")
+
                     }
-                    Item{
+                    CusCom.CurveTuningApp{
+                        id: curve2
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        Loader {
-                            id: ifaLoader
-                            active: false
-                            anchors.fill: parent
-                            sourceComponent: CusCom.CurveTuningApp{
-                                id: curve2
-                                anchors.fill: parent
-                                title: qsTr("Inflow")
-                                modelY: props.ifaActualVelocity
-                                kp: props.ifaKp
-                                ki: props.ifaKi
-                                kd: props.ifaKd
-                                setpoint: props.ifaSetpoint
-                                samplingTime: props.samplingTime
-                            }//
-                        }//
-                    }
+                        //enabled: false
+                        //visible: false
+                        title: qsTr("Inflow")
+                        //                        modelY: props.ifaActualVelocity
+                        //                        kp: props.ifaKp
+                        //                        ki: props.ifaKi
+                        //                        kd: props.ifaKd
+                        //                        setpoint: props.ifaSetpoint
+                        //                        samplingTime: props.samplingTime
+                    }//
                 }//
             }//
 
@@ -142,12 +125,12 @@ ViewApp {
             property real dfaKi: 0.0
             property real dfaKd: 0.0
             property real dfaSetpoint: 0.0
-            property var dfaActualVelocity: []
+            property var dfaActualVelocityModel: []
             property real ifaKp: 0.0
             property real ifaKi: 0.0
             property real ifaKd: 0.0
             property real ifaSetpoint: 0.0
-            property var ifaActualVelocity: []
+            property var ifaActualVelocityModel: []
 
             property int samplingTime: 0
         }//
@@ -163,8 +146,38 @@ ViewApp {
             /// onResume
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
-                dfaLoader.active= true
-                ifaLoader.active= true
+                let extradata = IntentApp.getExtraData(intent)
+
+                props.dfaKp             = extradata['dfaKp'] || 0
+                props.dfaKi             = extradata['dfaKi'] || 0
+                props.dfaKd             = extradata['dfaKd'] || 0
+                props.dfaSetpoint       = extradata['dfaSetpoint'] || 0
+                props.dfaActualVelocityModel = extradata['dfaModel'] || 0
+
+                props.ifaKp             = extradata['ifaKp'] || 0
+                props.ifaKi             = extradata['ifaKi'] || 0
+                props.ifaKd             = extradata['ifaKd'] || 0
+                props.ifaSetpoint       = extradata['ifaSetpoint'] || 0
+                props.ifaActualVelocityModel = extradata['ifaModel'] || 0
+
+                props.samplingTime      = extradata['samplingTime'] || 0
+
+                //curve1.modelY       = props.dfaActualVelocityModel
+                curve1.kp           = props.dfaKp
+                curve1.ki           = props.dfaKi
+                curve1.kd           = props.dfaKd
+                curve1.setpoint     = props.dfaSetpoint
+                curve1.samplingTime = props.samplingTime
+
+                //curve2.modelY       = props.ifaActualVelocityModel
+                curve2.kp           = props.ifaKp
+                curve2.ki           = props.ifaKi
+                curve2.kd           = props.ifaKd
+                curve2.setpoint     = props.ifaSetpoint
+                curve2.samplingTime = props.samplingTime
+
+                curve1.activate()
+                curve2.activate()
             }
 
             /// onPause

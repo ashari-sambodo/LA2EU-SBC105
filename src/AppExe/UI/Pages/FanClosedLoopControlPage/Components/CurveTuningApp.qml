@@ -29,6 +29,8 @@ Item {
     property int settlingTime: 1000
     property int riseTime: 1000
 
+    signal activate()
+
     Rectangle{
         id: control
         x: curve.x
@@ -204,33 +206,37 @@ Item {
         }//
 
         Component.onCompleted: {
-            var max = curve.modelY.reduce(function(a, b) {
-                return Math.max(a, b);
-            }, 0);
-            curve.overshoot = max
-
-            for(let i=1; i<=curve.noOfSample; i++){
-                curve.modelX[i-1] = i*(control.width/curve.noOfSample)
-                curve.modelY[i-1] = control.height*(curve.modelY[i-1] / curve.upperY)
-            }
-
-            overshootRect.y = (control.y+control.height) - (control.height*(max / curve.upperY))
-
-            canvasLoader.active = true
-            console.debug("height :", control.height)
-            console.debug("width  :", control.width)
-            console.debug("up limit vel:",curve.upperY)
-            console.debug("max velocity:",max)
-            console.debug("coordinat max velocity:",control.height*(max / curve.upperY))
-            console.debug("sp velocity:",curve.setpoint)
-            console.debug("coordinat sp velocity:",control.height*(curve.setpoint / curve.upperY))
-            overshootRect.visible= true
-
-            setpointRect.y=(control.y+control.height) - (control.height*(curve.setpoint / curve.upperY))
-            setpointRect.visible=true
 
         }//
     }//
+
+    onActivate: {
+        var max = curve.modelY.reduce(function(a, b) {
+            return Math.max(a, b);
+        }, 0);
+        curve.overshoot = max
+
+        for(let i=1; i<=curve.noOfSample; i++){
+            curve.modelX[i-1] = i*(control.width/curve.noOfSample)
+            curve.modelY[i-1] = control.height*(curve.modelY[i-1] / curve.upperY)
+        }
+
+        overshootRect.y = (control.y+control.height) - (control.height*(max / curve.upperY))
+
+        canvasLoader.active = true
+        console.debug("height :", control.height)
+        console.debug("width  :", control.width)
+        console.debug("up limit vel:",curve.upperY)
+        console.debug("max velocity:",max)
+        console.debug("coordinat max velocity:",control.height*(max / curve.upperY))
+        console.debug("sp velocity:",curve.setpoint)
+        console.debug("coordinat sp velocity:",control.height*(curve.setpoint / curve.upperY))
+        overshootRect.visible= true
+
+        setpointRect.y=(control.y+control.height) - (control.height*(curve.setpoint / curve.upperY))
+        setpointRect.visible=true
+    }
+
     Component.onCompleted: {
         //        console.debug("x:", curve.x)
         //        console.debug("y:", curve.y)
