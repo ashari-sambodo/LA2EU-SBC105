@@ -830,6 +830,16 @@ void MachineProxy::setFanClosedLoopGainDerivativeIfa(float value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setReadClosedLoopResponse(bool value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setReadClosedLoopResponse(value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setOperationModeSave(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();

@@ -247,7 +247,7 @@ public slots:
                                     int velocity,
                                     int velocityLowest, int velocityHighest,
                                     int deviation, int deviationp,
-                                     int ducy, int rpm, int fullField = 0);
+                                    int ducy, int rpm, int fullField = 0);
     void saveDownflowMeaMinimumGrid(const QJsonArray grid, int total,
                                     int velocity,
                                     int velocityLowest, int velocityHighest,
@@ -353,6 +353,8 @@ public slots:
     void setFanClosedLoopGainIntegralIfa(float value);
     void setFanClosedLoopGainProportionalIfa(float value);
     void setFanClosedLoopGainDerivativeIfa(float value);
+
+    void setReadClosedLoopResponse(bool value);
 
 signals:
     void hasStopped();
@@ -627,6 +629,7 @@ private:
     QTimer* eventTimerForDelayMotorizedOffAtFullyClosed = nullptr;
     int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 2000; /// 2000ms
     bool  m_delaySashMotorFullyClosedExecuted = false;
+    uchar m_counter = 0;
 
 #ifdef QT_DEBUG
     QScopedPointer<QWebSocketServer> m_pWebSocketServerDummyState;

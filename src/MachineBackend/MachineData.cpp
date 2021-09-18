@@ -109,7 +109,7 @@ void MachineData::setFanClosedLoopControlEnable(bool value)
 
 bool MachineData::getFanFanClosedLoopControlEnablePrevState() const
 {
-        return m_fanFanClosedLoopControlEnablePrevState;
+    return m_fanFanClosedLoopControlEnablePrevState;
 }
 
 void MachineData::setFanFanClosedLoopControlEnablePrevState(bool value)
@@ -172,6 +172,55 @@ void MachineData::setFanClosedLoopSetpoint(int value, short index)
 {
     if(m_fanClosedLoopSetpoint[index] == value)return;
     m_fanClosedLoopSetpoint[index] = value;
+}
+
+float MachineData::getDfaVelClosedLoopResponse(short index) const
+{
+    if(index >= 60) return 0;
+    return m_dfaVelClosedLoopResponse[index];
+}
+
+void MachineData::setDfaVelClosedLoopResponse(float value, short index)
+{
+    if(index >= 60) return;
+    if(m_dfaVelClosedLoopResponse[index] == value) return;
+    m_dfaVelClosedLoopResponse[index] = value;
+}
+
+float MachineData::getIfaVelClosedLoopResponse(short index) const
+{
+    if(index >= 60) return 0;
+    return m_ifaVelClosedLoopResponse[index];
+}
+
+void MachineData::setIfaVelClosedLoopResponse(float value, short index)
+{
+    if(index >= 60) return;
+    if(m_ifaVelClosedLoopResponse[index] == value) return;
+    m_ifaVelClosedLoopResponse[index] = value;
+}
+
+bool MachineData::getClosedLoopResponseStatus() const
+{
+    return m_closeLoopResponseStatus;
+}
+
+void MachineData::setClosedLoopResponseStatus(bool value)
+{
+    if(m_closeLoopResponseStatus == value) return;
+    m_closeLoopResponseStatus = value;
+    emit closedLoopResponseStatusChanged(value);
+}
+
+bool MachineData::getReadClosedLoopResponse() const
+{
+    return m_readClosedLoopResponse;
+}
+
+void MachineData::setReadClosedLoopResponse(bool value)
+{
+    if(m_readClosedLoopResponse == value) return;
+    m_readClosedLoopResponse = value;
 }
 
 QString MachineData::getSbcSerialNumber() const

@@ -16,8 +16,8 @@ Item {
     id: curve
 
     property alias title: title.text
-    property var modelX: []
-    property var modelY: [0.35,0.40,0.43,0.45,0.43,0.45,0.40,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40]
+    property variant modelX: []
+    property variant modelY: [0.35,0.40,0.43,0.45,0.43,0.45,0.40,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40,0.45,0.44,0.43,0.40,0.40]
     property real kp: 0.0
     property real ki: 0.0
     property real kd: 0.0
@@ -26,25 +26,37 @@ Item {
     property int noOfSample: 60
     property real overshoot: 0.0
     property int samplingTime:1000
-    property int settlingTime: 1000
-    property int riseTime: 1000
+    property int cursorTime: 0
+    property real cursorVel: 0
+    //.property int riseTime: 1000
 
     signal activate()
 
     Rectangle{
         id: control
+        clip: true
         x: curve.x
         y: curve.y
         anchors.fill: parent
-        color: "#99333333"
+        color: "#66333333"
         border.width: 1
-        z: -1
+        z: -2
+        MouseArea{
+            id: mAControl
+            anchors.fill: parent
+            hoverEnabled: false
+            onPositionChanged :{
+                //console.debug("x: ", mouseX, " y: ", mouseY)
+                cursorRectVertical.x = mouseX
+                cursorRectHorizontal.y = mouseY
+            }//
+        }//
     }//
     Column{
         id: colText
         x: control.x + 5
         y: control.y + 5
-        TextApp{id:title;text:"---"; font.pixelSize: 16}
+        TextApp{id:title;text:"---"; font.pixelSize: 16; font.bold: true}
         Row{
             id: rowText
             ////
@@ -86,8 +98,8 @@ Item {
             ////
             Column{
                 TextApp{text:qsTr("Sampling Time"); font.pixelSize: 16}
-                TextApp{text:qsTr("Rise Time"); font.pixelSize: 16}
-                TextApp{text:qsTr("Settling Time"); font.pixelSize: 16}
+                TextApp{text:qsTr("Cursor Time"); font.pixelSize: 16}
+                TextApp{text:qsTr("Cursor Velocity"); font.pixelSize: 16}
             }
             Column{
                 TextApp{text:": "; font.pixelSize: 16}
@@ -96,10 +108,9 @@ Item {
             }
             Column{
                 TextApp{text:"%1 ms".arg(curve.samplingTime); font.pixelSize: 16}
-                TextApp{text:"%1 ms".arg(curve.riseTime); font.pixelSize: 16}
-                TextApp{text:"%1 ms".arg(curve.settlingTime); font.pixelSize: 16}
-            }
-
+                TextApp{text:"%1 ms".arg(curve.cursorTime); font.pixelSize: 16}
+                TextApp{text:"%1 m/s".arg(curve.cursorVel.toFixed(2)); font.pixelSize: 16}
+            }//
         }//
     }//
 
@@ -120,9 +131,28 @@ Item {
         height: 1;
         x:control.x;
         y:control.y+control.height-100;
-        color:"green"
+        color:"cyan"
 
     }//
+
+    Rectangle{
+        id: cursorRectVertical
+        height: parent.height
+        width : 1
+        color: "gray"
+        z: -1
+        x: control.x
+        y: control.y
+    }
+    Rectangle{
+        id: cursorRectHorizontal
+        height: 1
+        width : parent.width
+        color: "gray"
+        z: -1
+        x: control.x
+        y: control.y
+    }
 
     Loader{
         id: canvasLoader
@@ -214,16 +244,18 @@ Item {
         var max = curve.modelY.reduce(function(a, b) {
             return Math.max(a, b);
         }, 0);
-        curve.overshoot = max
+        if(max > curve.setpoint)
+            curve.overshoot = max - curve.setpoint
+        else
+            curve.overshoot = 0.0
 
         for(let i=1; i<=curve.noOfSample; i++){
             curve.modelX[i-1] = i*(control.width/curve.noOfSample)
             curve.modelY[i-1] = control.height*(curve.modelY[i-1] / curve.upperY)
         }
 
-        overshootRect.y = (control.y+control.height) - (control.height*(max / curve.upperY))
-
         canvasLoader.active = true
+
         console.debug("height :", control.height)
         console.debug("width  :", control.width)
         console.debug("up limit vel:",curve.upperY)
@@ -231,15 +263,35 @@ Item {
         console.debug("coordinat max velocity:",control.height*(max / curve.upperY))
         console.debug("sp velocity:",curve.setpoint)
         console.debug("coordinat sp velocity:",control.height*(curve.setpoint / curve.upperY))
-        overshootRect.visible= true
 
         setpointRect.y=(control.y+control.height) - (control.height*(curve.setpoint / curve.upperY))
-        setpointRect.visible=true
+        if(curve.overshoot != 0.0)
+            overshootRect.y = (control.y + control.height) - (control.height*(max / curve.upperY))
+        else
+            overshootRect.y = setpointRect.y
+
+        overshootRect.visible = true
+        setpointRect.visible = true
     }
 
     Component.onCompleted: {
         //        console.debug("x:", curve.x)
         //        console.debug("y:", curve.y)
+        curve.cursorTime = Qt.binding(function(){
+            return ((mAControl.mouseX / control.width) * (curve.samplingTime * curve.noOfSample))
+        })
+        curve.cursorVel = Qt.binding(function(){
+            let a, b, c, d, e
+            a = mAControl.mouseY
+            b = control.y
+            c = control.height
+            d = 0
+            e = curve.upperY
+
+            d = ((e * (a-(b+c)))/c)
+
+            return Math.abs(d)
+        })
     }//
 }//
 

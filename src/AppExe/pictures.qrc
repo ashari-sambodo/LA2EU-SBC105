@@ -229,5 +229,6 @@
         <file>UI/Pictures/pid/Respons_PID_Controller.png</file>
         <file>UI/Pictures/pid/small-info.png</file>
         <file>UI/Pictures/pid/tune-help.png</file>
+        <file>UI/Pictures/pid/response.png</file>
     </qresource>
 </RCC>

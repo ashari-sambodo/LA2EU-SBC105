@@ -2469,6 +2469,31 @@ void MachineBackend::_onTriggeredEventClosedLoopControl()
     //qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     m_pIfaFanClosedLoopControl->routineTask();
     m_pDfaFanClosedLoopControl->routineTask();
+
+    /// Record the Output Response
+    if(pData->getReadClosedLoopResponse()){
+        if(pData->getClosedLoopResponseStatus()) pData->setClosedLoopResponseStatus(false);
+
+        float dfaVel = static_cast<float>(pData->getDownflowVelocity())/static_cast<float>(100.0);
+        float ifaVel = static_cast<float>(pData->getInflowVelocity())/static_cast<float>(100.0);
+
+        if(pData->getMeasurementUnit()){
+            dfaVel = static_cast<float>(__convertFpmToMps(static_cast<double>(dfaVel)));
+            ifaVel = static_cast<float>(__convertFpmToMps(static_cast<double>(ifaVel)));
+        }
+
+        pData->setDfaVelClosedLoopResponse(dfaVel, m_counter);
+        pData->setIfaVelClosedLoopResponse(ifaVel, m_counter);
+
+        qDebug() << m_counter << dfaVel << ifaVel;
+
+        if(++m_counter >= 60) /// only read 60 samples
+        {
+            m_counter = 0;
+            pData->setReadClosedLoopResponse(false);
+            pData->setClosedLoopResponseStatus(true);
+        }
+    }
 }
 
 /////////////////////////////////////////////////// API Group for General Object Operation
@@ -5543,7 +5568,7 @@ void MachineBackend::_onTimerEventWarmingUp()
         _wakeupLcdBrightnessLevel();
         /// Activate event timer for Fan Closed Loop Control After WarmingUp Finished
         /// Only if both fan state in Nominal
-        if(isFanStateNominal() && pData->getFanClosedLoopControlEnable()){
+        if(isFanStateNominal() && pData->getFanClosedLoopControlEnable() && !pData->getReadClosedLoopResponse()){
             /// Set Initial Actual Fan Duty Cycle before m_timerEventForClosedLoopControl is activated
             m_pDfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanPrimaryDutyCycle());
             m_pIfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanInflowDutyCycle());
@@ -5553,6 +5578,11 @@ void MachineBackend::_onTimerEventWarmingUp()
     else {
         count--;
         pData->setWarmingUpCountdown(count);
+        if(pData->getReadClosedLoopResponse() && !m_timerEventForClosedLoopControl->isActive()){
+            m_pDfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanPrimaryDutyCycle());
+            m_pIfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanInflowDutyCycle());
+            m_timerEventForClosedLoopControl->start();
+        }
     }
 }
 
@@ -7130,6 +7160,11 @@ void MachineBackend::setFanClosedLoopGainDerivativeIfa(float value)
     m_pIfaFanClosedLoopControl->setGainDerivative(value);
     QSettings settings;
     settings.setValue(SKEY_FAN_CLOSE_LOOP_GAIN_D + QString::number(Inflow), value);
+}
+
+void MachineBackend::setReadClosedLoopResponse(bool value)
+{
+    pData->setReadClosedLoopResponse(value);
 }
 
 void MachineBackend::_machineState()

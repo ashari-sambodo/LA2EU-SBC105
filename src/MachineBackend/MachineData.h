@@ -911,6 +911,10 @@ class MachineData : public QObject
                READ getFanFanClosedLoopControlEnablePrevState
                //               WRITE setFanFanClosedLoopControlEnablePrevState
                NOTIFY fanFanClosedLoopControlEnablePrevStateChanged)
+    Q_PROPERTY(bool closedLoopResponseStatus
+               READ getClosedLoopResponseStatus
+               //               WRITE setFanFanClosedLoopControlEnablePrevState
+               NOTIFY closedLoopResponseStatusChanged)
 
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
@@ -1649,6 +1653,15 @@ public:
     Q_INVOKABLE int getFanClosedLoopSetpoint(short index) const;
     void setFanClosedLoopSetpoint(int value, short index);
 
+    Q_INVOKABLE float getDfaVelClosedLoopResponse(short index) const;
+    void setDfaVelClosedLoopResponse(float value, short index);
+    Q_INVOKABLE float getIfaVelClosedLoopResponse(short index) const;
+    void setIfaVelClosedLoopResponse(float value, short index);
+    bool getClosedLoopResponseStatus() const;
+    void setClosedLoopResponseStatus(bool value);
+    bool getReadClosedLoopResponse() const;
+    void setReadClosedLoopResponse(bool value);
+
 public slots:
     void initSingleton();
 
@@ -1927,6 +1940,7 @@ signals:
     //    void fanClosedLoopGainProportionalChanged(bool value);
     //    void fanClosedLoopGainIntegralChanged(float value);
     //    void fanClosedLoopGainDerivativeChanged(float value);
+    void closedLoopResponseStatusChanged(bool value);
 
 private:
     ///
@@ -2272,6 +2286,10 @@ private:
     int m_fanClosedLoopSamplingTime;
     int m_fanClosedLoopSetpoint[2];
 
+    float m_dfaVelClosedLoopResponse[60] = {0};
+    float m_ifaVelClosedLoopResponse[60] = {0};
+    bool m_readClosedLoopResponse = false;
+    bool m_closeLoopResponseStatus = false;
 };
 
 

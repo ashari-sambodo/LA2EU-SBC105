@@ -322,6 +322,8 @@ public slots:
     void setFanClosedLoopGainProportionalIfa(float value);
     void setFanClosedLoopGainDerivativeIfa(float value);
 
+    void setReadClosedLoopResponse(bool value);
+
 private slots:
     void doStopping();
 

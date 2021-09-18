@@ -256,7 +256,7 @@ ViewApp {
                             text: qsTr("Back")
 
                             onClicked: {
-                                var intent = IntentApp.create(uri, {"message":""})
+                                var intent = IntentApp.create(uri, {"message": ""})
                                 finishView(intent)
                             }
                         }//
@@ -273,7 +273,6 @@ ViewApp {
         ///// if none, please comment this block to optimize the code
         QtObject {
             id: props
-            //property bool init: false
 
             function showInfo(index, title){
                 let msg = ""
@@ -305,7 +304,6 @@ ViewApp {
             /// onResume
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
-
             }//
 
             /// onPause

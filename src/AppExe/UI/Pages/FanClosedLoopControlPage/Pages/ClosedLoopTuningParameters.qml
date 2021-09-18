@@ -12,7 +12,7 @@ import QtQuick.Controls 2.7
 
 import UI.CusCom 1.0
 import "../../../CusCom/JS/IntentApp.js" as IntentApp
-
+//import Qt.labs.settings 1.0
 import ModulesCpp.RegisterExternalResources 1.0
 import ModulesCpp.Machine 1.0
 
@@ -120,9 +120,9 @@ For example, if the error is large and positive, the control output will be prop
 If there is no error, there is no corrective response. \
 P controller can be implemented independently without additional I and D.") + "</i>"
                                                     props.showInfo(msgTitle, msg)
-                                                }
-                                            }
-                                        }
+                                                }//
+                                            }//
+                                        }//
                                     }//
                                 }//
                                 Column{
@@ -618,13 +618,14 @@ are errors.") + "</i>"
                             }//
                         }//
                         Rectangle {
-                            //                                anchors.verticalCenter: parent.verticalCenter
+                            id: fanBtn
                             width: 150
                             height: 100
                             color: "#0F2952"
                             border.color: "#dddddd"
                             radius: 5
                             anchors.horizontalCenter: parent.horizontalCenter
+                            property int sampleCounter: 0
                             Column{
                                 anchors.centerIn: parent
                                 spacing: 5
@@ -657,20 +658,29 @@ are errors.") + "</i>"
                                 id: fanMouseArea
                                 anchors.fill: parent
                                 onClicked: {
-                                    let msg
+                                    let msg, isTurnOn
                                     if(MachineData.fanPrimaryDutyCycle || MachineData.fanInflowDutyCycle){
                                         MachineAPI.setFanState(MachineAPI.FAN_STATE_OFF)
                                         msg = qsTr("Switching Off the Fan...")
+                                        isTurnOn = 0
                                     }
                                     else{
                                         msg = qsTr("Switching On the Fan...")
                                         MachineAPI.setFanState(MachineAPI.FAN_STATE_ON)
+                                        isTurnOn = 1
                                     }
 
                                     viewApp.showBusyPage(msg, function onTriggered(cycle){
-                                        if(cycle === 5){ viewApp.dialogObject.close() }
-                                    })
-                                }
+                                        if(cycle >= 10){
+                                            MachineAPI.setReadClosedLoopResponse(true)
+                                            viewApp.dialogObject.close()
+                                            if(isTurnOn)
+                                                viewApp.showDialogMessage(qsTr("Closed Loop Control Tuning"),
+                                                                          qsTr("Wait a moment until the \'Loop Response\' button appears"),
+                                                                          dialogInfo)
+                                        }//
+                                    })//
+                                }//
                             }//
                         }//
 
@@ -695,7 +705,7 @@ are errors.") + "</i>"
                                         }else{
                                             //console.debug("Failed to set Resource_General!")
                                         }
-                                        var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml", {"message":""})
+                                        var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml", {})
                                         startView(intent)
                                     }
                                 }
@@ -708,8 +718,6 @@ are errors.") + "</i>"
                                 horizontalAlignment: Text.AlignHCenter
                             }
                         }//
-
-
                     }//
                 }//
             }//
@@ -746,26 +754,15 @@ are errors.") + "</i>"
                                 }
                             }//
                             ButtonBarApp {
+                                id: responseBtn
                                 width: 194
+                                visible: false
                                 anchors.verticalCenter: parent.verticalCenter
-                                imageSource: "qrc:/UI/Pictures/back-step.png"
-                                text: qsTr("Response")
+                                imageSource: "qrc:/UI/Pictures/pid/response.png"
+                                text: qsTr("Loop Response")
 
                                 onClicked: {
-                                    var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopResponse.qml",
-                                                                  {
-                                                                      "dfaKp"               : props.dfaGainProportional,
-                                                                      "dfaKi"               : props.dfaGainIntegral,
-                                                                      "dfaKd"               : props.dfaGainDerivative,
-                                                                      "dfaSetpoint"         : props.dfaSetpoint,
-                                                                      "dfaModel"            : props.dfaActualVelocityModel,
-                                                                      "ifaKp"               : props.ifaGainProportional,
-                                                                      "ifaKi"               : props.ifaGainIntegral,
-                                                                      "ifaKd"               : props.ifaGainDerivative,
-                                                                      "ifaSetpoint"         : props.ifaSetpoint,
-                                                                      "ifaModel"            : props.ifaActualVelocityModel,
-                                                                      "samplingTime"        : props.samplingTime,
-                                                                  })
+                                    var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopResponse.qml",{})
                                     startView(intent)
                                 }//
                             }//
@@ -806,7 +803,7 @@ are errors.") + "</i>"
                                     if (seconds === 3){
                                         closeDialog();
                                     }//
-                                })
+                                })//
                             }//
                         }//
                     }//
@@ -833,8 +830,8 @@ are errors.") + "</i>"
             readonly property real kdMin: 0
             readonly property real tsMin: 200
 
-            property var dfaActualVelocityModel: []
-            property var ifaActualVelocityModel: []
+            //            property variant dfaActualVelocityModel: []
+            //            property variant ifaActualVelocityModel: []
 
             property bool dfaKpChanged:    false
             property bool dfaKiChanged:    false
@@ -870,6 +867,8 @@ are errors.") + "</i>"
             }
 
             function showInfo(msgTitle, msg){showDialogMessage(msgTitle, msg, dialogInfo, undefined, false)}
+
+            //Component.onCompleted: {console.debug("DELETED")}
         }//
 
         /// One time executed after onResume
@@ -882,13 +881,12 @@ are errors.") + "</i>"
 
             /// onResume
             Component.onCompleted: {
-                //                    //console.debug("StackView.Active");
                 props.dfaGainProportional   = MachineData.getFanClosedLoopGainProportional(0)
                 props.dfaGainIntegral       = MachineData.getFanClosedLoopGainIntegral(0)
-                props.dfaGainDerivative      = MachineData.getFanClosedLoopGainDerivative(0)
+                props.dfaGainDerivative     = MachineData.getFanClosedLoopGainDerivative(0)
                 props.ifaGainProportional   = MachineData.getFanClosedLoopGainProportional(1)
                 props.ifaGainIntegral       = MachineData.getFanClosedLoopGainIntegral(1)
-                props.ifaGainDerivative      = MachineData.getFanClosedLoopGainDerivative(1)
+                props.ifaGainDerivative     = MachineData.getFanClosedLoopGainDerivative(1)
                 props.samplingTime          = MachineData.getFanClosedLoopSamplingTime()
                 props.dfaSetpoint           = MachineData.getFanClosedLoopSetpoint(0)/100
                 props.ifaSetpoint           = MachineData.getFanClosedLoopSetpoint(1)/100
@@ -906,6 +904,8 @@ are errors.") + "</i>"
                 props.parameterHasChanged = Qt.binding(function(){
                     return props.dfaKpChanged || props.dfaKiChanged || props.dfaKdChanged || props.ifaKpChanged
                             || props.ifaKiChanged || props.ifaKdChanged || props.tsChanged})
+
+                responseBtn.visible = Qt.binding(function(){return MachineData.closedLoopResponseStatus})
             }
 
             /// onPause

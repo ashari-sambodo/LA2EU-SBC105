@@ -107,9 +107,9 @@ ViewApp {
                             text: qsTr("Back")
 
                             onClicked: {
-                                var intent = IntentApp.create(uri, {"message":""})
+                                var intent = IntentApp.create(uri,{})
                                 finishView(intent)
-                            }
+                            }//
                         }//
                     }//
                 }//
@@ -125,19 +125,56 @@ ViewApp {
             property real dfaKi: 0.0
             property real dfaKd: 0.0
             property real dfaSetpoint: 0.0
-            property var dfaActualVelocityModel: []
+            property variant dfaActualVelocityModel: []
             property real ifaKp: 0.0
             property real ifaKi: 0.0
             property real ifaKd: 0.0
             property real ifaSetpoint: 0.0
-            property var ifaActualVelocityModel: []
+            property variant ifaActualVelocityModel: []
 
             property int samplingTime: 0
         }//
 
         /// One time executed after onResume
         Component.onCompleted: {
+            props.dfaKp             = MachineData.getFanClosedLoopGainProportional(0)
+            props.dfaKi             = MachineData.getFanClosedLoopGainIntegral(0)
+            props.dfaKd             = MachineData.getFanClosedLoopGainDerivative(0)
+            props.dfaSetpoint       = MachineData.getFanClosedLoopSetpoint(0)/100
+            //props.dfaActualVelocityModel = extradata['dfaModel']
 
+            props.ifaKp             = MachineData.getFanClosedLoopGainProportional(1)
+            props.ifaKi             = MachineData.getFanClosedLoopGainIntegral(1)
+            props.ifaKd             = MachineData.getFanClosedLoopGainDerivative(1)
+            props.ifaSetpoint       = MachineData.getFanClosedLoopSetpoint(1)/100
+            //props.ifaActualVelocityModel = extradata['ifaModel']
+
+            props.samplingTime      = MachineData.getFanClosedLoopSamplingTime()
+
+            for(let i = 0; i < 60; i++){
+                props.dfaActualVelocityModel[i] = MachineData.getDfaVelClosedLoopResponse(i).toFixed(2)
+                props.ifaActualVelocityModel[i] = MachineData.getIfaVelClosedLoopResponse(i).toFixed(2)
+            }//
+
+            //console.debug(props.dfaActualVelocityModel)
+            //console.debug(props.ifaActualVelocityModel)
+
+            curve1.modelY       = props.dfaActualVelocityModel
+            curve1.kp           = props.dfaKp
+            curve1.ki           = props.dfaKi
+            curve1.kd           = props.dfaKd
+            curve1.setpoint     = props.dfaSetpoint
+            curve1.samplingTime = props.samplingTime
+
+            curve2.modelY       = props.ifaActualVelocityModel
+            curve2.kp           = props.ifaKp
+            curve2.ki           = props.ifaKi
+            curve2.kd           = props.ifaKd
+            curve2.setpoint     = props.ifaSetpoint
+            curve2.samplingTime = props.samplingTime
+
+            curve1.activate()
+            curve2.activate()
         }//
 
         /// Execute This Every This Screen Active/Visible
@@ -146,38 +183,6 @@ ViewApp {
             /// onResume
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
-                let extradata = IntentApp.getExtraData(intent)
-
-                props.dfaKp             = extradata['dfaKp'] || 0
-                props.dfaKi             = extradata['dfaKi'] || 0
-                props.dfaKd             = extradata['dfaKd'] || 0
-                props.dfaSetpoint       = extradata['dfaSetpoint'] || 0
-                props.dfaActualVelocityModel = extradata['dfaModel'] || 0
-
-                props.ifaKp             = extradata['ifaKp'] || 0
-                props.ifaKi             = extradata['ifaKi'] || 0
-                props.ifaKd             = extradata['ifaKd'] || 0
-                props.ifaSetpoint       = extradata['ifaSetpoint'] || 0
-                props.ifaActualVelocityModel = extradata['ifaModel'] || 0
-
-                props.samplingTime      = extradata['samplingTime'] || 0
-
-                //curve1.modelY       = props.dfaActualVelocityModel
-                curve1.kp           = props.dfaKp
-                curve1.ki           = props.dfaKi
-                curve1.kd           = props.dfaKd
-                curve1.setpoint     = props.dfaSetpoint
-                curve1.samplingTime = props.samplingTime
-
-                //curve2.modelY       = props.ifaActualVelocityModel
-                curve2.kp           = props.ifaKp
-                curve2.ki           = props.ifaKi
-                curve2.kd           = props.ifaKd
-                curve2.setpoint     = props.ifaSetpoint
-                curve2.samplingTime = props.samplingTime
-
-                curve1.activate()
-                curve2.activate()
             }
 
             /// onPause
