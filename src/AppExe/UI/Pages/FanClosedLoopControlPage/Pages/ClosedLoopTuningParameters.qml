@@ -619,8 +619,8 @@ are errors.") + "</i>"
                         }//
                         Rectangle {
                             id: fanBtn
-                            width: 150
-                            height: 100
+                            width: 160
+                            height: 120
                             color: "#0F2952"
                             border.color: "#dddddd"
                             radius: 5
@@ -628,14 +628,7 @@ are errors.") + "</i>"
                             property int sampleCounter: 0
                             Column{
                                 anchors.centerIn: parent
-                                spacing: 5
-                                TextApp{
-                                    width: 150
-                                    text: (MachineData.fanPrimaryDutyCycle || MachineData.fanInflowDutyCycle) ? qsTr("Switch Off") : qsTr("Switch On")
-                                    //font.pixelSize: 16
-                                    wrapMode: Text.WordWrap
-                                    horizontalAlignment: Text.AlignHCenter
-                                }
+                                //spacing: 5
                                 Image {
                                     id: fanImage
                                     source: "qrc:/UI/Pictures/controll/Fan_W.png"
@@ -652,41 +645,72 @@ are errors.") + "</i>"
                                             source: "qrc:/UI/Pictures/controll/Fan_G.png"
                                         }//
                                     }//
+                                    MouseArea{
+                                        id: fanMouseArea
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            let msg, isTurnOn
+                                            if(MachineData.fanPrimaryDutyCycle || MachineData.fanInflowDutyCycle){
+                                                MachineAPI.setFanState(MachineAPI.FAN_STATE_OFF)
+                                                msg = qsTr("Switching Off the Fan...")
+                                                isTurnOn = 0
+                                            }
+                                            else{
+                                                msg = qsTr("Switching On the Fan...")
+                                                MachineAPI.setFanState(MachineAPI.FAN_STATE_ON)
+                                                isTurnOn = 1
+                                            }
+
+                                            viewApp.showBusyPage(msg, function onTriggered(cycle){
+                                                if(cycle >= 5){
+                                                    warmupTime.running =  true
+                                                    viewApp.dialogObject.close()
+                                                    if(isTurnOn)
+                                                        viewApp.showDialogMessage(qsTr("Closed Loop Control Tuning"),
+                                                                                  qsTr("Wait a moment until the \'Loop Response\' button appears"),
+                                                                                  dialogInfo)
+                                                }//
+                                            })//
+                                        }//
+                                    }//
+                                }//
+                                Row{
+                                    Column{
+                                        TextApp{text: qsTr("DF Fan"); leftPadding: 5}
+                                        TextApp{text: qsTr("IF Fan"); leftPadding: 5}
+                                    }
+                                    Column{
+                                        TextApp{text: ": "}
+                                        TextApp{text: ": "}
+                                    }
+                                    Column{
+                                        TextApp{text: "%1\%".arg(MachineData.fanPrimaryDutyCycle)}
+                                        TextApp{text: "%1\%".arg(MachineData.fanInflowDutyCycle)}
+                                    }//
                                 }//
                             }//
-                            MouseArea{
-                                id: fanMouseArea
-                                anchors.fill: parent
-                                onClicked: {
-                                    let msg, isTurnOn
-                                    if(MachineData.fanPrimaryDutyCycle || MachineData.fanInflowDutyCycle){
-                                        MachineAPI.setFanState(MachineAPI.FAN_STATE_OFF)
-                                        msg = qsTr("Switching Off the Fan...")
-                                        isTurnOn = 0
-                                    }
-                                    else{
-                                        msg = qsTr("Switching On the Fan...")
-                                        MachineAPI.setFanState(MachineAPI.FAN_STATE_ON)
-                                        isTurnOn = 1
-                                    }
 
-                                    viewApp.showBusyPage(msg, function onTriggered(cycle){
-                                        if(cycle >= 10){
-                                            MachineAPI.setReadClosedLoopResponse(true)
-                                            viewApp.dialogObject.close()
-                                            if(isTurnOn)
-                                                viewApp.showDialogMessage(qsTr("Closed Loop Control Tuning"),
-                                                                          qsTr("Wait a moment until the \'Loop Response\' button appears"),
-                                                                          dialogInfo)
-                                        }//
-                                    })//
+                            Timer{
+                                id: warmupTime
+                                interval: 10000
+                                running: false
+                                repeat: false
+                                onTriggered: {
+                                    MachineAPI.setReadClosedLoopResponse(true)
                                 }//
                             }//
                         }//
 
                         Column{
                             anchors.horizontalCenter: parent.horizontalCenter
-
+                            spacing: 10
+                            TextApp{
+                                width: 160
+                                text: qsTr("Learn how to tune the parameters")
+                                font.pixelSize: 18
+                                wrapMode: Text.WordWrap
+                                horizontalAlignment: Text.AlignHCenter
+                            }//
                             Image{
                                 id: tuneHelpIcon
                                 source: "qrc:/UI/Pictures/pid/tune-help.png"
@@ -709,13 +733,6 @@ are errors.") + "</i>"
                                         startView(intent)
                                     }
                                 }
-                            }
-                            TextApp{
-                                width: 150
-                                text: qsTr("Learn how to tune the parameters")
-                                //font.pixelSize: 20
-                                wrapMode: Text.WordWrap
-                                horizontalAlignment: Text.AlignHCenter
                             }
                         }//
                     }//
@@ -772,21 +789,19 @@ are errors.") + "</i>"
                             width: 194
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.right: parent.right
-                            visible: props.parameterHasChanged
+                            visible: false
 
                             imageSource: "qrc:/UI/Pictures/checkicon.png"
                             text: qsTr("Save")
 
                             onClicked: {
-                                visible = false
-
-                                if(props.dfaKpChanged) MachineAPI.setFanClosedLoopGainProportionalDfa(props.dfaGainProportional)
-                                if(props.dfaKiChanged) MachineAPI.setFanClosedLoopGainIntegralDfa(props.dfaGainIntegral)
-                                if(props.dfaKdChanged) MachineAPI.setFanClosedLoopGainDerivativeDfa(props.dfaGainDerivative)
-                                if(props.ifaKpChanged) MachineAPI.setFanClosedLoopGainProportionalIfa(props.ifaGainProportional)
-                                if(props.ifaKiChanged) MachineAPI.setFanClosedLoopGainIntegralIfa(props.ifaGainIntegral)
-                                if(props.ifaKdChanged) MachineAPI.setFanClosedLoopGainDerivativeIfa(props.ifaGainDerivative)
-                                if(props.tsChanged)    MachineAPI.setFanClosedLoopSamplingTime(props.samplingTime)
+                                if(props.parameterHasChanged & 0x01) MachineAPI.setFanClosedLoopGainProportionalDfa(props.dfaGainProportional)
+                                if(props.parameterHasChanged & 0x02) MachineAPI.setFanClosedLoopGainIntegralDfa(props.dfaGainIntegral)
+                                if(props.parameterHasChanged & 0x04) MachineAPI.setFanClosedLoopGainDerivativeDfa(props.dfaGainDerivative)
+                                if(props.parameterHasChanged & 0x08) MachineAPI.setFanClosedLoopGainProportionalIfa(props.ifaGainProportional)
+                                if(props.parameterHasChanged & 0x10) MachineAPI.setFanClosedLoopGainIntegralIfa(props.ifaGainIntegral)
+                                if(props.parameterHasChanged & 0x20) MachineAPI.setFanClosedLoopGainDerivativeIfa(props.ifaGainDerivative)
+                                if(props.parameterHasChanged & 0x40) MachineAPI.setFanClosedLoopSamplingTime(props.samplingTime)
 
                                 console.debug("dfaGainProportional", props.dfaGainProportional)
                                 console.debug("dfaGainIntegral", props.dfaGainIntegral)
@@ -798,7 +813,7 @@ are errors.") + "</i>"
 
                                 const message = qsTr("User: Closed loop paramters changed")
                                 MachineAPI.insertEventLog(message)
-
+                                props.parameterHasChanged = 0
                                 showBusyPage(qsTr("Setting up..."), function(seconds){
                                     if (seconds === 3){
                                         closeDialog();
@@ -830,35 +845,87 @@ are errors.") + "</i>"
             readonly property real kdMin: 0
             readonly property real tsMin: 200
 
-            //            property variant dfaActualVelocityModel: []
-            //            property variant ifaActualVelocityModel: []
-
-            property bool dfaKpChanged:    false
-            property bool dfaKiChanged:    false
-            property bool dfaKdChanged:    false
-            property bool ifaKpChanged:    false
-            property bool ifaKiChanged:    false
-            property bool ifaKdChanged:    false
-            property bool tsChanged   :    false
-            property bool parameterHasChanged : false
+            property int parameterHasChanged : 0
+            property bool init : false
 
             property real dfaGainProportional:   0.0
             property real dfaGainIntegral:       0.0
-            property real dfaGainDerivative:      0.0
+            property real dfaGainDerivative:     0.0
             property real ifaGainProportional:   0.0
             property real ifaGainIntegral:       0.0
-            property real ifaGainDerivative:      0.0
+            property real ifaGainDerivative:     0.0
             property int samplingTime:           1000
             property real dfaSetpoint: 0.32
             property real ifaSetpoint: 0.45
 
-            onDfaGainProportionalChanged: {dfaGainProportional !== MachineData.getFanClosedLoopGainProportional(0)  ? dfaKpChanged = true : dfaKpChanged = false}
-            onDfaGainIntegralChanged:     {dfaGainIntegral     !== MachineData.getFanClosedLoopGainIntegral(0)      ? dfaKiChanged = true : dfaKiChanged = false}
-            onDfaGainDerivativeChanged:    {dfaGainDerivative  !== MachineData.getFanClosedLoopGainDerivative(0)    ? dfaKdChanged = true : dfaKdChanged = false}
-            onIfaGainProportionalChanged: {ifaGainProportional !== MachineData.getFanClosedLoopGainProportional(1)  ? ifaKpChanged = true : ifaKpChanged = false}
-            onIfaGainIntegralChanged:     {ifaGainIntegral     !== MachineData.getFanClosedLoopGainIntegral(1)      ? ifaKiChanged = true : ifaKiChanged = false}
-            onIfaGainDerivativeChanged:    {ifaGainDerivative  !== MachineData.getFanClosedLoopGainDerivative(1)    ? ifaKdChanged = true : ifaKdChanged = false}
-            onSamplingTimeChanged:        {samplingTime        !== MachineData.getFanClosedLoopSamplingTime()       ? tsChanged    = true : tsChanged    = false}
+            onDfaGainProportionalChanged: {
+                if(!init) return
+                let value = MachineData.getFanClosedLoopGainProportional(0)
+                value = Number(value.toFixed(2))
+                if(dfaGainProportional !== value)
+                    parameterHasChanged |= 0x01;
+                else
+                    parameterHasChanged &= ~0x01
+                //console.debug(dfaGainProportional, value, parameterHasChanged);
+            }
+            onDfaGainIntegralChanged:     {
+                if(!init) return
+                let value = MachineData.getFanClosedLoopGainIntegral(0)
+                value = Number(value.toFixed(2))
+                if(dfaGainIntegral     !== value)
+                    parameterHasChanged |= 0x02;
+                else
+                    parameterHasChanged &= ~0x02
+                //console.debug(dfaGainIntegral, value, parameterHasChanged);
+            }
+            onDfaGainDerivativeChanged:   {
+                if(!init) return
+                let value = MachineData.getFanClosedLoopGainDerivative(0)
+                value = Number(value.toFixed(2))
+                if(dfaGainDerivative   !== value)
+                    parameterHasChanged |= 0x04;
+                else parameterHasChanged &= ~0x04
+                //console.debug(dfaGainDerivative, value, parameterHasChanged);
+            }
+            onIfaGainProportionalChanged: {
+                if(!init) return
+                let value = MachineData.getFanClosedLoopGainProportional(1)
+                value = Number(value.toFixed(2))
+                if(ifaGainProportional !== value)
+                    parameterHasChanged |= 0x08;
+                else
+                    parameterHasChanged &= ~0x08
+                //console.debug(ifaGainProportional, value, parameterHasChanged);
+            }
+            onIfaGainIntegralChanged:     {
+                if(!init) return
+                let value = MachineData.getFanClosedLoopGainIntegral(1)
+                value = Number(value.toFixed(2))
+                if(ifaGainIntegral !== value)
+                    parameterHasChanged |= 0x10;
+                else
+                    parameterHasChanged &= ~0x10
+                //console.debug(ifaGainIntegral, value, parameterHasChanged);
+            }
+            onIfaGainDerivativeChanged:   {
+                if(!init) return
+                let value = MachineData.getFanClosedLoopGainDerivative(1)
+                value = Number(value.toFixed(2))
+                if(ifaGainDerivative   !== value)
+                    parameterHasChanged |= 0x20;
+                else
+                    parameterHasChanged &= ~0x20
+                //console.debug(ifaGainDerivative, value, parameterHasChanged);
+            }
+            onSamplingTimeChanged:        {
+                if(!init) return
+                let value = MachineData.getFanClosedLoopSamplingTime()
+                if(samplingTime        !== value)
+                    parameterHasChanged |= 0x40;
+                else
+                    parameterHasChanged &= ~0x40
+                //console.debug(samplingTime, value, parameterHasChanged);
+            }
 
             function showWarningOutRange(lowLimit, highLimit){
                 showDialogMessage(qsTr("Setting failed"),
@@ -901,11 +968,9 @@ are errors.") + "</i>"
                 textFieldSpDfa.text = props.dfaSetpoint.toFixed(MachineData.measurementUnit ? 0 : 2)
                 textFieldSpIfa.text = props.ifaSetpoint.toFixed(MachineData.measurementUnit ? 0 : 2)
 
-                props.parameterHasChanged = Qt.binding(function(){
-                    return props.dfaKpChanged || props.dfaKiChanged || props.dfaKdChanged || props.ifaKpChanged
-                            || props.ifaKiChanged || props.ifaKdChanged || props.tsChanged})
-
+                setButton.visible = Qt.binding(function(){return (props.parameterHasChanged == 0 ? false : true)})
                 responseBtn.visible = Qt.binding(function(){return MachineData.closedLoopResponseStatus})
+                props.init = true
             }
 
             /// onPause

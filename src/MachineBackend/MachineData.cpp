@@ -174,26 +174,26 @@ void MachineData::setFanClosedLoopSetpoint(int value, short index)
     m_fanClosedLoopSetpoint[index] = value;
 }
 
-float MachineData::getDfaVelClosedLoopResponse(short index) const
+ushort MachineData::getDfaVelClosedLoopResponse(short index) const
 {
     if(index >= 60) return 0;
     return m_dfaVelClosedLoopResponse[index];
 }
 
-void MachineData::setDfaVelClosedLoopResponse(float value, short index)
+void MachineData::setDfaVelClosedLoopResponse(ushort value, short index)
 {
     if(index >= 60) return;
     if(m_dfaVelClosedLoopResponse[index] == value) return;
     m_dfaVelClosedLoopResponse[index] = value;
 }
 
-float MachineData::getIfaVelClosedLoopResponse(short index) const
+ushort MachineData::getIfaVelClosedLoopResponse(short index) const
 {
     if(index >= 60) return 0;
     return m_ifaVelClosedLoopResponse[index];
 }
 
-void MachineData::setIfaVelClosedLoopResponse(float value, short index)
+void MachineData::setIfaVelClosedLoopResponse(ushort value, short index)
 {
     if(index >= 60) return;
     if(m_ifaVelClosedLoopResponse[index] == value) return;

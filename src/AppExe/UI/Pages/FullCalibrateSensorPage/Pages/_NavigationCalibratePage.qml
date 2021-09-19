@@ -480,9 +480,9 @@ ViewApp {
                     props.dfaFanDutyCycleStandby = MachineData.getFanPrimaryStandbyDutyCycleFactory()
                 }
                 else{
-                    props.dfaFanDutyCycleNominal = profile['airflow']['dfa']['dim']['nominal']['fanDutyCycle']
-                    props.dfaFanDutyCycleMinimum = profile['airflow']['dfa']['dim']['minimum']['fanDutyCycle']
-                    props.dfaFanDutyCycleMaximum = profile['airflow']['dfa']['dim']['maximum']['fanDutyCycle']
+                    props.dfaFanDutyCycleNominal = profile['airflow']['dfa']['nominal']['fanDutyCycle']
+                    props.dfaFanDutyCycleMinimum = profile['airflow']['dfa']['minimum']['fanDutyCycle']
+                    props.dfaFanDutyCycleMaximum = profile['airflow']['dfa']['maximum']['fanDutyCycle']
                     props.dfaFanDutyCycleStandby = props.ifaFanDutyCycleStandby
                 }
 

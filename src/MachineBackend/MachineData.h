@@ -1653,10 +1653,10 @@ public:
     Q_INVOKABLE int getFanClosedLoopSetpoint(short index) const;
     void setFanClosedLoopSetpoint(int value, short index);
 
-    Q_INVOKABLE float getDfaVelClosedLoopResponse(short index) const;
-    void setDfaVelClosedLoopResponse(float value, short index);
-    Q_INVOKABLE float getIfaVelClosedLoopResponse(short index) const;
-    void setIfaVelClosedLoopResponse(float value, short index);
+    Q_INVOKABLE ushort getDfaVelClosedLoopResponse(short index) const;
+    void setDfaVelClosedLoopResponse(ushort value, short index);
+    Q_INVOKABLE ushort getIfaVelClosedLoopResponse(short index) const;
+    void setIfaVelClosedLoopResponse(ushort value, short index);
     bool getClosedLoopResponseStatus() const;
     void setClosedLoopResponseStatus(bool value);
     bool getReadClosedLoopResponse() const;
@@ -2286,8 +2286,8 @@ private:
     int m_fanClosedLoopSamplingTime;
     int m_fanClosedLoopSetpoint[2];
 
-    float m_dfaVelClosedLoopResponse[60] = {0};
-    float m_ifaVelClosedLoopResponse[60] = {0};
+    ushort m_dfaVelClosedLoopResponse[60] = {0};
+    ushort m_ifaVelClosedLoopResponse[60] = {0};
     bool m_readClosedLoopResponse = false;
     bool m_closeLoopResponseStatus = false;
 };

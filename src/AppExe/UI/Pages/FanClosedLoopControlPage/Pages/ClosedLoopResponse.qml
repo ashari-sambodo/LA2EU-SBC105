@@ -60,8 +60,6 @@ ViewApp {
                         id: curve1
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        //enabled: false
-                        //visible: false
                         title: qsTr("Downflow")
 
                     }
@@ -69,15 +67,7 @@ ViewApp {
                         id: curve2
                         Layout.fillWidth: true
                         Layout.fillHeight: true
-                        //enabled: false
-                        //visible: false
                         title: qsTr("Inflow")
-                        //                        modelY: props.ifaActualVelocity
-                        //                        kp: props.ifaKp
-                        //                        ki: props.ifaKi
-                        //                        kd: props.ifaKd
-                        //                        setpoint: props.ifaSetpoint
-                        //                        samplingTime: props.samplingTime
                     }//
                 }//
             }//
@@ -116,6 +106,9 @@ ViewApp {
             }//
         }//
 
+        UtilsApp{
+            id: utils
+        }
         ///// Put all private property inside here
         ///// if none, please comment this block to optimize the code
         QtObject {
@@ -137,23 +130,26 @@ ViewApp {
 
         /// One time executed after onResume
         Component.onCompleted: {
+            let decimal = MachineData.measurementUnit ? 0 : 2
+            let tempDfa = MachineData.getFanClosedLoopSetpoint(0)/100
             props.dfaKp             = MachineData.getFanClosedLoopGainProportional(0)
             props.dfaKi             = MachineData.getFanClosedLoopGainIntegral(0)
             props.dfaKd             = MachineData.getFanClosedLoopGainDerivative(0)
-            props.dfaSetpoint       = MachineData.getFanClosedLoopSetpoint(0)/100
-            //props.dfaActualVelocityModel = extradata['dfaModel']
+            props.dfaSetpoint       = Number(tempDfa.toFixed(decimal))
 
+            let tempIfa = MachineData.getFanClosedLoopSetpoint(1)/100
             props.ifaKp             = MachineData.getFanClosedLoopGainProportional(1)
             props.ifaKi             = MachineData.getFanClosedLoopGainIntegral(1)
             props.ifaKd             = MachineData.getFanClosedLoopGainDerivative(1)
-            props.ifaSetpoint       = MachineData.getFanClosedLoopSetpoint(1)/100
-            //props.ifaActualVelocityModel = extradata['ifaModel']
+            props.ifaSetpoint       = Number(tempIfa.toFixed(decimal))
 
             props.samplingTime      = MachineData.getFanClosedLoopSamplingTime()
 
             for(let i = 0; i < 60; i++){
-                props.dfaActualVelocityModel[i] = MachineData.getDfaVelClosedLoopResponse(i).toFixed(2)
-                props.ifaActualVelocityModel[i] = MachineData.getIfaVelClosedLoopResponse(i).toFixed(2)
+                let dfa = MachineData.getDfaVelClosedLoopResponse(i)/100
+                let ifa = MachineData.getIfaVelClosedLoopResponse(i)/100
+                props.dfaActualVelocityModel[i] = Number(dfa.toFixed(decimal))
+                props.ifaActualVelocityModel[i] = Number(ifa.toFixed(decimal))
             }//
 
             //console.debug(props.dfaActualVelocityModel)
@@ -165,6 +161,7 @@ ViewApp {
             curve1.kd           = props.dfaKd
             curve1.setpoint     = props.dfaSetpoint
             curve1.samplingTime = props.samplingTime
+            curve1.meaUnitMetric= decimal === 2 ? true : false
 
             curve2.modelY       = props.ifaActualVelocityModel
             curve2.kp           = props.ifaKp
@@ -172,6 +169,7 @@ ViewApp {
             curve2.kd           = props.ifaKd
             curve2.setpoint     = props.ifaSetpoint
             curve2.samplingTime = props.samplingTime
+            curve2.meaUnitMetric= decimal === 2 ? true : false
 
             curve1.activate()
             curve2.activate()

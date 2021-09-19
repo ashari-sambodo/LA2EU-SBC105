@@ -2364,11 +2364,12 @@ void MachineBackend::deallocate()
         m_timerEventForClosedLoopControl->stop();
 
     /// Turn Off the Blowers
-    if(pData->getFanState())
-        setFanState(MachineEnums::FAN_STATE_OFF);
+    //if(pData->getFanState())
+    //    setFanState(MachineEnums::FAN_STATE_OFF);
     /// turned off the Downflow blower
     if(pData->getFanPrimaryState()){
         _setFanPrimaryStateOFF();
+        pData->setFanPrimaryState(MachineEnums::FAN_STATE_OFF);
         QEventLoop waitLoop;
         /// https://www.kdab.com/nailing-13-signal-slot-mistakes-clazy-1-3/
         //m_pFanPrimary->setInterlock(MachineEnums::DIG_STATE_ZERO);
@@ -2388,6 +2389,7 @@ void MachineBackend::deallocate()
     /// turned off the Inflow blower
     if(pData->getFanInflowState()){
         _setFanInflowStateOFF();
+        pData->setFanInflowState(MachineEnums::FAN_STATE_OFF);
         QEventLoop waitLoop;
         /// https://www.kdab.com/nailing-13-signal-slot-mistakes-clazy-1-3/
         //m_pFanInflow->setInterlock(MachineEnums::DIG_STATE_ZERO);
@@ -2474,13 +2476,13 @@ void MachineBackend::_onTriggeredEventClosedLoopControl()
     if(pData->getReadClosedLoopResponse()){
         if(pData->getClosedLoopResponseStatus()) pData->setClosedLoopResponseStatus(false);
 
-        float dfaVel = static_cast<float>(pData->getDownflowVelocity())/static_cast<float>(100.0);
-        float ifaVel = static_cast<float>(pData->getInflowVelocity())/static_cast<float>(100.0);
+        ushort dfaVel = static_cast<ushort>(pData->getDownflowVelocity());
+        ushort ifaVel = static_cast<ushort>(pData->getInflowVelocity());
 
-        if(pData->getMeasurementUnit()){
-            dfaVel = static_cast<float>(__convertFpmToMps(static_cast<double>(dfaVel)));
-            ifaVel = static_cast<float>(__convertFpmToMps(static_cast<double>(ifaVel)));
-        }
+        //        if(pData->getMeasurementUnit()){
+        //            dfaVel = static_cast<ushort>(__convertFpmToMps(static_cast<double>(dfaVel)/100.0) * 100);
+        //            ifaVel = static_cast<ushort>(__convertFpmToMps(static_cast<double>(ifaVel)/100.0) * 100);
+        //        }
 
         pData->setDfaVelClosedLoopResponse(dfaVel, m_counter);
         pData->setIfaVelClosedLoopResponse(ifaVel, m_counter);
@@ -3019,6 +3021,7 @@ void MachineBackend::setMeasurementUnit(short value)
     /// Update to Closed Loop Control Object
     m_pDfaFanClosedLoopControl->setMeasurementUnit(static_cast<uchar>(value));
     m_pIfaFanClosedLoopControl->setMeasurementUnit(static_cast<uchar>(value));
+    //if(pData->getClosedLoopResponseStatus()) pData->setClosedLoopResponseStatus(false);
 
     {
         QSettings settings;
@@ -3090,20 +3093,26 @@ void MachineBackend::setMeasurementUnit(short value)
     if (value) {
         //        qDebug() << "__convertMpsToFpm" ;
         /// Imperial
-        _ifaVelPointMinFactory = qCeil(__convertMpsToFpm(ifaVelPointMinFactory) / 100.0) * 100;
-        _ifaVelPointNomFactory = qCeil(__convertMpsToFpm(ifaVelPointNomFactory) / 100.0) * 100;
-        _ifaVelPointMinField   = qCeil(__convertMpsToFpm(ifaVelPointMinField) / 100.0) * 100;
-        _ifaVelPointNomField   = qCeil(__convertMpsToFpm(ifaVelPointNomField) / 100.0) * 100;
-        _ifaVelPointLowAlarm   = qCeil(__convertMpsToFpm(ifaVelPointLowAlarm) / 100.0) * 100;
+        if(pData->getClosedLoopResponseStatus()){
+            for(uchar i = 0; i < 60; i++){
+                pData->setDfaVelClosedLoopResponse(static_cast<ushort>(qCeil((__convertMpsToFpm(pData->getDfaVelClosedLoopResponse(i)) / 100.0) * 100.0)), i);
+                pData->setIfaVelClosedLoopResponse(static_cast<ushort>(qCeil((__convertMpsToFpm(pData->getIfaVelClosedLoopResponse(i)) / 100.0) * 100.0)), i);
+            }
+        }
+        _ifaVelPointMinFactory = qCeil((__convertMpsToFpm(ifaVelPointMinFactory) / 100.0) * 100.0);
+        _ifaVelPointNomFactory = qCeil((__convertMpsToFpm(ifaVelPointNomFactory) / 100.0) * 100.0);
+        _ifaVelPointMinField   = qCeil((__convertMpsToFpm(ifaVelPointMinField) / 100.0) * 100.0);
+        _ifaVelPointNomField   = qCeil((__convertMpsToFpm(ifaVelPointNomField) / 100.0) * 100.0);
+        _ifaVelPointLowAlarm   = qCeil((__convertMpsToFpm(ifaVelPointLowAlarm) / 100.0) * 100.0);
 
-        _dfaVelPointMinFactory = qCeil(__convertMpsToFpm(dfaVelPointMinFactory) / 100.0) * 100;
-        _dfaVelPointNomFactory = qCeil(__convertMpsToFpm(dfaVelPointNomFactory) / 100.0) * 100;
-        _dfaVelPointMaxFactory = qCeil(__convertMpsToFpm(dfaVelPointMaxFactory) / 100.0) * 100;
-        _dfaVelPointMinField   = qCeil(__convertMpsToFpm(dfaVelPointMinField) / 100.0) * 100;
-        _dfaVelPointNomField   = qCeil(__convertMpsToFpm(dfaVelPointNomField) / 100.0) * 100;
-        _dfaVelPointMaxField   = qCeil(__convertMpsToFpm(dfaVelPointMaxField) / 100.0) * 100;
-        _dfaVelPointLowAlarm   = qCeil(__convertMpsToFpm(dfaVelPointLowAlarm) / 100.0) * 100;
-        _dfaVelPointHighAlarm  = qCeil(__convertMpsToFpm(dfaVelPointHighAlarm) / 100.0) * 100;
+        _dfaVelPointMinFactory = qCeil((__convertMpsToFpm(dfaVelPointMinFactory) / 100.0) * 100.0);
+        _dfaVelPointNomFactory = qCeil((__convertMpsToFpm(dfaVelPointNomFactory) / 100.0) * 100.0);
+        _dfaVelPointMaxFactory = qCeil((__convertMpsToFpm(dfaVelPointMaxFactory) / 100.0) * 100.0);
+        _dfaVelPointMinField   = qCeil((__convertMpsToFpm(dfaVelPointMinField) / 100.0) * 100.0);
+        _dfaVelPointNomField   = qCeil((__convertMpsToFpm(dfaVelPointNomField) / 100.0) * 100.0);
+        _dfaVelPointMaxField   = qCeil((__convertMpsToFpm(dfaVelPointMaxField) / 100.0) * 100.0);
+        _dfaVelPointLowAlarm   = qCeil((__convertMpsToFpm(dfaVelPointLowAlarm) / 100.0) * 100.0);
+        _dfaVelPointHighAlarm  = qCeil((__convertMpsToFpm(dfaVelPointHighAlarm) / 100.0) * 100.0);
 
         _ifaTempCalib = __convertCtoF(ifaTempCalib);
         _dfaTempCalib = __convertCtoF(dfaTempCalib);
@@ -3118,20 +3127,26 @@ void MachineBackend::setMeasurementUnit(short value)
     } else {
         //        qDebug() << "__convertFpmToMps" ;
         /// metric
-        _ifaVelPointMinFactory = qRound(__convertFpmToMps(ifaVelPointMinFactory) / 100.0) * 100;
-        _ifaVelPointNomFactory = qRound(__convertFpmToMps(ifaVelPointNomFactory) / 100.0) * 100;
-        _ifaVelPointMinField   = qRound(__convertFpmToMps(ifaVelPointMinField) / 100.0) * 100;
-        _ifaVelPointNomField   = qRound(__convertFpmToMps(ifaVelPointNomField) / 100.0) * 100;
-        _ifaVelPointLowAlarm   = qRound(__convertFpmToMps(ifaVelPointLowAlarm) / 100.0) * 100;
+        if(pData->getClosedLoopResponseStatus()){
+            for(uchar i = 0; i < 60; i++){
+                pData->setDfaVelClosedLoopResponse(static_cast<ushort>(qRound((__convertFpmToMps(pData->getDfaVelClosedLoopResponse(i)) / 100.0) * 100.0)), i);
+                pData->setIfaVelClosedLoopResponse(static_cast<ushort>(qRound((__convertFpmToMps(pData->getIfaVelClosedLoopResponse(i)) / 100.0) * 100.0)), i);
+            }
+        }
+        _ifaVelPointMinFactory = qRound((__convertFpmToMps(ifaVelPointMinFactory) / 100.0) * 100.0);
+        _ifaVelPointNomFactory = qRound((__convertFpmToMps(ifaVelPointNomFactory) / 100.0) * 100.0);
+        _ifaVelPointMinField   = qRound((__convertFpmToMps(ifaVelPointMinField) / 100.0) * 100.0);
+        _ifaVelPointNomField   = qRound((__convertFpmToMps(ifaVelPointNomField) / 100.0) * 100.0);
+        _ifaVelPointLowAlarm   = qRound((__convertFpmToMps(ifaVelPointLowAlarm) / 100.0) * 100.0);
 
-        _dfaVelPointMinFactory = qRound(__convertFpmToMps(dfaVelPointMinFactory) / 100.0) * 100;
-        _dfaVelPointNomFactory = qRound(__convertFpmToMps(dfaVelPointNomFactory) / 100.0) * 100;
-        _dfaVelPointMaxFactory = qRound(__convertFpmToMps(dfaVelPointMaxFactory) / 100.0) * 100;
-        _dfaVelPointMinField   = qRound(__convertFpmToMps(dfaVelPointMinField) / 100.0) * 100;
-        _dfaVelPointNomField   = qRound(__convertFpmToMps(dfaVelPointNomField) / 100.0) * 100;
-        _dfaVelPointMaxField   = qRound(__convertFpmToMps(dfaVelPointMaxField) / 100.0) * 100;
-        _dfaVelPointLowAlarm   = qRound(__convertFpmToMps(dfaVelPointLowAlarm) / 100.0) * 100;
-        _dfaVelPointHighAlarm  = qRound(__convertFpmToMps(dfaVelPointHighAlarm) / 100.0) * 100;
+        _dfaVelPointMinFactory = qRound((__convertFpmToMps(dfaVelPointMinFactory) / 100.0) * 100.0);
+        _dfaVelPointNomFactory = qRound((__convertFpmToMps(dfaVelPointNomFactory) / 100.0) * 100.0);
+        _dfaVelPointMaxFactory = qRound((__convertFpmToMps(dfaVelPointMaxFactory) / 100.0) * 100.0);
+        _dfaVelPointMinField   = qRound((__convertFpmToMps(dfaVelPointMinField) / 100.0) * 100.0);
+        _dfaVelPointNomField   = qRound((__convertFpmToMps(dfaVelPointNomField) / 100.0) * 100.0);
+        _dfaVelPointMaxField   = qRound((__convertFpmToMps(dfaVelPointMaxField) / 100.0) * 100.0);
+        _dfaVelPointLowAlarm   = qRound((__convertFpmToMps(dfaVelPointLowAlarm) / 100.0) * 100.0);
+        _dfaVelPointHighAlarm  = qRound((__convertFpmToMps(dfaVelPointHighAlarm) / 100.0) * 100.0);
 
         _ifaTempCalib = __convertFtoC(ifaTempCalib);
         _dfaTempCalib = __convertFtoC(dfaTempCalib);
@@ -3383,9 +3398,9 @@ void MachineBackend::setFanState(short value)
         break;
     default:
     {
-        ///Check if the cabinet want to post purging before actually turned off the blower
+        /// Check if the cabinet want to post purging before actually turned off the blower
         if (!isMaintenanceModeActive()) {
-            ///IF NO IN PURGING CONDITION
+            /// IF NO IN PURGING CONDITION
             if(pData->getPostPurgingActive()){
                 return;
             }
@@ -3415,19 +3430,15 @@ void MachineBackend::setFanPrimaryState(short value)
     switch(value){
     case MachineEnums::FAN_STATE_ON:
         _setFanPrimaryStateNominal();
-        //        _setFanInflowStateNominal();
         break;
     case MachineEnums::FAN_STATE_STANDBY:
         _setFanPrimaryStateStandby();
-        //        _setFanInflowStateStandby();
         break;
     case MachineEnums::FAN_STATE_OFF:
         _setFanPrimaryStateOFF();
-        //        _setFanInflowStateOFF();
         break;
     default:
         _setFanPrimaryStateOFF();
-        //        _setFanInflowStateOFF();
         break;
     }
 }
@@ -3448,19 +3459,15 @@ void MachineBackend::setFanInflowState(short value)
 {
     switch(value){
     case MachineEnums::FAN_STATE_ON:
-        //        _setFanPrimaryStateNominal();
         _setFanInflowStateNominal();
         break;
     case MachineEnums::FAN_STATE_STANDBY:
-        //        _setFanPrimaryStateStandby();
         _setFanInflowStateStandby();
         break;
     case MachineEnums::FAN_STATE_OFF:
-        //        _setFanPrimaryStateOFF();
         _setFanInflowStateOFF();
         break;
     default:
-        //        _setFanPrimaryStateOFF();
         _setFanInflowStateOFF();
         break;
     }
@@ -5360,49 +5367,72 @@ void MachineBackend::_onTemperatureActualChanged(int value)
 
 void MachineBackend::_onInflowVelocityActualChanged(int value)
 {
-    pData->setInflowVelocity(value);
-
+    int finalValue = value;
     if (pData->getMeasurementUnit()) {
-        int valueVel = qRound(value / 100.0);
+        double velNominal = m_pAirflowInflow->getVelocityPoint(2)/100.0;
+        double velActual = static_cast<double>(value) / 100.0;
+        int valueVel = 0;
+        /// Remove decimal point if actual velocity is greater than Nominal
+        /// Round it if less than Nominal
+        if(velActual > velNominal){
+            valueVel = static_cast<int>(velActual);
+        }else{
+            valueVel = qRound(velActual);
+        }
+
+        qDebug() << velNominal << velActual << valueVel;
+
         QString valueStr = QString::asprintf("%d fpm", valueVel);
         pData->setInflowVelocityStr(valueStr);
-        qDebug() << "Inflow fpm" << valueVel;
         m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+        finalValue = valueVel * 100;
     }
     else {
         double valueVel = value / 100.0;
         QString valueStr = QString::asprintf("%.2f m/s", valueVel);
         pData->setInflowVelocityStr(valueStr);
-        qDebug() << "Inflow m/s" << valueVel;
         m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
     }
 
+    pData->setInflowVelocity(finalValue);
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.airflowInflow.addr, static_cast<ushort>(value));
+    _setModbusRegHoldingValue(modbusRegisterAddress.airflowInflow.addr, static_cast<ushort>(finalValue));
 
     //    qDebug() << "Inflow" << pData->getInflowVelocityStr();
 }
 void MachineBackend::_onDownflowVelocityActualChanged(int value)
 {
-    pData->setDownflowVelocity(value);
+    int finalValue = value;
 
     if (pData->getMeasurementUnit()) {
-        int valueVel = qRound(value / 100.0);
+        double velNominal = m_pAirflowDownflow->getVelocityPoint(2)/100.0;
+        double velActual = static_cast<double>(value) / 100.0;
+        int valueVel = 0;
+        /// Remove decimal point if actual velocity is greater than Nominal
+        /// Round it if less than Nominal
+        if(velActual > velNominal){
+            valueVel = static_cast<int>(velActual);
+        }else{
+            valueVel = qRound(velActual);
+        }
+
+        qDebug() << velNominal << velActual << valueVel;
+
         QString valueStr = QString::asprintf("%d fpm", valueVel);
         pData->setDownflowVelocityStr(valueStr);
-        qDebug() << "Downflow fpm" << valueVel;
         m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+        finalValue = valueVel * 100;
     }
     else {
         double valueVel = value / 100.0;
         QString valueStr = QString::asprintf("%.2f m/s", valueVel);
         pData->setDownflowVelocityStr(valueStr);
-        qDebug() << "Downflow m/s" << valueVel;
         m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
     }
 
+    pData->setDownflowVelocity(finalValue);
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.airflowDownflow.addr, static_cast<ushort>(value));
+    _setModbusRegHoldingValue(modbusRegisterAddress.airflowDownflow.addr, static_cast<ushort>(finalValue));
 
     //    qDebug() << "Inflow" << pData->getInflowVelocityStr();
 }

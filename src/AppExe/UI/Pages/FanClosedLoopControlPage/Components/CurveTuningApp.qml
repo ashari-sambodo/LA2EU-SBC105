@@ -28,6 +28,7 @@ Item {
     property int samplingTime:1000
     property int cursorTime: 0
     property real cursorVel: 0
+    property bool meaUnitMetric: true
     //.property int riseTime: 1000
 
     signal activate()
@@ -89,8 +90,8 @@ Item {
                 TextApp{text:": "; font.pixelSize: 16}
             }
             Column{
-                TextApp{text:"%1 m/s".arg(curve.setpoint.toFixed(2)); color: setpointRect.color; font.pixelSize: 16}
-                TextApp{text:"%1 m/s".arg(curve.overshoot.toFixed(2)); color: overshootRect.color; font.pixelSize: 16}
+                TextApp{text:"%1 %2".arg(curve.setpoint.toFixed(curve.meaUnitMetric ? 2 : 0)).arg(curve.meaUnitMetric ? "m/s" : "fpm"); color: setpointRect.color; font.pixelSize: 16}
+                TextApp{text:"%1 %2".arg(curve.overshoot.toFixed(curve.meaUnitMetric ? 2 : 0)).arg(curve.meaUnitMetric ? "m/s" : "fpm"); color: overshootRect.color; font.pixelSize: 16}
                 TextApp{text:"%1".arg(curve.noOfSample); font.pixelSize: 16}
             }
             ///
@@ -109,7 +110,7 @@ Item {
             Column{
                 TextApp{text:"%1 ms".arg(curve.samplingTime); font.pixelSize: 16}
                 TextApp{text:"%1 ms".arg(curve.cursorTime); font.pixelSize: 16}
-                TextApp{text:"%1 m/s".arg(curve.cursorVel.toFixed(2)); font.pixelSize: 16}
+                TextApp{text:"%1 %2".arg(curve.cursorVel.toFixed(curve.meaUnitMetric ? 2 : 0)).arg(curve.meaUnitMetric ? "m/s" : "fpm"); font.pixelSize: 16}
             }//
         }//
     }//
@@ -241,6 +242,7 @@ Item {
     }//
 
     onActivate: {
+        curve.upperY = curve.meaUnitMetric ? 1 : 196
         var max = curve.modelY.reduce(function(a, b) {
             return Math.max(a, b);
         }, 0);
