@@ -559,7 +559,7 @@ to remove the error.") + "</i>"
                         }//
                     }//
                     Column{
-                        spacing: 30
+                        spacing: 10
                         Column{
                             spacing: 5
                             TextApp {
@@ -611,6 +611,53 @@ Smaller values means faster time and more frequent change of controller output \
 leading to a faster response when there are errors. Larger values means slower time \
 and less frequent change of controller output leading to a slower response when there \
 are errors.") + "</i>"
+                                            props.showInfo(msgTitle, msg)
+                                        }
+                                    }//
+                                }//
+                            }//
+                        }//
+                        Column{
+                            spacing: 5
+                            TextApp {
+                                id: textWarmup
+                                text: qsTr("Warm up Time")
+                            }//
+                            Row{
+                                spacing: 10
+                                TextFieldApp {
+                                    id: textFieldWarmup
+                                    width: 110
+                                    height: 40
+                                    //validator: IntValidator{bottom: 0; top: 10000;}
+
+                                    onPressed: {
+                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("%1 (second)").arg(textWarmup.text))
+                                    }//
+                                    onAccepted: {
+                                        let value = Number(text)
+                                        props.warmup = value
+                                    }//
+                                    TextApp {
+                                        anchors.right: parent.right
+                                        anchors.rightMargin: 5
+                                        verticalAlignment: Text.AlignVCenter
+                                        height: parent.height
+                                        text: "s"
+                                        //color: "gray"
+                                    }//
+                                }//
+                                Image{
+                                    source:"qrc:/UI/Pictures/pid/small-info.png"
+                                    fillMode: Image.PreserveAspectFit
+                                    opacity: warmupInfoMa.pressed ? 0.5 : 1
+                                    MouseArea{
+                                        id: warmupInfoMa
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            const msgTitle = textWarmup.text
+                                            const msg = "<i>" + qsTr("The Closed loop control will be disabled during this warming up time. \
+The Fan will start at nominal fan duty cycle, and it will be adjusted by loop controller after warmup time has completed") + "</i>"
                                             props.showInfo(msgTitle, msg)
                                         }
                                     }//
@@ -692,7 +739,7 @@ are errors.") + "</i>"
 
                             Timer{
                                 id: warmupTime
-                                interval: 10000
+                                interval: props.warmup * 1000
                                 running: false
                                 repeat: false
                                 onTriggered: {
@@ -703,7 +750,7 @@ are errors.") + "</i>"
 
                         Column{
                             anchors.horizontalCenter: parent.horizontalCenter
-                            spacing: 10
+                            spacing: 5
                             TextApp{
                                 width: 160
                                 text: qsTr("Learn how to tune the parameters")
@@ -714,7 +761,7 @@ are errors.") + "</i>"
                             Image{
                                 id: tuneHelpIcon
                                 source: "qrc:/UI/Pictures/pid/tune-help.png"
-                                height: 100
+                                height: 60
                                 fillMode: Image.PreserveAspectFit
                                 opacity: tuneHelpMa.pressed ? 0.5 : 1
                                 anchors.horizontalCenter: parent.horizontalCenter
@@ -731,9 +778,9 @@ are errors.") + "</i>"
                                         }
                                         var intent = IntentApp.create("qrc:/UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml", {})
                                         startView(intent)
-                                    }
-                                }
-                            }
+                                    }//
+                                }//
+                            }//
                         }//
                     }//
                 }//
@@ -845,6 +892,7 @@ are errors.") + "</i>"
             readonly property real kdMin: 0
             readonly property real tsMin: 200
 
+            property int warmup: 10
             property int parameterHasChanged : 0
             property bool init : false
 
@@ -967,6 +1015,7 @@ are errors.") + "</i>"
                 textFieldTs.text    = props.samplingTime.toFixed()
                 textFieldSpDfa.text = props.dfaSetpoint.toFixed(MachineData.measurementUnit ? 0 : 2)
                 textFieldSpIfa.text = props.ifaSetpoint.toFixed(MachineData.measurementUnit ? 0 : 2)
+                textFieldWarmup.text = props.warmup
 
                 setButton.visible = Qt.binding(function(){return (props.parameterHasChanged == 0 ? false : true)})
                 responseBtn.visible = Qt.binding(function(){return MachineData.closedLoopResponseStatus})
