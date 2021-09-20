@@ -6173,17 +6173,13 @@ void MachineBackend::_insertEventLog(const QString logText)
 void MachineBackend::_setFanInflowStateNominal()
 {
     short dutyCycle = pData->getFanInflowNominalDutyCycle();
-    qDebug() << "1st time dutycycle set" << dutyCycle/3;
-    _setFanInflowDutyCycle(dutyCycle/3);
+    qDebug() << "1st time dutycycle set" << dutyCycle/4;
+    _setFanInflowDutyCycle(dutyCycle/4);
     /// divide into two time for setting up the Nominal duty cycle
     /// this is for reducing the irush current of the motor blower
     /// Implement this method if the nominal duty cylcle is relative high
     QTimer::singleShot(5000, this, [&, dutyCycle](){
-        qDebug() << "2nd time dutycycle set" << dutyCycle/2;
-        _setFanInflowDutyCycle(dutyCycle/2);
-    });
-    QTimer::singleShot(10000, this, [&, dutyCycle](){
-        qDebug() << "3rd time dutycycle set" << dutyCycle;
+        qDebug() << "2nd time dutycycle set" << dutyCycle;
         _setFanInflowDutyCycle(dutyCycle);
     });
 }
@@ -6210,8 +6206,8 @@ void MachineBackend::_setFanInflowStateOFF()
 void MachineBackend::_setFanPrimaryStateNominal()
 {
     short dutyCycle = pData->getFanPrimaryNominalDutyCycle();
-    qDebug() << "1st time dutycycle set" << dutyCycle/2;
-    _setFanPrimaryDutyCycle(dutyCycle/2);
+    qDebug() << "1st time dutycycle set" << dutyCycle/4;
+    _setFanPrimaryDutyCycle(dutyCycle/4);
     /// divide into two time for setting up the Nominal duty cycle
     /// this is for reducing the irush current of the motor blower
     /// Implement this method if the nominal duty cylcle is relative high
