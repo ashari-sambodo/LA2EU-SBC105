@@ -24,6 +24,7 @@ public:
     void setConstant(int value);
     void initScope();
     void setScopeCount(unsigned char scopeCount);
+    void setMeasurementUnit(uchar value);
 
     int adc() const;
     int adcConpensation() const;
@@ -71,6 +72,7 @@ private:
     bool m_temperatureChanged = false;
     bool m_sensorConstantChanged = false;
     bool m_scopeChanged = false;
+    uchar m_meaUnit = 0;
     unsigned char m_scopeCount = AIRFLOWNANAGER_MAX_ADC_POINT;
 
     int m_adcPoint[AIRFLOWNANAGER_MAX_ADC_POINT] = { 0 };  /// fill all element to zero

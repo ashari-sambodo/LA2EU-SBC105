@@ -19,6 +19,7 @@ AirflowVelocity::AirflowVelocity(QObject *parent)
     m_temperature       = 0;
     m_maxAdcResBits     = 12; // Default ADC Resolution 12 bits
     m_scopeCount        = AIRFLOWNANAGER_MAX_ADC_POINT;
+    m_meaUnit           = 0;
 
     adcDummy            = 0;
     m_adcChanged        = false;
@@ -118,8 +119,6 @@ void AirflowVelocity::routineTask(int parameter)
 
         double velocity = 0;
 
-        //        switch (m_calibPointMode) {
-        //        case AFCALIB_POINT_3POINTS:
         if(m_adcConpensation <= m_adcPoint[0]){
             velocity = 0;
 
@@ -141,136 +140,61 @@ void AirflowVelocity::routineTask(int parameter)
                 qDebug() << metaObject()->className() << __func__ << "m_adcPoint[2]" << m_adcPoint[2] << m_adcConpensation << m_b2 << m_m2 << "velocity" << velocity;
             }
         }
-        //            break;
-        //        case AFCALIB_POINT_2POINTS:
-        //            if(m_adcConpensation <= m_adcPoint[0]){
-        //                velocity = 0;
-        //            }else {
-        //                velocity = (double)qRound((((double)m_adcConpensation - m_b1) / m_m1) * 1000.0) / 1000.0;
-        //            }
-        //            break;
-        //        default:
-        //            break;
-        //        }
 
-        qDebug() << m_velocityPoint[2] << velocity;
+        double velHigh      = m_velocityPoint[3];
+        double velNominal   = m_velocityPoint[2];
+        double velLow       = m_velocityPoint[1];
+        double velActual    = velocity;
+        double valueVel     = 0;
 
-        if(velocity > m_velocityPoint[2]){
-            int vel = static_cast<int>(velocity);
-            velocity = static_cast<int>(vel);
-        }
-        else {
-            velocity = qRound(velocity);
-        }
+        if(m_meaUnit) {
+            if(velHigh > 0)     velHigh /= 100.0;
+            if(velNominal > 0)  velNominal /= 100.0;
+            if(velLow > 0)      velLow /= 100.0;
+            if(velActual > 0)   velActual /= 100.0;
+        }//
 
-        qDebug() << m_velocityPoint[2] << velocity;
+        /// generate an offset in order to decide what rounding method need to implement
+        /// use 20% of the deviation between Nominal and one of the alarm velocity
+        int offsetBeforeAlarm = qRound(0.2 * (velNominal - velLow));
+        /// Remove decimal point if actual velocity is greater than Nominal
+        /// Round it if less than Nominal
+        if(velActual > velNominal){
+            if((velActual >= (velHigh - offsetBeforeAlarm)) && (velHigh > velNominal))
+                valueVel = qRound(velActual);
+            else
+                valueVel = static_cast<int>(velActual);
+        }else{
+            if(velActual <= (velLow + offsetBeforeAlarm))
+                valueVel = static_cast<int>(velActual);
+            else
+                valueVel = qRound(velActual);
+        }//
+
+        if(m_meaUnit) {
+            if(velHigh > 0)     velHigh *= 100.0;
+            if(velNominal > 0)  velNominal *= 100.0;
+            if(velLow > 0)      velLow *= 100.0;
+            if(velActual > 0)   velActual *= 100.0;
+            if(valueVel > 0)    valueVel *= 100.0;
+        }//
+
+        qDebug() << velLow << velHigh << offsetBeforeAlarm;
+        qDebug() << velNominal << velActual << "final:" << valueVel;
 
         //nomalization, airflow value dont have negative
-        if(velocity < 0) velocity = 0;
+        if(valueVel < 0) valueVel = 0;
 
-        //        printf("Velocity %.2f\n", velocity);
-        //        fflush(stdout);
-
-        if(fabs(velocity - m_velocity) >= 1){
-            m_velocity = velocity;
+        if(fabs(valueVel - m_velocity) >= 1){
+            m_velocity = valueVel;
 
             if(!m_velocityChanged) m_velocityChanged = true;
             emit velocityChanged(m_velocity);
         }
-
-        //        if(fabs(velocity - m_velocity) >= 0.001){
-        //            m_velocity = velocity;
-
-        //            if(!m_velocityChanged) m_velocityChanged = true;
-        //            emit velocityChanged(m_velocity);
-        //        }
-
-        //        qDebug() << "m_adcConpensation: "<< m_adcConpensation;
-        //        qDebug() << "ADC2:" << m_adcPoint[2] <<"ADC1:" << m_adcPoint[1];
-        //        qDebug() << "VEL2:" << m_velocityPoint[2] << "VEL1:" << m_velocityPoint[1];
-        //        qDebug() << "m1: " << m_m1;
-        //        qDebug() << "b1: " << m_b1;
-        //        qDebug() << "m2: " << m_m2;
-        //        qDebug() << "b2: " << m_b2;
-    }
+    }//
 
     emit workerFinished();
-    //    Q_UNUSED(parameter);
-
-    //    int adc = pAI->getADC(m_channel);
-
-    //    //dummyADC
-    //    //    adc = adcDummy += 10;
-    //    //    qDebug() << "AirflowManager::workerCompensationADC() " << adc;
-
-    //    bool recalculateAdcConpensation = false;
-    //    bool recalculateVelocity        = false;
-
-    //    //ADC
-    //    int adcC = 0;
-    //    if(m_adc != adc){
-    //        m_adc = adc;
-    //        recalculateAdcConpensation = true;
-    //        emit adcChanged(m_adc);
-    //    }
-
-    //    //TEMPERATURE
-    //    if(m_temperatureChanged){
-    //        recalculateAdcConpensation = true;
-    //        m_temperatureChanged = false;
-    //    }
-
-    //    //ADC CONPENSATION
-    //    if(recalculateAdcConpensation){
-
-    //        //ADC TEMPERATURE CONVESATION
-    //        if((m_constant == 0) || (m_temperature > 50.0)){
-    //            adcC = adc;
-    //        }
-    //        else{
-    //            adcC = qRound((double)adc + (double)adc * (m_temperature - 25.0) / (double)m_constant);
-    //            //            double result;
-    //            //            result =  m_temperature - 25.0;
-    //            //            result += (double)m_constant;
-    //            //            result *= (double)(adc);
-    //            //            result /= (double)(m_constant);
-    //            //            adcC = qRound(result);
-    //        }
-
-    //        if(m_adcConpensation != adcC){
-    //            m_adcConpensation   = adcC;
-    //            recalculateVelocity = true;
-    //            emit adcConpensationChanged(m_adcConpensation);
-    //        }
-    //    }
-
-    //    //VELOCITY
-    //    if(recalculateVelocity){
-    //        double velocity = 0;
-    //        if(m_adcConpensation <= m_adcPoint[0]){
-    //            velocity = 0;
-    //        }else if(m_adcConpensation <= m_adcPoint[1]){
-    //            velocity = (double)qRound((((double)m_adcConpensation - m_b1) / m_m1) * 1000.0) / 1000.0;
-    //        }else{
-    //            velocity = (double)qRound((((double)m_adcConpensation - m_b2) / m_m2) * 1000.0) / 1000.0;
-    //        }
-
-    //        //nomalization, airflow value dont have negative
-    //        if(m_velocity < 0) m_velocity = 0;
-
-    //        //    printf("Velocity %.2f\n", m_velocity);
-    //        //    fflush(stdout);
-
-    //        if(fabs(velocity - m_velocity) >= 0.001){
-    //            m_velocity = velocity;
-
-    //            if(!m_velocityChanged) m_velocityChanged = true;
-    //            emit velocityChanged(m_velocity);
-    //        }
-    //    }
-
-    //    emit workerFinished();
-}
+}//
 
 ///**
 // * @brief AirflowManager::calculateCompensationADC
@@ -394,6 +318,11 @@ void AirflowVelocity::initScope()
 void AirflowVelocity::setScopeCount(unsigned char scopeCount)
 {
     m_scopeCount = scopeCount;
+}
+
+void AirflowVelocity::setMeasurementUnit(uchar value)
+{
+    m_meaUnit = value;
 }
 
 void AirflowVelocity::setTemperature(int newVal)

@@ -1292,7 +1292,7 @@ void MachineBackend::setup()
         float dfaGainP = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_P + QString::number(Downflow), 1.5).toFloat();
         float dfaGainI = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_I + QString::number(Downflow), 0).toFloat();
         float dfaGainD = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_D + QString::number(Downflow), 0).toFloat();
-        float ifaGainP = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_P + QString::number(Inflow), 1.5).toFloat();
+        float ifaGainP = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_P + QString::number(Inflow), 1.0).toFloat();
         float ifaGainI = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_I + QString::number(Inflow), 0).toFloat();
         float ifaGainD = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_D + QString::number(Inflow), 0).toFloat();
 
@@ -1397,6 +1397,7 @@ void MachineBackend::setup()
         m_pAirflowDownflow->setAIN(m_boardAnalogInput2.data());
         m_pAirflowDownflow->setChannel(0);
         m_pAirflowDownflow->setScopeCount(2); //Default 4
+        m_pAirflowDownflow->setMeasurementUnit(static_cast<uchar>(pData->getMeasurementUnit()));
         //m_pAirflowDownflow->setAdcResolutionBits(12);
 
         /// CONNECTION
@@ -1422,6 +1423,7 @@ void MachineBackend::setup()
         m_pAirflowInflow->setAIN(m_boardAnalogInput1.data());
         m_pAirflowInflow->setChannel(1);
         m_pAirflowInflow->setScopeCount(2); // Default 4
+        m_pAirflowInflow->setMeasurementUnit(static_cast<uchar>(pData->getMeasurementUnit()));
         //m_pAirflowInflow->setAdcResolutionBits(12);
 
         /// CONNECTION
@@ -2306,8 +2308,11 @@ void MachineBackend::loop()
     /// put any read sensor routineTask in here
     m_pSashWindow->routineTask();
     m_pTemperature->routineTask();
-    m_pAirflowInflow->routineTask();
-    m_pAirflowDownflow->routineTask();
+    if(pData->getFanInflowDutyCycle() > 0)
+        m_pAirflowInflow->routineTask();
+    if(pData->getFanPrimaryDutyCycle() > 0)
+        m_pAirflowDownflow->routineTask();
+
     if(pData->getSeasInstalled()) { m_pSeas->routineTask(); }
 
     /// PROCESSING
@@ -2367,44 +2372,44 @@ void MachineBackend::deallocate()
     //if(pData->getFanState())
     //    setFanState(MachineEnums::FAN_STATE_OFF);
     /// turned off the Downflow blower
-    if(pData->getFanPrimaryState()){
-        _setFanPrimaryStateOFF();
-        pData->setFanPrimaryState(MachineEnums::FAN_STATE_OFF);
-        QEventLoop waitLoop;
-        /// https://www.kdab.com/nailing-13-signal-slot-mistakes-clazy-1-3/
-        //m_pFanPrimary->setInterlock(MachineEnums::DIG_STATE_ZERO);
-        QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::dutyCycleChanged,
-                         &waitLoop, [this, &waitLoop] (int dutyCycle){
-            qDebug() << "waitLoop" << dutyCycle;
-            if (dutyCycle == 0){
-                waitLoop.quit();
-            }
-            else {
-                _setFanPrimaryStateOFF();
-            }
-        });
-        waitLoop.exec();
-    }
+    //    if(pData->getFanPrimaryState()){
+    //        _setFanPrimaryStateOFF();
+    //        pData->setFanPrimaryState(MachineEnums::FAN_STATE_OFF);
+    //        QEventLoop waitLoop;
+    //        /// https://www.kdab.com/nailing-13-signal-slot-mistakes-clazy-1-3/
+    //        //m_pFanPrimary->setInterlock(MachineEnums::DIG_STATE_ZERO);
+    //        QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::dutyCycleChanged,
+    //                         &waitLoop, [this, &waitLoop] (int dutyCycle){
+    //            qDebug() << "waitLoop" << dutyCycle;
+    //            if (dutyCycle == 0){
+    //                waitLoop.exit(1);
+    //            }
+    //            else {
+    //                _setFanPrimaryStateOFF();
+    //            }
+    //        });
+    //        waitLoop.exec();
+    //    }//
 
-    /// turned off the Inflow blower
-    if(pData->getFanInflowState()){
-        _setFanInflowStateOFF();
-        pData->setFanInflowState(MachineEnums::FAN_STATE_OFF);
-        QEventLoop waitLoop;
-        /// https://www.kdab.com/nailing-13-signal-slot-mistakes-clazy-1-3/
-        //m_pFanInflow->setInterlock(MachineEnums::DIG_STATE_ZERO);
-        QObject::connect(m_pFanInflow.data(), &DeviceAnalogCom::stateChanged,
-                         &waitLoop, [this, &waitLoop] (int state){
-            qDebug() << "waitLoop" << state;
-            if (state == 0){
-                waitLoop.quit();
-            }
-            else {
-                _setFanInflowStateOFF();
-            }
-        });
-        waitLoop.exec();
-    }
+    //    /// turned off the Inflow blower
+    //    if(pData->getFanInflowState()){
+    //        _setFanInflowStateOFF();
+    //        pData->setFanInflowState(MachineEnums::FAN_STATE_OFF);
+    //        QEventLoop waitLoop;
+    //        /// https://www.kdab.com/nailing-13-signal-slot-mistakes-clazy-1-3/
+    //        //m_pFanInflow->setInterlock(MachineEnums::DIG_STATE_ZERO);
+    //        QObject::connect(m_pFanInflow.data(), &DeviceAnalogCom::stateChanged,
+    //                         &waitLoop, [this, &waitLoop] (int state){
+    //            qDebug() << "waitLoop" << state;
+    //            if (state == 0){
+    //                waitLoop.exit(1);
+    //            }
+    //            else {
+    //                _setFanInflowStateOFF();
+    //            }
+    //        });
+    //        waitLoop.exec();
+    //    }//
 
     qDebug() << metaObject()->className() << __FUNCTION__ << "phase-2";
     if(m_threadForBoardIO){
@@ -3021,7 +3026,9 @@ void MachineBackend::setMeasurementUnit(short value)
     /// Update to Closed Loop Control Object
     m_pDfaFanClosedLoopControl->setMeasurementUnit(static_cast<uchar>(value));
     m_pIfaFanClosedLoopControl->setMeasurementUnit(static_cast<uchar>(value));
-    //if(pData->getClosedLoopResponseStatus()) pData->setClosedLoopResponseStatus(false);
+    /// Update to Airflow Velocity Object
+    m_pAirflowInflow->setMeasurementUnit(static_cast<uchar>(value));
+    m_pAirflowDownflow->setMeasurementUnit(static_cast<uchar>(value));
 
     {
         QSettings settings;
@@ -5367,25 +5374,34 @@ void MachineBackend::_onTemperatureActualChanged(int value)
 
 void MachineBackend::_onInflowVelocityActualChanged(int value)
 {
-    int finalValue = value;
+    //    int finalValue = value;
     if (pData->getMeasurementUnit()) {
-        double velNominal = m_pAirflowInflow->getVelocityPoint(2)/100.0;
-        double velActual = static_cast<double>(value) / 100.0;
-        int valueVel = 0;
-        /// Remove decimal point if actual velocity is greater than Nominal
-        /// Round it if less than Nominal
-        if(velActual > velNominal){
-            valueVel = static_cast<int>(velActual);
-        }else{
-            valueVel = qRound(velActual);
-        }
+        //        double velNominal = m_pAirflowInflow->getVelocityPoint(2)/100.0;
+        //        double velLow = m_pAirflowInflow->getVelocityPoint(1)/100.0;
+        //        /// generate an offset in order to decide what rounding method need to implement
+        //        /// use 20% of the deviation between Nominal and one of the alarm velocity
+        //        int offsetBeforeAlarm = qRound(0.2 * (velNominal - velLow));
+        //        double velActual = static_cast<double>(value) / 100.0;
+        //        int valueVel = 0;
+        //        /// Remove decimal point if actual velocity is greater than Nominal
+        //        /// Round it if less than Nominal
+        //        if(velActual > velNominal){
+        //            valueVel = static_cast<int>(velActual);
+        //        }else{
+        //            if(velActual <= (velLow + offsetBeforeAlarm))
+        //                valueVel = static_cast<int>(velActual);
+        //            else
+        //                valueVel = qRound(velActual);
+        //        }
 
-        qDebug() << velNominal << velActual << valueVel;
+        //        qDebug() << velLow << offsetBeforeAlarm;
+        //        qDebug() << velNominal << velActual << valueVel;
+        double valueVel = value / 100.0;
 
-        QString valueStr = QString::asprintf("%d fpm", valueVel);
+        QString valueStr = QString::asprintf("%d fpm", static_cast<int>(valueVel));
         pData->setInflowVelocityStr(valueStr);
         m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
-        finalValue = valueVel * 100;
+        //finalValue = valueVel * 100;
     }
     else {
         double valueVel = value / 100.0;
@@ -5394,34 +5410,44 @@ void MachineBackend::_onInflowVelocityActualChanged(int value)
         m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
     }
 
-    pData->setInflowVelocity(finalValue);
+    pData->setInflowVelocity(value);
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.airflowInflow.addr, static_cast<ushort>(finalValue));
+    _setModbusRegHoldingValue(modbusRegisterAddress.airflowInflow.addr, static_cast<ushort>(value));
 
     //    qDebug() << "Inflow" << pData->getInflowVelocityStr();
 }
 void MachineBackend::_onDownflowVelocityActualChanged(int value)
 {
-    int finalValue = value;
-
     if (pData->getMeasurementUnit()) {
-        double velNominal = m_pAirflowDownflow->getVelocityPoint(2)/100.0;
-        double velActual = static_cast<double>(value) / 100.0;
-        int valueVel = 0;
-        /// Remove decimal point if actual velocity is greater than Nominal
-        /// Round it if less than Nominal
-        if(velActual > velNominal){
-            valueVel = static_cast<int>(velActual);
-        }else{
-            valueVel = qRound(velActual);
-        }
+        //        double velNominal = m_pAirflowDownflow->getVelocityPoint(2)/100.0;
+        //        double velHigh = m_pAirflowDownflow->getVelocityPoint(1)/100.0;
+        //        double velLow = m_pAirflowDownflow->getVelocityPoint(3)/100.0;
+        //        /// generate an offset in order to decide what rounding method need to implement
+        //        /// use 20% of the deviation between Nominal and one of the alarm velocity
+        //        int offsetBeforeAlarm = qRound(0.2 * (velNominal - velLow));
+        //        double velActual = static_cast<double>(value) / 100.0;
+        //        int valueVel = 0;
+        //        /// Remove decimal point if actual velocity is greater than Nominal
+        //        /// Round it if less than Nominal
+        //        if(velActual > velNominal){
+        //            if(velActual >= (velHigh-offsetBeforeAlarm))
+        //                valueVel = qRound(velActual);
+        //            else
+        //                valueVel = static_cast<int>(velActual);
+        //        }else{
+        //            if(velActual <= (velLow + offsetBeforeAlarm))
+        //                valueVel = static_cast<int>(velActual);
+        //            else
+        //                valueVel = qRound(velActual);
+        //        }//
 
-        qDebug() << velNominal << velActual << valueVel;
+        //        qDebug() << velLow << velHigh << offsetBeforeAlarm;
+        //        qDebug() << velNominal << velActual << "final:" << valueVel;
+        double valueVel = value / 100.0;
 
-        QString valueStr = QString::asprintf("%d fpm", valueVel);
+        QString valueStr = QString::asprintf("%d fpm", static_cast<int>(valueVel));
         pData->setDownflowVelocityStr(valueStr);
         m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
-        finalValue = valueVel * 100;
     }
     else {
         double valueVel = value / 100.0;
@@ -5430,9 +5456,9 @@ void MachineBackend::_onDownflowVelocityActualChanged(int value)
         m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
     }
 
-    pData->setDownflowVelocity(finalValue);
+    pData->setDownflowVelocity(value);
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.airflowDownflow.addr, static_cast<ushort>(finalValue));
+    _setModbusRegHoldingValue(modbusRegisterAddress.airflowDownflow.addr, static_cast<ushort>(value));
 
     //    qDebug() << "Inflow" << pData->getInflowVelocityStr();
 }
@@ -6147,7 +6173,19 @@ void MachineBackend::_insertEventLog(const QString logText)
 void MachineBackend::_setFanInflowStateNominal()
 {
     short dutyCycle = pData->getFanInflowNominalDutyCycle();
-    _setFanInflowDutyCycle(dutyCycle);
+    qDebug() << "1st time dutycycle set" << dutyCycle/3;
+    _setFanInflowDutyCycle(dutyCycle/3);
+    /// divide into two time for setting up the Nominal duty cycle
+    /// this is for reducing the irush current of the motor blower
+    /// Implement this method if the nominal duty cylcle is relative high
+    QTimer::singleShot(5000, this, [&, dutyCycle](){
+        qDebug() << "2nd time dutycycle set" << dutyCycle/2;
+        _setFanInflowDutyCycle(dutyCycle/2);
+    });
+    QTimer::singleShot(10000, this, [&, dutyCycle](){
+        qDebug() << "3rd time dutycycle set" << dutyCycle;
+        _setFanInflowDutyCycle(dutyCycle);
+    });
 }
 
 void MachineBackend::_setFanInflowStateMinimum()
@@ -6172,7 +6210,15 @@ void MachineBackend::_setFanInflowStateOFF()
 void MachineBackend::_setFanPrimaryStateNominal()
 {
     short dutyCycle = pData->getFanPrimaryNominalDutyCycle();
-    _setFanPrimaryDutyCycle(dutyCycle);
+    qDebug() << "1st time dutycycle set" << dutyCycle/2;
+    _setFanPrimaryDutyCycle(dutyCycle/2);
+    /// divide into two time for setting up the Nominal duty cycle
+    /// this is for reducing the irush current of the motor blower
+    /// Implement this method if the nominal duty cylcle is relative high
+    QTimer::singleShot(5000, this, [&, dutyCycle](){
+        qDebug() << "2nd time dutycycle set" << dutyCycle;
+        _setFanPrimaryDutyCycle(dutyCycle);
+    });
 }
 
 void MachineBackend::_setFanPrimaryStateMinimum()
@@ -7212,6 +7258,8 @@ void MachineBackend::_machineState()
     alarmsBoards |= !pData->getBoardStatusCtpIoe();
     if(pData->getSeasInstalled())
         alarmsBoards |= !pData->getBoardStatusPressureDiff();
+
+    Q_UNUSED((alarmsBoards))
 
     ///demo
 #ifdef QT_DEBUG

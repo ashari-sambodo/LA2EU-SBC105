@@ -69,6 +69,13 @@ ViewApp {
             }//
         }//
 
+        Timer{
+            id: fanOffTimer
+            interval: 5000
+            running: false
+            repeat: false
+            onTriggered: MachineAPI.stop()
+        }
         /// Variable collector
         QtObject {
             id: props
@@ -99,8 +106,15 @@ ViewApp {
                 const message = extraData["message"] || props.messageText
                 //                props.messageText = message
 
-                MachineAPI.stop()
-            }
+                if(MachineData.fanState !== MachineAPI.FAN_STATE_OFF)
+                {
+                    MachineAPI.setFanState(MachineAPI.FAN_STATE_OFF)
+                    fanOffTimer.running = true
+                }
+                else{
+                    MachineAPI.stop()
+                }
+            }//
 
             /// onPause
             Component.onDestruction: {
