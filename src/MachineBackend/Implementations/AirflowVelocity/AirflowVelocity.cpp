@@ -138,8 +138,8 @@ void AirflowVelocity::routineTask(int parameter)
             }else {
                 velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b2) / m_m2/*)*/;
                 qDebug() << metaObject()->className() << __func__ << "m_adcPoint[2]" << m_adcPoint[2] << m_adcConpensation << m_b2 << m_m2 << "velocity" << velocity;
-            }
-        }
+            }//
+        }//
 
         double velHigh      = m_velocityPoint[3];
         double velNominal   = m_velocityPoint[2];
@@ -155,8 +155,8 @@ void AirflowVelocity::routineTask(int parameter)
         }//
 
         /// generate an offset in order to decide what rounding method need to implement
-        /// use 20% of the deviation between Nominal and one of the alarm velocity
-        int offsetBeforeAlarm = qRound(0.2 * (velNominal - velLow));
+        /// use 40% of the deviation between Nominal and one of the alarm velocity
+        int offsetBeforeAlarm = qRound(0.4 * (velNominal - velLow));
         /// Remove decimal point if actual velocity is greater than Nominal
         /// Round it if less than Nominal
         if(velActual > velNominal){
@@ -164,7 +164,8 @@ void AirflowVelocity::routineTask(int parameter)
                 valueVel = qRound(velActual);
             else
                 valueVel = static_cast<int>(velActual);
-        }else{
+        }//
+        else{
             if(velActual <= (velLow + offsetBeforeAlarm))
                 valueVel = static_cast<int>(velActual);
             else
@@ -190,7 +191,7 @@ void AirflowVelocity::routineTask(int parameter)
 
             if(!m_velocityChanged) m_velocityChanged = true;
             emit velocityChanged(m_velocity);
-        }
+        }//
     }//
 
     emit workerFinished();
