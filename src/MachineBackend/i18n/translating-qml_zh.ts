@@ -60,61 +60,71 @@
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="18"/>
-        <source>Fan scheduler has trigger</source>
+        <source>Fan On scheduler has trigger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="19"/>
-        <source>UV scheduler has trigger</source>
+        <source>Fan Off scheduler has trigger</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="20"/>
+        <source>UV On scheduler has trigger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="21"/>
-        <source>Set Fan on</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="22"/>
-        <source>Set Fan standby</source>
+        <source>UV Off scheduler has trigger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="23"/>
-        <source>Set Fan off</source>
+        <source>Set Fan on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="24"/>
+        <source>Set Fan standby</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="25"/>
-        <source>Set Light on</source>
+        <source>Set Fan off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="27"/>
-        <source>Modbus connected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="28"/>
-        <source>Modbus disconnected</source>
+        <source>Set Light on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="29"/>
-        <source>Modbus rejected</source>
+        <source>Modbus connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="30"/>
+        <source>Modbus disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="31"/>
-        <source>Enviromental temp too low</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="32"/>
-        <source>Enviromental temp too high</source>
+        <source>Modbus rejected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="33"/>
+        <source>Enviromental temp too low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="34"/>
+        <source>Enviromental temp too high</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="35"/>
         <source>Enviromental temp too normal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -150,32 +160,47 @@
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="12"/>
-        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="15"/>
-        <source>Alarm Exhaust | Normal</source>
+        <source>Alarm Downflow | Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="13"/>
-        <source>Alarm Exhaust | Fail | Too high</source>
+        <source>Alarm Downflow | Fail | Too low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="14"/>
+        <source>Alarm Downflow | Fail | Too high</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="16"/>
-        <source>Alarm Exhaust | Fail | Too low</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="18"/>
-        <source>Alarm Temperature | Normal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="19"/>
-        <source>Alarm Temperature | Fail | Too low</source>
+        <source>Alarm Exhaust | Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="17"/>
+        <source>Alarm Exhaust | Fail | Too high</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="20"/>
+        <source>Alarm Exhaust | Fail | Too low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="22"/>
+        <source>Alarm Temperature | Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="23"/>
+        <source>Alarm Temperature | Fail | Too low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="24"/>
         <source>Alarm Temperature | Fail | Too high</source>
         <translation type="unfinished"></translation>
     </message>
