@@ -129,13 +129,6 @@
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype        : "menu",
-                                 mtitle    : qsTr("Fan Speed"),
-                                 micon     : "qrc:/UI/Pictures/menu/set-fan-speed.png",
-                                 mlink     : "qrc:/UI/Pages/FanSpeedPage/FanSpeedPage.qml"
-                             })
-
-            if(menu[index].length > itemPerPage) {index++; menu.push([])}
-            menu[index].push({mtype        : "menu",
                                  mtitle    : qsTr("Fan Scheduler"),
                                  micon     : "qrc:/UI/Pictures/menu/Fan_Schedule.png",
                                  mlink     : "qrc:/UI/Pages/FanSchedulerPage/FanSchedulerPage.qml"
@@ -268,6 +261,13 @@
             index = 0
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype        : "menu",
+                                 mtitle    : qsTr("Fan Speed"),
+                                 micon     : "qrc:/UI/Pictures/menu/set-fan-speed.png",
+                                 mlink     : "qrc:/UI/Pages/FanSpeedPage/FanSpeedPage.qml"
+                             })
+
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype         :   "menu",
                                  mtitle     :   qsTr("Measurement Unit"),
                                  micon      :   "qrc:/UI/Pictures/menu/Measurement-Unit.png",
@@ -393,19 +393,20 @@
             //                                 mlink      :   "qrc:/UI/Pages/ResetParametersPage/ResetParametersPage.qml",
             //                             })
 
-            if(menu[index].length > itemPerPage) {index++; menu.push([])}
-            menu[index].push({mtype        :   "menu",
-                                 mtitle    :   qsTr("Software Update"),
-                                 micon     :   "qrc:/UI/Pictures/menu/Software-Update.png",
-                                 mlink     :   "qrc:/UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml"
-                             })
-
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype         :   "menu",
                                  mtitle     :   qsTr("Fan Closed Loop Control"),
                                  micon      :   "qrc:/UI/Pictures/menu/fan-auto-control.png",
                                  mlink      :   "qrc:/UI/Pages/FanClosedLoopControlPage/FanClosedLoopControlPage.qml"
+                             })
+
+
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype        :   "menu",
+                                 mtitle    :   qsTr("Software Update"),
+                                 micon     :   "qrc:/UI/Pictures/menu/Software-Update.png",
+                                 mlink     :   "qrc:/UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml"
                              })
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}

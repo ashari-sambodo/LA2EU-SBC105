@@ -701,6 +701,7 @@ The Fan will start at nominal fan duty cycle, and it will be adjusted by loop co
                                                 MachineAPI.setFanState(MachineAPI.FAN_STATE_OFF)
                                                 msg = qsTr("Switching Off the Fan...")
                                                 isTurnOn = 0
+                                                MachineAPI.setReadClosedLoopResponse(false)
                                             }
                                             else{
                                                 msg = qsTr("Switching On the Fan...")

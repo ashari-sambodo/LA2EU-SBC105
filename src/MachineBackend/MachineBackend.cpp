@@ -2308,10 +2308,10 @@ void MachineBackend::loop()
     /// put any read sensor routineTask in here
     m_pSashWindow->routineTask();
     m_pTemperature->routineTask();
-    if(pData->getFanInflowDutyCycle() > 0)
-        m_pAirflowInflow->routineTask();
-    if(pData->getFanPrimaryDutyCycle() > 0)
-        m_pAirflowDownflow->routineTask();
+    //if(pData->getFanInflowDutyCycle() > 0)
+    m_pAirflowInflow->routineTask();
+    //if(pData->getFanPrimaryDutyCycle() > 0)
+    m_pAirflowDownflow->routineTask();
 
     if(pData->getSeasInstalled()) { m_pSeas->routineTask(); }
 
