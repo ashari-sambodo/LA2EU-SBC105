@@ -934,12 +934,10 @@ ViewApp {
 
                                                 if(props.sashMotorizeState) {
                                                     MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
-
                                                     MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
                                                     return
                                                 }
                                                 MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_UP)
-
                                                 MachineAPI.insertEventLog(qsTr("User: Set sash motorize up"))
                                             }//
 
@@ -950,12 +948,12 @@ ViewApp {
                                                 MachineAPI.insertEventLog(qsTr("User: Set sash motorize up"))
                                             }//
 
-                                            onReleasedPress: {
-                                                if (stateInterlock) return
-                                                MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
+                                            //                                            onReleasedPress: {
+                                            //                                                if (stateInterlock) return
+                                            //                                                MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
 
-                                                MachineAPI.insertEventLog(qsTr("User: Set sash motorize off"))
-                                            }//
+                                            //                                                MachineAPI.insertEventLog(qsTr("User: Set sash motorize off"))
+                                            //                                            }//
 
                                             states: [
                                                 State {
@@ -997,12 +995,10 @@ ViewApp {
 
                                                 if(props.sashMotorizeState) {
                                                     MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
-
                                                     MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
                                                     return
                                                 }
                                                 MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_DOWN)
-
                                                 MachineAPI.insertEventLog(qsTr("User: Set sash motorize down"))
                                             }//
 
@@ -1013,12 +1009,12 @@ ViewApp {
                                                 MachineAPI.insertEventLog(qsTr("User: Set sash motorize down"))
                                             }//
 
-                                            onReleasedPress: {
-                                                if (stateInterlock) return
-                                                MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
+                                            //                                            onReleasedPress: {
+                                            //                                                if (stateInterlock) return
+                                            //                                                MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
 
-                                                MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
-                                            }//
+                                            //                                                MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
+                                            //                                            }//
 
                                             states: [
                                                 State {
@@ -1663,7 +1659,10 @@ ViewApp {
                                                       });
                                     }
                                     else {
-                                        MachineAPI.setFanState(MachineAPI.FAN_STATE_ON);
+                                        if(props.sashWindowState === MachineAPI.SASH_STATE_STANDBY_SSV)
+                                            MachineAPI.setFanState(MachineAPI.FAN_STATE_STANDBY);
+                                        else
+                                            MachineAPI.setFanState(MachineAPI.FAN_STATE_ON);
                                         props.showFanProgressSwitchingState(!props.fanState)
 
                                         MachineAPI.insertEventLog(qsTr("User: Set Fan on"))
@@ -2147,6 +2146,14 @@ ViewApp {
             }//
         }//
 
+        //        Timer{
+        //            id: timerSashMotorButtonTempInterlock
+        //            running: false
+        //            repeat: false
+        //            interval: 1000
+        //            onTriggered: {console.debug("timerSashMotorButtonTempInterlock onTriggered")}
+        //        }
+
         //// Timer for update current clock and date
         Timer{
             id: timeDateTimer
@@ -2346,11 +2353,6 @@ ViewApp {
 
                 props.fanInterlocked = Qt.binding(function(){ return MachineData.fanPrimaryInterlocked })
                 props.fanState = Qt.binding(function(){
-                    //                    if(MachineData.fanPrimaryState === MachineAPI.FAN_STATE_ON && MachineData.fanInflowState === MachineAPI.FAN_STATE_ON)
-                    //                        return MachineAPI.FAN_STATE_ON
-                    //                    else if(MachineData.fanPrimaryState === MachineAPI.FAN_STATE_STANDBY && MachineData.fanInflowState === MachineAPI.FAN_STATE_STANDBY)
-                    //                        return MachineAPI.FAN_STATE_STANDBY
-                    //                    else
                     return MachineData.fanState
                 })
 

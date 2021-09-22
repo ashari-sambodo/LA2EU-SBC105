@@ -62,8 +62,9 @@ ViewApp {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 Column{
-                                    spacing: 30
-                                    anchors.centerIn: parent
+                                    spacing: 20
+                                    //anchors.centerIn: parent
+                                    anchors.horizontalCenter: parent.horizontalCenter
                                     Rectangle{
                                         color: "transparent"
                                         border.width: 0
@@ -84,23 +85,6 @@ ViewApp {
                                         spacing: 5
                                         Column{
                                             spacing: 5
-                                            Column{
-                                                spacing: 5
-                                                TextApp {
-                                                    text: qsTr("Constant")
-                                                }//
-
-                                                TextFieldApp {
-                                                    id: dfaSensorConstantTextField
-                                                    width: 110
-                                                    height: 40
-                                                    validator: IntValidator{bottom: 0; top: 99;}
-
-                                                    onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Constant Downflow Sensor"))
-                                                    }//
-                                                }//
-                                            }
                                             Column {
                                                 spacing: 5
 
@@ -114,7 +98,33 @@ ViewApp {
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Fan Standby"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Fan Standby (%)"))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: "%"
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Fan Min")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: dfaFanMinTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Fan Minimum (%)"))
                                                     }//
 
                                                     TextApp {
@@ -140,7 +150,33 @@ ViewApp {
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Fan Nominal"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Fan Nominal (%)"))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: "%"
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Fan Max")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: dfaFanMaxTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Fan Maximum (%)"))
                                                     }//
 
                                                     TextApp {
@@ -171,7 +207,7 @@ ViewApp {
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Low Alarm"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Low Alarm") + " (%1)".arg(props.meaUnitStr))
                                                     }//
 
                                                     TextApp {
@@ -197,7 +233,7 @@ ViewApp {
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Nominal"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Nominal") + " (%1)".arg(props.meaUnitStr))
                                                     }//
 
                                                     TextApp {
@@ -224,7 +260,7 @@ ViewApp {
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow High Alarm"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow High Alarm") + " (%1)".arg(props.meaUnitStr))
                                                     }//
 
                                                     TextApp {
@@ -242,6 +278,23 @@ ViewApp {
                                         Column {
                                             spacing: 5
 
+                                            Column{
+                                                spacing: 5
+                                                TextApp {
+                                                    text: qsTr("Constant")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: dfaSensorConstantTextField
+                                                    width: 110
+                                                    height: 40
+                                                    validator: IntValidator{bottom: 0; top: 99;}
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Constant Downflow Sensor"))
+                                                    }//
+                                                }//
+                                            }
                                             Column {
                                                 spacing: 5
 
@@ -285,8 +338,9 @@ ViewApp {
                                 Layout.fillWidth: true
                                 Layout.fillHeight: true
                                 Column{
-                                    spacing: 30
-                                    anchors.centerIn: parent
+                                    spacing: 20
+                                    //anchors.centerIn: parent
+                                    anchors.horizontalCenter: parent.horizontalCenter
                                     Rectangle{
                                         color: "transparent"
                                         border.width: 0
@@ -307,20 +361,6 @@ ViewApp {
                                         spacing: 5
                                         Column{
                                             spacing: 5
-                                            TextApp {
-                                                text: qsTr("Constant")
-                                            }//
-
-                                            TextFieldApp {
-                                                id: ifaSensorConstantTextField
-                                                width: 110
-                                                height: 40
-                                                validator: IntValidator{bottom: 0; top: 99;}
-
-                                                onPressed: {
-                                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Constant Inflow Sensor"))
-                                                }//
-                                            }//
                                             Column {
                                                 spacing: 5
 
@@ -334,7 +374,33 @@ ViewApp {
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan Standby"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan Standby (%)"))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: "%"
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Fan Min")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: ifaFanMinTextField
+                                                    width: 110
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan Minimum (%)"))
                                                     }//
 
                                                     TextApp {
@@ -360,7 +426,7 @@ ViewApp {
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan Nominal"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan Nominal (%)"))
                                                     }//
 
                                                     TextApp {
@@ -391,7 +457,7 @@ ViewApp {
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Low Alarm"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Low Alarm") + " (%1)".arg(props.meaUnitStr))
                                                     }//
 
                                                     TextApp {
@@ -418,7 +484,7 @@ ViewApp {
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Nominal"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Nominal") + " (%1)".arg(props.meaUnitStr))
                                                     }//
 
                                                     TextApp {
@@ -435,6 +501,23 @@ ViewApp {
                                         //////////////////
                                         Column {
                                             spacing: 5
+                                            Column{
+                                                spacing: 5
+                                                TextApp {
+                                                    text: qsTr("Constant")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: ifaSensorConstantTextField
+                                                    width: 110
+                                                    height: 40
+                                                    validator: IntValidator{bottom: 0; top: 99;}
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Constant Inflow Sensor"))
+                                                    }//
+                                                }//
+                                            }//
                                             Column {
                                                 spacing: 5
 
@@ -497,7 +580,7 @@ ViewApp {
                                     height: 40
 
                                     onPressed: {
-                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Calib Temperature"))
+                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Calib Temperature") + " (%1)".arg(props.tempUnitStr))
                                     }//
 
                                     TextApp {
@@ -612,14 +695,16 @@ ViewApp {
                                 let calibTempAdc = Number(calibTempAdcTextField.text)
                                 let calibTemp    = Number(calibTempTextField.text)
 
-                                let dfaFanNominal = Number(dfaFanNominalTextField.text)
-                                //let fanMinimum = Number(fanMinimumTextField.text)
                                 let dfaFanStandby = Number(dfaFanStandbyTextField.text)
-                                let ifaFanNominal = Number(ifaFanNominalTextField.text)
-                                //let ianMinimum = Number(fanMinimumTextField.text)
+                                let dfaFanMinimum = Number(dfaFanMinTextField.text)
+                                let dfaFanNominal = Number(dfaFanNominalTextField.text)
+                                let dfaFanMaximum = Number(dfaFanMaxTextField.text)
                                 let ifaFanStandby = Number(ifaFanStandbyTextField.text)
+                                let ifaFanMinimum = Number(ifaFanMinTextField.text)
+                                let ifaFanNominal = Number(ifaFanNominalTextField.text)
 
-                                if ((dfaFanStandby >= dfaFanNominal) || (ifaFanStandby >= ifaFanNominal)) {
+                                if (((dfaFanStandby >= dfaFanMinimum) || (dfaFanMinimum >= dfaFanNominal) || (dfaFanNominal >= dfaFanMaximum))
+                                        || ((ifaFanStandby >= ifaFanMinimum) || (ifaFanMinimum >= ifaFanNominal))) {
                                     showDialogMessage(qsTr("Attention!"),
                                                       qsTr("Fan duty cycle value is not valid!"),
                                                       dialogAlert)
@@ -642,7 +727,10 @@ ViewApp {
 
                                 console.debug("dfaFanNominal: "  + dfaFanNominal)
                                 console.debug("dfaFanStandby: "  + dfaFanStandby)
+                                console.debug("dfaFanMinimum: "  + dfaFanMinimum)
+                                console.debug("dfaFanMaximum: "  + dfaFanMaximum)
                                 console.debug("ifaFanNominal: "  + ifaFanNominal)
+                                console.debug("ifaFanMinimum: "  + ifaFanMinimum)
                                 console.debug("ifaFanStandby: "  + ifaFanStandby)
 
                                 /// clear field calibration
@@ -652,7 +740,7 @@ ViewApp {
                                 MachineAPI.setDownflowVelocityPointField(0, 0, 0, 0)
 
                                 /// set factory/full calibration
-                                MachineAPI.setInflowSensorConstant      (dfaConstant)
+                                MachineAPI.setInflowSensorConstant      (ifaConstant)
                                 MachineAPI.setInflowAdcPointFactory     (ifaAdcZero, 0, ifaAdcNom)
                                 MachineAPI.setInflowVelocityPointFactory(0, ifaVelLowAlarm, ifaVelNom)
                                 MachineAPI.setInflowLowLimitVelocity    (ifaVelLowAlarm)
@@ -665,12 +753,13 @@ ViewApp {
                                 MachineAPI.setDownflowHighLimitVelocity (dfaVelHighAlarm)
 
                                 MachineAPI.setFanPrimaryNominalDutyCycleFactory(dfaFanNominal);
-                                //MachineAPI.setFanPrimaryMinimumDutyCycleFactory(fanMinimum);
+                                MachineAPI.setFanPrimaryMaximumDutyCycleFactory(dfaFanMaximum);
+                                MachineAPI.setFanPrimaryMinimumDutyCycleFactory(dfaFanMinimum);
                                 MachineAPI.setFanPrimaryStandbyDutyCycleFactory(dfaFanStandby);
 
-                                MachineAPI.setFanInflowNominalDutyCycleFactory(dfaFanNominal);
-                                //MachineAPI.setFanInflowMinimumDutyCycleFactory(dfaFanMinimum);
-                                MachineAPI.setFanInflowStandbyDutyCycleFactory(dfaFanStandby);
+                                MachineAPI.setFanInflowNominalDutyCycleFactory(ifaFanNominal);
+                                MachineAPI.setFanInflowMinimumDutyCycleFactory(ifaFanMinimum);
+                                MachineAPI.setFanInflowStandbyDutyCycleFactory(ifaFanStandby);
 
                                 MachineAPI.initAirflowCalibrationStatus(MachineAPI.AF_CALIB_FACTORY);
 
@@ -774,10 +863,12 @@ ViewApp {
                 calibTempTextField.text = MachineData.getInflowTempCalib()
 
                 dfaFanNominalTextField.text = MachineData.getFanPrimaryNominalDutyCycle()
-                //fanMinimumTextField.text = MachineData.getFanPrimaryMinimumDutyCycle()
+                dfaFanMinTextField.text = MachineData.getFanPrimaryMinimumDutyCycle()
+                dfaFanMaxTextField.text = MachineData.getFanPrimaryMaximumlDutyCycle()
                 dfaFanStandbyTextField.text = MachineData.getFanPrimaryStandbyDutyCycle()
+
                 ifaFanNominalTextField.text = MachineData.getFanInflowNominalDutyCycle()
-                //fanMinimumTextField.text = MachineData.getFanPrimaryMinimumDutyCycle()
+                ifaFanMinTextField.text = MachineData.getFanInflowMinimumDutyCycle()
                 ifaFanStandbyTextField.text = MachineData.getFanInflowStandbyDutyCycle()
             }//
 

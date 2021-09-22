@@ -411,6 +411,8 @@ private:
     QScopedPointer<Temperature>     m_pTemperature;
     QScopedPointer<AirflowVelocity> m_pAirflowInflow;
     QScopedPointer<AirflowVelocity> m_pAirflowDownflow;
+    ////
+    QScopedPointer<QTimer>           m_timerEventForSashMotorizeRoutine;
     ///
     QScopedPointer<ClosedLoopControl> m_pIfaFanClosedLoopControl;
     QScopedPointer<ClosedLoopControl> m_pDfaFanClosedLoopControl;
@@ -627,7 +629,7 @@ private:
     int  m_sashSafeAutoOnOutputDelayTimeMsec = 100; /// 100ms //original 3 seconds
 
     QTimer* eventTimerForDelayMotorizedOffAtFullyClosed = nullptr;
-    int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 2000; /// 2000ms
+    int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 1000; /// 2000ms
     bool  m_delaySashMotorFullyClosedExecuted = false;
     uchar m_counter = 0;
 

@@ -272,11 +272,13 @@ ViewApp {
                         }//
                     }
                     Rectangle{
+                        visible: false;
                         Layout.fillHeight: true
                         Layout.minimumWidth: 1
                         color: "#dddddd"
                     }
                     Item{
+                        visible: false
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         Column {

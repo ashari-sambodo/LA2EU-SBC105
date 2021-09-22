@@ -9,12 +9,15 @@ Item {
 
 
     Column {
+        id: columnMain
         anchors.centerIn: parent
         spacing: 5
 
         Column {
             TextApp {
                 text: qsTr("Sensor (VDC): Press and type the value from Volt Meter!")
+                padding: 2
+                width: columnMain.width
             }//
             //            TextApp {
             //                text: qsTr("ADC Actual (IFA): Ensure blower is ON, then press it to re-capturing!")
@@ -32,8 +35,6 @@ Item {
             columns: 6
             /// DOWNFLOW
             Rectangle {
-                //            height: children[0].height + 10
-                //            width: children[0].width + 10
                 height: 110
                 width: 150
                 color: /*"#aaf39c12"*/"#aa0F2952"
@@ -47,6 +48,8 @@ Item {
 
                     TextApp {
                         text: qsTr("DF Sensor") + "<br>" + qsTr("(VDC)")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -85,6 +88,8 @@ Item {
                     TextApp {
                         id: dfaAdcActualText
                         text: qsTr("DF ADC Actual") + "<br>" + qsTr("(DFA)")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -129,6 +134,8 @@ Item {
                     TextApp {
                         id: calibProText
                         text: qsTr("DF ADC Nom")+"<br>"+qsTr("Field (DFN)")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -167,6 +174,8 @@ Item {
 
                     TextApp {
                         text: qsTr("DF ADC Zero") + "<br>" + qsTr("Factory (DF0)")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -205,6 +214,8 @@ Item {
 
                     TextApp {
                         text: qsTr("DF ADC Nom") + "<br>" + qsTr("Factory (DF2)")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -243,6 +254,8 @@ Item {
 
                     TextApp {
                         text: "<br>" + qsTr("DF2 - DF0")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -282,6 +295,8 @@ Item {
 
                     TextApp {
                         text: qsTr("IF Sensor") + "<br>" + qsTr("(VDC)")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -320,6 +335,8 @@ Item {
                     TextApp {
                         id: ifaAdcActualText
                         text: qsTr("IF ADC Actual") + "<br>" + qsTr("(IFA)")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -363,6 +380,8 @@ Item {
 
                     TextApp {
                         text: qsTr("IF ADC Nom")+"<br>"+qsTr("Field (IFN)")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -401,6 +420,8 @@ Item {
 
                     TextApp {
                         text: qsTr("IF ADC Zero") + "<br>" + qsTr("Factory (IF0)")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -439,6 +460,8 @@ Item {
 
                     TextApp {
                         text: qsTr("IF ADC Nom") + "<br>" + qsTr("Factory (IF2)")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -477,6 +500,8 @@ Item {
 
                     TextApp {
                         text: "<br>" + qsTr("IF2 - IF0")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -516,6 +541,8 @@ Item {
 
                     TextApp {
                         text: qsTr("DF Sensor")+"<br>"+qsTr("Constant")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -553,6 +580,8 @@ Item {
 
                     TextApp {
                         text: qsTr("IF Sensor")+"<br>"+qsTr("Constant")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {
@@ -590,7 +619,8 @@ Item {
 
                     TextApp {
                         text: qsTr("Calibration")+"<br>"+qsTr("Temp") + " (" + degreeMeaStr + ")"
-
+                        padding: 2
+                        width: 150
                         property int degreeMea: 0
                         property string degreeMeaStr: degreeMea ? "°F" : "°C"
 
@@ -635,6 +665,8 @@ Item {
 
                     TextApp {
                         text: qsTr("Calibration") + "<br>" + qsTr("Temp ADC")
+                        padding: 2
+                        width: 150
                     }//
 
                     TextFieldApp {

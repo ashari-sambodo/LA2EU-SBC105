@@ -952,6 +952,23 @@ void MachineBackend::setup()
         m_pSasWindowMotorize->setProtectFromDualActive(true);
 #endif
 
+        if(installed)
+        {
+            //// Create Independent Timer Event For Sash Motorize
+            m_timerEventForSashMotorizeRoutine.reset(new QTimer);
+            m_timerEventForSashMotorizeRoutine->setInterval(std::chrono::milliseconds(200));
+
+            QObject::connect(m_timerEventForSashMotorizeRoutine.data(), &QTimer::timeout,
+                             m_pSasWindowMotorize.data(), [&](){
+                m_pSasWindowMotorize->routineTask();
+                qDebug() << "m_pSasWindowMotorize->routineTask()";
+            });
+            QObject::connect(this, &MachineBackend::loopStarted,
+                             [&](){
+                m_timerEventForSashMotorizeRoutine->start();
+            });
+        }//
+
         connect(m_pSasWindowMotorize.data(), &MotorizeOnRelay::stateChanged,
                 pData, [&](int newVal){
             pData->setSashWindowMotorizeState(static_cast<short>(newVal));
@@ -2323,7 +2340,7 @@ void MachineBackend::loop()
 
     /// ACTUATOR
     /// put any actuator routine task in here
-    m_pSasWindowMotorize->routineTask();
+    //    m_pSasWindowMotorize->routineTask();
     m_pFanInflow->routineTask();
     m_pLight->routineTask();
     m_pLightIntensity->routineTask();
@@ -7354,11 +7371,25 @@ void MachineBackend::_machineState()
                         int count = pData->getSashCycleMeter();
                         count = count + 5; /// the value deviced by 10
                         pData->setSashCycleMeter(count);
-                        //                        qDebug() << metaObject()->className() << __func__ << "setSashCycleMeter: " << pData->getSashCycleMeter();
+                        ///qDebug() << metaObject()->className() << __func__ << "setSashCycleMeter: " << pData->getSashCycleMeter();
                         ///save permanently
                         QSettings settings;
                         settings.setValue(SKEY_SASH_CYCLE_METER, count);
-
+                        short sashDirection = pData->getSashWindowMotorizeState();
+                        ///Make Sure the Sash State at SASH_STATE_WORK_SSV
+                        //                        for(short i=0; i < 5; i++){
+                        //                            usleep(50000); //delay 50ms
+                        //                            if(pData->getSashWindowState() != MachineEnums::SASH_STATE_WORK_SSV)
+                        //                            {
+                        //                                qDebug() << "Sash Motor On in Sash Safe count";
+                        //                                setSashMotorizeState(sashDirection);
+                        //                            }
+                        //                            else{
+                        //                                qDebug() << "Sash Motor Off in Sash Safe count";
+                        //                                setSashMotorizeState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                        //                            }
+                        //                        }
+                        qDebug() << "Sash Motor Off in Sash Safe";
                         /// Turned off mototrize in every defined magnetic switch
                         m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                         m_pSasWindowMotorize->routineTask();
@@ -7492,13 +7523,15 @@ void MachineBackend::_machineState()
                                     bool ifaTooLow = false;
                                     bool dfaTooLow = false;
                                     bool dfaTooHigh = false;
+                                    short alarmOffset = pData->getMeasurementUnit() ? 100 : 1;
                                     ifaTooLow = pData->getInflowVelocity() <= pData->getInflowLowLimitVelocity();
-                                    dfaTooLow = pData->getDownflowVelocity() <= pData->getDownflowLowLimitVelocity();
-                                    dfaTooHigh = pData->getDownflowVelocity() >= pData->getDownflowHighLimitVelocity();
+                                    dfaTooLow = pData->getDownflowVelocity() <= pData->getDownflowLowLimitVelocity() + alarmOffset;
+                                    dfaTooHigh = pData->getDownflowVelocity() >= pData->getDownflowHighLimitVelocity() - alarmOffset;
 
                                     //qDebug() << "ifaTooLow: " << ifaTooLow << pData->getInflowVelocity() << pData->getInflowLowLimitVelocity();
                                     //qDebug() << "dfaTooLow: " << dfaTooLow << pData->getDownflowVelocity() << pData->getDownflowLowLimitVelocity();
                                     //qDebug() << "dfaTooHigh: " << dfaTooHigh << pData->getDownflowVelocity() << pData->getDownflowHighLimitVelocity();
+
                                     /// INFLOW
                                     if(ifaTooLow){
                                         if(!isAlarmActive(pData->getAlarmInflowLow())){
@@ -7783,6 +7816,7 @@ void MachineBackend::_machineState()
                                 ///Ececute this block after a certain time (m_sashMotorizedOffAtFullyClosedDelayTimeMsec)
                                 QObject::connect(eventTimerForDelayMotorizedOffAtFullyClosed, &QTimer::timeout,
                                                  eventTimerForDelayMotorizedOffAtFullyClosed, [=](){
+                                    qDebug() << "Sash Motor Off in Sash Fully Closed With Delay";
                                     m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                                     m_pSasWindowMotorize->routineTask();
                                     m_delaySashMotorFullyClosedExecuted = true;
@@ -7791,6 +7825,7 @@ void MachineBackend::_machineState()
                                 eventTimerForDelayMotorizedOffAtFullyClosed->start();
                             }
                         }else{
+                            qDebug() << "Sash Motor Off in Sash Fully Closed";
                             m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                             m_pSasWindowMotorize->routineTask();
                         }
@@ -7838,6 +7873,7 @@ void MachineBackend::_machineState()
 
             ////NO APPLICABLE
             if(!isAlarmNA(pData->getAlarmSash())){
+                setBuzzerState(MachineEnums::DIG_STATE_ZERO);
                 pData->setAlarmSash(MachineEnums::ALARM_SASH_NA_STATE);
             }
 
@@ -7884,6 +7920,22 @@ void MachineBackend::_machineState()
 
                 if(m_pSashWindow->isSashStateChanged()){
                     if(pData->getSashWindowMotorizeState()){
+                        short sashDirection = pData->getSashWindowMotorizeState();
+                        ///Make Sure the Sash State at SASH_STATE_STANDBY_SSV
+                        //                        for(short i=0; i < 5; i++){
+                        //                            usleep(50000); //delay 50ms
+                        //                            if(pData->getSashWindowState() != MachineEnums::SASH_STATE_STANDBY_SSV)
+                        //                            {
+                        //                                qDebug() << "Sash Motor On in Sash Standby count";
+                        //                                setSashMotorizeState(sashDirection);
+                        //                            }
+                        //                            else
+                        //                            {
+                        //                                qDebug() << "Sash Motor Off in Sash Standby count";
+                        //                                setSashMotorizeState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                        //                            }
+                        //                        }
+                        qDebug() << "Sash Motor Off in Sash Standby";
                         m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                         m_pSasWindowMotorize->routineTask();
                     }
@@ -8021,6 +8073,7 @@ void MachineBackend::_machineState()
 
                 if(m_pSashWindow->isSashStateChanged()){
                     if(pData->getSashWindowMotorizeState()){
+                        qDebug() << "Sash Motor On in Sash Fully Open count";
                         m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                         m_pSasWindowMotorize->routineTask();
                     }
@@ -8124,6 +8177,7 @@ void MachineBackend::_machineState()
 
                 if(m_pSashWindow->isSashStateChanged()){
                     if(pData->getSashWindowMotorizeState()){
+                        qDebug() << "Sash Motor Off in Sash Error";
                         m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                         m_pSasWindowMotorize->routineTask();
                     }
@@ -8231,6 +8285,7 @@ void MachineBackend::_machineState()
 
             if(m_pSashWindow->isSashStateChanged()){
                 if(pData->getSashWindowMotorizeState()){
+                    qDebug() << "Sash Motor Off in Mode Maintenance";
                     m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                     m_pSasWindowMotorize->routineTask();
                 }
@@ -8579,6 +8634,7 @@ void MachineBackend::onDummyStateNewConnection()
             m_pSasWindowMotorize->setDummyStateEnable(0);
         }
         else if(message == QLatin1String("#sashmotor#state#0")){
+            //qDebug() << "Sash Motor Off in Sash Safe count";
             m_pSasWindowMotorize->setDummyState(MachineEnums::MOTOR_SASH_STATE_OFF);
         }
         else if(message == QLatin1String("#sashmotor#state#1")){

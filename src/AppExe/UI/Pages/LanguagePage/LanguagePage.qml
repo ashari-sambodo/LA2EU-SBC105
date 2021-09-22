@@ -233,7 +233,7 @@ ViewApp {
                 //                {"language": "Chinese (中文)",       "code": "zh"},
                 //                {"language": "Finnish (Suomi)",     "code": "fi"},
                 //                {"language": "French (Française)",  "code": "fr"},
-                //                {"language": "German (Deutsche)",   "code": "de"},
+                {"language": "German (Deutsche)",   "code": "de"},
                 //                {"language": "Italian (Italiano)",  "code": "it"},
                 //                {"language": "Japanese (日本語)",    "code": "ja"},
                 //                {"language": "Korean (한국어)",      "code": "ko"},

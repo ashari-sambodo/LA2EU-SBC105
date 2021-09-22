@@ -124,7 +124,7 @@ ViewApp {
                             flickableDirection: Flickable.AutoFlickIfNeeded
                             orientation: ListView.Horizontal
 
-                            ScrollBar.horizontal: ScrollBar{}
+                            ScrollBar.horizontal: ScrollBar{policy: ScrollBar.AlwaysOn}
 
                             //                                    highlightMoveDuration: 1000
                             //                                    highlightMoveVelocity: -1
@@ -149,7 +149,7 @@ ViewApp {
                                         Layout.fillHeight: true
                                         Layout.fillWidth: true
 
-                                        //                Rectangle{anchors.fill: parent}
+                                        //Rectangle{anchors.fill: parent}
 
                                         Image {
                                             id: picIconImage
