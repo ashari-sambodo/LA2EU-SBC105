@@ -261,7 +261,10 @@ ViewApp {
                     MachineAPI.insertEventLog(qsTr("User: Set Fan off"))
                 }
                 else {
-                    MachineAPI.setFanState(MachineAPI.FAN_STATE_ON);
+                    if(MachineData.sashWindowState === MachineAPI.SASH_STATE_STANDBY_SSV)
+                        MachineAPI.setFanState(MachineAPI.FAN_STATE_STANDBY);
+                    else
+                        MachineAPI.setFanState(MachineAPI.FAN_STATE_ON);
                     props.showFanProgressSwitchingState(!props.fanState)
 
                     MachineAPI.insertEventLog(qsTr("User: Set Fan on"))

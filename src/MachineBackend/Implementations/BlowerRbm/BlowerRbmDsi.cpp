@@ -133,8 +133,7 @@ void BlowerRbmDsi::updateActualDemand()
                 if(m_speedDemand) response = pModule->start();
                 else response = pModule->stop();
             }
-
-            //                        qDebug() << "m_dutyCycleDemand: " << m_dutyCycleDemand << "m_dutyCycle: " << m_dutyCycle;
+            //qDebug() << "m_dutyCycleDemand: " << m_dutyCycleDemand << "m_dutyCycle: " << m_dutyCycle;
         }
     }
     else {

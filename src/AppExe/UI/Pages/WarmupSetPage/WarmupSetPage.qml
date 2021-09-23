@@ -105,6 +105,7 @@ ViewApp {
 
                     TextApp {
                         width: 500
+                        minimumPixelSize: 20
                         text: qsTr("\
 There will be a warmup period before the BSC is fully functioning upon activation of the unit. \
 This is to ensure that the sensors, the blower, and the control system are stabilized.")

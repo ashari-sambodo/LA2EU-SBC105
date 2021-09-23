@@ -408,6 +408,11 @@ class MachineData : public QObject
                READ getAlarmTempLow
                //               WRITE setAlarmTempLow
                NOTIFY alarmTempLowChanged)
+    ///
+    Q_PROPERTY(short alarmStandbyFanOff
+               READ getAlarmStandbyFanOff
+               //               WRITE setAlarmSash
+               NOTIFY alarmStandbyFanOffChanged)
 
     // Temperature
     Q_PROPERTY(int temperatureAdc
@@ -937,6 +942,10 @@ public:
     ///SASH
     short getSashWindowState() const;
     void setSashWindowState(short sashWindowState);
+    short getSashWindowStateSample(short index) const;
+    void setSashWindowStateSample(short sashWindowState, short index);
+    bool getSashWindowStateChangedValid() const;
+    void setSashWindowStateChangedValid(bool value);
 
     ///FAN
     short getFanState() const;
@@ -1010,6 +1019,9 @@ public:
     void setUvLifePercent(short uvLifePercent);
 
     //// SASH-MOTORIZE
+    short getSashWindowPrevState() const;
+    void setSashWindowPrevState(short sashMotorizeState);
+    ///
     short getSashWindowMotorizeState() const;
     void setSashWindowMotorizeState(short sashMotorizeState);
     ////
@@ -1056,6 +1068,9 @@ public:
     ///
     short getAlarmSash() const;
     void setAlarmSash(short alarmSash);
+    ///
+    short getAlarmStandbyFanOff() const;
+    void setAlarmStandbyFanOff(short alarm);
     ///
     //    void setAlarmDownfLow(bool alarmDownflowLow);
     //    void setAlarmDownfHigh(bool alarmDownflowHigh);
@@ -1684,6 +1699,7 @@ signals:
     void muteAlarmStateChanged(short muteAlarmState);
 
     void sashWindowStateChanged(short sashWindowState);
+    void sashWindowPrevStateChanged(short sashMotorizeState);
     void sashWindowMotorizeStateChanged(short sashMotorizeState);
     void exhaustContactStateChanged(short gasState);
     void alarmContactStateChanged(short uvState);
@@ -1696,6 +1712,7 @@ signals:
     void alarmDownflowHighChanged(short alarmDownflowHigh);
     void alarmSashChanged(short alarmSash);
     void alarmSashUnsafeChanged(short alarmSashUnsafe);
+    void alarmStandbyFanOffChanged(short alarm);
 
     //AIRFLOW MONITOR
     void airflowMonitorEnableChanged(bool airflowMonitorEnable);
@@ -1955,6 +1972,8 @@ private:
     bool  m_magSwitchState[6] = {false, false, false, false, false, false};
     ///SASH
     short m_sashWindowState = 0;
+    short m_sashWindowStateSample[5] = {0};
+    bool m_sashWindowStateChangedValid = false;
 
     short m_fanState = 0;
     short m_fanPrimaryState = 0;
@@ -1980,6 +1999,7 @@ private:
     int m_muteAlarmTime = 0;
     int m_muteAlarmCountdown = 0;
 
+    short m_sashWindowPrevState = 0;
     short m_sashWindowMotorizeState = 0;
     short m_exhaustContactState = 0;
     short m_alarmContactState = 0;
@@ -1991,6 +2011,7 @@ private:
     short m_alarmDownflowLow = 0;
     short m_alarmDownflowHigh = 0;
     short m_alarmSash = 0;
+    short m_alarmStandbyFanOff = 0;
     //    bool m_alarmDownflowLow = false;
     //    bool m_alarmDownflowHigh = false;
     short m_alarmTempHigh = 0;

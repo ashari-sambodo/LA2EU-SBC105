@@ -1084,6 +1084,11 @@ short MachineData::getSashWindowState() const
     return m_sashWindowState;
 }
 
+short MachineData::getSashWindowPrevState() const
+{
+    return m_sashWindowPrevState;
+}
+
 short MachineData::getSashWindowMotorizeState() const
 {
     return m_sashWindowMotorizeState;
@@ -3295,6 +3300,34 @@ void MachineData::setSashWindowState(short sashWindowState)
     emit sashWindowStateChanged(m_sashWindowState);
 }
 
+short MachineData::getSashWindowStateSample(short index) const
+{
+    if(index >= 5)return 0;
+    return m_sashWindowStateSample[index];
+}
+
+void MachineData::setSashWindowStateSample(short sashWindowState, short index)
+{
+    if(index >= 5)return;
+    if (m_sashWindowStateSample[index] == sashWindowState)
+        return;
+
+    m_sashWindowStateSample[index] = sashWindowState;
+}
+
+bool MachineData::getSashWindowStateChangedValid() const
+{
+    return m_sashWindowStateChangedValid;
+}
+
+void MachineData::setSashWindowStateChangedValid(bool value)
+{
+    if (m_sashWindowStateChangedValid == value)
+        return;
+
+    m_sashWindowStateChangedValid = value;
+}
+
 short MachineData::getFanState() const
 {
     return m_fanState;
@@ -3305,6 +3338,15 @@ void MachineData::setFanState(short fanState)
     if(m_fanState == fanState) return;
     m_fanState = fanState;
     emit fanStateChanged(m_fanState);
+}
+
+void MachineData::setSashWindowPrevState(short sashMotorizeState)
+{
+    if (m_sashWindowPrevState == sashMotorizeState)
+        return;
+
+    m_sashWindowPrevState = sashMotorizeState;
+    emit sashWindowPrevStateChanged(m_sashWindowPrevState);
 }
 
 void MachineData::setSashWindowMotorizeState(short sashMotorizeState)
@@ -3359,6 +3401,20 @@ void MachineData::setAlarmSash(short alarmSash)
 
     m_alarmSash = alarmSash;
     emit alarmSashChanged(m_alarmSash);
+}
+
+short MachineData::getAlarmStandbyFanOff() const
+{
+    return m_alarmStandbyFanOff;
+}
+
+void MachineData::setAlarmStandbyFanOff(short alarm)
+{
+    if (m_alarmStandbyFanOff == alarm)
+        return;
+
+    m_alarmStandbyFanOff = alarm;
+    emit alarmStandbyFanOffChanged(m_alarmStandbyFanOff);
 }
 
 void MachineData::setTemperatureAdc(int temperatureAdc)

@@ -157,6 +157,18 @@ ViewApp {
                             }//
                             ,
                             State {
+                                when: props.alarmStandbyFanOff
+                                PropertyChanges {
+                                    target: headerBgImage
+                                    visible: true
+                                }//
+                                PropertyChanges {
+                                    target: headerStatusText
+                                    text: qsTr("ALARM: TURN ON FAN")
+                                }//
+                            }//
+                            ,
+                            State {
                                 when: props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE
                                 PropertyChanges {
                                     target: headerBgImage
@@ -1347,8 +1359,15 @@ ViewApp {
                                                     target: textTeleprompter
                                                     text: qsTr("The environmental temperature was out off range!\nPottentially reduce the reading accuration of the airflow sensor(s).\n The ideal environmental temperature is between ") + props.tempAmbientLowStrf + " - " + props.tempAmbientHighStrf + "."
                                                 }
-                                            }
-                                        ]
+                                            },
+                                            State {
+                                                when: props.alarmStandbyFanOff
+                                                PropertyChanges {
+                                                    target: textTeleprompter
+                                                    text: qsTr("The Fan should be operating at standby speed during in sash standby height!\n Please switch on the Fan by pressing the Fan button")
+                                                }
+                                            }//
+                                        ]//
                                     }//
 
                                     Timer {
@@ -1397,6 +1416,9 @@ ViewApp {
                                         }
                                         else if ((props.alarmTempHigh == MachineAPI.ALARM_ACTIVE_STATE)
                                                  || (props.alarmTempLow == MachineAPI.ALARM_ACTIVE_STATE)){
+                                            return true
+                                        }
+                                        else if (props.alarmStandbyFanOff) {
                                             return true
                                         }
                                     }
@@ -2263,6 +2285,7 @@ ViewApp {
             property int  alarmDownflowHigh: 0
             property int  alarmTempHigh: 0
             property int  alarmTempLow: 0
+            property int alarmStandbyFanOff: 0
             //            onAlarmInflowLowChanged: console.log("alarmInflowLow: " + alarmInflowLow)
 
             property bool alarmBoardComError: false
@@ -2350,6 +2373,8 @@ ViewApp {
                 props.alarmTempLow = Qt.binding(function(){ return MachineData.alarmTempLow})
 
                 props.sashWindowState = Qt.binding(function(){ return MachineData.sashWindowState })
+
+                props.alarmStandbyFanOff = Qt.binding(function(){ return MachineData.alarmStandbyFanOff === MachineAPI.ALARM_ACTIVE_STATE})
 
                 props.fanInterlocked = Qt.binding(function(){ return MachineData.fanPrimaryInterlocked })
                 props.fanState = Qt.binding(function(){

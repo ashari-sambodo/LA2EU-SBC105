@@ -80,19 +80,21 @@ struct modbusRegisterAddress
     struct temperature       {static const short addr = 17;  short rw = 0; uint16_t value;} temperature;
     struct airflowInflow     {static const short addr = 18;  short rw = 0; uint16_t value;} airflowInflow;
     struct airflowDownflow   {static const short addr = 19;  short rw = 0; uint16_t value;} airflowDownflow;
-    struct airflowExhaust    {static const short addr = 20;  short rw = 0; uint16_t value;} airflowExhaust;
-    struct pressureExhaust   {static const short addr = 21;  short rw = 0; uint16_t value;} pressureExhaust;
-    struct alarmSash         {static const short addr = 22;  short rw = 0; uint16_t value;} alarmSash;
-    struct alarmInflow       {static const short addr = 23;  short rw = 0; uint16_t value;} alarmInflow;
-    struct alarmDownflow     {static const short addr = 24;  short rw = 0; uint16_t value;} alarmDownflow;
-    struct alarmExhaust      {static const short addr = 25;  short rw = 0; uint16_t value;} alarmExhaust;
-    struct alarmCom          {static const short addr = 26;  short rw = 0; uint16_t value;} alarmCom;
+    struct pressureExhaust   {static const short addr = 20;  short rw = 0; uint16_t value;} pressureExhaust;
+    struct alarmSash         {static const short addr = 21;  short rw = 0; uint16_t value;} alarmSash;
+    struct alarmInflow       {static const short addr = 22;  short rw = 0; uint16_t value;} alarmInflow;
+    struct alarmDownflow     {static const short addr = 23;  short rw = 0; uint16_t value;} alarmDownflow;
+    struct alarmExhaust      {static const short addr = 24;  short rw = 0; uint16_t value;} alarmExhaust;
+    struct alarmCom          {static const short addr = 25;  short rw = 0; uint16_t value;} alarmCom;
+    struct alarmFlapExhaust  {static const short addr = 26;  short rw = 0; uint16_t value;} alarmFlapExhaust;
     struct filterLife        {static const short addr = 27;  short rw = 0; uint16_t value;} filterLife;
-    struct alarmFlapExhaust  {static const short addr = 28;  short rw = 0; uint16_t value;} alarmFlapExhaust;
+    struct uvLifeLeft        {static const short addr = 28;  short rw = 0; uint16_t value;} uvLifeLeft;
+    struct dfaFanUsage       {static const short addr = 29;  short rw = 0; uint16_t value;} dfaFanUsage;
+    struct ifaFanUsage       {static const short addr = 30;  short rw = 0; uint16_t value;} ifaFanUsage;
 } modbusRegisterAddress;
 
 
-#define MODBUS_REGISTER_COUNT   29
+#define MODBUS_REGISTER_COUNT   31
 #define ALLOW_ANY_IP            "0.0.0.0"
 #define LOCALHOST_ONLY          "127.0.0.1"
 
@@ -955,17 +957,19 @@ void MachineBackend::setup()
         if(installed)
         {
             //// Create Independent Timer Event For Sash Motorize
-            m_timerEventForSashMotorizeRoutine.reset(new QTimer);
-            m_timerEventForSashMotorizeRoutine->setInterval(std::chrono::milliseconds(200));
+            m_timerEventForSashWindowRoutine.reset(new QTimer);
+            m_timerEventForSashWindowRoutine->setInterval(std::chrono::milliseconds(100));
 
-            QObject::connect(m_timerEventForSashMotorizeRoutine.data(), &QTimer::timeout,
-                             m_pSasWindowMotorize.data(), [&](){
-                m_pSasWindowMotorize->routineTask();
-                qDebug() << "m_pSasWindowMotorize->routineTask()";
-            });
+            QObject::connect(m_timerEventForSashWindowRoutine.data(), &QTimer::timeout,
+                             this, &MachineBackend::_onTriggeredEventSashWindowRoutine);
+
+            //            QObject::connect(m_timerEventForSashWindowRoutine.data(), &QTimer::timeout,
+            //                             m_pSasWindowMotorize.data(), [&](){
+
+            //            });
             QObject::connect(this, &MachineBackend::loopStarted,
                              [&](){
-                m_timerEventForSashMotorizeRoutine->start();
+                m_timerEventForSashWindowRoutine->start();
             });
         }//
 
@@ -1101,6 +1105,8 @@ void MachineBackend::setup()
             //update to global observable variable
             pData->setUvLifeMinutes(minutes);
             pData->setUvLifePercent(static_cast<short>(minutesPercentLeft));
+            /// MODBUS
+            _setModbusRegHoldingValue(modbusRegisterAddress.uvLifeLeft.addr, static_cast<ushort>(minutesPercentLeft));
         }
 
         /// UV Timer
@@ -2106,6 +2112,8 @@ void MachineBackend::setup()
 
         //update to global observable variable
         pData->setFanPrimaryUsageMeter(minutes);
+        ///MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.dfaFanUsage.addr, static_cast<ushort>(minutes));
     }
     /// FAN Inflow Usage Meter
     {
@@ -2114,6 +2122,8 @@ void MachineBackend::setup()
 
         //update to global observable variable
         pData->setFanInflowUsageMeter(minutes);
+        ///MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.ifaFanUsage.addr, static_cast<ushort>(minutes));
     }
 
     /// Mute Audible Alarm
@@ -2374,7 +2384,7 @@ void MachineBackend::deallocate()
 
     /// Shutting down modbus communication
     m_pModbusServer->disconnectDevice();
-
+    m_timerEventForSashWindowRoutine->stop();
     m_timerEventEverySecond->stop();
     if(m_timerEventEveryMinute->isActive())
         m_timerEventEveryMinute->stop();
@@ -2486,6 +2496,44 @@ void MachineBackend::deallocate()
 
     qDebug() << metaObject()->className() << __FUNCTION__ << "will be stopped" << thread();
     emit hasStopped();
+}
+
+void MachineBackend::_onTriggeredEventSashWindowRoutine()
+{
+    //qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    m_pSasWindowMotorize->routineTask();
+
+    short sashPrev = pData->getSashWindowPrevState();
+    short sash = pData->getSashWindowState();
+    QString sashPrevStr = "";
+    QString sashStr = "";
+    switch(sashPrev){
+    case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV: sashPrevStr = "Error"; break;
+    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV: sashPrevStr = "Closed"; break;
+    case MachineEnums::SASH_STATE_UNSAFE_SSV: sashPrevStr = "Unsafe"; break;
+    case MachineEnums::SASH_STATE_STANDBY_SSV: sashPrevStr = "Standby"; break;
+    case MachineEnums::SASH_STATE_WORK_SSV: sashPrevStr = "Safe"; break;
+    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV: sashPrevStr = "Opened"; break;
+    default: break;
+    }
+    switch(sash){
+    case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV: sashStr = "Error"; break;
+    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV: sashStr = "Closed"; break;
+    case MachineEnums::SASH_STATE_UNSAFE_SSV: sashStr = "Unsafe"; break;
+    case MachineEnums::SASH_STATE_STANDBY_SSV: sashStr = "Standby"; break;
+    case MachineEnums::SASH_STATE_WORK_SSV: sashStr = "Safe"; break;
+    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV: sashStr = "Opened"; break;
+    default: break;
+    }
+    qDebug() << "SashWindow :" << sashPrevStr << sashStr;
+    pData->setSashWindowStateSample(pData->getSashWindowStateSample(1), 2);
+    pData->setSashWindowStateSample(pData->getSashWindowStateSample(0), 1);
+    pData->setSashWindowStateSample(sash, 0);
+    if((pData->getSashWindowStateSample(0) == pData->getSashWindowStateSample(1)) && (pData->getSashWindowStateSample(1) == pData->getSashWindowStateSample(2)))
+        pData->setSashWindowStateChangedValid(true);
+    else
+        pData->setSashWindowStateChangedValid(false);
+    qDebug() << "SashSample :" << pData->getSashWindowStateSample(0) << pData->getSashWindowStateSample(1) << pData->getSashWindowStateSample(2) << pData->getSashWindowStateChangedValid();
 }
 
 void MachineBackend::_onTriggeredEventClosedLoopControl()
@@ -3928,6 +3976,9 @@ void MachineBackend::setSashMotorizeState(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << value;
+
+    /// Record Previous State of the Sash Window
+    pData->setSashWindowPrevState(pData->getSashWindowState());
 
     m_pSasWindowMotorize->setState(value);
     m_pSasWindowMotorize->routineTask();
@@ -5704,8 +5755,12 @@ void MachineBackend::_onTimerEventPostPurging()
         pData->setPostPurgingActive(MachineEnums::DIG_STATE_ZERO);
 
         /// ACTUALLY TURNING OFF THE FAN
-        //_setFanPrimaryStateOFF();
-        setFanState(MachineEnums::FAN_STATE_OFF);
+        _setFanPrimaryStateOFF();
+        _setFanInflowStateOFF();
+        //pData->setFanState(MachineEnums::FAN_STATE_OFF);
+        //pData->setFanPrimaryState(MachineEnums::FAN_STATE_OFF);
+        //pData->setFanInflowState(MachineEnums::FAN_STATE_OFF);
+        //setFanState(MachineEnums::FAN_STATE_OFF);
         /// Light up LCD Backlight
         _wakeupLcdBrightnessLevel();
     }
@@ -5817,6 +5872,8 @@ void MachineBackend::_onTimerEventUVLifeCalculate()
         settings.setValue(SKEY_UV_METER, minutes);
 
         //        qDebug() << __FUNCTION__  << minutes;
+        /// MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.uvLifeLeft.addr, static_cast<ushort>(minutesPercentLeft));
     }
 }
 
@@ -5881,6 +5938,8 @@ void MachineBackend::_onTimerEventFanFilterUsageMeterCalculate()
         settings.setValue(SKEY_FAN_PRI_METER, count);
 
         //        qDebug() << __func__ << "getFanPrimaryUsageMeter"  << count;
+        ///MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.dfaFanUsage.addr, static_cast<ushort>(count));
 
         count = pData->getFanInflowUsageMeter();
         count = count + 1;
@@ -5889,6 +5948,8 @@ void MachineBackend::_onTimerEventFanFilterUsageMeterCalculate()
         settings.setValue(SKEY_FAN_INF_METER, count);
 
         //        qDebug() << __func__ << "getFanInflowUsageMeter"  << count;
+        ///MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.ifaFanUsage.addr, static_cast<ushort>(count));
     }
 }
 
@@ -6962,6 +7023,8 @@ void MachineBackend::setFanPrimaryUsageMeter(int minutes)
     settings.setValue(SKEY_FAN_PRI_METER, minutes);
 
     //        qDebug() << __func__ << "getFanPrimaryUsageMeter"  << count;
+    /// MODBUS
+    _setModbusRegHoldingValue(modbusRegisterAddress.dfaFanUsage.addr, static_cast<ushort>(minutes));
 }
 
 void MachineBackend::setFanInflowUsageMeter(int minutes)
@@ -6974,6 +7037,8 @@ void MachineBackend::setFanInflowUsageMeter(int minutes)
     settings.setValue(SKEY_FAN_INF_METER, minutes);
 
     //        qDebug() << __func__ << "getFanInflowUsageMeter"  << count;
+    /// MODBUS
+    _setModbusRegHoldingValue(modbusRegisterAddress.ifaFanUsage.addr, static_cast<ushort>(minutes));
 }
 
 void MachineBackend::setUvUsageMeter(int minutes)
@@ -6992,6 +7057,8 @@ void MachineBackend::setUvUsageMeter(int minutes)
     //save to sattings
     QSettings settings;
     settings.setValue(SKEY_UV_METER, minutes);
+    /// MODBUS
+    _setModbusRegHoldingValue(modbusRegisterAddress.uvLifeLeft.addr, static_cast<ushort>(minutesPercentLeft));
 }
 
 void MachineBackend::setFilterUsageMeter(int minutes)
@@ -7010,7 +7077,8 @@ void MachineBackend::setFilterUsageMeter(int minutes)
     //save to sattings
     QSettings settings;
     settings.setValue(SKEY_FILTER_METER, minutes);
-
+    /// MODBUS
+    _setModbusRegHoldingValue(modbusRegisterAddress.filterLife.addr, static_cast<ushort>(minutesPercentLeft));
 }
 
 void MachineBackend::setSashCycleMeter(int sashCycleMeter)
@@ -7021,6 +7089,8 @@ void MachineBackend::setSashCycleMeter(int sashCycleMeter)
 
     QSettings settings;
     settings.setValue(SKEY_SASH_CYCLE_METER, sashCycleMeter);
+    /// MODBUS
+    _setModbusRegHoldingValue(modbusRegisterAddress.sashCycle.addr, static_cast<ushort>(sashCycleMeter));
 }
 
 void MachineBackend::setEnvTempHighestLimit(int envTempHighestLimit)
@@ -7365,7 +7435,7 @@ void MachineBackend::_machineState()
                     m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
                 }
 
-                if(m_pSashWindow->isSashStateChanged()){
+                if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
                     if(pData->getSashWindowMotorizeState()){
                         /// Count tubular motor cycle
                         int count = pData->getSashCycleMeter();
@@ -7375,27 +7445,17 @@ void MachineBackend::_machineState()
                         ///save permanently
                         QSettings settings;
                         settings.setValue(SKEY_SASH_CYCLE_METER, count);
-                        short sashDirection = pData->getSashWindowMotorizeState();
-                        ///Make Sure the Sash State at SASH_STATE_WORK_SSV
-                        //                        for(short i=0; i < 5; i++){
-                        //                            usleep(50000); //delay 50ms
-                        //                            if(pData->getSashWindowState() != MachineEnums::SASH_STATE_WORK_SSV)
-                        //                            {
-                        //                                qDebug() << "Sash Motor On in Sash Safe count";
-                        //                                setSashMotorizeState(sashDirection);
-                        //                            }
-                        //                            else{
-                        //                                qDebug() << "Sash Motor Off in Sash Safe count";
-                        //                                setSashMotorizeState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                        //                            }
-                        //                        }
+
                         qDebug() << "Sash Motor Off in Sash Safe";
-                        /// Turned off mototrize in every defined magnetic switch
-                        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                        m_pSasWindowMotorize->routineTask();
-                    }
-                }
-            }
+                        /// Don't turnOff the sash if the previous State is the same
+                        if(pData->getSashWindowPrevState() != MachineEnums::SASH_STATE_WORK_SSV){
+                            /// Turned off mototrize in every defined magnetic switch
+                            m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                            m_pSasWindowMotorize->routineTask();
+                        }
+                    }//
+                }//
+            }//
 
             ////INTERLOCK UV IF DEVICE INSTALLED
             if(pData->getUvInstalled()){
@@ -7433,6 +7493,11 @@ void MachineBackend::_machineState()
                         m_pGas->setInterlock(MachineEnums::DIG_STATE_ONE);
                     }
                 }
+            }
+
+            //// NA ALARM STANDBY FAN OFF
+            if(!isAlarmNA(pData->getAlarmStandbyFanOff())){
+                pData->setAlarmStandbyFanOff(MachineEnums::ALARM_NA_STATE);
             }
 
             /// ALARM
@@ -7655,7 +7720,7 @@ void MachineBackend::_machineState()
 
             //AUTOMATIC IO STATE
             //IF SASH STATE JUST CHANGED
-            if(m_pSashWindow->isSashStateChanged()
+            if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()
                     && (m_pSashWindow->previousState() == MachineEnums::SASH_STATE_UNSAFE_SSV)
                     && !eventTimerForDelaySafeHeightAction){
 
@@ -7703,7 +7768,7 @@ void MachineBackend::_machineState()
                 eventTimerForDelaySafeHeightAction->start();
             }
             /// CLEAR FLAG OF SASH STATE FLAG
-            if(m_pSashWindow->isSashStateChanged()){
+            if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
                 m_pSashWindow->clearFlagSashStateChanged();
             }
         }
@@ -7776,6 +7841,11 @@ void MachineBackend::_machineState()
                 }
             }
 
+            //// NA ALARM STANDBY FAN OFF
+            if(!isAlarmNA(pData->getAlarmStandbyFanOff())){
+                pData->setAlarmStandbyFanOff(MachineEnums::ALARM_NA_STATE);
+            }
+
             ////NA ALARM AIRFLOW
             if(!isAlarmNA(pData->getAlarmInflowLow())){
                 pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);
@@ -7843,6 +7913,10 @@ void MachineBackend::_machineState()
                 }
             }
 
+            /// MakeSure The Fan in Off state while in FullyClosed Sash
+            if(pData->getFanState() != MachineEnums::FAN_STATE_OFF)
+                setFanState(MachineEnums::FAN_STATE_OFF);
+
             //LOCK FAN
             if(!pData->getFanPrimaryInterlocked()){
                 _setFanPrimaryInterlocked(MachineEnums::DIG_STATE_ONE);
@@ -7876,7 +7950,10 @@ void MachineBackend::_machineState()
                 setBuzzerState(MachineEnums::DIG_STATE_ZERO);
                 pData->setAlarmSash(MachineEnums::ALARM_SASH_NA_STATE);
             }
-
+            //// NA ALARM STANDBY FAN OFF
+            if(!isAlarmNA(pData->getAlarmStandbyFanOff())){
+                pData->setAlarmStandbyFanOff(MachineEnums::ALARM_NA_STATE);
+            }
             ///NO APPLICABLE AIRFLOW ALARM IF THE SASH NOT IN WORKING HEIGHT
             if(!isAlarmNA(pData->getAlarmInflowLow())){
                 pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);
@@ -7918,48 +7995,37 @@ void MachineBackend::_machineState()
                     m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
                 }
 
-                if(m_pSashWindow->isSashStateChanged()){
+                if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
                     if(pData->getSashWindowMotorizeState()){
-                        short sashDirection = pData->getSashWindowMotorizeState();
-                        ///Make Sure the Sash State at SASH_STATE_STANDBY_SSV
-                        //                        for(short i=0; i < 5; i++){
-                        //                            usleep(50000); //delay 50ms
-                        //                            if(pData->getSashWindowState() != MachineEnums::SASH_STATE_STANDBY_SSV)
-                        //                            {
-                        //                                qDebug() << "Sash Motor On in Sash Standby count";
-                        //                                setSashMotorizeState(sashDirection);
-                        //                            }
-                        //                            else
-                        //                            {
-                        //                                qDebug() << "Sash Motor Off in Sash Standby count";
-                        //                                setSashMotorizeState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                        //                            }
-                        //                        }
                         qDebug() << "Sash Motor Off in Sash Standby";
-                        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                        m_pSasWindowMotorize->routineTask();
-                    }
-                }
-            }
+                        /// Don't turnOff the sash if the previous State is the same
+                        if(pData->getSashWindowPrevState() != MachineEnums::SASH_STATE_STANDBY_SSV){
+                            /// Turned off mototrize in every defined magnetic switch
+                            m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                            m_pSasWindowMotorize->routineTask();
+                        }
+                    }//
+                }//
+            }//
 
             ////LOCK LAMP
             if(!pData->getLightInterlocked()){
                 m_pLight->setInterlock(MachineEnums::DIG_STATE_ONE);
-            }
+            }//
 
             ////LOCK UV IF DEVICE INSTALLED
             if(pData->getUvInstalled()){
                 if(!pData->getUvInterlocked()){
                     m_pUV->setInterlock(MachineEnums::DIG_STATE_ONE);
                 }
-            }
+            }//
 
             //LOCK GAS IF DEVICE INSTALLED
             if(pData->getGasInstalled()){
                 if(!pData->getGasInterlocked()){
                     m_pGas->setInterlock(MachineEnums::DIG_STATE_ONE);
                 }
-            }
+            }//
 
             //UNLOCK FAN
             if(pData->getFanPrimaryInterlocked()){
@@ -7971,13 +8037,13 @@ void MachineBackend::_machineState()
             }
 
             //AUTOMATIC IO STATE
-            if(m_pSashWindow->isSashStateChanged()){
+            if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
                 if((pData->getFanState() == MachineEnums::FAN_STATE_ON)){
+                    qDebug() << "eventTimerForDelaySafeHeightAction stb" << eventTimerForDelaySafeHeightAction;
                     if(!eventTimerForDelaySafeHeightAction){
 
                         /// delayQuickModeAutoOn oject will be destroyed when the sash state is changed
                         /// see also _onSashStateChanged()
-
                         /// Delay execution
                         eventTimerForDelaySafeHeightAction = new QTimer();
                         eventTimerForDelaySafeHeightAction->setInterval(m_sashSafeAutoOnOutputDelayTimeMsec);
@@ -7985,21 +8051,37 @@ void MachineBackend::_machineState()
                         ///Ececute this block after a certain time (m_sashSafeAutoOnOutputDelayTimeMsec)
                         QObject::connect(eventTimerForDelaySafeHeightAction, &QTimer::timeout, eventTimerForDelaySafeHeightAction,
                                          [=](){
-
-                            qDebug() << "Sash Safe Height after delay turned on out put";
+                            qDebug() << "Sash Standby Height after delay turned on out put";
                             //TURN BLOWER TO STANDBY SPEED
                             setFanState(MachineEnums::FAN_STATE_STANDBY);
                             //_setFanPrimaryStateStandby();
                         });
 
                         eventTimerForDelaySafeHeightAction->start();
-                    }
+                    }//
                     //                if(pData->getFanPrimaryState() == MachineEnums::FAN_STATE_ON){
                     //                    //TURN BLOWER TO STANDBY SPEED
                     //                    _setFanPrimaryStateStandby();
                     //                }
+                }//
+            }//
+
+            /// ALARM STANDBY FAN OFF
+            if(!isFanStateStandby()) {
+                if(!isAlarmActive(pData->getAlarmStandbyFanOff())){
+                    pData->setAlarmStandbyFanOff(MachineEnums::ALARM_ACTIVE_STATE);
+                    /// INSERT ALARM LOG
+                    QString text = QString("%1").arg(ALARM_LOG_TEXT_FAN_STB_OFF_ACTIVE);
+                    _insertAlarmLog(ALARM_LOG_CODE::ALC_STB_FAN_OFF_ACTIVE, text);
                 }
-            }
+            }else{
+                if(isAlarmActive(pData->getAlarmStandbyFanOff())){
+                    pData->setAlarmStandbyFanOff(MachineEnums::ALARM_NORMAL_STATE);
+                    /// INSERT ALARM LOG
+                    QString text = QString("%1").arg(ALARM_LOG_TEXT_FAN_STB_OFF_INACTIVE);
+                    _insertAlarmLog(ALARM_LOG_CODE::ALC_STB_FAN_OFF_INACTIVE, text);
+                }
+            }//
 
             ///ALARM
             if(isAlarmActive(pData->getAlarmBoardComError())){
@@ -8011,20 +8093,20 @@ void MachineBackend::_machineState()
             }
             else {
                 /// FAN IS IN STANDBY SPEED
-                if(isFanStateStandby()){
-                    ////UNSET ALARM SASH
-                    if(!isAlarmNA(pData->getAlarmSash())){
-                        pData->setAlarmSash(MachineEnums::ALARM_SASH_NA_STATE);
-                    }
+                //if(isFanStateStandby()){
+                ////UNSET ALARM SASH
+                if(!isAlarmNA(pData->getAlarmSash())){
+                    pData->setAlarmSash(MachineEnums::ALARM_SASH_NA_STATE);
                 }
-                else {
-                    if (!isAlarmActive(pData->getAlarmSash())){
-                        pData->setAlarmSash(MachineEnums::ALARM_SASH_ACTIVE_UNSAFE_STATE);
+                //}
+                //                else {
+                //                    if (!isAlarmActive(pData->getAlarmSash())){
+                //                        pData->setAlarmSash(MachineEnums::ALARM_SASH_ACTIVE_UNSAFE_STATE);
 
-                        _insertAlarmLog(ALARM_LOG_CODE::ALC_SASH_WINDOW_UNSAFE,
-                                        ALARM_LOG_TEXT_SASH_UNSAFE);
-                    }
-                }
+                //                        _insertAlarmLog(ALARM_LOG_CODE::ALC_SASH_WINDOW_UNSAFE,
+                //                                        ALARM_LOG_TEXT_SASH_UNSAFE);
+                //                    }
+                //                }
             }
 
             ///NO AVAILABLE AIRFLOW ALARM IF THE SASH NOT IN WORKING HEIGHT
@@ -8053,7 +8135,7 @@ void MachineBackend::_machineState()
             }
 
             /// CLEAR FLAG OF SASH STATE FLAG
-            if(m_pSashWindow->isSashStateChanged()){
+            if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
                 m_pSashWindow->clearFlagSashStateChanged();
             }
         }
@@ -8130,7 +8212,10 @@ void MachineBackend::_machineState()
                                     ALARM_LOG_TEXT_SASH_FO);
                 }
             }
-
+            //// NA ALARM STANDBY FAN OFF
+            if(!isAlarmNA(pData->getAlarmStandbyFanOff())){
+                pData->setAlarmStandbyFanOff(MachineEnums::ALARM_NA_STATE);
+            }
             ///NO APPLICABLE AIRFLOW ALARM IF THE SASH NOT IN WORKING HEIGHT
             if(!isAlarmNA(pData->getAlarmInflowLow())){
                 pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);
@@ -8345,7 +8430,10 @@ void MachineBackend::_machineState()
         if (isAlarmNA(pData->getAlarmTempLow())) {
             pData->setAlarmTempLow(MachineEnums::ALARM_NA_STATE);
         }
-
+        //// NA ALARM STANDBY FAN OFF
+        if(!isAlarmNA(pData->getAlarmStandbyFanOff())){
+            pData->setAlarmStandbyFanOff(MachineEnums::ALARM_NA_STATE);
+        }
         /// cleared mute audible alarm
         if (pData->getMuteAlarmState()){
             pData->setMuteAlarmState(MachineEnums::DIG_STATE_ZERO);
@@ -8383,6 +8471,7 @@ void MachineBackend::_machineState()
         alarms |= isAlarmActive(pData->getAlarmSash());
         alarms |= isAlarmActive(pData->getAlarmTempHigh());
         alarms |= isAlarmActive(pData->getAlarmTempLow());
+        alarms |= isAlarmActive(pData->getAlarmStandbyFanOff());
         //    alarms = false;
         //    qDebug() << "alarms" << alarms;
         {

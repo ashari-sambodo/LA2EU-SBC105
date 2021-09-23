@@ -95,6 +95,7 @@ ViewApp {
                                 TextApp {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     width: rightItem.width - 10
+                                    minimumPixelSize: 20
                                     wrapMode: Text.WordWrap
                                     horizontalAlignment: Text.AlignJustify
                                     rightPadding: 5
@@ -106,6 +107,7 @@ ViewApp {
                                 TextApp {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     width: rightItem.width - 10
+                                    minimumPixelSize: 20
                                     wrapMode: Text.WordWrap
                                     horizontalAlignment: Text.AlignJustify
                                     rightPadding: 5
@@ -117,6 +119,7 @@ ViewApp {
                                 TextApp {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     width: rightItem.width - 10
+                                    minimumPixelSize: 20
                                     wrapMode: Text.WordWrap
                                     horizontalAlignment: Text.AlignJustify
                                     rightPadding: 5
@@ -128,6 +131,7 @@ ViewApp {
                                 TextApp {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     width: rightItem.width - 10
+                                    minimumPixelSize: 20
                                     wrapMode: Text.WordWrap
                                     horizontalAlignment: Text.AlignJustify
                                     rightPadding: 5
@@ -137,6 +141,7 @@ ViewApp {
                                 TextApp {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     width: rightItem.width - 10
+                                    minimumPixelSize: 20
                                     wrapMode: Text.WordWrap
                                     horizontalAlignment: Text.AlignJustify
                                     rightPadding: 5

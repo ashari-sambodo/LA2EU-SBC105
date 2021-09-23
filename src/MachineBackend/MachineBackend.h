@@ -412,7 +412,8 @@ private:
     QScopedPointer<AirflowVelocity> m_pAirflowInflow;
     QScopedPointer<AirflowVelocity> m_pAirflowDownflow;
     ////
-    QScopedPointer<QTimer>           m_timerEventForSashMotorizeRoutine;
+    QScopedPointer<QTimer>           m_timerEventForSashWindowRoutine;
+    void _onTriggeredEventSashWindowRoutine();
     ///
     QScopedPointer<ClosedLoopControl> m_pIfaFanClosedLoopControl;
     QScopedPointer<ClosedLoopControl> m_pDfaFanClosedLoopControl;

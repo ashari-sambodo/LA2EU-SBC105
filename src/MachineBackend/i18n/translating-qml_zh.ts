@@ -204,5 +204,15 @@
         <source>Alarm Temperature | Fail | Too high</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="26"/>
+        <source>Alarm Fan Standby | Inactive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="27"/>
+        <source>Alarm Fan Standby | Active</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

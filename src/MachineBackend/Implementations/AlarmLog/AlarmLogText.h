@@ -22,3 +22,6 @@
 #define ALARM_LOG_TEXT_ENV_TEMP_OK          QObject::tr("Alarm Temperature | Normal")
 #define ALARM_LOG_TEXT_ENV_TEMP_TOO_LOW     QObject::tr("Alarm Temperature | Fail | Too low")
 #define ALARM_LOG_TEXT_ENV_TEMP_TOO_HIGH    QObject::tr("Alarm Temperature | Fail | Too high")
+
+#define ALARM_LOG_TEXT_FAN_STB_OFF_INACTIVE    QObject::tr("Alarm Fan Standby | Inactive")
+#define ALARM_LOG_TEXT_FAN_STB_OFF_ACTIVE      QObject::tr("Alarm Fan Standby | Active")

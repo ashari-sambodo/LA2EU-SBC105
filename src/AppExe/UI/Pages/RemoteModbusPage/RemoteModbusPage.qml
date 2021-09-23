@@ -179,6 +179,7 @@ ViewApp {
 
                                 TextApp {
                                     width: leftContentItem.width - asterixText.width
+                                    minimumPixelSize: 20
                                     wrapMode: Text.WordWrap
                                     text: qsTr("System only will accepted connection from master which has this IPv4 address, otherwise will be rejected.")
                                 }////
@@ -193,6 +194,7 @@ ViewApp {
 
                                 TextApp {
                                     width: leftContentItem.width - asterixText.width
+                                    minimumPixelSize: 20
                                     wrapMode: Text.WordWrap
                                     text: qsTr("To accepting any masters connection, set IPv4 to \"0.0.0.0\".")
                                 }////
@@ -207,6 +209,7 @@ ViewApp {
 
                                 TextApp {
                                     width: leftContentItem.width - asterixText.width
+                                    minimumPixelSize: 20
                                     wrapMode: Text.WordWrap
                                     text: qsTr("To rejecting any masters connection, set IPv4 to \"127.0.0.1\". It's default.")
                                 }////
@@ -214,6 +217,7 @@ ViewApp {
 
                             TextApp {
                                 width: leftContentItem.width - asterixText.width
+                                minimumPixelSize: 20
                                 wrapMode: Text.WordWrap
                                 text: qsTr("Status:") + " " + props.recentStatus
                             }////

@@ -110,6 +110,7 @@ ViewApp {
 
                     TextApp{
                         width: 500
+                        minimumPixelSize: 20
                         text: qsTr("After user turned off the internal fan, there will be a post purge period before actually turned off. This to ensure that all contaminants are purged from the work zone.")
                         wrapMode: Text.WordWrap
                         horizontalAlignment: Text.AlignJustify
