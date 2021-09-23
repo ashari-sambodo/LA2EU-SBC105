@@ -958,7 +958,7 @@ void MachineBackend::setup()
         {
             //// Create Independent Timer Event For Sash Motorize
             m_timerEventForSashWindowRoutine.reset(new QTimer);
-            m_timerEventForSashWindowRoutine->setInterval(std::chrono::milliseconds(100));
+            m_timerEventForSashWindowRoutine->setInterval(std::chrono::milliseconds(50));
 
             QObject::connect(m_timerEventForSashWindowRoutine.data(), &QTimer::timeout,
                              this, &MachineBackend::_onTriggeredEventSashWindowRoutine);
@@ -2333,7 +2333,7 @@ void MachineBackend::loop()
 
     /// READ_SENSOR
     /// put any read sensor routineTask in here
-    m_pSashWindow->routineTask();
+    //m_pSashWindow->routineTask();
     m_pTemperature->routineTask();
     //if(pData->getFanInflowDutyCycle() > 0)
     m_pAirflowInflow->routineTask();
@@ -2350,7 +2350,7 @@ void MachineBackend::loop()
 
     /// ACTUATOR
     /// put any actuator routine task in here
-    //    m_pSasWindowMotorize->routineTask();
+    m_pSasWindowMotorize->routineTask();
     m_pFanInflow->routineTask();
     m_pLight->routineTask();
     m_pLightIntensity->routineTask();
@@ -2501,40 +2501,49 @@ void MachineBackend::deallocate()
 void MachineBackend::_onTriggeredEventSashWindowRoutine()
 {
     //qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    m_pSasWindowMotorize->routineTask();
+    //    m_pSasWindowMotorize->routineTask();
+    m_pSashWindow->routineTask();
 
-    short sashPrev = pData->getSashWindowPrevState();
+    //short sashPrev = pData->getSashWindowPrevState();
     short sash = pData->getSashWindowState();
-    QString sashPrevStr = "";
-    QString sashStr = "";
-    switch(sashPrev){
-    case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV: sashPrevStr = "Error"; break;
-    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV: sashPrevStr = "Closed"; break;
-    case MachineEnums::SASH_STATE_UNSAFE_SSV: sashPrevStr = "Unsafe"; break;
-    case MachineEnums::SASH_STATE_STANDBY_SSV: sashPrevStr = "Standby"; break;
-    case MachineEnums::SASH_STATE_WORK_SSV: sashPrevStr = "Safe"; break;
-    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV: sashPrevStr = "Opened"; break;
-    default: break;
+    //    QString sashPrevStr = "";
+    //    QString sashStr = "";
+    //    switch(sashPrev){
+    //    case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV: sashPrevStr = "Error"; break;
+    //    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV: sashPrevStr = "Closed"; break;
+    //    case MachineEnums::SASH_STATE_UNSAFE_SSV: sashPrevStr = "Unsafe"; break;
+    //    case MachineEnums::SASH_STATE_STANDBY_SSV: sashPrevStr = "Standby"; break;
+    //    case MachineEnums::SASH_STATE_WORK_SSV: sashPrevStr = "Safe"; break;
+    //    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV: sashPrevStr = "Opened"; break;
+    //    default: break;
+    //    }
+    //    switch(sash){
+    //    case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV: sashStr = "Error"; break;
+    //    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV: sashStr = "Closed"; break;
+    //    case MachineEnums::SASH_STATE_UNSAFE_SSV: sashStr = "Unsafe"; break;
+    //    case MachineEnums::SASH_STATE_STANDBY_SSV: sashStr = "Standby"; break;
+    //    case MachineEnums::SASH_STATE_WORK_SSV: sashStr = "Safe"; break;
+    //    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV: sashStr = "Opened"; break;
+    //    default: break;
+    //    }
+    //    qDebug() << "SashWindow :" << sashPrevStr << sashStr;
+    for(short i=3; i>=0; i--){
+        if(i>0)
+            pData->setSashWindowStateSample(pData->getSashWindowStateSample(i-1), i);
+        else
+            pData->setSashWindowStateSample(sash, i);
     }
-    switch(sash){
-    case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV: sashStr = "Error"; break;
-    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV: sashStr = "Closed"; break;
-    case MachineEnums::SASH_STATE_UNSAFE_SSV: sashStr = "Unsafe"; break;
-    case MachineEnums::SASH_STATE_STANDBY_SSV: sashStr = "Standby"; break;
-    case MachineEnums::SASH_STATE_WORK_SSV: sashStr = "Safe"; break;
-    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV: sashStr = "Opened"; break;
-    default: break;
-    }
-    qDebug() << "SashWindow :" << sashPrevStr << sashStr;
-    pData->setSashWindowStateSample(pData->getSashWindowStateSample(1), 2);
-    pData->setSashWindowStateSample(pData->getSashWindowStateSample(0), 1);
-    pData->setSashWindowStateSample(sash, 0);
-    if((pData->getSashWindowStateSample(0) == pData->getSashWindowStateSample(1)) && (pData->getSashWindowStateSample(1) == pData->getSashWindowStateSample(2)))
+
+    if((pData->getSashWindowStateSample(0) == pData->getSashWindowStateSample(1))&& (pData->getSashWindowStateSample(1) == pData->getSashWindowStateSample(2))&& (pData->getSashWindowStateSample(2) == pData->getSashWindowStateSample(3)))
         pData->setSashWindowStateChangedValid(true);
     else
         pData->setSashWindowStateChangedValid(false);
-    qDebug() << "SashSample :" << pData->getSashWindowStateSample(0) << pData->getSashWindowStateSample(1) << pData->getSashWindowStateSample(2) << pData->getSashWindowStateChangedValid();
-}
+    qDebug() << "SashSample :" << pData->getSashWindowStateSample(0) << pData->getSashWindowStateSample(1) << pData->getSashWindowStateSample(2)  << pData->getSashWindowStateSample(3) << pData->getSashWindowStateChangedValid();
+
+
+
+
+}//
 
 void MachineBackend::_onTriggeredEventClosedLoopControl()
 {
@@ -8153,7 +8162,7 @@ void MachineBackend::_machineState()
                     m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
                 }
 
-                if(m_pSashWindow->isSashStateChanged()){
+                if(m_pSashWindow->isSashStateChanged()  && pData->getSashWindowStateChangedValid()){
                     if(pData->getSashWindowMotorizeState()){
                         qDebug() << "Sash Motor On in Sash Fully Open count";
                         m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
