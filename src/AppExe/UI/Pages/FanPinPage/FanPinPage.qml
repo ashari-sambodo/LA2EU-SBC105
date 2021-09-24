@@ -261,7 +261,7 @@ ViewApp {
                     MachineAPI.insertEventLog(qsTr("User: Set Fan off"))
                 }
                 else {
-                    if(MachineData.sashWindowState === MachineAPI.SASH_STATE_STANDBY_SSV)
+                    if((MachineData.sashWindowState === MachineAPI.SASH_STATE_STANDBY_SSV) && (MachineData.operationMode !== MachineAPI.MODE_OPERATION_MAINTENANCE))
                         MachineAPI.setFanState(MachineAPI.FAN_STATE_STANDBY);
                     else
                         MachineAPI.setFanState(MachineAPI.FAN_STATE_ON);

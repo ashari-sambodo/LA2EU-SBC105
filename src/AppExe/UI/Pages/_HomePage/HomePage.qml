@@ -1681,7 +1681,7 @@ ViewApp {
                                                       });
                                     }
                                     else {
-                                        if(props.sashWindowState === MachineAPI.SASH_STATE_STANDBY_SSV)
+                                        if((props.sashWindowState === MachineAPI.SASH_STATE_STANDBY_SSV) && (MachineData.operationMode !== MachineAPI.MODE_OPERATION_MAINTENANCE))
                                             MachineAPI.setFanState(MachineAPI.FAN_STATE_STANDBY);
                                         else
                                             MachineAPI.setFanState(MachineAPI.FAN_STATE_ON);

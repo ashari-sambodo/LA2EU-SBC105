@@ -2567,84 +2567,272 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
 
     int modeOperation = pData->getOperationMode();
 
-    switch(sashState){
-    case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV:
-        ////MOTORIZE SASH
-        if(pData->getSashWindowMotorizeInstalled()){
+    switch(modeOperation){
+    case MachineEnums::MODE_OPERATION_QUICKSTART:
+    case MachineEnums::MODE_OPERATION_NORMAL:
+        switch(sashState){
+        case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV:
+            ////MOTORIZE SASH
+            if(pData->getSashWindowMotorizeInstalled()){
 
-            if(pData->getSashWindowMotorizeUpInterlocked()){
-                m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
-            }
-
-            if(pData->getSashWindowMotorizeDownInterlocked()){
-                m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
-            }
-
-            if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
-                if(pData->getSashWindowMotorizeState()){
-                    qDebug() << "Sash Motor Off in Sash Error";
-                    m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                    m_pSasWindowMotorize->routineTask();
+                if(pData->getSashWindowMotorizeUpInterlocked()){
+                    m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
                 }
-            }
-        }
-        //        /// CLEAR FLAG OF SASH STATE FLAG
-        //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
-        //            m_pSashWindow->clearFlagSashStateChanged();
-        //        }
-        break;
-    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV:
-        ////MOTORIZE SASH
-        if(pData->getSashWindowMotorizeInstalled()){
 
-            if(pData->getSashWindowMotorizeUpInterlocked()){
-                m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
-            }
+                if(pData->getSashWindowMotorizeDownInterlocked()){
+                    m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
+                }
 
-            if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
-                if(pData->getSashWindowMotorizeState()){
-                    if(m_sashMotorizedOffAtFullyClosedDelayTimeMsec){
-                        if(!eventTimerForDelayMotorizedOffAtFullyClosed){
-                            m_delaySashMotorFullyClosedExecuted = false;
-                            /// Give a delay for a moment for sash moving down after fully closed detected
-                            eventTimerForDelayMotorizedOffAtFullyClosed = new QTimer();
-                            eventTimerForDelayMotorizedOffAtFullyClosed->setInterval(m_sashMotorizedOffAtFullyClosedDelayTimeMsec);
-                            eventTimerForDelayMotorizedOffAtFullyClosed->setSingleShot(true);
-                            ///Ececute this block after a certain time (m_sashMotorizedOffAtFullyClosedDelayTimeMsec)
-                            QObject::connect(eventTimerForDelayMotorizedOffAtFullyClosed, &QTimer::timeout,
-                                             eventTimerForDelayMotorizedOffAtFullyClosed, [=](){
-                                qDebug() << "Sash Motor Off in Sash Fully Closed With Delay";
-                                m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                                m_pSasWindowMotorize->routineTask();
-                                m_delaySashMotorFullyClosedExecuted = true;
-                            });
-                            qDebug() << "Timer Sash Motor Off in Sash Fully Closed Start";
-                            eventTimerForDelayMotorizedOffAtFullyClosed->start();
+                if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+                    if(pData->getSashWindowMotorizeState()){
+                        qDebug() << "Sash Motor Off in Sash Error";
+                        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                        m_pSasWindowMotorize->routineTask();
+                    }
+                }
+            }//
+            ///// CLEAR FLAG OF SASH STATE FLAG
+            //    if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+            //       m_pSashWindow->clearFlagSashStateChanged();
+            //    }
+            break;
+        case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV:
+            ////MOTORIZE SASH
+            if(pData->getSashWindowMotorizeInstalled()){
+
+                if(pData->getSashWindowMotorizeUpInterlocked()){
+                    m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
+                }
+
+                if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+                    if(pData->getSashWindowMotorizeState()){
+                        if(m_sashMotorizedOffAtFullyClosedDelayTimeMsec){
+                            if(!eventTimerForDelayMotorizedOffAtFullyClosed){
+                                m_delaySashMotorFullyClosedExecuted = false;
+                                /// Give a delay for a moment for sash moving down after fully closed detected
+                                eventTimerForDelayMotorizedOffAtFullyClosed = new QTimer();
+                                eventTimerForDelayMotorizedOffAtFullyClosed->setInterval(m_sashMotorizedOffAtFullyClosedDelayTimeMsec);
+                                eventTimerForDelayMotorizedOffAtFullyClosed->setSingleShot(true);
+                                ///Ececute this block after a certain time (m_sashMotorizedOffAtFullyClosedDelayTimeMsec)
+                                QObject::connect(eventTimerForDelayMotorizedOffAtFullyClosed, &QTimer::timeout,
+                                                 eventTimerForDelayMotorizedOffAtFullyClosed, [=](){
+                                    qDebug() << "Sash Motor Off in Sash Fully Closed With Delay";
+                                    m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                                    m_pSasWindowMotorize->routineTask();
+                                    m_delaySashMotorFullyClosedExecuted = true;
+                                });
+                                qDebug() << "Timer Sash Motor Off in Sash Fully Closed Start";
+                                eventTimerForDelayMotorizedOffAtFullyClosed->start();
+                            }
+                        }else{
+                            qDebug() << "Sash Motor Off in Sash Fully Closed";
+                            m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                            m_pSasWindowMotorize->routineTask();
                         }
-                    }else{
-                        qDebug() << "Sash Motor Off in Sash Fully Closed";
+                    }
+                }
+                if(m_delaySashMotorFullyClosedExecuted){
+                    if(!pData->getSashWindowMotorizeDownInterlocked()){
+                        m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ONE);
+                    }
+                    if (eventTimerForDelayMotorizedOffAtFullyClosed != nullptr) {
+                        eventTimerForDelayMotorizedOffAtFullyClosed->stop();
+                        delete eventTimerForDelayMotorizedOffAtFullyClosed;
+                        eventTimerForDelayMotorizedOffAtFullyClosed = nullptr;
+                    }
+                }
+            }
+            //        /// CLEAR FLAG OF SASH STATE FLAG
+            //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+            //            m_pSashWindow->clearFlagSashStateChanged();
+            //        }
+            break;
+        case MachineEnums::SASH_STATE_UNSAFE_SSV:
+            ////MOTORIZE SASH
+            if(pData->getSashWindowMotorizeInstalled()){
+
+                if(pData->getSashWindowMotorizeUpInterlocked()){
+                    m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
+                }
+
+                if(pData->getSashWindowMotorizeDownInterlocked()){
+                    m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
+                }
+            }
+            //        /// CLEAR FLAG OF SASH STATE FLAG
+            //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+            //            m_pSashWindow->clearFlagSashStateChanged();
+            //        }
+            break;
+        case MachineEnums::SASH_STATE_STANDBY_SSV:
+            ////MOTORIZE SASH
+            if(pData->getSashWindowMotorizeInstalled()){
+                if(pData->getSashWindowMotorizeUpInterlocked()){
+                    m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
+                }
+
+                if(pData->getSashWindowMotorizeDownInterlocked()){
+                    m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
+                }
+
+                if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+                    if(pData->getSashWindowMotorizeState()){
+                        qDebug() << "Sash Motor Off in Sash Standby";
+                        /// Don't turnOff the sash if the previous State is the same
+                        if(pData->getSashWindowPrevState() != MachineEnums::SASH_STATE_STANDBY_SSV){
+                            /// Turned off mototrize in every defined magnetic switch
+                            m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                            m_pSasWindowMotorize->routineTask();
+                        }
+                    }//
+                }//
+            }//
+
+            //AUTOMATIC IO STATE
+            if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+                if((pData->getFanState() == MachineEnums::FAN_STATE_ON)){
+                    qDebug() << "eventTimerForDelaySafeHeightAction stb" << eventTimerForDelaySafeHeightAction;
+                    if(!eventTimerForDelaySafeHeightAction){
+                        /// delayQuickModeAutoOn oject will be destroyed when the sash state is changed
+                        /// see also _onSashStateChanged()
+                        /// Delay execution
+                        eventTimerForDelaySafeHeightAction = new QTimer();
+                        eventTimerForDelaySafeHeightAction->setInterval(m_sashSafeAutoOnOutputDelayTimeMsec);
+                        eventTimerForDelaySafeHeightAction->setSingleShot(true);
+                        ///Ececute this block after a certain time (m_sashSafeAutoOnOutputDelayTimeMsec)
+                        QObject::connect(eventTimerForDelaySafeHeightAction, &QTimer::timeout, eventTimerForDelaySafeHeightAction,
+                                         [=](){
+                            //qDebug() << "Sash Standby Height after delay turned on out put";
+                            //TURN BLOWER TO STANDBY SPEED
+                            setFanState(MachineEnums::FAN_STATE_STANDBY);
+                            //_setFanPrimaryStateStandby();
+                        });
+
+                        eventTimerForDelaySafeHeightAction->start();
+                    }//
+                }//
+            }//
+
+            //        /// CLEAR FLAG OF SASH STATE FLAG
+            //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+            //            m_pSashWindow->clearFlagSashStateChanged();
+            //        }
+            break;
+        case MachineEnums::SASH_STATE_WORK_SSV:
+            ////MOTORIZE SASH
+            if(pData->getSashWindowMotorizeInstalled()){
+
+                if(pData->getSashWindowMotorizeUpInterlocked()){
+                    m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
+                }
+
+                if(pData->getSashWindowMotorizeDownInterlocked()){
+                    m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
+                }
+
+                if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+                    if(pData->getSashWindowMotorizeState()){
+                        /// Count tubular motor cycle
+                        int count = pData->getSashCycleMeter();
+                        count = count + 5; /// the value deviced by 10
+                        pData->setSashCycleMeter(count);
+                        ///qDebug() << metaObject()->className() << __func__ << "setSashCycleMeter: " << pData->getSashCycleMeter();
+                        ///save permanently
+                        QSettings settings;
+                        settings.setValue(SKEY_SASH_CYCLE_METER, count);
+
+                        qDebug() << "Sash Motor Off in Sash Safe";
+                        /// Don't turnOff the sash if the previous State is the same
+                        if(pData->getSashWindowPrevState() != MachineEnums::SASH_STATE_WORK_SSV){
+                            /// Turned off mototrize in every defined magnetic switch
+                            m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                            m_pSasWindowMotorize->routineTask();
+                        }
+                    }//
+                }//
+            }//
+            //AUTOMATIC IO STATE
+            //IF SASH STATE JUST CHANGED
+            if(m_pSashWindow->isSashStateChanged() && sashChangedValid
+                    && (m_pSashWindow->previousState() == MachineEnums::SASH_STATE_UNSAFE_SSV)
+                    && !eventTimerForDelaySafeHeightAction){
+
+                /// delayQuickModeAutoOn object will be destroyed when the sash state is changed
+                /// see also _onSashStateChanged()
+
+                /// Delay execution
+                eventTimerForDelaySafeHeightAction = new QTimer();
+                eventTimerForDelaySafeHeightAction->setInterval(m_sashSafeAutoOnOutputDelayTimeMsec);
+                eventTimerForDelaySafeHeightAction->setSingleShot(true);
+                ///Ececute this block after a certain time (m_sashSafeAutoOnOutputDelayTimeMsec)
+                QObject::connect(eventTimerForDelaySafeHeightAction, &QTimer::timeout, eventTimerForDelaySafeHeightAction,
+                                 [=](){
+
+                    //qDebug() << "Sash Safe Height after delay turned on out put";
+                    ///Ensure the Buzzer Alarm Off Once Sahs Safe
+                    setBuzzerState(MachineEnums::DIG_STATE_ZERO);
+                    ////TURN ON LAMP
+                    m_pLight->setState(MachineEnums::DIG_STATE_ONE);
+                    ///
+                    _insertEventLog(EVENT_STR_LIGHT_ON);
+                    ////IF CURRENT MODE MOPERATION IS QUICK START OR
+                    ////IF CURRENT FAN STATE IS STANDBY SPEED; THEN
+                    ////SWITCH BLOWER SPEED TO NOMINAL SPEED
+                    bool autoOnBlower = false;
+                    autoOnBlower |= (modeOperation == MachineEnums::MODE_OPERATION_QUICKSTART);
+                    autoOnBlower |= (pData->getFanPrimaryState() == MachineEnums::FAN_STATE_STANDBY || pData->getFanInflowState() == MachineEnums::FAN_STATE_STANDBY);
+                    autoOnBlower &= (pData->getFanState() != MachineEnums::FAN_STATE_ON);
+
+                    if(autoOnBlower){
+                        //_setFanPrimaryStateNominal();
+                        setFanState(MachineEnums::FAN_STATE_ON);
+                        /// Tell every one if the fan state will be changing
+                        emit pData->fanSwithingStateTriggered(MachineEnums::DIG_STATE_ONE);
+                        ////
+                        _insertEventLog(EVENT_STR_FAN_ON);
+                    }
+
+                    /// clear vivarium mute state
+                    if(pData->getVivariumMuteState()){
+                        setMuteVivariumState(false);
+                    }
+                });
+
+                eventTimerForDelaySafeHeightAction->start();
+            }
+            //        /// CLEAR FLAG OF SASH STATE FLAG
+            //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+            //            m_pSashWindow->clearFlagSashStateChanged();
+            //        }
+            break;
+        case MachineEnums::SASH_STATE_FULLY_OPEN_SSV:
+            ////MOTORIZE SASH
+            if(pData->getSashWindowMotorizeInstalled()){
+
+                if(!pData->getSashWindowMotorizeUpInterlocked()){
+                    m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ONE);
+                }
+
+                if(pData->getSashWindowMotorizeDownInterlocked()){
+                    m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
+                }
+
+                if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+                    if(pData->getSashWindowMotorizeState()){
+                        qDebug() << "Sash Motor On in Sash Fully Open";
                         m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                         m_pSasWindowMotorize->routineTask();
                     }
                 }
             }
-            if(m_delaySashMotorFullyClosedExecuted){
-                if(!pData->getSashWindowMotorizeDownInterlocked()){
-                    m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ONE);
-                }
-                if (eventTimerForDelayMotorizedOffAtFullyClosed != nullptr) {
-                    eventTimerForDelayMotorizedOffAtFullyClosed->stop();
-                    delete eventTimerForDelayMotorizedOffAtFullyClosed;
-                    eventTimerForDelayMotorizedOffAtFullyClosed = nullptr;
-                }
-            }
-        }
-        //        /// CLEAR FLAG OF SASH STATE FLAG
-        //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
-        //            m_pSashWindow->clearFlagSashStateChanged();
-        //        }
+            //        /// CLEAR FLAG OF SASH STATE FLAG
+            //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+            //            m_pSashWindow->clearFlagSashStateChanged();
+            //        }
+            break;
+        }//
         break;
-    case MachineEnums::SASH_STATE_UNSAFE_SSV:
+    case MachineEnums::MODE_OPERATION_MAINTENANCE:
         ////MOTORIZE SASH
         if(pData->getSashWindowMotorizeInstalled()){
 
@@ -2655,180 +2843,18 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
             if(pData->getSashWindowMotorizeDownInterlocked()){
                 m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
             }
-        }
-        //        /// CLEAR FLAG OF SASH STATE FLAG
-        //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
-        //            m_pSashWindow->clearFlagSashStateChanged();
-        //        }
-        break;
-    case MachineEnums::SASH_STATE_STANDBY_SSV:
-        ////MOTORIZE SASH
-        if(pData->getSashWindowMotorizeInstalled()){
 
-            if(pData->getSashWindowMotorizeUpInterlocked()){
-                m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
-            }
-
-            if(pData->getSashWindowMotorizeDownInterlocked()){
-                m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
-            }
-
-            if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+            if(m_pSashWindow->isSashStateChanged()){
                 if(pData->getSashWindowMotorizeState()){
-                    qDebug() << "Sash Motor Off in Sash Standby";
-                    /// Don't turnOff the sash if the previous State is the same
-                    if(pData->getSashWindowPrevState() != MachineEnums::SASH_STATE_STANDBY_SSV){
-                        /// Turned off mototrize in every defined magnetic switch
-                        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                        m_pSasWindowMotorize->routineTask();
-                    }
-                }//
-            }//
-        }//
-
-        //AUTOMATIC IO STATE
-        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
-            if((pData->getFanState() == MachineEnums::FAN_STATE_ON)){
-                qDebug() << "eventTimerForDelaySafeHeightAction stb" << eventTimerForDelaySafeHeightAction;
-                if(!eventTimerForDelaySafeHeightAction){
-                    /// delayQuickModeAutoOn oject will be destroyed when the sash state is changed
-                    /// see also _onSashStateChanged()
-                    /// Delay execution
-                    eventTimerForDelaySafeHeightAction = new QTimer();
-                    eventTimerForDelaySafeHeightAction->setInterval(m_sashSafeAutoOnOutputDelayTimeMsec);
-                    eventTimerForDelaySafeHeightAction->setSingleShot(true);
-                    ///Ececute this block after a certain time (m_sashSafeAutoOnOutputDelayTimeMsec)
-                    QObject::connect(eventTimerForDelaySafeHeightAction, &QTimer::timeout, eventTimerForDelaySafeHeightAction,
-                                     [=](){
-                        //qDebug() << "Sash Standby Height after delay turned on out put";
-                        //TURN BLOWER TO STANDBY SPEED
-                        setFanState(MachineEnums::FAN_STATE_STANDBY);
-                        //_setFanPrimaryStateStandby();
-                    });
-
-                    eventTimerForDelaySafeHeightAction->start();
-                }//
-            }//
-        }//
-
-        //        /// CLEAR FLAG OF SASH STATE FLAG
-        //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
-        //            m_pSashWindow->clearFlagSashStateChanged();
-        //        }
-        break;
-    case MachineEnums::SASH_STATE_WORK_SSV:
-        ////MOTORIZE SASH
-        if(pData->getSashWindowMotorizeInstalled()){
-
-            if(pData->getSashWindowMotorizeUpInterlocked()){
-                m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
-            }
-
-            if(pData->getSashWindowMotorizeDownInterlocked()){
-                m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
-            }
-
-            if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
-                if(pData->getSashWindowMotorizeState()){
-                    /// Count tubular motor cycle
-                    int count = pData->getSashCycleMeter();
-                    count = count + 5; /// the value deviced by 10
-                    pData->setSashCycleMeter(count);
-                    ///qDebug() << metaObject()->className() << __func__ << "setSashCycleMeter: " << pData->getSashCycleMeter();
-                    ///save permanently
-                    QSettings settings;
-                    settings.setValue(SKEY_SASH_CYCLE_METER, count);
-
-                    qDebug() << "Sash Motor Off in Sash Safe";
-                    /// Don't turnOff the sash if the previous State is the same
-                    if(pData->getSashWindowPrevState() != MachineEnums::SASH_STATE_WORK_SSV){
-                        /// Turned off mototrize in every defined magnetic switch
-                        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                        m_pSasWindowMotorize->routineTask();
-                    }
-                }//
-            }//
-        }//
-        //AUTOMATIC IO STATE
-        //IF SASH STATE JUST CHANGED
-        if(m_pSashWindow->isSashStateChanged() && sashChangedValid
-                && (m_pSashWindow->previousState() == MachineEnums::SASH_STATE_UNSAFE_SSV)
-                && !eventTimerForDelaySafeHeightAction){
-
-            /// delayQuickModeAutoOn object will be destroyed when the sash state is changed
-            /// see also _onSashStateChanged()
-
-            /// Delay execution
-            eventTimerForDelaySafeHeightAction = new QTimer();
-            eventTimerForDelaySafeHeightAction->setInterval(m_sashSafeAutoOnOutputDelayTimeMsec);
-            eventTimerForDelaySafeHeightAction->setSingleShot(true);
-            ///Ececute this block after a certain time (m_sashSafeAutoOnOutputDelayTimeMsec)
-            QObject::connect(eventTimerForDelaySafeHeightAction, &QTimer::timeout, eventTimerForDelaySafeHeightAction,
-                             [=](){
-
-                //qDebug() << "Sash Safe Height after delay turned on out put";
-                ///Ensure the Buzzer Alarm Off Once Sahs Safe
-                setBuzzerState(MachineEnums::DIG_STATE_ZERO);
-                ////TURN ON LAMP
-                m_pLight->setState(MachineEnums::DIG_STATE_ONE);
-                ///
-                _insertEventLog(EVENT_STR_LIGHT_ON);
-                ////IF CURRENT MODE MOPERATION IS QUICK START OR
-                ////IF CURRENT FAN STATE IS STANDBY SPEED; THEN
-                ////SWITCH BLOWER SPEED TO NOMINAL SPEED
-                bool autoOnBlower = false;
-                autoOnBlower |= (modeOperation == MachineEnums::MODE_OPERATION_QUICKSTART);
-                autoOnBlower |= (pData->getFanPrimaryState() == MachineEnums::FAN_STATE_STANDBY || pData->getFanInflowState() == MachineEnums::FAN_STATE_STANDBY);
-                autoOnBlower &= (pData->getFanState() != MachineEnums::FAN_STATE_ON);
-
-                if(autoOnBlower){
-                    //_setFanPrimaryStateNominal();
-                    setFanState(MachineEnums::FAN_STATE_ON);
-                    /// Tell every one if the fan state will be changing
-                    emit pData->fanSwithingStateTriggered(MachineEnums::DIG_STATE_ONE);
-                    ////
-                    _insertEventLog(EVENT_STR_FAN_ON);
-                }
-
-                /// clear vivarium mute state
-                if(pData->getVivariumMuteState()){
-                    setMuteVivariumState(false);
-                }
-            });
-
-            eventTimerForDelaySafeHeightAction->start();
-        }
-        //        /// CLEAR FLAG OF SASH STATE FLAG
-        //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
-        //            m_pSashWindow->clearFlagSashStateChanged();
-        //        }
-        break;
-    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV:
-        ////MOTORIZE SASH
-        if(pData->getSashWindowMotorizeInstalled()){
-
-            if(!pData->getSashWindowMotorizeUpInterlocked()){
-                m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ONE);
-            }
-
-            if(pData->getSashWindowMotorizeDownInterlocked()){
-                m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
-            }
-
-            if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
-                if(pData->getSashWindowMotorizeState()){
-                    qDebug() << "Sash Motor On in Sash Fully Open";
+                    qDebug() << "Sash Motor Off in Mode Maintenance";
                     m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                     m_pSasWindowMotorize->routineTask();
                 }
             }
-        }
-        //        /// CLEAR FLAG OF SASH STATE FLAG
-        //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
-        //            m_pSashWindow->clearFlagSashStateChanged();
-        //        }
+        }//
         break;
-    }
+    }//
+
     /// CLEAR FLAG OF SASH STATE FLAG
     if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
         m_pSashWindow->clearFlagSashStateChanged();
@@ -5505,8 +5531,18 @@ void MachineBackend::_onFanInflowActualDucyChanged(short value)
                         _startPowerOutageCapture();
                     }
                 }
-            }
+            }/*else {
+                /// Activate event timer for Fan Closed Loop Control After WarmingUp Finished
+                /// Only if both fan state in Nominal
+                if(isAirflowHasCalibrated() && isFanStateNominal() && pData->getFanClosedLoopControlEnable() && !pData->getReadClosedLoopResponse()){
+                    /// Set Initial Actual Fan Duty Cycle before m_timerEventForClosedLoopControl is activated
+                    m_pDfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanPrimaryDutyCycle());
+                    m_pIfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanInflowDutyCycle());
+                    m_timerEventForClosedLoopControl->start();
+                }
+            }*/
         }
+
         /// PARTICLE COUNTER
         /// only counting when internal blower is on
         if (pData->getParticleCounterSensorInstalled()) {
@@ -5951,6 +5987,13 @@ void MachineBackend::_startWarmingUpTime()
     connect(m_timerEventEverySecond.data(), &QTimer::timeout,
             this, &MachineBackend::_onTimerEventWarmingUp,
             Qt::UniqueConnection);
+    /// IF IN NORMAL MODE, AFTER WARMING UP COMPLETE, TURN ON LAMP AUTOMATICALLY
+    bool normalMode = pData->getOperationMode() == MachineEnums::MODE_OPERATION_NORMAL;
+    bool quickMode = pData->getOperationMode() == MachineEnums::MODE_OPERATION_QUICKSTART;
+
+    if(normalMode || quickMode) {
+        m_pLight->setState(MachineEnums::DIG_STATE_ZERO);
+    }
 }
 
 void MachineBackend::_cancelWarmingUpTime()
@@ -8660,25 +8703,25 @@ void MachineBackend::_machineState()
         break;
     case MachineEnums::MODE_OPERATION_MAINTENANCE:
     {
-        ////MOTORIZE SASH
-        if(pData->getSashWindowMotorizeInstalled()){
+        //        ////MOTORIZE SASH
+        //        if(pData->getSashWindowMotorizeInstalled()){
 
-            if(pData->getSashWindowMotorizeUpInterlocked()){
-                m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
-            }
+        //            if(pData->getSashWindowMotorizeUpInterlocked()){
+        //                m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
+        //            }
 
-            if(pData->getSashWindowMotorizeDownInterlocked()){
-                m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
-            }
+        //            if(pData->getSashWindowMotorizeDownInterlocked()){
+        //                m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
+        //            }
 
-            if(m_pSashWindow->isSashStateChanged()){
-                if(pData->getSashWindowMotorizeState()){
-                    qDebug() << "Sash Motor Off in Mode Maintenance";
-                    m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                    m_pSasWindowMotorize->routineTask();
-                }
-            }
-        }
+        //            if(m_pSashWindow->isSashStateChanged()){
+        //                if(pData->getSashWindowMotorizeState()){
+        //                    qDebug() << "Sash Motor Off in Mode Maintenance";
+        //                    m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+        //                    m_pSasWindowMotorize->routineTask();
+        //                }
+        //            }
+        //        }
 
         /////CLEAR INTERLOCK FAN
         if(pData->getFanPrimaryInterlocked()){
@@ -8753,10 +8796,10 @@ void MachineBackend::_machineState()
             _cancelPostPurgingTime();
         }
 
-        /// CLEAR FLAG OF SASH STATE FLAG
-        if(m_pSashWindow->isSashStateChanged()){
-            m_pSashWindow->clearFlagSashStateChanged();
-        }
+        //        /// CLEAR FLAG OF SASH STATE FLAG
+        //        if(m_pSashWindow->isSashStateChanged()){
+        //            m_pSashWindow->clearFlagSashStateChanged();
+        //        }
     }
         break;
     }
