@@ -48,7 +48,7 @@ private:
     int channelsADC[AI_MAX_CHANNELS];
     int     channelsmVolt[AI_MAX_CHANNELS];
     double  channelsmA[AI_MAX_CHANNELS];
-    int     channelTotalADC[AI_MAX_CHANNELS];
+    long     channelTotalADC[AI_MAX_CHANNELS];
     long map(long x, long in_min, long in_max, long out_min, long out_max) const;
     long getMaxDecFromBits(unsigned char bits) const;
 

@@ -62,7 +62,7 @@ ViewApp {
                     SliderApp {
                         id: slider
                         anchors.horizontalCenter: parent.horizontalCenter
-                        width: 500
+                        width: 700
                         stepSize: 5
                         from: 30
                         to: 100

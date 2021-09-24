@@ -99,7 +99,7 @@ int AIManage::polling()
                     //                    fflush(stdout);
 
                     channelTotalADC[index]   = channelTotalADC[index] + adc;
-                    channelsADC[index]       = qRound(channelTotalADC[index] / ((double)channelsSamples[index].length()));
+                    channelsADC[index]       = qRound(static_cast<double>(channelTotalADC[index]) / (static_cast<double>(channelsSamples[index].length())));
                     channelsmVolt[index]     = m_pAIModule->convertADCtomVolt(channelsADC[index]);
                     channelsmA[index]        = m_pAIModule->convertADCtomA(channelsADC[index]);
 
