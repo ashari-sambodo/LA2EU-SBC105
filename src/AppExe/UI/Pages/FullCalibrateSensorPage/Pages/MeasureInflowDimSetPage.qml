@@ -336,12 +336,13 @@ ViewApp {
 
                                         Item{
                                             Layout.fillWidth: true
-                                            Layout.minimumHeight: 30
+                                            Layout.minimumHeight: 40
                                             TextApp {
                                                 width: parent.width
                                                 height: parent.height
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
+                                                minimumPixelSize: 10
                                                 text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Downflow"))
                                             }
                                         }
@@ -438,12 +439,13 @@ ViewApp {
 
                                         Item{
                                             Layout.fillWidth: true
-                                            Layout.minimumHeight: 30
+                                            Layout.minimumHeight: 40
                                             TextApp {
                                                 width: parent.width
                                                 height: parent.height
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
+                                                minimumPixelSize: 10
                                                 text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Inflow"))
                                             }
                                         }

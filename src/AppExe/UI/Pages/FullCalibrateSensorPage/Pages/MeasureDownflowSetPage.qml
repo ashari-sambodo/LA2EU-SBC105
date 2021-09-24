@@ -317,12 +317,13 @@ ViewApp {
 
                                         Item{
                                             Layout.fillWidth: true
-                                            Layout.minimumHeight: 30
+                                            Layout.minimumHeight: 40
                                             TextApp {
                                                 width: parent.width
                                                 height: parent.height
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
+                                                minimumPixelSize: 10
                                                 text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Downflow"))
                                             }
                                         }
@@ -405,12 +406,13 @@ ViewApp {
 
                                         Item{
                                             Layout.fillWidth: true
-                                            Layout.minimumHeight: 30
+                                            Layout.minimumHeight: 40
                                             TextApp {
                                                 width: parent.width
                                                 height: parent.height
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
+                                                minimumPixelSize: 10
                                                 text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Inflow"))
                                             }
                                         }
@@ -495,10 +497,14 @@ ViewApp {
                                     spacing: 1
 
                                     TextApp {
+                                        width: rightContentItem.width
+                                        font.pixelSize: 18
                                         text: qsTr("Avg. Velocity") + ":"
                                     }//
 
                                     TextApp {
+                                        width: rightContentItem.width
+                                        font.pixelSize: 18
                                         text: props.measureUnit ? "fpm" : "m/s"
                                     }//
 
@@ -578,10 +584,14 @@ ViewApp {
                                     spacing: 1
 
                                     TextApp {
+                                        width: rightContentItem.width
+                                        font.pixelSize: 18
                                         text: qsTr("Max. Deviation") + ":"
                                     }//
 
                                     TextApp {
+                                        width: rightContentItem.width
+                                        font.pixelSize: 18
                                         text: props.measureUnit ? "fpm" : "m/s"
                                     }//
 

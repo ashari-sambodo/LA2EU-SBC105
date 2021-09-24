@@ -2194,6 +2194,23 @@ void MachineBackend::setup()
             m_settings->setValue(SKEY_POWER_OUTAGE_FAN, MachineEnums::DIG_STATE_ZERO);
             pData->setPowerOutageFanState(static_cast<short>(fanState));
 
+            //            /// Sash Interlocked
+            //            {
+            //                if(pData->getSashWindowMotorizeInstalled()){
+            //                    switch (pData->getSashWindowState()) {
+            //                    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV:
+            //                        pData->setSashWindowMotorizeUpInterlocked(false);
+            //                        pData->setSashWindowMotorizeDownInterlocked(true);
+            //                        break;
+            //                    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV:
+            //                        pData->setSashWindowMotorizeUpInterlocked(true);
+            //                        pData->setSashWindowMotorizeDownInterlocked(false);
+            //                        break;
+            //                    default: break;
+            //                    }
+            //                }//
+            //            }//
+
             //update to global observable variable
             if(poweroutage) {
                 QString poweroutageTime = m_settings->value(SKEY_POWER_OUTAGE_TIME, "").toString();
@@ -2207,6 +2224,14 @@ void MachineBackend::setup()
                 pData->setPowerOutage(poweroutage);
                 pData->setPowerOutageTime(poweroutageTime);
                 pData->setPowerOutageRecoverTime(poweroutageRecoverTime);
+
+                if(pData->getSashWindowMotorizeUpInterlocked()){
+                    m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
+                }
+
+                if(pData->getSashWindowMotorizeDownInterlocked()){
+                    m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
+                }
 
                 switch (pData->getSashWindowState()) {
                 case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV:
@@ -2499,7 +2524,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
     m_pSashWindow->routineTask();
 
     //short sashPrev = pData->getSashWindowPrevState();
-    short sash = pData->getSashWindowState();
+    short sashState = pData->getSashWindowState();
     //    QString sashPrevStr = "";
     //    QString sashStr = "";
     //    switch(sashPrev){
@@ -2511,7 +2536,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
     //    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV: sashPrevStr = "Opened"; break;
     //    default: break;
     //    }
-    //    switch(sash){
+    //    switch(sashState){
     //    case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV: sashStr = "Error"; break;
     //    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV: sashStr = "Closed"; break;
     //    case MachineEnums::SASH_STATE_UNSAFE_SSV: sashStr = "Unsafe"; break;
@@ -2526,22 +2551,23 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
         if(i>0)
             pData->setSashWindowStateSample(pData->getSashWindowStateSample(i-1), i);
         else
-            pData->setSashWindowStateSample(sash, i);
+            pData->setSashWindowStateSample(sashState, i);
     }
 
-    bool valid = (pData->getSashWindowStateSample(0) == pData->getSashWindowStateSample(1));
-    valid &= (pData->getSashWindowStateSample(1) == pData->getSashWindowStateSample(2));
-    valid &= (pData->getSashWindowStateSample(2) == pData->getSashWindowStateSample(3));
+    bool sashChangedValid = (pData->getSashWindowStateSample(0) == pData->getSashWindowStateSample(1));
+    sashChangedValid &= (pData->getSashWindowStateSample(1) == pData->getSashWindowStateSample(2));
+    sashChangedValid &= (pData->getSashWindowStateSample(2) == pData->getSashWindowStateSample(3));
+    //    sashChangedValid &= (pData->getSashWindowStateSample(3) == pData->getSashWindowStateSample(4));
 
-    if(valid)
+    if(sashChangedValid)
         pData->setSashWindowStateChangedValid(true);
     else
         pData->setSashWindowStateChangedValid(false);
-    qDebug() << "SashSample :" << pData->getSashWindowStateSample(0) << pData->getSashWindowStateSample(1) << pData->getSashWindowStateSample(2)  << pData->getSashWindowStateSample(3) << valid;
+    qDebug() << "SashSample :" << pData->getSashWindowStateSample(0) << pData->getSashWindowStateSample(1) << pData->getSashWindowStateSample(2)  << pData->getSashWindowStateSample(3) << pData->getSashWindowStateSample(4) << sashChangedValid;
 
     int modeOperation = pData->getOperationMode();
 
-    switch(sash){
+    switch(sashState){
     case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV:
         ////MOTORIZE SASH
         if(pData->getSashWindowMotorizeInstalled()){
@@ -2554,7 +2580,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                 m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
             }
 
-            if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
+            if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
                 if(pData->getSashWindowMotorizeState()){
                     qDebug() << "Sash Motor Off in Sash Error";
                     m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
@@ -2562,10 +2588,10 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                 }
             }
         }
-        /// CLEAR FLAG OF SASH STATE FLAG
-        if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
-            m_pSashWindow->clearFlagSashStateChanged();
-        }
+        //        /// CLEAR FLAG OF SASH STATE FLAG
+        //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+        //            m_pSashWindow->clearFlagSashStateChanged();
+        //        }
         break;
     case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV:
         ////MOTORIZE SASH
@@ -2575,7 +2601,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                 m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
             }
 
-            if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
+            if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
                 if(pData->getSashWindowMotorizeState()){
                     if(m_sashMotorizedOffAtFullyClosedDelayTimeMsec){
                         if(!eventTimerForDelayMotorizedOffAtFullyClosed){
@@ -2592,7 +2618,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                                 m_pSasWindowMotorize->routineTask();
                                 m_delaySashMotorFullyClosedExecuted = true;
                             });
-
+                            qDebug() << "Timer Sash Motor Off in Sash Fully Closed Start";
                             eventTimerForDelayMotorizedOffAtFullyClosed->start();
                         }
                     }else{
@@ -2613,10 +2639,10 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                 }
             }
         }
-        /// CLEAR FLAG OF SASH STATE FLAG
-        if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
-            m_pSashWindow->clearFlagSashStateChanged();
-        }
+        //        /// CLEAR FLAG OF SASH STATE FLAG
+        //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+        //            m_pSashWindow->clearFlagSashStateChanged();
+        //        }
         break;
     case MachineEnums::SASH_STATE_UNSAFE_SSV:
         ////MOTORIZE SASH
@@ -2630,10 +2656,10 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                 m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
             }
         }
-        /// CLEAR FLAG OF SASH STATE FLAG
-        if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
-            m_pSashWindow->clearFlagSashStateChanged();
-        }
+        //        /// CLEAR FLAG OF SASH STATE FLAG
+        //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+        //            m_pSashWindow->clearFlagSashStateChanged();
+        //        }
         break;
     case MachineEnums::SASH_STATE_STANDBY_SSV:
         ////MOTORIZE SASH
@@ -2647,7 +2673,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                 m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
             }
 
-            if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
+            if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
                 if(pData->getSashWindowMotorizeState()){
                     qDebug() << "Sash Motor Off in Sash Standby";
                     /// Don't turnOff the sash if the previous State is the same
@@ -2661,7 +2687,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
         }//
 
         //AUTOMATIC IO STATE
-        if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
+        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
             if((pData->getFanState() == MachineEnums::FAN_STATE_ON)){
                 qDebug() << "eventTimerForDelaySafeHeightAction stb" << eventTimerForDelaySafeHeightAction;
                 if(!eventTimerForDelaySafeHeightAction){
@@ -2674,7 +2700,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                     ///Ececute this block after a certain time (m_sashSafeAutoOnOutputDelayTimeMsec)
                     QObject::connect(eventTimerForDelaySafeHeightAction, &QTimer::timeout, eventTimerForDelaySafeHeightAction,
                                      [=](){
-                        qDebug() << "Sash Standby Height after delay turned on out put";
+                        //qDebug() << "Sash Standby Height after delay turned on out put";
                         //TURN BLOWER TO STANDBY SPEED
                         setFanState(MachineEnums::FAN_STATE_STANDBY);
                         //_setFanPrimaryStateStandby();
@@ -2685,10 +2711,10 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
             }//
         }//
 
-        /// CLEAR FLAG OF SASH STATE FLAG
-        if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
-            m_pSashWindow->clearFlagSashStateChanged();
-        }
+        //        /// CLEAR FLAG OF SASH STATE FLAG
+        //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+        //            m_pSashWindow->clearFlagSashStateChanged();
+        //        }
         break;
     case MachineEnums::SASH_STATE_WORK_SSV:
         ////MOTORIZE SASH
@@ -2702,7 +2728,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                 m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
             }
 
-            if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
+            if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
                 if(pData->getSashWindowMotorizeState()){
                     /// Count tubular motor cycle
                     int count = pData->getSashCycleMeter();
@@ -2725,7 +2751,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
         }//
         //AUTOMATIC IO STATE
         //IF SASH STATE JUST CHANGED
-        if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()
+        if(m_pSashWindow->isSashStateChanged() && sashChangedValid
                 && (m_pSashWindow->previousState() == MachineEnums::SASH_STATE_UNSAFE_SSV)
                 && !eventTimerForDelaySafeHeightAction){
 
@@ -2740,7 +2766,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
             QObject::connect(eventTimerForDelaySafeHeightAction, &QTimer::timeout, eventTimerForDelaySafeHeightAction,
                              [=](){
 
-                qDebug() << "Sash Safe Height after delay turned on out put";
+                //qDebug() << "Sash Safe Height after delay turned on out put";
                 ///Ensure the Buzzer Alarm Off Once Sahs Safe
                 setBuzzerState(MachineEnums::DIG_STATE_ZERO);
                 ////TURN ON LAMP
@@ -2772,10 +2798,10 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
 
             eventTimerForDelaySafeHeightAction->start();
         }
-        /// CLEAR FLAG OF SASH STATE FLAG
-        if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
-            m_pSashWindow->clearFlagSashStateChanged();
-        }
+        //        /// CLEAR FLAG OF SASH STATE FLAG
+        //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+        //            m_pSashWindow->clearFlagSashStateChanged();
+        //        }
         break;
     case MachineEnums::SASH_STATE_FULLY_OPEN_SSV:
         ////MOTORIZE SASH
@@ -2789,19 +2815,23 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                 m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
             }
 
-            if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
+            if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
                 if(pData->getSashWindowMotorizeState()){
-                    qDebug() << "Sash Motor On in Sash Fully Open count";
+                    qDebug() << "Sash Motor On in Sash Fully Open";
                     m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                     m_pSasWindowMotorize->routineTask();
                 }
             }
         }
-        /// CLEAR FLAG OF SASH STATE FLAG
-        if(m_pSashWindow->isSashStateChanged() && pData->getSashWindowStateChangedValid()){
-            m_pSashWindow->clearFlagSashStateChanged();
-        }
+        //        /// CLEAR FLAG OF SASH STATE FLAG
+        //        if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+        //            m_pSashWindow->clearFlagSashStateChanged();
+        //        }
         break;
+    }
+    /// CLEAR FLAG OF SASH STATE FLAG
+    if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+        m_pSashWindow->clearFlagSashStateChanged();
     }
 }//
 

@@ -79,18 +79,22 @@ ViewApp {
                                     fillMode: Image.PreserveAspectFit
 
                                     TextApp {
-                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        width: 70
+                                        horizontalAlignment: Text.AlignHCenter
                                         font.pixelSize: 12
-                                        //                                        color: "#0F2952"
+                                        minimumPixelSize: 10
                                         text: qsTr("Select user");
+                                        wrapMode: Text.WordWrap
                                     }//
 
                                     TextApp {
                                         anchors.bottom: parent.bottom
-                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        horizontalAlignment: Text.AlignHCenter
                                         font.pixelSize: 12
-                                        //                                        color: "#0F2952"
+                                        minimumPixelSize: 10
                                         text: qsTr("Press here");
+                                        wrapMode: Text.WordWrap
+                                        width: 70
                                     }//
                                 }//
 

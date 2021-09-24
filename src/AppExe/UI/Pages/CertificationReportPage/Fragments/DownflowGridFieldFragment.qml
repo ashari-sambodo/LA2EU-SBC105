@@ -18,6 +18,7 @@ Item {
             Layout.fillWidth: true
 
             TextApp {
+                width: parent.width
                 text: qsTr("Downflow")
                 font.bold: true
                 anchors.verticalCenter: parent.verticalCenter

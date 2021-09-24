@@ -91,9 +91,16 @@ ViewApp {
                                             anchors.margins: 3
                                             spacing: 1
 
-                                            TextApp {
-                                                font.pixelSize: 14
-                                                text: qsTr("Press here to adjust")
+                                            Item{
+                                                Layout.fillWidth: true
+                                                Layout.minimumHeight: 30
+                                                TextApp {
+                                                    width: parent.width
+                                                    height: parent.height
+                                                    font.pixelSize: 14
+                                                    text: qsTr("Press here to adjust")
+                                                    wrapMode: Text.WordWrap
+                                                }
                                             }
 
                                             Item {
@@ -209,15 +216,20 @@ ViewApp {
                                         radius: 5
 
                                         ColumnLayout {
+                                            id: colLeft
                                             anchors.fill: parent
                                             anchors.margins: 3
                                             spacing: 1
 
                                             TextApp {
+                                                width: colLeft.width
+                                                font.pixelSize: 18
                                                 text: qsTr("Set DF Nominal") + ":"
                                             }//
 
                                             TextApp {
+                                                width: colLeft.width
+                                                font.pixelSize: 18
                                                 text: props.measureUnitStr
                                             }//
 
@@ -289,10 +301,14 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
+                                                width: colLeft.width
+                                                font.pixelSize: 18
                                                 text: qsTr("Set DF Low Alarm") + ":"
                                             }//
 
                                             TextApp {
+                                                width: colLeft.width
+                                                font.pixelSize: 18
                                                 text: props.measureUnitStr
                                             }//
 
@@ -371,10 +387,14 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
+                                                width: colLeft.width
+                                                font.pixelSize: 18
                                                 text: qsTr("Set DF High Alarm") + ":"
                                             }//
 
                                             TextApp {
+                                                width: colLeft.width
+                                                font.pixelSize: 18
                                                 text: props.measureUnitStr
                                             }//
 
@@ -568,9 +588,16 @@ ViewApp {
                                             anchors.margins: 3
                                             spacing: 1
 
-                                            TextApp {
-                                                font.pixelSize: 14
-                                                text: qsTr("Press here to adjust")
+                                            Item{
+                                                Layout.fillWidth: true
+                                                Layout.minimumHeight: 30
+                                                TextApp {
+                                                    width: parent.width
+                                                    height: parent.height
+                                                    font.pixelSize: 14
+                                                    text: qsTr("Press here to adjust")
+                                                    wrapMode: Text.WordWrap
+                                                }
                                             }
 
                                             Item {
@@ -677,15 +704,20 @@ ViewApp {
                                         radius: 5
 
                                         ColumnLayout {
+                                            id: colRight
                                             anchors.fill: parent
                                             anchors.margins: 3
                                             spacing: 1
 
                                             TextApp {
+                                                width: colRight.width
+                                                font.pixelSize: 18
                                                 text: qsTr("Set IF Nominal") + ":"
                                             }//
 
                                             TextApp {
+                                                width: colRight.width
+                                                font.pixelSize: 18
                                                 text: props.measureUnitStr
                                             }//
 
@@ -754,10 +786,14 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
+                                                width: colRight.width
+                                                font.pixelSize: 18
                                                 text: qsTr("Set IF Low Alarm") + ":"
                                             }//
 
                                             TextApp {
+                                                width: colRight.width
+                                                font.pixelSize: 18
                                                 text: props.measureUnitStr
                                             }//
 

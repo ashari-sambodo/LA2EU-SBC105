@@ -6,203 +6,203 @@
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="4"/>
         <source>System on</source>
-        <translation type="unfinished"></translation>
+        <translation>System an</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="5"/>
         <source>System stopped</source>
-        <translation type="unfinished"></translation>
+        <translation>System gestoppt</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="6"/>
         <source>Power failure at</source>
-        <translation type="unfinished"></translation>
+        <translation>Stromausfall bei</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="8"/>
         <source>Power recovered! Set back Fan to on</source>
-        <translation type="unfinished"></translation>
+        <translation>Strom wiederhergestellt! Lüfter wieder einschalten</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="9"/>
         <source>Power recovered! Set back UV to on</source>
-        <translation type="unfinished"></translation>
+        <translation>Strom wiederhergestellt! UV wieder einschalten</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="11"/>
         <source>Sash safe height</source>
-        <translation type="unfinished"></translation>
+        <translation>Flügelsichere Höhe</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="12"/>
         <source>Sash unsafe height</source>
-        <translation type="unfinished"></translation>
+        <translation>Flügel unsichere Höhe</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="13"/>
         <source>Sash fully close</source>
-        <translation type="unfinished"></translation>
+        <translation>Schärpe ganz schließen</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="14"/>
         <source>Sash fully open</source>
-        <translation type="unfinished"></translation>
+        <translation>Flügel ganz geöffnet</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="15"/>
         <source>Sash fully standby</source>
-        <translation type="unfinished"></translation>
+        <translation>Schärpe voll Standby</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="16"/>
         <source>Sash unknown state</source>
-        <translation type="unfinished"></translation>
+        <translation>Schärpe unbekannter Zustand</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="18"/>
         <source>Fan On scheduler has trigger</source>
-        <translation type="unfinished"></translation>
+        <translation>Fan On Scheduler hat Trigger</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="19"/>
         <source>Fan Off scheduler has trigger</source>
-        <translation type="unfinished"></translation>
+        <translation>Fan Off Scheduler hat Trigger</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="20"/>
         <source>UV On scheduler has trigger</source>
-        <translation type="unfinished"></translation>
+        <translation>UV On Scheduler hat Trigger</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="21"/>
         <source>UV Off scheduler has trigger</source>
-        <translation type="unfinished"></translation>
+        <translation>UV Off Scheduler hat Trigger</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="23"/>
         <source>Set Fan on</source>
-        <translation type="unfinished"></translation>
+        <translation>Lüfter einschalten</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="24"/>
         <source>Set Fan standby</source>
-        <translation type="unfinished"></translation>
+        <translation>Lüfter-Standby einstellen</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="25"/>
         <source>Set Fan off</source>
-        <translation type="unfinished"></translation>
+        <translation>Lüfter ausschalten</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="27"/>
         <source>Set Light on</source>
-        <translation type="unfinished"></translation>
+        <translation>Licht einschalten</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="29"/>
         <source>Modbus connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Modbus verbunden</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="30"/>
         <source>Modbus disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Modbus getrennt</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="31"/>
         <source>Modbus rejected</source>
-        <translation type="unfinished"></translation>
+        <translation>Modbus abgelehnt</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="33"/>
         <source>Enviromental temp too low</source>
-        <translation type="unfinished"></translation>
+        <translation>Umgebungstemperatur zu niedrig</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="34"/>
         <source>Enviromental temp too high</source>
-        <translation type="unfinished"></translation>
+        <translation>Umgebungstemperatur zu hoch</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="35"/>
         <source>Enviromental temp too normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Umgebungstemperatur zu normal</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="4"/>
         <source>Alarm Sash | Normal | Safe height </source>
-        <translation type="unfinished"></translation>
+        <translation>Alarmschärpe | Normal | Sichere Höhe </translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="5"/>
         <source>Alarm Sash | Fail | Unsafe height</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarmschärpe | Fehler | Unsichere Höhe</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="6"/>
         <source>Alarm Sash | Fail | Fully open</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarmschärpe | Fehler | Vollständig offen</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="7"/>
         <source>Alarm Sash | Fail | Sensor Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarmschärpe | Fehler | Sensorfehler</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="9"/>
         <source>Alarm Inflow | Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarmzufluss | Normal</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="10"/>
         <source>Alarm Inflow | Fail | Too low</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarmzufluss | Fehler | Zu niedrig</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="12"/>
         <source>Alarm Downflow | Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarm Downflow | Normal</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="13"/>
         <source>Alarm Downflow | Fail | Too low</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarm Downflow | Fehler | Zu niedrig</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="14"/>
         <source>Alarm Downflow | Fail | Too high</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarm Downflow | Fehler | Zu hoch</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="16"/>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="19"/>
         <source>Alarm Exhaust | Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarm Auspuff | Normal</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="17"/>
         <source>Alarm Exhaust | Fail | Too high</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarm Auspuff | Fehler | Zu hoch</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="20"/>
         <source>Alarm Exhaust | Fail | Too low</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarm Auspuff | Fehler | Zu niedrig</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="22"/>
         <source>Alarm Temperature | Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarmtemperatur | Normal</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="23"/>
         <source>Alarm Temperature | Fail | Too low</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarmtemperatur | Fehler | Zu niedrig</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="24"/>
         <source>Alarm Temperature | Fail | Too high</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarmtemperatur | Fehler | Zu hoch</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="26"/>

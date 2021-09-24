@@ -182,9 +182,9 @@ ViewApp {
                                         Layout.minimumHeight: parent.height* 0.35
                                         Layout.fillWidth: true
 
-                                        //                Rectangle{anchors.fill: parent}
+                                        //Rectangle{anchors.fill: parent}
 
-                                        Text {
+                                        TextApp {
                                             id: iconText
                                             text: modelData.mtitle ? ((index + 1) + ") " + modelData.mtitle) : ""
                                             height: parent.height

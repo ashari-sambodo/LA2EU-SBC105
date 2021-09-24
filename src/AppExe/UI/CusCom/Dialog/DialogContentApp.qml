@@ -63,7 +63,8 @@ Item {
 
             Text {
                 id: titleText
-                anchors.fill: parent
+                height: parent.height
+                width: parent.width
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 font.pixelSize: 20
@@ -114,6 +115,8 @@ Item {
                             //                        horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
                             font.pixelSize: 20
+                            minimumPixelSize: 14
+                            fontSizeMode: Text.Fit
                             color: "#dddddd"
                             //                            textFormat: Text.RichText
                             //                            text: qsTr("Text")
@@ -160,6 +163,8 @@ Item {
                             //                        horizontalAlignment: Text.AlignHCenter
                             wrapMode: Text.WordWrap
                             font.pixelSize: 20
+                            minimumPixelSize: 14
+                            fontSizeMode: Text.Fit
                             color: "#dddddd"
                             padding: 5
                             //                            textFormat: Text.RichText

@@ -88,10 +88,16 @@ ViewApp {
                                             anchors.fill: parent
                                             anchors.margins: 2
                                             spacing: 1
-
-                                            TextApp {
-                                                font.pixelSize: 14
-                                                text: qsTr("Press here to turn off the Fan")
+                                            Item{
+                                                Layout.fillWidth: true
+                                                Layout.minimumHeight: 30
+                                                TextApp {
+                                                    width: parent.width
+                                                    height: parent.height
+                                                    font.pixelSize: 14
+                                                    text: qsTr("Press here to turn off the Fan")
+                                                    wrapMode: Text.WordWrap
+                                                }
                                             }
 
                                             Item {
@@ -279,9 +285,16 @@ ViewApp {
                                             anchors.margins: 2
                                             spacing: 1
 
-                                            TextApp {
-                                                font.pixelSize: 14
-                                                text: qsTr("Press here to turn off the Fan")
+                                            Item{
+                                                Layout.fillWidth: true
+                                                Layout.minimumHeight: 30
+                                                TextApp {
+                                                    width: parent.width
+                                                    height: parent.height
+                                                    font.pixelSize: 14
+                                                    text: qsTr("Press here to turn off the Fan")
+                                                    wrapMode: Text.WordWrap
+                                                }
                                             }
 
                                             Item {

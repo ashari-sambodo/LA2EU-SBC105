@@ -2465,7 +2465,7 @@ ViewApp {
 
                 /// Power outage
                 props.powerOutage = MachineData.powerOutage
-                if(props.powerOutage) {
+                if(props.powerOutage && MachineData.getSbcCurrentSerialNumberKnown()) {
                     const powerOutageTime = MachineData.powerOutageTime
                     const powerOutageRecoverTime = MachineData.powerOutageRecoverTime
 

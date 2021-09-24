@@ -29,11 +29,13 @@ Item {
                         spacing: 2
 
                         TextApp {
+                            width: 200
                             text: qsTr("DIM Method")
                             font.bold: true
                         }//
 
                         TextApp {
+                            width: 200
                             text: qsTr("Duty cycle") + ": " + "<b>" + valueStrf + "</b>"
 
                             property string valueStrf: "0%"
@@ -44,6 +46,7 @@ Item {
                         }//
 
                         TextApp {
+                            width: 200
                             text: qsTr("Total") + ": " + "<b>" + valueStrf + "</b>"
 
                             property string valueStrf: "0"
@@ -56,6 +59,7 @@ Item {
                         }//
 
                         TextApp {
+                            width: 200
                             text: qsTr("Average") + ": " + "<b>" + valueStrf + "</b>"
 
                             property string valueStrf: "0"
@@ -68,6 +72,7 @@ Item {
                         }//
 
                         TextApp {
+                            width: 200
                             text: qsTr("Velocity") + ": " + "<b>" + valueStrf + "</b>"
 
                             property string valueStrf: "0"
@@ -122,11 +127,13 @@ Item {
                         spacing: 2
 
                         TextApp {
+                            width: 200
                             text: qsTr("Secondary Method")
                             font.bold: true
                         }//
 
                         TextApp {
+                            width: 200
                             text: qsTr("Duty cycle") + ": " + "<b>" + valueStrf + "</b>"
 
                             property string valueStrf: "0%"
@@ -137,6 +144,7 @@ Item {
                         }//
 
                         TextApp {
+                            width: 200
                             text: qsTr("Total") + ": " + "<b>" + valueStrf + "</b>"
 
                             property string valueStrf: "0"
@@ -151,6 +159,7 @@ Item {
                         }//
 
                         TextApp {
+                            width: 200
                             text: qsTr("Average") + ": " + "<b>" + valueStrf + "</b>"
 
                             property string valueStrf: "0"
@@ -165,6 +174,7 @@ Item {
                         }//
 
                         TextApp {
+                            width: 200
                             text: qsTr("Velocity") + ": " + "<b>" + valueStrf + "</b>"
 
                             property string valueStrf: "0"

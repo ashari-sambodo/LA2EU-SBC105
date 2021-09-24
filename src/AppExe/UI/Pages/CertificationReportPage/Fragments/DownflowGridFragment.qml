@@ -23,17 +23,20 @@ Item {
                     Column{
                         anchors.verticalCenter: parent.verticalCenter
                         TextApp {
+                            width: 300
                             text: qsTr("Downflow Nominal")
                             font.bold: true
                         }
                         TextApp {
                             id: velocityTextAppNom
+                            width: 300
                             text: qsTr("Average") + ": "+ valueStrf
 
                             property string valueStrf: "0.32 m/s"
                         }//
                         TextApp {
                             id: deviationTextAppNom
+                            width: 300
                             text: qsTr("Max Deviation") + ": "+ valueStrf
 
                             property string valueStrf: "0.04 m/s (12.5%)"
@@ -67,17 +70,20 @@ Item {
                     Column{
                         anchors.verticalCenter: parent.verticalCenter
                         TextApp {
+                            width: 300
                             text: qsTr("Downflow Minimum")
                             font.bold: true
                         }
                         TextApp {
                             id: velocityTextAppMin
+                            width: 300
                             text: qsTr("Average") + ": "+ valueStrf
 
                             property string valueStrf: "0.32 m/s"
                         }//
                         TextApp {
                             id: deviationTextAppMin
+                            width: 300
                             text: qsTr("Max Deviation") + ": "+ valueStrf
 
                             property string valueStrf: "0.04 m/s (12.5%)"
@@ -111,17 +117,20 @@ Item {
                     Column{
                         anchors.verticalCenter: parent.verticalCenter
                         TextApp {
+                            width: 300
                             text: qsTr("Downflow Maximum")
                             font.bold: true
                         }
                         TextApp {
                             id: velocityTextAppMax
+                            width: 300
                             text: qsTr("Average") + ": "+ valueStrf
 
                             property string valueStrf: "0.32 m/s"
                         }//
                         TextApp {
                             id: deviationTextAppMax
+                            width: 300
                             text: qsTr("Max Deviation") + ": "+ valueStrf
 
                             property string valueStrf: "0.04 m/s (12.5%)"

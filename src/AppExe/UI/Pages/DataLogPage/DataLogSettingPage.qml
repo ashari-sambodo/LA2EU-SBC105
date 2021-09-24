@@ -98,7 +98,6 @@ ViewApp {
                         radius: 5
                         color: "#0F2952"
                         border.color: "#e3dac9"
-
                         ColumnLayout {
                             anchors.fill: parent
 
@@ -113,7 +112,8 @@ ViewApp {
 
                                 ComboBoxApp {
                                     id: periodComboBoxApp
-                                    anchors.fill: parent
+                                    width: parent.width
+                                    height: parent.height
                                     anchors.margins: 5
                                     font.pixelSize: 20
 
@@ -132,10 +132,18 @@ ViewApp {
                                 }//
                             }//
 
-                            TextApp {
-                                Layout.margins: 5
-                                font.pixelSize: 14
-                                text: "*" + qsTr("Only if Fan state is on")
+                            Item {
+                                Layout.minimumHeight: 30
+                                Layout.fillWidth: true
+                                TextApp {
+                                    width: parent.width
+                                    height: parent.height
+                                    Layout.margins: 2
+                                    font.pixelSize: 14
+                                    minimumPixelSize: 10
+                                    text: "*" + qsTr("Only if Fan state is on")
+                                    wrapMode: Text.WordWrap
+                                }//
                             }//
                         }//
                     }//
@@ -386,11 +394,11 @@ ViewApp {
 
                     showDialogMessage(qsTr(title), qsTr("The log has been deleted!"), dialogInfo,
                                       function onClosed(){
-                                        showBusyPage(qsTr("Please wait.."), function onCallback(second){
-                                            if(second === 3) {
-                                                closeDialog()
-                                            }
-                                        })
+                                          showBusyPage(qsTr("Please wait.."), function onCallback(second){
+                                              if(second === 3) {
+                                                  closeDialog()
+                                              }
+                                          })
                                       })
                 }
 
