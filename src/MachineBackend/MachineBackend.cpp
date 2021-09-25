@@ -2547,7 +2547,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
     //    }
     //    qDebug() << "SashWindow :" << sashPrevStr << sashStr;
 
-    for(short i=3; i>=0; i--){
+    for(short i=1; i>=0; i--){
         if(i>0)
             pData->setSashWindowStateSample(pData->getSashWindowStateSample(i-1), i);
         else
@@ -2555,8 +2555,8 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
     }
 
     bool sashChangedValid = (pData->getSashWindowStateSample(0) == pData->getSashWindowStateSample(1));
-    sashChangedValid &= (pData->getSashWindowStateSample(1) == pData->getSashWindowStateSample(2));
-    sashChangedValid &= (pData->getSashWindowStateSample(2) == pData->getSashWindowStateSample(3));
+    //    sashChangedValid &= (pData->getSashWindowStateSample(1) == pData->getSashWindowStateSample(2));
+    //    sashChangedValid &= (pData->getSashWindowStateSample(2) == pData->getSashWindowStateSample(3));
     //    sashChangedValid &= (pData->getSashWindowStateSample(3) == pData->getSashWindowStateSample(4));
 
     if(sashChangedValid)
@@ -2844,7 +2844,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                 m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
             }
 
-            if(m_pSashWindow->isSashStateChanged()){
+            if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
                 if(pData->getSashWindowMotorizeState()){
                     qDebug() << "Sash Motor Off in Mode Maintenance";
                     m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
@@ -7988,9 +7988,9 @@ void MachineBackend::_machineState()
                                         short prevState = pData->getAlarmDownflowLow();
                                         short prevState1 = pData->getAlarmDownflowHigh();
 
-                                        if(isAlarmActive(prevState))
+                                        if(!isAlarmNormal(prevState))
                                             pData->setAlarmDownflowLow(MachineEnums::ALARM_NORMAL_STATE);
-                                        if(isAlarmActive(prevState1))
+                                        if(!isAlarmNormal(prevState1))
                                             pData->setAlarmDownflowHigh(MachineEnums::ALARM_NORMAL_STATE);
 
                                         if(isAlarmActive(prevState) || isAlarmActive(prevState1)) {
@@ -8001,7 +8001,6 @@ void MachineBackend::_machineState()
                                     }//
                                 }//
                             }
-                            //                    }
                         }
                     }
                     if(!alarmAirflowAvailable){

@@ -96,7 +96,7 @@ Item {
 
         Image {
             id: downflowImage
-            source: "BiosafetyCabinet3D/pictures/BSC3D_arrow_df_blue.png"
+            source: "BiosafetyCabinet3D/pictures/BSC3D_arrow_df_green.png"
             height: parent.height
             width: parent.width
             fillMode: Image.PreserveAspectFit

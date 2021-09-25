@@ -630,7 +630,7 @@ private:
     int  m_sashSafeAutoOnOutputDelayTimeMsec = 100; /// 100ms //original 3 seconds
 
     QTimer* eventTimerForDelayMotorizedOffAtFullyClosed = nullptr;
-    int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 2000; /// 2000ms
+    int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 1500; /// 2000ms
     bool  m_delaySashMotorFullyClosedExecuted = false;
     uchar m_counter = 0;
 

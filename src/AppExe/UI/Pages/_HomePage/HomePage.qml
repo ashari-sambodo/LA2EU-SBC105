@@ -680,11 +680,11 @@ ViewApp {
                                                 }//
                                                 ,
                                                 State {
-                                                    when: (props.alarmDownflowLow != MachineAPI.ALARM_ACTIVE_STATE)
-                                                          && (props.alarmDownflowHigh != MachineAPI.ALARM_ACTIVE_STATE)
+                                                    when: (props.alarmDownflowLow == MachineAPI.ALARM_NORMAL_STATE)
+                                                          && (props.alarmDownflowHigh == MachineAPI.ALARM_NORMAL_STATE)
                                                     PropertyChanges {
                                                         target: downflowStatus
-                                                        color: "#3742fa"
+                                                        color: "#4ECC44"
                                                     }//
                                                 }//
                                             ]//
@@ -756,7 +756,7 @@ ViewApp {
                                                     when: props.alarmInflowLow == MachineAPI.ALARM_NORMAL_STATE
                                                     PropertyChanges {
                                                         target: inflowStatus
-                                                        color: "#18AA00"
+                                                        color: "#279F40"
                                                     }//
                                                 }//
                                             ]//
