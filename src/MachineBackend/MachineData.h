@@ -844,6 +844,11 @@ class MachineData : public QObject
                //               WRITE setSashCycleMeter
                NOTIFY sashCycleMeterChanged)
 
+    Q_PROPERTY(short sashCycleMotorLockedAlarm
+               READ getSashCycleMotorLockedAlarm
+               //               WRITE setSashCycleMeter
+               NOTIFY sashCycleMotorLockedAlarmChanged)
+
     Q_PROPERTY(int envTempLowestLimit
                READ getEnvTempLowestLimit
                //               WRITE setEnvTempLowestLimit
@@ -1591,8 +1596,12 @@ public:
     void setFanPIN(QString fanPIN);
 
     /// SASH CYCLE METER
+    bool getSashCycleCountValid() const;
+    void setSashCycleCountValid(bool sashCycleCountValid);
     int getSashCycleMeter() const;
     void setSashCycleMeter(int sashCycleMeter);
+    short getSashCycleMotorLockedAlarm() const;
+    void setSashCycleMotorLockedAlarm(short value);
 
     /// ENVIRONMENTAL TEMPERATURE LIMIT
     int getEnvTempHighestLimit() const;
@@ -1916,6 +1925,8 @@ signals:
     void fanPINChanged(QString fanPIN);
 
     void sashCycleMeterChanged(int sashCycleMeter);
+
+    void sashCycleMotorLockedAlarmChanged(short value);
 
     void envTempHighestLimitChanged(int envTempHighestLimit);
 
@@ -2267,7 +2278,11 @@ private:
 
     QString m_fanPIN;
 
+    /// m_sashCycleCountValid return true if sash state has reached Standby, Fully Closed, and Fully Opened
+    /// m_sashCycleCountValid return false if sash state in Safe height
+    bool m_sashCycleCountValid = false;
     int m_sashCycleMeter = 0;
+    short m_sashCycleMotorLockedAlarm = false;
 
     int m_envTempHighestLimit = 0;
     int m_envTempLowestLimit = 0;

@@ -97,6 +97,42 @@ ViewApp {
                             }//
                             ,
                             State {
+                                when: props.sashCycleLockedAlarm
+                                PropertyChanges {
+                                    target: headerBgImage
+                                    visible: true
+                                }//
+                                PropertyChanges {
+                                    target: headerStatusText
+                                    text: qsTr("ALARM: SASH MOTOR LOCKED")
+                                }//
+                            }//
+                            ,
+                            State {
+                                when: props.sashCycleStopCaution
+                                PropertyChanges {
+                                    target: headerBgImage
+                                    visible: true
+                                }//
+                                PropertyChanges {
+                                    target: headerStatusText
+                                    text: qsTr("STOP USING SASH MOTOR")
+                                }//
+                            }//
+                            ,
+                            State {
+                                when: props.sashCycleReplaceCaution
+                                PropertyChanges {
+                                    target: headerBgImage
+                                    visible: true
+                                }//
+                                PropertyChanges {
+                                    target: headerStatusText
+                                    text: qsTr("REPLACE SASH MOTOR")
+                                }//
+                            }//
+                            ,
+                            State {
                                 when: props.alarmSashError
                                 PropertyChanges {
                                     target: headerBgImage
@@ -1055,7 +1091,7 @@ ViewApp {
                                         return true
                                     }
                                     return false
-                                }
+                                }//
                             }//
                         }//
 
@@ -1310,6 +1346,30 @@ ViewApp {
                                         //                                            text: qsTr("The inflow value is too low!\nPotentially reducing the protecttive capabilities of the cabinet.\nEnsure that sensors and ventilation paths are not obstructed.")
 
                                         states: [
+                                            State {
+                                                when: props.sashCycleLockedAlarm
+                                                PropertyChanges {
+                                                    target: textTeleprompter
+                                                    text: qsTr("The sash motor cycle has exceeded the maximum operating limit!.\nSash motor has been locked.\nPlease contact your service engineer to do maintenance")
+                                                }
+                                            }//
+                                            ,
+                                            State {
+                                                when: props.sashCycleStopCaution
+                                                PropertyChanges {
+                                                    target: textTeleprompter
+                                                    text: qsTr("The use of the sash motor is almost at maximum use!.\nStop using sash motor!.\nPlease contact your service engineer to do maintenance")
+                                                }
+                                            }//
+                                            ,
+                                            State {
+                                                when: props.sashCycleReplaceCaution
+                                                PropertyChanges {
+                                                    target: textTeleprompter
+                                                    text: qsTr("The use of the sash motor is almost at maximum use!.\nReplace the sash motor!.\nPlease contact your service engineer to do maintenance")
+                                                }//
+                                            }//
+                                            ,
                                             State {
                                                 when: props.alarmSash >= MachineAPI.ALARM_SASH_ACTIVE_UNSAFE_STATE
                                                 PropertyChanges {
@@ -2218,6 +2278,10 @@ ViewApp {
             property string inflowStr: "--"
 
             property int sashWindowState: 0
+            property int sashCycle: 0
+            property bool sashCycleLockedAlarm: false
+            property bool sashCycleStopCaution: false
+            property bool sashCycleReplaceCaution: false
 
             property bool fanInterlocked: false
             property int  fanState: 0
@@ -2372,7 +2436,7 @@ ViewApp {
                 props.alarmTempHigh = Qt.binding(function(){ return MachineData.alarmTempHigh})
                 props.alarmTempLow = Qt.binding(function(){ return MachineData.alarmTempLow})
 
-                props.sashWindowState = Qt.binding(function(){ return MachineData.sashWindowState })
+                props.sashWindowState = Qt.binding(function(){ return MachineData.sashWindowState})
 
                 props.alarmStandbyFanOff = Qt.binding(function(){ return MachineData.alarmStandbyFanOff === MachineAPI.ALARM_ACTIVE_STATE})
 
@@ -2410,6 +2474,12 @@ ViewApp {
                 props.sashMotorizeDownInterlocked = Qt.binding(function(){return MachineData.sashWindowMotorizeDownInterlocked})
                 props.sashMotorizeUpInterlocked = Qt.binding(function(){return MachineData.sashWindowMotorizeUpInterlocked})
                 props.sashMotorizeState = Qt.binding(function(){return MachineData.sashWindowMotorizeState})
+                if(props.sashMotorizeInstalled){
+                    props.sashCycle = Qt.binding(function(){ return MachineData.sashCycleMeter/10})
+                    props.sashCycleLockedAlarm = Qt.binding(function(){return MachineData.sashCycleMotorLockedAlarm === MachineAPI.ALARM_ACTIVE_STATE})
+                    props.sashCycleStopCaution = Qt.binding(function(){return ((MachineData.sashCycleMeter/10) > 15500) && props.sashMotorizeState})
+                    props.sashCycleReplaceCaution = Qt.binding(function(){return ((MachineData.sashCycleMeter/10) > 15000) && props.sashMotorizeState})
+                }
 
                 ///PARTICLE COUNTER
                 props.particleCounterSensorInstalled = Qt.binding(function(){return MachineData.particleCounterSensorInstalled})

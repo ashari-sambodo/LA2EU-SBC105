@@ -25,3 +25,6 @@
 
 #define ALARM_LOG_TEXT_FAN_STB_OFF_INACTIVE    QObject::tr("Alarm Fan Standby | Inactive")
 #define ALARM_LOG_TEXT_FAN_STB_OFF_ACTIVE      QObject::tr("Alarm Fan Standby | Active")
+
+#define ALARM_LOG_TEXT_SASH_MOTOR_LOCKED      QObject::tr("Alarm Sash Motor | Locked")
+#define ALARM_LOG_TEXT_SASH_MOTOR_OK          QObject::tr("Alarm Sash Motor | Normal")

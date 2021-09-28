@@ -462,6 +462,18 @@ void MachineData::setSashCycleMeter(int sashCycleMeter)
     emit sashCycleMeterChanged(m_sashCycleMeter);
 }
 
+short MachineData::getSashCycleMotorLockedAlarm() const
+{
+    return m_sashCycleMotorLockedAlarm;
+}
+
+void MachineData::setSashCycleMotorLockedAlarm(short value)
+{
+    if(m_sashCycleMotorLockedAlarm == value) return;
+    m_sashCycleMotorLockedAlarm = value;
+    emit sashCycleMotorLockedAlarmChanged(m_sashCycleMotorLockedAlarm);
+}
+
 int MachineData::getEnvTempHighestLimit() const
 {
     return m_envTempHighestLimit;
@@ -479,6 +491,19 @@ void MachineData::setFanPIN(QString fanPIN)
 
     m_fanPIN = fanPIN;
     emit fanPINChanged(m_fanPIN);
+}
+
+/// getSashCycleCountValid() return true if sash state has reached Standby, Fully Closed, and Fully Opened
+/// getSashCycleCountValid() return false if sash state in Safe height
+bool MachineData::getSashCycleCountValid() const
+{
+    return m_sashCycleCountValid;
+}
+
+void MachineData::setSashCycleCountValid(bool sashCycleCountValid)
+{
+    if(m_sashCycleCountValid == sashCycleCountValid) return;
+    m_sashCycleCountValid = sashCycleCountValid;
 }
 
 int MachineData::getSashCycleMeter() const

@@ -181,7 +181,7 @@ ViewApp {
                                     width: leftContentItem.width - asterixText.width
                                     minimumPixelSize: 20
                                     wrapMode: Text.WordWrap
-                                    text: qsTr("System only will accepted connection from master which has this IPv4 address, otherwise will be rejected.")
+                                    text: qsTr("The System will accept only the connection from master which has this IPv4 address, otherwise will be rejected.")
                                 }////
                             }////
 
@@ -196,7 +196,7 @@ ViewApp {
                                     width: leftContentItem.width - asterixText.width
                                     minimumPixelSize: 20
                                     wrapMode: Text.WordWrap
-                                    text: qsTr("To accepting any masters connection, set IPv4 to \"0.0.0.0\".")
+                                    text: qsTr("To accept any masters connection, set the IPv4 to \"0.0.0.0\".")
                                 }////
                             }////
 
@@ -211,7 +211,7 @@ ViewApp {
                                     width: leftContentItem.width - asterixText.width
                                     minimumPixelSize: 20
                                     wrapMode: Text.WordWrap
-                                    text: qsTr("To rejecting any masters connection, set IPv4 to \"127.0.0.1\". It's default.")
+                                    text: qsTr("To reject any masters connection, set the IPv4 to \"127.0.0.1\". It's default.")
                                 }////
                             }////
 
@@ -230,13 +230,13 @@ ViewApp {
                         Layout.fillWidth: true
 
                         Column{
-                            spacing: 10
+                            spacing: 15
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.horizontalCenter: parent.horizontalCenter
 
                             TextApp {
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                text: qsTr("Allow master to write states of:")
+                                //anchors.horizontalCenter: parent.horizontalCenter
+                                text: qsTr("Allow master to write the states of:")
                             }////
 
                             Grid {
