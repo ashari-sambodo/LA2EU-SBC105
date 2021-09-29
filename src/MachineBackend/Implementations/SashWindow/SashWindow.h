@@ -28,6 +28,11 @@ public:
         SASH_STATE_FULLY_OPEN_SSV
     };
 
+    bool dummy6StateEnable() const;
+    void setDummy6StateEnable(bool dummy6StateEnable);
+    short dummy6State() const;
+    void setDummy6State(short dummy6State);
+
     bool dummyStateEnable() const;
     void setDummyStateEnable(bool dummyStateEnable);
 
@@ -44,10 +49,13 @@ private:
 
     int m_sashState;
     //    int m_mSwitchState[4];
-    int m_mSwitchState[6] = {0, 0, 0, 0, 0};
+    int m_mSwitchState[6] = {0, 0, 0, 0, 0, 0};
     int m_sashStateChanged;
     int m_previousState;
     int m_previousPreviousState;
+
+    bool m_dummy6StateEnable = false;
+    short m_dummy6State = 0;
 
     bool m_dummyStateEnable = false;
     short m_dummyState = 0;

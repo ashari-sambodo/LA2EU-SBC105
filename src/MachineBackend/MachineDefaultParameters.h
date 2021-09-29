@@ -124,6 +124,8 @@
 #define SKEY_FAN_CLOSE_LOOP_GAIN_P      "fanClGainP"
 #define SKEY_FAN_CLOSE_LOOP_GAIN_I      "fanClGainI"
 #define SKEY_FAN_CLOSE_LOOP_GAIN_D      "fanClGainD"
+////
+#define SKEY_FRONT_PANEL_INSTALLED      "fronPanInst"
 
 ////
 //// INFLOW CALIBRATION

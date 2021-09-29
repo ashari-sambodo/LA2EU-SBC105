@@ -85,6 +85,18 @@ ViewApp {
                             }//
                             ,
                             State {
+                                when: props.alarmFrontPanel
+                                PropertyChanges {
+                                    target: headerBgImage
+                                    visible: true
+                                }//
+                                PropertyChanges {
+                                    target: headerStatusText
+                                    text: qsTr("ALARM: FRONT PANEL OPENED")
+                                }//
+                            }//
+                            ,
+                            State {
                                 when: props.modeIsMaintenance
                                 PropertyChanges {
                                     target: headerBackgroundRectangle
@@ -929,12 +941,15 @@ ViewApp {
 
                                                 TextApp {
                                                     anchors.horizontalCenter: parent.horizontalCenter
-                                                    text: qsTr("Attention !!!")
+                                                    text: qsTr("ATTENTION !!!")
+                                                    font.pixelSize: 24
                                                 }//
 
                                                 TextApp {
                                                     width: moduleErrorStatus.width - 150
                                                     wrapMode: Text.WordWrap
+                                                    minimumPixelSize: 20
+                                                    font.pixelSize: 24
                                                     text: qsTr("System was detecting a communication problem between main-board and module-board.") + "<br><br>" +
                                                           qsTr("Call your authorized field service technician!")
                                                 }//
@@ -944,6 +959,50 @@ ViewApp {
                                         visible: active
                                         active: {
                                             if (props.alarmBoardComError) {
+                                                return true
+                                            }
+                                            return false
+                                        }//
+                                    }//
+                                    Loader {
+                                        id: frontPanelAlarmLoader
+                                        sourceComponent: CusComPage.StatusHorizontalApp {
+                                            id: frontPanelAlarmStatus
+                                            height: 150
+                                            width: centerContentItem.width + 150
+                                            x: -150
+                                            contentItem.x : 150
+                                            contentItem.width: centerContentItem.width - 5
+                                            hightlighted: true
+
+                                            textLabel: ""
+                                            textValue: ""
+
+                                            Column {
+                                                x: 150
+                                                spacing: 10
+
+                                                TextApp {
+                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                    text: "<b>" + qsTr("ATTENTION !!!") + "</b>"
+                                                    font.pixelSize: 24
+                                                }//
+
+                                                TextApp {
+                                                    width: frontPanelAlarmStatus.width - 150
+                                                    wrapMode: Text.WordWrap
+                                                    font.pixelSize: 24
+                                                    minimumPixelSize: 20
+                                                    text: qsTr("The front panel is open while the sash is not fully close!") + "<br>" +
+                                                          qsTr("It's not safe if you want to open the Main Door.") + "<br>" +
+                                                          qsTr("Please set the sash to fully close.")
+                                                }//
+                                            }//
+                                        }//
+
+                                        visible: active
+                                        active: {
+                                            if (props.alarmFrontPanel && !props.alarmBoardComError) {
                                                 return true
                                             }
                                             return false
@@ -1350,7 +1409,7 @@ ViewApp {
                                                 when: props.sashCycleLockedAlarm
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The sash motor cycle has exceeded the maximum operating limit!.\nSash motor has been locked.\nPlease contact your service engineer to do maintenance")
+                                                    text: qsTr("The sash motor cycle has exceeded the maximum operating limit!.\nSash motor has been locked.\nPlease contact your service engineer to do maintenance.")
                                                 }
                                             }//
                                             ,
@@ -1358,7 +1417,7 @@ ViewApp {
                                                 when: props.sashCycleStopCaution
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The use of the sash motor is almost at maximum use!.\nStop using sash motor!.\nPlease contact your service engineer to do maintenance")
+                                                    text: qsTr("The use of the sash motor is almost at maximum use!.\nStop using sash motor!.\nPlease contact your service engineer to do maintenance.")
                                                 }
                                             }//
                                             ,
@@ -1366,7 +1425,7 @@ ViewApp {
                                                 when: props.sashCycleReplaceCaution
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The use of the sash motor is almost at maximum use!.\nReplace the sash motor!.\nPlease contact your service engineer to do maintenance")
+                                                    text: qsTr("The use of the sash motor is almost at maximum use!.\nReplace the sash motor!.\nPlease contact your service engineer to do maintenance.")
                                                 }//
                                             }//
                                             ,
@@ -1479,6 +1538,9 @@ ViewApp {
                                             return true
                                         }
                                         else if (props.alarmStandbyFanOff) {
+                                            return true
+                                        }
+                                        else if (props.sashCycleLockedAlarm || props.sashCycleStopCaution || props.sashCycleReplaceCaution) {
                                             return true
                                         }
                                     }
@@ -2350,6 +2412,7 @@ ViewApp {
             property int  alarmTempHigh: 0
             property int  alarmTempLow: 0
             property int alarmStandbyFanOff: 0
+            property int alarmFrontPanel: 0
             //            onAlarmInflowLowChanged: console.log("alarmInflowLow: " + alarmInflowLow)
 
             property bool alarmBoardComError: false
@@ -2439,6 +2502,7 @@ ViewApp {
                 props.sashWindowState = Qt.binding(function(){ return MachineData.sashWindowState})
 
                 props.alarmStandbyFanOff = Qt.binding(function(){ return MachineData.alarmStandbyFanOff === MachineAPI.ALARM_ACTIVE_STATE})
+                props.alarmFrontPanel = Qt.binding(function(){ return MachineData.frontPanelAlarm === MachineAPI.ALARM_ACTIVE_STATE})
 
                 props.fanInterlocked = Qt.binding(function(){ return MachineData.fanPrimaryInterlocked })
                 props.fanState = Qt.binding(function(){

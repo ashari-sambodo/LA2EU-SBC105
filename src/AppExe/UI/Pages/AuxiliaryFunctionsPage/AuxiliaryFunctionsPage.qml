@@ -207,6 +207,8 @@ ViewApp {
                                     }
                                     else if(aux.aux === "seasFlap"){
                                         MachineAPI.setSeasFlapInstalled(aux.installed)
+                                        if(aux.installed)
+                                            MachineAPI.setFrontPanelSwitchInstalled(!aux.installed)
                                     }
                                     else if(aux.aux === "mosash"){
                                         MachineAPI.setSashMotorizeInstalled(aux.installed)
@@ -222,6 +224,11 @@ ViewApp {
                                     }//
                                     else if(aux.aux === "pacos"){
                                         MachineAPI.setParticleCounterSensorInstalled(aux.installed)
+                                    }//
+                                    else if(aux.aux === "fronPan"){
+                                        MachineAPI.setFrontPanelSwitchInstalled(aux.installed)
+                                        if(aux.installed)
+                                            MachineAPI.setSeasFlapInstalled(!aux.installed)
                                     }//
                                 }//
                             }//
@@ -272,6 +279,9 @@ ViewApp {
                 currentAuxOption.push({label: qsTr("Particle Counter Sensor"),
                                           id: "pacos",
                                           installed: MachineData.particleCounterSensorInstalled})
+                currentAuxOption.push({label: qsTr("Front Panel Switch"),
+                                          id: "fronPan",
+                                          installed: MachineData.frontPanelSwitchInstalled})
                 auxOptionRepeater.model = currentAuxOption
 
             }

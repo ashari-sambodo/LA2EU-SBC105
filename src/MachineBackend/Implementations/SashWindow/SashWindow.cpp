@@ -10,6 +10,7 @@
 #define SASH_BIT_STATE_UNSAFE           0b00000000
 #define SASH_BIT_STATE_UNSAFE_FC1       0b00000100
 #define SASH_BIT_STATE_UNSAFE_FC2       0b00010000
+#define SASH_BIT_STATE_DIG_INPUT6       0b00100000
 
 SashWindow::SashWindow(QObject *parent)
     : ClassManager(parent)
@@ -60,6 +61,9 @@ void SashWindow::routineTask(int parameter)
     Q_UNUSED(parameter)
     //    qDebug() << "SashManager::worker()";
     int ival;
+    int ivalState = 0;
+
+#ifndef QT_DEBUG
     ////Microswitch state
     for(int i=0; i < DIGITAL_INPUT_PIN_MAXIMUM; i++){
 
@@ -84,7 +88,6 @@ void SashWindow::routineTask(int parameter)
         ival |= m_mSwitchState[i] << i;
     }
 
-    int ivalState = 0;
     switch (ival) {
     case SASH_BIT_STATE_FULLY_CLOSE:
         ivalState = SASH_STATE_FULLY_CLOSE_SSV;
@@ -106,9 +109,14 @@ void SashWindow::routineTask(int parameter)
     default:
         ivalState = SASH_STATE_ERROR_SENSOR_SSV;
         break;
+    }//
+#else
+    if(m_dummy6StateEnable){
+        if( m_mSwitchState[5] != m_dummy6State){
+            m_mSwitchState[5] = m_dummy6State;
+            emit mSwitchStateChanged(5, m_dummy6State);
+        }
     }
-
-#ifdef QT_DEBUG
     if(m_dummyStateEnable){
         ivalState = m_dummyState;
     }
@@ -144,6 +152,26 @@ void SashWindow::routineTask(int parameter)
 int SashWindow::sashState() const
 {
     return m_sashState;
+}
+
+bool SashWindow::dummy6StateEnable() const
+{
+    return m_dummy6StateEnable;
+}
+
+void SashWindow::setDummy6StateEnable(bool dummy6StateEnable)
+{
+    m_dummy6StateEnable = dummy6StateEnable;
+}
+
+short SashWindow::dummy6State() const
+{
+    return m_dummy6State;
+}
+
+void SashWindow::setDummy6State(short dummy6State)
+{
+    m_dummy6State = dummy6State;
 }
 
 bool SashWindow::dummyStateEnable() const

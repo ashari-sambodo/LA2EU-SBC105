@@ -28,3 +28,6 @@
 
 #define ALARM_LOG_TEXT_SASH_MOTOR_LOCKED      QObject::tr("Alarm Sash Motor | Locked")
 #define ALARM_LOG_TEXT_SASH_MOTOR_OK          QObject::tr("Alarm Sash Motor | Normal")
+
+#define ALARM_LOG_TEXT_FRONT_PANEL_OK      QObject::tr("Front Panel Alarm | Active")
+#define ALARM_LOG_TEXT_FRONT_PANEL_ALARM   QObject::tr("Front Panel Alarm | Normal")

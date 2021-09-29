@@ -223,6 +223,42 @@ void MachineData::setReadClosedLoopResponse(bool value)
     m_readClosedLoopResponse = value;
 }
 
+bool MachineData::getFrontPanelSwitchInstalled() const
+{
+    return m_frontPanelSwitchInstalled;
+}
+
+bool MachineData::getFrontPanelSwitchState() const
+{
+    return m_frontPanelSwitchState;
+}
+
+short MachineData::getFrontPanelAlarm() const
+{
+    return m_frontPanelAlarm;
+}
+
+void MachineData::setFrontPanelSwitchInstalled(bool value)
+{
+    if(m_frontPanelSwitchInstalled == value) return;
+    m_frontPanelSwitchInstalled = value;
+    emit frontPanelSwitchInstalledChanged(value);
+}
+
+void MachineData::setFrontPanelSwitchState(bool value)
+{
+    if(m_frontPanelSwitchState == value) return;
+    m_frontPanelSwitchState = value;
+    emit frontPanelSwitchStateChanged(value);
+}
+
+void MachineData::setFrontPanelAlarm(short value)
+{
+    if(m_frontPanelAlarm == value) return;
+    m_frontPanelAlarm = value;
+    emit frontPanelAlarmChanged(value);
+}
+
 QString MachineData::getSbcSerialNumber() const
 {
     return m_sbcSerialNumber;

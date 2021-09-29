@@ -840,6 +840,16 @@ void MachineProxy::setReadClosedLoopResponse(bool value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setFrontPanelSwitchInstalled(bool value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFrontPanelSwitchInstalled(value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setOperationModeSave(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();

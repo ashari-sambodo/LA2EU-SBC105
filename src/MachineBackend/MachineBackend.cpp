@@ -91,10 +91,11 @@ struct modbusRegisterAddress
     struct uvLifeLeft        {static const short addr = 28;  short rw = 0; uint16_t value;} uvLifeLeft;
     struct dfaFanUsage       {static const short addr = 29;  short rw = 0; uint16_t value;} dfaFanUsage;
     struct ifaFanUsage       {static const short addr = 30;  short rw = 0; uint16_t value;} ifaFanUsage;
+    struct alarmPanel        {static const short addr = 31;  short rw = 0; uint16_t value;} alarmPanel;
 } modbusRegisterAddress;
 
 
-#define MODBUS_REGISTER_COUNT   31
+#define MODBUS_REGISTER_COUNT   32
 #define ALLOW_ANY_IP            "0.0.0.0"
 #define LOCALHOST_ONLY          "127.0.0.1"
 
@@ -475,6 +476,13 @@ void MachineBackend::setup()
                 short installed = static_cast<short>(m_settings->value(SKEY_SEAS_BOARD_FLAP_INSTALLED, MachineEnums::DIG_STATE_ZERO).toInt());
                 //installed = 1;
                 pData->setSeasFlapInstalled(installed);
+            }
+
+            /// FRONT PANEL SWITCH
+            {
+                bool installed = m_settings->value(SKEY_FRONT_PANEL_INSTALLED, MachineEnums::DIG_STATE_ZERO).toBool();
+                //installed = 1;
+                pData->setFrontPanelSwitchInstalled(installed);
             }
 
             /// EXHAUST_PRESSURE_DIFF_SENSIRION_SPD8xx
@@ -931,11 +939,20 @@ void MachineBackend::setup()
         _setModbusRegHoldingValue(modbusRegisterAddress.sashState.addr, static_cast<ushort>(currentState));
 
         QObject::connect(m_pSashWindow.data(), &SashWindow::mSwitchStateChanged,
-                         pData, &MachineData::setMagSWState);
+                         pData, [&](int index, int newVal){
+            pData->setMagSWState(static_cast<short>(index), static_cast<bool>(newVal));
+            if(index == 5){
+                qDebug() << "index:" << index << "value:" << newVal;
+                /// Front Panel Switch Installed on Hybrid Digital Input 6
+                if(pData->getFrontPanelSwitchInstalled()){
+                    pData->setFrontPanelSwitchState(static_cast<bool>(newVal));
+                }
+                _checkFrontPanelAlarm();
+            }//
+        });
 
         QObject::connect(m_pSashWindow.data(), &SashWindow::sashStateChanged,
                          this, &MachineBackend::_onSashStateChanged);
-
 
         //// Create Independent Timer Event For Sash Motorize
         m_timerEventForSashWindowRoutine.reset(new QTimer);
@@ -2309,6 +2326,11 @@ void MachineBackend::setup()
         ///MODBUS
         _setModbusRegHoldingValue(modbusRegisterAddress.sashCycle.addr, static_cast<ushort>(cycle/10));
     });
+    QObject::connect(pData, &MachineData::frontPanelAlarmChanged,
+                     this, [&](bool alarm){
+        ///MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.alarmPanel.addr, alarm);
+    });
 
     /// Buzzer indication
     {
@@ -2530,8 +2552,8 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
 
     //short sashPrev = pData->getSashWindowPrevState();
     short sashState = pData->getSashWindowState();
-    //    QString sashPrevStr = "";
-    //    QString sashStr = "";
+    QString sashPrevStr = "";
+    QString sashStr = "";
     //    switch(sashPrev){
     //    case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV: sashPrevStr = "Error"; break;
     //    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV: sashPrevStr = "Closed"; break;
@@ -2541,25 +2563,25 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
     //    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV: sashPrevStr = "Opened"; break;
     //    default: break;
     //    }
-    //    switch(sashState){
-    //    case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV: sashStr = "Error"; break;
-    //    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV: sashStr = "Closed"; break;
-    //    case MachineEnums::SASH_STATE_UNSAFE_SSV: sashStr = "Unsafe"; break;
-    //    case MachineEnums::SASH_STATE_STANDBY_SSV: sashStr = "Standby"; break;
-    //    case MachineEnums::SASH_STATE_WORK_SSV: sashStr = "Safe"; break;
-    //    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV: sashStr = "Opened"; break;
-    //    default: break;
-    //    }
-    //    qDebug() << "SashWindow :" << sashPrevStr << sashStr;
-
-    for(short i=1; i>=0; i--){
-        if(i>0)
-            pData->setSashWindowStateSample(pData->getSashWindowStateSample(i-1), i);
-        else
-            pData->setSashWindowStateSample(sashState, i);
+    switch(sashState){
+    case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV: sashStr = "Error"; break;
+    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV: sashStr = "Closed"; break;
+    case MachineEnums::SASH_STATE_UNSAFE_SSV: sashStr = "Unsafe"; break;
+    case MachineEnums::SASH_STATE_STANDBY_SSV: sashStr = "Standby"; break;
+    case MachineEnums::SASH_STATE_WORK_SSV: sashStr = "Safe"; break;
+    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV: sashStr = "Opened"; break;
+    default: break;
     }
+    qDebug() << "SashWindow :" << sashPrevStr << sashStr;
 
-    bool sashChangedValid = (pData->getSashWindowStateSample(0) == pData->getSashWindowStateSample(1));
+    //    for(short i=1; i>=0; i--){
+    //        if(i>0)
+    //            pData->setSashWindowStateSample(pData->getSashWindowStateSample(i-1), i);
+    //        else
+    //            pData->setSashWindowStateSample(sashState, i);
+    //    }
+
+    bool sashChangedValid = true;//(pData->getSashWindowStateSample(0) == pData->getSashWindowStateSample(1));
     //    sashChangedValid &= (pData->getSashWindowStateSample(1) == pData->getSashWindowStateSample(2));
     //    sashChangedValid &= (pData->getSashWindowStateSample(2) == pData->getSashWindowStateSample(3));
     //    sashChangedValid &= (pData->getSashWindowStateSample(3) == pData->getSashWindowStateSample(4));
@@ -2568,7 +2590,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
         pData->setSashWindowStateChangedValid(true);
     else
         pData->setSashWindowStateChangedValid(false);
-    qDebug() << "SashSample :" << pData->getSashWindowStateSample(0) << pData->getSashWindowStateSample(1) << pData->getSashWindowStateSample(2)  << pData->getSashWindowStateSample(3) << pData->getSashWindowStateSample(4) << sashChangedValid;
+    //qDebug() << "SashSample :" << pData->getSashWindowStateSample(0) << pData->getSashWindowStateSample(1) << pData->getSashWindowStateSample(2)  << pData->getSashWindowStateSample(3) << pData->getSashWindowStateSample(4) << sashChangedValid;
 
     int modeOperation = pData->getOperationMode();
 
@@ -4346,7 +4368,7 @@ void MachineBackend::setSashMotorizeState(short value)
 
 void MachineBackend::setSeasFlapInstalled(short value)
 {
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << metaObject()->className() << __FUNCTION__ << value << thread() ;
     qDebug() << value;
 
     QSettings m_settings;
@@ -5647,7 +5669,7 @@ void MachineBackend::_onSashStateChanged(short state, short prevState)
     default:
         break;
     }
-
+    _checkFrontPanelAlarm();
 }
 
 void MachineBackend::_onLightStateChanged(short state)
@@ -6844,6 +6866,26 @@ void MachineBackend::_checkCertificationReminder()
     }
 }
 
+void MachineBackend::_checkFrontPanelAlarm()
+{
+    if(pData->getFrontPanelSwitchInstalled()){
+        if(pData->getFrontPanelSwitchState() && (pData->getSashWindowState() != MachineEnums::SASH_STATE_FULLY_CLOSE_SSV)){
+            if(!isAlarmActive(pData->getFrontPanelAlarm())){
+                pData->setFrontPanelAlarm(MachineEnums::ALARM_ACTIVE_STATE);
+                _insertAlarmLog(ALARM_LOG_CODE::ALC_FRONT_PANEL_ALARM, ALARM_LOG_TEXT_FRONT_PANEL_ALARM);
+            }
+        }else{
+            if(!isAlarmNormal(pData->getFrontPanelAlarm())){
+                pData->setFrontPanelAlarm(MachineEnums::ALARM_NORMAL_STATE);
+                _insertAlarmLog(ALARM_LOG_CODE::ALC_FRONT_PANEL_OK, ALARM_LOG_TEXT_FRONT_PANEL_OK);
+            }
+        }
+    }else{
+        if(!isAlarmNA(pData->getFrontPanelAlarm()))
+            pData->setFrontPanelAlarm(MachineEnums::ALARM_NA_STATE);
+    }
+}
+
 /*!
  * \class
  * \brief MachineBackend::_onModbusDataWritten
@@ -7717,6 +7759,15 @@ void MachineBackend::setReadClosedLoopResponse(bool value)
     pData->setReadClosedLoopResponse(value);
 }
 
+void MachineBackend::setFrontPanelSwitchInstalled(bool value)
+{
+    qDebug() << metaObject()->className() << __func__ << value << thread() ;
+
+    pData->setFrontPanelSwitchInstalled(value);
+    QSettings settings;
+    settings.setValue(SKEY_FRONT_PANEL_INSTALLED, value);
+}
+
 void MachineBackend::_machineState()
 {
     //    qDebug() << __func__;
@@ -8323,8 +8374,16 @@ void MachineBackend::_machineState()
 
             //UNLOCK UV IF DEVICE INSTALLED
             if(pData->getUvInstalled()){
-                if(pData->getUvInterlocked()){
-                    m_pUV->setInterlock(MachineEnums::DIG_STATE_ZERO);
+                /// Interlocked UV Light If Front Panel is Opened
+                if(pData->getFrontPanelSwitchState()){
+                    if(!pData->getUvInterlocked()){
+                        m_pUV->setInterlock(MachineEnums::DIG_STATE_ONE);
+                    }
+                }
+                else{
+                    if(pData->getUvInterlocked()){
+                        m_pUV->setInterlock(MachineEnums::DIG_STATE_ZERO);
+                    }
                 }
             }
 
@@ -8867,7 +8926,7 @@ void MachineBackend::_machineState()
         alarms |= isAlarmActive(pData->getAlarmTempLow());
         alarms |= isAlarmActive(pData->getAlarmStandbyFanOff());
         alarms |= isAlarmActive(pData->getSashCycleMotorLockedAlarm());
-
+        alarms |= isAlarmActive(pData->getFrontPanelAlarm());
         //    alarms = false;
         //    qDebug() << "alarms" << alarms;
         {
@@ -8964,6 +9023,19 @@ void MachineBackend::onDummyStateNewConnection()
         }
         else if(message == QLatin1String("#sash#state#er")){
             m_pSashWindow->setDummyState(SashWindow::SASH_STATE_ERROR_SENSOR_SSV);
+        }
+
+        if(message == QLatin1String("#hdi6#dummy#1")){
+            m_pSashWindow->setDummy6StateEnable(true);
+        }
+        else if(message == QLatin1String("#hdi6#dummy#0")){
+            m_pSashWindow->setDummy6StateEnable(false);
+        }
+        else if(message == QLatin1String("#hdi6#state#0")){
+            m_pSashWindow->setDummy6State(0);
+        }
+        else if(message == QLatin1String("#hdi6#state#1")){
+            m_pSashWindow->setDummy6State(1);
         }
 
         if(message == QLatin1String("#fan#dummy#1")){

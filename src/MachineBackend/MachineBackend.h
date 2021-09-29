@@ -356,6 +356,9 @@ public slots:
 
     void setReadClosedLoopResponse(bool value);
 
+    /// FRONT PANEL SWITCH LA2EU
+    void setFrontPanelSwitchInstalled(bool value);
+
 signals:
     void hasStopped();
 
@@ -620,6 +623,7 @@ private:
     bool isTempAmbHigh(short value) const;
 
     void _checkCertificationReminder();
+    void _checkFrontPanelAlarm();
 
     void _machineState();
 
@@ -630,7 +634,7 @@ private:
     int  m_sashSafeAutoOnOutputDelayTimeMsec = 100; /// 100ms //original 3 seconds
 
     QTimer* eventTimerForDelayMotorizedOffAtFullyClosed = nullptr;
-    int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 1500; /// 2000ms
+    int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 1000; /// 1000ms
     bool  m_delaySashMotorFullyClosedExecuted = false;
     uchar m_counter = 0;
 

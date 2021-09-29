@@ -926,6 +926,20 @@ class MachineData : public QObject
                //               WRITE setFanFanClosedLoopControlEnablePrevState
                NOTIFY closedLoopResponseStatusChanged)
 
+    /// FRONT PANEL SWITCH LA2 EU
+    Q_PROPERTY(bool frontPanelSwitchInstalled
+               READ getFrontPanelSwitchInstalled
+               //               WRITE setFrontPanelSwitchInstalled
+               NOTIFY frontPanelSwitchInstalledChanged)
+    Q_PROPERTY(bool frontPanelSwitchState
+               READ getFrontPanelSwitchState
+               //               WRITE setFrontPanelSwitchState
+               NOTIFY frontPanelSwitchStateChanged)
+    Q_PROPERTY(short frontPanelAlarm
+               READ getFrontPanelAlarm
+               //               WRITE setFrontPanelSwitchState
+               NOTIFY frontPanelAlarmChanged)
+
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
     static void singletonDelete();
@@ -1686,6 +1700,14 @@ public:
     bool getReadClosedLoopResponse() const;
     void setReadClosedLoopResponse(bool value);
 
+    /// Front Panel Switch on LA2EU
+    bool getFrontPanelSwitchInstalled() const;
+    bool getFrontPanelSwitchState() const;
+    short getFrontPanelAlarm() const;
+    void setFrontPanelSwitchInstalled(bool value);
+    void setFrontPanelSwitchState(bool value);
+    void setFrontPanelAlarm(short value);
+
 public slots:
     void initSingleton();
 
@@ -1965,10 +1987,12 @@ signals:
     ///Closed Loop
     void fanClosedLoopControlEnableChanged(bool value);
     void fanFanClosedLoopControlEnablePrevStateChanged(bool value);
-    //    void fanClosedLoopGainProportionalChanged(bool value);
-    //    void fanClosedLoopGainIntegralChanged(float value);
-    //    void fanClosedLoopGainDerivativeChanged(float value);
     void closedLoopResponseStatusChanged(bool value);
+
+    /// Front Panel Switch on LA2EU
+    void frontPanelSwitchInstalledChanged(bool value);
+    void frontPanelSwitchStateChanged(bool value);
+    void frontPanelAlarmChanged(bool value);
 
 private:
     ///
@@ -2164,8 +2188,6 @@ private:
     bool    m_boardStatusCtpRtc = false;
     bool    m_boardStatusCtpIoe = false;
 
-
-
     /// Datalog
     bool m_dataLogEnable    = false;
     bool m_dataLogRunning   = false;
@@ -2326,6 +2348,10 @@ private:
     ushort m_ifaVelClosedLoopResponse[60] = {0};
     bool m_readClosedLoopResponse = false;
     bool m_closeLoopResponseStatus = false;
+
+    bool m_frontPanelSwitchInstalled = false;
+    bool m_frontPanelSwitchState = false;
+    short m_frontPanelAlarm = false;
 };
 
 

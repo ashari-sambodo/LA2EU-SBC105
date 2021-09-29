@@ -324,6 +324,9 @@ public slots:
 
     void setReadClosedLoopResponse(bool value);
 
+    /// FRONT PANEL SWITCH LA2EU
+    void setFrontPanelSwitchInstalled(bool value);
+
 private slots:
     void doStopping();
 
