@@ -206,33 +206,33 @@
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="26"/>
-        <source>Alarm Fan Standby | Inactive</source>
-        <translation type="unfinished"></translation>
+        <source>Alarm Fan Standby | Normal</source>
+        <translation>Alarm Lüfter Standby | Normal</translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="29"/>
+        <source>Alarm Sash Cycle | Normal</source>
+        <translation>Alarmfensterzyklus | normal</translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="30"/>
+        <source>Alarm Sash Cycle | Locked</source>
+        <translation>Alarmfensterzyklus | Gesperrt</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="27"/>
         <source>Alarm Fan Standby | Active</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="29"/>
-        <source>Alarm Sash Motor | Locked</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="30"/>
-        <source>Alarm Sash Motor | Normal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="32"/>
-        <source>Front Panel Alarm | Active</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarm Lüfter Standby | Aktiv</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="33"/>
+        <source>Front Panel Alarm | Active</source>
+        <translation>Frontplattenalarm | Aktiv</translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="32"/>
         <source>Front Panel Alarm | Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Frontplattenalarm | Normal</translation>
     </message>
 </context>
 </TS>

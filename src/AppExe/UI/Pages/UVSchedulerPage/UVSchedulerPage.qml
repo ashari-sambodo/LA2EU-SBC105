@@ -270,7 +270,7 @@ ViewApp {
                                 }//
                             }//
                         }//
-                    }
+                    }//
                     Rectangle{
                         visible: MachineData.uvTime === 0
                         Layout.fillHeight: true
@@ -492,8 +492,8 @@ ViewApp {
                                 }//
                             }//
                         }//
-                    }
-                }
+                    }//
+                }//
             }//
 
             /// FOOTER

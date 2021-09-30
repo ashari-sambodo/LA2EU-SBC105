@@ -2290,14 +2290,6 @@ ViewApp {
             }//
         }//
 
-        //        Timer{
-        //            id: timerSashMotorButtonTempInterlock
-        //            running: false
-        //            repeat: false
-        //            interval: 1000
-        //            onTriggered: {console.debug("timerSashMotorButtonTempInterlock onTriggered")}
-        //        }
-
         //// Timer for update current clock and date
         Timer{
             id: timeDateTimer

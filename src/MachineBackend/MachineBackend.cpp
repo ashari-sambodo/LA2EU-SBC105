@@ -2175,9 +2175,9 @@ void MachineBackend::setup()
 
         QObject::connect(m_timerEventEveryMinute.data(), &QTimer::timeout,
                          this, &MachineBackend::_onTriggeredEventEveryMinute);
-        QObject::connect(this, &MachineBackend::loopStarted, [&]{
-            m_timerEventEveryMinute->start();
-        });
+        //        QObject::connect(this, &MachineBackend::loopStarted, [&]{
+        //            m_timerEventEveryMinute->start();
+        //        });
 
         m_timerEventEveryHour.reset(new QTimer);
         m_timerEventEveryHour->setInterval(std::chrono::hours(1));
@@ -5850,29 +5850,8 @@ void MachineBackend::_onInflowVelocityActualChanged(int value)
 {
     //    int finalValue = value;
     if (pData->getMeasurementUnit()) {
-        //        double velNominal = m_pAirflowInflow->getVelocityPoint(2)/100.0;
-        //        double velLow = m_pAirflowInflow->getVelocityPoint(1)/100.0;
-        //        /// generate an offset in order to decide what rounding method need to implement
-        //        /// use 20% of the deviation between Nominal and one of the alarm velocity
-        //        int offsetBeforeAlarm = qRound(0.2 * (velNominal - velLow));
-        //        double velActual = static_cast<double>(value) / 100.0;
-        //        int valueVel = 0;
-        //        /// Remove decimal point if actual velocity is greater than Nominal
-        //        /// Round it if less than Nominal
-        //        if(velActual > velNominal){
-        //            valueVel = static_cast<int>(velActual);
-        //        }else{
-        //            if(velActual <= (velLow + offsetBeforeAlarm))
-        //                valueVel = static_cast<int>(velActual);
-        //            else
-        //                valueVel = qRound(velActual);
-        //        }
-
-        //        qDebug() << velLow << offsetBeforeAlarm;
-        //        qDebug() << velNominal << velActual << valueVel;
-        double valueVel = value / 100.0;
-
-        QString valueStr = QString::asprintf("%d fpm", static_cast<int>(valueVel));
+        int valueVel = qRound(value / 100.0);
+        QString valueStr = QString::asprintf("%d fpm", valueVel);
         pData->setInflowVelocityStr(valueStr);
         m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
         //finalValue = valueVel * 100;
@@ -5893,33 +5872,8 @@ void MachineBackend::_onInflowVelocityActualChanged(int value)
 void MachineBackend::_onDownflowVelocityActualChanged(int value)
 {
     if (pData->getMeasurementUnit()) {
-        //        double velNominal = m_pAirflowDownflow->getVelocityPoint(2)/100.0;
-        //        double velHigh = m_pAirflowDownflow->getVelocityPoint(1)/100.0;
-        //        double velLow = m_pAirflowDownflow->getVelocityPoint(3)/100.0;
-        //        /// generate an offset in order to decide what rounding method need to implement
-        //        /// use 20% of the deviation between Nominal and one of the alarm velocity
-        //        int offsetBeforeAlarm = qRound(0.2 * (velNominal - velLow));
-        //        double velActual = static_cast<double>(value) / 100.0;
-        //        int valueVel = 0;
-        //        /// Remove decimal point if actual velocity is greater than Nominal
-        //        /// Round it if less than Nominal
-        //        if(velActual > velNominal){
-        //            if(velActual >= (velHigh-offsetBeforeAlarm))
-        //                valueVel = qRound(velActual);
-        //            else
-        //                valueVel = static_cast<int>(velActual);
-        //        }else{
-        //            if(velActual <= (velLow + offsetBeforeAlarm))
-        //                valueVel = static_cast<int>(velActual);
-        //            else
-        //                valueVel = qRound(velActual);
-        //        }//
-
-        //        qDebug() << velLow << velHigh << offsetBeforeAlarm;
-        //        qDebug() << velNominal << velActual << "final:" << valueVel;
-        double valueVel = value / 100.0;
-
-        QString valueStr = QString::asprintf("%d fpm", static_cast<int>(valueVel));
+        int valueVel = qRound(dfVelocity / 100.0);
+        QString valueStr = QString::asprintf("%d fpm", valueVel);
         pData->setDownflowVelocityStr(valueStr);
         m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
     }
@@ -5936,49 +5890,6 @@ void MachineBackend::_onDownflowVelocityActualChanged(int value)
 
     //    qDebug() << "Inflow" << pData->getInflowVelocityStr();
 }
-
-//void MachineBackend::_calculteDownflowVelocity(int value)
-//{
-//    /// Calculate Downflow based on inflow
-//    /// DOWNFLOW SENSOR NOT PHYSICALLY INSTALLED
-//    /// CALCULATE DOWNFLOW VALUE BY PROPORTIONAL METHOD
-//    /// CALCULATE DOWNFLOW FROM INFLOW PROPORTIONAL
-//    int velRefActual, velRefPoportional;
-//    switch (pData->getAirflowCalibrationStatus()) {
-//    case MachineEnums::AF_CALIB_FIELD:
-//        velRefActual         = pData->getInflowVelocityPointField(2);
-//        velRefPoportional    = pData->getDownflowVelocityPointField(2);
-//        break;
-//    default:
-//        velRefActual         = pData->getInflowVelocityPointFactory(2);
-//        velRefPoportional    = pData->getDownflowVelocityPointFactory(2);
-//        break;
-//    }
-
-//    int dfVelocity = 0;
-//    if (velRefActual > 0) {
-//        dfVelocity = value * velRefPoportional / velRefActual;
-//    }
-
-//    pData->setDownflowVelocity(dfVelocity);
-
-//    if (pData->getMeasurementUnit()) {
-//        int valueVel = qRound(dfVelocity / 100.0);
-//        QString valueStr = QString::asprintf("%d fpm", valueVel);
-//        pData->setDownflowVelocityStr(valueStr);
-//    }
-//    else {
-//        double valueVel = dfVelocity / 100.0;
-//        QString valueStr = QString::asprintf("%.2f m/s", valueVel);
-//        pData->setDownflowVelocityStr(valueStr);
-//    }
-
-//    /// MODBUS
-//    _setModbusRegHoldingValue(modbusRegisterAddress.airflowDownflow.addr, static_cast<ushort>(dfVelocity));
-
-//    //    qDebug() << "Downflow" << pData->getDownflowVelocityStr();
-//    //    qDebug() << value << velRefActual << velRefPoportional;
-//}
 
 void MachineBackend::_onSeasPressureDiffPaChanged(int value)
 {
@@ -8541,7 +8452,7 @@ void MachineBackend::_machineState()
                 if(isAlarmActive(pData->getAlarmStandbyFanOff())){
                     pData->setAlarmStandbyFanOff(MachineEnums::ALARM_NORMAL_STATE);
                     /// INSERT ALARM LOG
-                    QString text = QString("%1").arg(ALARM_LOG_TEXT_FAN_STB_OFF_INACTIVE);
+                    QString text = QString("%1").arg(ALARM_LOG_TEXT_FAN_STB_OFF_OK);
                     _insertAlarmLog(ALARM_LOG_CODE::ALC_STB_FAN_OFF_INACTIVE, text);
                 }
             }//
@@ -8921,9 +8832,6 @@ void MachineBackend::_machineState()
         break;
     }
 
-    if(pData->getSashWindowMotorizeInstalled()){
-
-    }
 
     bool alarms = false;
     //Check The Alarms Only when SBC used is the registered SBC
