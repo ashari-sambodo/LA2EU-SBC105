@@ -218,7 +218,17 @@ ViewApp {
                                         anchors.fill: parent
                                         horizontalAlignment: Text.AlignHCenter
                                         verticalAlignment: Text.AlignVCenter
-                                        text: modelData
+                                        //text: modelData
+                                        Component.onCompleted: {
+                                            /// Do to *.mjs is not detected by lupdate
+                                            switch(modelData){
+                                            case "User":    text = qsTr("User", "Indicator Grid Menu"); break
+                                            case "Admin":   text = qsTr("Admin", "Indicator Grid Menu"); break
+                                            case "Service": text = qsTr("Service", "Indicator Grid Menu"); break
+                                            case "Factory": text = qsTr("Factory", "Indicator Grid Menu"); break
+                                            default: text = modelData; break
+                                            }
+                                        }
                                     }//
 
                                     MouseArea {

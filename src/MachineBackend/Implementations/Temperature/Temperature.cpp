@@ -36,8 +36,9 @@ void Temperature::routineTask(int parameter)
         emit adcChanged(m_adc);
     }
 
+    short offset = 0;
     //get actual voltage
-    ival = pSubModule->getmVolt(m_channelIO);
+    ival = pSubModule->getmVolt(m_channelIO) + offset;
 
 #ifdef QT_DEBUG
     if(m_dummyStateEnable){
@@ -60,10 +61,11 @@ void Temperature::routineTask(int parameter)
             double newCelciusPrecision  = voltageToTemperaturePrecision(m_mVolt);
             if(abs(m_celciusPrecision -  newCelciusPrecision) >= 0.1){
                 m_celciusPrecision = newCelciusPrecision;
+                qDebug() << "Temp Celsius Precision:" << m_celciusPrecision << "mVolt:" << m_mVolt;
                 emit celciusPrecisionChanged(m_celciusPrecision);
             }
         }
-    }
+    }//
 
     emit workerFinished();
 
@@ -138,7 +140,7 @@ int Temperature::voltageToTemperature(int mVolt)
 
 double Temperature::voltageToTemperaturePrecision(int mVolt)
 {
-    return qRound((mVolt / (double)TEMPERATURE_LM35_GAIN) * 100.0) / 100.0;
+    return qRound((static_cast<double>(mVolt) / static_cast<double>(TEMPERATURE_LM35_GAIN)) * 100.0) / 100.0;
 }
 
 int Temperature::temperatureToVoltage(int temperature)

@@ -88,36 +88,44 @@ ViewApp {
                             radius: 5
                             border.color: "#DDDDDD"
                         }//
-
-                        Row {
-                            id: row
-
-                            Tumbler {
-                                id: hoursTumbler
-                                model: props.periodMode
-                                delegate: delegateComponent
-                                width: 100
-                            }//
-
+                        Column{
+                            id: column
+                            spacing: 5
                             TextApp {
-                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.horizontalCenter: parent.horizontalCenter
                                 font.pixelSize: fontMetrics.font.pixelSize
-                                text: ":"
+                                text: qsTr("HH:MM")
                             }
+                            Row {
+                                id: row
 
-                            Tumbler {
-                                id: minutesTumbler
-                                model: 60
-                                delegate: delegateComponent
-                                width: 100
-                            }//
+                                Tumbler {
+                                    id: hoursTumbler
+                                    model: props.periodMode
+                                    delegate: delegateComponent
+                                    width: 100
+                                }//
 
-                            Tumbler {
-                                id: amPmTumbler
-                                visible: props.periodMode === 12
-                                model: ["AM", "PM"]
-                                delegate: delegateComponent
-                                width: 100
+                                TextApp {
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    font.pixelSize: fontMetrics.font.pixelSize
+                                    text: ":"
+                                }
+
+                                Tumbler {
+                                    id: minutesTumbler
+                                    model: 60
+                                    delegate: delegateComponent
+                                    width: 100
+                                }//
+
+                                Tumbler {
+                                    id: amPmTumbler
+                                    visible: props.periodMode === 12
+                                    model: ["AM", "PM"]
+                                    delegate: delegateComponent
+                                    width: 100
+                                }//
                             }//
                         }//
                     }//
@@ -242,7 +250,7 @@ ViewApp {
 
                 props.periodMode = periodMode
                 hoursTumbler.currentIndex = hour
-                minute.currentIndex = minute
+                minutesTumbler.currentIndex = minute
                 amPmTumbler.currentIndex = period === "PM" ? 1 : 0
             }//
 

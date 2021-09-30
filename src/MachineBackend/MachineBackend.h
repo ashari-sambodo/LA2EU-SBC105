@@ -548,7 +548,7 @@ private:
     void _onGasStateChanged(short state);
     void _onUVStateChanged(short state);
 
-    void _onTemperatureActualChanged(int value);
+    void _onTemperatureActualChanged(double value);
     void _onInflowVelocityActualChanged(int value);
     void _onDownflowVelocityActualChanged(int value);
     //void _calculteDownflowVelocity(int value);
@@ -634,7 +634,7 @@ private:
     int  m_sashSafeAutoOnOutputDelayTimeMsec = 100; /// 100ms //original 3 seconds
 
     QTimer* eventTimerForDelayMotorizedOffAtFullyClosed = nullptr;
-    int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 1000; /// 1000ms
+    int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 700; /// 1000ms
     bool  m_delaySashMotorFullyClosedExecuted = false;
     uchar m_counter = 0;
 

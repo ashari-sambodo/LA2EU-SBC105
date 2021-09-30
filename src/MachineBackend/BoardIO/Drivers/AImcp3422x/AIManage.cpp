@@ -77,6 +77,9 @@ int AIManage::polling()
         int adc     = 0;
         response    = m_pAIModule->getValue(&adc, index);
 
+        /// Mapping 0~8191 to 0~4095
+        adc = map(adc, 0, 8191, 0, MAXIMUM_ADC_RESOLUTION);
+
         if(response == 0){
             if(m_pAIModule->isConversionUpdated()){
                 if(channelsDoAverage[index] == 1){
@@ -100,14 +103,14 @@ int AIManage::polling()
 
                     channelTotalADC[index]   = channelTotalADC[index] + adc;
                     channelsADC[index]       = qRound(static_cast<double>(channelTotalADC[index]) / (static_cast<double>(channelsSamples[index].length())));
-                    channelsmVolt[index]     = m_pAIModule->convertADCtomVolt(channelsADC[index]);
-                    channelsmA[index]        = m_pAIModule->convertADCtomA(channelsADC[index]);
+                    channelsmVolt[index]     = /*m_pAIModule->*/convertADCtomVolt(channelsADC[index]);
+                    //channelsmA[index]        = m_pAIModule->convertADCtomA(channelsADC[index]);
 
                 }else{
                     //without moving average
                     channelsADC[channelIndex]       = adc;
-                    channelsmVolt[index]            = m_pAIModule->convertADCtomVolt(channelsADC[index]);
-                    channelsmA[index]               = m_pAIModule->convertADCtomA(channelsADC[index]);
+                    channelsmVolt[index]            = /*m_pAIModule->*/convertADCtomVolt(channelsADC[index]);
+                    //channelsmA[index]               = m_pAIModule->convertADCtomA(channelsADC[index]);
                     nextChannel();
                 }
             }
@@ -137,7 +140,7 @@ void AIManage::nextChannel()
             //            qDebug() << "AIManage::channelSwitch prev index channel: "<< channelIndex << " new index channel"<< newIndex;
             channelIndex = newIndex;
             //switch channel
-            m_pAIModule->setConfigChannel((uchar)channelIndex);
+            m_pAIModule->setConfigChannel(static_cast<uchar>(channelIndex));
             m_pAIModule->sendConfig();
             break;
         }
@@ -167,7 +170,7 @@ int AIManage::meanValues(std::vector<int> &values)
         return values.at(indexCenter);
     }
     //odd
-    double temp = (double) (values.at(indexCenter) + values.at(indexCenter - 1));
+    double temp = static_cast<double>(values.at(indexCenter) + values.at(indexCenter - 1));
     return qRound(temp/2);
 }
 
@@ -202,10 +205,7 @@ int AIManage::medianSampleADC(QVector<int> &samples)
 
 int AIManage::getADC(int channel) const
 {
-    /// Mapping ADC Value to MAXIMUM_ADC_VALUE_RESOLUTION
-    /// use this only if AImcp342x ADC Resolution setting is 14 bits
-    int adcFinal = static_cast<int>(map(channelsADC[channel], 0, 8191, 0, MAXIMUM_ADC_RESOLUTION));
-    return adcFinal/*channelsADC[channel]*/;
+    return channelsADC[channel];
 }
 
 int AIManage::getAdcMap(int channel, unsigned char m_maxAdcResBits) const
@@ -269,5 +269,11 @@ long AIManage::getMaxDecFromBits(unsigned char bits) const
     }
 
     return _bit;
+}
+
+int AIManage::convertADCtomVolt(int adc)
+{
+    /// 4095 -> 10.118 Volt
+    return map(adc, 0, MAXIMUM_ADC_RESOLUTION, 0, 10118);
 }
 

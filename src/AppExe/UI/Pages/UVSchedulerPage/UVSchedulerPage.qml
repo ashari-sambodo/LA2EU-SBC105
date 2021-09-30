@@ -272,13 +272,13 @@ ViewApp {
                         }//
                     }
                     Rectangle{
-                        visible: false;
+                        visible: MachineData.uvTime === 0
                         Layout.fillHeight: true
                         Layout.minimumWidth: 1
                         color: "#dddddd"
                     }
                     Item{
-                        visible: false
+                        visible: MachineData.uvTime === 0
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         Column {

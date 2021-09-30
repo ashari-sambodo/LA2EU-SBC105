@@ -75,43 +75,50 @@ Item {
                                                                  secondTumbler.currentIndex)
                 control.seconds = count
             }
-
-            Row {
-                id: row
-
-                Tumbler {
-                    id: hoursTumbler
-                    model: 24
-                    delegate: delegateComponent
-                    width: 100
-                }//
-
+            Column{
+                id: column
+                spacing: 5
                 TextApp {
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: fontMetrics.font.pixelSize
-                    text: ":"
+                    text: qsTr("HH:MM:SS")
                 }
+                Row {
+                    id: row
+                    Tumbler {
+                        id: hoursTumbler
+                        model: 24
+                        delegate: delegateComponent
+                        width: 100
+                    }//
 
-                Tumbler {
-                    id: minutesTumbler
-                    model: 60
-                    delegate: delegateComponent
-                    width: 100
-                }//
+                    TextApp {
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: fontMetrics.font.pixelSize
+                        text: ":"
+                    }
 
-                TextApp {
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.pixelSize: fontMetrics.font.pixelSize
-                    text: ":"
-                }//
+                    Tumbler {
+                        id: minutesTumbler
+                        model: 60
+                        delegate: delegateComponent
+                        width: 100
+                    }//
 
-                Tumbler {
-                    id: secondTumbler
-                    model: 60
-                    delegate: delegateComponent
-                    width: 100
+                    TextApp {
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.pixelSize: fontMetrics.font.pixelSize
+                        text: ":"
+                    }//
+
+                    Tumbler {
+                        id: secondTumbler
+                        model: 60
+                        delegate: delegateComponent
+                        width: 100
+                    }//
                 }//
-            }//
+            }
         }//
     }//
 }//

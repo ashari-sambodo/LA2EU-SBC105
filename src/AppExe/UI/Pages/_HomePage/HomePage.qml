@@ -889,7 +889,7 @@ ViewApp {
                                             contentItem.width: centerContentItem.width - 5
 
                                             textLabel: qsTr("UV Time") + ":"
-                                            textValue: utils.strfSecsToHHMMSS(props.uvTimeCountDown)
+                                            textValue: MachineData.uvTime ? utils.strfSecsToHHMMSS(props.uvTimeCountDown) : qsTr("Infinite")
 
                                             states: [
                                                 State {
@@ -899,7 +899,7 @@ ViewApp {
                                                         color: "#8E44AD"
                                                     }//
                                                 }//
-                                            ]
+                                            ]//
 
                                             MouseArea {
                                                 anchors.fill: parent
@@ -916,7 +916,7 @@ ViewApp {
                                                 if(props.sashWindowState == MachineAPI.SASH_STATE_FULLY_CLOSE_SSV){
                                                     return true
                                                 }
-                                            }
+                                            }//
                                             return false
                                         }//
                                     }//

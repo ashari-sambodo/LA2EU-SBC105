@@ -80,7 +80,7 @@
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype        : "menu",
-                                 mtitle    : qsTr("Diagnostic"),
+                                 mtitle    : qsTr("Diagnostics"),
                                  micon     : "qrc:/UI/Pictures/menu/Diagnostics.png",
                                  mlink     : "qrc:/UI/Pages/DiagnosticsPage/DiagnosticsPage.qml"
                              })

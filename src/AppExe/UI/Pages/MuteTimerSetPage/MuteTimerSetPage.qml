@@ -5,7 +5,7 @@
  *  Author: Ahmad Qodri
 **/
 
-import QtQuick 2.0
+import QtQuick 2.4
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
@@ -49,63 +49,188 @@ ViewApp {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                RowLayout {
+                /// fragment container
+                StackView {
+                    id: fragmentStackView
                     anchors.fill: parent
-                    spacing: 5
-                    Item {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
+                    initialItem: currentValueComponent/*configureComponent*/
+                }//
 
-                        Image{
-                            source: "qrc:/UI/Pictures/mute-timer-icon.png"
-                            fillMode: Image.PreserveAspectFit
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.right: parent.right
-                        }
-                    }
-
-                    Item {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-
-                        ComboBoxApp {
-                            id: comboBox
-                            width: 190
-                            height: 50
-                            backgroundColor: "#0F2952"
-                            backgroundBorderColor: "#dddddd"
-                            backgroundBorderWidth: 2
-                            font.pixelSize: 20
-                            anchors.verticalCenter: parent.verticalCenter
-                            textRole: "text"
-
-                            model: [
-                                {text: qsTr("1 Minute"),    value: 1},
-                                {text: qsTr("3 Minutes"),   value: 3},
-                                {text: qsTr("5 Minutes"),   value: 5},
-                                {text: qsTr("10 Minutes"),  value: 10},
-                                {text: qsTr("15 Minutes"),  value: 15}
-                            ]
-
-                            onActivated: {
-                                ////console.debug(index)
-                                ////console.debug(model[index].value)
-                                let newValue = model[index].value
-                                if(props.muteTimer !== newValue){
-
-                                    props.muteTimer = newValue
-                                    MachineAPI.setMuteAlarmTime(newValue)
-
-                                    //console.debug("Mute:", props.muteTimer, "min")
-                                    viewApp.showBusyPage((qsTr("Setting up mute timer...")),
-                                                         function onTriggered(cycle){
-                                                             if(cycle === 3){
-                                                                 viewApp.dialogObject.close()}
-                                                         })
-                                }
+                /// fragment-1
+                Component {
+                    id: currentValueComponent
+                    Item{
+                        Row {
+                            anchors.centerIn: parent
+                            spacing: 10
+                            Image{
+                                source: "qrc:/UI/Pictures/mute-timer-icon.png"
+                                fillMode: Image.PreserveAspectFit
                             }
+                            Column {
+                                id: currentValueColumn
+                                spacing: 5
+                                anchors.verticalCenter: parent.verticalCenter
+
+                                TextApp{
+                                    text: qsTr("Current timer") + ":"
+                                }//
+
+                                TextApp{
+                                    id: currentValueText
+                                    font.pixelSize: 36
+                                    wrapMode: Text.WordWrap
+                                    font.bold: true
+                                    text: utilsApp.strfSecsToHumanReadableShort(props.muteTimer)
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            fragmentStackView.push(configureComponent)
+                                        }//
+                                    }//
+                                }//
+
+                                TextApp{
+                                    text: qsTr("Tap to change")
+                                    color: "#cccccc"
+                                    font.pixelSize: 18
+                                }//
+                            }//
+                        }
+                    }//
+                }//
+                /// fragment-2
+                Component {
+                    id: configureComponent
+
+                    Item {
+                        id: configureItem
+
+                        Loader {
+                            id: configureLoader
+                            anchors.fill: parent
+                            asynchronous: true
+                            visible: status == Loader.Ready
+                            sourceComponent: Item {
+                                id: container
+
+                                function formatText(count, modelData) {
+                                    var data = count === 12 ? modelData + 1 : modelData;
+                                    return data.toString().length < 2 ? "0" + data : data;
+                                }//
+
+                                FontMetrics {
+                                    id: fontMetrics
+                                    font.pixelSize: 20
+                                }//
+
+                                Component {
+                                    id: delegateComponent
+
+                                    Label {
+                                        text: container.formatText(Tumbler.tumbler.count, modelData)
+                                        opacity: 1.0 - Math.abs(Tumbler.displacement) / (Tumbler.tumbler.visibleItemCount / 2)
+                                        horizontalAlignment: Text.AlignHCenter
+                                        verticalAlignment: Text.AlignVCenter
+                                        font.pixelSize: fontMetrics.font.pixelSize * 1.25
+                                        font.bold: Tumbler.tumbler.currentIndex == index
+                                        color: "#DDDDDD"
+                                    }//
+                                }//
+
+                                Frame {
+                                    id: frame
+                                    padding: 10
+                                    anchors.centerIn: parent
+
+                                    background: Rectangle {
+                                        color: "#0F2952"
+                                        radius: 5
+                                        border.color: "#DDDDDD"
+                                    }//
+
+                                    function generateTime(){
+                                        ////console.debug("generateTime")
+
+                                        let minutes = minutesTumbler.currentIndex;
+                                        let seconds = secondsTumbler.currentIndex;
+                                        props.requestTime = (minutes * 60) + seconds
+
+                                        console.debug("the timer: " +  props.requestTime)
+                                    }
+                                    Column{
+                                        id: column
+                                        spacing: 5
+                                        TextApp {
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            font.pixelSize: fontMetrics.font.pixelSize
+                                            text: qsTr("MM:SS")
+                                        }
+                                        Row {
+                                            id: row
+
+                                            Tumbler {
+                                                id: minutesTumbler
+                                                model: 15
+                                                delegate: delegateComponent
+                                                width: 100
+
+                                                onMovingChanged: {
+                                                    if (!moving) {
+                                                        frame.generateTime()
+                                                    }//
+                                                }//
+                                            }//
+
+                                            TextApp {
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                font.pixelSize: fontMetrics.font.pixelSize
+                                                text: ":"
+                                            }
+
+                                            Tumbler {
+                                                id: secondsTumbler
+                                                model: 60
+                                                delegate: delegateComponent
+                                                width: 100
+
+                                                onMovingChanged: {
+                                                    if (!moving) {
+                                                        frame.generateTime()
+                                                    }//
+                                                }//
+                                            }//
+                                        }//
+                                    }//
+                                }//
+
+                                Component.onCompleted: {
+                                    props.requestTime = 0
+
+                                    let minutes = props.muteTimer / 60
+                                    let seconds =  props.muteTimer % 60
+
+                                    minutesTumbler.currentIndex = minutes
+                                    secondsTumbler.currentIndex = seconds
+
+                                    setButton.visible = true
+                                }//
+
+                                Component.onDestruction: {
+                                    setButton.visible = false
+                                }//
+                            }//
+                        }//
+
+                        BusyIndicatorApp {
+                            visible: configureLoader.status === Loader.Loading
+                            anchors.centerIn: parent
                         }//
                     }//
+                }//
+
+                UtilsApp {
+                    id: utilsApp
                 }//
             }//
 
@@ -132,19 +257,61 @@ ViewApp {
                             text: qsTr("Back")
 
                             onClicked: {
-                                var intent = IntentApp.create(uri, {"message":""})
-                                finishView(intent)
+                                if(setButton.visible){
+                                    fragmentStackView.pop()
+                                    setButton.visible = false
+                                    props.requestTime = props.muteTimer
+                                }
+                                else{
+                                    var intent = IntentApp.create(uri, {"message":""})
+                                    finishView(intent)
+                                }
                             }
+                        }//
+
+                        ButtonBarApp {
+                            id: setButton
+                            width: 194
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.right: parent.right
+
+                            /// only visible from second fragment, set options
+                            visible: false
+
+                            imageSource: "qrc:/UI/Pictures/checkicon.png"
+                            text: qsTr("Set")
+
+                            onClicked: {
+                                if(props.requestTime >= 30) {
+                                    if(props.requestTime !== props.muteTimer){
+                                        MachineAPI.setMuteAlarmTime(props.requestTime)
+
+                                        viewApp.showBusyPage(qsTr("Setting up..."),
+                                                             function onCycle(cycle){
+                                                                 if (cycle === 1) {
+                                                                     fragmentStackView.pop()
+                                                                     viewApp.dialogObject.close()
+                                                                 }//
+                                                             })
+                                    }else{
+                                        setButton.visible = false
+                                        fragmentStackView.pop()
+                                    }//
+                                } else{
+                                    viewApp.showDialogMessage(qsTr("Mute Timer"), qsTr("The minimum setting of the Mute timer is 30 seconds!"), dialogAlert)
+                                }
+                            }//
                         }//
                     }//
                 }//
-            }
+            }//
         }//
 
         /// Put all private property inside here
         /// if none, please comment this block to optimize the code
         QtObject {
             id: props
+            property int requestTime: 0
             property int muteTimer : 0
         }
 
@@ -160,19 +327,7 @@ ViewApp {
 
                 /// onResume
                 Component.onCompleted: {
-                    //                    //console.debug("StackView.Active");
-
-                    props.muteTimer = MachineData.muteAlarmTime
-                    if(props.muteTimer == 3)
-                        comboBox.currentIndex = 1
-                    else if(props.muteTimer == 5)
-                        comboBox.currentIndex = 2
-                    else if(props.muteTimer == 10)
-                        comboBox.currentIndex = 3
-                    else if(props.muteTimer == 15)
-                        comboBox.currentIndex = 4
-                    else
-                        comboBox.currentIndex = 0
+                    props.muteTimer = Qt.binding(function(){return MachineData.muteAlarmTime})
                 }
 
                 /// onPause

@@ -52,6 +52,8 @@ private:
     long map(long x, long in_min, long in_max, long out_min, long out_max) const;
     long getMaxDecFromBits(unsigned char bits) const;
 
+    int convertADCtomVolt(int adc);
+
     QVector<int> channelsSamples[AI_MAX_CHANNELS];
 
     void nextChannel();

@@ -77,15 +77,15 @@ ViewApp {
                                 wrapMode: Text.WordWrap
                                 font.bold: true
                                 text: utilsApp.strfSecsToHumanReadableShort(props.uvTime * 60)
-
-                                //                                width: Math.min(controlMaxWidthText.width, leftContentColumn.parent.width)
-
-                                //                                Text {
-                                //                                    visible: false
-                                //                                    id: controlMaxWidthText
-                                //                                    text: currentValueText.text
-                                //                                    font.pixelSize: 36
-                                //                                }//
+                                states: [
+                                    State {
+                                        when: props.uvTime == 0
+                                        PropertyChanges {
+                                            target: currentValueText
+                                            text: qsTr("Infinite")
+                                        }
+                                    }
+                                ]
 
                                 MouseArea {
                                     anchors.fill: parent
@@ -185,38 +185,46 @@ ViewApp {
 
                                         ////console.debug("the time: " + theDateTimeStr)
                                     }
+                                    Column{
+                                        id: column
+                                        spacing: 5
+                                        TextApp {
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            font.pixelSize: fontMetrics.font.pixelSize
+                                            text: qsTr("HH:MM")
+                                        }
+                                        Row {
+                                            id: row
 
-                                    Row {
-                                        id: row
+                                            Tumbler {
+                                                id: hoursTumbler
+                                                model: 24
+                                                delegate: delegateComponent
+                                                width: 100
 
-                                        Tumbler {
-                                            id: hoursTumbler
-                                            model: 24
-                                            delegate: delegateComponent
-                                            width: 100
-
-                                            onMovingChanged: {
-                                                if (!moving) {
-                                                    frame.generateTime()
+                                                onMovingChanged: {
+                                                    if (!moving) {
+                                                        frame.generateTime()
+                                                    }//
                                                 }//
                                             }//
-                                        }//
 
-                                        TextApp {
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            font.pixelSize: fontMetrics.font.pixelSize
-                                            text: ":"
-                                        }
+                                            TextApp {
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                font.pixelSize: fontMetrics.font.pixelSize
+                                                text: ":"
+                                            }
 
-                                        Tumbler {
-                                            id: minutesTumbler
-                                            model: 60
-                                            delegate: delegateComponent
-                                            width: 100
+                                            Tumbler {
+                                                id: minutesTumbler
+                                                model: 60
+                                                delegate: delegateComponent
+                                                width: 100
 
-                                            onMovingChanged: {
-                                                if (!moving) {
-                                                    frame.generateTime()
+                                                onMovingChanged: {
+                                                    if (!moving) {
+                                                        frame.generateTime()
+                                                    }//
                                                 }//
                                             }//
                                         }//
@@ -304,18 +312,26 @@ ViewApp {
                             onClicked: {
                                 //                                props.uvTime = props.requestTime
                                 //                                props.uvTimerStringUpdate()
-                                if(props.requestTime == 0) return
+                                //if(props.requestTime == 0) return
 
-                                MachineAPI.setUvTimeSave(props.requestTime)
-
-                                viewApp.showBusyPage(qsTr("Setting up..."),
-                                                     function onCycle(cycle){
-                                                         if (cycle === 1) {
-                                                             fragmentStackView.pop()
-                                                             viewApp.dialogObject.close()
-                                                         }//
-                                                     })
-                            }
+                                if(props.requestTime !== props.uvTime){
+                                    MachineAPI.setUvTimeSave(props.requestTime)
+                                    /// Disable UV Scheduler Off if UV Timer is Not Infinite
+                                    if(props.requestTime > 0 && MachineData.uvAutoSetEnabledOff)
+                                        MachineAPI.setUVAutoEnabledOff(false)
+                                    viewApp.showBusyPage(qsTr("Setting up..."),
+                                                         function onCycle(cycle){
+                                                             if (cycle === 1) {
+                                                                 fragmentStackView.pop()
+                                                                 viewApp.dialogObject.close()
+                                                             }//
+                                                         })
+                                }//
+                                else{
+                                    setButton.visible = false
+                                    fragmentStackView.pop()
+                                }//
+                            }//
                         }//
                     }//
                 }//

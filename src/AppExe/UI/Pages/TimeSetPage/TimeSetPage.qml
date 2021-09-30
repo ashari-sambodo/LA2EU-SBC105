@@ -219,52 +219,60 @@ ViewApp {
 
                                         //                                        //console.debug("the time: " + theDateTimeStr)
                                     }
-
-                                    Row {
-                                        id: row
-
-                                        Tumbler {
-                                            id: hoursTumbler
-                                            model: props.currentTimePeriod
-                                            delegate: delegateComponent
-                                            width: 100
-
-                                            onMovingChanged: {
-                                                if (!moving) {
-                                                    frame.generateTime()
-                                                }//
-                                            }//
-                                        }//
-
+                                    Column{
+                                        id: column
+                                        spacing: 5
                                         TextApp {
-                                            anchors.verticalCenter: parent.verticalCenter
+                                            anchors.horizontalCenter: parent.horizontalCenter
                                             font.pixelSize: fontMetrics.font.pixelSize
-                                            text: ":"
+                                            text: qsTr("HH:MM")
                                         }
+                                        Row {
+                                            id: row
 
-                                        Tumbler {
-                                            id: minutesTumbler
-                                            model: 60
-                                            delegate: delegateComponent
-                                            width: 100
+                                            Tumbler {
+                                                id: hoursTumbler
+                                                model: props.currentTimePeriod
+                                                delegate: delegateComponent
+                                                width: 100
 
-                                            onMovingChanged: {
-                                                if (!moving) {
-                                                    frame.generateTime()
+                                                onMovingChanged: {
+                                                    if (!moving) {
+                                                        frame.generateTime()
+                                                    }//
                                                 }//
                                             }//
-                                        }//
 
-                                        Tumbler {
-                                            id: amPmTumbler
-                                            visible: props.currentTimePeriod == 12
-                                            model: ["AM", "PM"]
-                                            delegate: delegateComponent
-                                            width: 100
+                                            TextApp {
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                font.pixelSize: fontMetrics.font.pixelSize
+                                                text: ":"
+                                            }
 
-                                            onMovingChanged: {
-                                                if (!moving) {
-                                                    frame.generateTime()
+                                            Tumbler {
+                                                id: minutesTumbler
+                                                model: 60
+                                                delegate: delegateComponent
+                                                width: 100
+
+                                                onMovingChanged: {
+                                                    if (!moving) {
+                                                        frame.generateTime()
+                                                    }//
+                                                }//
+                                            }//
+
+                                            Tumbler {
+                                                id: amPmTumbler
+                                                visible: props.currentTimePeriod == 12
+                                                model: ["AM", "PM"]
+                                                delegate: delegateComponent
+                                                width: 100
+
+                                                onMovingChanged: {
+                                                    if (!moving) {
+                                                        frame.generateTime()
+                                                    }//
                                                 }//
                                             }//
                                         }//

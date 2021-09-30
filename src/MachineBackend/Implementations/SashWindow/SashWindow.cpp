@@ -111,6 +111,7 @@ void SashWindow::routineTask(int parameter)
         break;
     }//
 #else
+    Q_UNUSED(ival)
     if(m_dummy6StateEnable){
         if( m_mSwitchState[5] != m_dummy6State){
             m_mSwitchState[5] = m_dummy6State;

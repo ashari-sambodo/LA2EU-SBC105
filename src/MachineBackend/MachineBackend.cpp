@@ -1402,11 +1402,14 @@ void MachineBackend::setup()
         m_pTemperature.reset(new Temperature);
         m_pTemperature->setSubModule(m_boardAnalogInput1.data());
         m_pTemperature->setChannelIO(0);
+        m_pTemperature->setPrecision(1);
 
         connect(m_pTemperature.data(), &Temperature::adcChanged,
                 pData, &MachineData::setTemperatureAdc);
-        connect(m_pTemperature.data(), &Temperature::celciusChanged,
+        connect(m_pTemperature.data(), &Temperature::celciusPrecisionChanged,
                 this, &MachineBackend::_onTemperatureActualChanged);
+        //        connect(m_pTemperature.data(), &Temperature::celciusChanged,
+        //                this, &MachineBackend::_onTemperatureActualChanged);
 
         /// force update temperature string
         int temp = 0;
@@ -1446,8 +1449,10 @@ void MachineBackend::setup()
 
         /// Temperature has effecting to Airflow Reading
         /// so, need to update temperature value on the Airflow Calculation
-        connect(m_pTemperature.data(), &Temperature::celciusChanged,
+        connect(m_pTemperature.data(), &Temperature::celciusPrecisionChanged,
                 m_pAirflowDownflow.data(), &AirflowVelocity::setTemperature);
+        //        connect(m_pTemperature.data(), &Temperature::celciusChanged,
+        //                m_pAirflowDownflow.data(), &AirflowVelocity::setTemperature);
     }
 
     /// AIRFLOW_INFLOW
@@ -1472,8 +1477,10 @@ void MachineBackend::setup()
 
         /// Temperature has effecting to Airflow Reading
         /// so, need to update temperature value on the Airflow Calculation
-        connect(m_pTemperature.data(), &Temperature::celciusChanged,
+        connect(m_pTemperature.data(), &Temperature::celciusPrecisionChanged,
                 m_pAirflowInflow.data(), &AirflowVelocity::setTemperature);
+        //        connect(m_pTemperature.data(), &Temperature::celciusChanged,
+        //                m_pAirflowInflow.data(), &AirflowVelocity::setTemperature);
     }
 
     /// AIRFLOW MONITOR ENABLE
@@ -2139,10 +2146,10 @@ void MachineBackend::setup()
 
     /// Mute Audible Alarm
     {
-        int minutes = m_settings->value(SKEY_MUTE_ALARM_TIME, 5).toInt(); //3 minutes
+        int seconds = m_settings->value(SKEY_MUTE_ALARM_TIME, 180).toInt(); //3 minutes
         //        minutes = 1;
-        pData->setMuteAlarmTime(minutes);
-        pData->setMuteAlarmCountdown(minutes * 60);
+        pData->setMuteAlarmTime(seconds);
+        pData->setMuteAlarmCountdown(seconds);
     }
 
     /// Serial Number
@@ -2572,8 +2579,10 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
     case MachineEnums::SASH_STATE_FULLY_OPEN_SSV: sashStr = "Opened"; break;
     default: break;
     }
-    qDebug() << "SashWindow :" << sashPrevStr << sashStr;
 
+#ifndef QT_DEBUG
+    qDebug() << "SashWindow :" << sashPrevStr << sashStr;
+#endif
     //    for(short i=1; i>=0; i--){
     //        if(i>0)
     //            pData->setSashWindowStateSample(pData->getSashWindowStateSample(i-1), i);
@@ -3125,8 +3134,8 @@ void MachineBackend::setMuteAlarmTime(short value)
     qDebug() << metaObject()->className() << __FUNCTION__ << value << thread();
 
     pData->setMuteAlarmTime(value);
-    int seconds = value * 60;
-    pData->setMuteAlarmCountdown(seconds);
+    //int seconds = value * 60;
+    pData->setMuteAlarmCountdown(value);
 
     QSettings settings;
     settings.setValue(SKEY_MUTE_ALARM_TIME, value);
@@ -5723,12 +5732,16 @@ void MachineBackend::_onUVStateChanged(short state)
 
     /// TRIGGERING UV TIME AND FRIENDS
     if(state) {
-        _startUVTime();
-        _startUVLifeMeter();
+        if(pData->getUvTime()){
+            _startUVTime();
+        }
         _startPowerOutageCapture();
+        _startUVLifeMeter();
     }
     else {
-        _cancelUVTime();
+        if(pData->getUvTime()){
+            _cancelUVTime();
+        }
         _stopUVLifeMeter();
         _cancelPowerOutageCapture();
     }
@@ -5741,17 +5754,18 @@ void MachineBackend::_onUVStateChanged(short state)
     //    _insertEventLog(event);
 }
 
-void MachineBackend::_onTemperatureActualChanged(int value)
+void MachineBackend::_onTemperatureActualChanged(double value)
 {
     qDebug() << metaObject()->className() << __func__ << value;
 
     pData->setTemperatureCelcius(static_cast<short>(value));
     /// Temperature is effecting the airflow reading
     m_pAirflowInflow->setTemperature(value);
+    m_pAirflowDownflow->setTemperature(value);
 
     QString valueStr;
     if (pData->getMeasurementUnit()) {
-        int fahrenheit = __convertCtoF(value);
+        int fahrenheit = __convertCtoF(static_cast<int>(value));
         pData->setTemperature(static_cast<short>(fahrenheit));
 
         valueStr = QString::asprintf("%d°F", fahrenheit);
@@ -5762,7 +5776,7 @@ void MachineBackend::_onTemperatureActualChanged(int value)
     else {
         pData->setTemperature(static_cast<short>(value));
 
-        valueStr = QString::asprintf("%d°C", value);
+        valueStr = QString::asprintf("%d°C", static_cast<int>(value));
         pData->setTemperatureValueStrf(valueStr);
         //        tempBasedOnMeaUnit = value;
     }
@@ -6407,7 +6421,7 @@ void MachineBackend::_startMuteAlarmTimer()
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
-    int seconds = pData->getMuteAlarmTime() * 60;
+    int seconds = pData->getMuteAlarmTime();
     pData->setMuteAlarmCountdown(seconds);
 
     /// double ensure this slot not connected yet, minimize chance to double connect the signal
@@ -6427,7 +6441,7 @@ void MachineBackend::_cancelMuteAlarmTimer()
     disconnect(m_timerEventEverySecond.data(), &QTimer::timeout,
                this, &MachineBackend::_onTimerEventMuteAlarmTimer);
 
-    int seconds = pData->getMuteAlarmTime() * 60;
+    int seconds = pData->getMuteAlarmTime();
     pData->setMuteAlarmCountdown(seconds);
 
     /// clear vivarium mute state
@@ -6445,7 +6459,7 @@ void MachineBackend::_onTimerEventMuteAlarmTimer()
         disconnect(m_timerEventEverySecond.data(), &QTimer::timeout,
                    this, &MachineBackend::_onTimerEventMuteAlarmTimer);
 
-        int seconds = pData->getMuteAlarmTime() * 60;
+        int seconds = pData->getMuteAlarmTime();
         pData->setMuteAlarmCountdown(seconds);
         pData->setMuteAlarmState(MachineEnums::DIG_STATE_ZERO);
 

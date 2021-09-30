@@ -43,7 +43,7 @@ public:
     bool getVelocityChanged() const;
     void setVelocityChanged(bool velocityChanged);
 
-    void setTemperature(int newVal);
+    void setTemperature(double newVal);
     void setAdcResolutionBits(unsigned char bits);
 
     enum CALIB_POINT_MODE {AFCALIB_POINT_3POINTS, AFCALIB_POINT_2POINTS};
@@ -68,7 +68,7 @@ private:
     int m_adcConpensation;
     double m_velocity;
     int m_constant;
-    int m_temperature;
+    double m_temperature;
     bool m_temperatureChanged = false;
     bool m_sensorConstantChanged = false;
     bool m_scopeChanged = false;

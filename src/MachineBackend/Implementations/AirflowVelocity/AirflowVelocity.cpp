@@ -326,11 +326,11 @@ void AirflowVelocity::setMeasurementUnit(uchar value)
     m_meaUnit = value;
 }
 
-void AirflowVelocity::setTemperature(int newVal)
+void AirflowVelocity::setTemperature(double newVal)
 {
-    qDebug() << metaObject()->className() << __func__;
+    qDebug() << metaObject()->className() << __func__ << newVal;
 
-    if(m_temperature == newVal) return;
+    if(abs(m_temperature - newVal) < 0.01) return;
     m_temperature = newVal;
     if(!m_temperatureChanged) m_temperatureChanged = true;
 }
