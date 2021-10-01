@@ -273,8 +273,8 @@ ViewApp {
 
             function showFanProgressSwitchingState(swithTo){
                 //                //console.debug("swithTo: " + swithTo)
-                const message = swithTo ? qsTr("Swithcing on the fan") + "..."
-                                        : qsTr("Swithcing off the fan") + "..."
+                const message = swithTo ? qsTr("Switching on the fan") + "..."
+                                        : qsTr("Switching off the fan") + "..."
                 viewApp.showBusyPage(message, function(cycle){
                     if(cycle === 5){
                         viewApp.closeDialog()

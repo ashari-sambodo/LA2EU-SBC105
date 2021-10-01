@@ -924,48 +924,6 @@ void MachineBackend::setup()
         m_boardRegalECM->moveToThread(m_threadForFanRbmDsi.data());
     }//
 
-    /// SASH
-    {
-        m_pSashWindow.reset(new SashWindow);
-        m_pSashWindow->setSubModule(m_boardDigitalInput1.data());
-
-        /// early update sash state
-        m_boardDigitalInput1->polling();
-        m_pSashWindow->routineTask();
-        int currentState = m_pSashWindow->sashState();
-        pData->setSashWindowState(static_cast<short>(currentState));
-
-        /// MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.sashState.addr, static_cast<ushort>(currentState));
-
-        QObject::connect(m_pSashWindow.data(), &SashWindow::mSwitchStateChanged,
-                         pData, [&](int index, int newVal){
-            pData->setMagSWState(static_cast<short>(index), static_cast<bool>(newVal));
-            if(index == 5){
-                qDebug() << "index:" << index << "value:" << newVal;
-                /// Front Panel Switch Installed on Hybrid Digital Input 6
-                if(pData->getFrontPanelSwitchInstalled()){
-                    pData->setFrontPanelSwitchState(static_cast<bool>(newVal));
-                }
-                _checkFrontPanelAlarm();
-            }//
-        });
-
-        QObject::connect(m_pSashWindow.data(), &SashWindow::sashStateChanged,
-                         this, &MachineBackend::_onSashStateChanged);
-
-        //// Create Independent Timer Event For Sash Motorize
-        m_timerEventForSashWindowRoutine.reset(new QTimer);
-        m_timerEventForSashWindowRoutine->setInterval(std::chrono::milliseconds(50));
-
-        QObject::connect(m_timerEventForSashWindowRoutine.data(), &QTimer::timeout,
-                         this, &MachineBackend::_onTriggeredEventSashWindowRoutine);
-
-        QObject::connect(this, &MachineBackend::loopStarted, [&](){
-            m_timerEventForSashWindowRoutine->start();
-        });
-    }//
-
     /// Sash Window Motorize
     {
         bool installed = m_settings->value(SKEY_SASH_MOTOR_INSTALLED, MachineEnums::DIG_STATE_ZERO).toInt();
@@ -1001,6 +959,51 @@ void MachineBackend::setup()
             pData->setSashWindowMotorizeDownInterlocked(newVal);
         });
     }
+
+    /// SASH
+    {
+        m_pSashWindow.reset(new SashWindow);
+        m_pSashWindow->setSubModule(m_boardDigitalInput1.data());
+
+        /// early update sash state
+        m_boardDigitalInput1->polling();
+        m_pSashWindow->routineTask();
+        int currentState = m_pSashWindow->sashState();
+        pData->setSashWindowState(static_cast<short>(currentState));
+
+        /// MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.sashState.addr, static_cast<ushort>(currentState));
+
+        QObject::connect(m_pSashWindow.data(), &SashWindow::mSwitchStateChanged,
+                         pData, [&](int index, int newVal){
+            pData->setMagSWState(static_cast<short>(index), static_cast<bool>(newVal));
+            if(index == 5){
+                qDebug() << "index:" << index << "value:" << newVal;
+                /// Front Panel Switch Installed on Hybrid Digital Input 6
+                if(pData->getFrontPanelSwitchInstalled()){
+                    pData->setFrontPanelSwitchState(static_cast<bool>(newVal));
+                }
+                _checkFrontPanelAlarm();
+            }//
+        });
+
+        QObject::connect(m_pSashWindow.data(), &SashWindow::sashStateChanged,
+                         this, &MachineBackend::_onSashStateChanged);
+
+        int timerMs = 200;
+        if(pData->getSashWindowMotorizeInstalled())
+            timerMs = 50;
+        //// Create Independent Timer Event For Sash Motorize
+        m_timerEventForSashWindowRoutine.reset(new QTimer);
+        m_timerEventForSashWindowRoutine->setInterval(std::chrono::milliseconds(timerMs));
+
+        QObject::connect(m_timerEventForSashWindowRoutine.data(), &QTimer::timeout,
+                         this, &MachineBackend::_onTriggeredEventSashWindowRoutine);
+
+        QObject::connect(this, &MachineBackend::loopStarted, [&](){
+            m_timerEventForSashWindowRoutine->start();
+        });
+    }//
 
     /// Light Intensity
     {
@@ -5872,7 +5875,7 @@ void MachineBackend::_onInflowVelocityActualChanged(int value)
 void MachineBackend::_onDownflowVelocityActualChanged(int value)
 {
     if (pData->getMeasurementUnit()) {
-        int valueVel = qRound(dfVelocity / 100.0);
+        int valueVel = qRound(value / 100.0);
         QString valueStr = QString::asprintf("%d fpm", valueVel);
         pData->setDownflowVelocityStr(valueStr);
         m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));

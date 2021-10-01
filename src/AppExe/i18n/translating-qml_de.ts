@@ -3356,12 +3356,12 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
     <message>
         <location filename="../UI/Pages/FanPinPage/FanPinPage.qml" line="276"/>
-        <source>Swithcing on the fan</source>
+        <source>Switching on the fan</source>
         <translation>Benutzer: Lüfter ausschalten</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanPinPage/FanPinPage.qml" line="277"/>
-        <source>Swithcing off the fan</source>
+        <source>Switching off the fan</source>
         <translation>Lüfter ausschalten</translation>
     </message>
 </context>
@@ -4548,12 +4548,12 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2450"/>
-        <source>Swithcing on the fan</source>
+        <source>Switching on the fan</source>
         <translation>Lüfter einschalten</translation>
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2451"/>
-        <source>Swithcing off the fan</source>
+        <source>Switching off the fan</source>
         <translation>Lüfter ausschalten</translation>
     </message>
     <message>
