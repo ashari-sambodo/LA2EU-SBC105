@@ -4547,50 +4547,50 @@ The ideal environmental temperature is between </translation>
         <translation>Dieser akustische Alarm kann nicht stummgeschaltet werden!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2450"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2442"/>
         <source>Switching on the fan</source>
         <translation>Lüfter einschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2451"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2443"/>
         <source>Switching off the fan</source>
         <translation>Lüfter ausschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2611"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2603"/>
         <source>Power failure has been detected while previous fan state is on!</source>
         <translation>Es wurde ein Stromausfall erkannt, während der vorherige Lüfterstatus eingeschaltet ist!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2612"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2604"/>
         <source>Potential release contamination into the room.</source>
         <translation>Mögliche Freisetzung von Kontaminationen in den Raum.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2613"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2617"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2605"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2609"/>
         <source>Failure at</source>
         <translation>Fehler bei</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2614"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2618"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2606"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2610"/>
         <source>Recover at</source>
         <translation>Erholen um</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2616"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2608"/>
         <source>Power failure has been detected while previous UV decontamination is in progress!</source>
         <translation>Während einer vorherigen UV-Dekontamination wurde ein Stromausfall erkannt!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2625"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2617"/>
         <source>Be Careful!</source>
         <translation>Vorsichtig sein!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2638"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2639"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2630"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2631"/>
         <source>Login</source>
         <translation>Anmeldung</translation>
     </message>

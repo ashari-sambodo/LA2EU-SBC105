@@ -206,8 +206,17 @@
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="26"/>
+        <source>Alarm Fan Standby Off | Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="27"/>
+        <source>Alarm Fan Standby Off | Active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Alarm Fan Standby | Normal</source>
-        <translation>Alarm Lüfter Standby | Normal</translation>
+        <translation type="vanished">Alarm Lüfter Standby | Normal</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="29"/>
@@ -220,9 +229,8 @@
         <translation>Alarmfensterzyklus | Gesperrt</translation>
     </message>
     <message>
-        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="27"/>
         <source>Alarm Fan Standby | Active</source>
-        <translation>Alarm Lüfter Standby | Aktiv</translation>
+        <translation type="vanished">Alarm Lüfter Standby | Aktiv</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="33"/>

@@ -288,6 +288,7 @@ void BlowerRbmDsi::setDirection(int direction)
 void BlowerRbmDsi::setDutyCycle(int newVal)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << newVal << QObject::thread();
+    int percentDemand = newVal;
 
     if(m_interlocked) {
         qDebug() << "Interlocked";
@@ -298,7 +299,7 @@ void BlowerRbmDsi::setDutyCycle(int newVal)
     switch (m_demandMode) {
     case TORQUE_DEMMAND_BRDM:
         /// convert scalling air volume
-        newVal = /*pModule->torquePercentToVal*/(newVal);
+        //newVal = /*pModule->torquePercentToVal*/(newVal);
         break;
     case AIRVOLUME_DEMMAND_BRDM:
         /// convert scalling air volume
@@ -310,7 +311,10 @@ void BlowerRbmDsi::setDutyCycle(int newVal)
 
     m_speedDemand = newVal;
 #ifdef QT_DEBUG
-    m_dummyState = m_speedDemand;
+    if(!m_demandMode)
+        m_dummyState = static_cast<short>(m_speedDemand);
+    else
+        m_dummyState = static_cast<short>(percentDemand);
 #endif
     qDebug() << __func__ << "m_speedDemand" << m_speedDemand;
 }

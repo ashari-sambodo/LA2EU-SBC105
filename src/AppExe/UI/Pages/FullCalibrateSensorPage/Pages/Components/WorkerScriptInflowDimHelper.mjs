@@ -61,6 +61,9 @@ WorkerScript.onMessage = function(msg) {
             velVal  = Math.round(((avgVal / area) / 1000.0) * 100.0) / 100.0
         }
 
+        sumVal = Math.round(sumVal)
+        avgVal = Math.round(avgVal)
+
         //        //console.debug("area: "    + area)
         //        //console.debug("minVal: "  + minVal)
         //        //console.debug("maxVal: "  + maxVal)

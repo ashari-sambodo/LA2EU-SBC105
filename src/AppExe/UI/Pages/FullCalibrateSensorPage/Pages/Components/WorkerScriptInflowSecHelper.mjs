@@ -51,6 +51,11 @@ WorkerScript.onMessage = function(msg) {
         let avgVal  = Math.round((sumVal / dataVal.length) * 100) / 100
         let velVal  = Math.round((avgVal * correctionFactor) * 100) / 100
 
+        if(measureUnit){
+            sumVal = Math.round(sumVal)
+            avgVal = Math.round(avgVal)
+        }
+
         //console.debug("minVal: " + minVal)
         //console.debug("maxVal: " + maxVal)
         //console.debug("sumVal: " + sumVal)

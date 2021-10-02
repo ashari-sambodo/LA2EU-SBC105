@@ -58,6 +58,11 @@ WorkerScript.onMessage = function(msg) {
         let maxDeviationPrecent = Math.round(((maxDeviationVal / avgVal) * 100.0) * 10) / 10
         maxDeviationPrecent = isNaN(maxDeviationPrecent) ? 0 : maxDeviationPrecent
 
+        if(measureUnit){
+            sumVal = Math.round(sumVal)
+            avgVal = Math.round(avgVal)
+        }
+
         //        console.debug("minVal: " + minVal)
         //        console.debug("maxVal: " + maxVal)
         //        console.debug("sumVal: " + sumVal)

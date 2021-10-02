@@ -206,7 +206,12 @@
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="26"/>
-        <source>Alarm Fan Standby | Normal</source>
+        <source>Alarm Fan Standby Off | Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="27"/>
+        <source>Alarm Fan Standby Off | Active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -217,11 +222,6 @@
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="30"/>
         <source>Alarm Sash Cycle | Locked</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="27"/>
-        <source>Alarm Fan Standby | Active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

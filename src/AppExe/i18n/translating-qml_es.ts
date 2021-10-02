@@ -4518,50 +4518,50 @@ Pottentially reduce the reading accuration of the airflow sensor(s).
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2450"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2442"/>
         <source>Switching on the fan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2451"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2443"/>
         <source>Switching off the fan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2611"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2603"/>
         <source>Power failure has been detected while previous fan state is on!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2612"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2604"/>
         <source>Potential release contamination into the room.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2613"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2617"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2605"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2609"/>
         <source>Failure at</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2614"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2618"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2606"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2610"/>
         <source>Recover at</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2616"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2608"/>
         <source>Power failure has been detected while previous UV decontamination is in progress!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2625"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2617"/>
         <source>Be Careful!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2638"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2639"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2630"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2631"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
