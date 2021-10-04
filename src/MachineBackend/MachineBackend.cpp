@@ -689,17 +689,25 @@ void MachineBackend::setup()
                     m_serialPort1->setDataBits(QSerialPort::DataBits::Data8);
                     m_serialPort1->setParity(QSerialPort::Parity::NoParity);
                     m_serialPort1->setStopBits(QSerialPort::StopBits::OneStop);
-                }
-
+                }//
                 break;
-            }
-        }
+            }//
+            qDebug() << "info vendorIdentifier:" << info.vendorIdentifier();
+            qDebug() << "info productIdentifier:" << info.productIdentifier();
+            qDebug() << "info portName:" << info.portName();
+            qDebug() << "info systemLocation:" << info.systemLocation();
+            qDebug() << "info description:" << info.description();
+            qDebug() << "info manufacturer:" << info.manufacturer();
+            qDebug() << "info serialNumber:" << info.serialNumber();
+            qDebug() << "info hasVendorIdentifier:" << info.hasVendorIdentifier();
+            qDebug() << "info hasProductIdentifier:" << info.hasProductIdentifier();
+        }//
 
         /// RBM COM Board is OK and ready to send fan paramaters
         if (!m_serialPort1->isOpen()) {
             qWarning() << __FUNCTION__ << thread() << "serial port for fan cannot be opened";
             pData->setBoardStatusRbmCom(false);
-        }
+        }//
         /// initializing the fan object
         m_boardRegalECM.reset(new BlowerRegalECM);
         /// set the serial port

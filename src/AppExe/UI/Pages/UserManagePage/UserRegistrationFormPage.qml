@@ -614,6 +614,7 @@ ViewApp {
                 let allCharNotNumber = 0
                 let mixNumberLetterCase = 0
                 let index = 0
+                var regexSpecial = /[ ~`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g;
 
                 let seqNumberCount=0, seqLowCaseCount=0, seqUpCaseCount=0
 
@@ -622,7 +623,9 @@ ViewApp {
                     if(!isHasUpperCase) isHasUpperCase      = isUpperCase(charPassword)
                     if(!isHasLowerCase) isHasLowerCase      = isLowerCase(charPassword)
                     if(!isHasNumbers)   isHasNumbers        = isNumber(charPassword)
-                    if(!isHasSpecialChar) isHasSpecialChar  = isSpecial(charPassword)
+                    if(regexSpecial.test(charPassword)){
+                        isHasSpecialChar  = 1
+                    }
                     if(!allCharNotLetter)  allCharNotLetter = isLetter(charPassword) ? 0 : 1
                     if(!allCharNotNumber)  allCharNotNumber = isNumber(charPassword) ? 0 : 1
 
@@ -640,7 +643,7 @@ ViewApp {
                     }
 
                     index++
-                }
+                }//
 
                 if((seqNumberCount < 3 && seqLowCaseCount < 3 && seqUpCaseCount < 3) && allCharNotLetter && allCharNotNumber) mixNumberLetterCase = 1
                 else mixNumberLetterCase = 0
@@ -660,7 +663,11 @@ ViewApp {
                 ///http://www.passwordmeter.com/
                 ///very weak, weak, Good, Strong, Very Strong
                 //1~6 (1 weakest ~ 6 strongest)
-                return (isHasUpperCase + isHasLowerCase + isLengthMoreEqual8Char + isHasNumbers + isHasSpecialChar + mixNumberLetterCase)
+
+                let meetComplexity = ((isHasLowerCase || isHasUpperCase) && isHasNumbers && isHasSpecialChar)
+                if(meetComplexity)
+                    return (isHasUpperCase + isHasLowerCase + isLengthMoreEqual8Char + isHasNumbers + isHasSpecialChar + mixNumberLetterCase)
+                else return 0
             }
 
             function passwordStrengthString(level){
@@ -670,7 +677,6 @@ ViewApp {
                 else if(level >= 2)  return "Weak"
                 else                return "Very weak"
             }
-
         }
 
         /// OnCreated
