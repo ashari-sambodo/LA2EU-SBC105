@@ -814,6 +814,11 @@ class MachineData : public QObject
                //               WRITE setBoardStatusRbmCom
                NOTIFY boardStatusRbmComChanged)
 
+    Q_PROPERTY(bool boardStatusRbmCom2
+               READ getBoardStatusRbmCom2
+               //               WRITE setBoardStatusRbmCom2
+               NOTIFY boardStatusRbmCom2Changed)
+
     Q_PROPERTY(bool boardStatusPressureDiff
                READ getBoardStatusPressureDiff
                //               WRITE setBoardStatusPressureDiff
@@ -829,6 +834,12 @@ class MachineData : public QObject
                //               WRITE setBoardStatusCtpIoe
                NOTIFY boardStatusCtpIoeChanged)
 
+    Q_PROPERTY(bool boardStatusPWMOutput
+               READ getBoardStatusPWMOutput
+               //               WRITE setBoardStatusPWMOutput
+               NOTIFY boardStatusPWMOutputChanged)
+
+    //////////
     Q_PROPERTY(int escoLockServiceEnable
                READ getEscoLockServiceEnable
                //               WRITE setEscoLockServiceEnable
@@ -1373,6 +1384,9 @@ public:
     bool getBoardStatusRbmCom() const;
     void setBoardStatusRbmCom(bool boardStatusRbmCom);
     //
+    bool getBoardStatusRbmCom2() const;
+    void setBoardStatusRbmCom2(bool boardStatusRbmCom2);
+    //
     bool getBoardStatusPressureDiff() const;
     void setBoardStatusPressureDiff(bool boardStatusPressureDiff);
     //
@@ -1381,7 +1395,10 @@ public:
     //
     bool getBoardStatusCtpIoe() const;
     void setBoardStatusCtpIoe(bool boardStatusCtpIoe);
-
+    //
+    bool getBoardStatusPWMOutput() const;
+    void setBoardStatusPWMOutput(bool boardStatusPWMOutput);
+    //
     /// DATA LOG
     bool getDataLogEnable() const;
     bool getDataLogRunning() const;
@@ -1708,6 +1725,11 @@ public:
     void setFrontPanelSwitchState(bool value);
     void setFrontPanelAlarm(short value);
 
+    void setFanPrimaryRbmAddress(uchar address);
+    void setFanInflowRbmAddress(uchar address);
+    Q_INVOKABLE uchar getFanPrimaryRbmAddress()const;
+    Q_INVOKABLE uchar getFanInflowRbmAddress()const;
+
 public slots:
     void initSingleton();
 
@@ -1810,9 +1832,11 @@ signals:
     void boardStatusAnalogInputChanged(bool boardStatusAnalogInput);
     void boardStatusHybridAnalogOutputChanged(bool boardStatusHybridAnalogOutput);
     void boardStatusRbmComChanged(bool boardStatusRbmCom);
+    void boardStatusRbmCom2Changed(bool boardStatusRbmCom2);
     void boardStatusPressureDiffChanged(bool boardStatusPressureDiff);
     void boardStatusCtpRtcChanged(bool boardStatusCtpRtc);
     void boardStatusCtpIoeChanged(bool boardStatusCtpIoe);
+    void boardStatusPWMOutputChanged(bool boardStatusPwmOutput);
 
     /// DATA LOG
     void dataLogEnableChanged(bool dataLogEnable);
@@ -2184,9 +2208,11 @@ private:
     bool    m_boardStatusAnalogInput  = false;
     bool    m_boardStatusHybridAnalogOutput = false;
     bool    m_boardStatusRbmCom  = false;
+    bool    m_boardStatusRbmCom2  = false;
     bool    m_boardStatusPressureDiff  = false;
     bool    m_boardStatusCtpRtc = false;
     bool    m_boardStatusCtpIoe = false;
+    bool    m_boardStatusPWMOutput = false;
 
     /// Datalog
     bool m_dataLogEnable    = false;
@@ -2352,6 +2378,8 @@ private:
     bool m_frontPanelSwitchInstalled = false;
     bool m_frontPanelSwitchState = false;
     short m_frontPanelAlarm = false;
+    uchar m_fanPrimaryRbmAddress;
+    uchar m_fanInflowRbmAddress;
 };
 
 

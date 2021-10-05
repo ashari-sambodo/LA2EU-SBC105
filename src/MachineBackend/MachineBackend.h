@@ -36,6 +36,7 @@ class BlowerRbmDsi;
 class DeviceAnalogCom;
 class SashWindow;
 class DeviceDigitalOut;
+class DevicePWMOut;
 class MotorizeOnRelay;
 class AirflowVelocity;
 class ClosedLoopControl;
@@ -358,6 +359,9 @@ public slots:
 
     /// FRONT PANEL SWITCH LA2EU
     void setFrontPanelSwitchInstalled(bool value);
+    /// Set FAN RBM Address
+    void setFanPrimaryRbmAddress(uchar address);
+    void setFanInflowRbmAddress(uchar address);
 
 signals:
     void hasStopped();
@@ -390,6 +394,8 @@ private:
     QScopedPointer<DIOpca9674>      m_boardDigitalInput1;
     /// Digital Swith / PWM
     QScopedPointer<PWMpca9685>      m_boardRelay1;
+    /// PWM Output
+    //    QScopedPointer<PWMpca9685>      m_boardPWMOut;
     /// HAB - Analog Input (Inflow & Temperature)
     QScopedPointer<AIManage>        m_boardAnalogInput1;
     /// HAB - Analog Output
@@ -410,6 +416,8 @@ private:
     QScopedPointer<DeviceDigitalOut>    m_pExhaustContact;
     QScopedPointer<DeviceDigitalOut>    m_pAlarmContact;
     ///
+    //    QScopedPointer<DevicePWMOut>    m_pLightIntensity2;
+    //    QScopedPointer<DevicePWMOut>    m_pFanInflow2;
     ///
     QScopedPointer<Temperature>     m_pTemperature;
     QScopedPointer<AirflowVelocity> m_pAirflowInflow;
@@ -428,16 +436,20 @@ private:
     QScopedPointer<SensirionSPD8xx>     m_boardSensirionSPD8xx;
     QScopedPointer<PressureDiffManager> m_pSeas;
 
-    /// Fan Primary
+    /// Fan Primary & Fan Inflow
     QScopedPointer<QThread>         m_threadForFanRbmDsi;
     QScopedPointer<QTimer>          m_timerEventForFanRbmDsi;
+    QScopedPointer<QThread>         m_threadForFanRbmDsi2;
+    QScopedPointer<QTimer>          m_timerEventForFanRbmDsi2;
     ///
     QScopedPointer<DeviceAnalogCom> m_pFanInflow;
-    //QScopedPointer<BlowerRbmDsi>    m_fanDownflow;
     QScopedPointer<BlowerRbmDsi>    m_pFanPrimary;
+    QScopedPointer<BlowerRbmDsi>    m_pFanInflow2;
     QScopedPointer<BlowerRegalECM>  m_boardRegalECM;
+    QScopedPointer<BlowerRegalECM>  m_boardRegalECM2;
     ///
     QScopedPointer<QSerialPort>     m_serialPort1;
+    QScopedPointer<QSerialPort>     m_serialPort12;
 
     /// Particle Counter
     QScopedPointer<QThread>         m_threadForParticleCounter;
@@ -540,7 +552,7 @@ private:
     void _onFanPrimaryActualDucyChanged(short value);
     void _onFanPrimaryActualRpmChanged(int value);
     void _onFanInflowActualDucyChanged(short value);
-    //    void _onFanInflowActualRpmChanged(int value);
+    void _onFanInflowActualRpmChanged(int value);
 
     void _onSashStateChanged(short prevState, short state);
     void _onLightStateChanged(short state);

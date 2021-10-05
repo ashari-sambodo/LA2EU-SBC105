@@ -169,9 +169,9 @@ ViewApp {
                                         return "" + MachineData.fanPrimaryDutyCycle + " % / " + MachineData.fanPrimaryRpm + " RPM"
                                     })
                                     value2 = Qt.binding(function(){
-                                        return "" + MachineData.fanInflowDutyCycle + " %"
+                                        return "" + MachineData.fanInflowDutyCycle + " % / " + MachineData.fanInflowRpm + " RPM"
                                     })
-                                }
+                                }//
 
                                 onUnloaded: {
                                     value1 = ""
@@ -238,8 +238,6 @@ ViewApp {
                                                 + ")"
                                     })
                                 }
-
-
                                 //                                visible: enabled
                                 enabled: props.uvInstalled
                             }//
@@ -1091,13 +1089,35 @@ ViewApp {
                             }//
 
                             CusComPage.RowItemApp {
+                                id: modulePwmOutput
+                                visible: false
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
+                                label: qsTr("Module - PWM Output")
+                                value: connected ? qsTr("OK") : qsTr("Fail")
+
+                                property bool connected: false
+
+                                onLoaded: {
+                                    connected = Qt.binding(function() { return MachineData.boardStatusPWMOutput})
+                                }
+
+                                onUnloaded: {
+                                    connected = false
+                                }
+                            }//
+
+                            CusComPage.RowItemApp {
                                 id: moduleRbmCom
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Module - RBM Com")
+                                label: qsTr("Module - RBM Com Downflow")
                                 value: connected ? qsTr("OK") : qsTr("Fail")
 
                                 property bool connected: false
@@ -1109,6 +1129,27 @@ ViewApp {
                                 onUnloaded: {
                                     connected = false
                                 }
+                            }//
+
+                            CusComPage.RowItemApp {
+                                id: moduleRbmCom2
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
+                                label: qsTr("Module - RBM Com Inflow")
+                                value: connected ? qsTr("OK") : qsTr("Fail")
+
+                                property bool connected: false
+
+                                onLoaded: {
+                                    connected = Qt.binding(function() { return MachineData.boardStatusRbmCom2 })
+                                }//
+
+                                onUnloaded: {
+                                    connected = false
+                                }//
                             }//
 
                             CusComPage.RowItemApp {

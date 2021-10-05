@@ -35,6 +35,7 @@
 #include "Implementations/DeviceAnalogCom/DeviceAnalogCom.h"
 #include "Implementations/SashWindow/SashWindow.h"
 #include "Implementations/DigitalOut/DeviceDigitalOut.h"
+#include "Implementations/PWMOut/DevicePWMOut.h"
 #include "Implementations/MotorizeOnRelay/MotorizeOnRelay.h"
 #include "Implementations/AirflowVelocity/AirflowVelocity.h"
 #include "Implementations/ClosedLoopControl/ClosedLoopControl.h"
@@ -67,35 +68,35 @@ struct modbusRegisterAddress
     struct dfaFanRpm         {static const short addr = 5;   short rw = 0; uint16_t value;} dfaFanRpm;
     struct ifaFanState       {static const short addr = 6;   short rw = 0; uint16_t value;} ifaFanState;
     struct ifaFanDutyCycle   {static const short addr = 7;   short rw = 0; uint16_t value;} ifaFanDutyCycle;
-    //struct ifaFanRpm       {static const short addr = 7;   short rw = 0; uint16_t value;} ifaFanRpm;
-    struct fanClosedLoopControl{static const short addr = 8;  short rw = 0; uint16_t value;} fanClosedLoopControl;
-    struct lightState        {static const short addr = 9;   short rw = 0; uint16_t value;} lightState;
-    struct lightIntensity    {static const short addr = 10;  short rw = 0; uint16_t value;} lightIntensity;
-    struct socketState       {static const short addr = 11;  short rw = 0; uint16_t value;} socketState;
-    struct gasState          {static const short addr = 12;  short rw = 0; uint16_t value;} gasState;
-    struct uvState           {static const short addr = 13;  short rw = 0; uint16_t value;} uvState;
-    struct sashMotorizeState {static const short addr = 14;  short rw = 0; uint16_t value;} sashMotorizeState;
-    struct sashCycle         {static const short addr = 15;  short rw = 0; uint16_t value;} sashCycle;
-    struct meaUnit           {static const short addr = 16;  short rw = 0; uint16_t value;} meaUnit;
-    struct temperature       {static const short addr = 17;  short rw = 0; uint16_t value;} temperature;
-    struct airflowInflow     {static const short addr = 18;  short rw = 0; uint16_t value;} airflowInflow;
-    struct airflowDownflow   {static const short addr = 19;  short rw = 0; uint16_t value;} airflowDownflow;
-    struct pressureExhaust   {static const short addr = 20;  short rw = 0; uint16_t value;} pressureExhaust;
-    struct alarmSash         {static const short addr = 21;  short rw = 0; uint16_t value;} alarmSash;
-    struct alarmInflow       {static const short addr = 22;  short rw = 0; uint16_t value;} alarmInflow;
-    struct alarmDownflow     {static const short addr = 23;  short rw = 0; uint16_t value;} alarmDownflow;
-    struct alarmExhaust      {static const short addr = 24;  short rw = 0; uint16_t value;} alarmExhaust;
-    struct alarmCom          {static const short addr = 25;  short rw = 0; uint16_t value;} alarmCom;
-    struct alarmFlapExhaust  {static const short addr = 26;  short rw = 0; uint16_t value;} alarmFlapExhaust;
-    struct filterLife        {static const short addr = 27;  short rw = 0; uint16_t value;} filterLife;
-    struct uvLifeLeft        {static const short addr = 28;  short rw = 0; uint16_t value;} uvLifeLeft;
-    struct dfaFanUsage       {static const short addr = 29;  short rw = 0; uint16_t value;} dfaFanUsage;
-    struct ifaFanUsage       {static const short addr = 30;  short rw = 0; uint16_t value;} ifaFanUsage;
-    struct alarmPanel        {static const short addr = 31;  short rw = 0; uint16_t value;} alarmPanel;
+    struct ifaFanRpm         {static const short addr = 8;   short rw = 0; uint16_t value;} ifaFanRpm;
+    struct fanClosedLoopControl{static const short addr = 9;  short rw = 0; uint16_t value;} fanClosedLoopControl;
+    struct lightState        {static const short addr = 10;   short rw = 0; uint16_t value;} lightState;
+    struct lightIntensity    {static const short addr = 11;  short rw = 0; uint16_t value;} lightIntensity;
+    struct socketState       {static const short addr = 12;  short rw = 0; uint16_t value;} socketState;
+    struct gasState          {static const short addr = 13;  short rw = 0; uint16_t value;} gasState;
+    struct uvState           {static const short addr = 14;  short rw = 0; uint16_t value;} uvState;
+    struct sashMotorizeState {static const short addr = 15;  short rw = 0; uint16_t value;} sashMotorizeState;
+    struct sashCycle         {static const short addr = 16;  short rw = 0; uint16_t value;} sashCycle;
+    struct meaUnit           {static const short addr = 17;  short rw = 0; uint16_t value;} meaUnit;
+    struct temperature       {static const short addr = 18;  short rw = 0; uint16_t value;} temperature;
+    struct airflowInflow     {static const short addr = 19;  short rw = 0; uint16_t value;} airflowInflow;
+    struct airflowDownflow   {static const short addr = 20;  short rw = 0; uint16_t value;} airflowDownflow;
+    struct pressureExhaust   {static const short addr = 21;  short rw = 0; uint16_t value;} pressureExhaust;
+    struct alarmSash         {static const short addr = 22;  short rw = 0; uint16_t value;} alarmSash;
+    struct alarmInflow       {static const short addr = 23;  short rw = 0; uint16_t value;} alarmInflow;
+    struct alarmDownflow     {static const short addr = 24;  short rw = 0; uint16_t value;} alarmDownflow;
+    struct alarmExhaust      {static const short addr = 25;  short rw = 0; uint16_t value;} alarmExhaust;
+    struct alarmCom          {static const short addr = 26;  short rw = 0; uint16_t value;} alarmCom;
+    struct alarmFlapExhaust  {static const short addr = 27;  short rw = 0; uint16_t value;} alarmFlapExhaust;
+    struct filterLife        {static const short addr = 28;  short rw = 0; uint16_t value;} filterLife;
+    struct uvLifeLeft        {static const short addr = 29;  short rw = 0; uint16_t value;} uvLifeLeft;
+    struct dfaFanUsage       {static const short addr = 30;  short rw = 0; uint16_t value;} dfaFanUsage;
+    struct ifaFanUsage       {static const short addr = 31;  short rw = 0; uint16_t value;} ifaFanUsage;
+    struct alarmPanel        {static const short addr = 32;  short rw = 0; uint16_t value;} alarmPanel;
 } modbusRegisterAddress;
 
 
-#define MODBUS_REGISTER_COUNT   32
+#define MODBUS_REGISTER_COUNT   33
 #define ALLOW_ANY_IP            "0.0.0.0"
 #define LOCALHOST_ONLY          "127.0.0.1"
 
@@ -162,8 +163,8 @@ void MachineBackend::setup()
         QStringList sysInfoDefault = (QStringList() << SDEF_SBC_SYS_INFO);
         QStringList sysInfo = m_settings->value(SKEY_SBC_SYS_INFO, sysInfoDefault).toStringList();
         pData->setSbcSystemInformation(sysInfo);
-        qDebug() << "------ SysInfo ------";
-        qDebug() << sysInfo;
+        //qDebug() << "------ SysInfo ------";
+        //qDebug() << sysInfo;
 
         if(sysInfo == sysInfoDefault){
             sysInfo = _readSbcSystemInformation();
@@ -348,16 +349,40 @@ void MachineBackend::setup()
                 ////MONITORING COMMUNICATION STATUS
                 QObject::connect(m_boardRelay1.data(), &PWMpca9685::errorComToleranceReached,
                                  this, [&](int error){
-                    qDebug() << "PWMpca9685::errorComToleranceReached" << error << thread();
+                    qDebug() << "m_boardRelay1::errorComToleranceReached" << error << thread();
                     pData->setBoardStatusHybridDigitalRelay(false);
                 });
                 QObject::connect(m_boardRelay1.data(), &PWMpca9685::errorComToleranceCleared,
                                  this, [&](int error){
-                    qDebug() << "PWMpca9685::errorComToleranceCleared" << error << thread();
+                    qDebug() << "m_boardRelay1::errorComToleranceCleared" << error << thread();
                     pData->setBoardStatusHybridDigitalRelay(true);
                 });
             }
+            //            ////SUB BOARD PWM OUTPUT
+            //            {
+            //                m_boardPWMOut.reset(new PWMpca9685);
+            //                m_boardPWMOut->setI2C(m_i2cPort.data());
+            //                m_boardPWMOut->preInitCountChannelsToPool(4);
+            //                m_boardPWMOut->preInitFrequency(PCA9685_PWM_VAL_FREQ_100HZ);
+            //                m_boardPWMOut->setAddress(0x41);
 
+            //                bool response = m_boardPWMOut->init();
+            //                m_boardPWMOut->polling();
+
+            //                pData->setBoardStatusPWMOutput(!response);
+
+            //                ////MONITORING COMMUNICATION STATUS
+            //                QObject::connect(m_boardPWMOut.data(), &PWMpca9685::errorComToleranceReached,
+            //                                 this, [&](int error){
+            //                    qDebug() << "m_boardPWMOut::errorComToleranceReached" << error << thread();
+            //                    pData->setBoardStatusPWMOutput(false);
+            //                });
+            //                QObject::connect(m_boardPWMOut.data(), &PWMpca9685::errorComToleranceCleared,
+            //                                 this, [&](int error){
+            //                    qDebug() << "m_boardPWMOut::errorComToleranceCleared" << error << thread();
+            //                    pData->setBoardStatusPWMOutput(true);
+            //                });
+            //            }//
             /// HAB - Analog Input
             {
                 m_boardAnalogInput1.reset(new AIManage);
@@ -543,6 +568,7 @@ void MachineBackend::setup()
         {
             m_boardIO->addSlave(m_boardDigitalInput1.data());
             m_boardIO->addSlave(m_boardRelay1.data());
+            /// m_boardIO->addSlave(m_boardPWMOut.data());
             m_boardIO->addSlave(m_boardAnalogInput1.data());
             m_boardIO->addSlave(m_boardAnalogInput2.data());
             m_boardIO->addSlave(m_boardAnalogOutput1.data());
@@ -665,63 +691,117 @@ void MachineBackend::setup()
     }
 
     /// Fan Exhaust
-    {
-        m_pFanInflow.reset(new DeviceAnalogCom);
-        m_pFanInflow->setSubBoard(m_boardAnalogOutput2.data());
+    //    {
+    //        m_pFanInflow.reset(new DeviceAnalogCom);
+    //        m_pFanInflow->setSubBoard(m_boardAnalogOutput2.data());
 
-        connect(m_pFanInflow.data(), &DeviceAnalogCom::stateChanged,
-                this, [&](int newVal){
-            _onFanInflowActualDucyChanged(static_cast<short>(newVal));
-        });
-    }
-    /// Fan Primary - Fan Downflow
+    //        connect(m_pFanInflow.data(), &DeviceAnalogCom::stateChanged,
+    //                this, [&](int newVal){
+    //            _onFanInflowActualDucyChanged(static_cast<short>(newVal));
+    //        });
+    //    }
+
+    //    /// Fan Exhaust - PWM OUTPUT
+    //    {
+    //        m_pFanInflow2.reset(new DevicePWMOut);
+    //        m_pFanInflow2->setSubModule(m_boardPWMOut.data());
+    //        m_pFanInflow2->setChannelIO(1);
+    //        m_pFanInflow2->setDutyCycleMinimum(0);
+
+    //        connect(m_pLightIntensity2.data(), &DevicePWMOut::stateChanged,
+    //                this, [&](int newVal){
+    //            _onFanInflowActualDucyChanged(static_cast<short>(newVal));
+    //        });
+
+    //        //        connect(m_pLightIntensity2.data(), &DevicePWMOut::interlockChanged,
+    //        //                pData, [&](int newVal){
+    //        //            //pData->setSV1Interlocked(newVal);
+    //        //        });
+    //    }//
+
+    /// Fan DOWNFLOW & Fan INFLOW
     {
+        short index = 0;
         /// find and initializing serial port for fan
         m_serialPort1.reset(new QSerialPort());
+        m_serialPort12.reset(new QSerialPort());
         foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts()){
             if((info.vendorIdentifier() == BLOWER_USB_SERIAL_VID) &&
                     (info.productIdentifier() == BLOWER_USB_SERIAL_PID)){
+                if(info.portName() == BLOWER_USB_SERIAL_PORT0){
+                    m_serialPort1->setPort(info);
 
-                m_serialPort1->setPort(info);
+                    if(m_serialPort1->open(QIODevice::ReadWrite)){
+                        m_serialPort1->setBaudRate(QSerialPort::BaudRate::Baud4800);
+                        m_serialPort1->setDataBits(QSerialPort::DataBits::Data8);
+                        m_serialPort1->setParity(QSerialPort::Parity::NoParity);
+                        m_serialPort1->setStopBits(QSerialPort::StopBits::OneStop);
+                    }//
+                    index++;
+                }else if(info.portName() == BLOWER_USB_SERIAL_PORT1){
+                    m_serialPort12->setPort(info);
 
-                if(m_serialPort1->open(QIODevice::ReadWrite)){
-                    m_serialPort1->setBaudRate(QSerialPort::BaudRate::Baud4800);
-                    m_serialPort1->setDataBits(QSerialPort::DataBits::Data8);
-                    m_serialPort1->setParity(QSerialPort::Parity::NoParity);
-                    m_serialPort1->setStopBits(QSerialPort::StopBits::OneStop);
-                }//
-                break;
+                    if(m_serialPort12->open(QIODevice::ReadWrite)){
+                        m_serialPort12->setBaudRate(QSerialPort::BaudRate::Baud4800);
+                        m_serialPort12->setDataBits(QSerialPort::DataBits::Data8);
+                        m_serialPort12->setParity(QSerialPort::Parity::NoParity);
+                        m_serialPort12->setStopBits(QSerialPort::StopBits::OneStop);
+                    }//
+                    index++;
+                }
+                //break;
             }//
-            qDebug() << "info vendorIdentifier:" << info.vendorIdentifier();
-            qDebug() << "info productIdentifier:" << info.productIdentifier();
-            qDebug() << "info portName:" << info.portName();
-            qDebug() << "info systemLocation:" << info.systemLocation();
-            qDebug() << "info description:" << info.description();
-            qDebug() << "info manufacturer:" << info.manufacturer();
-            qDebug() << "info serialNumber:" << info.serialNumber();
-            qDebug() << "info hasVendorIdentifier:" << info.hasVendorIdentifier();
-            qDebug() << "info hasProductIdentifier:" << info.hasProductIdentifier();
+            qDebug() << "index" << index;
+            qDebug() << "vendorIdentifier" << info.vendorIdentifier();
+            qDebug() << "productIdentifier" << info.productIdentifier();
+            qDebug() << "portName" << info.portName();
+            qDebug() << "systemLocation" << info.systemLocation();
+            qDebug() << "description" << info.description();
+            qDebug() << "manufacturer" << info.manufacturer();
+            qDebug() << "serialNumber" << info.serialNumber();
+            if(index >= 2) break;
         }//
+
+        //        uchar addrsPrimary = static_cast<uchar>(m_settings->value(SKEY_RBM_ADDRS_PRIMARY, 0x00).toInt());
+        //        pData->setFanPrimaryRbmAddress(addrsPrimary);
+        //        uchar addrsInflow = static_cast<uchar>(m_settings->value(SKEY_RBM_ADDRS_INFLOW, 0x00).toInt());
+        //        pData->setFanInflowRbmAddress(addrsInflow);
 
         /// RBM COM Board is OK and ready to send fan paramaters
         if (!m_serialPort1->isOpen()) {
-            qWarning() << __FUNCTION__ << thread() << "serial port for fan cannot be opened";
+            qWarning() << __FUNCTION__ << thread() << "serial port 0 for fan dfa cannot be opened";
             pData->setBoardStatusRbmCom(false);
+            //pData->setBoardStatusRbmCom2(false);
+        }//
+        if (!m_serialPort12->isOpen()) {
+            qWarning() << __FUNCTION__ << thread() << "serial port 1 for fan ifa cannot be opened";
+            //pData->setBoardStatusRbmCom(false);
+            pData->setBoardStatusRbmCom2(false);
         }//
         /// initializing the fan object
         m_boardRegalECM.reset(new BlowerRegalECM);
+        m_boardRegalECM2.reset(new BlowerRegalECM);
         /// set the serial port
         m_boardRegalECM->setSerialComm(m_serialPort1.data());
+        m_boardRegalECM2->setSerialComm(m_serialPort12.data());
+
+        /// Set Address
+        //m_boardRegalECM->setAddressModule(addrsPrimary);
+        //m_boardRegalECM2->setAddressModule(addrsInflow);
+
         /// we expect the first value of the the fan from not running
         /// now, we assume the response from the fan is always OK,
-        //        /// so we dont care the return value of following API
+        ///// so we dont care the return value of following API
         m_boardRegalECM->stop();
+        m_boardRegalECM2->stop();
 
         /// setup blower ecm by torque demand
         /// in torque mode, we just need to define the direction of rotation
         int response = m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CLW);
+        int response2 = m_boardRegalECM2->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CLW);
         //        m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CCW);
         pData->setBoardStatusRbmCom(response == 0);
+        pData->setBoardStatusRbmCom2(response2 == 0);
 
         ////MONITORING COMMUNICATION STATUS
         QObject::connect(m_boardRegalECM.data(), &BlowerRegalECM::errorComToleranceReached,
@@ -735,23 +815,39 @@ void MachineBackend::setup()
             pData->setBoardStatusRbmCom(true);
         });
 
+        QObject::connect(m_boardRegalECM2.data(), &BlowerRegalECM::errorComToleranceReached,
+                         this, [&](int error){
+            qDebug() << "BlowerRegalECM2::errorComToleranceReached" << error << thread();
+            pData->setBoardStatusRbmCom2(false);
+        });
+        QObject::connect(m_boardRegalECM2.data(), &BlowerRegalECM::errorComToleranceCleared,
+                         this, [&](int error){
+            qDebug() << "BlowerRegalECM2::errorComToleranceCleared" << error << thread();
+            pData->setBoardStatusRbmCom2(true);
+        });
+
 
         /// create object for state keeper
         /// ensure actuator state is what machine state requested
         m_pFanPrimary.reset(new BlowerRbmDsi);
-
+        m_pFanInflow2.reset(new BlowerRbmDsi);
         /// pass the virtual object sub module board
         m_pFanPrimary->setSubModule(m_boardRegalECM.data());
+        m_pFanInflow2->setSubModule(m_boardRegalECM2.data());
         m_pFanPrimary->setDemandMode(BlowerRbmDsi::TORQUE_DEMMAND_BRDM);
+        m_pFanInflow2->setDemandMode(BlowerRbmDsi::TORQUE_DEMMAND_BRDM);
 
         /// create timer for triggering the loop (routine task) and execute any pending request
         /// routine task and any pending task will executed by FIFO mechanism
         m_timerEventForFanRbmDsi.reset(new QTimer);
         m_timerEventForFanRbmDsi->setInterval(TEI_FOR_BLOWER_RBMDSI);
+        m_timerEventForFanRbmDsi2.reset(new QTimer);
+        m_timerEventForFanRbmDsi2->setInterval(TEI_FOR_BLOWER_RBMDSI);
 
         /// create independent thread
         /// looping inside this thread will run parallel* beside machineState loop
         m_threadForFanRbmDsi.reset(new QThread);
+        m_threadForFanRbmDsi2.reset(new QThread);
 
         /// Start timer event when thread was started
         QObject::connect(m_threadForFanRbmDsi.data(), &QThread::started,
@@ -766,6 +862,20 @@ void MachineBackend::setup()
             //            qDebug() << "m_timerEventForBlowerRbmDsi::finished" << thread();
             m_timerEventForFanRbmDsi->stop();
         });
+        ///////
+        /// Start timer event when thread was started
+        QObject::connect(m_threadForFanRbmDsi2.data(), &QThread::started,
+                         m_timerEventForFanRbmDsi2.data(), [&](){
+            //            qDebug() << "m_timerEventForBlowerRbmDsi::started" << thread();
+            m_timerEventForFanRbmDsi2->start();
+        });
+
+        /// Stop timer event when thread was finished
+        QObject::connect(m_threadForFanRbmDsi2.data(), &QThread::finished,
+                         m_timerEventForFanRbmDsi2.data(), [&](){
+            //            qDebug() << "m_timerEventForBlowerRbmDsi::finished" << thread();
+            m_timerEventForFanRbmDsi2->stop();
+        });
 
         /// Enable triggerOnStarted, calling the worker of BlowerRbmDsi when thread has started
         /// This is use lambda function, this symbol [&] for pass m_blowerRbmDsi object to can captured by lambda
@@ -773,6 +883,10 @@ void MachineBackend::setup()
         QObject::connect(m_threadForFanRbmDsi.data(), &QThread::started,
                          m_pFanPrimary.data(), [&](){
             m_pFanPrimary->routineTask();
+        });
+        QObject::connect(m_threadForFanRbmDsi2.data(), &QThread::started,
+                         m_pFanInflow2.data(), [&](){
+            m_pFanInflow2->routineTask();
         });
 
         /// Call routine task blower (syncronazation state)
@@ -782,6 +896,11 @@ void MachineBackend::setup()
             //            qDebug() << "m_blowerRbmDsi::timeout" << thread();
             m_pFanPrimary->routineTask();
         });
+        QObject::connect(m_timerEventForFanRbmDsi2.data(), &QTimer::timeout,
+                         m_pFanInflow2.data(), [&](){
+            //            qDebug() << "m_blowerRbmDsi::timeout" << thread();
+            m_pFanInflow2->routineTask();
+        });
 
         /// Run blower loop thread when Machine State goes to looping / routine task
         QObject::connect(this, &MachineBackend::loopStarted,
@@ -789,147 +908,47 @@ void MachineBackend::setup()
             //            qDebug() << "m_threadForFanRbmDsi::loopStarted" << thread();
             m_threadForFanRbmDsi->start();
         });
-
-        /// call this when actual blower duty cycle has changed
-        QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::dutyCycleChanged,
-                         this, &MachineBackend::_onFanPrimaryActualDucyChanged);
-
-        /// call this when actual blower rpm has changed
-        QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::rpmChanged,
-                         this, &MachineBackend::_onFanPrimaryActualRpmChanged);
-
-        /// call this when actual blower interloked
-        QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::interlockChanged,
-                         pData, [&](short newVal){
-            pData->setFanPrimaryInterlocked(newVal);
-        });
-
-        //        QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::dutyCycleChanged,
-        //                         pData, [&](int dutyCycle){
-        //            qDebug() << "m_pFanPrimary::dutyCycleChanged" << thread();
-        //            qDebug() << "m_pFanPrimary::dutyCycleChanged" << dutyCycle;
-        //            pData->setFanPrimaryDutyCycle(static_cast<short>(dutyCycle));
-        //        });
-
-        /*int maxAirVolume;
-        /// setup profile fan ecm
-        {
-            /// query profile from machine profile
-            QJsonObject machineProfile = pData->getMachineProfile();
-            QJsonObject fanProfile = machineProfile.value("fan").toObject();
-
-            short direction = fanProfile.value("direction").toInt();
-            int highSpeedLimit = fanProfile.value("highSpeedLimit").toInt();
-            maxAirVolume = fanProfile.value("maxAirVolume").toInt();
-
-            QJsonObject constantProfile = fanProfile.value("constant").toObject();
-
-            double a1 = constantProfile.value("a1").toDouble();
-            double a2 = constantProfile.value("a2").toDouble();
-            double a3 = constantProfile.value("a3").toDouble();
-            double a4 = constantProfile.value("a4").toDouble();
-
-            m_boardRegalECM->setDirection(direction);
-            m_boardRegalECM->setCutbackSpeed(highSpeedLimit);
-            m_boardRegalECM->setAirflowScaling(maxAirVolume);
-            short response = m_boardRegalECM->setBlowerContant(a1, a2, a3, a4);
-
-            pData->setBoardStatusRbmCom(response == 0);
-        }*/
-
-        /*////MONITORING COMMUNICATION STATUS
-        QObject::connect(m_boardRegalECM.data(), &BlowerRegalECM::errorComToleranceReached,
-                         this, [&](int error){
-            qDebug() << "BlowerRegalECM::errorComToleranceReached" << error << thread();
-            pData->setBoardStatusRbmCom(false);
-        });
-        QObject::connect(m_boardRegalECM.data(), &BlowerRegalECM::errorComToleranceCleared,
-                         this, [&](int error){
-            qDebug() << "BlowerRegalECM::errorComToleranceCleared" << error << thread();
-            pData->setBoardStatusRbmCom(true);
-        });*/
-
-        /*
-        /// create object for value keeper
-        /// ensure actuator value is what machine value requested
-        m_pFanPrimary.reset(new BlowerRbmDsi);
-
-        /// pass the virtual object sub module board
-        m_pFanPrimary->setSubModule(m_boardRegalECM.data());
-
-        /// use air volume demand mode, blower will have auto compesate to achive the air volume demand
-        m_pFanPrimary->setDemandMode(BlowerRbmDsi::AIRVOLUME_DEMMAND_BRDM);
-        m_pFanPrimary->setAirVolumeScale(maxAirVolume);
-
-        /// create timer for triggering the loop (routine task) and execute any pending request
-        /// routine task and any pending task will executed by FIFO mechanism
-        m_timerEventForFanRbmDsi.reset(new QTimer);
-        m_timerEventForFanRbmDsi->setInterval(TEI_FOR_BLOWER_RBMDSI);
-
-        /// create independent thread
-        /// looping inside this thread will run parallel* beside machineState loop
-        m_threadForFanRbmDsi.reset(new QThread);
-
-        /// Start timer event when thread was started
-        QObject::connect(m_threadForFanRbmDsi.data(), &QThread::started,
-                         m_timerEventForFanRbmDsi.data(), [&](){
-            //            qDebug() << "m_timerEventForFanRbmDsi::started" << thread();
-            m_timerEventForFanRbmDsi->start();
-        });
-
-        /// Stop timer event when thread was finished
-        QObject::connect(m_threadForFanRbmDsi.data(), &QThread::finished,
-                         m_timerEventForFanRbmDsi.data(), [&](){
-            //            qDebug() << "m_timerEventForFanRbmDsi::finished" << thread();
-            m_timerEventForFanRbmDsi->stop();
-        });
-
-        /// Enable triggerOnStarted, calling the worker of FanRbmDsi when thread has started
-        /// This is use lambda function, this symbol [&] for pass m_fanRbmDsi object to can captured by lambda
-        /// m_fanRbmDsi.data(), [&](){m_fanRbmDsi->worker();});
-        QObject::connect(m_threadForFanRbmDsi.data(), &QThread::started,
-                         m_pFanPrimary.data(), [&](){
-            m_pFanPrimary->routineTask();
-        });
-
-        /// Call routine task fan (syncronazation value)
-        /// This method calling by timerEvent
-        QObject::connect(m_timerEventForFanRbmDsi.data(), &QTimer::timeout,
-                         m_pFanPrimary.data(), [&](){
-            //            qDebug() << "m_fanRbmDsi::timeout" << thread();
-            m_pFanPrimary->routineTask();
-        });
-
-        /// Run fan loop thread when Machine State goes to looping / routine task
+        /// Run blower loop thread when Machine State goes to looping / routine task
         QObject::connect(this, &MachineBackend::loopStarted,
-                         m_threadForFanRbmDsi.data(), [&](){
+                         m_threadForFanRbmDsi2.data(), [&](){
             //            qDebug() << "m_threadForFanRbmDsi::loopStarted" << thread();
-            m_threadForFanRbmDsi->start();
+            m_threadForFanRbmDsi2->start();
         });
 
         /// call this when actual blower duty cycle has changed
         QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::dutyCycleChanged,
                          this, &MachineBackend::_onFanPrimaryActualDucyChanged);
+        QObject::connect(m_pFanInflow2.data(), &BlowerRbmDsi::dutyCycleChanged,
+                         this, &MachineBackend::_onFanInflowActualDucyChanged);
 
         /// call this when actual blower rpm has changed
         QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::rpmChanged,
                          this, &MachineBackend::_onFanPrimaryActualRpmChanged);
+        QObject::connect(m_pFanInflow2.data(), &BlowerRbmDsi::rpmChanged,
+                         this, &MachineBackend::_onFanInflowActualRpmChanged);
 
         /// call this when actual blower interloked
         QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::interlockChanged,
                          pData, [&](short newVal){
             pData->setFanPrimaryInterlocked(newVal);
         });
-        */
+        QObject::connect(m_pFanInflow2.data(), &BlowerRbmDsi::interlockChanged,
+                         pData, [&](short newVal){
+            pData->setFanInflowInterlocked(newVal);
+        });
 
-        /// Do move fan routine task / looping to independent thread
+        /// Move fan routine task / looping to independent thread
         m_pFanPrimary->moveToThread(m_threadForFanRbmDsi.data());
+        m_pFanInflow2->moveToThread(m_threadForFanRbmDsi2.data());
         /// Do move timer event for fan routine task to independent thread
         /// make the timer has prescission because independent from this Macine State looping
         m_timerEventForFanRbmDsi->moveToThread(m_threadForFanRbmDsi.data());
+        m_timerEventForFanRbmDsi2->moveToThread(m_threadForFanRbmDsi2.data());
         /// Also move all necesarry object to independent fan thread
         m_serialPort1->moveToThread(m_threadForFanRbmDsi.data());
         m_boardRegalECM->moveToThread(m_threadForFanRbmDsi.data());
+        m_serialPort12->moveToThread(m_threadForFanRbmDsi2.data());
+        m_boardRegalECM2->moveToThread(m_threadForFanRbmDsi2.data());
     }//
 
     /// Sash Window Motorize
@@ -948,8 +967,6 @@ void MachineBackend::setup()
         /// this only for testing/debug
         m_pSasWindowMotorize->setProtectFromDualActive(true);
 #endif
-
-
         connect(m_pSasWindowMotorize.data(), &MotorizeOnRelay::stateChanged,
                 pData, [&](int newVal){
             pData->setSashWindowMotorizeState(static_cast<short>(newVal));
@@ -1047,7 +1064,31 @@ void MachineBackend::setup()
             /// MODBUS
             _setModbusRegHoldingValue(modbusRegisterAddress.lightIntensity.addr, static_cast<ushort>(newVal));
         });
-    }
+    }//
+
+    //    /// Light Intensity - PWM OUTPUT
+    //    {
+    //        int min = m_settings->value(SKEY_LIGHT_INTENSITY_MIN, 30).toInt(); //percent
+    //        int light = static_cast<short>(m_settings->value(SKEY_LIGHT_INTENSITY, 100).toInt());
+
+    //        m_pLightIntensity2.reset(new DevicePWMOut);
+    //        m_pLightIntensity2->setSubModule(m_boardPWMOut.data());
+    //        m_pLightIntensity2->setChannelIO(0);
+    //        m_pLightIntensity2->setDutyCycleMinimum(static_cast<short>(min));
+    //        m_pLightIntensity2->setState(light);
+
+    //        connect(m_pLightIntensity2.data(), &DevicePWMOut::stateChanged,
+    //                this, [&](int newVal){
+    //            pData->setLightIntensity(static_cast<short>(newVal));
+    //            /// MODBUS
+    //            _setModbusRegHoldingValue(modbusRegisterAddress.lightIntensity.addr, static_cast<ushort>(newVal));
+    //        });
+
+    //        //        connect(m_pLightIntensity2.data(), &DevicePWMOut::interlockChanged,
+    //        //                pData, [&](int newVal){
+    //        //            //pData->setSV1Interlocked(newVal);
+    //        //        });
+    //    }//
 
     /// Light
     {
@@ -1163,6 +1204,7 @@ void MachineBackend::setup()
             setAlarmContactState(static_cast<short>(newVal));
         });
     }
+
 
     /// Particle Counter
     {
@@ -2302,21 +2344,24 @@ void MachineBackend::setup()
 
                         m_pFanPrimary->setDutyCycle(pData->getFanPrimaryNominalDutyCycle());
                         m_pFanPrimary->routineTask();
-                        m_pFanInflow->setState(pData->getFanInflowNominalDutyCycle());
-                        m_pFanInflow->routineTask();
+                        m_pFanInflow2->setDutyCycle(pData->getFanInflowNominalDutyCycle());
+                        m_pFanInflow2->routineTask();
+                        //                        m_pFanInflow->setState(pData->getFanInflowNominalDutyCycle());
+                        //                        m_pFanInflow->routineTask();
 
                         bool dfaUpdated = false;
                         bool ifaUpdated = false;
                         /// wait until fan actually turned on or exceed the time out (10 seconds)
                         for (int var = 0; var < 10; ++var) {
                             m_pFanPrimary->routineTask();
-                            m_pFanInflow->routineTask();
+                            m_pFanInflow2->routineTask();
+                            // m_pFanInflow->routineTask();
                             if(m_pFanPrimary->dutyCycle() == dfaDutyCycle && !dfaUpdated){
                                 //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
                                 _onFanPrimaryActualDucyChanged(dfaDutyCycle);
                                 dfaUpdated = true;
                             }
-                            if(m_pFanInflow->getState() == ifaDutyCycle && !ifaUpdated){
+                            if(/*m_pFanInflow->getState()*/m_pFanInflow2->dutyCycle() == ifaDutyCycle && !ifaUpdated){
                                 //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
                                 _onFanInflowActualDucyChanged(ifaDutyCycle);
                                 ifaUpdated = true;
@@ -2415,9 +2460,10 @@ void MachineBackend::loop()
     /// ACTUATOR
     /// put any actuator routine task in here
     m_pSasWindowMotorize->routineTask();
-    m_pFanInflow->routineTask();
+    //m_pFanInflow->routineTask();
     m_pLight->routineTask();
     m_pLightIntensity->routineTask();
+    //m_pLightIntensity2->routineTask();
     if(pData->getSocketInstalled()) m_pSocket->routineTask();
     if(pData->getGasInstalled()) m_pGas->routineTask();
     if(pData->getUvInstalled()) m_pUV->routineTask();
@@ -2592,7 +2638,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
     }
 
 #ifndef QT_DEBUG
-    qDebug() << "SashWindow :" << sashPrevStr << sashStr;
+    //qDebug() << "SashWindow :" << sashPrevStr << sashStr;
 #endif
     //    for(short i=1; i>=0; i--){
     //        if(i>0)
@@ -3771,7 +3817,7 @@ QStringList MachineBackend::_readSbcSystemInformation()
     sysInfoStr = output.remove(QRegularExpression("[\t]+"));
     sysInfo = sysInfoStr.split("\n", Qt::SkipEmptyParts);
 
-    qDebug() << sysInfo;
+    //qDebug() << sysInfo;
 #else
     sysInfo = QStringList() << "Unknown";
 #endif
@@ -4214,6 +4260,7 @@ void MachineBackend::setLightIntensity(short lightIntensity)
     if(lightIntensity > 100) return;
 
     m_pLightIntensity->setState(lightIntensity);
+    //m_pLightIntensity2->setState(lightIntensity);
 }
 
 void MachineBackend::saveLightIntensity(short lightIntensity)
@@ -4780,9 +4827,13 @@ void MachineBackend::_setFanInflowDutyCycle(short dutyCycle)
     qDebug() << "Set fan duty" << dutyCycle << "%";
     /// talk to another thread
     /// append pending task to target object and target thread
-    QMetaObject::invokeMethod(m_pFanInflow.data(),[&, dutyCycle]{
-        m_pFanInflow->setState(dutyCycle);
-        m_pFanInflow->routineTask();
+    //    QMetaObject::invokeMethod(m_pFanInflow.data(),[&, dutyCycle]{
+    //        m_pFanInflow->setState(dutyCycle);
+    //        m_pFanInflow->routineTask();
+    //    },
+    //    Qt::QueuedConnection);
+    QMetaObject::invokeMethod(m_pFanInflow2.data(),[&, dutyCycle]{
+        m_pFanInflow2->setDutyCycle(dutyCycle);
     },
     Qt::QueuedConnection);
 }
@@ -4791,8 +4842,13 @@ void MachineBackend::_setFanInflowInterlocked(bool interlocked)
 {
     /// talk to another thread
     /// append pending task to target object and target thread
-    QMetaObject::invokeMethod(m_pFanInflow.data(),[&, interlocked]{
-        m_pFanInflow->setInterlock(interlocked);
+    //    QMetaObject::invokeMethod(m_pFanInflow.data(),[&, interlocked]{
+    //        m_pFanInflow->setInterlock(interlocked);
+    //    },
+    //    Qt::QueuedConnection);
+    //    pData->setFanInflowInterlocked(interlocked);
+    QMetaObject::invokeMethod(m_pFanInflow2.data(),[&, interlocked]{
+        m_pFanInflow2->setInterlock(interlocked);
     },
     Qt::QueuedConnection);
     pData->setFanInflowInterlocked(interlocked);
@@ -5635,13 +5691,13 @@ void MachineBackend::_onFanInflowActualDucyChanged(short value)
     _setModbusRegHoldingValue(modbusRegisterAddress.ifaFanDutyCycle.addr, static_cast<ushort>(value));
 }
 
-//void MachineBackend::_onFanInflowActualRpmChanged(int value)
-//{
-//    pData->setFanPrimaryRpm(value);
+void MachineBackend::_onFanInflowActualRpmChanged(int value)
+{
+    pData->setFanInflowRpm(value);
 
-//    /// MODBUS
-//    _setModbusRegHoldingValue(modbusRegisterAddress.fanRpm.addr, static_cast<ushort>(value));
-//}
+    /// MODBUS
+    _setModbusRegHoldingValue(modbusRegisterAddress.ifaFanRpm.addr, static_cast<ushort>(value));
+}
 
 void MachineBackend::_onSashStateChanged(short state, short prevState)
 {
@@ -7704,6 +7760,26 @@ void MachineBackend::setFrontPanelSwitchInstalled(bool value)
     settings.setValue(SKEY_FRONT_PANEL_INSTALLED, value);
 }
 
+void MachineBackend::setFanPrimaryRbmAddress(uchar address)
+{
+    qDebug() << metaObject()->className() << __func__ << address << thread() ;
+
+    pData->setFanPrimaryRbmAddress(address);
+    QSettings settings;
+    settings.setValue(SKEY_RBM_ADDRS_PRIMARY, address);
+    m_boardRegalECM->setAddressModule(address);
+}
+
+void MachineBackend::setFanInflowRbmAddress(uchar address)
+{
+    qDebug() << metaObject()->className() << __func__ << address << thread() ;
+
+    pData->setFanInflowRbmAddress(address);
+    QSettings settings;
+    settings.setValue(SKEY_RBM_ADDRS_INFLOW, address);
+    m_boardRegalECM2->setAddressModule(address);
+}
+
 void MachineBackend::_machineState()
 {
     //    qDebug() << __func__;
@@ -7715,6 +7791,7 @@ void MachineBackend::_machineState()
     alarmsBoards |= !pData->getBoardStatusHybridAnalogInput();
     alarmsBoards |= !pData->getBoardStatusHybridAnalogOutput();
     alarmsBoards |= !pData->getBoardStatusRbmCom();
+    alarmsBoards |= !pData->getBoardStatusRbmCom2();
     alarmsBoards |= !pData->getBoardStatusCtpRtc();
     alarmsBoards |= !pData->getBoardStatusCtpIoe();
     if(pData->getSeasInstalled())
@@ -8984,14 +9061,14 @@ void MachineBackend::onDummyStateNewConnection()
             Qt::QueuedConnection);
         }
         else if(message == QLatin1String("#fanIfa#dummy#1")){
-            QMetaObject::invokeMethod(m_pFanInflow.data(),[&]{
-                m_pFanInflow->setDummyStateEnable(1);
+            QMetaObject::invokeMethod(m_pFanInflow2.data(),[&]{
+                m_pFanInflow2->setDummyStateEnable(1);
             },
             Qt::QueuedConnection);
         }
         else if(message == QLatin1String("#fanIfa#dummy#0")){
-            QMetaObject::invokeMethod(m_pFanInflow.data(),[&]{
-                m_pFanInflow->setDummyStateEnable(0);
+            QMetaObject::invokeMethod(m_pFanInflow2.data(),[&]{
+                m_pFanInflow2->setDummyStateEnable(0);
             },
             Qt::QueuedConnection);
         }
@@ -9015,19 +9092,19 @@ void MachineBackend::onDummyStateNewConnection()
         else if(message.contains("#fanIfa#state#")){
             QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
             int value = std::atoi(adcStr.toStdString().c_str());
-            QMetaObject::invokeMethod(m_pFanInflow.data(),[&, value]{
-                m_pFanInflow->setDummyState(static_cast<short>(value));
+            QMetaObject::invokeMethod(m_pFanInflow2.data(),[&, value]{
+                m_pFanInflow2->setDummyState(static_cast<short>(value));
             },
             Qt::QueuedConnection);
         }
-        //        else if(message.contains("#fanIfa#rpm#")){
-        //            QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
-        //            int value = std::atoi(adcStr.toStdString().c_str());
-        //            QMetaObject::invokeMethod(m_pFanInflow.data(),[&, value]{
-        //                m_pFanInflow->setDummyRpm(value);
-        //            },
-        //            Qt::QueuedConnection);
-        //        }
+        else if(message.contains("#fanIfa#rpm#")){
+            QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
+            int value = std::atoi(adcStr.toStdString().c_str());
+            QMetaObject::invokeMethod(m_pFanInflow2.data(),[&, value]{
+                m_pFanInflow2->setDummyRpm(value);
+            },
+            Qt::QueuedConnection);
+        }
 
         if(message == QLatin1String("#lamp#dummy#1")){
             m_pLight->setDummyStateEnable(1);

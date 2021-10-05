@@ -39,6 +39,7 @@ SOURCES +=  \
     Implementations/LampDimm/LampDimm.cpp \
     Implementations/Modbus/QModbusTcpConnObserverImp.cpp \
     Implementations/MotorizeOnRelay/MotorizeOnRelay.cpp \
+    Implementations/PWMOut/DevicePWMOut.cpp \
     Implementations/ParticleCounter/ParticleCounter.cpp \
     Implementations/PressureDiff/PressureDiff.cpp \
     Implementations/SashWindow/SashWindow.cpp \
@@ -69,6 +70,7 @@ HEADERS +=  \
     Implementations/LampDimm/LampDimm.h \
     Implementations/Modbus/QModbusTcpConnObserverImp.h \
     Implementations/MotorizeOnRelay/MotorizeOnRelay.h \
+    Implementations/PWMOut/DevicePWMOut.h \
     Implementations/ParticleCounter/ParticleCounter.h \
     Implementations/PressureDiff/PressureDiff.h \
     Implementations/SashWindow/SashWindow.h \

@@ -479,6 +479,13 @@
                                  micon     :   "qrc:/UI/Pictures/menu/microprocessor-device.png",
                                  mlink     :   "qrc:/UI/Pages/SystemInformationPage/SystemInformationPage.qml"
                              })
+
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype        :   "menu",
+                                 mtitle    :   qsTr("Fan RBM Address"),
+                                 micon     :   "qrc:/UI/Pictures/menu/microprocessor-device.png",
+                                 mlink     :   "qrc:/UI/Pages/FanRbmSetAddressPage/FanRbmSetAddressPage.qml"
+                             })
             //
             //            let calibrateSensor
             //            if(menu[index].length > itemPerPage) {index++; menu.push([])}

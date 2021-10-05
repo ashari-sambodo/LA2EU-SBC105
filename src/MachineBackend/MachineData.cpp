@@ -259,6 +259,28 @@ void MachineData::setFrontPanelAlarm(short value)
     emit frontPanelAlarmChanged(value);
 }
 
+void MachineData::setFanPrimaryRbmAddress(uchar address)
+{
+    if(m_fanPrimaryRbmAddress == address) return;
+    m_fanPrimaryRbmAddress = address;
+}
+
+void MachineData::setFanInflowRbmAddress(uchar address)
+{
+    if(m_fanInflowRbmAddress == address) return;
+    m_fanInflowRbmAddress = address;
+}
+
+uchar MachineData::getFanPrimaryRbmAddress() const
+{
+    return m_fanPrimaryRbmAddress;
+}
+
+uchar MachineData::getFanInflowRbmAddress() const
+{
+    return m_fanInflowRbmAddress;
+}
+
 QString MachineData::getSbcSerialNumber() const
 {
     return m_sbcSerialNumber;
@@ -2012,6 +2034,18 @@ void MachineData::setBoardStatusCtpIoe(bool boardStatusCtpIoe)
     emit boardStatusCtpIoeChanged(m_boardStatusCtpIoe);
 }
 
+bool MachineData::getBoardStatusPWMOutput() const
+{
+    return m_boardStatusPWMOutput;
+}
+
+void MachineData::setBoardStatusPWMOutput(bool boardStatusPWMOutput)
+{
+    if(m_boardStatusPWMOutput == boardStatusPWMOutput) return;
+    m_boardStatusPWMOutput = boardStatusPWMOutput;
+    emit boardStatusPWMOutputChanged(m_boardStatusPWMOutput);
+}
+
 bool MachineData::getDataLogEnable() const
 {
     return m_dataLogEnable;
@@ -2078,6 +2112,20 @@ void MachineData::setBoardStatusRbmCom(bool boardStatusRbmCom)
 
     m_boardStatusRbmCom = boardStatusRbmCom;
     emit boardStatusRbmComChanged(m_boardStatusRbmCom);
+}
+
+bool MachineData::getBoardStatusRbmCom2() const
+{
+    return m_boardStatusRbmCom2;
+}
+
+void MachineData::setBoardStatusRbmCom2(bool boardStatusRbmCom2)
+{
+    if (m_boardStatusRbmCom2 == boardStatusRbmCom2)
+        return;
+
+    m_boardStatusRbmCom2 = boardStatusRbmCom2;
+    emit boardStatusRbmCom2Changed(m_boardStatusRbmCom2);
 }
 
 bool MachineData::getBoardStatusPressureDiff() const

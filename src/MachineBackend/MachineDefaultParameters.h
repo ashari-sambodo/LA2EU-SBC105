@@ -2,6 +2,8 @@
 
 #define BLOWER_USB_SERIAL_VID      4292
 #define BLOWER_USB_SERIAL_PID      60000
+#define BLOWER_USB_SERIAL_PORT0    "ttyUSB0"
+#define BLOWER_USB_SERIAL_PORT1    "ttyUSB1"
 
 #define PARTICLE_COUNTER_UART_VID  1027
 #define PARTICLE_COUNTER_UART_PID  24577
@@ -126,6 +128,8 @@
 #define SKEY_FAN_CLOSE_LOOP_GAIN_D      "fanClGainD"
 ////
 #define SKEY_FRONT_PANEL_INSTALLED      "fronPanInst"
+#define SKEY_RBM_ADDRS_PRIMARY      "rbmAddrsPri"
+#define SKEY_RBM_ADDRS_INFLOW      "rbmAddrsInf"
 
 ////
 //// INFLOW CALIBRATION
