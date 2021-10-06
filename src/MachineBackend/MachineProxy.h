@@ -118,18 +118,18 @@ public slots:
     void setFanInflowDutyCycle(short value);
     //
     void setFanInflowNominalDutyCycleFactory(short value);
-    //    void setFanInflowNominalRpmFactory(int value);
+    void setFanInflowNominalRpmFactory(int value);
     void setFanInflowMinimumDutyCycleFactory(short value);
-    //    void setFanInflowMinimumRpmFactory(int value);
+    void setFanInflowMinimumRpmFactory(int value);
     void setFanInflowStandbyDutyCycleFactory(short value);
-    //    void setFanInflowStandbyRpmFactory(int value);
+    void setFanInflowStandbyRpmFactory(int value);
     //
     void setFanInflowNominalDutyCycleField(short value);
-    //    void setFanInflowNominalRpmField(int value);
+    void setFanInflowNominalRpmField(int value);
     void setFanInflowMinimumDutyCycleField(short value);
-    //    void setFanInflowMinimumRpmField(int value);
+    void setFanInflowMinimumRpmField(int value);
     void setFanInflowStandbyDutyCycleField(short value);
-    //    void setFanInflowStandbyRpmField(int value);
+    void setFanInflowStandbyRpmField(int value);
 
 
     void setLightIntensity(short lightIntensity);
@@ -327,9 +327,9 @@ public slots:
     /// FRONT PANEL SWITCH LA2EU
     void setFrontPanelSwitchInstalled(bool value);
     ///
-//    void setFanPrimaryRbmAddress(uchar address);
-//    void setFanInflowRbmAddress(uchar address);
-        void scanRbmComPortAvalaible(bool value);
+    //    void setFanPrimaryRbmAddress(uchar address);
+    //    void setFanInflowRbmAddress(uchar address);
+    void scanRbmComPortAvalaible(bool value);
     void setRbmComPortIfa(QString value);
     void setRbmComPortDfa(QString value);
 

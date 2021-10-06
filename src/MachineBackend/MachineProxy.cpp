@@ -1053,6 +1053,20 @@ void MachineProxy::setFanInflowNominalDutyCycleFactory(short value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setFanInflowNominalRpmFactory(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowNominalRpmFactory(value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setFanInflowMinimumDutyCycleFactory(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
@@ -1063,6 +1077,20 @@ void MachineProxy::setFanInflowMinimumDutyCycleFactory(short value)
     /// this method will append pending task to target object then execute on target thread
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
         m_machineBackend->setFanInflowMinimumDutyCycleFactory(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanInflowMinimumRpmFactory(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowMinimumRpmFactory(value);
     },
     Qt::QueuedConnection);
 }
@@ -1081,6 +1109,20 @@ void MachineProxy::setFanInflowStandbyDutyCycleFactory(short value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setFanInflowStandbyRpmFactory(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowStandbyRpmFactory(value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setFanInflowNominalDutyCycleField(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
@@ -1091,6 +1133,20 @@ void MachineProxy::setFanInflowNominalDutyCycleField(short value)
     /// this method will append pending task to target object then execute on target thread
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
         m_machineBackend->setFanInflowNominalDutyCycleField(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanInflowNominalRpmField(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowNominalRpmField(value);
     },
     Qt::QueuedConnection);
 }
@@ -1109,6 +1165,20 @@ void MachineProxy::setFanInflowMinimumDutyCycleField(short value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setFanInflowMinimumRpmField(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowMinimumRpmField(value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setFanInflowStandbyDutyCycleField(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
@@ -1119,6 +1189,20 @@ void MachineProxy::setFanInflowStandbyDutyCycleField(short value)
     /// this method will append pending task to target object then execute on target thread
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
         m_machineBackend->setFanInflowStandbyDutyCycleField(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFanInflowStandbyRpmField(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    /// compare with string communication
+    /// this method better in error checking during compiling
+    /// this method will append pending task to target object then execute on target thread
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFanInflowStandbyRpmField(value);
     },
     Qt::QueuedConnection);
 }

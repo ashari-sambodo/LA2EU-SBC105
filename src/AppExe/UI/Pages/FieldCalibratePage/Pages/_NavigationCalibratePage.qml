@@ -599,7 +599,7 @@ ViewApp {
                 //MachineAPI.setFanInflowMinimumDutyCycleField(props.fanDutyCycleMinimum)
                 //MachineAPI.setFanInflowStandbyDutyCycleField(props.ifaFanDutyCycleStandby)
 
-                //MachineAPI.setFanInflowNominalRpmField(props.dfaFanRpmNominal)
+                MachineAPI.setFanInflowNominalRpmField(props.ifaFanRpmNominal)
                 //MachineAPI.setFanInflowMinimumRpmField(props.fanRpmMinimum)
                 //MachineAPI.setFanInflowStandbyRpmField(props.dfaFanRpmStandby)
 
@@ -736,8 +736,8 @@ ViewApp {
                                          props.ifaFanDutyCycleNominalField = MachineData.getFanInflowNominalDutyCycleField() ?
                                                      MachineData.getFanInflowNominalDutyCycleField() : props.ifaFanDutyCycleNominal
 
-                                         //props.ifaFanRpmNominal = MachineData.getFanInflowNominalRpmFactory()
-                                         //props.ifaFanRpmStandby = MachineData.getFanInflowStandbyRpmFactory()
+                                         props.ifaFanRpmNominal = MachineData.getFanInflowNominalRpmFactory()
+                                         props.ifaFanRpmStandby = MachineData.getFanInflowStandbyRpmFactory()
 
                                          //// DOWNFLOW
                                          props.dfaSensorAdcZero       = MachineData.getDownflowAdcPointFactory(0);
@@ -834,7 +834,7 @@ ViewApp {
                             props.meaIfaNominalVelocity = velocity * 100
 
                             props.ifaFanDutyCycleNominal   = extradata['calibrateRes']['fanDucy']
-                            //props.fanRpmNominal         = extradata['calibrateRes']['fanRpm']
+                            props.ifaFanRpmNominal         = extradata['calibrateRes']['fanRpm']
 
                             //console.log("fanDutyCycleNominal: " + props.fanDutyCycleNominal)
 
@@ -870,7 +870,7 @@ ViewApp {
                             //console.debug(props.meaIfaNominalSecVelocity)
 
                             props.ifaFanDutyCycleNominal   = extradata['calibrateRes']['fanDucy'] || 0
-                            //props.fanRpmNominal         = extradata['calibrateRes']['fanRpm'] || 0
+                            props.ifaFanRpmNominal         = extradata['calibrateRes']['fanRpm'] || 0
 
                             //console.log("fanDutyCycleNominal: " + props.fanDutyCycleNominal)
 
@@ -901,7 +901,7 @@ ViewApp {
                             props.meaIfaStandbyVelocity = velocity * 100
 
                             props.ifaFanDutyCycleStandby  = extradata['calibrateRes']['fanDucy']
-                            //props.fanRpmStandby        = extradata['calibrateRes']['fanRpm']
+                            props.ifaFanRpmStandby        = extradata['calibrateRes']['fanRpm']
 
                             if(props.measurementUnit) velocity = Math.round(velocity)
                             props.ifaSensorVelStandby      = velocity * 100
@@ -968,7 +968,7 @@ ViewApp {
                             props.dfaSensorVelNominal = dfaVelocity * 100
 
                             props.ifaFanDutyCycleNominal  = extradata['ifaFanDutyCycleResult']
-                            //props.fanRpmNominal        = extradata['fanRpmResult']
+                            props.ifaFanRpmNominal        = extradata['ifaFanRpmResult']
                             props.dfaFanDutyCycleNominal  = extradata['dfaFanDutyCycleResult']
                             props.dfaFanRpmNominal        = extradata['dfaFanRpmResult']
 

@@ -443,8 +443,8 @@ ViewApp {
                                         }//
 
                                         TextApp {
-                                            color: "#0F2952"
-                                            text: "RPM: " /*+ props.fanRpmActual*/
+                                            //color: "#0F2952"
+                                            text: "RPM: " + props.ifaFanRpmActual
                                         }//
                                     }//
 
@@ -951,11 +951,11 @@ ViewApp {
             property int    dfaFanDutyCycleActual: 0
             property int    dfaFanRpmActual: 0
             property int    ifaFanDutyCycleActual: 0
-            //property int    ifaFanRpmActual: 0
+            property int    ifaFanRpmActual: 0
 
             property int    dfaFanDutyCycleInitial: 0
-            property int    fanDutyCycleResult: 0
-            property int    fanRpmResult: 0
+            //            property int    fanDutyCycleResult: 0
+            //            property int    fanRpmResult: 0
             property int    ifaFanDutyCycleInitial: 0
             //property int    fanDutyCycleResult: 0
             //property int    fanRpmResult1: 0
@@ -982,7 +982,7 @@ ViewApp {
                     'fanDucy':  dfaFanDutyCycleActual,
                     'fanRpm':   dfaFanRpmActual,
                     'fanDucy1':  ifaFanDutyCycleActual,
-                    //'fanRpm1':   fanRpmActual1,
+                    'fanRpm1':   ifaFanRpmActual,
                 }
                 return result;
             }
@@ -1066,7 +1066,7 @@ ViewApp {
                 props.dfaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanPrimaryDutyCycle })
                 props.dfaFanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
                 props.ifaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanInflowDutyCycle })
-                //props.fanRpmActual1 = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
+                props.ifaFanRpmActual = Qt.binding(function(){ return MachineData.fanInflowRpm })
 
                 /// Automatically adjust the fan duty cycle to common initial duty cycle
                 if ((props.dfaFanDutyCycleActual != props.dfaFanDutyCycleInitial)

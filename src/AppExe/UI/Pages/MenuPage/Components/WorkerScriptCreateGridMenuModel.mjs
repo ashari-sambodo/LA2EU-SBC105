@@ -392,6 +392,12 @@
             //                                 micon      :   "qrc:/UI/Pictures/menu/Reset-Default.png",
             //                                 mlink      :   "qrc:/UI/Pages/ResetParametersPage/ResetParametersPage.qml",
             //                             })
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype        :   "menu",
+                                 mtitle    :   qsTr("RBM Com Port"),
+                                 micon     :   "qrc:/UI/Pictures/menu/RBM_Com_Port.png",
+                                 mlink     :   "qrc:/UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml"
+                             })
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype         :   "menu",
@@ -425,13 +431,6 @@
 
             menu = [[]]
             index = 0
-
-            if(menu[index].length > itemPerPage) {index++; menu.push([])}
-            menu[index].push({mtype        :   "menu",
-                                 mtitle    :   qsTr("RBM Com Port"),
-                                 micon     :   "qrc:/UI/Pictures/menu/RBM_Com_Port.png",
-                                 mlink     :   "qrc:/UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml"
-                             })
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype        :   "menu",

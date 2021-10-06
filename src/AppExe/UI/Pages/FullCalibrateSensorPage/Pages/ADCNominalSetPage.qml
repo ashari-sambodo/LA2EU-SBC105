@@ -120,7 +120,7 @@ ViewApp {
                                                                     anchors.verticalCenter: parent.verticalCenter
                                                                     TextApp {
                                                                         id: dfaDcyText
-                                                                        text: "Dcy: " + props.dfaFanDutyCycleActual
+                                                                        text: qsTr("Dcy: ") + props.dfaFanDutyCycleActual
                                                                         states: [
                                                                             State {
                                                                                 when: props.dfaFanDutyCycleActual == 0
@@ -133,7 +133,7 @@ ViewApp {
                                                                     }//
                                                                     TextApp {
                                                                         id: dfaRpmText
-                                                                        text: "RPM: " + props.dfaFanRpmActual
+                                                                        text: qsTr("RPM: ") + props.dfaFanRpmActual
                                                                         states: [
                                                                             State {
                                                                                 when: props.dfaFanRpmActual == 0
@@ -617,7 +617,7 @@ ViewApp {
                                                                     anchors.verticalCenter: parent.verticalCenter
                                                                     TextApp {
                                                                         id: ifaDcyText
-                                                                        text: "Dcy: " + props.ifaFanDutyCycleActual
+                                                                        text: qsTr("Dcy: ") + props.ifaFanDutyCycleActual
                                                                         states: [
                                                                             State {
                                                                                 when: props.ifaFanDutyCycleActual == 0
@@ -629,8 +629,17 @@ ViewApp {
                                                                         ]//
                                                                     }//
                                                                     TextApp {
-                                                                        text: "I"
-                                                                        color: "#0F2952"
+                                                                        id: ifaRpmText
+                                                                        text: qsTr("RPM: ") + props.ifaFanRpmActual
+                                                                        states: [
+                                                                            State {
+                                                                                when: props.ifaFanRpmActual == 0
+                                                                                PropertyChanges {
+                                                                                    target: ifaRpmText
+                                                                                    color: "red"
+                                                                                }
+                                                                            }//
+                                                                        ]//
                                                                     }//
                                                                 }//
                                                             }
@@ -912,7 +921,7 @@ ViewApp {
 
                                             let ifaAdc = props.ifaAdcActual
                                             let ifaFanDutyCycle = props.ifaFanDutyCycleActual
-                                            //let ifaFanRpm = props.ifaFanRpmActual
+                                            let ifaFanRpm = props.ifaFanRpmActual
                                             let ifaVelocityValid = (props.ifaVelocityNom > props.ifaVelocityMin) ? true : false
                                             let ifaAdcNominalValid = (ifaAdc - props.ifaSensorAdcZero) >= 100 ? true : false
                                             //let ifaAdcMinimumValid = (ifaAdc - props.sensorAdcMinimum) >= 100 ? true : false
@@ -932,7 +941,7 @@ ViewApp {
                                             //                                            temperatureCalibStrf = props.measureUnit ? "20°C" : "20°F"
 
                                             if (dfaAdcNominalValid && dfaVelocityValid && dfaFanDutyCycle && dfaFanRpm &&
-                                                    ifaAdcNominalValid && ifaVelocityValid && ifaFanDutyCycle) {
+                                                    ifaAdcNominalValid && ifaVelocityValid && ifaFanDutyCycle && ifaFanRpm) {
                                                 props.calibrateDone = true
                                             }else{
                                                 if(!dfaAdcNominalValid) props.calibrationFailCode = 0x0001
@@ -942,6 +951,7 @@ ViewApp {
                                                 if(!ifaVelocityValid)   props.calibrationFailCode = 0x0010
                                                 if(!ifaFanDutyCycle)    props.calibrationFailCode = 0x0020
                                                 if(!dfaFanRpm)          props.calibrationFailCode = 0x0040
+                                                if(!ifaFanRpm)          props.calibrationFailCode = 0x0080
                                                 console.debug("dfaAdcNominalValid   :", dfaAdcNominalValid, props.dfaSensorAdcZero, props.dfaAdcActual)
                                                 console.debug("dfaVelocityValid     :", dfaVelocityValid,   props.dfaVelocityMin, props.dfaVelocityNom, props.dfaVelocityMax)
                                                 console.debug("dfaFanDutyCycle      :", dfaFanDutyCycle,    props.dfaFanDutyCycleActual)
@@ -949,6 +959,7 @@ ViewApp {
                                                 console.debug("ifaVelocityValid     :", ifaVelocityValid,   props.ifaVelocityMin, props.ifaVelocityNom)
                                                 console.debug("ifaFanDutyCycle      :", ifaFanDutyCycle,    props.ifaFanDutyCycleActual)
                                                 console.debug("dfaFanRpm            :", dfaFanRpm,          props.dfaFanRpmActual)
+                                                console.debug("ifaFanRpm            :", dfaFanRpm,          props.ifaFanRpmActual)
                                                 console.debug("Fail Calibration Code:", props.calibrationFailCode)
                                             }
 
@@ -958,7 +969,7 @@ ViewApp {
 
                                             props.ifaAdcResult = ifaAdc
                                             props.ifaFanDutyCycleResult = ifaFanDutyCycle
-                                            //props.ifaFanRpmResult = ifaFanRpm
+                                            props.ifaFanRpmResult = ifaFanRpm
 
                                             props.temperatureCalib = temperatureCalib
                                             props.temperatureCalibAdc = temperatureCalibAdc
@@ -1281,7 +1292,7 @@ ViewApp {
                                             }//
 
                                             TextApp {
-                                                text: ":" + props.ifaFanDutyCycleResult + "%"/* + props.ifaFanRpmResult + " RPM"*/
+                                                text: ":" + props.ifaFanDutyCycleResult + "%" + props.ifaFanRpmResult + " RPM"
                                                 font.pixelSize: 18
                                             }//
                                         }//
@@ -1330,6 +1341,7 @@ ViewApp {
                                 case 0x0010: resultiInfoText.text = qsTr("Vel IF1 < DF2 not met!");         break
                                 case 0x0020: resultiInfoText.text = qsTr("Duty cycle IF2 not valid!");      break
                                 case 0x0040: resultiInfoText.text = qsTr("DF Fan RPM not valid!");          break
+                                case 0x0080: resultiInfoText.text = qsTr("IF Fan RPM not valid!");          break
                                 default:     resultiInfoText.text = qsTr("There may be invalid values!");   break
                                 }
                             }
@@ -1397,7 +1409,7 @@ ViewApp {
                                                                           "ifaSensorVelMinimum": props.ifaVelocityMin,
                                                                           "ifaSensorVelNominal": props.ifaVelocityNom,
                                                                           "ifaFanDutyCycleResult": props.ifaFanDutyCycleResult,
-                                                                          //"ifaFanRpmResult": props.ifaFanRpmResult,
+                                                                          "ifaFanRpmResult": props.ifaFanRpmResult,
 
                                                                           "temperatureCalib": props.temperatureCalib,
                                                                           "temperatureCalibAdc": props.temperatureCalibAdc
@@ -1438,7 +1450,7 @@ ViewApp {
             property int dfaFanDutyCycleActual: 0
             property int dfaFanRpmActual: 0
             property int ifaFanDutyCycleActual: 0
-            //            property int ifaFanRpmActual: 0
+            property int ifaFanRpmActual: 0
 
             property int dfaSensorAdcZero: 0
             //            property int dfaSensorAdcMinimum: 0
@@ -1482,7 +1494,7 @@ ViewApp {
             property int dfaFanDutyCycleResult: 0
             property int dfaFanRpmResult: 0
             property int ifaFanDutyCycleResult: 0
-            //            property int ifaFanRpmResult: 0
+            property int ifaFanRpmResult: 0
 
             property int dfaSensorConstant: 0
             property int ifaSensorConstant: 0
@@ -1551,7 +1563,7 @@ ViewApp {
                 props.dfaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanPrimaryDutyCycle })
                 props.dfaFanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
                 props.ifaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanInflowDutyCycle })
-                //                props.ifaFanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
+                props.ifaFanRpmActual = Qt.binding(function(){ return MachineData.fanInflowRpm })
 
                 props.ifaAdcActual = Qt.binding(function(){ return MachineData.ifaAdcConpensation })
                 props.dfaAdcActual = Qt.binding(function(){ return MachineData.dfaAdcConpensation })

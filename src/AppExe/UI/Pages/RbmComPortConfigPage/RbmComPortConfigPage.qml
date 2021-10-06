@@ -62,7 +62,22 @@ ViewApp {
                             anchors.centerIn: parent
                             spacing: 10
                             TextApp{
-                                text: qsTr("Available RBM Com Port")
+                                text: qsTr("Downflow Fan Port:")
+                            }
+                            Rectangle{
+                                width: 190
+                                height: 50
+                                color: "transparent"
+                                TextApp{
+                                    width: parent.width
+                                    height: parent.height
+                                    text: MachineData.rbmComPortDfa
+                                    font.bold: true
+                                    //verticalAlignment: Text.AlignVCenter
+                                }
+                            }
+                            TextApp{
+                                text: qsTr("Configure Port:")
                             }
                             ComboBoxApp {
                                 id: comboBox1
@@ -72,21 +87,20 @@ ViewApp {
                                 backgroundBorderColor: "#dddddd"
                                 backgroundBorderWidth: 2
                                 font.pixelSize: 20
-                                anchors.horizontalCenter: parent.horizontalCenter
+                                //anchors.horizontalCenter: parent.horizontalCenter
                                 textRole: "text"
 
                                 onActivated: {
                                     console.debug(model[index].text)
                                     props.rbmComPortDfa = model[index].text
-                                }
+                                }//
 
                                 Component.onCompleted: {
-                                    MachineAPI.scanRbmComPortAvalaible(true)
                                     model = Qt.binding(function(){return props.modelList})
-                                }
+                                }//
                             }//
                         }//
-                    }
+                    }//
                     Item{
                         Layout.fillWidth: true
                         Layout.fillHeight: true
@@ -94,7 +108,22 @@ ViewApp {
                             anchors.centerIn: parent
                             spacing: 10
                             TextApp{
-                                text: qsTr("Available RBM Com Port")
+                                text: qsTr("Inflow Fan Port:")
+                            }
+                            Rectangle{
+                                width: 190
+                                height: 50
+                                color: "transparent"
+                                TextApp{
+                                    width: parent.width
+                                    height: parent.height
+                                    font.bold: true
+                                    text: MachineData.rbmComPortIfa
+                                    //verticalAlignment: Text.AlignVCenter
+                                }
+                            }
+                            TextApp{
+                                text: qsTr("Configure Port:")
                             }
                             ComboBoxApp {
                                 id: comboBox2
@@ -113,12 +142,21 @@ ViewApp {
                                 }
 
                                 Component.onCompleted: {
-                                    MachineAPI.scanRbmComPortAvalaible(true)
                                     model = Qt.binding(function(){return props.modelList})
                                 }
                             }//
                         }//
                     }//
+                }//
+                TextApp {
+                    anchors.bottom: parent.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text:  "*" + qsTr("New configuration will be applied after system restart") + "."
+                           + "<br>"
+                           + qsTr("The system will be restarted after you click the 'Save' button") + "."
+                    color: "#cccccc"
+                    font.pixelSize: 16
+                    horizontalAlignment: Text.AlignHCenter
                 }//
             }//
 
@@ -165,13 +203,15 @@ ViewApp {
                     text: qsTr("Save")
 
                     onClicked: {
-                        showBusyPage(qsTr("Setting up..."), function(seconds){
+                        viewApp.showBusyPage(qsTr("Setting up..."), function(seconds){
                             if(props.dfaParamChanged)
                                 MachineAPI.setRbmComPortDfa(props.rbmComPortDfa)
                             if(props.ifaParamChanged)
                                 MachineAPI.setRbmComPortIfa(props.rbmComPortIfa)
-                            if(seconds === 2)
-                                closeDialog();
+                            if (seconds === 3) {
+                                const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {})
+                                startRootView(intent)
+                            }//
                         })//
                     }//
                     Component.onCompleted: visible = Qt.binding(function(){return (props.dfaParamChanged || props.ifaParamChanged)})
@@ -202,6 +242,8 @@ ViewApp {
             /// onResume
             Component.onCompleted: {
                 ////console.debug("StackView.Active");
+                MachineAPI.scanRbmComPortAvalaible(true)
+
                 props.rbmComPortDfa = MachineData.rbmComPortDfa
                 props.rbmComPortIfa = MachineData.rbmComPortIfa
 
@@ -212,12 +254,14 @@ ViewApp {
                     var lengthList = availableStr.split("#").length
                     var availableList = []
                     for(let i=0; i<lengthList; i++){
-                        availableList.push({text: availableStr.split("#")[i]})
+                        let str = availableStr.split("#")[i]
+                        availableList.push({text: str})
+                        //console.debug(i, str)
                     }//
                     return availableList
                 })//
                 //console.debug(props.modelList)
-            }
+            }//
 
             /// onPause
             Component.onDestruction: {

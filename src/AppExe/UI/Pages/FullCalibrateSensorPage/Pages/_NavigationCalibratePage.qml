@@ -772,6 +772,11 @@ ViewApp {
             property int dfaFanRpmMaximum: 0
             property int dfaFanRpmStandby: 0
 
+            property int ifaFanRpmNominal: 0
+            property int ifaFanRpmMinimum: 0
+            property int ifaFanRpmMaximum: 0
+            property int ifaFanRpmStandby: 0
+
             property int measurementUnit: 0
             property int decimalPoint: MachineData.measurementUnit ? 0 : 2
 
@@ -839,6 +844,10 @@ ViewApp {
                 MachineAPI.setFanInflowMinimumDutyCycleFactory(props.ifaFanDutyCycleMinimum)
                 MachineAPI.setFanInflowStandbyDutyCycleFactory(props.ifaFanDutyCycleStandby)
 
+                MachineAPI.setFanInflowNominalRpmFactory(props.ifaFanRpmNominal)
+                MachineAPI.setFanInflowMinimumRpmFactory(props.ifaFanRpmMinimum)
+                MachineAPI.setFanInflowStandbyRpmFactory(props.ifaFanRpmStandby)
+
                 if (props.calibNewInflowNom){
                     MachineAPI.saveInflowMeaDimNominalGrid(props.meaIfaNominalGrid,
                                                            props.meaIfaNominalVolTotal,
@@ -846,7 +855,7 @@ ViewApp {
                                                            props.meaIfaNominalVolume,
                                                            props.meaIfaNominalVelocity,
                                                            props.ifaFanDutyCycleNominal,
-                                                           /*props.ifaFanRpmNominal*/0)/// Cannot read RPM value for Inflow
+                                                           props.ifaFanRpmNominal)
                 }
 
                 if (props.calibNewInflowMin) {
@@ -856,7 +865,7 @@ ViewApp {
                                                            props.meaIfaMinimumVolume,
                                                            props.meaIfaMinimumVelocity,
                                                            props.ifaFanDutyCycleMinimum,
-                                                           /*props.ifaFanRpmMinimum*/0)/// Cannot read RPM value for Inflow
+                                                           props.ifaFanRpmMinimum)
                 }
 
                 if (props.calibNewInflowStb) {
@@ -866,7 +875,7 @@ ViewApp {
                                                            props.meaIfaStandbyVolume,
                                                            props.meaIfaStandbyVelocity,
                                                            props.ifaFanDutyCycleStandby,
-                                                           /*props.dfaFanRpmStandby*/0)/// Cannot read RPM value for Inflow
+                                                           props.ifaFanRpmStandby)
                 }
 
                 ///// DOWNFLOW
@@ -1033,7 +1042,7 @@ ViewApp {
                         //                            //console.debug(JSON.stringify(extradata['calibrateRes']['grid']))
 
                         props.ifaFanDutyCycleNominal   = extradata['calibrateRes']['fanDucy']
-                        //props.fanRpmNominal         = extradata['calibrateRes']['fanRpm']
+                        props.ifaFanRpmNominal         = extradata['calibrateRes']['fanRpm']
 
                         //                            if (props.measurementUnit) {
                         //                                velocity = Math.round(velocity) * 100
@@ -1073,7 +1082,7 @@ ViewApp {
                         //                            props.calibrateResValues['measure']['ifa']['fail']['grid'] = extradata['calibrateRes']['grid']
 
                         props.ifaFanDutyCycleMinimum   = extradata['calibrateRes']['fanDucy']
-                        //props.fanRpmMinimum         = extradata['calibrateRes']['fanRpm']
+                        props.fanRpmMinimum         = extradata['calibrateRes']['fanRpm']
 
                         if(props.measurementUnit) velocity = Math.round(velocity)
                         props.ifaSensorVelMinimum      = Math.round(velocity * 100)
@@ -1105,6 +1114,7 @@ ViewApp {
                         //                            props.calibrateResValues['measure']['ifa']['stb']['grid'] = extradata['calibrateRes']['grid']
 
                         props.ifaFanDutyCycleStandby  = extradata['calibrateRes']['fanDucy']
+                        props.ifaFanRpmStandby        = extradata['calibrateRes']['fanRpm']
                         props.dfaFanDutyCycleStandby  = extradata['calibrateRes']['fanDucy1']
                         props.dfaFanRpmStandby        = extradata['calibrateRes']['fanRpm1']
 
@@ -1368,9 +1378,8 @@ ViewApp {
 
                         props.ifaSensorAdcMinimum = extradata['ifaSensorAdcMinimum'] || 0
                         props.ifaSensorAdcNominal = extradata['ifaSensorAdcNominal'] || 0
-                        //props.ifaSensorAdcNominal = extradata['ifaSensorAdcNominal'] || 0
                         props.ifaFanDutyCycleNominal  = extradata['ifaFanDutyCycleResult']
-                        /// props.ifaFanRpmNominal    = extradata['dfaFanRpmNominal']
+                        props.ifaFanRpmNominal    = extradata['ifaFanRpmResult']
 
 
                         let dfaVelocityMin = extradata['dfaSensorVelMinimum']

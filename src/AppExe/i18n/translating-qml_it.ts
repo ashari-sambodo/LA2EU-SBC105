@@ -1023,7 +1023,7 @@
     </message>
     <message>
         <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="141"/>
-        <source>System will be restarting after you click the &apos;Apply&apos; button</source>
+        <source>The system will be restarted after you click the &apos;Save&apos; button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1496,7 +1496,7 @@
     </message>
     <message>
         <location filename="../UI/Pages/CabinetProfilePage/CabinetProfilePage.qml" line="166"/>
-        <source>System will be restarting after you click the &apos;Apply&apos; button</source>
+        <source>The system will be restarted after you click the &apos;Save&apos; button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2641,248 +2641,257 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="254"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="252"/>
         <source>UV timer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="272"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="270"/>
         <source>Sash cycle meter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="290"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="288"/>
         <source>Temperature ambient</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="308"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="306"/>
         <source>Temperature ADC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="326"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="324"/>
         <source>Temperature calibration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="349"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="347"/>
         <source>Temperature calibration ADC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="367"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="365"/>
         <source>ADC A/F Actual (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="387"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="385"/>
         <source>ADC A/F Nominal (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="430"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="428"/>
         <source>ADC A/F 2 (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="460"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="458"/>
         <source>ADC A/F 0 (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="475"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="473"/>
         <source>VEL A/F High Alarm (DF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="515"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="513"/>
         <source>VEL A/F Nominal (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="555"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="553"/>
         <source>VEL A/F Low Alarm (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="595"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="593"/>
         <source>VEL A/F 3 (DF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="629"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="627"/>
         <source>VEL A/F 2 (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="663"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="661"/>
         <source>VEL A/F 1 (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="698"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="696"/>
         <source>Sensor Contant (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="712"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="710"/>
         <source>Fan Nominal (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="770"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="768"/>
         <source>Fan Standby (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="799"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="797"/>
         <source>Fan A/F 2 (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="837"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="835"/>
         <source>Fan A/F S (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="855"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="853"/>
         <source>M-Switch S1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="875"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="873"/>
         <source>M-Switch S2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="895"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="893"/>
         <source>M-Switch S3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="915"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="913"/>
         <source>M-Switch S4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="935"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="933"/>
         <source>M-Switch S5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="954"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="952"/>
         <source>M-Switch S6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="974"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="972"/>
         <source>Seas Flap Exhaust</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="995"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="993"/>
         <source>Module - Hybrid Digital/Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="996"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1017"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1038"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1059"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1080"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1101"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="994"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1015"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1036"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1057"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1078"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1100"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1121"/>
         <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1122"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1143"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1164"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1146"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1167"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1188"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="996"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1017"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1038"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1059"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1080"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1101"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="994"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1015"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1036"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1057"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1078"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1100"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1121"/>
         <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1122"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1143"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1164"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1146"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1167"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1188"/>
         <source>Fail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1016"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1014"/>
         <source>Module - Hybrid Digital/Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1037"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1035"/>
         <source>Module - Hybrid Analog/Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1058"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1056"/>
         <source>Module - Hybrid Analog/Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1079"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1077"/>
         <source>Module - Analog Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1100"/>
-        <source>Module - RBM Com</source>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1099"/>
+        <source>Module - PWM Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1121"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1120"/>
+        <source>Module - RBM Com (DF | IF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1145"/>
         <source>Module - Real Time Clock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1142"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1166"/>
         <source>Module - I/O Expander</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1163"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1187"/>
         <source>Module - Pressure Sensor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1187"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1211"/>
         <source>Environmental temperature range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1212"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1236"/>
         <source>Particel counter (μg/m3)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1239"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1263"/>
         <source>Particel counter state</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1242"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1266"/>
         <source>Running</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1256"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1280"/>
         <source>Watchdog counter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1270"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1294"/>
         <source>RTC Date &amp; Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1310"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1334"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6426,6 +6435,55 @@ Pottentially reduce the reading accuration of the airflow sensor(s).
     <message>
         <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="348"/>
         <source>Auto play</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RbmComPortConfigPage</name>
+    <message>
+        <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="47"/>
+        <source>RBM Com Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="65"/>
+        <source>Downflow Fan Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="80"/>
+        <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="126"/>
+        <source>Configure Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="111"/>
+        <source>Inflow Fan Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="154"/>
+        <source>New configuration will be applied after system restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="156"/>
+        <source>The system will be restarted after you click the &apos;Save&apos; button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="187"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="205"/>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="208"/>
+        <source>Setting up...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

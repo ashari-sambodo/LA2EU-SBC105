@@ -430,8 +430,8 @@ ViewApp {
                                         }//
 
                                         TextApp {
-                                            color: "#0F2952"
-                                            text: "RPM: " /*+ props.fanRpmActual*/
+                                            //color: "#0F2952"
+                                            text: "RPM: " + props.ifaFanRpmActual
                                         }//
                                     }//
 
@@ -913,11 +913,10 @@ ViewApp {
             property bool   autoSaveToDraftAfterCalculated: false
 
             property int    ifaFanDutyCycleActual: 0
-            //property int    fanRpmActual: 0
-
+            property int    ifaFanRpmActual: 0
             property int    ifaFanDutyCycleInitial: 0
-            property int    ifaFanDutyCycleResult: 0
-            //property int    fanRpmResult: 0
+            //            property int    ifaFanDutyCycleResult: 0
+            //            property int    ifaFanRpmResult: 0
 
             property int    dfaFanDutyCycleActual: 0
             property int    dfaFanRpmActual: 0
@@ -941,7 +940,7 @@ ViewApp {
                     'velAvg':   velocityAverage,
                     'velocity': velocityConpensate,
                     'fanDucy':  ifaFanDutyCycleActual,
-                    //'fanRpm':   fanRpmActual,
+                    'fanRpm':   ifaFanRpmActual,
                 }
                 return result;
             }
@@ -1025,7 +1024,7 @@ ViewApp {
                 }
 
                 props.ifaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanInflowDutyCycle })
-                //props.fanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
+                props.ifaFanRpmActual = Qt.binding(function(){ return MachineData.fanInflowRpm })
                 props.dfaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanPrimaryDutyCycle })
                 props.dfaFanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
 

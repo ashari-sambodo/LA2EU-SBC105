@@ -724,15 +724,19 @@ void MachineBackend::setup()
         QString portPrimary = m_settings->value(SKEY_RBM_PORT_PRIMARY, BLOWER_USB_SERIAL_PORT0).toString();
         pData->setRbmComPortDfa(portPrimary);
         QString portInflow = m_settings->value(SKEY_RBM_PORT_INFLOW, BLOWER_USB_SERIAL_PORT1).toString();
-        pData->setRbmComPortDfa(portInflow);
+        pData->setRbmComPortIfa(portInflow);
 
         short index = 0;
+        short max = 2;
+        QString portAvailable = "";
         /// find and initializing serial port for fan
         m_serialPort1.reset(new QSerialPort());
         m_serialPort12.reset(new QSerialPort());
         foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts()){
             if((info.vendorIdentifier() == BLOWER_USB_SERIAL_VID) &&
                     (info.productIdentifier() == BLOWER_USB_SERIAL_PID)){
+                portAvailable += info.portName();
+                if(index != (max-1)) portAvailable += "#";
                 if(info.portName() == portPrimary){
                     m_serialPort1->setPort(info);
 
@@ -742,7 +746,6 @@ void MachineBackend::setup()
                         m_serialPort1->setParity(QSerialPort::Parity::NoParity);
                         m_serialPort1->setStopBits(QSerialPort::StopBits::OneStop);
                     }//
-                    index++;
                 }else if(info.portName() == portInflow){
                     m_serialPort12->setPort(info);
 
@@ -752,20 +755,28 @@ void MachineBackend::setup()
                         m_serialPort12->setParity(QSerialPort::Parity::NoParity);
                         m_serialPort12->setStopBits(QSerialPort::StopBits::OneStop);
                     }//
-                    index++;
-                }
+                }//
+                index++;
                 //break;
             }//
-            qDebug() << "index" << index;
-            qDebug() << "vendorIdentifier" << info.vendorIdentifier();
-            qDebug() << "productIdentifier" << info.productIdentifier();
-            qDebug() << "portName" << info.portName();
-            qDebug() << "systemLocation" << info.systemLocation();
-            qDebug() << "description" << info.description();
-            qDebug() << "manufacturer" << info.manufacturer();
-            qDebug() << "serialNumber" << info.serialNumber();
-            if(index >= 2) break;
+            //            qDebug() << "index" << index;
+            //            qDebug() << "vendorIdentifier" << info.vendorIdentifier();
+            //            qDebug() << "productIdentifier" << info.productIdentifier();
+            //            qDebug() << "portName" << info.portName();
+            //            qDebug() << "systemLocation" << info.systemLocation();
+            //            qDebug() << "description" << info.description();
+            //            qDebug() << "manufacturer" << info.manufacturer();
+            //            qDebug() << "serialNumber" << info.serialNumber();
+            if(index >= max) break;
         }//
+
+#ifdef QT_DEBUG
+        portAvailable = BLOWER_USB_SERIAL_PORT0;
+        portAvailable += "#";
+        portAvailable += BLOWER_USB_SERIAL_PORT1;
+#endif
+        qDebug() << portAvailable;
+        pData->setRbmComPortAvailable(portAvailable);
 
         /// RBM COM Board is OK and ready to send fan paramaters
         if (!m_serialPort1->isOpen()) {
@@ -2560,6 +2571,10 @@ void MachineBackend::deallocate()
         m_threadForFanRbmDsi->quit();
         m_threadForFanRbmDsi->wait();
     }
+    if(m_threadForFanRbmDsi2){
+        m_threadForFanRbmDsi2->quit();
+        m_threadForFanRbmDsi2->wait();
+    }
 
     //    qDebug() << metaObject()->className() << __FUNCTION__ << "phase-4";
 
@@ -2684,8 +2699,8 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                         qDebug() << "Sash Motor Off in Sash Error";
                         m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                         m_pSasWindowMotorize->routineTask();
-                    }
-                }
+                    }//
+                }//
             }//
             ///// CLEAR FLAG OF SASH STATE FLAG
             //    if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
@@ -7785,34 +7800,6 @@ void MachineBackend::setFrontPanelSwitchInstalled(bool value)
 void MachineBackend::scanRbmComPortAvalaible(bool value)
 {
     m_scanRbmComPortAvailable = value;
-    short index = 0;
-    short max = 2;
-    QString portAvailable = "";
-    foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts()){
-        if((info.vendorIdentifier() == BLOWER_USB_SERIAL_VID) &&
-                (info.productIdentifier() == BLOWER_USB_SERIAL_PID)){
-            portAvailable += info.portName();
-            if(index != (max-1)) portAvailable += "#";
-            index++;
-        }//
-        if(index >= max) break;
-    }//
-#ifdef QT_DEBUG
-    portAvailable = BLOWER_USB_SERIAL_PORT0;
-    portAvailable += "#";
-    portAvailable += BLOWER_USB_SERIAL_PORT1;
-#endif
-    qDebug() << portAvailable;
-    pData->setRbmComPortAvailable(portAvailable);
-}
-
-void MachineBackend::setRbmComPortIfa(QString value)
-{
-    qDebug() << metaObject()->className() << __func__ << value << thread() ;
-
-    pData->setRbmComPortIfa(value);
-    QSettings settings;
-    settings.setValue(SKEY_RBM_PORT_INFLOW, value);
 }
 
 void MachineBackend::setRbmComPortDfa(QString value)
@@ -7822,6 +7809,15 @@ void MachineBackend::setRbmComPortDfa(QString value)
     pData->setRbmComPortDfa(value);
     QSettings settings;
     settings.setValue(SKEY_RBM_PORT_PRIMARY, value);
+}
+
+void MachineBackend::setRbmComPortIfa(QString value)
+{
+    qDebug() << metaObject()->className() << __func__ << value << thread() ;
+
+    pData->setRbmComPortIfa(value);
+    QSettings settings;
+    settings.setValue(SKEY_RBM_PORT_INFLOW, value);
 }
 
 //void MachineBackend::setFanPrimaryRbmAddress(uchar address)

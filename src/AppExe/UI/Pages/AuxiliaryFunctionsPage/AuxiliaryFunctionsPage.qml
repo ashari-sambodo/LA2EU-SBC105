@@ -138,7 +138,7 @@ ViewApp {
                     anchors.horizontalCenter: parent.horizontalCenter
                     text:  "*" + qsTr("New configuration will be applied after system restart") + "."
                            + "<br>"
-                           + qsTr("System will be restarting after you click the 'Apply' button") + "."
+                           + qsTr("The system will be restarted after you click the 'Save' button") + "."
                     color: "#cccccc"
                     font.pixelSize: 16
                     horizontalAlignment: Text.AlignHCenter
