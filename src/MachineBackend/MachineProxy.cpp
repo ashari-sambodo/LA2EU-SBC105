@@ -860,7 +860,6 @@ void MachineProxy::scanRbmComPortAvalaible(bool value)
 
 void MachineProxy::setRbmComPortIfa(QString value)
 {
-
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
         m_machineBackend->setRbmComPortIfa(value);
     },
@@ -869,9 +868,8 @@ void MachineProxy::setRbmComPortIfa(QString value)
 
 void MachineProxy::setRbmComPortDfa(QString value)
 {
-
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setRbmComPortIfa(value);
+        m_machineBackend->setRbmComPortDfa(value);
     },
     Qt::QueuedConnection);
 }

@@ -203,16 +203,20 @@ ViewApp {
                     text: qsTr("Save")
 
                     onClicked: {
-                        viewApp.showBusyPage(qsTr("Setting up..."), function(seconds){
-                            if(props.dfaParamChanged)
-                                MachineAPI.setRbmComPortDfa(props.rbmComPortDfa)
-                            if(props.ifaParamChanged)
-                                MachineAPI.setRbmComPortIfa(props.rbmComPortIfa)
-                            if (seconds === 3) {
-                                const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {})
-                                startRootView(intent)
-                            }//
-                        })//
+                        if(props.rbmComPortIfa === props.rbmComPortDfa){
+                            viewApp.showDialogMessage(qsTr("RBM Com Port"), qsTr("Port name must be different!"), dialogAlert)
+                        } else{
+                            viewApp.showBusyPage(qsTr("Setting up..."), function(seconds){
+                                if(props.dfaParamChanged)
+                                    MachineAPI.setRbmComPortDfa(props.rbmComPortDfa)
+                                if(props.ifaParamChanged)
+                                    MachineAPI.setRbmComPortIfa(props.rbmComPortIfa)
+                                if (seconds === 3) {
+                                    const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {})
+                                    startRootView(intent)
+                                }//
+                            })//
+                        }//
                     }//
                     Component.onCompleted: visible = Qt.binding(function(){return (props.dfaParamChanged || props.ifaParamChanged)})
                 }//
