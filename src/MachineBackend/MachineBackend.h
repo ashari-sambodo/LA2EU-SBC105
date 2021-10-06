@@ -360,8 +360,12 @@ public slots:
     /// FRONT PANEL SWITCH LA2EU
     void setFrontPanelSwitchInstalled(bool value);
     /// Set FAN RBM Address
-    void setFanPrimaryRbmAddress(uchar address);
-    void setFanInflowRbmAddress(uchar address);
+    //    void setFanPrimaryRbmAddress(uchar address);
+    //    void setFanInflowRbmAddress(uchar address);
+    void scanRbmComPortAvalaible(bool value);
+    void setRbmComPortIfa(QString value);
+    void setRbmComPortDfa(QString value);
+
 
 signals:
     void hasStopped();
@@ -442,7 +446,7 @@ private:
     QScopedPointer<QThread>         m_threadForFanRbmDsi2;
     QScopedPointer<QTimer>          m_timerEventForFanRbmDsi2;
     ///
-    QScopedPointer<DeviceAnalogCom> m_pFanInflow;
+    //    QScopedPointer<DeviceAnalogCom> m_pFanInflow;
     QScopedPointer<BlowerRbmDsi>    m_pFanPrimary;
     QScopedPointer<BlowerRbmDsi>    m_pFanInflow2;
     QScopedPointer<BlowerRegalECM>  m_boardRegalECM;
@@ -649,6 +653,7 @@ private:
     int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 700; /// 1000ms
     bool  m_delaySashMotorFullyClosedExecuted = false;
     uchar m_counter = 0;
+    bool m_scanRbmComPortAvailable = false;
 
 #ifdef QT_DEBUG
     QScopedPointer<QWebSocketServer> m_pWebSocketServerDummyState;

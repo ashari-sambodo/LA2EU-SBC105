@@ -230,5 +230,6 @@
         <file>UI/Pictures/pid/small-info.png</file>
         <file>UI/Pictures/pid/tune-help.png</file>
         <file>UI/Pictures/pid/response.png</file>
+        <file>UI/Pictures/menu/RBM_Com_Port.png</file>
     </qresource>
 </RCC>

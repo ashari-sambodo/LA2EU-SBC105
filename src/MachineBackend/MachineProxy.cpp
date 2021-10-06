@@ -850,27 +850,53 @@ void MachineProxy::setFrontPanelSwitchInstalled(bool value)
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanPrimaryRbmAddress(uchar address)
+void MachineProxy::scanRbmComPortAvalaible(bool value)
 {
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    qDebug() << address;
-
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, address](){
-        m_machineBackend->setFanPrimaryRbmAddress(address);
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->scanRbmComPortAvalaible(value);
     },
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanInflowRbmAddress(uchar address)
+void MachineProxy::setRbmComPortIfa(QString value)
 {
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    qDebug() << address;
 
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, address](){
-        m_machineBackend->setFanInflowRbmAddress(address);
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setRbmComPortIfa(value);
     },
     Qt::QueuedConnection);
 }
+
+void MachineProxy::setRbmComPortDfa(QString value)
+{
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setRbmComPortIfa(value);
+    },
+    Qt::QueuedConnection);
+}
+
+//void MachineProxy::setFanPrimaryRbmAddress(uchar address)
+//{
+//    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+//    qDebug() << address;
+
+//    QMetaObject::invokeMethod(m_machineBackend.data(), [&, address](){
+//        m_machineBackend->setFanPrimaryRbmAddress(address);
+//    },
+//    Qt::QueuedConnection);
+//}
+
+//void MachineProxy::setFanInflowRbmAddress(uchar address)
+//{
+//    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+//    qDebug() << address;
+
+//    QMetaObject::invokeMethod(m_machineBackend.data(), [&, address](){
+//        m_machineBackend->setFanInflowRbmAddress(address);
+//    },
+//    Qt::QueuedConnection);
+//}
 
 void MachineProxy::setOperationModeSave(short value)
 {

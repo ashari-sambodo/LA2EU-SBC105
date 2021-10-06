@@ -259,27 +259,63 @@ void MachineData::setFrontPanelAlarm(short value)
     emit frontPanelAlarmChanged(value);
 }
 
-void MachineData::setFanPrimaryRbmAddress(uchar address)
+void MachineData::setRbmComPortAvailable(QString value)
 {
-    if(m_fanPrimaryRbmAddress == address) return;
-    m_fanPrimaryRbmAddress = address;
+    if(m_rbmComPortAvalaible == value) return;
+    m_rbmComPortAvalaible = value;
+    emit rbmComPortAvailableChanged(m_rbmComPortAvalaible);
 }
 
-void MachineData::setFanInflowRbmAddress(uchar address)
+void MachineData::setRbmComPortIfa(QString value)
 {
-    if(m_fanInflowRbmAddress == address) return;
-    m_fanInflowRbmAddress = address;
+    if(m_rbmComPortIfa == value) return;
+    m_rbmComPortIfa = value;
+    emit rbmComPortIfaChanged(m_rbmComPortIfa);
 }
 
-uchar MachineData::getFanPrimaryRbmAddress() const
+void MachineData::setRbmComPortDfa(QString value)
 {
-    return m_fanPrimaryRbmAddress;
+    if(m_rbmComPortDfa == value) return;
+    m_rbmComPortDfa = value;
+    emit rbmComPortDfaChanged(m_rbmComPortDfa);
 }
 
-uchar MachineData::getFanInflowRbmAddress() const
+QString MachineData::getRbmComPortAvailable() const
 {
-    return m_fanInflowRbmAddress;
+    return m_rbmComPortAvalaible;
 }
+
+QString MachineData::getRbmComPortIfa() const
+{
+    return m_rbmComPortIfa;
+}
+
+QString MachineData::getRbmComPortDfa() const
+{
+    return m_rbmComPortDfa;
+}
+
+//void MachineData::setFanPrimaryRbmAddress(uchar address)
+//{
+//    if(m_fanPrimaryRbmAddress == address) return;
+//    m_fanPrimaryRbmAddress = address;
+//}
+
+//void MachineData::setFanInflowRbmAddress(uchar address)
+//{
+//    if(m_fanInflowRbmAddress == address) return;
+//    m_fanInflowRbmAddress = address;
+//}
+
+//uchar MachineData::getFanPrimaryRbmAddress() const
+//{
+//    return m_fanPrimaryRbmAddress;
+//}
+
+//uchar MachineData::getFanInflowRbmAddress() const
+//{
+//    return m_fanInflowRbmAddress;
+//}
 
 QString MachineData::getSbcSerialNumber() const
 {

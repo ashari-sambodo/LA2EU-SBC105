@@ -128,8 +128,8 @@
 #define SKEY_FAN_CLOSE_LOOP_GAIN_D      "fanClGainD"
 ////
 #define SKEY_FRONT_PANEL_INSTALLED      "fronPanInst"
-#define SKEY_RBM_ADDRS_PRIMARY      "rbmAddrsPri"
-#define SKEY_RBM_ADDRS_INFLOW      "rbmAddrsInf"
+#define SKEY_RBM_PORT_PRIMARY      "rbmPortPri"
+#define SKEY_RBM_PORT_INFLOW      "rbmPortInf"
 
 ////
 //// INFLOW CALIBRATION

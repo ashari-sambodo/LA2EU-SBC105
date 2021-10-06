@@ -393,20 +393,11 @@
             //                                 mlink      :   "qrc:/UI/Pages/ResetParametersPage/ResetParametersPage.qml",
             //                             })
 
-
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype         :   "menu",
                                  mtitle     :   qsTr("Fan Closed Loop Control"),
                                  micon      :   "qrc:/UI/Pictures/menu/fan-auto-control.png",
                                  mlink      :   "qrc:/UI/Pages/FanClosedLoopControlPage/FanClosedLoopControlPage.qml"
-                             })
-
-
-            if(menu[index].length > itemPerPage) {index++; menu.push([])}
-            menu[index].push({mtype        :   "menu",
-                                 mtitle    :   qsTr("Software Update"),
-                                 micon     :   "qrc:/UI/Pictures/menu/Software-Update.png",
-                                 mlink     :   "qrc:/UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml"
                              })
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
@@ -415,6 +406,13 @@
                                  micon      :   "qrc:/UI/Pictures/menu/shipping-menu.png",
                                  mlink      :   "qrc:/UI/Pages/ShippingSetupPage/ShippingSetupPage.qml"
                              })
+
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype        :   "menu",
+                                 mtitle    :   qsTr("Software Update"),
+                                 micon     :   "qrc:/UI/Pictures/menu/Software-Update.png",
+                                 mlink     :   "qrc:/UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml"
+                             })           
 
             //MENU_INDICATOR
             menuIndicator.push(qsTr("Service"))
@@ -427,6 +425,13 @@
 
             menu = [[]]
             index = 0
+
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype        :   "menu",
+                                 mtitle    :   qsTr("RBM Com Port"),
+                                 micon     :   "qrc:/UI/Pictures/menu/RBM_Com_Port.png",
+                                 mlink     :   "qrc:/UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml"
+                             })
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype        :   "menu",
@@ -480,12 +485,7 @@
                                  mlink     :   "qrc:/UI/Pages/SystemInformationPage/SystemInformationPage.qml"
                              })
 
-            if(menu[index].length > itemPerPage) {index++; menu.push([])}
-            menu[index].push({mtype        :   "menu",
-                                 mtitle    :   qsTr("Fan RBM Address"),
-                                 micon     :   "qrc:/UI/Pictures/menu/microprocessor-device.png",
-                                 mlink     :   "qrc:/UI/Pages/FanRbmSetAddressPage/FanRbmSetAddressPage.qml"
-                             })
+
             //
             //            let calibrateSensor
             //            if(menu[index].length > itemPerPage) {index++; menu.push([])}

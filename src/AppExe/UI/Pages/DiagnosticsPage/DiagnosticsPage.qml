@@ -1117,39 +1117,22 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Module - RBM Com Downflow")
-                                value: connected ? qsTr("OK") : qsTr("Fail")
+                                label: qsTr("Module - RBM Com (DF | IF)")
+                                value1: connected1 ? qsTr("OK") : qsTr("Fail")
+                                value2: connected2 ? qsTr("OK") : qsTr("Fail")
 
-                                property bool connected: false
+                                property bool connected1: false
+                                property bool connected2: false
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return MachineData.boardStatusRbmCom })
+                                    connected1 = Qt.binding(function() { return MachineData.boardStatusRbmCom})
+                                    connected2 = Qt.binding(function() { return MachineData.boardStatusRbmCom2})
                                 }
 
                                 onUnloaded: {
-                                    connected = false
+                                    connected1 = false
+                                    connected2 = false
                                 }
-                            }//
-
-                            CusComPage.RowItemApp {
-                                id: moduleRbmCom2
-                                width: view.width
-                                height: 50
-                                viewContentY: view.contentY
-                                viewSpan: view.span
-
-                                label: qsTr("Module - RBM Com Inflow")
-                                value: connected ? qsTr("OK") : qsTr("Fail")
-
-                                property bool connected: false
-
-                                onLoaded: {
-                                    connected = Qt.binding(function() { return MachineData.boardStatusRbmCom2 })
-                                }//
-
-                                onUnloaded: {
-                                    connected = false
-                                }//
                             }//
 
                             CusComPage.RowItemApp {

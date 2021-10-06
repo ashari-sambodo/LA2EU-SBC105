@@ -154,6 +154,6 @@
         <file>UI/Pages/FanClosedLoopControlPage/Components/PidTuningAnimationApp.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Components/CurveTuningApp.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopResponse.qml</file>
-        <file>UI/Pages/FanRbmSetAddressPage/FanRbmSetAddressPage.qml</file>
+        <file>UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml</file>
     </qresource>
 </RCC>

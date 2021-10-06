@@ -950,6 +950,19 @@ class MachineData : public QObject
                READ getFrontPanelAlarm
                //               WRITE setFrontPanelSwitchState
                NOTIFY frontPanelAlarmChanged)
+    ///
+    Q_PROPERTY(QString rbmComPortAvailable
+               READ getRbmComPortAvailable
+               //               WRITE setRbmComPortAvailable
+               NOTIFY rbmComPortAvailableChanged)
+    Q_PROPERTY(QString rbmComPortDfa
+               READ getRbmComPortDfa
+               //               WRITE setRbmComPortDfa
+               NOTIFY rbmComPortDfaChanged)
+    Q_PROPERTY(QString rbmComPortIfa
+               READ getRbmComPortIfa
+               //               WRITE setRbmComPortIfa
+               NOTIFY rbmComPortIfaChanged)
 
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
@@ -1725,10 +1738,19 @@ public:
     void setFrontPanelSwitchState(bool value);
     void setFrontPanelAlarm(short value);
 
-    void setFanPrimaryRbmAddress(uchar address);
-    void setFanInflowRbmAddress(uchar address);
-    Q_INVOKABLE uchar getFanPrimaryRbmAddress()const;
-    Q_INVOKABLE uchar getFanInflowRbmAddress()const;
+    //    void setFanPrimaryRbmAddress(uchar address);
+    //    void setFanInflowRbmAddress(uchar address);
+    //    Q_INVOKABLE uchar getFanPrimaryRbmAddress()const;
+    //    Q_INVOKABLE uchar getFanInflowRbmAddress()const;
+    ////
+    void setRbmComPortAvailable(QString value);
+    void setRbmComPortIfa(QString value);
+    void setRbmComPortDfa(QString value);
+    QString getRbmComPortAvailable()const;
+    QString getRbmComPortIfa()const;
+    QString getRbmComPortDfa()const;
+
+
 
 public slots:
     void initSingleton();
@@ -2017,6 +2039,11 @@ signals:
     void frontPanelSwitchInstalledChanged(bool value);
     void frontPanelSwitchStateChanged(bool value);
     void frontPanelAlarmChanged(bool value);
+
+    ///
+    void rbmComPortAvailableChanged(QString value);
+    void rbmComPortIfaChanged(QString value);
+    void rbmComPortDfaChanged(QString value);
 
 private:
     ///
@@ -2378,8 +2405,12 @@ private:
     bool m_frontPanelSwitchInstalled = false;
     bool m_frontPanelSwitchState = false;
     short m_frontPanelAlarm = false;
-    uchar m_fanPrimaryRbmAddress;
-    uchar m_fanInflowRbmAddress;
+    //    uchar m_fanPrimaryRbmAddress;
+    //    uchar m_fanInflowRbmAddress;
+
+    QString m_rbmComPortAvalaible;
+    QString m_rbmComPortIfa;
+    QString m_rbmComPortDfa;
 };
 
 
