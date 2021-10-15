@@ -38,6 +38,10 @@ public:
 
     AImcp342x *getPAIModule() const;
 
+signals:
+    void adcChanged(short channel, int value);
+    void digitalStateChanged(short channel, bool value);
+
 private:
     QScopedPointer<AImcp342x> m_pAIModule;
 
@@ -59,6 +63,8 @@ private:
     void nextChannel();
     int meanValues(std::vector<int> &values);
     int medianSampleADC(QVector<int> &samples);
+    int m_adc[AI_MAX_CHANNELS];
+    bool m_digitalState[AI_MAX_CHANNELS];
 };
 
 #endif // AIMANAGE_H

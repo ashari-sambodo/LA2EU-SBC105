@@ -359,7 +359,8 @@ ViewApp {
                                              "userlevel": UserSessionService.roleLevel,
                                              "uvInstalled": props.uvInstalled,
                                              "sashWindowMotorizeInstalled": props.sashWindowMotorizeInstalled,
-                                             "seasInstalled": props.seasInstalled
+                                             "seasInstalled": props.seasInstalled,
+                                             "dualRbmEnable": MachineData.getDualRbmMode()
                                          })
                 }
             }

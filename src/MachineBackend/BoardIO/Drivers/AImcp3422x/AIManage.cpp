@@ -1,6 +1,7 @@
 #include "AIManage.h"
 
 #define MAXIMUM_ADC_RESOLUTION 4095
+#define DIGITAL_STATE_ADC_VALUE 2048
 
 AIManage::AIManage(QObject *parent)
     : ClassDriver(parent)
@@ -14,6 +15,8 @@ AIManage::AIManage(QObject *parent)
         channelsADC[i]          = 0;
         channelsmVolt[i]        = 0;
         channelTotalADC[i]      = 0;
+        m_adc[i]                = 0;
+        m_digitalState[i]       = false;
     }
 
     //    for (int i=0; i<5; i++) {
@@ -70,10 +73,10 @@ int AIManage::init()
 int AIManage::polling()
 {
     int response    = 0;
-    int index       = channelIndex;
+    short index     = static_cast<short>(channelIndex);
+    bool digitalState = false;
 
     if(channelsDoPoll[index]){
-
         int adc     = 0;
         response    = m_pAIModule->getValue(&adc, index);
 
@@ -105,12 +108,27 @@ int AIManage::polling()
                     channelsADC[index]       = qRound(static_cast<double>(channelTotalADC[index]) / (static_cast<double>(channelsSamples[index].length())));
                     channelsmVolt[index]     = /*m_pAIModule->*/convertADCtomVolt(channelsADC[index]);
                     //channelsmA[index]        = m_pAIModule->convertADCtomA(channelsADC[index]);
-
+                    if(channelsADC[index] != m_adc[index]){
+                        m_adc[index] = channelsADC[index];
+                        digitalState = (m_adc[index] > DIGITAL_STATE_ADC_VALUE);
+                        if(digitalState != m_digitalState[index]){
+                            m_digitalState[index] = digitalState;
+                            emit digitalStateChanged(index, digitalState);
+                        }
+                    }
                 }else{
                     //without moving average
                     channelsADC[channelIndex]       = adc;
                     channelsmVolt[index]            = /*m_pAIModule->*/convertADCtomVolt(channelsADC[index]);
                     //channelsmA[index]               = m_pAIModule->convertADCtomA(channelsADC[index]);
+                    if(channelsADC[index] != m_adc[index]){
+                        m_adc[index] = channelsADC[index];
+                        digitalState = (m_adc[index] > DIGITAL_STATE_ADC_VALUE);
+                        if(digitalState != m_digitalState[index]){
+                            m_digitalState[index] = digitalState;
+                            emit digitalStateChanged(index, digitalState);
+                        }
+                    }
                     nextChannel();
                 }
             }

@@ -963,6 +963,17 @@ class MachineData : public QObject
                READ getRbmComPortIfa
                //               WRITE setRbmComPortIfa
                NOTIFY rbmComPortIfaChanged)
+    //    Q_PROPERTY(QString dualRbmMode
+    //               READ getDualRbmMode
+    //               //               WRITE setRbmComPortIfa
+    //               NOTIFY dualRbmModeChanged)
+
+    Q_PROPERTY(bool sashMotorizeInterlockedSwitch
+               READ getSashMotorizeInterlockedSwitch
+               //               WRITE setRbmComPortIfa
+               NOTIFY sashMotorizeInterlockedSwitchChanged)
+
+
 
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
@@ -1749,8 +1760,13 @@ public:
     QString getRbmComPortAvailable()const;
     QString getRbmComPortIfa()const;
     QString getRbmComPortDfa()const;
+    ///
+    void setDualRbmMode(bool value);
+    //    bool getDualRbmMode()const;
+    Q_INVOKABLE bool getDualRbmMode()const;
 
-
+    void setSashMotorizeInterlockedSwitch(bool value);
+    bool getSashMotorizeInterlockedSwitch()const;
 
 public slots:
     void initSingleton();
@@ -2044,6 +2060,10 @@ signals:
     void rbmComPortAvailableChanged(QString value);
     void rbmComPortIfaChanged(QString value);
     void rbmComPortDfaChanged(QString value);
+    ///
+    void dualRbmModeChanged(bool value);
+    ///
+    void sashMotorizeInterlockedSwitchChanged(bool value);
 
 private:
     ///
@@ -2407,6 +2427,9 @@ private:
     short m_frontPanelAlarm = false;
     //    uchar m_fanPrimaryRbmAddress;
     //    uchar m_fanInflowRbmAddress;
+    bool m_dualRbmMode = false;
+
+    bool m_sashMotorizeInterlockedSwitch = false;
 
     QString m_rbmComPortAvalaible;
     QString m_rbmComPortIfa;

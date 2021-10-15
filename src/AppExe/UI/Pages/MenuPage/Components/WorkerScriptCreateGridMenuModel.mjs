@@ -12,6 +12,8 @@
 
         //USER_ROLE
         let userRole = msg.userlevel
+        //DUAL RBM
+        let dualRbmMode = msg.dualRbmEnable
 
         //MENU_MODEL
         let menuGroupModel = []
@@ -392,12 +394,14 @@
             //                                 micon      :   "qrc:/UI/Pictures/menu/Reset-Default.png",
             //                                 mlink      :   "qrc:/UI/Pages/ResetParametersPage/ResetParametersPage.qml",
             //                             })
-            if(menu[index].length > itemPerPage) {index++; menu.push([])}
-            menu[index].push({mtype        :   "menu",
-                                 mtitle    :   qsTr("RBM Com Port"),
-                                 micon     :   "qrc:/UI/Pictures/menu/RBM_Com_Port.png",
-                                 mlink     :   "qrc:/UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml"
-                             })
+            if(dualRbmMode){
+                if(menu[index].length > itemPerPage) {index++; menu.push([])}
+                menu[index].push({mtype        :   "menu",
+                                     mtitle    :   qsTr("RBM Com Port"),
+                                     micon     :   "qrc:/UI/Pictures/menu/RBM_Com_Port.png",
+                                     mlink     :   "qrc:/UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml"
+                                 })
+            }
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype         :   "menu",
@@ -418,7 +422,7 @@
                                  mtitle    :   qsTr("Software Update"),
                                  micon     :   "qrc:/UI/Pictures/menu/Software-Update.png",
                                  mlink     :   "qrc:/UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml"
-                             })           
+                             })
 
             //MENU_INDICATOR
             menuIndicator.push(qsTr("Service"))

@@ -951,7 +951,7 @@ ViewApp {
                                                 if(!ifaVelocityValid)   props.calibrationFailCode = 0x0010
                                                 if(!ifaFanDutyCycle)    props.calibrationFailCode = 0x0020
                                                 if(!dfaFanRpm)          props.calibrationFailCode = 0x0040
-                                                if(!ifaFanRpm)          props.calibrationFailCode = 0x0080
+                                                if(!ifaFanRpm && MachineData.getDualRbmMode()) props.calibrationFailCode = 0x0080
                                                 console.debug("dfaAdcNominalValid   :", dfaAdcNominalValid, props.dfaSensorAdcZero, props.dfaAdcActual)
                                                 console.debug("dfaVelocityValid     :", dfaVelocityValid,   props.dfaVelocityMin, props.dfaVelocityNom, props.dfaVelocityMax)
                                                 console.debug("dfaFanDutyCycle      :", dfaFanDutyCycle,    props.dfaFanDutyCycleActual)

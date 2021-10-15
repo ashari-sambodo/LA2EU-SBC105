@@ -295,6 +295,30 @@ QString MachineData::getRbmComPortDfa() const
     return m_rbmComPortDfa;
 }
 
+void MachineData::setDualRbmMode(bool value)
+{
+    if(m_dualRbmMode == value) return;
+    m_dualRbmMode = value;
+    //    /emit dualRbmModeChanged(m_dualRbmMode);
+}
+
+bool MachineData::getDualRbmMode() const
+{
+    return m_dualRbmMode;
+}
+
+void MachineData::setSashMotorizeInterlockedSwitch(bool value)
+{
+    if(m_sashMotorizeInterlockedSwitch == value) return;
+    m_sashMotorizeInterlockedSwitch = value;
+    emit sashMotorizeInterlockedSwitchChanged(m_sashMotorizeInterlockedSwitch);
+}
+
+bool MachineData::getSashMotorizeInterlockedSwitch() const
+{
+    return m_sashMotorizeInterlockedSwitch;
+}
+
 //void MachineData::setFanPrimaryRbmAddress(uchar address)
 //{
 //    if(m_fanPrimaryRbmAddress == address) return;

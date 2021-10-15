@@ -168,9 +168,14 @@ ViewApp {
                                     value1 = Qt.binding(function(){
                                         return "" + MachineData.fanPrimaryDutyCycle + " % / " + MachineData.fanPrimaryRpm + " RPM"
                                     })
-                                    value2 = Qt.binding(function(){
-                                        return "" + MachineData.fanInflowDutyCycle + " % / " + MachineData.fanInflowRpm + " RPM"
-                                    })
+                                    if(MachineData.getDualRbmMode()){
+                                        value2 = Qt.binding(function(){
+                                                return "" + MachineData.fanInflowDutyCycle + " % / " + MachineData.fanInflowRpm + " RPM"
+                                        })
+                                    }
+                                    else
+                                        value2 = Qt.binding(function(){ return "" + MachineData.fanInflowDutyCycle + " % "})
+
                                 }//
 
                                 onUnloaded: {
@@ -714,17 +719,25 @@ ViewApp {
                                         const ducyDfa = MachineData.getFanPrimaryNominalDutyCycleField()
                                         const rpmDfa = MachineData.getFanPrimaryNominalRpmField()
                                         const ducyIfa = MachineData.getFanInflowNominalDutyCycleField()
+                                        const rpmIfa = MachineData.getFanInflowNominalRpmField()
 
                                         value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                        value2 = ducyIfa + " %"
+                                        if(MachineData.getDualRbmMode())
+                                            value1 = ducyIfa + " %" + " / " + rpmIfa + " RPM"
+                                        else
+                                            value2 = ducyIfa + " %"
                                     }
                                     else {
                                         const ducyDfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
                                         const rpmDfa = MachineData.getFanPrimaryNominalRpmFactory()
                                         const ducyIfa = MachineData.getFanInflowNominalDutyCycleFactory()
+                                        const rpmIfa = MachineData.getFanInflowNominalRpmFactory()
 
                                         value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                        value2 = ducyIfa + " %"
+                                        if(MachineData.getDualRbmMode())
+                                            value1 = ducyIfa + " %" + " / " + rpmIfa + " RPM"
+                                        else
+                                            value2 = ducyIfa + " %"
                                     }
                                 }
                             }//
@@ -963,6 +976,25 @@ ViewApp {
                                 }
                             }//
                             CusComPage.RowItemApp {
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
+                                label: qsTr("Sash Motorized Interlock Switch")
+                                value: connected ? 1 : 0
+
+                                property bool connected: false
+
+                                onLoaded: {
+                                    connected = Qt.binding(function() { return !MachineData.sashMotorizeInterlockedSwitch })
+                                }
+
+                                onUnloaded: {
+                                    connected = false
+                                }//
+                            }//
+                            CusComPage.RowItemApp {
                                 enabled: MachineData.seasFlapInstalled
                                 width: view.width
                                 height: 50
@@ -1117,16 +1149,17 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Module - RBM Com (DF | IF)")
+                                label: qsTr("Module - RBM Com ") + (MachineData.getDualRbmMode() ? "(DF | IF)" : "(DF)")
                                 value1: connected1 ? qsTr("OK") : qsTr("Fail")
-                                value2: connected2 ? qsTr("OK") : qsTr("Fail")
+                                value2: MachineData.getDualRbmMode() ? (connected2 ? qsTr("OK") : qsTr("Fail")) : ""
 
                                 property bool connected1: false
                                 property bool connected2: false
 
                                 onLoaded: {
                                     connected1 = Qt.binding(function() { return MachineData.boardStatusRbmCom})
-                                    connected2 = Qt.binding(function() { return MachineData.boardStatusRbmCom2})
+                                    if(MachineData.getDualRbmMode())
+                                        connected2 = Qt.binding(function() { return MachineData.boardStatusRbmCom2})
                                 }
 
                                 onUnloaded: {

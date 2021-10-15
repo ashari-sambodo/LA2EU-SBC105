@@ -426,7 +426,8 @@ private:
     QScopedPointer<AirflowVelocity> m_pAirflowInflow;
     QScopedPointer<AirflowVelocity> m_pAirflowDownflow;
     ////
-    QScopedPointer<QTimer>           m_timerEventForSashWindowRoutine;
+    QScopedPointer<QTimer>      m_timerEventForSashMotorInterlockSwitch;
+    QScopedPointer<QTimer>      m_timerEventForSashWindowRoutine;
     void _onTriggeredEventSashWindowRoutine();
     ///
     QScopedPointer<ClosedLoopControl> m_pIfaFanClosedLoopControl;
@@ -445,7 +446,7 @@ private:
     QScopedPointer<QThread>         m_threadForFanRbmDsi2;
     QScopedPointer<QTimer>          m_timerEventForFanRbmDsi2;
     ///
-    //    QScopedPointer<DeviceAnalogCom> m_pFanInflow;
+    QScopedPointer<DeviceAnalogCom> m_pFanInflow;
     QScopedPointer<BlowerRbmDsi>    m_pFanPrimary;
     QScopedPointer<BlowerRbmDsi>    m_pFanInflow2;
     QScopedPointer<BlowerRegalECM>  m_boardRegalECM;

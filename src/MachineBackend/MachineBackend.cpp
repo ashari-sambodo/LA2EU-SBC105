@@ -139,6 +139,9 @@ void MachineBackend::setup()
     //    qDebug() << m_settings->fileName();
     QScopedPointer<QSettings> m_settings(new QSettings);
 
+    ///Specify Dual RBM Mode
+    pData->setDualRbmMode(false);
+
     /// READ SERIAL NUMBER
     {
         QString serialNumber = m_settings->value(SKEY_SBC_SERIAL_NUMBER, SDEF_SBC_SERIAL_NUMBER).toString();
@@ -383,6 +386,18 @@ void MachineBackend::setup()
             //                    pData->setBoardStatusPWMOutput(true);
             //                });
             //            }//
+            //// Create Independent Timer Event For Sash Motorize Auto Off after having stucked
+            m_timerEventForSashMotorInterlockSwitch.reset(new QTimer);
+            m_timerEventForSashMotorInterlockSwitch->setInterval(std::chrono::milliseconds(1000));
+
+            QObject::connect(m_timerEventForSashMotorInterlockSwitch.data(), &QTimer::timeout,
+                             this, [&](){
+                qDebug() << "m_timerEventForSashMotorInterlockSwitch" << "Switch Off sash motor";
+                m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                m_pSasWindowMotorize->routineTask();
+                m_timerEventForSashMotorInterlockSwitch->stop();
+            });
+
             /// HAB - Analog Input
             {
                 m_boardAnalogInput1.reset(new AIManage);
@@ -435,6 +450,11 @@ void MachineBackend::setup()
                 m_boardAnalogInput2->setChannelDoAverage(0, true);
                 m_boardAnalogInput2->setChannelSamples(0, 50);
 
+                //DEFINE_CHANNEL_FOR_SASH_MOTORIZED_INTERLOCKED_SWITCH
+                m_boardAnalogInput2->setChannelDoPoll(1, true);
+                m_boardAnalogInput2->setChannelDoAverage(1, true);
+                m_boardAnalogInput2->setChannelSamples(1, 5);
+
                 ////MONITORING COMMUNICATION STATUS
                 QObject::connect(m_boardAnalogInput2.data(), &AIManage::errorComToleranceReached,
                                  this, [&](int error){
@@ -445,6 +465,18 @@ void MachineBackend::setup()
                                  this, [&](int error){
                     qDebug() << "AIManage::errorComToleranceCleared" << error << thread();
                     pData->setBoardStatusAnalogInput(true);
+                });
+
+                /// SETUP CONNECTION FOR SASH MOTORIZED INTERLOCKED SWITCH
+                QObject::connect(m_boardAnalogInput2.data(), &AIManage::digitalStateChanged,
+                                 this, [&](short channel, bool value){
+                    if(channel == 1){
+                        qDebug() << "AIManage::digitalStateChanged" << channel << value;
+                        pData->setSashMotorizeInterlockedSwitch(value);
+                        /// Start Timer For sash motor switch interlocked to stop the motor automatically
+                        /// if sash window is stuck
+                        if(value) m_timerEventForSashMotorInterlockSwitch->start();
+                    }
                 });
             }//
 
@@ -691,15 +723,17 @@ void MachineBackend::setup()
     }
 
     /// Fan Exhaust
-    //    {
-    //        m_pFanInflow.reset(new DeviceAnalogCom);
-    //        m_pFanInflow->setSubBoard(m_boardAnalogOutput2.data());
+    {
+        if(!pData->getDualRbmMode()){
+            m_pFanInflow.reset(new DeviceAnalogCom);
+            m_pFanInflow->setSubBoard(m_boardAnalogOutput2.data());
 
-    //        connect(m_pFanInflow.data(), &DeviceAnalogCom::stateChanged,
-    //                this, [&](int newVal){
-    //            _onFanInflowActualDucyChanged(static_cast<short>(newVal));
-    //        });
-    //    }
+            connect(m_pFanInflow.data(), &DeviceAnalogCom::stateChanged,
+                    this, [&](int newVal){
+                _onFanInflowActualDucyChanged(static_cast<short>(newVal));
+            });
+        }
+    }
 
     //    /// Fan Exhaust - PWM OUTPUT
     //    {
@@ -723,21 +757,25 @@ void MachineBackend::setup()
     {
         QString portPrimary = m_settings->value(SKEY_RBM_PORT_PRIMARY, BLOWER_USB_SERIAL_PORT0).toString();
         pData->setRbmComPortDfa(portPrimary);
-        QString portInflow = m_settings->value(SKEY_RBM_PORT_INFLOW, BLOWER_USB_SERIAL_PORT1).toString();
-        pData->setRbmComPortIfa(portInflow);
+        QString portInflow = BLOWER_USB_SERIAL_PORT1;
+        if(pData->getDualRbmMode()){
+            portInflow = m_settings->value(SKEY_RBM_PORT_INFLOW, BLOWER_USB_SERIAL_PORT1).toString();
+            pData->setRbmComPortIfa(portInflow);
+        }
 
         short index = 0;
-        short max = 2;
+        short max = pData->getDualRbmMode() ? 2 : 1;
         QString portAvailable = "";
         /// find and initializing serial port for fan
         m_serialPort1.reset(new QSerialPort());
-        m_serialPort12.reset(new QSerialPort());
+        if(pData->getDualRbmMode()) m_serialPort12.reset(new QSerialPort());
+
         foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts()){
             if((info.vendorIdentifier() == BLOWER_USB_SERIAL_VID) &&
                     (info.productIdentifier() == BLOWER_USB_SERIAL_PID)){
                 portAvailable += info.portName();
                 if(index != (max-1)) portAvailable += "#";
-                if(info.portName() == portPrimary){
+                if((info.portName() == portPrimary) || !pData->getDualRbmMode()){
                     m_serialPort1->setPort(info);
 
                     if(m_serialPort1->open(QIODevice::ReadWrite)){
@@ -746,7 +784,7 @@ void MachineBackend::setup()
                         m_serialPort1->setParity(QSerialPort::Parity::NoParity);
                         m_serialPort1->setStopBits(QSerialPort::StopBits::OneStop);
                     }//
-                }else if(info.portName() == portInflow){
+                }else if(info.portName() == portInflow && pData->getDualRbmMode()){
                     m_serialPort12->setPort(info);
 
                     if(m_serialPort12->open(QIODevice::ReadWrite)){
@@ -772,8 +810,10 @@ void MachineBackend::setup()
 
 #ifdef QT_DEBUG
         portAvailable = BLOWER_USB_SERIAL_PORT0;
-        portAvailable += "#";
-        portAvailable += BLOWER_USB_SERIAL_PORT1;
+        if(pData->getDualRbmMode()){
+            portAvailable += "#";
+            portAvailable += BLOWER_USB_SERIAL_PORT1;
+        }
 #endif
         qDebug() << portAvailable;
         pData->setRbmComPortAvailable(portAvailable);
@@ -784,17 +824,21 @@ void MachineBackend::setup()
             pData->setBoardStatusRbmCom(false);
             //pData->setBoardStatusRbmCom2(false);
         }//
-        if (!m_serialPort12->isOpen()) {
-            qWarning() << __FUNCTION__ << thread() << "serial port 1 for fan ifa cannot be opened";
-            //pData->setBoardStatusRbmCom(false);
-            pData->setBoardStatusRbmCom2(false);
+        if (pData->getDualRbmMode()) {
+            if(!m_serialPort12->isOpen()){
+                qWarning() << __FUNCTION__ << thread() << "serial port 1 for fan ifa cannot be opened";
+                //pData->setBoardStatusRbmCom(false);
+                pData->setBoardStatusRbmCom2(false);
+            }
         }//
         /// initializing the fan object
         m_boardRegalECM.reset(new BlowerRegalECM);
-        m_boardRegalECM2.reset(new BlowerRegalECM);
         /// set the serial port
         m_boardRegalECM->setSerialComm(m_serialPort1.data());
-        m_boardRegalECM2->setSerialComm(m_serialPort12.data());
+        if(pData->getDualRbmMode()){
+            m_boardRegalECM2.reset(new BlowerRegalECM);
+            m_boardRegalECM2->setSerialComm(m_serialPort12.data());
+        }
 
         /// Set Address
         //m_boardRegalECM->setAddressModule(addrsPrimary);
@@ -804,15 +848,20 @@ void MachineBackend::setup()
         /// now, we assume the response from the fan is always OK,
         ///// so we dont care the return value of following API
         m_boardRegalECM->stop();
-        m_boardRegalECM2->stop();
+        if(pData->getDualRbmMode())
+            m_boardRegalECM2->stop();
 
         /// setup blower ecm by torque demand
         /// in torque mode, we just need to define the direction of rotation
         int response = m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CLW);
-        int response2 = m_boardRegalECM2->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CLW);
+        int response2 = false;
         //        m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CCW);
         pData->setBoardStatusRbmCom(response == 0);
-        pData->setBoardStatusRbmCom2(response2 == 0);
+
+        if(pData->getDualRbmMode()){
+            response2 = m_boardRegalECM2->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CLW);
+            pData->setBoardStatusRbmCom2(response2 == 0);
+        }
 
         ////MONITORING COMMUNICATION STATUS
         QObject::connect(m_boardRegalECM.data(), &BlowerRegalECM::errorComToleranceReached,
@@ -825,40 +874,46 @@ void MachineBackend::setup()
             qDebug() << "BlowerRegalECM::errorComToleranceCleared" << error << thread();
             pData->setBoardStatusRbmCom(true);
         });
-
-        QObject::connect(m_boardRegalECM2.data(), &BlowerRegalECM::errorComToleranceReached,
-                         this, [&](int error){
-            qDebug() << "BlowerRegalECM2::errorComToleranceReached" << error << thread();
-            pData->setBoardStatusRbmCom2(false);
-        });
-        QObject::connect(m_boardRegalECM2.data(), &BlowerRegalECM::errorComToleranceCleared,
-                         this, [&](int error){
-            qDebug() << "BlowerRegalECM2::errorComToleranceCleared" << error << thread();
-            pData->setBoardStatusRbmCom2(true);
-        });
-
+        if(pData->getDualRbmMode()){
+            QObject::connect(m_boardRegalECM2.data(), &BlowerRegalECM::errorComToleranceReached,
+                             this, [&](int error){
+                qDebug() << "BlowerRegalECM2::errorComToleranceReached" << error << thread();
+                pData->setBoardStatusRbmCom2(false);
+            });
+            QObject::connect(m_boardRegalECM2.data(), &BlowerRegalECM::errorComToleranceCleared,
+                             this, [&](int error){
+                qDebug() << "BlowerRegalECM2::errorComToleranceCleared" << error << thread();
+                pData->setBoardStatusRbmCom2(true);
+            });
+        }
 
         /// create object for state keeper
         /// ensure actuator state is what machine state requested
         m_pFanPrimary.reset(new BlowerRbmDsi);
-        m_pFanInflow2.reset(new BlowerRbmDsi);
         /// pass the virtual object sub module board
         m_pFanPrimary->setSubModule(m_boardRegalECM.data());
-        m_pFanInflow2->setSubModule(m_boardRegalECM2.data());
         m_pFanPrimary->setDemandMode(BlowerRbmDsi::TORQUE_DEMMAND_BRDM);
-        m_pFanInflow2->setDemandMode(BlowerRbmDsi::TORQUE_DEMMAND_BRDM);
+
+        if(pData->getDualRbmMode()){
+            m_pFanInflow2.reset(new BlowerRbmDsi);
+            m_pFanInflow2->setSubModule(m_boardRegalECM2.data());
+            m_pFanInflow2->setDemandMode(BlowerRbmDsi::TORQUE_DEMMAND_BRDM);
+        }
 
         /// create timer for triggering the loop (routine task) and execute any pending request
         /// routine task and any pending task will executed by FIFO mechanism
         m_timerEventForFanRbmDsi.reset(new QTimer);
         m_timerEventForFanRbmDsi->setInterval(TEI_FOR_BLOWER_RBMDSI);
-        m_timerEventForFanRbmDsi2.reset(new QTimer);
-        m_timerEventForFanRbmDsi2->setInterval(TEI_FOR_BLOWER_RBMDSI);
+        if(pData->getDualRbmMode()){
+            m_timerEventForFanRbmDsi2.reset(new QTimer);
+            m_timerEventForFanRbmDsi2->setInterval(TEI_FOR_BLOWER_RBMDSI);
+        }
 
         /// create independent thread
         /// looping inside this thread will run parallel* beside machineState loop
         m_threadForFanRbmDsi.reset(new QThread);
-        m_threadForFanRbmDsi2.reset(new QThread);
+        if(pData->getDualRbmMode())
+            m_threadForFanRbmDsi2.reset(new QThread);
 
         /// Start timer event when thread was started
         QObject::connect(m_threadForFanRbmDsi.data(), &QThread::started,
@@ -874,19 +929,21 @@ void MachineBackend::setup()
             m_timerEventForFanRbmDsi->stop();
         });
         ///////
-        /// Start timer event when thread was started
-        QObject::connect(m_threadForFanRbmDsi2.data(), &QThread::started,
-                         m_timerEventForFanRbmDsi2.data(), [&](){
-            //            qDebug() << "m_timerEventForBlowerRbmDsi::started" << thread();
-            m_timerEventForFanRbmDsi2->start();
-        });
+        if(pData->getDualRbmMode()){
+            /// Start timer event when thread was started
+            QObject::connect(m_threadForFanRbmDsi2.data(), &QThread::started,
+                             m_timerEventForFanRbmDsi2.data(), [&](){
+                //            qDebug() << "m_timerEventForBlowerRbmDsi::started" << thread();
+                m_timerEventForFanRbmDsi2->start();
+            });
 
-        /// Stop timer event when thread was finished
-        QObject::connect(m_threadForFanRbmDsi2.data(), &QThread::finished,
-                         m_timerEventForFanRbmDsi2.data(), [&](){
-            //            qDebug() << "m_timerEventForBlowerRbmDsi::finished" << thread();
-            m_timerEventForFanRbmDsi2->stop();
-        });
+            /// Stop timer event when thread was finished
+            QObject::connect(m_threadForFanRbmDsi2.data(), &QThread::finished,
+                             m_timerEventForFanRbmDsi2.data(), [&](){
+                //            qDebug() << "m_timerEventForBlowerRbmDsi::finished" << thread();
+                m_timerEventForFanRbmDsi2->stop();
+            });
+        }
 
         /// Enable triggerOnStarted, calling the worker of BlowerRbmDsi when thread has started
         /// This is use lambda function, this symbol [&] for pass m_blowerRbmDsi object to can captured by lambda
@@ -895,10 +952,12 @@ void MachineBackend::setup()
                          m_pFanPrimary.data(), [&](){
             m_pFanPrimary->routineTask();
         });
-        QObject::connect(m_threadForFanRbmDsi2.data(), &QThread::started,
-                         m_pFanInflow2.data(), [&](){
-            m_pFanInflow2->routineTask();
-        });
+        if(pData->getDualRbmMode()){
+            QObject::connect(m_threadForFanRbmDsi2.data(), &QThread::started,
+                             m_pFanInflow2.data(), [&](){
+                m_pFanInflow2->routineTask();
+            });
+        }
 
         /// Call routine task blower (syncronazation state)
         /// This method calling by timerEvent
@@ -907,11 +966,13 @@ void MachineBackend::setup()
             //            qDebug() << "m_blowerRbmDsi::timeout" << thread();
             m_pFanPrimary->routineTask();
         });
-        QObject::connect(m_timerEventForFanRbmDsi2.data(), &QTimer::timeout,
-                         m_pFanInflow2.data(), [&](){
-            //            qDebug() << "m_blowerRbmDsi::timeout" << thread();
-            m_pFanInflow2->routineTask();
-        });
+        if(pData->getDualRbmMode()){
+            QObject::connect(m_timerEventForFanRbmDsi2.data(), &QTimer::timeout,
+                             m_pFanInflow2.data(), [&](){
+                //            qDebug() << "m_blowerRbmDsi::timeout" << thread();
+                m_pFanInflow2->routineTask();
+            });
+        }
 
         /// Run blower loop thread when Machine State goes to looping / routine task
         QObject::connect(this, &MachineBackend::loopStarted,
@@ -919,47 +980,60 @@ void MachineBackend::setup()
             //            qDebug() << "m_threadForFanRbmDsi::loopStarted" << thread();
             m_threadForFanRbmDsi->start();
         });
-        /// Run blower loop thread when Machine State goes to looping / routine task
-        QObject::connect(this, &MachineBackend::loopStarted,
-                         m_threadForFanRbmDsi2.data(), [&](){
-            //            qDebug() << "m_threadForFanRbmDsi::loopStarted" << thread();
-            m_threadForFanRbmDsi2->start();
-        });
+        if(pData->getDualRbmMode()){
+            /// Run blower loop thread when Machine State goes to looping / routine task
+            QObject::connect(this, &MachineBackend::loopStarted,
+                             m_threadForFanRbmDsi2.data(), [&](){
+                //            qDebug() << "m_threadForFanRbmDsi::loopStarted" << thread();
+                m_threadForFanRbmDsi2->start();
+            });
+        }
 
         /// call this when actual blower duty cycle has changed
         QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::dutyCycleChanged,
                          this, &MachineBackend::_onFanPrimaryActualDucyChanged);
-        QObject::connect(m_pFanInflow2.data(), &BlowerRbmDsi::dutyCycleChanged,
-                         this, &MachineBackend::_onFanInflowActualDucyChanged);
 
         /// call this when actual blower rpm has changed
         QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::rpmChanged,
                          this, &MachineBackend::_onFanPrimaryActualRpmChanged);
-        QObject::connect(m_pFanInflow2.data(), &BlowerRbmDsi::rpmChanged,
-                         this, &MachineBackend::_onFanInflowActualRpmChanged);
 
         /// call this when actual blower interloked
         QObject::connect(m_pFanPrimary.data(), &BlowerRbmDsi::interlockChanged,
                          pData, [&](short newVal){
             pData->setFanPrimaryInterlocked(newVal);
         });
-        QObject::connect(m_pFanInflow2.data(), &BlowerRbmDsi::interlockChanged,
-                         pData, [&](short newVal){
-            pData->setFanInflowInterlocked(newVal);
-        });
+
+        if(pData->getDualRbmMode()){
+            QObject::connect(m_pFanInflow2.data(), &BlowerRbmDsi::dutyCycleChanged,
+                             this, &MachineBackend::_onFanInflowActualDucyChanged);
+
+            /// call this when actual blower rpm has changed
+            QObject::connect(m_pFanInflow2.data(), &BlowerRbmDsi::rpmChanged,
+                             this, &MachineBackend::_onFanInflowActualRpmChanged);
+
+            /// call this when actual blower interloked
+            QObject::connect(m_pFanInflow2.data(), &BlowerRbmDsi::interlockChanged,
+                             pData, [&](short newVal){
+                pData->setFanInflowInterlocked(newVal);
+            });
+        }
 
         /// Move fan routine task / looping to independent thread
         m_pFanPrimary->moveToThread(m_threadForFanRbmDsi.data());
-        m_pFanInflow2->moveToThread(m_threadForFanRbmDsi2.data());
+        if(pData->getDualRbmMode())
+            m_pFanInflow2->moveToThread(m_threadForFanRbmDsi2.data());
         /// Do move timer event for fan routine task to independent thread
         /// make the timer has prescission because independent from this Macine State looping
         m_timerEventForFanRbmDsi->moveToThread(m_threadForFanRbmDsi.data());
-        m_timerEventForFanRbmDsi2->moveToThread(m_threadForFanRbmDsi2.data());
+        if(pData->getDualRbmMode())
+            m_timerEventForFanRbmDsi2->moveToThread(m_threadForFanRbmDsi2.data());
         /// Also move all necesarry object to independent fan thread
         m_serialPort1->moveToThread(m_threadForFanRbmDsi.data());
         m_boardRegalECM->moveToThread(m_threadForFanRbmDsi.data());
-        m_serialPort12->moveToThread(m_threadForFanRbmDsi2.data());
-        m_boardRegalECM2->moveToThread(m_threadForFanRbmDsi2.data());
+        if(pData->getDualRbmMode()){
+            m_serialPort12->moveToThread(m_threadForFanRbmDsi2.data());
+            m_boardRegalECM2->moveToThread(m_threadForFanRbmDsi2.data());
+        }
     }//
 
     /// Sash Window Motorize
@@ -1555,7 +1629,6 @@ void MachineBackend::setup()
 
     /// SEAS INTEGRATED
     {
-
         m_pSeas.reset(new PressureDiffManager);
         m_pSeas->setSubModule(m_boardSensirionSPD8xx.data());
 
@@ -2355,24 +2428,31 @@ void MachineBackend::setup()
 
                         m_pFanPrimary->setDutyCycle(pData->getFanPrimaryNominalDutyCycle());
                         m_pFanPrimary->routineTask();
-                        m_pFanInflow2->setDutyCycle(pData->getFanInflowNominalDutyCycle());
-                        m_pFanInflow2->routineTask();
-                        //                        m_pFanInflow->setState(pData->getFanInflowNominalDutyCycle());
-                        //                        m_pFanInflow->routineTask();
+                        if(pData->getDualRbmMode()){
+                            m_pFanInflow2->setDutyCycle(pData->getFanInflowNominalDutyCycle());
+                            m_pFanInflow2->routineTask();
+                        }
+                        else {
+                            m_pFanInflow->setState(pData->getFanInflowNominalDutyCycle());
+                            m_pFanInflow->routineTask();
+                        }
 
                         bool dfaUpdated = false;
                         bool ifaUpdated = false;
                         /// wait until fan actually turned on or exceed the time out (10 seconds)
                         for (int var = 0; var < 10; ++var) {
                             m_pFanPrimary->routineTask();
-                            m_pFanInflow2->routineTask();
-                            // m_pFanInflow->routineTask();
+                            if(pData->getDualRbmMode())
+                                m_pFanInflow2->routineTask();
+                            else
+                                m_pFanInflow->routineTask();
                             if(m_pFanPrimary->dutyCycle() == dfaDutyCycle && !dfaUpdated){
                                 //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
                                 _onFanPrimaryActualDucyChanged(dfaDutyCycle);
                                 dfaUpdated = true;
                             }
-                            if(/*m_pFanInflow->getState()*/m_pFanInflow2->dutyCycle() == ifaDutyCycle && !ifaUpdated){
+                            if(((m_pFanInflow->getState() && !pData->getDualRbmMode()) || (m_pFanInflow2->dutyCycle() == ifaDutyCycle  && pData->getDualRbmMode()))
+                                    && !ifaUpdated){
                                 //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
                                 _onFanInflowActualDucyChanged(ifaDutyCycle);
                                 ifaUpdated = true;
@@ -2471,7 +2551,8 @@ void MachineBackend::loop()
     /// ACTUATOR
     /// put any actuator routine task in here
     m_pSasWindowMotorize->routineTask();
-    //m_pFanInflow->routineTask();
+    if(!pData->getDualRbmMode())
+        m_pFanInflow->routineTask();
     m_pLight->routineTask();
     m_pLightIntensity->routineTask();
     //m_pLightIntensity2->routineTask();
@@ -2571,9 +2652,11 @@ void MachineBackend::deallocate()
         m_threadForFanRbmDsi->quit();
         m_threadForFanRbmDsi->wait();
     }
-    if(m_threadForFanRbmDsi2){
-        m_threadForFanRbmDsi2->quit();
-        m_threadForFanRbmDsi2->wait();
+    if(pData->getDualRbmMode()){
+        if(m_threadForFanRbmDsi2){
+            m_threadForFanRbmDsi2->quit();
+            m_threadForFanRbmDsi2->wait();
+        }
     }
 
     //    qDebug() << metaObject()->className() << __FUNCTION__ << "phase-4";
@@ -2655,14 +2738,14 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
 #ifndef QT_DEBUG
     //qDebug() << "SashWindow :" << sashPrevStr << sashStr;
 #endif
-    //    for(short i=1; i>=0; i--){
-    //        if(i>0)
-    //            pData->setSashWindowStateSample(pData->getSashWindowStateSample(i-1), i);
-    //        else
-    //            pData->setSashWindowStateSample(sashState, i);
-    //    }
+    for(short i=1; i>=0; i--){
+        if(i>0)
+            pData->setSashWindowStateSample(pData->getSashWindowStateSample(i-1), i);
+        else
+            pData->setSashWindowStateSample(sashState, i);
+    }
 
-    bool sashChangedValid = true;//(pData->getSashWindowStateSample(0) == pData->getSashWindowStateSample(1));
+    bool sashChangedValid = (pData->getSashWindowStateSample(0) == pData->getSashWindowStateSample(1));
     //    sashChangedValid &= (pData->getSashWindowStateSample(1) == pData->getSashWindowStateSample(2));
     //    sashChangedValid &= (pData->getSashWindowStateSample(2) == pData->getSashWindowStateSample(3));
     //    sashChangedValid &= (pData->getSashWindowStateSample(3) == pData->getSashWindowStateSample(4));
@@ -4842,30 +4925,39 @@ void MachineBackend::_setFanInflowDutyCycle(short dutyCycle)
     qDebug() << "Set fan duty" << dutyCycle << "%";
     /// talk to another thread
     /// append pending task to target object and target thread
-    //    QMetaObject::invokeMethod(m_pFanInflow.data(),[&, dutyCycle]{
-    //        m_pFanInflow->setState(dutyCycle);
-    //        m_pFanInflow->routineTask();
-    //    },
-    //    Qt::QueuedConnection);
-    QMetaObject::invokeMethod(m_pFanInflow2.data(),[&, dutyCycle]{
-        m_pFanInflow2->setDutyCycle(dutyCycle);
-    },
-    Qt::QueuedConnection);
+    if(!pData->getDualRbmMode())
+    {
+        QMetaObject::invokeMethod(m_pFanInflow.data(),[&, dutyCycle]{
+            m_pFanInflow->setState(dutyCycle);
+            m_pFanInflow->routineTask();
+        },
+        Qt::QueuedConnection);
+    }
+    else{
+        QMetaObject::invokeMethod(m_pFanInflow2.data(),[&, dutyCycle]{
+            m_pFanInflow2->setDutyCycle(dutyCycle);
+        },
+        Qt::QueuedConnection);
+    }
 }
 
 void MachineBackend::_setFanInflowInterlocked(bool interlocked)
 {
     /// talk to another thread
     /// append pending task to target object and target thread
-    //    QMetaObject::invokeMethod(m_pFanInflow.data(),[&, interlocked]{
-    //        m_pFanInflow->setInterlock(interlocked);
-    //    },
-    //    Qt::QueuedConnection);
-    //    pData->setFanInflowInterlocked(interlocked);
-    QMetaObject::invokeMethod(m_pFanInflow2.data(),[&, interlocked]{
-        m_pFanInflow2->setInterlock(interlocked);
-    },
-    Qt::QueuedConnection);
+    if(pData->getDualRbmMode()){
+        QMetaObject::invokeMethod(m_pFanInflow.data(),[&, interlocked]{
+            m_pFanInflow->setInterlock(interlocked);
+        },
+        Qt::QueuedConnection);
+        pData->setFanInflowInterlocked(interlocked);
+    }
+    else {
+        QMetaObject::invokeMethod(m_pFanInflow2.data(),[&, interlocked]{
+            m_pFanInflow2->setInterlock(interlocked);
+        },
+        Qt::QueuedConnection);
+    }
     pData->setFanInflowInterlocked(interlocked);
 }
 
@@ -7851,7 +7943,8 @@ void MachineBackend::_machineState()
     alarmsBoards |= !pData->getBoardStatusHybridAnalogInput();
     alarmsBoards |= !pData->getBoardStatusHybridAnalogOutput();
     alarmsBoards |= !pData->getBoardStatusRbmCom();
-    alarmsBoards |= !pData->getBoardStatusRbmCom2();
+    if(pData->getDualRbmMode())
+        alarmsBoards |= !pData->getBoardStatusRbmCom2();
     alarmsBoards |= !pData->getBoardStatusCtpRtc();
     alarmsBoards |= !pData->getBoardStatusCtpIoe();
     if(pData->getSeasInstalled())
@@ -9121,16 +9214,30 @@ void MachineBackend::onDummyStateNewConnection()
             Qt::QueuedConnection);
         }
         else if(message == QLatin1String("#fanIfa#dummy#1")){
-            QMetaObject::invokeMethod(m_pFanInflow2.data(),[&]{
-                m_pFanInflow2->setDummyStateEnable(1);
-            },
-            Qt::QueuedConnection);
+            if(pData->getDualRbmMode()){
+                QMetaObject::invokeMethod(m_pFanInflow2.data(),[&]{
+                    m_pFanInflow2->setDummyStateEnable(1);
+                },
+                Qt::QueuedConnection);
+            }else{
+                QMetaObject::invokeMethod(m_pFanInflow.data(),[&]{
+                    m_pFanInflow->setDummyStateEnable(1);
+                },
+                Qt::QueuedConnection);
+            }
         }
         else if(message == QLatin1String("#fanIfa#dummy#0")){
-            QMetaObject::invokeMethod(m_pFanInflow2.data(),[&]{
-                m_pFanInflow2->setDummyStateEnable(0);
-            },
-            Qt::QueuedConnection);
+            if(pData->getDualRbmMode()){
+                QMetaObject::invokeMethod(m_pFanInflow2.data(),[&]{
+                    m_pFanInflow2->setDummyStateEnable(0);
+                },
+                Qt::QueuedConnection);
+            }else{
+                QMetaObject::invokeMethod(m_pFanInflow.data(),[&]{
+                    m_pFanInflow->setDummyStateEnable(0);
+                },
+                Qt::QueuedConnection);
+            }
         }
         else if(message.contains("#fan#state#")){
             QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
@@ -9152,18 +9259,32 @@ void MachineBackend::onDummyStateNewConnection()
         else if(message.contains("#fanIfa#state#")){
             QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
             int value = std::atoi(adcStr.toStdString().c_str());
-            QMetaObject::invokeMethod(m_pFanInflow2.data(),[&, value]{
-                m_pFanInflow2->setDummyState(static_cast<short>(value));
-            },
-            Qt::QueuedConnection);
+            if(pData->getDualRbmMode()){
+                QMetaObject::invokeMethod(m_pFanInflow2.data(),[&, value]{
+                    m_pFanInflow2->setDummyState(static_cast<short>(value));
+                },
+                Qt::QueuedConnection);
+            }else{
+                QMetaObject::invokeMethod(m_pFanInflow.data(),[&, value]{
+                    m_pFanInflow->setDummyState(static_cast<short>(value));
+                },
+                Qt::QueuedConnection);
+            }
         }
         else if(message.contains("#fanIfa#rpm#")){
             QString adcStr = message.split("#", Qt::SkipEmptyParts)[2];
             int value = std::atoi(adcStr.toStdString().c_str());
-            QMetaObject::invokeMethod(m_pFanInflow2.data(),[&, value]{
-                m_pFanInflow2->setDummyRpm(value);
-            },
-            Qt::QueuedConnection);
+            if(pData->getDualRbmMode()){
+                QMetaObject::invokeMethod(m_pFanInflow2.data(),[&, value]{
+                    m_pFanInflow2->setDummyRpm(value);
+                },
+                Qt::QueuedConnection);
+            }/*else{
+                QMetaObject::invokeMethod(m_pFanInflow.data(),[&, value]{
+                    m_pFanInflow->setDummyRpm(value);
+                },
+                Qt::QueuedConnection);
+            }*/
         }
 
         if(message == QLatin1String("#lamp#dummy#1")){

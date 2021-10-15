@@ -2232,7 +2232,8 @@ ViewApp {
                                              || props.alarmBoardComError
                                              || props.alarmInflowLow
                                              || props.alarmSeasTooPositive
-                                             || props.alarmSeasFlapTooPositive) {
+                                             || props.alarmSeasFlapTooPositive
+                                             || props.alarmFrontPanel) {
 
                                         MachineAPI.setMuteAlarmState(!props.muteAlarmState)
                                     }
