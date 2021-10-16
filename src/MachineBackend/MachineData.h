@@ -972,6 +972,10 @@ class MachineData : public QObject
                READ getSashMotorizeInterlockedSwitch
                //               WRITE setRbmComPortIfa
                NOTIFY sashMotorizeInterlockedSwitchChanged)
+    Q_PROPERTY(bool buttonSashMotorizedDownPressed
+               READ getButtonSashMotorizedDownPressed
+               //               WRITE setRbmComPortIfa
+               NOTIFY buttonSashMotorizedDownPressedChanged)
 
 
 
@@ -1768,6 +1772,9 @@ public:
     void setSashMotorizeInterlockedSwitch(bool value);
     bool getSashMotorizeInterlockedSwitch()const;
 
+    bool getButtonSashMotorizedDownPressed()const;
+    void setButtonSashMotorizedDownPressed(bool value);
+
 public slots:
     void initSingleton();
 
@@ -2064,6 +2071,7 @@ signals:
     void dualRbmModeChanged(bool value);
     ///
     void sashMotorizeInterlockedSwitchChanged(bool value);
+    void buttonSashMotorizedDownPressedChanged(bool value);
 
 private:
     ///
@@ -2430,6 +2438,7 @@ private:
     bool m_dualRbmMode = false;
 
     bool m_sashMotorizeInterlockedSwitch = false;
+    bool m_buttonSashMotorizedDownPressed = false;
 
     QString m_rbmComPortAvalaible;
     QString m_rbmComPortIfa;

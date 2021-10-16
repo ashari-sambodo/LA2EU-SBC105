@@ -280,7 +280,7 @@ ViewApp {
 
                 if(currentYear < 2021){
                     let strTime = dateTime.split(" ")[1]
-                    let dateTimeSet = "2021-01-01 " + strTime
+                    let dateTimeSet = "2021-10-01 " + strTime
                     /// tell to machine
                     MachineAPI.setDateTime(dateTimeSet);
                     MachineAPI.insertEventLog(qsTr("User: Init date time") + " " + dateTimeSet)

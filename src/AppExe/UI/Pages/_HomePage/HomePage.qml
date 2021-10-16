@@ -1099,29 +1099,37 @@ ViewApp {
                                                     showDialogMessage(qsTr("Warning"), qsTr("Interlocked!"), dialogAlert)
                                                     return
                                                 }//
-
+                                                //console.debug("On DOWN Pressed!")
+                                                //props.buttonSashMotorizedDownPressed = true;
                                                 if(props.sashMotorizeState) {
                                                     MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
                                                     MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
                                                     return
                                                 }
-                                                MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_DOWN)
-                                                MachineAPI.insertEventLog(qsTr("User: Set sash motorize down"))
+                                                //MachineAPI.setButtonSashMotorizedPressed(true)
+                                                //MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_DOWN)
+                                                //MachineAPI.insertEventLog(qsTr("User: Set sash motorize down"))
                                             }//
 
                                             onPressAndHold: {
                                                 if (stateInterlock) return
+                                                //console.debug("On DOWN Pressed!")
+                                                props.buttonSashMotorizedDownPressed = true;
+                                                //MachineAPI.setButtonSashMotorizedPressed(true)
                                                 MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_DOWN)
 
                                                 MachineAPI.insertEventLog(qsTr("User: Set sash motorize down"))
                                             }//
 
-                                            //                                            onReleasedPress: {
-                                            //                                                if (stateInterlock) return
-                                            //                                                MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
+                                            onReleasedPress: {
+                                                if (stateInterlock) return
+                                                //console.debug("On DOWN Released!")
+                                                props.buttonSashMotorizedDownPressed = false;
+                                                //MachineAPI.setButtonSashMotorizedPressed(false)
+                                                MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
 
-                                            //                                                MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
-                                            //                                            }//
+                                                MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
+                                            }//
 
                                             states: [
                                                 State {
@@ -2437,6 +2445,7 @@ ViewApp {
             property int particleCounterPM1_0:  0
             property int particleCounterPM10:   0
 
+            property bool buttonSashMotorizedDownPressed : false;
             property bool airflowMonitorEnable: true
             function showFanProgressSwitchingState(swithTo){
                 //                //console.debug("swithTo: " + swithTo)
@@ -2447,6 +2456,12 @@ ViewApp {
                         viewApp.closeDialog()
                     }
                 })
+            }//
+            onButtonSashMotorizedDownPressedChanged: {
+                if(!buttonSashMotorizedDownPressed){
+                    console.debug("On Release Press!")
+                    MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
+                }
             }//
         }//
 

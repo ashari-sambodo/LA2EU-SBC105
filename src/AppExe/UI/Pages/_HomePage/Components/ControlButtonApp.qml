@@ -46,11 +46,12 @@ Item {
         //        onDoubleTapped: {
         //            //console.debug("onDoubleTapped")
         //        }//
+        onReleased: button.releasedPress()
 
         Component.onCompleted: {
             controlMouseArea.clicked.connect(button.clicked)
             controlMouseArea.pressAndHold.connect(button.pressAndHold)
-            controlMouseArea.released.connect(button.releasedPress)
+            //controlMouseArea.released.connect(button.releasedPress)
         }//
     }//
 }//

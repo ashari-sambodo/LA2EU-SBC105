@@ -333,6 +333,8 @@ public slots:
     void setRbmComPortIfa(QString value);
     void setRbmComPortDfa(QString value);
 
+    //    void setButtonSashMotorizedPressed(bool value);
+
 private slots:
     void doStopping();
 

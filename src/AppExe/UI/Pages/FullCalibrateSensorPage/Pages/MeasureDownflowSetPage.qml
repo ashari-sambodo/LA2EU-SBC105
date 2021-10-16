@@ -443,7 +443,7 @@ ViewApp {
                                         }//
 
                                         TextApp {
-                                            //color: "#0F2952"
+                                            color: MachineData.getDualRbmMode() ? "#e3dac9" : "#0F2952"
                                             text: "RPM: " + props.ifaFanRpmActual
                                         }//
                                     }//

@@ -366,6 +366,8 @@ public slots:
     void setRbmComPortDfa(QString value);
     void setRbmComPortIfa(QString value);
 
+    //    void setButtonSashMotorizedPressed(bool value);
+
 signals:
     void hasStopped();
 
@@ -654,6 +656,7 @@ private:
     bool  m_delaySashMotorFullyClosedExecuted = false;
     uchar m_counter = 0;
     bool m_scanRbmComPortAvailable = false;
+   bool m_buttonSashMotorizedDownPressed = false;
 
 #ifdef QT_DEBUG
     QScopedPointer<QWebSocketServer> m_pWebSocketServerDummyState;

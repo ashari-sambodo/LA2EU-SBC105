@@ -631,12 +631,13 @@ ViewApp {
                                                                     TextApp {
                                                                         id: ifaRpmText
                                                                         text: qsTr("RPM: ") + props.ifaFanRpmActual
+                                                                        color: MachineData.getDualRbmMode() ? "#e3dac9" : "#0F2952"
                                                                         states: [
                                                                             State {
                                                                                 when: props.ifaFanRpmActual == 0
                                                                                 PropertyChanges {
                                                                                     target: ifaRpmText
-                                                                                    color: "red"
+                                                                                    color: MachineData.getDualRbmMode() ? "red" : "#0F2952"
                                                                                 }
                                                                             }//
                                                                         ]//

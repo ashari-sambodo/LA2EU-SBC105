@@ -319,6 +319,18 @@ bool MachineData::getSashMotorizeInterlockedSwitch() const
     return m_sashMotorizeInterlockedSwitch;
 }
 
+bool MachineData::getButtonSashMotorizedDownPressed() const
+{
+    return m_buttonSashMotorizedDownPressed;
+}
+
+void MachineData::setButtonSashMotorizedDownPressed(bool value)
+{
+    if(m_buttonSashMotorizedDownPressed == value) return;
+    m_buttonSashMotorizedDownPressed = value;
+    emit buttonSashMotorizedDownPressedChanged(m_buttonSashMotorizedDownPressed);
+}
+
 //void MachineData::setFanPrimaryRbmAddress(uchar address)
 //{
 //    if(m_fanPrimaryRbmAddress == address) return;
