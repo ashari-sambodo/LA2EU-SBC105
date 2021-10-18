@@ -31,3 +31,6 @@
 
 #define ALARM_LOG_TEXT_FRONT_PANEL_OK      QObject::tr("Front Panel Alarm | Normal")
 #define ALARM_LOG_TEXT_FRONT_PANEL_ALARM   QObject::tr("Front Panel Alarm | Active")
+
+#define ALARM_LOG_TEXT_SASH_MOTOR_DOWN_STUCK_OK        QObject::tr("Alarm Sash Down Stuck | Normal")
+#define ALARM_LOG_TEXT_SASH_MOTOR_DOWN_STUCK_ALARM     QObject::tr("Alarm Sash Down Stuck | Active")

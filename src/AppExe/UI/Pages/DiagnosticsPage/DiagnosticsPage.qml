@@ -981,13 +981,13 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Sash Motorized Interlock Switch")
+                                label: qsTr("Sash Motor Down Stuck Switch")
                                 value: connected ? 1 : 0
 
                                 property bool connected: false
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return !MachineData.sashMotorizeInterlockedSwitch })
+                                    connected = Qt.binding(function() { return !MachineData.sashMotorDownStuckSwitch })
                                 }
 
                                 onUnloaded: {

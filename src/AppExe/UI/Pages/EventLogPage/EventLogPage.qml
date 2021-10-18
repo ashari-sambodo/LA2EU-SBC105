@@ -128,10 +128,13 @@ ViewApp {
                                     Layout.minimumWidth: 70
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: qsTr("No.")
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -147,10 +150,13 @@ ViewApp {
                                     Layout.minimumWidth: 130
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: qsTr("Date")
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -166,10 +172,13 @@ ViewApp {
                                     Layout.minimumWidth: 130
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: qsTr("Time (24h)")
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -184,11 +193,14 @@ ViewApp {
                                     Layout.fillWidth: true
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         wrapMode: Text.WordWrap
                                         text: qsTr("Event")
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }//
                                 }//
 
@@ -204,11 +216,14 @@ ViewApp {
                                     Layout.minimumWidth: 150
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         elide: Text.ElideMiddle
                                         text: qsTr("User")
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }//
                                 }//
                             }//
@@ -229,11 +244,14 @@ ViewApp {
                                     Layout.minimumWidth: 70
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: ((logApp.pagesCurrentNumber * logApp.pagesItemPerPage)
-                                               - logApp.pagesItemPerPage) + index + 1
+                                               - logApp.pagesItemPerPage) + index + 1                                        
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }//
                                 }//
 
@@ -248,10 +266,13 @@ ViewApp {
                                     Layout.minimumWidth: 130
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: modelData.date
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }//
                                 }//
 
@@ -266,10 +287,13 @@ ViewApp {
                                     Layout.minimumWidth: 130
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: modelData.time
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }//
                                 }//
 
@@ -283,13 +307,16 @@ ViewApp {
                                     Layout.fillWidth: true
 
                                     TextApp {
-                                        anchors.fill: parent
-                                        anchors.margins: 5
+                                        //anchors.fill: parent
+                                        //anchors.margins: 5
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignLeft
                                         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                                         text: modelData.logText
-                                        //                                        text: "Event event event event event event event event event event event event event event Event event event event event event event event event event event event event event "
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
+                                        //text: "Event event event event event event event event event event event event event event Event event event event event event event event event event event event event event "
                                     }//
                                 }//
 
@@ -304,11 +331,14 @@ ViewApp {
                                     Layout.minimumWidth: 150
 
                                     TextApp {
-                                        anchors.fill: parent
-                                        anchors.margins: 5
+                                        //anchors.fill: parent
+                                        //anchors.margins: 5
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: modelData.userfullname.length ? modelData.userfullname : '-'
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }//
                                 }//
                             }//

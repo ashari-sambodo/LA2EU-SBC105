@@ -104,6 +104,7 @@ GridView{
                         case "Reset UV Life Meter":         text = qsTr("Reset UV Life Meter"); break
                         case "Reset Sash Cycle Meter":      text = qsTr("Reset Sash Cycle Meter"); break
                             ///
+                        case "RBM Com Port":                text = qsTr("RBM Com Port"); break
                         case "Fan Closed Loop Control":     text = qsTr("Fan Closed Loop Control"); break
                         case "Software Update":             text = qsTr("Software Update"); break
                         case "Shipping Setup":              text = qsTr("Shipping Setup"); break

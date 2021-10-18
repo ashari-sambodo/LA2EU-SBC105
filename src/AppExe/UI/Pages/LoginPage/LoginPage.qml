@@ -333,7 +333,7 @@ ViewApp {
                                         UserSessionService.username = props.textUsername
                                         UserSessionService.fullname = props.textFullname + " (" + props.textUsername + ")"
 
-                                        MachineAPI.setSignedUser(props.textUsername, props.textFullname)
+                                        MachineAPI.setSignedUser(props.textUsername, UserSessionService.fullname)
                                         const message = qsTr("Login succes! username: ") + props.textUsername
                                         MachineAPI.insertEventLog(message)
 
@@ -353,7 +353,7 @@ ViewApp {
                                         UserSessionService.username = props.textUsername
                                         UserSessionService.fullname = props.textFullname + " (" + props.textUsername + ")"
 
-                                        MachineAPI.setSignedUser(props.textUsername, props.textFullname)
+                                        MachineAPI.setSignedUser(props.textUsername, UserSessionService.fullname)
                                         const message = qsTr("Login succes! username: ") + props.textUsername
                                         MachineAPI.insertEventLog(message)
 

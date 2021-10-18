@@ -145,6 +145,18 @@ ViewApp {
                             }//
                             ,
                             State {
+                                when: props.alarmSashMotorDownStuck
+                                PropertyChanges {
+                                    target: headerBgImage
+                                    visible: true
+                                }//
+                                PropertyChanges {
+                                    target: headerStatusText
+                                    text: qsTr("ALARM: SASH DOWN STUCK")
+                                }//
+                            }//
+                            ,
+                            State {
                                 when: props.alarmSashError
                                 PropertyChanges {
                                     target: headerBgImage
@@ -2447,6 +2459,8 @@ ViewApp {
 
             property bool buttonSashMotorizedDownPressed : false;
             property bool airflowMonitorEnable: true
+            property bool alarmSashMotorDownStuck: false
+
             function showFanProgressSwitchingState(swithTo){
                 //                //console.debug("swithTo: " + swithTo)
                 const message = swithTo ? qsTr("Switching on the fan") + "..."
@@ -2602,6 +2616,9 @@ ViewApp {
                 props.fanPIN = Qt.binding(function() { return MachineData.fanPIN })
 
                 props.airflowMonitorEnable = Qt.binding(function(){return MachineData.airflowMonitorEnable})
+
+                props.alarmSashMotorDownStuck = Qt.binding(function(){ return MachineData.alarmSashMotorDownStuck === MachineAPI.ALARM_ACTIVE_STATE })
+
                 /// show dialog progress when fan state will be switching
                 MachineData.fanSwithingStateTriggered.connect(props.showFanProgressSwitchingState)
 

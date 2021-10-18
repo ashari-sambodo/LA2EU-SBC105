@@ -307,16 +307,28 @@ bool MachineData::getDualRbmMode() const
     return m_dualRbmMode;
 }
 
-void MachineData::setSashMotorizeInterlockedSwitch(bool value)
+void MachineData::setSashMotorDownStuckSwitch(bool value)
 {
-    if(m_sashMotorizeInterlockedSwitch == value) return;
-    m_sashMotorizeInterlockedSwitch = value;
-    emit sashMotorizeInterlockedSwitchChanged(m_sashMotorizeInterlockedSwitch);
+    if(m_sashMotorDownStuckSwitch == value) return;
+    m_sashMotorDownStuckSwitch = value;
+    emit sashMotorDownStuckSwitchChanged(m_sashMotorDownStuckSwitch);
 }
 
-bool MachineData::getSashMotorizeInterlockedSwitch() const
+bool MachineData::getSashMotorDownStuckSwitch() const
 {
-    return m_sashMotorizeInterlockedSwitch;
+    return m_sashMotorDownStuckSwitch;
+}
+
+short MachineData::getAlarmSashMotorDownStuck() const
+{
+    return m_alarmSashMotorDownStuck;
+}
+
+void MachineData::setAlarmSashMotorDownStuck(short value)
+{
+    if(m_alarmSashMotorDownStuck == value) return;
+    m_alarmSashMotorDownStuck = value;
+    emit alarmSashMotorDownStuckChanged(m_alarmSashMotorDownStuck);
 }
 
 QString MachineData::getSbcSerialNumber() const

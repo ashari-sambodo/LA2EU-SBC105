@@ -164,6 +164,7 @@ ViewApp {
                                         /// example en#0#English
                                         let langCode = modelData.code + "#" + index + "#" + modelData.language
                                         MachineAPI.saveLanguage(langCode);
+                                        props.currentLanguge = modelData.language
                                     }//
                                 }//
                             }//
@@ -197,9 +198,16 @@ ViewApp {
                             text: qsTr("Back")
 
                             onClicked: {
-                                var intent = IntentApp.create(uri, {"message":""})
-                                finishView(intent)
-                            }
+                                if(props.currentLanguge !== props.currentLanguge2){
+                                    const intent = IntentApp.create("", {})
+                                    startRootView(intent)
+                                    //                                    const intent = IntentApp.create("qrc:/UI/Pages/_HomePage/HomePage.qml", {})
+                                    //                                    startView(intent)
+                                }else{
+                                    var intent = IntentApp.create(uri, {"message":""})
+                                    finishView(intent)
+                                }//
+                            }//
                         }//
 
                         ButtonBarApp {
@@ -240,6 +248,7 @@ ViewApp {
                 //                {"language": "Spanish (Español)",   "code": "es"}
             ]
             property string currentLanguge: "English"
+            property string currentLanguge2 : ""
         }//
 
         /// called Once but after onResume
@@ -257,6 +266,7 @@ ViewApp {
                 let lang = MachineData.language.split("#")[2]
                 if (lang !== undefined) {
                     props.currentLanguge = lang
+                    props.currentLanguge2 = lang
                 }
 
                 const extraData = IntentApp.getExtraData(intent)

@@ -968,10 +968,14 @@ class MachineData : public QObject
     //               //               WRITE setRbmComPortIfa
     //               NOTIFY dualRbmModeChanged)
 
-    Q_PROPERTY(bool sashMotorizeInterlockedSwitch
-               READ getSashMotorizeInterlockedSwitch
+    Q_PROPERTY(bool sashMotorDownStuckSwitch
+               READ getSashMotorDownStuckSwitch
                //               WRITE setRbmComPortIfa
-               NOTIFY sashMotorizeInterlockedSwitchChanged)
+               NOTIFY sashMotorDownStuckSwitchChanged)
+    Q_PROPERTY(short alarmSashMotorDownStuck
+               READ getAlarmSashMotorDownStuck
+               //               WRITE setRbmComPortIfa
+               NOTIFY alarmSashMotorDownStuckChanged)
 
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
@@ -1759,11 +1763,11 @@ public:
     //    bool getDualRbmMode()const;
     Q_INVOKABLE bool getDualRbmMode()const;
 
-    void setSashMotorizeInterlockedSwitch(bool value);
-    bool getSashMotorizeInterlockedSwitch()const;
+    void setSashMotorDownStuckSwitch(bool value);
+    bool getSashMotorDownStuckSwitch()const;
 
-    bool getButtonSashMotorizedDownPressed()const;
-    void setButtonSashMotorizedDownPressed(bool value);
+    short getAlarmSashMotorDownStuck()const;
+    void setAlarmSashMotorDownStuck(short value);
 
 public slots:
     void initSingleton();
@@ -2060,8 +2064,8 @@ signals:
     ///
     void dualRbmModeChanged(bool value);
     ///
-    void sashMotorizeInterlockedSwitchChanged(bool value);
-    void buttonSashMotorizedDownPressedChanged(bool value);
+    void sashMotorDownStuckSwitchChanged(bool value);
+    void alarmSashMotorDownStuckChanged(short value);
 
 private:
     ///
@@ -2422,9 +2426,10 @@ private:
 
     bool m_frontPanelSwitchInstalled = false;
     bool m_frontPanelSwitchState = false;
-    short m_frontPanelAlarm = false;
+    short m_frontPanelAlarm;
     bool m_dualRbmMode;
-    bool m_sashMotorizeInterlockedSwitch;
+    bool m_sashMotorDownStuckSwitch;
+    short m_alarmSashMotorDownStuck;
 
     QString m_rbmComPortAvalaible;
     QString m_rbmComPortIfa;

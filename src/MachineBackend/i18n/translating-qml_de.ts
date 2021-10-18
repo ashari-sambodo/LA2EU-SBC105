@@ -207,12 +207,22 @@
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="26"/>
         <source>Alarm Fan Standby Off | Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarm Lüfter Standby Aus | Normal</translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="27"/>
         <source>Alarm Fan Standby Off | Active</source>
-        <translation type="unfinished"></translation>
+        <translation>Alarm Lüfter Standby Aus | Aktiv</translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="35"/>
+        <source>Alarm Sash Down Stuck | Normal</source>
+        <translation>Alarm Fenstermotor blockiert | Normal</translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="36"/>
+        <source>Alarm Sash Down Stuck | Active</source>
+        <translation>Alarm Fenstermotor blockiert | Aktiv</translation>
     </message>
     <message>
         <source>Alarm Fan Standby | Normal</source>

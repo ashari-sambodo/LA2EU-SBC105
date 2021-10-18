@@ -230,6 +230,16 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="35"/>
+        <source>Alarm Sash Down Stuck | Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="36"/>
+        <source>Alarm Sash Down Stuck | Active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="32"/>
         <source>Front Panel Alarm | Normal</source>
         <translation type="unfinished"></translation>

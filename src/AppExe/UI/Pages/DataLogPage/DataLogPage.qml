@@ -130,10 +130,13 @@ ViewApp {
                                     Layout.minimumWidth: 70
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: qsTr("No.")
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -148,10 +151,13 @@ ViewApp {
                                     Layout.fillWidth: true
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: qsTr("Date")
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -166,10 +172,13 @@ ViewApp {
                                     Layout.fillWidth: true
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: qsTr("Time (24h)")
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -184,10 +193,13 @@ ViewApp {
                                     Layout.fillWidth: true
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
-                                        text: qsTr("Temp")
+                                        text: qsTr("Temp")                                        
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -202,10 +214,13 @@ ViewApp {
                                     Layout.fillWidth: true
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: qsTr("Downflow")
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -220,10 +235,13 @@ ViewApp {
                                     Layout.fillWidth: true
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: qsTr("Inflow")
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }//
                                 }//
                             }//
@@ -244,11 +262,14 @@ ViewApp {
                                     Layout.minimumWidth: 70
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: ((logApp.pagesCurrentNumber * logApp.pagesItemPerPage)
                                                - logApp.pagesItemPerPage) + index + 1
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -257,10 +278,13 @@ ViewApp {
                                     Layout.fillWidth: true
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
-                                        text: modelData.date
+                                        text: modelData.date                                        
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -269,10 +293,13 @@ ViewApp {
                                     Layout.fillWidth: true
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: modelData.time
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -281,10 +308,13 @@ ViewApp {
                                     Layout.fillWidth: true
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: modelData.temp
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -293,10 +323,13 @@ ViewApp {
                                     Layout.fillWidth: true
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: modelData.dfa
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
 
@@ -305,10 +338,13 @@ ViewApp {
                                     Layout.fillWidth: true
 
                                     TextApp {
-                                        anchors.fill: parent
+                                        //anchors.fill: parent
                                         verticalAlignment: Text.AlignVCenter
                                         horizontalAlignment: Text.AlignHCenter
                                         text: modelData.ifa
+                                        width: parent.width
+                                        height: parent.height
+                                        padding: 5
                                     }
                                 }
                             }

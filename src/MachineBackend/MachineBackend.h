@@ -652,7 +652,8 @@ private:
     bool  m_delaySashMotorFullyClosedExecuted = false;
     uchar m_counter = 0;
     bool m_scanRbmComPortAvailable = false;
-    bool m_buttonSashMotorizedDownPressed = false;
+    bool m_dummySashMotorDownStuckSwitchEnabled = false;
+    bool m_dummySashMotorDownStuckSwitchState = false;
 
 #ifdef QT_DEBUG
     QScopedPointer<QWebSocketServer> m_pWebSocketServerDummyState;
