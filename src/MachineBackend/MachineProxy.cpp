@@ -874,36 +874,6 @@ void MachineProxy::setRbmComPortDfa(QString value)
     Qt::QueuedConnection);
 }
 
-//void MachineProxy::setButtonSashMotorizedPressed(bool value)
-//{
-//    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-//        m_machineBackend->setButtonSashMotorizedPressed(value);
-//    },
-//    Qt::QueuedConnection);
-//}
-
-//void MachineProxy::setFanPrimaryRbmAddress(uchar address)
-//{
-//    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-//    qDebug() << address;
-
-//    QMetaObject::invokeMethod(m_machineBackend.data(), [&, address](){
-//        m_machineBackend->setFanPrimaryRbmAddress(address);
-//    },
-//    Qt::QueuedConnection);
-//}
-
-//void MachineProxy::setFanInflowRbmAddress(uchar address)
-//{
-//    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-//    qDebug() << address;
-
-//    QMetaObject::invokeMethod(m_machineBackend.data(), [&, address](){
-//        m_machineBackend->setFanInflowRbmAddress(address);
-//    },
-//    Qt::QueuedConnection);
-//}
-
 void MachineProxy::setOperationModeSave(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();

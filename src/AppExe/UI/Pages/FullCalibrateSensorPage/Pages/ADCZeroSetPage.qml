@@ -124,7 +124,7 @@ ViewApp {
                                             }//
 
                                             TextApp {
-                                                text: "Dcy: " + props.dfaFanDutyCycleActual
+                                                text: "Dcy: " + props.dfaFanDutyCycleActual + "%"
                                             }//
 
                                             TextApp {
@@ -321,7 +321,7 @@ ViewApp {
                                             }//
 
                                             TextApp {
-                                                text: "Dcy: " + props.ifaFanDutyCycleActual
+                                                text: "Dcy: " + props.ifaFanDutyCycleActual + "%"
                                             }//
 
                                             TextApp {

@@ -142,7 +142,7 @@ ViewApp {
                                             }//
 
                                             TextApp {
-                                                text: "Dcy: " + props.fanDutyCycleActual
+                                                text: "Dcy: " + props.fanDutyCycleActual + "%"
                                             }//
 
                                             TextApp {

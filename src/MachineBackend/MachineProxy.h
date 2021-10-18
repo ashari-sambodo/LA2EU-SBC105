@@ -327,13 +327,10 @@ public slots:
     /// FRONT PANEL SWITCH LA2EU
     void setFrontPanelSwitchInstalled(bool value);
     ///
-    //    void setFanPrimaryRbmAddress(uchar address);
-    //    void setFanInflowRbmAddress(uchar address);
     void scanRbmComPortAvalaible(bool value);
     void setRbmComPortIfa(QString value);
     void setRbmComPortDfa(QString value);
 
-    //    void setButtonSashMotorizedPressed(bool value);
 
 private slots:
     void doStopping();

@@ -360,13 +360,9 @@ public slots:
     /// FRONT PANEL SWITCH LA2EU
     void setFrontPanelSwitchInstalled(bool value);
     /// Set FAN RBM Address
-    //    void setFanPrimaryRbmAddress(uchar address);
-    //    void setFanInflowRbmAddress(uchar address);
     void scanRbmComPortAvalaible(bool value);
     void setRbmComPortDfa(QString value);
     void setRbmComPortIfa(QString value);
-
-    //    void setButtonSashMotorizedPressed(bool value);
 
 signals:
     void hasStopped();
@@ -428,7 +424,7 @@ private:
     QScopedPointer<AirflowVelocity> m_pAirflowInflow;
     QScopedPointer<AirflowVelocity> m_pAirflowDownflow;
     ////
-    QScopedPointer<QTimer>      m_timerEventForSashMotorInterlockSwitch;
+    //QScopedPointer<QTimer>    m_timerEventForSashMotorInterlockSwitch;
     QScopedPointer<QTimer>      m_timerEventForSashWindowRoutine;
     void _onTriggeredEventSashWindowRoutine();
     ///
@@ -656,7 +652,7 @@ private:
     bool  m_delaySashMotorFullyClosedExecuted = false;
     uchar m_counter = 0;
     bool m_scanRbmComPortAvailable = false;
-   bool m_buttonSashMotorizedDownPressed = false;
+    bool m_buttonSashMotorizedDownPressed = false;
 
 #ifdef QT_DEBUG
     QScopedPointer<QWebSocketServer> m_pWebSocketServerDummyState;

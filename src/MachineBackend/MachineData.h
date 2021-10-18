@@ -972,12 +972,6 @@ class MachineData : public QObject
                READ getSashMotorizeInterlockedSwitch
                //               WRITE setRbmComPortIfa
                NOTIFY sashMotorizeInterlockedSwitchChanged)
-    Q_PROPERTY(bool buttonSashMotorizedDownPressed
-               READ getButtonSashMotorizedDownPressed
-               //               WRITE setRbmComPortIfa
-               NOTIFY buttonSashMotorizedDownPressedChanged)
-
-
 
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
@@ -1753,10 +1747,6 @@ public:
     void setFrontPanelSwitchState(bool value);
     void setFrontPanelAlarm(short value);
 
-    //    void setFanPrimaryRbmAddress(uchar address);
-    //    void setFanInflowRbmAddress(uchar address);
-    //    Q_INVOKABLE uchar getFanPrimaryRbmAddress()const;
-    //    Q_INVOKABLE uchar getFanInflowRbmAddress()const;
     ////
     void setRbmComPortAvailable(QString value);
     void setRbmComPortIfa(QString value);
@@ -2433,12 +2423,8 @@ private:
     bool m_frontPanelSwitchInstalled = false;
     bool m_frontPanelSwitchState = false;
     short m_frontPanelAlarm = false;
-    //    uchar m_fanPrimaryRbmAddress;
-    //    uchar m_fanInflowRbmAddress;
-    bool m_dualRbmMode = false;
-
-    bool m_sashMotorizeInterlockedSwitch = false;
-    bool m_buttonSashMotorizedDownPressed = false;
+    bool m_dualRbmMode;
+    bool m_sashMotorizeInterlockedSwitch;
 
     QString m_rbmComPortAvalaible;
     QString m_rbmComPortIfa;

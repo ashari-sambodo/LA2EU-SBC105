@@ -120,7 +120,7 @@ ViewApp {
                                                                     anchors.verticalCenter: parent.verticalCenter
                                                                     TextApp {
                                                                         id: dfaDcyText
-                                                                        text: qsTr("Dcy: ") + props.dfaFanDutyCycleActual
+                                                                        text: qsTr("Dcy: ") + props.dfaFanDutyCycleActual + "%"
                                                                         states: [
                                                                             State {
                                                                                 when: props.dfaFanDutyCycleActual == 0
@@ -617,7 +617,7 @@ ViewApp {
                                                                     anchors.verticalCenter: parent.verticalCenter
                                                                     TextApp {
                                                                         id: ifaDcyText
-                                                                        text: qsTr("Dcy: ") + props.ifaFanDutyCycleActual
+                                                                        text: qsTr("Dcy: ") + props.ifaFanDutyCycleActual + "%"
                                                                         states: [
                                                                             State {
                                                                                 when: props.ifaFanDutyCycleActual == 0

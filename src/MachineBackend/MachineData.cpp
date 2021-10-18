@@ -319,40 +319,6 @@ bool MachineData::getSashMotorizeInterlockedSwitch() const
     return m_sashMotorizeInterlockedSwitch;
 }
 
-bool MachineData::getButtonSashMotorizedDownPressed() const
-{
-    return m_buttonSashMotorizedDownPressed;
-}
-
-void MachineData::setButtonSashMotorizedDownPressed(bool value)
-{
-    if(m_buttonSashMotorizedDownPressed == value) return;
-    m_buttonSashMotorizedDownPressed = value;
-    emit buttonSashMotorizedDownPressedChanged(m_buttonSashMotorizedDownPressed);
-}
-
-//void MachineData::setFanPrimaryRbmAddress(uchar address)
-//{
-//    if(m_fanPrimaryRbmAddress == address) return;
-//    m_fanPrimaryRbmAddress = address;
-//}
-
-//void MachineData::setFanInflowRbmAddress(uchar address)
-//{
-//    if(m_fanInflowRbmAddress == address) return;
-//    m_fanInflowRbmAddress = address;
-//}
-
-//uchar MachineData::getFanPrimaryRbmAddress() const
-//{
-//    return m_fanPrimaryRbmAddress;
-//}
-
-//uchar MachineData::getFanInflowRbmAddress() const
-//{
-//    return m_fanInflowRbmAddress;
-//}
-
 QString MachineData::getSbcSerialNumber() const
 {
     return m_sbcSerialNumber;
