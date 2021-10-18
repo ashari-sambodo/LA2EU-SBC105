@@ -467,11 +467,13 @@ private:
     QScopedPointer<QTimer> m_timerEventForBuzzerBeep;
     QScopedPointer<QTimer> m_timerEventForRTCWatchdogReset;
 
+    QScopedPointer<QTimer> m_timerEventEvery100MSecond;
     QScopedPointer<QTimer> m_timerEventEverySecond;
     QScopedPointer<QTimer> m_timerEventEveryMinute;
     QScopedPointer<QTimer> m_timerEventEveryHour;
 
     void _onTriggeredEventEverySecond();
+    void _onTriggeredEventEvery10MSecond();
     void _onTriggeredEventEveryMinute();
     void _onTriggeredEventEveryHour();
 
@@ -654,6 +656,8 @@ private:
     bool m_scanRbmComPortAvailable = false;
     bool m_dummySashMotorDownStuckSwitchEnabled = false;
     bool m_dummySashMotorDownStuckSwitchState = false;
+    bool m_eventLoopSashMotorActive = false;
+    short m_eventLoopCounter = 0;
 
 #ifdef QT_DEBUG
     QScopedPointer<QWebSocketServer> m_pWebSocketServerDummyState;

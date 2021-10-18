@@ -1126,7 +1126,7 @@ ViewApp {
                                             onPressAndHold: {
                                                 if (stateInterlock) return
                                                 //console.debug("On DOWN Pressed!")
-                                                props.buttonSashMotorizedDownPressed = true;
+                                                //props.buttonSashMotorizedDownPressed = true;
                                                 //MachineAPI.setButtonSashMotorizedPressed(true)
                                                 MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_DOWN)
 
@@ -1136,11 +1136,11 @@ ViewApp {
                                             onReleasedPress: {
                                                 if (stateInterlock) return
                                                 //console.debug("On DOWN Released!")
-                                                props.buttonSashMotorizedDownPressed = false;
+                                                //props.buttonSashMotorizedDownPressed = false;
                                                 //MachineAPI.setButtonSashMotorizedPressed(false)
-                                                MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
+                                                //MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
 
-                                                MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
+                                                //MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
                                             }//
 
                                             states: [
@@ -2457,7 +2457,7 @@ ViewApp {
             property int particleCounterPM1_0:  0
             property int particleCounterPM10:   0
 
-            property bool buttonSashMotorizedDownPressed : false;
+            //            property bool buttonSashMotorizedDownPressed : false;
             property bool airflowMonitorEnable: true
             property bool alarmSashMotorDownStuck: false
 
@@ -2471,12 +2471,13 @@ ViewApp {
                     }
                 })
             }//
-            onButtonSashMotorizedDownPressedChanged: {
-                if(!buttonSashMotorizedDownPressed){
-                    console.debug("On Release Press!")
-                    MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
-                }
-            }//
+            //            onButtonSashMotorizedDownPressedChanged: {
+            //                if(!buttonSashMotorizedDownPressed){
+            //                    console.debug("On Release Press!")
+            //                    MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
+            //                MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
+            //                }
+            //            }//
         }//
 
         //        /// One time executed at startup
