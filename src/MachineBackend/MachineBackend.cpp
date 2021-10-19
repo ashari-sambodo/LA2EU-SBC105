@@ -1100,7 +1100,7 @@ void MachineBackend::setup()
 
         int timerMs = 200;
         if(pData->getSashWindowMotorizeInstalled())
-            timerMs = 20;
+            timerMs = 50;
         //// Create Independent Timer Event For Sash Motorize
         m_timerEventForSashWindowRoutine.reset(new QTimer);
         m_timerEventForSashWindowRoutine->setInterval(std::chrono::milliseconds(timerMs));
@@ -2296,13 +2296,13 @@ void MachineBackend::setup()
 
     /// JUST TIMER for triggering action by time
     {
-        m_timerEventEvery100MSecond.reset(new QTimer);
-        m_timerEventEvery100MSecond->setInterval(std::chrono::milliseconds(100));
+        m_timerEventEvery50MSecond.reset(new QTimer);
+        m_timerEventEvery50MSecond->setInterval(std::chrono::milliseconds(50));
 
-        QObject::connect(m_timerEventEvery100MSecond.data(), &QTimer::timeout,
-                         this, &MachineBackend::_onTriggeredEventEvery10MSecond);
-        QObject::connect(this, &MachineBackend::loopStarted, [&]{
-            m_timerEventEvery100MSecond->start();
+        QObject::connect(m_timerEventEvery50MSecond.data(), &QTimer::timeout,
+                         this, &MachineBackend::_onTriggeredEventEvery50MSecond);
+        QObject::connect(this, &MachineBackend::loopStarted, [&](){
+            m_timerEventEvery50MSecond->start();
         });
 
         m_timerEventEverySecond.reset(new QTimer);
@@ -2322,6 +2322,15 @@ void MachineBackend::setup()
         //        QObject::connect(this, &MachineBackend::loopStarted, [&]{
         //            m_timerEventEveryMinute->start();
         //        });
+
+        m_timerEventEveryMinute2.reset(new QTimer);
+        m_timerEventEveryMinute2->setInterval(std::chrono::minutes(1));
+
+        QObject::connect(m_timerEventEveryMinute2.data(), &QTimer::timeout,
+                         this, &MachineBackend::_onTriggeredEventEveryMinute2);
+        QObject::connect(this, &MachineBackend::loopStarted, [&]{
+            m_timerEventEveryMinute2->start();
+        });
 
         m_timerEventEveryHour.reset(new QTimer);
         m_timerEventEveryHour->setInterval(std::chrono::hours(1));
@@ -2449,31 +2458,36 @@ void MachineBackend::setup()
                         /// wait until fan actually turned on or exceed the time out (10 seconds)
                         for (int var = 0; var < 10; ++var) {
                             m_pFanPrimary->routineTask();
-                            if(pData->getDualRbmMode())
-                                m_pFanInflow2->routineTask();
-                            else
-                                m_pFanInflow->routineTask();
+                            if(pData->getDualRbmMode()) m_pFanInflow2->routineTask();
+                            else m_pFanInflow->routineTask();
                             if(m_pFanPrimary->dutyCycle() == dfaDutyCycle && !dfaUpdated){
                                 //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
                                 _onFanPrimaryActualDucyChanged(dfaDutyCycle);
                                 dfaUpdated = true;
                             }
-                            if(((m_pFanInflow->getState() && !pData->getDualRbmMode()) || (m_pFanInflow2->dutyCycle() == ifaDutyCycle  && pData->getDualRbmMode()))
-                                    && !ifaUpdated){
-                                //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
-                                _onFanInflowActualDucyChanged(ifaDutyCycle);
-                                ifaUpdated = true;
+                            if(pData->getDualRbmMode()){
+                                if((m_pFanInflow2->dutyCycle() == ifaDutyCycle) && !ifaUpdated){
+                                    //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
+                                    _onFanInflowActualDucyChanged(ifaDutyCycle);
+                                    ifaUpdated = true;
+                                }
+                            }else{
+                                if((m_pFanInflow->getState() == ifaDutyCycle) && !ifaUpdated){
+                                    //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
+                                    _onFanInflowActualDucyChanged(ifaDutyCycle);
+                                    ifaUpdated = true;
+                                }
                             }
                             if(dfaUpdated && ifaUpdated) break;
                             QThread::sleep(1);
-                        }
-                    }
-                }
+                        }//
+                    }//
+                }//
                     break;
-                }
-            }
-        }
-    }
+                }//
+            }//
+        }//
+    }//
     /// General connection for Debugging
     QObject::connect(pData, &MachineData::fanStateChanged,
                      this, [&](short value){
@@ -2619,10 +2633,11 @@ void MachineBackend::deallocate()
     /// Shutting down modbus communication
     m_pModbusServer->disconnectDevice();
     m_timerEventForSashWindowRoutine->stop();
+    m_timerEventEvery50MSecond->stop();
     m_timerEventEverySecond->stop();
-    m_timerEventEvery100MSecond->stop();
     if(m_timerEventEveryMinute->isActive())
         m_timerEventEveryMinute->stop();
+    m_timerEventEveryMinute2->stop();
     m_timerEventEveryHour->stop();
     m_timerEventForDataLog->stop();
     m_timerEventForLcdToDimm->stop();
@@ -2831,12 +2846,14 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
         case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV:
             ////MOTORIZE SASH
             if(pData->getSashWindowMotorizeInstalled()){
-
                 if(pData->getSashWindowMotorizeUpInterlocked()){
                     m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
                 }
 
                 if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
+                    ///Ensure the Buzzer Alarm Off Once Sash Fully Closed
+                    setBuzzerState(MachineEnums::DIG_STATE_ZERO);
+
                     if(pData->getSashWindowMotorizeState()){
                         if(!pData->getSashCycleCountValid()){
                             pData->setSashCycleCountValid(true);
@@ -2923,34 +2940,35 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                                 m_pSasWindowMotorize->routineTask();
                                 qDebug() << "Sash Motor Off in Sash Standby 1";
                                 m_eventLoopCounter = 0;
-                                QEventLoop waitLoop;
-                                QObject::connect(m_timerEventEvery100MSecond.data(), &QTimer::timeout,
-                                                 &waitLoop, [this, &waitLoop] (){
-                                    short sashWindowState = pData->getSashWindowState();
-                                    m_eventLoopCounter++;
-                                    qDebug() << "waitLoop" << sashWindowState << m_eventLoopCounter;
-                                    if ((sashWindowState == MachineEnums::SASH_STATE_STANDBY_SSV) || (m_eventLoopCounter > 10)){
-                                        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                                        m_pSasWindowMotorize->routineTask();
-                                        qDebug() << "Sash Motor Off in Sash Standby WaitLoop";
-                                        if(pData->getFanState() == MachineEnums::FAN_STATE_ON){
-                                            ///Ensure the Buzzer Alarm Off Once in Standby Mode and fan ON
-                                            setBuzzerState(MachineEnums::DIG_STATE_ZERO);
-                                            setFanState(MachineEnums::FAN_STATE_STANDBY);
+                                m_eventLoopSashMotorActive = true;
+                                QTimer::singleShot(200, this, [&](){
+                                    QEventLoop waitLoop;
+                                    QObject::connect(m_timerEventEvery50MSecond.data(), &QTimer::timeout,
+                                                     &waitLoop, [this, &waitLoop] (){
+                                        short sashWindowState = pData->getSashWindowState();
+                                        m_eventLoopCounter++;
+                                        qDebug() << "waitLoop" << sashWindowState << m_eventLoopCounter;
+                                        if ((sashWindowState == MachineEnums::SASH_STATE_STANDBY_SSV) || (m_eventLoopCounter >= 20)){
+                                            m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                                            m_pSasWindowMotorize->routineTask();
+                                            qDebug() << "Sash Motor Off in Sash Standby WaitLoop";
+                                            if(pData->getFanState() == MachineEnums::FAN_STATE_ON){
+                                                ///Ensure the Buzzer Alarm Off Once in Standby Mode and fan ON
+                                                setBuzzerState(MachineEnums::DIG_STATE_ZERO);
+                                                setFanState(MachineEnums::FAN_STATE_STANDBY);
+                                            }
+                                            m_eventLoopSashMotorActive = false;
+                                            waitLoop.quit();
                                         }
-                                        m_eventLoopSashMotorActive = false;
-                                        waitLoop.quit();
-                                    }
-                                    else {
-                                        m_eventLoopSashMotorActive = true;
-                                        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_UP);
-                                        m_pSasWindowMotorize->routineTask();
-                                        qDebug() << "Sash Motor Up in WaitLoop Standby";
-                                    }
+                                        else {
+                                            m_eventLoopSashMotorActive = true;
+                                            m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_UP);
+                                            m_pSasWindowMotorize->routineTask();
+                                            qDebug() << "Sash Motor Up in WaitLoop Standby";
+                                        }
+                                    });
+                                    waitLoop.exec();
                                 });
-
-                                waitLoop.exec();
-
                             }else{
                                 m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                                 m_pSasWindowMotorize->routineTask();
@@ -3027,56 +3045,58 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                                 m_pSasWindowMotorize->routineTask();
                                 qDebug() << "Sash Motor Off in Sash Safe 1";
                                 m_eventLoopCounter = 0;
-                                QEventLoop waitLoop;
-                                QObject::connect(m_timerEventEvery100MSecond.data(), &QTimer::timeout,
-                                                 &waitLoop, [this, &waitLoop] (){
-                                    short sashWindowState = pData->getSashWindowState();
-                                    m_eventLoopCounter++;
-                                    qDebug() << "waitLoop" << sashWindowState << m_eventLoopCounter;
-                                    if ((sashWindowState == MachineEnums::SASH_STATE_WORK_SSV) || (m_eventLoopCounter > 10)){
-                                        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                                        m_pSasWindowMotorize->routineTask();
-                                        qDebug() << "Sash Motor Off in Sash Safe WaitLoop";
+                                m_eventLoopSashMotorActive = true;
+                                QTimer::singleShot(200, this, [&](){
+                                    QEventLoop waitLoop;
+                                    QObject::connect(m_timerEventEvery50MSecond.data(), &QTimer::timeout,
+                                                     &waitLoop, [this, &waitLoop] (){
+                                        short sashWindowState = pData->getSashWindowState();
+                                        m_eventLoopCounter++;
+                                        qDebug() << "waitLoop" << sashWindowState << m_eventLoopCounter;
+                                        if ((sashWindowState == MachineEnums::SASH_STATE_WORK_SSV) || (m_eventLoopCounter >= 20)){
+                                            m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                                            m_pSasWindowMotorize->routineTask();
+                                            qDebug() << "Sash Motor Off in Sash Safe WaitLoop";
 
-                                        ///Ensure the Buzzer Alarm Off Once Sahs Safe
-                                        setBuzzerState(MachineEnums::DIG_STATE_ZERO);
-                                        ////TURN ON LAMP
-                                        m_pLight->setState(MachineEnums::DIG_STATE_ONE);
-                                        _insertEventLog(EVENT_STR_LIGHT_ON);
-                                        ////IF CURRENT MODE MOPERATION IS QUICK START OR
-                                        ////IF CURRENT FAN STATE IS STANDBY SPEED; THEN
-                                        ////SWITCH BLOWER SPEED TO NOMINAL SPEED
-                                        bool autoOnBlower = false;
-                                        autoOnBlower |= (pData->getOperationMode() == MachineEnums::MODE_OPERATION_QUICKSTART);
-                                        autoOnBlower |= (pData->getFanPrimaryState() == MachineEnums::FAN_STATE_STANDBY || pData->getFanInflowState() == MachineEnums::FAN_STATE_STANDBY);
-                                        autoOnBlower &= (pData->getFanState() != MachineEnums::FAN_STATE_ON);
+                                            ///Ensure the Buzzer Alarm Off Once Sahs Safe
+                                            setBuzzerState(MachineEnums::DIG_STATE_ZERO);
+                                            ////TURN ON LAMP
+                                            m_pLight->setState(MachineEnums::DIG_STATE_ONE);
+                                            _insertEventLog(EVENT_STR_LIGHT_ON);
+                                            ////IF CURRENT MODE MOPERATION IS QUICK START OR
+                                            ////IF CURRENT FAN STATE IS STANDBY SPEED; THEN
+                                            ////SWITCH BLOWER SPEED TO NOMINAL SPEED
+                                            bool autoOnBlower = false;
+                                            autoOnBlower |= (pData->getOperationMode() == MachineEnums::MODE_OPERATION_QUICKSTART);
+                                            autoOnBlower |= (pData->getFanPrimaryState() == MachineEnums::FAN_STATE_STANDBY || pData->getFanInflowState() == MachineEnums::FAN_STATE_STANDBY);
+                                            autoOnBlower &= (pData->getFanState() != MachineEnums::FAN_STATE_ON);
 
-                                        if(autoOnBlower){
-                                            //_setFanPrimaryStateNominal();
-                                            setFanState(MachineEnums::FAN_STATE_ON);
-                                            /// Tell every one if the fan state will be changing
-                                            emit pData->fanSwithingStateTriggered(MachineEnums::DIG_STATE_ONE);
-                                            ////
-                                            _insertEventLog(EVENT_STR_FAN_ON);
+                                            if(autoOnBlower){
+                                                //_setFanPrimaryStateNominal();
+                                                setFanState(MachineEnums::FAN_STATE_ON);
+                                                /// Tell every one if the fan state will be changing
+                                                emit pData->fanSwithingStateTriggered(MachineEnums::DIG_STATE_ONE);
+                                                ////
+                                                _insertEventLog(EVENT_STR_FAN_ON);
+                                            }
+                                            /// clear vivarium mute state
+                                            if(pData->getVivariumMuteState()){
+                                                setMuteVivariumState(false);
+                                            }
+
+                                            m_eventLoopSashMotorActive = false;
+                                            waitLoop.quit();
                                         }
-                                        /// clear vivarium mute state
-                                        if(pData->getVivariumMuteState()){
-                                            setMuteVivariumState(false);
+                                        else {
+                                            m_eventLoopSashMotorActive = true;
+                                            m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_UP);
+                                            m_pSasWindowMotorize->routineTask();
+                                            qDebug() << "Sash Motor Up in WaitLoop Safe";
                                         }
+                                    });
 
-                                        m_eventLoopSashMotorActive = false;
-                                        waitLoop.quit();
-                                    }
-                                    else {
-                                        m_eventLoopSashMotorActive = true;
-                                        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_UP);
-                                        m_pSasWindowMotorize->routineTask();
-                                        qDebug() << "Sash Motor Up in WaitLoop Safe";
-                                    }
+                                    waitLoop.exec();
                                 });
-
-                                waitLoop.exec();
-
                             }else{
                                 m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                                 m_pSasWindowMotorize->routineTask();
@@ -6592,10 +6612,10 @@ void MachineBackend::_startPowerOutageCapture()
     qDebug() << __func__;
 
     /// double ensure this slot not connected yet, minimize chance to double connect the signal
-    disconnect(m_timerEventEveryMinute.data(), &QTimer::timeout,
+    disconnect(m_timerEventEveryMinute2.data(), &QTimer::timeout,
                this, &MachineBackend::_onTimerEventPowerOutageCaptureTime);
     /// connect uniqly timer event for warming up count down
-    connect(m_timerEventEveryMinute.data(), &QTimer::timeout,
+    connect(m_timerEventEveryMinute2.data(), &QTimer::timeout,
             this, &MachineBackend::_onTimerEventPowerOutageCaptureTime,
             Qt::UniqueConnection);
 
@@ -6603,6 +6623,8 @@ void MachineBackend::_startPowerOutageCapture()
     settings.setValue(SKEY_POWER_OUTAGE, MachineEnums::DIG_STATE_ONE);
     settings.setValue(SKEY_POWER_OUTAGE_FAN, MachineEnums::DIG_STATE_ZERO);
     settings.setValue(SKEY_POWER_OUTAGE_UV, MachineEnums::DIG_STATE_ZERO);
+    //    if(pData->getSocketInstalled())
+    //        settings.setValue(SKEY_POWER_OUTAGE_SOCKET, MachineEnums::DIG_STATE_ZERO);
 
     if(pData->getFanState()){
         settings.setValue(SKEY_POWER_OUTAGE_FAN, pData->getFanState());
@@ -6610,6 +6632,9 @@ void MachineBackend::_startPowerOutageCapture()
     else if(pData->getUvState()){
         settings.setValue(SKEY_POWER_OUTAGE_UV, pData->getUvState());
     }
+    //    if(pData->getSocketInstalled() && pData->getSocketState()){
+    //        settings.setValue(SKEY_POWER_OUTAGE_SOCKET, pData->getSocketState());
+    //    }
 
     /// TRIGERED ON START
     _onTimerEventPowerOutageCaptureTime();
@@ -6618,7 +6643,7 @@ void MachineBackend::_startPowerOutageCapture()
 void MachineBackend::_cancelPowerOutageCapture()
 {
     /// double ensure this slot not connected yet, minimize chance to double connect the signal
-    disconnect(m_timerEventEveryMinute.data(), &QTimer::timeout,
+    disconnect(m_timerEventEveryMinute2.data(), &QTimer::timeout,
                this, &MachineBackend::_onTimerEventPowerOutageCaptureTime);
 
     QSettings settings;
@@ -7378,7 +7403,12 @@ void MachineBackend::_onTriggeredEventEverySecond()
     }//
 }
 
-void MachineBackend::_onTriggeredEventEvery10MSecond()
+void MachineBackend::_onTriggeredEventEvery50MSecond()
+{
+
+}
+
+void MachineBackend::_onTriggeredEventEveryMinute2()
 {
 
 }//

@@ -467,14 +467,16 @@ private:
     QScopedPointer<QTimer> m_timerEventForBuzzerBeep;
     QScopedPointer<QTimer> m_timerEventForRTCWatchdogReset;
 
-    QScopedPointer<QTimer> m_timerEventEvery100MSecond;
+    QScopedPointer<QTimer> m_timerEventEvery50MSecond;
     QScopedPointer<QTimer> m_timerEventEverySecond;
     QScopedPointer<QTimer> m_timerEventEveryMinute;
+    QScopedPointer<QTimer> m_timerEventEveryMinute2;
     QScopedPointer<QTimer> m_timerEventEveryHour;
 
+    void _onTriggeredEventEvery50MSecond();
     void _onTriggeredEventEverySecond();
-    void _onTriggeredEventEvery10MSecond();
     void _onTriggeredEventEveryMinute();
+    void _onTriggeredEventEveryMinute2();
     void _onTriggeredEventEveryHour();
 
     ///DATA LOG

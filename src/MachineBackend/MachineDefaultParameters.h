@@ -341,6 +341,8 @@
 #define SKEY_POWER_OUTAGE_FAN           "pwlFan"
 #define SKEY_POWER_OUTAGE_LIGHT         "pwlLig"
 #define SKEY_POWER_OUTAGE_UV            "pwlUV"
+#define SKEY_POWER_OUTAGE_SOCKET        "pwlSck"
+#define SKEY_POWER_OUTAGE_GAS           "pwlGas"
 
 #define SKEY_SEAS_BOARD_FLAP_INSTALLED  "epmFlapAv"
 

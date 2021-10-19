@@ -229,6 +229,33 @@ ViewApp {
                             }//
                             ,
                             State {
+                                when: (props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE) &&
+                                      (props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE)
+                                PropertyChanges {
+                                    target: headerBgImage
+                                    visible: true
+                                }//
+                                PropertyChanges {
+                                    target: headerStatusText
+                                    text: qsTr("ALARM: AIRFLOW LOW")
+                                }//
+                            }//
+                            ,
+                            State {
+                                when: (((props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE) ||
+                                      (props.alarmDownflowHigh == MachineAPI.ALARM_ACTIVE_STATE)) &&
+                                      (props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE))
+                                PropertyChanges {
+                                    target: headerBgImage
+                                    visible: true
+                                }//
+                                PropertyChanges {
+                                    target: headerStatusText
+                                    text: qsTr("ALARM: AIRFLOW FAIL")
+                                }//
+                            }//
+                            ,
+                            State {
                                 when: props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE
                                 PropertyChanges {
                                     target: headerBgImage
@@ -1136,11 +1163,11 @@ ViewApp {
                                             onReleasedPress: {
                                                 if (stateInterlock) return
                                                 //console.debug("On DOWN Released!")
-                                                //props.buttonSashMotorizedDownPressed = false;
+                                                //props. = false;
                                                 //MachineAPI.setButtonSashMotorizedPressed(false)
-                                                //MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
+                                                MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATEbuttonSashMotorizedDownPressed_OFF)
 
-                                                //MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
+                                                MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
                                             }//
 
                                             states: [
@@ -1457,24 +1484,41 @@ ViewApp {
                                                 }
                                             },
                                             State {
-                                                when: props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE
+                                                when: (props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE) &&
+                                                      (props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE)
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The inflow value is too low!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, grill and ventilation paths are not obstructed.")
+                                                    text: qsTr("The Airflow velocity is too low!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, grill and ventilation paths are not obstructed.")
+                                                }
+                                            },
+                                            State {
+                                                when: (((props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE) ||
+                                                        (props.alarmDownflowHigh == MachineAPI.ALARM_ACTIVE_STATE)) &&
+                                                        (props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE))
+                                                PropertyChanges {
+                                                    target: textTeleprompter
+                                                    text: qsTr("The Airflow velocity failed!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, grill and ventilation paths are not obstructed.")
                                                 }
                                             },
                                             State {
                                                 when: props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The Downflow value is too low!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, grill and ventilation paths are not obstructed.")
+                                                    text: qsTr("The Downflow velocity is too low!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, grill and ventilation paths are not obstructed.")
+                                                }
+                                            },
+                                            State {
+                                                when: props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE
+                                                PropertyChanges {
+                                                    target: textTeleprompter
+                                                    text: qsTr("The inflow velocity is too low!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, grill and ventilation paths are not obstructed.")
                                                 }
                                             },
                                             State {
                                                 when: props.alarmDownflowHigh == MachineAPI.ALARM_ACTIVE_STATE
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The Downflow value is too high!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, grill and ventilation paths are not obstructed.")
+                                                    text: qsTr("The Downflow velocity is too high!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, grill and ventilation paths are not obstructed.")
                                                 }
                                             },
                                             State {
@@ -2619,6 +2663,9 @@ ViewApp {
                 props.airflowMonitorEnable = Qt.binding(function(){return MachineData.airflowMonitorEnable})
 
                 props.alarmSashMotorDownStuck = Qt.binding(function(){ return MachineData.alarmSashMotorDownStuck === MachineAPI.ALARM_ACTIVE_STATE })
+
+                props.tempAmbientHighStrf =  Qt.binding(function(){ return "%1°%2".arg(MachineData.envTempHighestLimit).arg(MachineData.measurementUnit ? "F" : "C")})
+                props.tempAmbientLowStrf =  Qt.binding(function(){ return "%1°%2".arg(MachineData.envTempLowestLimit).arg(MachineData.measurementUnit ? "F" : "C")})
 
                 /// show dialog progress when fan state will be switching
                 MachineData.fanSwithingStateTriggered.connect(props.showFanProgressSwitchingState)
