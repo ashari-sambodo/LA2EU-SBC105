@@ -112,102 +112,131 @@ ViewApp {
                         property alias model: menuItemView.model
                         property alias currentIndex: menuItemView.currentIndex
                         property alias listviewContentX: menuItemView.contentX
-
-                        ListView {
-                            id: menuItemView
+                        ColumnLayout{
                             anchors.fill: parent
-                            //                            height: 250
-                            //                            width: parent.width
-                            //                            anchors.verticalCenter: parent.verticalCenter
-                            clip: true
-                            snapMode: ListView.SnapToItem
-                            flickableDirection: Flickable.AutoFlickIfNeeded
-                            orientation: ListView.Horizontal
-
-                            ScrollBar.horizontal: ScrollBar{policy: ScrollBar.AlwaysOn}
-
-                            //                                    highlightMoveDuration: 1000
-                            //                                    highlightMoveVelocity: -1
-                            //                                    highlightRangeMode: ListView.ApplyRange
-
-                            delegate: Item{
-                                height: 250
-                                width: 250
-                                opacity:  iconMouseArea.pressed ? 0.5 : 1
-
-                                ColumnLayout{
+                            Item {
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                ListView {
+                                    id: menuItemView
                                     anchors.fill: parent
-                                    anchors.margins: 10
-                                    spacing: 0
+                                    //                            height: 250
+                                    //                            width: parent.width
+                                    //                            anchors.verticalCenter: parent.verticalCenter
+                                    clip: true
+                                    snapMode: ListView.SnapToItem
+                                    flickableDirection: Flickable.AutoFlickIfNeeded
+                                    orientation: ListView.Horizontal
 
-                                    //                            Rectangle {
-                                    //                                anchors.fill: parent
-                                    //                            }
+                                    ScrollBar.horizontal: horizontalScrollBar
 
-                                    Item {
-                                        id: picIconItem
-                                        Layout.fillHeight: true
-                                        Layout.fillWidth: true
+                                    //                                    highlightMoveDuration: 1000
+                                    //                                    highlightMoveVelocity: -1
+                                    //                                    highlightRangeMode: ListView.ApplyRange
 
-                                        //Rectangle{anchors.fill: parent}
+                                    delegate: Item{
+                                        height: 250
+                                        width: 250
+                                        opacity:  iconMouseArea.pressed ? 0.5 : 1
 
-                                        Image {
-                                            id: picIconImage
-                                            source: modelData.micon ? modelData.micon : ""
-                                            fillMode: Image.PreserveAspectFit
+                                        ColumnLayout{
                                             anchors.fill: parent
-                                        }
+                                            anchors.margins: 10
+                                            spacing: 0
 
-                                        Loader {
-                                            id: badgeLoader
-                                            anchors.right: parent.right
-                                            active: modelData.badge === 1
-                                            sourceComponent: TextApp {
-                                                id: badgeText
-                                                padding: 2
-                                                text: modelData.badgeText
+                                            //                            Rectangle {
+                                            //                                anchors.fill: parent
+                                            //                            }
 
-                                                Rectangle {
-                                                    z: -1
-                                                    color: "#27ae60"
+                                            Item {
+                                                id: picIconItem
+                                                Layout.fillHeight: true
+                                                Layout.fillWidth: true
+
+                                                //Rectangle{anchors.fill: parent}
+
+                                                Image {
+                                                    id: picIconImage
+                                                    source: modelData.micon ? modelData.micon : ""
+                                                    fillMode: Image.PreserveAspectFit
                                                     anchors.fill: parent
-                                                    radius: 5
+                                                }
+
+                                                Loader {
+                                                    id: badgeLoader
+                                                    anchors.right: parent.right
+                                                    active: modelData.badge === 1
+                                                    sourceComponent: TextApp {
+                                                        id: badgeText
+                                                        padding: 2
+                                                        text: modelData.badgeText
+
+                                                        Rectangle {
+                                                            z: -1
+                                                            color: "#27ae60"
+                                                            anchors.fill: parent
+                                                            radius: 5
+                                                        }//
+                                                    }//
+                                                }//
+                                            }//
+
+                                            Item {
+                                                id: iconTextItem
+                                                Layout.minimumHeight: parent.height* 0.35
+                                                Layout.fillWidth: true
+
+                                                //Rectangle{anchors.fill: parent}
+
+                                                TextApp {
+                                                    id: iconText
+                                                    text: modelData.mtitle ? ((index + 1) + ") " + modelData.mtitle) : ""
+                                                    height: parent.height
+                                                    width: parent.width
+                                                    wrapMode: Text.WordWrap
+                                                    horizontalAlignment: Text.AlignHCenter
+                                                    verticalAlignment: Text.AlignTop
+                                                    color: "#dddddd"
+                                                    font.pixelSize: 20
                                                 }//
                                             }//
                                         }//
-                                    }//
 
-                                    Item {
-                                        id: iconTextItem
-                                        Layout.minimumHeight: parent.height* 0.35
-                                        Layout.fillWidth: true
-
-                                        //Rectangle{anchors.fill: parent}
-
-                                        TextApp {
-                                            id: iconText
-                                            text: modelData.mtitle ? ((index + 1) + ") " + modelData.mtitle) : ""
-                                            height: parent.height
-                                            width: parent.width
-                                            wrapMode: Text.WordWrap
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignTop
-                                            color: "#dddddd"
-                                            font.pixelSize: 20
+                                        MouseArea{
+                                            id: iconMouseArea
+                                            anchors.fill: parent
+                                            onClicked: {
+                                                if (modelData.mtype === "submenu") {
+                                                    menuStackView.push(menuGridViewComponent, {"model": modelData.submenu})
+                                                }else {
+                                                    props.lastSelectedMenuIndex = index
+                                                    props.openPage(modelData.pid, modelData.mlink, modelData.mtitle)
+                                                }
+                                            }//
                                         }//
                                     }//
                                 }//
-
-                                MouseArea{
-                                    id: iconMouseArea
+                            }//
+                            Rectangle{
+                                id: horizontalScrollRectangle
+                                Layout.minimumHeight: 10
+                                Layout.fillWidth: true
+                                color: "transparent"
+                                border.color: "#dddddd"
+                                radius: 5
+                                visible: menuItemView.contentWidth > width
+                                /// Horizontal ScrollBar
+                                ScrollBar {
+                                    id: horizontalScrollBar
                                     anchors.fill: parent
-                                    onClicked: {
-                                        if (modelData.mtype === "submenu") {
-                                            menuStackView.push(menuGridViewComponent, {"model": modelData.submenu})
-                                        }else {
-                                            props.lastSelectedMenuIndex = index
-                                            props.openPage(modelData.pid, modelData.mlink, modelData.mtitle)
-                                        }
+                                    orientation: Qt.Horizontal
+                                    policy: ScrollBar.AlwaysOn
+
+                                    contentItem: Rectangle {
+                                        implicitWidth: 0
+                                        implicitHeight: 5
+                                        radius: width / 2
+                                        color: "#dddddd"
                                     }//
                                 }//
                             }//

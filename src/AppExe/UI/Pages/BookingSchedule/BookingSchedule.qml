@@ -91,221 +91,251 @@ ViewApp {
                     Item {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-
-                        ListView {
-                            id: bookingListView
+                        ColumnLayout{
                             anchors.fill: parent
-                            clip: true
-                            //                            model: 24
-
-                            //                            model: [
-                            //                                {time: '00:00', },
-                            //                                {time: '01:00', slot: [
-                            //                                        {username: 'Lono'},
-                            //                                        {username: 'Sandraku'},
-                            //                                    ]},
-                            //                            ]
-
-                            spacing: 3
-                            orientation: ListView.Horizontal
-
-                            flickableDirection: Flickable.HorizontalFlick
-
-                            delegate: Item {
-                                width: 200
-                                height: bookingListView.height
-
-                                ColumnLayout {
+                            Item {
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                ListView {
+                                    id: bookingListView
                                     anchors.fill: parent
+                                    clip: true
+                                    //                            model: 24
+
+                                    //                            model: [
+                                    //                                {time: '00:00', },
+                                    //                                {time: '01:00', slot: [
+                                    //                                        {username: 'Lono'},
+                                    //                                        {username: 'Sandraku'},
+                                    //                                    ]},
+                                    //                            ]
+
                                     spacing: 3
+                                    orientation: ListView.Horizontal
+                                    flickableDirection: Flickable.HorizontalFlick
+                                    ScrollBar.horizontal: horizontalScrollBar
 
-                                    Item {
-                                        Layout.minimumHeight: 60
-                                        Layout.fillWidth: true
+                                    delegate: Item {
+                                        width: 200
+                                        height: bookingListView.height
 
-                                        Rectangle {
+                                        ColumnLayout {
                                             anchors.fill: parent
-                                            color: "#0F2952"
-                                            radius: 5
-                                            border.color: "#E3DAC9"
-                                            border.width: 1
+                                            spacing: 3
 
-                                            TextApp {
-                                                anchors.centerIn: parent
-                                                text: modelData.time
+                                            Item {
+                                                Layout.minimumHeight: 60
+                                                Layout.fillWidth: true
+
+                                                Rectangle {
+                                                    anchors.fill: parent
+                                                    color: "#0F2952"
+                                                    radius: 5
+                                                    border.color: "#E3DAC9"
+                                                    border.width: 1
+
+                                                    TextApp {
+                                                        anchors.centerIn: parent
+                                                        text: modelData.time
+                                                    }//
+                                                }//
+                                            }//
+
+                                            Item {
+                                                Layout.fillHeight: true
+                                                Layout.fillWidth: true
+
+                                                Rectangle {
+                                                    anchors.fill: parent
+                                                    color: "#2c3e50"
+                                                    radius: 5
+                                                    border.color: "#E3DAC9"
+                                                    border.width: 1
+
+                                                    Loader {
+                                                        anchors.fill: parent
+                                                        anchors.margins: 1
+                                                        sourceComponent: modelData.bookTitle.length ? bookedSlotComp : availableSlotComp
+                                                    }//
+
+                                                    Component {
+                                                        id: availableSlotComp
+                                                        Item {
+                                                            Rectangle {
+                                                                anchors.centerIn: parent
+                                                                height: 50
+                                                                width: parent.width - 10
+                                                                color: "#34495e"
+                                                                radius: 5
+
+                                                                TextApp {
+                                                                    anchors.centerIn: parent
+                                                                    text: qsTr("Book Now")
+                                                                }//
+                                                            }//
+
+                                                            MouseArea {
+                                                                anchors.fill: parent
+                                                                onClicked: {
+                                                                    props.bookingAdd(modelData.time)
+                                                                }//
+                                                            }//
+                                                        }//
+                                                    }//
+
+                                                    Component {
+                                                        id: bookedSlotComp
+
+                                                        ColumnLayout{
+                                                            Rectangle {
+                                                                Layout.minimumHeight: 50
+                                                                Layout.fillWidth: true
+
+                                                                color: "#34495e"
+                                                                radius: 5
+
+                                                                TextApp {
+                                                                    id: bookingTitleText
+                                                                    anchors.fill: parent
+                                                                    horizontalAlignment: Text.AlignHCenter
+                                                                    verticalAlignment: Text.AlignVCenter
+                                                                    text: modelData.bookTitle
+                                                                }//
+                                                            }//
+
+                                                            Item {
+                                                                Layout.minimumHeight: 30
+                                                                Layout.fillWidth: true
+
+                                                                TextApp {
+                                                                    id: bookingUserText
+                                                                    anchors.fill: parent
+                                                                    horizontalAlignment: Text.AlignHCenter
+                                                                    verticalAlignment: Text.AlignVCenter
+                                                                    text: modelData.bookBy
+                                                                }//
+
+                                                                Rectangle {
+                                                                    height: 1
+                                                                    width: parent.width - 10
+                                                                    color: "#34495e"
+                                                                    anchors.horizontalCenter: parent.horizontalCenter
+                                                                    anchors.bottom: parent.bottom
+                                                                }//
+                                                            }//
+
+                                                            Item {
+                                                                Layout.fillHeight: true
+                                                                Layout.fillWidth: true
+
+                                                                //                                                    Rectangle {anchors.fill: parent; color: "#2c3e50"}
+                                                                //                                                    visible: false
+
+                                                                Column {
+                                                                    width: parent.width - 10
+                                                                    anchors.horizontalCenter: parent.horizontalCenter
+
+                                                                    TextApp {
+                                                                        id: note1Text
+                                                                        width: parent.width
+                                                                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                                                                        text: modelData.note1
+                                                                        font.pixelSize: 18
+                                                                        color: "gray"
+                                                                    }//
+
+                                                                    Rectangle {
+                                                                        height: 1
+                                                                        width: parent.width - 10
+                                                                        color: "#34495e"
+                                                                        anchors.horizontalCenter: parent.horizontalCenter
+                                                                    }//
+
+                                                                    TextApp {
+                                                                        id: note2Text
+                                                                        width: parent.width
+                                                                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                                                                        text: modelData.note2
+                                                                        font.pixelSize: 18
+                                                                        color: "gray"
+                                                                    }//
+
+                                                                    Rectangle {
+                                                                        height: 1
+                                                                        width: parent.width - 10
+                                                                        color: "#34495e"
+                                                                        anchors.horizontalCenter: parent.horizontalCenter
+                                                                    }//
+
+                                                                    TextApp {
+                                                                        id: note3Text
+                                                                        width: parent.width
+                                                                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                                                                        text: modelData.note3
+                                                                        font.pixelSize: 18
+                                                                        color: "gray"
+                                                                    }//
+
+                                                                    Rectangle {
+                                                                        height: 1
+                                                                        width: parent.width - 10
+                                                                        color: "#34495e"
+                                                                        anchors.horizontalCenter: parent.horizontalCenter
+                                                                    }//
+                                                                }//
+                                                            }//
+
+                                                            Rectangle {
+                                                                Layout.minimumHeight: 40
+                                                                Layout.fillWidth: true
+
+                                                                color: "#34495e"
+                                                                radius: 5
+
+                                                                TextApp {
+                                                                    anchors.fill: parent
+                                                                    horizontalAlignment: Text.AlignHCenter
+                                                                    verticalAlignment: Text.AlignVCenter
+                                                                    text: qsTr("Cancel")
+                                                                    color: "gray"
+                                                                }//
+
+                                                                MouseArea {
+                                                                    anchors.fill: parent
+                                                                    onClicked: {
+                                                                        props.bookingCancel(modelData.time)
+                                                                    }//
+                                                                }//
+                                                            }//
+                                                        }//
+                                                    }//
+                                                }//
                                             }//
                                         }//
                                     }//
+                                }//
+                            }//
+                            Rectangle{
+                                id: horizontalScrollRectangle
+                                Layout.minimumHeight: 10
+                                Layout.fillWidth: true
+                                color: "transparent"
+                                border.color: "#dddddd"
+                                radius: 5
+                                visible: bookingListView.contentWidth > width
 
-                                    Item {
-                                        Layout.fillHeight: true
-                                        Layout.fillWidth: true
+                                /// Horizontal ScrollBar
+                                ScrollBar {
+                                    id: horizontalScrollBar
+                                    anchors.fill: parent
+                                    orientation: Qt.Horizontal
+                                    policy: ScrollBar.AlwaysOn
 
-                                        Rectangle {
-                                            anchors.fill: parent
-                                            color: "#2c3e50"
-                                            radius: 5
-                                            border.color: "#E3DAC9"
-                                            border.width: 1
-
-                                            Loader {
-                                                anchors.fill: parent
-                                                anchors.margins: 1
-                                                sourceComponent: modelData.bookTitle.length ? bookedSlotComp : availableSlotComp
-                                            }//
-
-                                            Component {
-                                                id: availableSlotComp
-                                                Item {
-                                                    Rectangle {
-                                                        anchors.centerIn: parent
-                                                        height: 50
-                                                        width: parent.width - 10
-                                                        color: "#34495e"
-                                                        radius: 5
-
-                                                        TextApp {
-                                                            anchors.centerIn: parent
-                                                            text: qsTr("Book Now")
-                                                        }//
-                                                    }//
-
-                                                    MouseArea {
-                                                        anchors.fill: parent
-                                                        onClicked: {
-                                                            props.bookingAdd(modelData.time)
-                                                        }//
-                                                    }//
-                                                }//
-                                            }//
-
-                                            Component {
-                                                id: bookedSlotComp
-
-                                                ColumnLayout{
-                                                    Rectangle {
-                                                        Layout.minimumHeight: 50
-                                                        Layout.fillWidth: true
-
-                                                        color: "#34495e"
-                                                        radius: 5
-
-                                                        TextApp {
-                                                            id: bookingTitleText
-                                                            anchors.fill: parent
-                                                            horizontalAlignment: Text.AlignHCenter
-                                                            verticalAlignment: Text.AlignVCenter
-                                                            text: modelData.bookTitle
-                                                        }//
-                                                    }//
-
-                                                    Item {
-                                                        Layout.minimumHeight: 30
-                                                        Layout.fillWidth: true
-
-                                                        TextApp {
-                                                            id: bookingUserText
-                                                            anchors.fill: parent
-                                                            horizontalAlignment: Text.AlignHCenter
-                                                            verticalAlignment: Text.AlignVCenter
-                                                            text: modelData.bookBy
-                                                        }//
-
-                                                        Rectangle {
-                                                            height: 1
-                                                            width: parent.width - 10
-                                                            color: "#34495e"
-                                                            anchors.horizontalCenter: parent.horizontalCenter
-                                                            anchors.bottom: parent.bottom
-                                                        }//
-                                                    }//
-
-                                                    Item {
-                                                        Layout.fillHeight: true
-                                                        Layout.fillWidth: true
-
-                                                        //                                                    Rectangle {anchors.fill: parent; color: "#2c3e50"}
-                                                        //                                                    visible: false
-
-                                                        Column {
-                                                            width: parent.width - 10
-                                                            anchors.horizontalCenter: parent.horizontalCenter
-
-                                                            TextApp {
-                                                                id: note1Text
-                                                                width: parent.width
-                                                                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                                                                text: modelData.note1
-                                                                font.pixelSize: 18
-                                                                color: "gray"
-                                                            }//
-
-                                                            Rectangle {
-                                                                height: 1
-                                                                width: parent.width - 10
-                                                                color: "#34495e"
-                                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                            }//
-
-                                                            TextApp {
-                                                                id: note2Text
-                                                                width: parent.width
-                                                                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                                                                text: modelData.note2
-                                                                font.pixelSize: 18
-                                                                color: "gray"
-                                                            }//
-
-                                                            Rectangle {
-                                                                height: 1
-                                                                width: parent.width - 10
-                                                                color: "#34495e"
-                                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                            }//
-
-                                                            TextApp {
-                                                                id: note3Text
-                                                                width: parent.width
-                                                                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                                                                text: modelData.note3
-                                                                font.pixelSize: 18
-                                                                color: "gray"
-                                                            }//
-
-                                                            Rectangle {
-                                                                height: 1
-                                                                width: parent.width - 10
-                                                                color: "#34495e"
-                                                                anchors.horizontalCenter: parent.horizontalCenter
-                                                            }//
-                                                        }//
-                                                    }//
-
-                                                    Rectangle {
-                                                        Layout.minimumHeight: 40
-                                                        Layout.fillWidth: true
-
-                                                        color: "#34495e"
-                                                        radius: 5
-
-                                                        TextApp {
-                                                            anchors.fill: parent
-                                                            horizontalAlignment: Text.AlignHCenter
-                                                            verticalAlignment: Text.AlignVCenter
-                                                            text: qsTr("Cancel")
-                                                            color: "gray"
-                                                        }//
-
-                                                        MouseArea {
-                                                            anchors.fill: parent
-                                                            onClicked: {
-                                                                props.bookingCancel(modelData.time)
-                                                            }//
-                                                        }//
-                                                    }//
-                                                }//
-                                            }//
-                                        }//
+                                    contentItem: Rectangle {
+                                        implicitWidth: 0
+                                        implicitHeight: 5
+                                        radius: width / 2
+                                        color: "#dddddd"
                                     }//
                                 }//
                             }//
