@@ -103,11 +103,11 @@ void SashWindow::routineTask(int parameter)
         ivalState = SASH_STATE_STANDBY_SSV;
         break;
     case SASH_BIT_STATE_WORK:
-        if(m_safeSwitcher == SWITCHER_UP){
-            ivalState = SASH_STATE_WORK_SSV;
-        }else{
+//        if(m_safeSwitcher == SWITCHER_UP){
+//            ivalState = SASH_STATE_WORK_SSV;
+//        }else{
             ivalState = SASH_STATE_UNSAFE_SSV;
-        }
+//        }
         break;
     case SASH_BIT_STATE_WORK2:
         if(m_safeSwitcher == SWITCHER_DOWN){
