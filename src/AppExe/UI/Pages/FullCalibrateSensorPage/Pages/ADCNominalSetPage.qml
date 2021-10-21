@@ -942,7 +942,7 @@ ViewApp {
                                             //                                            temperatureCalibStrf = props.measureUnit ? "20°C" : "20°F"
 
                                             if (dfaAdcNominalValid && dfaVelocityValid && dfaFanDutyCycle && dfaFanRpm &&
-                                                    ifaAdcNominalValid && ifaVelocityValid && ifaFanDutyCycle /*&& ifaFanRpm*/) {
+                                                    ifaAdcNominalValid && ifaVelocityValid && ifaFanDutyCycle && (ifaFanRpm || !MachineData.getDualRbmMode())) {
                                                 props.calibrateDone = true
                                             }else{
                                                 if(!dfaAdcNominalValid) props.calibrationFailCode = 0x0001

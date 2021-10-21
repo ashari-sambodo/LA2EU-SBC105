@@ -660,6 +660,7 @@ private:
     bool m_dummySashMotorDownStuckSwitchState = false;
     bool m_eventLoopSashMotorActive = false;
     short m_eventLoopCounter = 0;
+    bool m_sashMovedDown = false;
 
 #ifdef QT_DEBUG
     QScopedPointer<QWebSocketServer> m_pWebSocketServerDummyState;

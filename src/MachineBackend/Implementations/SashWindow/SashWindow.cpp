@@ -10,7 +10,8 @@
 #define SASH_BIT_STATE_UNSAFE           0b00000000
 #define SASH_BIT_STATE_UNSAFE_FC1       0b00000100
 #define SASH_BIT_STATE_UNSAFE_FC2       0b00010000
-#define SASH_BIT_STATE_DIG_INPUT6       0b00100000
+#define SASH_BIT_STATE_WORK2            0b00100000
+#define SASH_BIT_STATE_WORK12           0b00100010
 
 SashWindow::SashWindow(QObject *parent)
     : ClassManager(parent)
@@ -20,6 +21,7 @@ SashWindow::SashWindow(QObject *parent)
     m_previousState         = SASH_STATE_FULLY_CLOSE_SSV;
     m_previousPreviousState = SASH_STATE_FULLY_CLOSE_SSV;
     m_sashStateChanged  = 0;
+    m_safeSwitcher = SWITCHER_UP;
     //    for (int i = 0;i < 5; i++) {
     //        m_mSwitchState[i] = 0;
     //    }
@@ -84,7 +86,7 @@ void SashWindow::routineTask(int parameter)
 
     ///Decode mSwitchState to Sash State
     ival = 0;
-    for(int i=0; i<5; i++){
+    for(int i=0; i<DIGITAL_INPUT_PIN_MAXIMUM; i++){
         ival |= m_mSwitchState[i] << i;
     }
 
@@ -101,6 +103,20 @@ void SashWindow::routineTask(int parameter)
         ivalState = SASH_STATE_STANDBY_SSV;
         break;
     case SASH_BIT_STATE_WORK:
+        if(m_safeSwitcher == SWITCHER_UP){
+            ivalState = SASH_STATE_WORK_SSV;
+        }else{
+            ivalState = SASH_STATE_UNSAFE_SSV;
+        }
+        break;
+    case SASH_BIT_STATE_WORK2:
+        if(m_safeSwitcher == SWITCHER_DOWN){
+            ivalState = SASH_STATE_WORK_SSV;
+        }else{
+            ivalState = SASH_STATE_UNSAFE_SSV;
+        }
+        break;
+    case SASH_BIT_STATE_WORK12:
         ivalState = SASH_STATE_WORK_SSV;
         break;
     case SASH_BIT_STATE_FULLY_OPEN:
@@ -153,6 +169,11 @@ void SashWindow::routineTask(int parameter)
 int SashWindow::sashState() const
 {
     return m_sashState;
+}
+
+void SashWindow::setSafeSwitcher(short value)
+{
+    m_safeSwitcher = value;
 }
 
 bool SashWindow::dummy6StateEnable() const

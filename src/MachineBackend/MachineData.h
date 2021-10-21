@@ -977,6 +977,11 @@ class MachineData : public QObject
                //               WRITE setRbmComPortIfa
                NOTIFY alarmSashMotorDownStuckChanged)
 
+    Q_PROPERTY(short sashWindowSafeHeight2
+               READ getSashWindowSafeHeight2
+               //               WRITE setRbmComPortIfa
+               NOTIFY sashWindowSafeHeight2Changed)
+
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
     static void singletonDelete();
@@ -1769,6 +1774,9 @@ public:
     short getAlarmSashMotorDownStuck()const;
     void setAlarmSashMotorDownStuck(short value);
 
+    void setSashWindowSafeHeight2(bool value);
+    bool getSashWindowSafeHeight2()const;
+
 public slots:
     void initSingleton();
 
@@ -2066,6 +2074,8 @@ signals:
     ///
     void sashMotorDownStuckSwitchChanged(bool value);
     void alarmSashMotorDownStuckChanged(short value);
+
+    void sashWindowSafeHeight2Changed(bool value);
 
 private:
     ///
@@ -2430,6 +2440,8 @@ private:
     bool m_dualRbmMode;
     bool m_sashMotorDownStuckSwitch;
     short m_alarmSashMotorDownStuck;
+
+    bool m_sashWindowSafeHeight2 = false;
 
     QString m_rbmComPortAvalaible;
     QString m_rbmComPortIfa;

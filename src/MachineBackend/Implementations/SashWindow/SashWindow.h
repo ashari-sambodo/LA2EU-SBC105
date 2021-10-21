@@ -27,6 +27,12 @@ public:
         SASH_STATE_WORK_SSV,
         SASH_STATE_FULLY_OPEN_SSV
     };
+    enum SashSwitcher {
+        SWITCHER_DOWN,
+        SWITCHER_UP
+    };
+
+    void setSafeSwitcher(short value);
 
     bool dummy6StateEnable() const;
     void setDummy6StateEnable(bool dummy6StateEnable);
@@ -53,6 +59,8 @@ private:
     int m_sashStateChanged;
     int m_previousState;
     int m_previousPreviousState;
+
+    short m_safeSwitcher = 0;
 
     bool m_dummy6StateEnable = false;
     short m_dummy6State = 0;

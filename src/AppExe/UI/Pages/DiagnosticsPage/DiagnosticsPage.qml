@@ -995,6 +995,25 @@ ViewApp {
                                 }//
                             }//
                             CusComPage.RowItemApp {
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
+                                label: qsTr("Front Panel Alarm Switch")
+                                value: connected ? 1 : 0
+
+                                property bool connected: false
+
+                                onLoaded: {
+                                    connected = Qt.binding(function() { return !MachineData.frontPanelAlarm })
+                                }
+
+                                onUnloaded: {
+                                    connected = false
+                                }//
+                            }//
+                            CusComPage.RowItemApp {
                                 enabled: MachineData.seasFlapInstalled
                                 width: view.width
                                 height: 50

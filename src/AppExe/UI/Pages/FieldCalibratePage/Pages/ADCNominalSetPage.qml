@@ -845,7 +845,7 @@ ViewApp {
                                             let dfaAdcCalibValid = (dfaAdc - 100) >= dfaAdcZero
                                             let ifaVelocityValid = (ifaVelocity > props.ifaSensorVelMinFactory)
                                             let dfaVelocityValid = (dfaVelocity > props.dfaSensorVelMinFactory) && (dfaVelocity < props.dfaSensorVelMaxFactory)
-                                            let ifaFanValid = (ifaFanDutyCycle > 0)&& (ifaFanRpm > 0)
+                                            let ifaFanValid = (ifaFanDutyCycle > 0) && ((ifaFanRpm > 0) || !MachineData.getDualRbmMode())
                                             let dfaFanValid = (dfaFanDutyCycle > 0) && (dfaFanRpm > 0)
 
                                             if (ifaAdcCalibValid && dfaAdcCalibValid && ifaVelocityValid && dfaVelocityValid && ifaFanValid && dfaFanValid) {
@@ -1084,7 +1084,7 @@ ViewApp {
                                             }//
 
                                             TextApp {
-                                                text: ":" + props.ifaFanDutyCycleField + "%" + props.ifaFanRpmField + " RPM"
+                                                text: ":" + props.ifaFanDutyCycleField + "%" + (MachineData.getDualRbmMode() ? (" / %1 RPM".arg(props.ifaFanRpmField)) : "")
                                                 font.pixelSize: 18
                                             }//
                                         }//

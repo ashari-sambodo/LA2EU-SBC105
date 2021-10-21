@@ -331,6 +331,18 @@ void MachineData::setAlarmSashMotorDownStuck(short value)
     emit alarmSashMotorDownStuckChanged(m_alarmSashMotorDownStuck);
 }
 
+void MachineData::setSashWindowSafeHeight2(bool value)
+{
+    if(m_sashWindowSafeHeight2 == value) return;
+    m_sashWindowSafeHeight2 = value;
+    emit sashWindowSafeHeight2Changed(m_sashWindowSafeHeight2);
+}
+
+bool MachineData::getSashWindowSafeHeight2() const
+{
+    return m_sashWindowSafeHeight2;
+}
+
 QString MachineData::getSbcSerialNumber() const
 {
     return m_sbcSerialNumber;

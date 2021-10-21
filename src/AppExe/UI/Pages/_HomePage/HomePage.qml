@@ -243,8 +243,8 @@ ViewApp {
                             ,
                             State {
                                 when: (((props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE) ||
-                                      (props.alarmDownflowHigh == MachineAPI.ALARM_ACTIVE_STATE)) &&
-                                      (props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE))
+                                        (props.alarmDownflowHigh == MachineAPI.ALARM_ACTIVE_STATE)) &&
+                                       (props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE))
                                 PropertyChanges {
                                     target: headerBgImage
                                     visible: true
@@ -769,6 +769,8 @@ ViewApp {
                                                 State {
                                                     when: (props.alarmDownflowLow == MachineAPI.ALARM_NORMAL_STATE)
                                                           && (props.alarmDownflowHigh == MachineAPI.ALARM_NORMAL_STATE)
+                                                          && ((props.alarmTempHigh == MachineAPI.ALARM_NORMAL_STATE)
+                                                              && (props.alarmTempLow == MachineAPI.ALARM_NORMAL_STATE))
                                                     PropertyChanges {
                                                         target: downflowStatus
                                                         color: "#4ECC44"
@@ -840,7 +842,9 @@ ViewApp {
                                                 }//
                                                 ,
                                                 State {
-                                                    when: props.alarmInflowLow == MachineAPI.ALARM_NORMAL_STATE
+                                                    when:(props.alarmInflowLow == MachineAPI.ALARM_NORMAL_STATE)
+                                                         && ((props.alarmTempHigh == MachineAPI.ALARM_NORMAL_STATE)
+                                                             && (props.alarmTempLow == MachineAPI.ALARM_NORMAL_STATE))
                                                     PropertyChanges {
                                                         target: inflowStatus
                                                         color: "#279F40"
@@ -1494,7 +1498,7 @@ ViewApp {
                                             State {
                                                 when: (((props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE) ||
                                                         (props.alarmDownflowHigh == MachineAPI.ALARM_ACTIVE_STATE)) &&
-                                                        (props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE))
+                                                       (props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE))
                                                 PropertyChanges {
                                                     target: textTeleprompter
                                                     text: qsTr("The Airflow velocity failed!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, grill and ventilation paths are not obstructed.")
@@ -1540,7 +1544,8 @@ ViewApp {
                                                       || (props.alarmTempLow == MachineAPI.ALARM_ACTIVE_STATE)
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The environmental temperature was out off range!\nPottentially reduce the reading accuration of the airflow sensor(s).\n The ideal environmental temperature is between ") + props.tempAmbientLowStrf + " - " + props.tempAmbientHighStrf + "."
+                                                    text: qsTr("The environmental temperature was out off range!%1\n The ideal environmental temperature is between ").arg((MachineData.getDownflowSensorConstant() === 0 || MachineData.getDownflowSensorConstant() === 0) ? "" : "\nPottentially reduce the reading accuration of the airflow sensor(s).")
+                                                          + props.tempAmbientLowStrf + " - " + props.tempAmbientHighStrf + "."
                                                 }
                                             },
                                             State {
