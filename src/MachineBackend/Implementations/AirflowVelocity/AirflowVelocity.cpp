@@ -146,6 +146,7 @@ void AirflowVelocity::routineTask(int parameter)
         double velLow       = m_velocityPoint[1];
         double velActual    = velocity;
         double valueVel     = 0;
+        double velocityForClosedLoop = 0;
 
         if(m_meaUnit) {
             if(velHigh > 0)     velHigh /= 100.0;
@@ -162,8 +163,9 @@ void AirflowVelocity::routineTask(int parameter)
         if(velActual > velNominal){
             if((velActual >= (velHigh - offsetBeforeAlarm)) && (velHigh > velNominal))
                 valueVel = qRound(velActual);
-            else
+            else{
                 valueVel = static_cast<int>(velActual);
+            }
         }//
         else{
             if(velActual <= (velLow + offsetBeforeAlarm))
@@ -171,6 +173,8 @@ void AirflowVelocity::routineTask(int parameter)
             else
                 valueVel = qRound(velActual);
         }//
+        /// make a different emit signal value for Closed loop Control
+        velocityForClosedLoop = qRound(velActual);
 
         if(m_meaUnit) {
             if(velHigh > 0)     velHigh *= 100.0;
@@ -178,13 +182,16 @@ void AirflowVelocity::routineTask(int parameter)
             if(velLow > 0)      velLow *= 100.0;
             if(velActual > 0)   velActual *= 100.0;
             if(valueVel > 0)    valueVel *= 100.0;
+            if(velocityForClosedLoop > 0)velocityForClosedLoop *= 100.0;
         }//
 
         qDebug() << velLow << velHigh << offsetBeforeAlarm;
         qDebug() << velNominal << velActual << "final:" << valueVel;
+        qDebug() << "velocityForClosedLoop:" << velocityForClosedLoop;
 
         //nomalization, airflow value dont have negative
         if(valueVel < 0) valueVel = 0;
+        if(velocityForClosedLoop < 0) velocityForClosedLoop = 0;
 
         if(fabs(valueVel - m_velocity) >= 1){
             m_velocity = valueVel;
@@ -192,6 +199,10 @@ void AirflowVelocity::routineTask(int parameter)
             if(!m_velocityChanged) m_velocityChanged = true;
             emit velocityChanged(m_velocity);
         }//
+        if(fabs(velocityForClosedLoop - m_velocityForClosedLoop) >= 1){
+            m_velocityForClosedLoop = velocityForClosedLoop;
+            emit velocityForClosedLoopChanged(m_velocityForClosedLoop);
+        }
     }//
 
     emit workerFinished();

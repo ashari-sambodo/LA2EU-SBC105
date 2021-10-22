@@ -58,6 +58,7 @@ signals:
     void adcChanged(int val);
     void adcConpensationChanged(int val);
     void velocityChanged(double val);
+    void velocityForClosedLoopChanged(double val);
     void workerFinished();
 
 private:
@@ -67,6 +68,7 @@ private:
     int m_adc;
     int m_adcConpensation;
     double m_velocity;
+    double m_velocityForClosedLoop;
     int m_constant;
     double m_temperature;
     bool m_temperatureChanged = false;

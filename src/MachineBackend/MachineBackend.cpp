@@ -1595,7 +1595,16 @@ void MachineBackend::setup()
         });
         connect(m_pAirflowDownflow.data(), &AirflowVelocity::velocityChanged,
                 this, &MachineBackend::_onDownflowVelocityActualChanged);
-
+        connect(m_pAirflowDownflow.data(), &AirflowVelocity::velocityForClosedLoopChanged,
+                this, [&](double velocity){
+            if (pData->getMeasurementUnit()) {
+                int valueVel = qRound(velocity / 100.0);
+                m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+            }else{
+                double valueVel = velocity / 100.0;
+                m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+            }
+        });
         /// Temperature has effecting to Airflow Reading
         /// so, need to update temperature value on the Airflow Calculation
         connect(m_pTemperature.data(), &Temperature::celciusPrecisionChanged,
@@ -1623,6 +1632,16 @@ void MachineBackend::setup()
         });
         connect(m_pAirflowInflow.data(), &AirflowVelocity::velocityChanged,
                 this, &MachineBackend::_onInflowVelocityActualChanged);
+        connect(m_pAirflowInflow.data(), &AirflowVelocity::velocityForClosedLoopChanged,
+                this, [&](double velocity){
+            if (pData->getMeasurementUnit()) {
+                int valueVel = qRound(velocity / 100.0);
+                m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+            }else{
+                double valueVel = velocity / 100.0;
+                m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+            }
+        });
 
         /// Temperature has effecting to Airflow Reading
         /// so, need to update temperature value on the Airflow Calculation
@@ -2881,40 +2900,47 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                     m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
                 }
 
+                if((pData->getSashWindowPrevState() == MachineEnums::SASH_STATE_FULLY_CLOSE_SSV)
+                        && (pData->getSashWindowMotorizeState() == MachineEnums::MOTOR_SASH_STATE_DOWN)){
+                    if(!pData->getSashWindowMotorizeDownInterlocked()){
+                        m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ONE);
+                    }
+                }
+
                 if(m_pSashWindow->isSashStateChanged() && sashChangedValid){
                     ///Ensure the Buzzer Alarm Off Once Sash Fully Closed
                     setBuzzerState(MachineEnums::DIG_STATE_ZERO);
 
-                    if(pData->getSashWindowMotorizeState()){
-                        if(!pData->getSashCycleCountValid()){
-                            pData->setSashCycleCountValid(true);
-                        }
-                        if(m_sashMotorizedOffAtFullyClosedDelayTimeMsec){
-                            if(!eventTimerForDelayMotorizedOffAtFullyClosed){
-                                m_delaySashMotorFullyClosedExecuted = false;
-                                /// Give a delay for a moment for sash moving down after fully closed detected
-                                eventTimerForDelayMotorizedOffAtFullyClosed = new QTimer();
-                                eventTimerForDelayMotorizedOffAtFullyClosed->setInterval(m_sashMotorizedOffAtFullyClosedDelayTimeMsec);
-                                eventTimerForDelayMotorizedOffAtFullyClosed->setSingleShot(true);
-                                ///Ececute this block after a certain time (m_sashMotorizedOffAtFullyClosedDelayTimeMsec)
-                                QObject::connect(eventTimerForDelayMotorizedOffAtFullyClosed, &QTimer::timeout,
-                                                 eventTimerForDelayMotorizedOffAtFullyClosed, [=](){
-                                    qDebug() << "Sash Motor Off in Sash Fully Closed With Delay";
-                                    m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                                    m_pSasWindowMotorize->routineTask();
-                                    if(m_sashMovedDown)m_sashMovedDown = false;
-                                    m_delaySashMotorFullyClosedExecuted = true;
-                                });
-                                qDebug() << "Timer Sash Motor Off in Sash Fully Closed Start";
-                                eventTimerForDelayMotorizedOffAtFullyClosed->start();
-                            }
-                        }else{
-                            qDebug() << "Sash Motor Off in Sash Fully Closed";
-                            m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                            m_pSasWindowMotorize->routineTask();
-                            if(m_sashMovedDown)m_sashMovedDown = false;
-                        }
+                    //                    if(pData->getSashWindowMotorizeState()){
+                    if(!pData->getSashCycleCountValid()){
+                        pData->setSashCycleCountValid(true);
                     }
+                    if(m_sashMotorizedOffAtFullyClosedDelayTimeMsec){
+                        if(!eventTimerForDelayMotorizedOffAtFullyClosed){
+                            m_delaySashMotorFullyClosedExecuted = false;
+                            /// Give a delay for a moment for sash moving down after fully closed detected
+                            eventTimerForDelayMotorizedOffAtFullyClosed = new QTimer();
+                            eventTimerForDelayMotorizedOffAtFullyClosed->setInterval(m_sashMotorizedOffAtFullyClosedDelayTimeMsec);
+                            eventTimerForDelayMotorizedOffAtFullyClosed->setSingleShot(true);
+                            ///Ececute this block after a certain time (m_sashMotorizedOffAtFullyClosedDelayTimeMsec)
+                            QObject::connect(eventTimerForDelayMotorizedOffAtFullyClosed, &QTimer::timeout,
+                                             eventTimerForDelayMotorizedOffAtFullyClosed, [=](){
+                                qDebug() << "Sash Motor Off in Sash Fully Closed With Delay";
+                                m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                                m_pSasWindowMotorize->routineTask();
+                                if(m_sashMovedDown)m_sashMovedDown = false;
+                                m_delaySashMotorFullyClosedExecuted = true;
+                            });
+                            qDebug() << "Timer Sash Motor Off in Sash Fully Closed Start";
+                            eventTimerForDelayMotorizedOffAtFullyClosed->start();
+                        }
+                    }else{
+                        qDebug() << "Sash Motor Off in Sash Fully Closed";
+                        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                        m_pSasWindowMotorize->routineTask();
+                        if(m_sashMovedDown)m_sashMovedDown = false;
+                    }
+                    //                }
                 }
                 if(m_delaySashMotorFullyClosedExecuted){
                     if(!pData->getSashWindowMotorizeDownInterlocked()){
@@ -6238,14 +6264,14 @@ void MachineBackend::_onInflowVelocityActualChanged(int value)
         int valueVel = qRound(value / 100.0);
         QString valueStr = QString::asprintf("%d fpm", valueVel);
         pData->setInflowVelocityStr(valueStr);
-        m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+        //m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
         //finalValue = valueVel * 100;
     }
     else {
         double valueVel = value / 100.0;
         QString valueStr = QString::asprintf("%.2f m/s", valueVel);
         pData->setInflowVelocityStr(valueStr);
-        m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+        //m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
     }
 
     pData->setInflowVelocity(value);
@@ -6260,13 +6286,13 @@ void MachineBackend::_onDownflowVelocityActualChanged(int value)
         int valueVel = qRound(value / 100.0);
         QString valueStr = QString::asprintf("%d fpm", valueVel);
         pData->setDownflowVelocityStr(valueStr);
-        m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+        //m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
     }
     else {
         double valueVel = value / 100.0;
         QString valueStr = QString::asprintf("%.2f m/s", valueVel);
         pData->setDownflowVelocityStr(valueStr);
-        m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+        //m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
     }
 
     pData->setDownflowVelocity(value);
