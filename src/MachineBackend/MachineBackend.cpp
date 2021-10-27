@@ -1285,7 +1285,7 @@ void MachineBackend::setup()
 
         connect(m_pExhaustContact.data(), &DeviceDigitalOut::stateChanged,
                 this, [&](int newVal){
-            setExhaustContactState(static_cast<short>(newVal));
+            pData->setExhaustContactState(static_cast<short>(newVal));
         });
     }
 
@@ -1297,7 +1297,7 @@ void MachineBackend::setup()
 
         connect(m_pAlarmContact.data(), &DeviceDigitalOut::stateChanged,
                 this, [&](int newVal){
-            setAlarmContactState(static_cast<short>(newVal));
+            pData->setAlarmContactState(static_cast<short>(newVal));
         });
     }
 
@@ -4707,7 +4707,7 @@ void MachineBackend::setExhaustContactState(short exhaustContactState)
     qDebug() << exhaustContactState;
 
     m_pExhaustContact->setState(exhaustContactState);
-    pData->setExhaustContactState(exhaustContactState);
+//    pData->setExhaustContactState(exhaustContactState);
 }
 
 void MachineBackend::setAlarmContactState(short alarmContactState)
@@ -4716,7 +4716,7 @@ void MachineBackend::setAlarmContactState(short alarmContactState)
     qDebug() << alarmContactState;
 
     m_pAlarmContact->setState(alarmContactState);
-    pData->setAlarmContactState(alarmContactState);
+//    pData->setAlarmContactState(alarmContactState);
 }
 
 void MachineBackend::setSashMotorizeInstalled(short value)
@@ -8181,6 +8181,7 @@ void MachineBackend::_machineState()
     alarmsBoards |= !pData->getBoardStatusCtpIoe();
     if(pData->getSeasInstalled())
         alarmsBoards |= !pData->getBoardStatusPressureDiff();
+    alarmsBoards |= !pData->getBoardStatusAnalogInput();
 
     Q_UNUSED((alarmsBoards))
 
@@ -9301,7 +9302,7 @@ void MachineBackend::_machineState()
         //        if(m_pSashWindow->isSashStateChanged()){
         //            m_pSashWindow->clearFlagSashStateChanged();
         //        }
-    }
+    }/// THE END OF MAINTENANCE MODE
         break;
     }
 

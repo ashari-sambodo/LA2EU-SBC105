@@ -863,13 +863,51 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
+                                label: qsTr("Exhaust Free Relay Contact")
+
+                                property bool connected: false
+                                value: connected ? "ON" : "OFF"
+
+                                onLoaded: {
+                                    connected = Qt.binding(function() { return MachineData.exhaustContactState })
+                                }
+
+                                onUnloaded: {
+                                    connected = false
+                                }
+                            }//
+                            CusComPage.RowItemApp {
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
+                                label: qsTr("Alarm Free Relay Contact")
+
+                                property bool connected: false
+                                value: connected ? "ON" : "OFF"
+
+                                onLoaded: {
+                                    connected = Qt.binding(function() { return MachineData.alarmContactState })
+                                }
+
+                                onUnloaded: {
+                                    connected = false
+                                }
+                            }//
+                            CusComPage.RowItemApp {
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
                                 label: qsTr("M-Switch S1")
 
                                 property bool connected: false
-                                value: connected ? 1 : 0
+                                value: connected ? "ON" : "OFF"
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return !MachineData.magSW1State })
+                                    connected = Qt.binding(function() { return MachineData.magSW1State })
                                 }
 
                                 onUnloaded: {
@@ -886,10 +924,10 @@ ViewApp {
                                 label: qsTr("M-Switch S2")
 
                                 property bool connected: false
-                                value: connected ? 1 : 0
+                                value: connected ? "ON" : "OFF"
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return !MachineData.magSW2State })
+                                    connected = Qt.binding(function() { return MachineData.magSW2State })
                                 }
 
                                 onUnloaded: {
@@ -906,10 +944,10 @@ ViewApp {
                                 label: qsTr("M-Switch S3")
 
                                 property bool connected: false
-                                value: connected ? 1 : 0
+                                value: connected ? "ON" : "OFF"
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return !MachineData.magSW3State })
+                                    connected = Qt.binding(function() { return MachineData.magSW3State })
                                 }
 
                                 onUnloaded: {
@@ -926,10 +964,10 @@ ViewApp {
                                 label: qsTr("M-Switch S4")
 
                                 property bool connected: false
-                                value: connected ? 1 : 0
+                                value: connected ? "ON" : "OFF"
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return !MachineData.magSW5State})
+                                    connected = Qt.binding(function() { return MachineData.magSW5State})
                                 }
 
                                 onUnloaded: {
@@ -944,12 +982,12 @@ ViewApp {
                                 viewSpan: view.span
 
                                 label: qsTr("M-Switch S5")
-                                value: connected ? 1 : 0
+                                value: connected ? "ON" : "OFF"
 
                                 property bool connected: false
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return !MachineData.magSW4State })
+                                    connected = Qt.binding(function() { return MachineData.magSW4State })
                                 }
 
                                 onUnloaded: {
@@ -963,12 +1001,12 @@ ViewApp {
                                 viewSpan: view.span
 
                                 label: qsTr("M-Switch S6")
-                                value: connected ? 1 : 0
+                                value: connected ? "ON" : "OFF"
 
                                 property bool connected: false
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return !MachineData.magSW6State })
+                                    connected = Qt.binding(function() { return MachineData.magSW6State })
                                 }
 
                                 onUnloaded: {
@@ -982,12 +1020,12 @@ ViewApp {
                                 viewSpan: view.span
 
                                 label: qsTr("Sash Motor Down Stuck Switch")
-                                value: connected ? 1 : 0
+                                value: connected ? "ON" : "OFF"
 
                                 property bool connected: false
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return !MachineData.sashMotorDownStuckSwitch })
+                                    connected = Qt.binding(function() { return MachineData.sashMotorDownStuckSwitch })
                                 }
 
                                 onUnloaded: {
@@ -1001,12 +1039,12 @@ ViewApp {
                                 viewSpan: view.span
 
                                 label: qsTr("Front Panel Alarm Switch")
-                                value: connected ? 1 : 0
+                                value: connected ? "ON" : "OFF"
 
                                 property bool connected: false
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return !MachineData.frontPanelAlarm })
+                                    connected = Qt.binding(function() { return MachineData.frontPanelAlarm })
                                 }
 
                                 onUnloaded: {
