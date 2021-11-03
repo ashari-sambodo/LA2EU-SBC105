@@ -74,7 +74,7 @@ ViewApp {
                             width: 400
                             wrapMode: Text.WordWrap
                             text: qsTr("Basically, audible alarm is not muteable when sash alarm occurred.") + "<br><br>" +
-                                  qsTr("Vivarium mute allows you to pre-mute an audio alarm and remain silent when the you moves the sash to a certain height.")
+                                  qsTr("Vivarium mute allows you to pre-mute an audio alarm and remain silent when the user move the sash to unsafe height.")
                         }//
                     }//
 

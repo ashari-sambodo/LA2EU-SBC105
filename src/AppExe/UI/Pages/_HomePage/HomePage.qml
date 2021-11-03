@@ -2299,29 +2299,41 @@ ViewApp {
                                     }
                                     else if (props.alarmSashFullyOpen
                                              || props.alarmBoardComError
-                                             || props.alarmInflowLow
+                                             || (props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE)
+                                             || (props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE)
+                                             || (props.alarmDownflowHigh == MachineAPI.ALARM_ACTIVE_STATE)
                                              || props.alarmSeasTooPositive
                                              || props.alarmSeasFlapTooPositive
                                              || props.alarmFrontPanel) {
-
                                         MachineAPI.setMuteAlarmState(!props.muteAlarmState)
                                     }
-                                    else if (props.alarmsState) {
-                                        showDialogMessage(qsTr("Audible Alarm"),
-                                                          qsTr("This audible alarm can not be muted!"), dialogAlert)
-                                    }
-                                    else if(props.vivariumMuteState){
-                                        MachineAPI.setMuteVivariumState(false)
-                                    }//
                                     else {
-                                        showDialogMessage(qsTr("Audible Alarm"),
-                                                          qsTr("There's no audible alarm."), dialogAlert)
+                                        if(props.vivariumMuteState)
+                                            MachineAPI.setMuteVivariumState(false)
+                                        else
+                                            showDialogMessage(qsTr("Audible Alarm"),
+                                                              qsTr("This audible alarm can not be muted!"), dialogAlert)
                                     }//
                                 }//
 
                                 onPressAndHold: {
-                                    const intent = IntentApp.create("qrc:/UI/Pages/VivariumMuteSetPage/VivariumMuteSetPage.qml", {})
-                                    startView(intent)
+                                    if (!UserSessionService.loggedIn) {
+                                        switch(props.securityAccessLevel) {
+
+                                        case MachineAPI.MODE_SECURITY_ACCESS_LOW:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                            const intent = IntentApp.create("qrc:/UI/Pages/VivariumMuteSetPage/VivariumMuteSetPage.qml", {})
+                                            startView(intent)
+                                            break;
+                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                            UserSessionService.askedForLogin()
+                                            break;
+                                        }
+                                    }
+                                    else {
+                                        const intent = IntentApp.create("qrc:/UI/Pages/VivariumMuteSetPage/VivariumMuteSetPage.qml", {})
+                                        startView(intent)
+                                    }//
                                 }
 
                                 onClicked: {
