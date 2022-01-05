@@ -54,8 +54,8 @@ private:
     DIOpca9674  *pSubModule;
 
     int m_sashState;
-    //    int m_mSwitchState[4];
-    int m_mSwitchState[6] = {0, 0, 0, 0, 0, 0};
+    //int m_mSwitchState[4];
+    int m_mSwitchState[6] = {-1, -1, -1, -1, -1, -1};
     int m_sashStateChanged;
     int m_previousState;
     int m_previousPreviousState;

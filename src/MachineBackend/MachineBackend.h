@@ -364,6 +364,10 @@ public slots:
     void setRbmComPortDfa(QString value);
     void setRbmComPortIfa(QString value);
 
+    void setSashMotorOffDelayMsec(int value);
+
+//    void setWifiDisabled(bool value);
+
 signals:
     void hasStopped();
 
@@ -551,6 +555,7 @@ private:
     void _setSbcSystemInformation(QStringList sysInfo);
     void _setSbcCurrentSystemInformation(QStringList sysInfo);
     void _setSbcSerialNumber(QString value);
+    //    void _setWifiDisabled(bool value);
 
     void _initAirflowCalibartionFactory();
     void _initAirflowCalibartionField();
@@ -652,7 +657,7 @@ private:
     int  m_sashSafeAutoOnOutputDelayTimeMsec = 100; /// 100ms //original 3 seconds
 
     QTimer* eventTimerForDelayMotorizedOffAtFullyClosed = nullptr;
-    int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 700; /// 1000ms
+    //int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 500; /// 500ms for 6 feet /// 700ms for 4 feet
     bool  m_delaySashMotorFullyClosedExecuted = false;
     uchar m_counter = 0;
     bool m_scanRbmComPortAvailable = false;
@@ -660,6 +665,7 @@ private:
     bool m_dummySashMotorDownStuckSwitchState = false;
     bool m_eventLoopSashMotorActive = false;
     short m_eventLoopCounter = 0;
+    short m_delaySashMotorUpAfterStucked = 1500; /// 1500ms for 6ft /// 1000ms for 4ft
     bool m_sashMovedDown = false;
 
 #ifdef QT_DEBUG

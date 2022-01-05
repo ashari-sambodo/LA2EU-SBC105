@@ -139,6 +139,11 @@ void MachineBackend::setup()
     //    qDebug() << m_settings->fileName();
     QScopedPointer<QSettings> m_settings(new QSettings);
 
+    //    {
+    //        bool wifiDisabled = m_settings->value(SKEY_WIFI_DISABLED, false).toBool();
+    //        pData->setWifiDisabled(wifiDisabled);
+    //    }
+
     /// READ SERIAL NUMBER
     {
         QString serialNumber = m_settings->value(SKEY_SBC_SERIAL_NUMBER, SDEF_SBC_SERIAL_NUMBER).toString();
@@ -1111,9 +1116,9 @@ void MachineBackend::setup()
         QObject::connect(m_pSashWindow.data(), &SashWindow::sashStateChanged,
                          this, &MachineBackend::_onSashStateChanged);
 
-        int timerMs = 200;
+        int timerMs = 250;
         if(pData->getSashWindowMotorizeInstalled())
-            timerMs = 50;
+            timerMs = 100;
         //// Create Independent Timer Event For Sash Motorize
         m_timerEventForSashWindowRoutine.reset(new QTimer);
         m_timerEventForSashWindowRoutine->setInterval(std::chrono::milliseconds(timerMs));
@@ -2567,7 +2572,7 @@ void MachineBackend::setup()
                 m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_UP);
                 m_pSasWindowMotorize->routineTask();
                 qDebug() << "Start timer to turn off sash motor after move up";
-                QTimer::singleShot(1000, this, [&](){
+                QTimer::singleShot(m_delaySashMotorUpAfterStucked, this, [&](){
                     qDebug() << "Turn off sash motorized!";
                     m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                     m_pSasWindowMotorize->routineTask();
@@ -2579,6 +2584,13 @@ void MachineBackend::setup()
         }//
     });
 
+    {
+        ///SKEY_SASH_MOTOR_OFF_DELAY
+        if(pData->getSashWindowMotorizeInstalled()){
+            int sashDelay = m_settings->value(SKEY_SASH_MOTOR_OFF_DELAY, 1000).toInt();
+            pData->setSashMotorOffDelayMsec(sashDelay);
+        }
+    }
 
     /// Buzzer indication
     {
@@ -2915,14 +2927,14 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                     if(!pData->getSashCycleCountValid()){
                         pData->setSashCycleCountValid(true);
                     }
-                    if(m_sashMotorizedOffAtFullyClosedDelayTimeMsec){
+                    if(pData->getSashMotorOffDelayMsec()){
                         if(!eventTimerForDelayMotorizedOffAtFullyClosed){
                             m_delaySashMotorFullyClosedExecuted = false;
                             /// Give a delay for a moment for sash moving down after fully closed detected
                             eventTimerForDelayMotorizedOffAtFullyClosed = new QTimer();
-                            eventTimerForDelayMotorizedOffAtFullyClosed->setInterval(m_sashMotorizedOffAtFullyClosedDelayTimeMsec);
+                            eventTimerForDelayMotorizedOffAtFullyClosed->setInterval(pData->getSashMotorOffDelayMsec());
                             eventTimerForDelayMotorizedOffAtFullyClosed->setSingleShot(true);
-                            ///Ececute this block after a certain time (m_sashMotorizedOffAtFullyClosedDelayTimeMsec)
+                            ///Ececute this block after a certain time (pData->getSashMotorOffDelayMsec())
                             QObject::connect(eventTimerForDelayMotorizedOffAtFullyClosed, &QTimer::timeout,
                                              eventTimerForDelayMotorizedOffAtFullyClosed, [=](){
                                 qDebug() << "Sash Motor Off in Sash Fully Closed With Delay";
@@ -4173,6 +4185,7 @@ QString MachineBackend::_readSbcSerialNumber()
     return serialNumber;
 }
 
+
 void MachineBackend::_setSbcSystemInformation(QStringList sysInfo)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
@@ -4202,6 +4215,27 @@ void MachineBackend::_setSbcSerialNumber(QString value)
 
     pData->setSbcSerialNumber(value);
 }
+
+//void MachineBackend::_setWifiDisabled(bool value)
+//{
+//    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+//#ifdef __linux__
+//    QProcess process;
+
+//    QString command = value
+
+//    process.start("nmcli", QStringList() << "networking" << );
+//    process.waitForFinished();
+//    usleep(1000);
+//    QString output(process.readAllStandardOutput());
+//    qDebug()<<output;
+//    serialNumber = output;
+
+//    QString err(process.readAllStandardError());
+//    qDebug()<<err;
+//#endif
+//}
 
 ////////////////////////////////////////////////// API Group for specific cabinet
 
@@ -4707,7 +4741,7 @@ void MachineBackend::setExhaustContactState(short exhaustContactState)
     qDebug() << exhaustContactState;
 
     m_pExhaustContact->setState(exhaustContactState);
-//    pData->setExhaustContactState(exhaustContactState);
+    //    pData->setExhaustContactState(exhaustContactState);
 }
 
 void MachineBackend::setAlarmContactState(short alarmContactState)
@@ -4716,7 +4750,7 @@ void MachineBackend::setAlarmContactState(short alarmContactState)
     qDebug() << alarmContactState;
 
     m_pAlarmContact->setState(alarmContactState);
-//    pData->setAlarmContactState(alarmContactState);
+    //    pData->setAlarmContactState(alarmContactState);
 }
 
 void MachineBackend::setSashMotorizeInstalled(short value)
@@ -8164,6 +8198,24 @@ void MachineBackend::setRbmComPortIfa(QString value)
     settings.setValue(SKEY_RBM_PORT_INFLOW, value);
 }
 
+void MachineBackend::setSashMotorOffDelayMsec(int value)
+{
+    qDebug() << metaObject()->className() << __func__ << value << thread() ;
+
+    pData->setSashMotorOffDelayMsec(value);
+    QSettings settings;
+    settings.setValue(SKEY_SASH_MOTOR_OFF_DELAY, value);
+}
+
+//void MachineBackend::setWifiDisabled(bool value)
+//{
+//    qDebug() << metaObject()->className() << __func__ << value << thread() ;
+
+//    QSettings settings;
+//    settings.setValue(SKEY_WIFI_DISABLED, value);
+//    pData->setWifiDisabled(value);
+//}
+
 void MachineBackend::_machineState()
 {
     //    qDebug() << __func__;
@@ -8716,14 +8768,14 @@ void MachineBackend::_machineState()
 
             //                if(m_pSashWindow->isSashStateChanged()){
             //                    if(pData->getSashWindowMotorizeState()){
-            //                        if(m_sashMotorizedOffAtFullyClosedDelayTimeMsec){
+            //                        if(pData->getSashMotorOffDelayMsec()){
             //                            if(!eventTimerForDelayMotorizedOffAtFullyClosed){
             //                                m_delaySashMotorFullyClosedExecuted = false;
             //                                /// Give a delay for a moment for sash moving down after fully closed detected
             //                                eventTimerForDelayMotorizedOffAtFullyClosed = new QTimer();
-            //                                eventTimerForDelayMotorizedOffAtFullyClosed->setInterval(m_sashMotorizedOffAtFullyClosedDelayTimeMsec);
+            //                                eventTimerForDelayMotorizedOffAtFullyClosed->setInterval(pData->getSashMotorOffDelayMsec());
             //                                eventTimerForDelayMotorizedOffAtFullyClosed->setSingleShot(true);
-            //                                ///Ececute this block after a certain time (m_sashMotorizedOffAtFullyClosedDelayTimeMsec)
+            //                                ///Ececute this block after a certain time (pData->getSashMotorOffDelayMsec())
             //                                QObject::connect(eventTimerForDelayMotorizedOffAtFullyClosed, &QTimer::timeout,
             //                                                 eventTimerForDelayMotorizedOffAtFullyClosed, [=](){
             //                                    qDebug() << "Sash Motor Off in Sash Fully Closed With Delay";

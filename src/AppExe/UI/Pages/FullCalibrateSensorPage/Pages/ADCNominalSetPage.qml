@@ -1417,12 +1417,12 @@ ViewApp {
                                                                       })
                                         finishView(intent);
                                         return
-                                    }
-                                }
+                                    }//
+                                }//
 
                                 var intent = IntentApp.create(uri, {})
                                 finishView(intent)
-                            }
+                            }//
                         }//
 
                         ButtonBarApp {
@@ -1440,7 +1440,7 @@ ViewApp {
                         }//
                     }//
                 }//
-            }
+            }//
         }//
 
         QtObject {

@@ -21,19 +21,19 @@ class MachineProxy : public QObject
                READ getCount
                NOTIFY countChanged)
 
-    Q_ENUM(MachineEnums::EnumItemMachineState);
-    Q_ENUM(MachineEnums::EnumItemSashState);
-    Q_ENUM(MachineEnums::EnumItemFanState);
-    Q_ENUM(MachineEnums::EnumMotorSashState);
-    Q_ENUM(MachineEnums::EnumAirflowCalibState);
-    Q_ENUM(MachineEnums::EnumMeasurementUnitState);
-    Q_ENUM(MachineEnums::EnumOperationModeState);
-    Q_ENUM(MachineEnums::EnumTempAmbientState);
-    Q_ENUM(MachineEnums::EnumAlarmState);
-    Q_ENUM(MachineEnums::EnumAlarmSashState);
-    Q_ENUM(MachineEnums::EnumSecurityAccessState);
-    Q_ENUM(MachineEnums::FanList);
-    Q_ENUM(MachineEnums::ExternalResourcePathCode);
+    Q_ENUM(MachineEnums::EnumItemMachineState)
+    Q_ENUM(MachineEnums::EnumItemSashState)
+    Q_ENUM(MachineEnums::EnumItemFanState)
+    Q_ENUM(MachineEnums::EnumMotorSashState)
+    Q_ENUM(MachineEnums::EnumAirflowCalibState)
+    Q_ENUM(MachineEnums::EnumMeasurementUnitState)
+    Q_ENUM(MachineEnums::EnumOperationModeState)
+    Q_ENUM(MachineEnums::EnumTempAmbientState)
+    Q_ENUM(MachineEnums::EnumAlarmState)
+    Q_ENUM(MachineEnums::EnumAlarmSashState)
+    Q_ENUM(MachineEnums::EnumSecurityAccessState)
+    Q_ENUM(MachineEnums::FanList)
+    Q_ENUM(MachineEnums::ExternalResourcePathCode)
 
 public:
     explicit MachineProxy(QObject *parent = nullptr);
@@ -331,6 +331,7 @@ public slots:
     void setRbmComPortIfa(QString value);
     void setRbmComPortDfa(QString value);
 
+    void setSashMotorOffDelayMsec(int value);
 
 private slots:
     void doStopping();

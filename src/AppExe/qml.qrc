@@ -155,5 +155,6 @@
         <file>UI/Pages/FanClosedLoopControlPage/Components/CurveTuningApp.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopResponse.qml</file>
         <file>UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml</file>
+        <file>UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml</file>
     </qresource>
 </RCC>

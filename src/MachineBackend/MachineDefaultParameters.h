@@ -393,3 +393,5 @@
 #define SKEY_SHIPPING_MOD_ENABLE        "shiMod"
 
 #define SKEY_AF_MONITOR_ENABLE          "afMonEn"
+
+#define SKEY_SASH_MOTOR_OFF_DELAY "sMotorOffDly"

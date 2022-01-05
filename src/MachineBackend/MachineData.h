@@ -982,6 +982,16 @@ class MachineData : public QObject
                //               WRITE setRbmComPortIfa
                NOTIFY sashWindowSafeHeight2Changed)
 
+    Q_PROPERTY(short sashMotorOffDelayMsec
+               READ getSashMotorOffDelayMsec
+               //               WRITE setRbmComPortIfa
+               NOTIFY sashMotorOffDelayMsecChanged)
+
+//    Q_PROPERTY(bool wifiDisabled
+//               READ getWifiDisabled
+//               //               WRITE setRbmComPortIfa
+//               NOTIFY wifiDisabledChanged)
+
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
     static void singletonDelete();
@@ -1777,6 +1787,12 @@ public:
     void setSashWindowSafeHeight2(bool value);
     bool getSashWindowSafeHeight2()const;
 
+    void setSashMotorOffDelayMsec(int value);
+    int getSashMotorOffDelayMsec()const;
+
+//    void setWifiDisabled(bool value);
+//    bool getWifiDisabled()const;
+
 public slots:
     void initSingleton();
 
@@ -2076,6 +2092,10 @@ signals:
     void alarmSashMotorDownStuckChanged(short value);
 
     void sashWindowSafeHeight2Changed(bool value);
+
+    void sashMotorOffDelayMsecChanged(int value);
+
+//    void wifiDisabledChanged(bool value);
 
 private:
     ///
@@ -2446,6 +2466,10 @@ private:
     QString m_rbmComPortAvalaible;
     QString m_rbmComPortIfa;
     QString m_rbmComPortDfa;
+
+    int m_sashMotorOffDelayMsec = 0;
+
+//    bool m_wifiDisabled = false;
 };
 
 

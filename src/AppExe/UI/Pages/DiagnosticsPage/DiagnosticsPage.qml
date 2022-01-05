@@ -921,7 +921,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("M-Switch S2")
+                                label: qsTr("M-Switch S2a")
 
                                 property bool connected: false
                                 value: connected ? "ON" : "OFF"
@@ -934,7 +934,25 @@ ViewApp {
                                     connected = false
                                 }
                             }//
+                            CusComPage.RowItemApp {
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
 
+                                label: qsTr("M-Switch S2b")
+                                value: connected ? "ON" : "OFF"
+
+                                property bool connected: false
+
+                                onLoaded: {
+                                    connected = Qt.binding(function() { return MachineData.magSW6State })
+                                }
+
+                                onUnloaded: {
+                                    connected = false
+                                }
+                            }//
                             CusComPage.RowItemApp {
                                 width: view.width
                                 height: 50
@@ -994,6 +1012,7 @@ ViewApp {
                                     connected = false
                                 }
                             }//
+
                             CusComPage.RowItemApp {
                                 width: view.width
                                 height: 50
@@ -1001,25 +1020,6 @@ ViewApp {
                                 viewSpan: view.span
 
                                 label: qsTr("M-Switch S6")
-                                value: connected ? "ON" : "OFF"
-
-                                property bool connected: false
-
-                                onLoaded: {
-                                    connected = Qt.binding(function() { return MachineData.magSW6State })
-                                }
-
-                                onUnloaded: {
-                                    connected = false
-                                }
-                            }//
-                            CusComPage.RowItemApp {
-                                width: view.width
-                                height: 50
-                                viewContentY: view.contentY
-                                viewSpan: view.span
-
-                                label: qsTr("Sash Motor Down Stuck Switch")
                                 value: connected ? "ON" : "OFF"
 
                                 property bool connected: false
@@ -1033,18 +1033,19 @@ ViewApp {
                                 }//
                             }//
                             CusComPage.RowItemApp {
+                                enabled: MachineData.frontPanelSwitchInstalled
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Front Panel Alarm Switch")
+                                label: qsTr("M-Switch S7")
                                 value: connected ? "ON" : "OFF"
 
                                 property bool connected: false
 
                                 onLoaded: {
-                                    connected = Qt.binding(function() { return MachineData.frontPanelAlarm })
+                                    connected = Qt.binding(function() { return MachineData.frontPanelAlarm === MachineAPI.ALARM_ACTIVE_STATE})
                                 }
 
                                 onUnloaded: {

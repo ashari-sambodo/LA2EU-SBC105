@@ -65,7 +65,7 @@ ViewApp {
                         width: 500
                         wrapMode: Text.WordWrap
                         horizontalAlignment: Text.AlignHCenter
-                        text: "Calibration has been done!"
+                        text: qsTr("Calibration has been done!")
                     }//
                 }//
             }//

@@ -343,6 +343,30 @@ bool MachineData::getSashWindowSafeHeight2() const
     return m_sashWindowSafeHeight2;
 }
 
+void MachineData::setSashMotorOffDelayMsec(int value)
+{
+    if(m_sashMotorOffDelayMsec == value)return;
+    m_sashMotorOffDelayMsec = value;
+    emit sashMotorOffDelayMsecChanged(value);
+}
+
+int MachineData::getSashMotorOffDelayMsec() const
+{
+    return m_sashMotorOffDelayMsec;
+}
+
+//void MachineData::setWifiDisabled(bool value)
+//{
+//    if(m_wifiDisabled == value)return;
+//    m_wifiDisabled = value;
+//    emit wifiDisabledChanged(value);
+//}
+
+//bool MachineData::getWifiDisabled() const
+//{
+//    return m_wifiDisabled;
+//}
+
 QString MachineData::getSbcSerialNumber() const
 {
     return m_sbcSerialNumber;

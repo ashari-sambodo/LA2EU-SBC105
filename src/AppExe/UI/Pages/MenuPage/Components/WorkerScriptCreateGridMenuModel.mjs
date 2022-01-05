@@ -436,6 +436,17 @@
             menu = [[]]
             index = 0
 
+            if (msg["sashWindowMotorizeInstalled"] !== undefined){
+                if(menu[index].length > itemPerPage) {index++; menu.push([])}
+                menu[index].push({mtype        :   "menu",
+                                     mtitle    :   qsTr("Sash Motor Off Delay"),
+                                     micon     :   "qrc:/UI/Pictures/menu/sash_close-delay.png",
+                                     //mlink     :   "CabinetSelectOptionPage"
+                                     mlink       : "qrc:/UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml"
+                                 })
+            }
+            //
+
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype        :   "menu",
                                  mtitle    :   qsTr("Serial Number"),

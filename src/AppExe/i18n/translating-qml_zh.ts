@@ -1384,45 +1384,45 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="169"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="173"/>
         <source>Book Now</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="295"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="299"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="337"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="367"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="351"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="381"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="374"/>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="415"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="404"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="445"/>
         <source>Booking storage has full. Please delete some booking history!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="376"/>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="381"/>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="394"/>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="435"/>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="446"/>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="464"/>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="472"/>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="482"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="406"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="411"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="424"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="465"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="476"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="494"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="502"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="512"/>
         <source>Loading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="434"/>
+        <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="464"/>
         <source>Are you sure to cencel?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2764,156 +2764,171 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
     <message>
         <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="866"/>
+        <source>Exhaust Free Relay Contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="885"/>
+        <source>Alarm Free Relay Contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="904"/>
         <source>M-Switch S1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="886"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="924"/>
         <source>M-Switch S2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="906"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="944"/>
         <source>M-Switch S3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="926"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="964"/>
         <source>M-Switch S4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="946"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="984"/>
         <source>M-Switch S5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="965"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1003"/>
         <source>M-Switch S6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="984"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1022"/>
         <source>Sash Motor Down Stuck Switch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1004"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1041"/>
+        <source>Front Panel Alarm Switch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1061"/>
         <source>Seas Flap Exhaust</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1025"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1082"/>
         <source>Module - Hybrid Digital/Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1026"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1047"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1068"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1089"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1110"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1132"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1153"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1154"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1179"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1200"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1221"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1083"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1104"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1125"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1146"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1167"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1189"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1210"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1211"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1236"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1257"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1278"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1026"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1047"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1068"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1089"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1110"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1132"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1153"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1154"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1179"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1200"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1221"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1083"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1104"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1125"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1146"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1167"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1189"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1210"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1211"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1236"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1257"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1278"/>
         <source>Fail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1046"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1103"/>
         <source>Module - Hybrid Digital/Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1067"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1124"/>
         <source>Module - Hybrid Analog/Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1088"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1145"/>
         <source>Module - Hybrid Analog/Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1109"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1166"/>
         <source>Module - Analog Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1131"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1188"/>
         <source>Module - PWM Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1152"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1209"/>
         <source>Module - RBM Com </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1178"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1235"/>
         <source>Module - Real Time Clock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1199"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1256"/>
         <source>Module - I/O Expander</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1220"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1277"/>
         <source>Module - Pressure Sensor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1244"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1301"/>
         <source>Environmental temperature range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1269"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1326"/>
         <source>Particel counter (μg/m3)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1296"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1353"/>
         <source>Particel counter state</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1299"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1356"/>
         <source>Running</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1313"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1370"/>
         <source>Watchdog counter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1327"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1384"/>
         <source>RTC Date &amp; Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1367"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1424"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3976,36 +3991,41 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="112"/>
-        <source>Serial Number</source>
+        <source>Sash Motor Off Delay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="113"/>
-        <source>Environmental Temperature Limit</source>
+        <source>Serial Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="114"/>
-        <source>ESCO Lock Service</source>
+        <source>Environmental Temperature Limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="115"/>
-        <source>Auxiliary Functions</source>
+        <source>ESCO Lock Service</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="116"/>
-        <source>Cabinet Model</source>
+        <source>Auxiliary Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="117"/>
-        <source>RTC Watchdog Test</source>
+        <source>Cabinet Model</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="118"/>
+        <source>RTC Watchdog Test</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="119"/>
         <source>System Information</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4088,521 +4108,542 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="239"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="240"/>
+        <source>ALARM: AIRFLOW LOW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="254"/>
+        <source>ALARM: AIRFLOW FAIL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="266"/>
         <source>ALARM: DOWNFLOW LOW</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="251"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="278"/>
         <source>ALARM: DOWNFLOW HIGH</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="263"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="290"/>
         <source>ALARM: INFLOW LOW</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="275"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="302"/>
         <source>ALARM: EXHAUST FAIL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="287"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="314"/>
         <source>WARMING-UP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="300"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="327"/>
         <source>POST PURGING</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="313"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="340"/>
         <source>UV OFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="325"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="352"/>
         <source>UV ON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="337"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="364"/>
         <source>STANDBY</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="349"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="376"/>
         <source>CABINET IS SAFE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="412"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="439"/>
         <source>Particle (μg/m3)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="450"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="477"/>
         <source>Timer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="459"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="486"/>
         <source>Time is up!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="501"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="528"/>
         <source>Vivarium mute:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="501"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="528"/>
         <source>Alarm muted:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="525"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="552"/>
         <source>Exhaust</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="533"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="560"/>
         <source>Too high</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="565"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="592"/>
         <source>Sash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="574"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="616"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="601"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="643"/>
         <source>Unsafe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="586"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="637"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="613"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="664"/>
         <source>Fully open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="598"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="644"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="625"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="671"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="609"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="636"/>
         <source>Safe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="623"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="650"/>
         <source>Fully close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="630"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="657"/>
         <source>Standby height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="669"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="696"/>
         <source>Filter Life</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="693"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="720"/>
         <source>Downflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="701"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="787"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="728"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="816"/>
         <source>Uncalibrated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="709"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="795"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="736"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="824"/>
         <source>Warming up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="721"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="807"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="748"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="836"/>
         <source>Too Low</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="734"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="761"/>
         <source>Too High</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="779"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="808"/>
         <source>Inflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="850"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="881"/>
         <source>A/F Monitor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="851"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="882"/>
         <source>Disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="879"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="910"/>
         <source>UV Life</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="903"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="934"/>
         <source>UV Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="904"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="935"/>
         <source>Infinite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="956"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="999"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="987"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1030"/>
         <source>ATTENTION !!!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="965"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="996"/>
         <source>System was detecting a communication problem between main-board and module-board.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="966"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="997"/>
         <source>Call your authorized field service technician!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1008"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1039"/>
         <source>The front panel is open while the sash is not fully close!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1009"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1040"/>
         <source>It&apos;s not safe if you want to open the Main Door.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1010"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1041"/>
         <source>Please set the sash to fully close.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1050"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1111"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1840"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1947"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2029"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2094"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2169"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1081"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1142"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1889"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1996"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2078"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2143"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2218"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1050"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1111"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1840"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1947"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2029"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2094"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2169"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1081"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1142"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1889"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1996"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2078"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2143"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2218"/>
         <source>Interlocked!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1056"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1118"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1143"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1087"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1149"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1174"/>
         <source>User: Set sash motorize stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1060"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1067"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1091"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1098"/>
         <source>User: Set sash motorize up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1133"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1164"/>
         <source>User: Set sash motorize down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1269"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1300"/>
         <source>Cert. due date has passed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1272"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1303"/>
         <source>days</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1272"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1303"/>
         <source>day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1273"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1304"/>
         <source>Cert. due date in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1281"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1312"/>
         <source>Certification Remainder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1282"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1313"/>
         <source>Certification due date has passed on </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1283"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1314"/>
         <source>Please contact your cabinet service reresentative!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1297"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1328"/>
         <source>Datalog is full!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1307"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1338"/>
         <source>Event log is full!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1317"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1348"/>
         <source>Alarm log is full!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1432"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1463"/>
         <source>The sash motor cycle has exceeded the maximum operating limit!.
 Sash motor has been locked.
 Please contact your service engineer to do maintenance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1440"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1471"/>
         <source>The use of the sash motor is almost at maximum use!.
 Stop using sash motor!.
 Please contact your service engineer to do maintenance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1448"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1479"/>
         <source>The use of the sash motor is almost at maximum use!.
 Replace the sash motor!.
 Please contact your service engineer to do maintenance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1456"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1487"/>
         <source>The sash height is not in the normal working height (Safe height).
 Set it back to normal working height!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1463"/>
-        <source>The inflow value is too low!
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1495"/>
+        <source>The Airflow velocity is too low!
 Potentially reducing the protective capabilities of the cabinet.
 Ensure that sensors, grill and ventilation paths are not obstructed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1470"/>
-        <source>The Downflow value is too low!
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1504"/>
+        <source>The Airflow velocity failed!
 Potentially reducing the protective capabilities of the cabinet.
 Ensure that sensors, grill and ventilation paths are not obstructed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1477"/>
-        <source>The Downflow value is too high!
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1511"/>
+        <source>The Downflow velocity is too low!
 Potentially reducing the protective capabilities of the cabinet.
 Ensure that sensors, grill and ventilation paths are not obstructed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1484"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1491"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1518"/>
+        <source>The inflow velocity is too low!
+Potentially reducing the protective capabilities of the cabinet.
+Ensure that sensors, grill and ventilation paths are not obstructed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1525"/>
+        <source>The Downflow velocity is too high!
+Potentially reducing the protective capabilities of the cabinet.
+Ensure that sensors, grill and ventilation paths are not obstructed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1547"/>
+        <source>The environmental temperature was out off range!%1
+ The ideal environmental temperature is between </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1532"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1539"/>
         <source>The exhaust pressure is too high!
 Potentially reducing the protective capabilities of the cabinet.
 Ensure that exhaust fan is in nominal speed and damper is opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1499"/>
-        <source>The environmental temperature was out off range!
-Pottentially reduce the reading accuration of the airflow sensor(s).
- The ideal environmental temperature is between </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1506"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1555"/>
         <source>The Fan should be operating at standby speed during in sash standby height!
  Please switch on the Fan by pressing the Fan button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1622"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1629"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1640"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1671"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1678"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1689"/>
         <source>Temp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1629"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1678"/>
         <source>(Too low)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1640"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1689"/>
         <source>(Too high)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1816"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1865"/>
         <source>Attention!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1816"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1865"/>
         <source>Turn off the Fan?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1822"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1871"/>
         <source>User: Set Fan off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1832"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1881"/>
         <source>User: Set Fan on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1954"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2003"/>
         <source>User: Set LED light on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1954"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2003"/>
         <source>User: Set LED light off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2036"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2085"/>
         <source>User: Set Socket on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2036"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2085"/>
         <source>User: Set Socket off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2101"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2150"/>
         <source>User: Set Gas on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2101"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2150"/>
         <source>User: Set Gas off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2176"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2225"/>
         <source>User: Set UV light on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2176"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2225"/>
         <source>User: Set UV light off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2248"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2261"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2268"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2297"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2314"/>
         <source>Audible Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2248"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2269"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2297"/>
         <source>There&apos;s no audible alarm.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2262"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2315"/>
         <source>This audible alarm can not be muted!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2466"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2527"/>
         <source>Switching on the fan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2467"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2528"/>
         <source>Switching off the fan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2636"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2701"/>
         <source>Power failure has been detected while previous fan state is on!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2637"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2702"/>
         <source>Potential release contamination into the room.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2638"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2642"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2703"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2707"/>
         <source>Failure at</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2639"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2643"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2704"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2708"/>
         <source>Recover at</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2641"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2706"/>
         <source>Power failure has been detected while previous UV decontamination is in progress!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2650"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2715"/>
         <source>Be Careful!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2663"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2664"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2728"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2729"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4749,12 +4790,12 @@ Pottentially reduce the reading accuration of the airflow sensor(s).
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LanguagePage/LanguagePage.qml" line="197"/>
+        <location filename="../UI/Pages/LanguagePage/LanguagePage.qml" line="198"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LanguagePage/LanguagePage.qml" line="213"/>
+        <location filename="../UI/Pages/LanguagePage/LanguagePage.qml" line="221"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6945,6 +6986,50 @@ every time the sash hits a safe height</source>
     </message>
 </context>
 <context>
+    <name>SashMotorOffFullyClosedDelay</name>
+    <message>
+        <location filename="../UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml" line="43"/>
+        <location filename="../UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml" line="125"/>
+        <source>Sash Motor Off Fully Closed Delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml" line="74"/>
+        <source>Current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml" line="80"/>
+        <source>%1 ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml" line="85"/>
+        <source>Tap to change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml" line="102"/>
+        <source>Delay (ms)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml" line="116"/>
+        <source>Setting Delay...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml" line="126"/>
+        <source>Invalid entered value!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml" line="159"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScreenSaverNormal</name>
     <message>
         <location filename="../UI/Pages/ScreenSaverPage/Fragments/ScreenSaverNormal.qml" line="59"/>
@@ -8387,7 +8472,7 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/VivariumMuteSetPage/VivariumMuteSetPage.qml" line="77"/>
-        <source>Vivarium mute allows you to pre-mute an audio alarm and remain silent when the you moves the sash to a certain height.</source>
+        <source>Vivarium mute allows you to pre-mute an audio alarm and remain silent when the user move the sash to unsafe height.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8564,7 +8649,7 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="213"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="241"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="270"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8579,15 +8664,15 @@ every time the sash hits a safe height</source>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="394"/>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="404"/>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="412"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="511"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="520"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="529"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="538"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="547"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="556"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="540"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="549"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="558"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="567"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="576"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="585"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="603"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="605"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="614"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="632"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8613,7 +8698,7 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="560"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="811"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="840"/>
         <source>Setting up...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8624,7 +8709,7 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="714"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="967"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="996"/>
         <source>Please wait!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8644,78 +8729,78 @@ every time the sash hits a safe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="385"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="414"/>
         <source>You have changed the sensor constant.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="386"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="415"/>
         <source>It&apos;s mandatory to re-calibrate ADC Zero and Minimum before going to ADC Nominal!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="387"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="393"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="416"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="422"/>
         <source>Notification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="391"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="420"/>
         <source>ADC Minimum not calibrated yet!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="392"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="421"/>
         <source>It&apos;s mandatory to calibrate ADC Minimum before going to ADC Nominal!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="507"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="536"/>
         <source>Measure Inflow Nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="516"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="545"/>
         <source>Measure Inflow Minimum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="525"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="554"/>
         <source>Measure Inflow Standby</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="534"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="563"/>
         <source>Measure Downflow Nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="543"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="572"/>
         <source>Measure Downflow Minimum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="552"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="581"/>
         <source>Measure Downflow Maximum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="572"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="601"/>
         <source>Sensor Constant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="581"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="610"/>
         <source>ADC Zero (IF0)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="599"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="628"/>
         <source>ADC Nominal (IF2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="941"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="970"/>
         <source>User: Full calibration sensor</source>
         <translation type="unfinished"></translation>
     </message>

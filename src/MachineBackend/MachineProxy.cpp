@@ -874,6 +874,22 @@ void MachineProxy::setRbmComPortDfa(QString value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setSashMotorOffDelayMsec(int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setSashMotorOffDelayMsec(value);
+    },
+    Qt::QueuedConnection);
+}
+
+//void MachineProxy::setWifiDisabled(bool value)
+//{
+//    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+//        m_machineBackend->setWifiDisabled(value);
+//    },
+//    Qt::QueuedConnection);
+//}
+
 void MachineProxy::setOperationModeSave(short value)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();

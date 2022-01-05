@@ -231,5 +231,7 @@
         <file>UI/Pictures/pid/tune-help.png</file>
         <file>UI/Pictures/pid/response.png</file>
         <file>UI/Pictures/menu/RBM_Com_Port.png</file>
+        <file>UI/Pictures/menu/sash_close-delay.png</file>
+        <file>UI/Pictures/sash-fully-closed-delay-icon.png</file>
     </qresource>
 </RCC>
