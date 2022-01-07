@@ -479,7 +479,7 @@ void MachineBackend::setup()
                                  this, [&](short channel, bool value){
                     qDebug() << "AIManage::digitalStateChanged" << channel << value;
                     if(channel == 1){
-                        pData->setSashMotorDownStuckSwitch(value);
+                        pData->setSashMotorDownStuckSwitch(!value);
                     }//
                     if(channel == 2){
                         /// Front Panel Switch Installed on Hybrid Digital Input 6
