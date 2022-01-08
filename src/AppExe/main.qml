@@ -312,7 +312,7 @@ ApplicationWindow {
         anchors.verticalCenter: parent.verticalCenter
         sourceComponent: Item {
             height: 70
-            width: 10
+            width: 40
 
             Rectangle{
                 color: "#7f8c8d"
@@ -373,7 +373,7 @@ ApplicationWindow {
         anchors.verticalCenter: parent.verticalCenter
         sourceComponent: Item {
             height: 70
-            width: 10
+            width: 40
 
             Rectangle{
                 color: "#7f8c8d"
@@ -434,9 +434,11 @@ ApplicationWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         sourceComponent: Item {
-            height: 10
+            height: 40
             width: 70
-
+            //            Rectangle{
+            //                anchors.fill: parent
+            //            }
             Rectangle{
                 color: "#7f8c8d"
                 radius: width
@@ -447,8 +449,7 @@ ApplicationWindow {
             }//
 
             SwipeVAreaApp {
-                width: 70
-                height: 10
+                anchors.fill: parent
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
                 contentWidth: iconBottomRect.width
@@ -503,8 +504,16 @@ ApplicationWindow {
         visible: active
         anchors.horizontalCenter: parent.horizontalCenter
         sourceComponent: Item {
-            height: 10
-            width: window.width
+            height: 40
+            width: 70
+
+            Rectangle{
+                color: "#7f8c8d"
+                radius: width
+                height: 2
+                width: 70
+                anchors.horizontalCenter: parent.horizontalCenter
+            }//
 
             SwipeVAreaApp {
                 anchors.fill: parent
@@ -516,7 +525,7 @@ ApplicationWindow {
                 Rectangle {
                     id: iconTopRect
                     height: 70
-                    width: window.width
+                    width: 70
                     radius: 5
                     color: "#55000000"
                     y: -height

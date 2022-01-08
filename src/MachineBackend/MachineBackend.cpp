@@ -1118,7 +1118,7 @@ void MachineBackend::setup()
 
         int timerMs = 250;
         if(pData->getSashWindowMotorizeInstalled())
-            timerMs = 100;
+            timerMs = 50;
         //// Create Independent Timer Event For Sash Motorize
         m_timerEventForSashWindowRoutine.reset(new QTimer);
         m_timerEventForSashWindowRoutine->setInterval(std::chrono::milliseconds(timerMs));
@@ -2942,6 +2942,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                                 m_pSasWindowMotorize->routineTask();
                                 if(m_sashMovedDown)m_sashMovedDown = false;
                                 m_delaySashMotorFullyClosedExecuted = true;
+                                setBuzzerState(MachineEnums::DIG_STATE_ZERO);
                             });
                             qDebug() << "Timer Sash Motor Off in Sash Fully Closed Start";
                             eventTimerForDelayMotorizedOffAtFullyClosed->start();
@@ -4774,6 +4775,8 @@ void MachineBackend::setSashMotorizeState(short value)
     else if(value == MachineEnums::MOTOR_SASH_STATE_DOWN){
         m_sashMovedDown = true;
         m_pSashWindow->setSafeSwitcher(SashWindow::SWITCHER_DOWN);
+        if(pData->getFanState() != MachineEnums::FAN_STATE_OFF)
+            setFanState(MachineEnums::FAN_STATE_OFF);
     }else{
         m_sashMovedDown = false;
     }
