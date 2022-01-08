@@ -4775,8 +4775,10 @@ void MachineBackend::setSashMotorizeState(short value)
     else if(value == MachineEnums::MOTOR_SASH_STATE_DOWN){
         m_sashMovedDown = true;
         m_pSashWindow->setSafeSwitcher(SashWindow::SWITCHER_DOWN);
-        if(pData->getFanState() != MachineEnums::FAN_STATE_OFF)
-            setFanState(MachineEnums::FAN_STATE_OFF);
+        if(pData->getSashWindowState() == MachineEnums::SASH_STATE_STANDBY_SSV){
+            if(pData->getFanState() != MachineEnums::FAN_STATE_OFF)
+                setFanState(MachineEnums::FAN_STATE_OFF);
+        }//
     }else{
         m_sashMovedDown = false;
     }
