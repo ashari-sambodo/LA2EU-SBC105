@@ -521,6 +521,7 @@ ApplicationWindow {
                 contentHeight: iconTopRect.height
                 //                debugSwipe: true
                 swipeOffset: 70
+                x: -(window.width / 2) + 35
 
                 Rectangle {
                     id: iconTopRect
