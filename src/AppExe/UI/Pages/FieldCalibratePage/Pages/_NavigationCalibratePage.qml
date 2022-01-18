@@ -565,7 +565,7 @@ ViewApp {
 
                         //                                        viewApp.dialogObject.close()
                     }
-                })
+                })//
                 //                console.debug("############################################")
                 //                console.debug("ifaSensorAdcZero: " + props.ifaSensorAdcZero)
                 //                console.debug("ifaSensorAdcMinimum: " + props.ifaSensorAdcMinimum)

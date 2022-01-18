@@ -284,7 +284,7 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="96"/>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="544"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="551"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="101"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="598"/>
         <source>Press here to adjust</source>
@@ -292,7 +292,7 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="185"/>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="634"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="641"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="192"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="690"/>
         <source>Fan Duty Cycle</source>
@@ -300,8 +300,8 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="195"/>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="644"/>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1370"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="651"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1381"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="202"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="700"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1583"/>
@@ -309,168 +309,168 @@
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="217"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="218"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="227"/>
         <source>Set DF Nominal</source>
         <translation>DF-Nennwert einstellen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="262"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="264"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="274"/>
         <source>Set Downflow Nominal</source>
         <translation>DF-Nennwert einstellen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="291"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="294"/>
         <source>DF1 Velocity</source>
         <translation>DF1 Geschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="353"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="358"/>
         <source>DF3 Velocity</source>
         <translation>DF3 Geschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="416"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="422"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="465"/>
         <source>Downflow and Inflow fan must be at Nominal speed!</source>
         <translation>Abwärts- und Zulaufventilator müssen auf Nenndrehzahl stehen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="436"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="442"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="485"/>
         <source>Temperature</source>
         <translation>Temperatur</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="500"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="506"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="549"/>
         <source>Please wait until the values are stable</source>
         <translation>Bitte warten Sie, bis sich der Wert stabilisiert hat</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="523"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="529"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="572"/>
         <source>Inflow</source>
         <translation>Zufluss</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="666"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="674"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="725"/>
         <source>Set IF Nominal</source>
         <translation>IF-Nennwert einstellen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="710"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="719"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="769"/>
         <source>Set Inflow Nominal</source>
         <translation>eingestellter Zufluss Nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="739"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="749"/>
         <source>IF1 Velocity</source>
         <translation>IF1 Geschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="806"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="817"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="889"/>
         <source>Stabilizing the ADC</source>
         <translation>Stabilisierung des ADC</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="810"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="821"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="893"/>
         <source>Please wait for %1, time left</source>
         <translation>Bitte warte auf %1, noch Zeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="898"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="909"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="993"/>
         <source>Actual ADC (DF)</source>
         <translation>tatsächlicher ADC (DF)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="912"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="923"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1007"/>
         <source>Actual ADC (IF)</source>
         <translation>tatsächlicher ADC (iF)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="978"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="989"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1073"/>
         <source>Done</source>
         <translation>getan</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1004"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1015"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1114"/>
         <source>Downflow nominal</source>
         <translation>Downflow nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1018"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1029"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1172"/>
         <source>Downflow ADC nominal</source>
         <translation>Downflow ADC Nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1034"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1045"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1202"/>
         <source>Inflow nominal</source>
         <translation>Zufluss nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1049"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1060"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1258"/>
         <source>Inflow ADC nominal</source>
         <translation>Zufluss ADC nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1067"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1078"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1276"/>
         <source>Downflow Fan nominal</source>
         <translation>Downflow-Ventilator nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1082"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1093"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1291"/>
         <source>Inflow Fan nominal</source>
         <translation>Zulaufventilator Nennwert</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1099"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1110"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1308"/>
         <source>Temperature calib</source>
         <translation>Temperaturkalibrierung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1126"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1137"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1335"/>
         <source>Failed</source>
         <translation>gescheitert</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1129"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1140"/>
         <source>IF ADC Nominal ≥ (ADC IF0 + 100) not met!</source>
         <translation>IF ADC Nominal ≥ (ADC IF0 + 100) nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1130"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1141"/>
         <source>DF ADC Nominal ≥ (ADC DF0 + 100) not met!</source>
         <translation>DF ADC Nominal ≥ (ADC DF0 + 100) nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1131"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1142"/>
         <source>IF Vel Nominal &gt; Vel IF1 not met!</source>
         <translation>IF Vel Nominal &gt; Vel IF1 nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1132"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1143"/>
         <source>Vel DF1 &lt; DF Vel Nominal &lt; Vel DF3 not met!</source>
         <translation>Vel DF1 &lt; DF Vel Nominal &lt; Vel DF3 nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1133"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1144"/>
         <source>IF Fan Duty cycle or RPM not valid!</source>
         <translation>IF-Lüfter-Arbeitszyklus oder RPM ungültig!</translation>
     </message>
@@ -479,41 +479,41 @@
         <translation type="vanished">IF Lüfterbetriebszyklus nicht gültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1134"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1145"/>
         <source>DF Fan Duty cycle or RPM not valid!</source>
         <translation>DF Lüfterbetriebszyklus oder RPM ungültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1135"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1146"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1346"/>
         <source>There may be invalid values!</source>
         <translation>möglicherweise gibt es einen ungültigen Wert!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1139"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1150"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1350"/>
         <source>Save</source>
         <translation>speichern</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1169"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1180"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1380"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1174"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1185"/>
         <source>Notification</source>
         <translation>Benachrichtigung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1175"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1186"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1386"/>
         <source>Cancel this process?</source>
         <translation>Diesen Vorgang abbrechen?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1218"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1229"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1435"/>
         <source>Set</source>
         <translation>Legen</translation>
@@ -2791,106 +2791,118 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
     <message>
         <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="924"/>
-        <source>M-Switch S2</source>
-        <translation>M-Schalter S2</translation>
+        <source>M-Switch S2a</source>
+        <translation>M-Schalter S2a</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="944"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="943"/>
+        <source>M-Switch S2b</source>
+        <translation>M-Schalter S2b</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1042"/>
+        <source>M-Switch S7</source>
+        <translation>M-Schalter S7</translation>
+    </message>
+    <message>
+        <source>M-Switch S2</source>
+        <translation type="vanished">M-Schalter S2</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="962"/>
         <source>M-Switch S3</source>
         <translation>M-Schalter S3</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="964"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="982"/>
         <source>M-Switch S4</source>
         <translation>M-Schalter S4</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="984"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1002"/>
         <source>M-Switch S5</source>
         <translation>M-Schalter S5</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1003"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1022"/>
         <source>M-Switch S6</source>
         <translation>M-Schalter S6</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1022"/>
         <source>Sash Motor Down Stuck Switch</source>
-        <translation>Fenstermotor klemmt schalter</translation>
+        <translation type="vanished">Fenstermotor klemmt schalter</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1041"/>
         <source>Front Panel Alarm Switch</source>
-        <translation>Frontplattensensor</translation>
+        <translation type="vanished">Frontplattensensor</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1061"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1062"/>
         <source>Seas Flap Exhaust</source>
         <translation>Seas Flap Exhaust</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1082"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1083"/>
         <source>Module - Hybrid Digital/Input</source>
         <translation>Modul - Hybrid Digital/Eingang</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1083"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1104"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1125"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1146"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1167"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1189"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1210"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1084"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1105"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1126"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1147"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1168"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1190"/>
         <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1211"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1236"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1257"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1278"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1212"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1237"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1258"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1279"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1083"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1104"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1125"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1146"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1167"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1189"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1210"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1084"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1105"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1126"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1147"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1168"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1190"/>
         <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1211"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1236"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1257"/>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1278"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1212"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1237"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1258"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1279"/>
         <source>Fail</source>
         <translation>Scheitern</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1103"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1104"/>
         <source>Module - Hybrid Digital/Output</source>
         <translation>Modul - Hybrid Digital/Ausgang</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1124"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1125"/>
         <source>Module - Hybrid Analog/Input</source>
         <translation>Modul - Hybrid Analog/Eingang</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1145"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1146"/>
         <source>Module - Hybrid Analog/Output</source>
         <translation>Modul - Hybrid Analog/Ausgang</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1166"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1167"/>
         <source>Module - Analog Input</source>
         <translation>Modul - Analogeingang</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1188"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1189"/>
         <source>Module - PWM Output</source>
         <translation>Modul - PWM-Ausgang</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1209"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1210"/>
         <source>Module - RBM Com </source>
         <translation>Modul - RBM-Kommunikation </translation>
     </message>
@@ -2899,52 +2911,52 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation type="vanished">Modul - RBM Com</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1235"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1236"/>
         <source>Module - Real Time Clock</source>
         <translation>Modul - Echtzeituhr</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1256"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1257"/>
         <source>Module - I/O Expander</source>
         <translation>Modul - E/A-Erweiterung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1277"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1278"/>
         <source>Module - Pressure Sensor</source>
         <translation>Modul - Drucksensor</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1301"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1302"/>
         <source>Environmental temperature range</source>
         <translation>Umgebungstemperaturbereich</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1326"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1327"/>
         <source>Particel counter (μg/m3)</source>
         <translation>Partikelzähler (μg/m3)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1353"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1354"/>
         <source>Particel counter state</source>
         <translation>Zustand des Partikelzählers</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1356"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1357"/>
         <source>Running</source>
         <translation>Laufen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1370"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1371"/>
         <source>Watchdog counter</source>
         <translation>Watchdog-Zähler</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1384"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1385"/>
         <source>RTC Date &amp; Time</source>
         <translation>RTC Datum &amp; Uhrzeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1424"/>
+        <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="1425"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
@@ -5381,10 +5393,10 @@ The ideal environmental temperature is between </translation>
     <name>MeasureDownflowSetPage</name>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="37"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="697"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="721"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="745"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="761"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="701"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="725"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="749"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="765"/>
         <source>Measure Downflow</source>
         <translation>Abwärtsströmung messen</translation>
     </message>
@@ -5420,7 +5432,7 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="327"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="416"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="418"/>
         <source>Press here to adjust &lt;b&gt;%1&lt;/b&gt; fan</source>
         <translation>Hier drücken, um &lt;b&gt;%1&lt;/b&gt; Lüfter anzupassen</translation>
     </message>
@@ -5430,85 +5442,85 @@ The ideal environmental temperature is between </translation>
         <translation>Abwärtsströmung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="377"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="468"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="379"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="472"/>
         <source>Fan Duty Cycle</source>
         <translation>Lüfterbetriebszyklus</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="387"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="478"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="1078"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="389"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="482"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="1082"/>
         <source>Adjusting fan duty cycle...</source>
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="416"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="418"/>
         <source>Inflow</source>
         <translation>Zufluss</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="502"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="506"/>
         <source>Avg. Velocity</source>
         <translation>Durchschnitt. Geschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="589"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="593"/>
         <source>Max. Deviation</source>
         <translation>max. Abweichung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="677"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="681"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="690"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="694"/>
         <source>Load from Draft</source>
         <translation>Aus Entwurf laden</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="693"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="697"/>
         <source>Load grid values from draft?</source>
         <translation>Rasterwerte aus Entwurf laden?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="695"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="699"/>
         <source>Current values will be lost.</source>
         <translation>Aktuelle Werte gehen verloren.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="714"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="718"/>
         <source>Clear All</source>
         <translation>Alles löschen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="717"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="721"/>
         <source>Clear all values?</source>
         <translation>Alle Werte löschen?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="719"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="723"/>
         <source>Current values and drafted values will be removed.</source>
         <translation>Aktuelle Werte und Entwurfswerte werden entfernt.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="739"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="743"/>
         <source>Set</source>
         <translation>Satz</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="746"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="750"/>
         <source>Please fill up all the fields!</source>
         <translation>Bitte alle Felder ausfüllen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="760"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="764"/>
         <source>The deviation is out of specs</source>
         <translation>Die Abweichung liegt außerhalb der Spezifikationen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="760"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="764"/>
         <source>The velocity is out of specs</source>
         <translation>Die Geschwindigkeit ist außerhalb der Spezifikationen</translation>
     </message>
@@ -5517,10 +5529,10 @@ The ideal environmental temperature is between </translation>
     <name>MeasureInflowDimSetPage</name>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="37"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="741"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="765"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="787"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="796"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="749"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="773"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="795"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="804"/>
         <source>Measure Inflow</source>
         <translation>Zufluss messen</translation>
     </message>
@@ -5568,7 +5580,7 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="346"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="449"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="451"/>
         <source>Press here to adjust &lt;b&gt;%1&lt;/b&gt; fan</source>
         <translation>Hier drücken, um &lt;b&gt;%1&lt;/b&gt; Lüfter anzupassen</translation>
     </message>
@@ -5578,75 +5590,75 @@ The ideal environmental temperature is between </translation>
         <translation>Abwärtsströmung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="401"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="504"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="403"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="508"/>
         <source>Fan Duty Cycle</source>
         <translation>Lüfterbetriebszyklus</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="414"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="517"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="1094"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="416"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="521"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="1102"/>
         <source>Adjusting fan duty cycle...</source>
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="449"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="451"/>
         <source>Inflow</source>
         <translation>Zufluss</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="628"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="635"/>
         <source>Velocity</source>
         <translation>Geschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="721"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="729"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="734"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="742"/>
         <source>Load from Draft</source>
         <translation>Aus Entwurf laden</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="737"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="745"/>
         <source>Load grid values from draft?</source>
         <translation>Rasterwerte aus Entwurf laden?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="739"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="747"/>
         <source>Current values will be lost.</source>
         <translation>Aktuelle Werte gehen verloren.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="758"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="766"/>
         <source>Clear All</source>
         <translation>Alles löschen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="761"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="769"/>
         <source>Clear all values?</source>
         <translation>Alle Werte löschen?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="763"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="771"/>
         <source>Current values and drafted values will be removed.</source>
         <translation>Aktuelle Werte und Entwurfswerte werden entfernt.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="783"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="791"/>
         <source>Set</source>
         <translation>Satz</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="788"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="796"/>
         <source>Please fill up all the fields!</source>
         <translation>Bitte alle Felder ausfüllen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="797"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="805"/>
         <source>Velocity result is out of specs</source>
         <translation>Geschwindigkeitsergebnis liegt außerhalb der Spezifikationen</translation>
     </message>
@@ -5655,10 +5667,10 @@ The ideal environmental temperature is between </translation>
     <name>MeasureInflowSecSetPage</name>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="37"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="667"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="691"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="715"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="725"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="673"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="697"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="721"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="731"/>
         <source>Inflow Secondary Method</source>
         <translation>Zufluss Sekundärmethode</translation>
     </message>
@@ -5715,14 +5727,14 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="364"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="455"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="457"/>
         <source>Fan Duty Cycle</source>
         <translation>Lüfterbetriebszyklus</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="374"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="465"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="1038"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="467"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="1044"/>
         <source>Adjusting fan duty cycle...</source>
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
@@ -5732,62 +5744,62 @@ The ideal environmental temperature is between </translation>
         <translation>Zufluss</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="488"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="491"/>
         <source>Avg. Velocity</source>
         <translation>Durchschnitt. Geschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="547"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="552"/>
         <source>Conv. Velocity</source>
         <translation>Konv. Geschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="647"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="653"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="660"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="666"/>
         <source>Load from Draft</source>
         <translation>Aus Entwurf laden</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="663"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="669"/>
         <source>Load grid values from draft?</source>
         <translation>Rasterwerte aus Entwurf laden?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="665"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="671"/>
         <source>Current values will be lost.</source>
         <translation>Aktuelle Werte gehen verloren.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="684"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="690"/>
         <source>Clear All</source>
         <translation>Alles löschen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="687"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="693"/>
         <source>Clear all values?</source>
         <translation>Alle Werte löschen?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="689"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="695"/>
         <source>Current values and drafted values will be removed.</source>
         <translation>Aktuelle Werte und Entwurfswerte werden entfernt.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="709"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="715"/>
         <source>Set</source>
         <translation>Satz</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="716"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="722"/>
         <source>Please fill up all the fields!</source>
         <translation>Bitte alle Felder ausfüllen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="726"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="732"/>
         <source>The velocity is out of specs</source>
         <translation>Die Geschwindigkeit ist außerhalb der Spezifikationen</translation>
     </message>
@@ -8688,6 +8700,12 @@ every time the sash hits a safe height</source>
         <translation>Sensor vor Ort kalibrieren</translation>
     </message>
     <message>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/_FinishCalibratePage.qml" line="75"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_FinishCalibratePage.qml" line="68"/>
+        <source>Calibration has been done!</source>
+        <translation>Die Kalibrierung wurde durchgeführt!</translation>
+    </message>
+    <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_FinishCalibratePage.qml" line="102"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_FinishCalibratePage.qml" line="95"/>
         <source>Back</source>
@@ -8848,7 +8866,7 @@ every time the sash hits a safe height</source>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="560"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="840"/>
         <source>Setting up...</source>
-        <translation></translation>
+        <translation>Einrichten...</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="692"/>
@@ -8969,7 +8987,7 @@ every time the sash hits a safe height</source>
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.qml" line="605"/>
+        <location filename="../main.qml" line="615"/>
         <source>Slide up to unlock!</source>
         <translation>Zum Entsperren nach oben schieben!</translation>
     </message>

@@ -214,10 +214,12 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
+                                                Layout.fillWidth: true
                                                 text: qsTr("Set DF Nominal") + ":"
                                             }//
 
                                             TextApp {
+                                                Layout.fillWidth: true
                                                 text: props.measureUnitStr
                                             }//
 
@@ -287,11 +289,13 @@ ViewApp {
                                             anchors.margins: 3
                                             spacing: 1
 
-                                            TextApp {
+                                            TextApp {                                                
+                                                Layout.fillWidth: true
                                                 text: qsTr("DF1 Velocity") + ":"
                                             }//
 
                                             TextApp {
+                                                Layout.fillWidth: true
                                                 text: props.measureUnitStr
                                             }//
 
@@ -350,10 +354,12 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
+                                                Layout.fillWidth: true
                                                 text: qsTr("DF3 Velocity") + ":"
                                             }//
 
                                             TextApp {
+                                                Layout.fillWidth: true
                                                 text: props.measureUnitStr
                                             }//
 
@@ -540,6 +546,7 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
+                                                Layout.fillWidth: true
                                                 font.pixelSize: 14
                                                 text: qsTr("Press here to adjust")
                                             }
@@ -663,10 +670,12 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
+                                                Layout.fillWidth: true
                                                 text: qsTr("Set IF Nominal") + ":"
                                             }//
 
                                             TextApp {
+                                                Layout.fillWidth: true
                                                 text: props.measureUnitStr
                                             }//
 
@@ -736,10 +745,12 @@ ViewApp {
                                             spacing: 1
 
                                             TextApp {
+                                                Layout.fillWidth: true
                                                 text: qsTr("IF1 Velocity") + ":"
                                             }//
 
                                             TextApp {
+                                                Layout.fillWidth: true
                                                 text: props.measureUnitStr
                                             }//
 

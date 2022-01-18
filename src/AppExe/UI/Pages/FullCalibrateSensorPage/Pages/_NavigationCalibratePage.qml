@@ -1111,7 +1111,7 @@ ViewApp {
                         //                            props.calibrateResValues['measure']['ifa']['fail']['grid'] = extradata['calibrateRes']['grid']
 
                         props.ifaFanDutyCycleMinimum   = extradata['calibrateRes']['fanDucy']
-                        props.fanRpmMinimum         = extradata['calibrateRes']['fanRpm']
+                        props.ifaFanRpmMinimum         = extradata['calibrateRes']['fanRpm']
 
                         if(props.measurementUnit) velocity = Math.round(velocity)
                         props.ifaSensorVelMinimum      = Math.round(velocity * 100)

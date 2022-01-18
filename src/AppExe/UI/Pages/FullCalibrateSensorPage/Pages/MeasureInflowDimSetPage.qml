@@ -369,10 +369,12 @@ ViewApp {
                                         }//
 
                                         TextApp {
+                                            Layout.fillWidth: true
                                             text: "Dcy: " + props.dfaFanDutyCycleActual + "%"
                                         }//
 
                                         TextApp {
+                                            Layout.fillWidth: true
                                             text: "RPM: " + props.dfaFanRpmActual
                                             //color: "#0F2952"
                                         }//
@@ -472,10 +474,12 @@ ViewApp {
                                         }//
 
                                         TextApp {
+                                            Layout.fillWidth: true
                                             text: "Dcy: " + props.ifaFanDutyCycleActual + "%"
                                         }//
 
                                         TextApp {
+                                            Layout.fillWidth: true
                                             text: "RPM: " + props.ifaFanRpmActual
                                             color: MachineData.getDualRbmMode() ? "#e3dac9" : "#0F2952"
                                         }//
@@ -542,10 +546,12 @@ ViewApp {
                                     spacing: 1
 
                                     TextApp {
+                                        Layout.fillWidth: true
                                         text: "Volumetric"
                                     }//
 
                                     TextApp {
+                                        Layout.fillWidth: true
                                         text: props.measureUnit ? "cfm" : "l/s"
                                     }//
 
@@ -625,10 +631,12 @@ ViewApp {
                                     spacing: 1
 
                                     TextApp {
+                                        Layout.fillWidth: true
                                         text: qsTr("Velocity") + ":"
                                     }//
 
                                     TextApp {
+                                        Layout.fillWidth: true
                                         text: props.measureUnit ? "fpm" : "m/s"
                                     }//
 

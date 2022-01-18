@@ -426,10 +426,12 @@ ViewApp {
                                         }//
 
                                         TextApp {
+                                            Layout.fillWidth: true
                                             text: "Dcy: " + props.ifaFanDutyCycleActual + "%"
                                         }//
 
                                         TextApp {
+                                            Layout.fillWidth: true
                                             color: MachineData.getDualRbmMode() ? "#e3dac9" : "#0F2952"
                                             text: "RPM: " + props.ifaFanRpmActual
                                         }//
@@ -485,10 +487,12 @@ ViewApp {
                                     spacing: 1
 
                                     TextApp {
+                                        Layout.fillWidth: true
                                         text: qsTr("Avg. Velocity") + ":"
                                     }//
 
                                     TextApp {
+                                        Layout.fillWidth: true
                                         text: props.measureUnit ? "fpm" : "m/s"
                                     }//
 
@@ -544,10 +548,12 @@ ViewApp {
                                     spacing: 1
 
                                     TextApp {
+                                        Layout.fillWidth: true
                                         text: qsTr("Conv. Velocity") + ":"
                                     }//
 
                                     TextApp {
+                                        Layout.fillWidth: true
                                         text: props.measureUnit ? "fpm" : "m/s"
                                     }//
 

@@ -349,10 +349,12 @@ ViewApp {
                                         }//
 
                                         TextApp {
+                                            Layout.fillWidth: true
                                             text: "Dcy: " + props.dfaFanDutyCycleActual + "%"
                                         }//
 
                                         TextApp {
+                                            Layout.fillWidth: true
                                             text: "RPM: " + props.dfaFanRpmActual
                                         }//
                                     }//
@@ -439,10 +441,12 @@ ViewApp {
                                         }//
 
                                         TextApp {
+                                            Layout.fillWidth: true
                                             text: "Dcy: " + props.ifaFanDutyCycleActual + "%"
                                         }//
 
                                         TextApp {
+                                            Layout.fillWidth: true
                                             color: MachineData.getDualRbmMode() ? "#e3dac9" : "#0F2952"
                                             text: "RPM: " + props.ifaFanRpmActual
                                         }//
@@ -497,13 +501,13 @@ ViewApp {
                                     spacing: 1
 
                                     TextApp {
-                                        width: rightContentItem.width
+                                        Layout.fillWidth: true
                                         font.pixelSize: 18
                                         text: qsTr("Avg. Velocity") + ":"
                                     }//
 
                                     TextApp {
-                                        width: rightContentItem.width
+                                        Layout.fillWidth: true
                                         font.pixelSize: 18
                                         text: props.measureUnit ? "fpm" : "m/s"
                                     }//
@@ -584,13 +588,13 @@ ViewApp {
                                     spacing: 1
 
                                     TextApp {
-                                        width: rightContentItem.width
+                                        Layout.fillWidth: true
                                         font.pixelSize: 18
                                         text: qsTr("Max. Deviation") + ":"
                                     }//
 
                                     TextApp {
-                                        width: rightContentItem.width
+                                        Layout.fillWidth: true
                                         font.pixelSize: 18
                                         text: props.measureUnit ? "fpm" : "m/s"
                                     }//
