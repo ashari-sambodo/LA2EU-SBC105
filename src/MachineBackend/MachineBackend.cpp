@@ -2587,7 +2587,7 @@ void MachineBackend::setup()
     {
         ///SKEY_SASH_MOTOR_OFF_DELAY
         if(pData->getSashWindowMotorizeInstalled()){
-            int sashDelay = m_settings->value(SKEY_SASH_MOTOR_OFF_DELAY, 1000).toInt();
+            int sashDelay = m_settings->value(SKEY_SASH_MOTOR_OFF_DELAY, 700).toInt();
             pData->setSashMotorOffDelayMsec(sashDelay);
         }
     }

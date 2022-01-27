@@ -41,7 +41,7 @@
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="13"/>
         <source>Sash fully close</source>
-        <translation>Schärpe ganz schließen</translation>
+        <translation>Scheibenposition geschlossen</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="14"/>
@@ -51,12 +51,12 @@
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="15"/>
         <source>Sash fully standby</source>
-        <translation>Schärpe voll Standby</translation>
+        <translation>Scheibenposition standby</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="16"/>
         <source>Sash unknown state</source>
-        <translation>Schärpe unbekannter Zustand</translation>
+        <translation>Scheibenposition unbekannter</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="18"/>

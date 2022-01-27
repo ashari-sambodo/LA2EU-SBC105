@@ -1079,7 +1079,7 @@
     <message>
         <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="267"/>
         <source>Motorize Sash</source>
-        <translation>Motorisieren Schärpe</translation>
+        <translation>Motorisieren Scheibe</translation>
     </message>
     <message>
         <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="270"/>
@@ -2626,7 +2626,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     <message>
         <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="146"/>
         <source>Fully close</source>
-        <translation>Ganz nah</translation>
+        <translation>Geschlossen</translation>
     </message>
     <message>
         <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="148"/>
@@ -4117,7 +4117,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="179"/>
         <source>ALARM: SASH UNSAFE</source>
-        <translation>ALARM: SCHEIBE UNSICHER</translation>
+        <translation>ALARM: SCHEIBENPOSITION UNSICHER</translation>
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="191"/>
@@ -4192,7 +4192,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="364"/>
         <source>STANDBY</source>
-        <translation>STEHEN ZU</translation>
+        <translation>STANDBY</translation>
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="376"/>
@@ -4237,7 +4237,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="592"/>
         <source>Sash</source>
-        <translation>Schärpe</translation>
+        <translation>Scheibenposition</translation>
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="601"/>
@@ -4265,7 +4265,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="650"/>
         <source>Fully close</source>
-        <translation>Ganz nah</translation>
+        <translation>Geschlossen</translation>
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="657"/>
@@ -5507,7 +5507,7 @@ The ideal environmental temperature is between </translation>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="743"/>
         <source>Set</source>
-        <translation>Satz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="750"/>
@@ -5650,7 +5650,7 @@ The ideal environmental temperature is between </translation>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="791"/>
         <source>Set</source>
-        <translation>Satz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="796"/>
@@ -5791,7 +5791,7 @@ The ideal environmental temperature is between </translation>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="715"/>
         <source>Set</source>
-        <translation>Satz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="722"/>
@@ -6624,7 +6624,7 @@ The ideal environmental temperature is between </translation>
     <message>
         <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="132"/>
         <source>Sash Unsafe</source>
-        <translation>Schärpe unsicher</translation>
+        <translation>Scheibenposition unsicher</translation>
     </message>
     <message>
         <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="133"/>
@@ -7194,7 +7194,7 @@ every time the sash hits a safe height</source>
     <message>
         <location filename="../UI/Pages/ScreenSaverPage/Fragments/ScreenSaverStandby.qml" line="26"/>
         <source>STANDBY</source>
-        <translation>STEHEN ZU</translation>
+        <translation>STANDBY</translation>
     </message>
 </context>
 <context>
@@ -7250,7 +7250,7 @@ every time the sash hits a safe height</source>
     <message>
         <location filename="../UI/Pages/SeasAlarmSetPointPage/SeasAlarmPage.qml" line="261"/>
         <source>Set</source>
-        <translation>Satz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../UI/Pages/SeasAlarmSetPointPage/SeasAlarmPage.qml" line="268"/>
@@ -7505,7 +7505,7 @@ every time the sash hits a safe height</source>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/SensorConstantSetPage.qml" line="197"/>
         <source>Set</source>
-        <translation>Satz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/SensorConstantSetPage.qml" line="213"/>
@@ -7963,7 +7963,7 @@ every time the sash hits a safe height</source>
     <message>
         <location filename="../UI/Pages/TimePickerPage/TimePickerPage.qml" line="180"/>
         <source>Set</source>
-        <translation>Satz</translation>
+        <translation>Speichern</translation>
     </message>
 </context>
 <context>
@@ -8006,7 +8006,7 @@ every time the sash hits a safe height</source>
     <message>
         <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="455"/>
         <source>Set</source>
-        <translation>Satz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="462"/>
@@ -8246,7 +8246,7 @@ every time the sash hits a safe height</source>
     <message>
         <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="310"/>
         <source>Set</source>
-        <translation>Satz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="322"/>
