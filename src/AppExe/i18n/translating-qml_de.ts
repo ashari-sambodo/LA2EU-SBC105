@@ -2572,6 +2572,50 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
 </context>
 <context>
+    <name>DelayAlarmAirflowPage</name>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="43"/>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="125"/>
+        <source>Delay Airflow Alarm</source>
+        <translation>Luftstromalarm verzögern</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="74"/>
+        <source>Current</source>
+        <translation>Aktuelle</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="80"/>
+        <source>%1 ms</source>
+        <translation>%1 ms</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="85"/>
+        <source>Tap to change</source>
+        <translation>Zum Ändern tippen</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="102"/>
+        <source>Delay (ms)</source>
+        <translation>Verzögerung (ms)</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="116"/>
+        <source>Setting Delay...</source>
+        <translation>Verzögerung einstellen...</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="126"/>
+        <source>Invalid entered value!</source>
+        <translation>Ungültiger Eingabewert!</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="159"/>
+        <source>Back</source>
+        <translation>zurück</translation>
+    </message>
+</context>
+<context>
     <name>DiagnosticsPage</name>
     <message>
         <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="45"/>
@@ -4023,41 +4067,46 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="112"/>
+        <source>Delay Airflow Alarm</source>
+        <translation>Luftstromalarm verzögern</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="113"/>
         <source>Sash Motor Off Delay</source>
         <translation>Ausschaltverzögerung des Fenstermotors</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="113"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="114"/>
         <source>Serial Number</source>
         <translation>Seriennummer</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="114"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="115"/>
         <source>Environmental Temperature Limit</source>
         <translation>Umgebungstemperaturgrenze</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="115"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="116"/>
         <source>ESCO Lock Service</source>
         <translation>ESCO-Schlossservice</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="116"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="117"/>
         <source>Auxiliary Functions</source>
         <translation>Zusatzfunktionen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="117"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="118"/>
         <source>Cabinet Model</source>
         <translation>Schrankmodell</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="118"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="119"/>
         <source>RTC Watchdog Test</source>
         <translation>RTC-Watchdog-Test</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="119"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="120"/>
         <source>System Information</source>
         <translation>System Information</translation>
     </message>

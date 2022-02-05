@@ -987,10 +987,12 @@ class MachineData : public QObject
                //               WRITE setRbmComPortIfa
                NOTIFY sashMotorOffDelayMsecChanged)
 
-//    Q_PROPERTY(bool wifiDisabled
-//               READ getWifiDisabled
-//               //               WRITE setRbmComPortIfa
-//               NOTIFY wifiDisabledChanged)
+    Q_PROPERTY(int delayAlarmAirflowMsec READ getDelayAlarmAirflowMsec NOTIFY delayAlarmAirflowMsecChanged)
+
+    //    Q_PROPERTY(bool wifiDisabled
+    //               READ getWifiDisabled
+    //               //               WRITE setRbmComPortIfa
+    //               NOTIFY wifiDisabledChanged)
 
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
@@ -1790,8 +1792,8 @@ public:
     void setSashMotorOffDelayMsec(int value);
     int getSashMotorOffDelayMsec()const;
 
-//    void setWifiDisabled(bool value);
-//    bool getWifiDisabled()const;
+    void setDelayAlarmAirflowMsec(int value);
+    int getDelayAlarmAirflowMsec()const;
 
 public slots:
     void initSingleton();
@@ -2095,7 +2097,8 @@ signals:
 
     void sashMotorOffDelayMsecChanged(int value);
 
-//    void wifiDisabledChanged(bool value);
+    void delayAlarmAirflowMsecChanged(int value);
+    //    void wifiDisabledChanged(bool value);
 
 private:
     ///
@@ -2469,7 +2472,8 @@ private:
 
     int m_sashMotorOffDelayMsec = 0;
 
-//    bool m_wifiDisabled = false;
+    int m_delayAlarmAirflowMsec = 0;
+    //    bool m_wifiDisabled = false;
 };
 
 

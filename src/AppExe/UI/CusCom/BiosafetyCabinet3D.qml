@@ -17,13 +17,15 @@ Item {
     property bool   airflowArrowActive:  false
 
     property string modelName : "LA2"
-    readonly property string frameModeSourceA: "BiosafetyCabinet3D/pictures/BSC3D_blackframe_la.png"
-    readonly property string frameModeSourceB: "BiosafetyCabinet3D/pictures/BSC3D_blackframe_ac.png"
-    readonly property string frameModeSourceC: "BiosafetyCabinet3D/pictures/BSC3D_blackframe_sc.png"
+    property bool sideGlass : false
+    property string pictureFolder: sideGlass ? "pictures_sdglass" : "pictures"
+    readonly property string frameModeSourceA: "BiosafetyCabinet3D/%1/BSC3D_blackframe_la.png".arg(pictureFolder)
+    readonly property string frameModeSourceB: "BiosafetyCabinet3D/%1/BSC3D_blackframe_ac.png".arg(pictureFolder)
+    readonly property string frameModeSourceC: "BiosafetyCabinet3D/%1/BSC3D_blackframe_sc.png".arg(pictureFolder)
 
     Image {
         id: cabinetBaseImage
-        source: "BiosafetyCabinet3D/pictures/BSC3Dbase.png"
+        source: "BiosafetyCabinet3D/%1/BSC3Dbase.png".arg(pictureFolder)
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
 
@@ -36,14 +38,14 @@ Item {
                 name: cabinetBaseImage.stateAlarm
                 PropertyChanges {
                     target: cabinetBaseImage
-                    source: "BiosafetyCabinet3D/pictures/BSC3Dbase-red.png"
+                    source: "BiosafetyCabinet3D/%1/BSC3Dbase-red.png".arg(pictureFolder)
                 }
             },
             State {
                 name: cabinetBaseImage.stateWarn
                 PropertyChanges {
                     target: cabinetBaseImage
-                    source: "BiosafetyCabinet3D/pictures/BSC3Dbase-orange.png"
+                    source: "BiosafetyCabinet3D/%1/BSC3Dbase-orange.png".arg(pictureFolder)
                 }
             }
         ]
@@ -83,7 +85,7 @@ Item {
 
     Image {
         id: headerImage
-        source: "BiosafetyCabinet3D/pictures/BSC3Dstatusok.png"
+        source: "BiosafetyCabinet3D/%1/BSC3Dstatusok.png".arg(pictureFolder)
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
         visible: false
@@ -96,7 +98,7 @@ Item {
 
         Image {
             id: downflowImage
-            source: "BiosafetyCabinet3D/pictures/BSC3D_arrow_df_green.png"
+            source: "BiosafetyCabinet3D/%1/BSC3D_arrow_df_green.png".arg(pictureFolder)
             height: parent.height
             width: parent.width
             fillMode: Image.PreserveAspectFit
@@ -104,7 +106,7 @@ Item {
 
         Image {
             id: inflowImage
-            source: "BiosafetyCabinet3D/pictures/BSC3D_arrow_if_green_elbow.png"
+            source: "BiosafetyCabinet3D/%1/BSC3D_arrow_if_green_elbow.png".arg(pictureFolder)
             height: parent.height
             width: parent.width
             fillMode: Image.PreserveAspectFit
@@ -113,7 +115,7 @@ Item {
 
     Image {
         id: sashImage
-        source: "BiosafetyCabinet3D/pictures/BSC3D_sash_fo.png"
+        source: "BiosafetyCabinet3D/%1/BSC3D_sash_fo.png".arg(pictureFolder)
         anchors.fill: parent
         fillMode: Image.PreserveAspectFit
 
@@ -130,42 +132,42 @@ Item {
                 name: sashImage.stateSafe
                 PropertyChanges {
                     target: sashImage
-                    source: "BiosafetyCabinet3D/pictures/BSC3D_sash_safe.png"
+                    source: "BiosafetyCabinet3D/%1/BSC3D_sash_safe.png".arg(pictureFolder)
                 }
             },
             State {
                 name: sashImage.stateUnsafe
                 PropertyChanges {
                     target: sashImage
-                    source: "BiosafetyCabinet3D/pictures/BSC3D_sash_unsafe.png"
+                    source: "BiosafetyCabinet3D/%1/BSC3D_sash_unsafe.png".arg(pictureFolder)
                 }
             },
             State {
                 name: sashImage.stateStandby
                 PropertyChanges {
                     target: sashImage
-                    source: "BiosafetyCabinet3D/pictures/BSC3D_sash_standby.png"
+                    source: "BiosafetyCabinet3D/%1/BSC3D_sash_standby.png".arg(pictureFolder)
                 }
             },
             State {
                 name: sashImage.stateFullyClose
                 PropertyChanges {
                     target: sashImage
-                    source: "BiosafetyCabinet3D/pictures/BSC3D_sash_fc.png"
+                    source: "BiosafetyCabinet3D/%1/BSC3D_sash_fc.png".arg(pictureFolder)
                 }
             },
             State {
                 name: sashImage.stateFullyOpen
                 PropertyChanges {
                     target: sashImage
-                    source: "BiosafetyCabinet3D/pictures/BSC3D_sash_fo.png"
+                    source: "BiosafetyCabinet3D/%1/BSC3D_sash_fo.png".arg(pictureFolder)
                 }
             },
             State {
                 name: sashImage.stateUvActive
                 PropertyChanges {
                     target: sashImage
-                    source: "BiosafetyCabinet3D/pictures/BSC3D_sash_uvon.png"
+                    source: "BiosafetyCabinet3D/%1/BSC3D_sash_uvon.png".arg(pictureFolder)
                 }
             }
         ]
@@ -179,7 +181,7 @@ Item {
         PropertyAction{
             target: inflowImage
             property: "source"
-            value: "BiosafetyCabinet3D/pictures/BSC3D_arrow_if_green.png"
+            value: "BiosafetyCabinet3D/%1/BSC3D_arrow_if_green.png".arg(pictureFolder)
         }//
 
         NumberAnimation{
@@ -193,7 +195,7 @@ Item {
         PropertyAction{
             target: inflowImage
             property: "source"
-            value: "BiosafetyCabinet3D/pictures/BSC3D_arrow_if_green_elbow.png"
+            value: "BiosafetyCabinet3D/%1/BSC3D_arrow_if_green_elbow.png".arg(pictureFolder)
         }//
 
         NumberAnimation{
@@ -237,7 +239,7 @@ Item {
     //            PropertyChanges {
     //                target: headerImage
     //                visible: true
-    //                source: "BiosafetyCabinet3D/pictures/BSC3Dstatusok.png"
+    //                source: "BiosafetyCabinet3D/%1/BSC3Dstatusok.png".arg(pictureFolder)
     //            }
     //        },
     //        State {
@@ -257,7 +259,7 @@ Item {
     //            PropertyChanges {
     //                target: headerImage
     //                visible: true
-    //                source: "BiosafetyCabinet3D/pictures/BSC3Dstatuswarning.png"
+    //                source: "BiosafetyCabinet3D/%1/BSC3Dstatuswarning.png".arg(pictureFolder)
     //            }
     //        }
     //    ]

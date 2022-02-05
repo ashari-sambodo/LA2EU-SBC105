@@ -355,6 +355,18 @@ int MachineData::getSashMotorOffDelayMsec() const
     return m_sashMotorOffDelayMsec;
 }
 
+void MachineData::setDelayAlarmAirflowMsec(int value)
+{
+    if(m_delayAlarmAirflowMsec == value)return;
+    m_delayAlarmAirflowMsec = value;
+    emit delayAlarmAirflowMsecChanged(value);
+}
+
+int MachineData::getDelayAlarmAirflowMsec() const
+{
+    return m_delayAlarmAirflowMsec;
+}
+
 //void MachineData::setWifiDisabled(bool value)
 //{
 //    if(m_wifiDisabled == value)return;

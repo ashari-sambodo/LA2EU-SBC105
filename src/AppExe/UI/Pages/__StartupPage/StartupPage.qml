@@ -225,6 +225,7 @@ ViewApp {
                         MachineData.machineModelName = props.profileObjectActive['modelStr']
 
                         MachineAPI.setup(MachineData)
+                        HeaderAppService.sideGlass = (props.profileObjectActive['sideGlass']|| 0) > 0
 
                         const connectionId = "StartupPage"
                         userManageQml.init(connectionId);

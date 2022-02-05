@@ -882,6 +882,14 @@ void MachineProxy::setSashMotorOffDelayMsec(int value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setDelayAlarmAirflowMsec(int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setDelayAlarmAirflowMsec(value);
+    },
+    Qt::QueuedConnection);
+}
+
 //void MachineProxy::setWifiDisabled(bool value)
 //{
 //    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){

@@ -22,6 +22,7 @@ QtObject {
             "modelBase": 1,
             "classStr": "CLASS II",
             "modelStr": "LA2 EU",
+            "sideGlass": 1,
             "width": {
                 "meter": 0.9144 /*meter = 3 Feet*/,
                 "feet": 3
@@ -194,6 +195,7 @@ QtObject {
             "modelBase": 1,
             "classStr": "CLASS II",
             "modelStr": "LA2 EU",
+            "sideGlass": 1,
             "width": {
                 "meter": 1.2192 /*meter = 4 Feet*/,
                 "feet": 4
@@ -366,6 +368,7 @@ QtObject {
             "modelBase": 1,
             "classStr": "CLASS II",
             "modelStr": "LA2 EU",
+            "sideGlass": 1,
             "width": {
                 "meter": 1.524 /*meter = 5 Feet*/,
                 "feet": 5
@@ -539,6 +542,7 @@ QtObject {
             "modelBase": 1,
             "classStr": "CLASS II",
             "modelStr": "LA2 EU",
+            "sideGlass": 1,
             "width": {
                 "meter": 1.8288 /*meter = 6 Feet*/,
                 "feet": 6

@@ -115,5 +115,27 @@
         <file>UI/CusCom/ScrollDownNotifApp.qml</file>
         <file>UI/CusCom/ContentItemApp.qml</file>
         <file>UI/CusCom/CheckBoxApp.qml</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_arrow_df_blue.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_arrow_df_green.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_arrow_df_red.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_arrow_if_blue.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_arrow_if_green.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_arrow_if_green_elbow.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_arrow_if_red.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_blackframe_ac.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_blackframe_la.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_blackframe_sc.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_sash_fc.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_sash_fo.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_sash_safe.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_sash_standby.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_sash_unsafe.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3D_sash_uvon.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3Dbase-orange.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3Dbase-red.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3Dbase.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3Dstatusalarm.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3Dstatusok.png</file>
+        <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3Dstatuswarning.png</file>
     </qresource>
 </RCC>

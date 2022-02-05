@@ -436,6 +436,13 @@
             menu = [[]]
             index = 0
 
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype        :   "menu",
+                                 mtitle    :   qsTr("Delay Airflow Alarm"),
+                                 micon     :   "qrc:/UI/Pictures/menu/af_alarm_delay.png",
+                                 //mlink     :   "CabinetSelectOptionPage"
+                                 mlink       : "qrc:/UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml"
+                             })
             if (msg["sashWindowMotorizeInstalled"] !== undefined){
                 if(menu[index].length > itemPerPage) {index++; menu.push([])}
                 menu[index].push({mtype        :   "menu",

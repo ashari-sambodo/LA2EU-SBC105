@@ -2591,6 +2591,11 @@ void MachineBackend::setup()
             pData->setSashMotorOffDelayMsec(sashDelay);
         }
     }
+    {
+        ///SKEY_DELAY_ALARM_AIRFLOW
+        int alarmDelay = m_settings->value(SKEY_DELAY_ALARM_AIRFLOW, 2000).toInt();
+        pData->setDelayAlarmAirflowMsec(alarmDelay);
+    }
 
     /// Buzzer indication
     {
@@ -8212,6 +8217,15 @@ void MachineBackend::setSashMotorOffDelayMsec(int value)
     settings.setValue(SKEY_SASH_MOTOR_OFF_DELAY, value);
 }
 
+void MachineBackend::setDelayAlarmAirflowMsec(int value)
+{
+    qDebug() << metaObject()->className() << __func__ << value << thread() ;
+
+    pData->setDelayAlarmAirflowMsec(value);
+    QSettings settings;
+    settings.setValue(SKEY_DELAY_ALARM_AIRFLOW, value);
+}
+
 //void MachineBackend::setWifiDisabled(bool value)
 //{
 //    qDebug() << metaObject()->className() << __func__ << value << thread() ;
@@ -8482,7 +8496,7 @@ void MachineBackend::_machineState()
                                     bool ifaTooLow = false;
                                     bool dfaTooLow = false;
                                     bool dfaTooHigh = false;
-                                    short alarmOffset = pData->getMeasurementUnit() ? 100 : 1;
+                                    short alarmOffset = 0/*pData->getMeasurementUnit() ? 100 : 1*/;
                                     ifaTooLow = pData->getInflowVelocity() <= pData->getInflowLowLimitVelocity();
                                     dfaTooLow = pData->getDownflowVelocity() <= pData->getDownflowLowLimitVelocity() + alarmOffset;
                                     dfaTooHigh = pData->getDownflowVelocity() >= pData->getDownflowHighLimitVelocity() - alarmOffset;
@@ -8493,8 +8507,12 @@ void MachineBackend::_machineState()
 
                                     /// INFLOW
                                     if(ifaTooLow){
-                                        if(!isAlarmActive(pData->getAlarmInflowLow())){
-
+                                        if(!m_alarmInflowLowDelayExecuted){
+                                            QTimer::singleShot(pData->getDelayAlarmAirflowMsec(), this, [&](){
+                                                m_alarmInflowLowDelayExecuted = true;
+                                            });
+                                        }
+                                        if(!isAlarmActive(pData->getAlarmInflowLow()) && m_alarmInflowLowDelayExecuted){
                                             pData->setAlarmInflowLow(MachineEnums::ALARM_ACTIVE_STATE);
 
                                             QString text = QString("%1 (%2)")
@@ -8504,6 +8522,8 @@ void MachineBackend::_machineState()
                                     }
                                     else {
                                         if(!isAlarmNormal(pData->getAlarmInflowLow())){
+                                            if(m_alarmInflowLowDelayExecuted)
+                                                m_alarmInflowLowDelayExecuted = false;
                                             short prevState = pData->getAlarmInflowLow();
                                             pData->setAlarmInflowLow(MachineEnums::ALARM_NORMAL_STATE);
 
@@ -8517,8 +8537,12 @@ void MachineBackend::_machineState()
                                     }//
                                     /// DOWNFLOW
                                     if(dfaTooLow){
-                                        if(!isAlarmActive(pData->getAlarmDownflowLow())){
-
+                                        if(!m_alarmDownflowLowDelayExecuted){
+                                            QTimer::singleShot(pData->getDelayAlarmAirflowMsec(), this, [&](){
+                                                m_alarmDownflowLowDelayExecuted = true;
+                                            });
+                                        }
+                                        if(!isAlarmActive(pData->getAlarmDownflowLow()) && m_alarmDownflowLowDelayExecuted){
                                             pData->setAlarmDownflowLow(MachineEnums::ALARM_ACTIVE_STATE);
 
                                             QString text = QString("%1 (%2)")
@@ -8527,7 +8551,12 @@ void MachineBackend::_machineState()
                                         }
                                     }
                                     else if(dfaTooHigh){
-                                        if(!isAlarmActive(pData->getAlarmDownflowHigh())){
+                                        if(!m_alarmDownflowHighDelayExecuted){
+                                            QTimer::singleShot(pData->getDelayAlarmAirflowMsec(), this, [&](){
+                                                m_alarmDownflowHighDelayExecuted = true;
+                                            });
+                                        }
+                                        if(!isAlarmActive(pData->getAlarmDownflowHigh()) && m_alarmDownflowHighDelayExecuted){
 
                                             pData->setAlarmDownflowHigh(MachineEnums::ALARM_ACTIVE_STATE);
 
@@ -8540,10 +8569,16 @@ void MachineBackend::_machineState()
                                         short prevState = pData->getAlarmDownflowLow();
                                         short prevState1 = pData->getAlarmDownflowHigh();
 
-                                        if(!isAlarmNormal(prevState))
+                                        if(!isAlarmNormal(prevState)){
+                                            if(m_alarmDownflowLowDelayExecuted)
+                                                m_alarmDownflowLowDelayExecuted = false;
                                             pData->setAlarmDownflowLow(MachineEnums::ALARM_NORMAL_STATE);
-                                        if(!isAlarmNormal(prevState1))
+                                        }
+                                        if(!isAlarmNormal(prevState1)){
+                                            if(m_alarmDownflowHighDelayExecuted)
+                                                m_alarmDownflowHighDelayExecuted = false;
                                             pData->setAlarmDownflowHigh(MachineEnums::ALARM_NORMAL_STATE);
+                                        }
 
                                         if(isAlarmActive(prevState) || isAlarmActive(prevState1)) {
                                             QString text = QString("%1 (%2)")

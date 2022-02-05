@@ -109,6 +109,7 @@ GridView{
                         case "Software Update":             text = qsTr("Software Update"); break
                         case "Shipping Setup":              text = qsTr("Shipping Setup"); break
                             /// FACTORY_MENU
+                        case "Delay Airflow Alarm":        text = qsTr("Delay Airflow Alarm"); break
                         case "Sash Motor Off Delay":        text = qsTr("Sash Motor Off Delay"); break
                         case "Serial Number":               text = qsTr("Serial Number"); break
                         case "Environmental Temperature Limit": text = qsTr("Environmental Temperature Limit"); break

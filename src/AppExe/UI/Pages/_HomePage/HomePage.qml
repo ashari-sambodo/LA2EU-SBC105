@@ -1214,6 +1214,7 @@ ViewApp {
                             height: bsc3DItem.height
                             width: bsc3DItem.width
                             modelName: MachineData.machineModelName
+                            sideGlass: HeaderAppService.sideGlass
 
                             function updateCabinetBaseItem(){
                                 if(props.alarmsState){

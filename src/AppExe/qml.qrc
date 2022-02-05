@@ -156,5 +156,6 @@
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopResponse.qml</file>
         <file>UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml</file>
         <file>UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml</file>
+        <file>UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml</file>
     </qresource>
 </RCC>

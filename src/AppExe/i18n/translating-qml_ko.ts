@@ -2560,6 +2560,50 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
 </context>
 <context>
+    <name>DelayAlarmAirflowPage</name>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="43"/>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="125"/>
+        <source>Delay Airflow Alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="74"/>
+        <source>Current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="80"/>
+        <source>%1 ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="85"/>
+        <source>Tap to change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="102"/>
+        <source>Delay (ms)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="116"/>
+        <source>Setting Delay...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="126"/>
+        <source>Invalid entered value!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="159"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DiagnosticsPage</name>
     <message>
         <location filename="../UI/Pages/DiagnosticsPage/DiagnosticsPage.qml" line="45"/>
@@ -3991,41 +4035,46 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="112"/>
-        <source>Sash Motor Off Delay</source>
+        <source>Delay Airflow Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="113"/>
-        <source>Serial Number</source>
+        <source>Sash Motor Off Delay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="114"/>
-        <source>Environmental Temperature Limit</source>
+        <source>Serial Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="115"/>
-        <source>ESCO Lock Service</source>
+        <source>Environmental Temperature Limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="116"/>
-        <source>Auxiliary Functions</source>
+        <source>ESCO Lock Service</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="117"/>
-        <source>Cabinet Model</source>
+        <source>Auxiliary Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="118"/>
-        <source>RTC Watchdog Test</source>
+        <source>Cabinet Model</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="119"/>
+        <source>RTC Watchdog Test</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="120"/>
         <source>System Information</source>
         <translation type="unfinished"></translation>
     </message>

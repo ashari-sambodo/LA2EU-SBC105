@@ -395,3 +395,4 @@
 #define SKEY_AF_MONITOR_ENABLE          "afMonEn"
 
 #define SKEY_SASH_MOTOR_OFF_DELAY "sMotorOffDly"
+#define SKEY_DELAY_ALARM_AIRFLOW "sDlyAlmAf"

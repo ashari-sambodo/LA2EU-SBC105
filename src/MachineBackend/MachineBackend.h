@@ -366,7 +366,7 @@ public slots:
 
     void setSashMotorOffDelayMsec(int value);
 
-//    void setWifiDisabled(bool value);
+    void setDelayAlarmAirflowMsec(int value);
 
 signals:
     void hasStopped();
@@ -667,6 +667,10 @@ private:
     short m_eventLoopCounter = 0;
     short m_delaySashMotorUpAfterStucked = 1500; /// 1500ms for 6ft /// 1000ms for 4ft
     bool m_sashMovedDown = false;
+//    bool m_alarmAirflowFailInterlocked = false;
+    bool m_alarmInflowLowDelayExecuted = false;
+    bool m_alarmDownflowLowDelayExecuted = false;
+    bool m_alarmDownflowHighDelayExecuted = false;
 
 #ifdef QT_DEBUG
     QScopedPointer<QWebSocketServer> m_pWebSocketServerDummyState;
