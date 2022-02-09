@@ -4,7 +4,7 @@ import QtQuick.Controls 2.0
 
 import Qt.labs.folderlistmodel 2.2
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.UsbCopier 1.0

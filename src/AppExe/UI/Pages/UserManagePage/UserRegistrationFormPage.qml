@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.9
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import UserManageQmlApp 1.0
@@ -561,12 +561,11 @@ ViewApp {
             Component.onCompleted: {
                 const connectionId = "UserRegistrationFormPage"
                 init(connectionId);
-
-                showBusyPage(qsTr("Loading..."), function(seconds){
-                    if((seconds === 2) && (userManageQml.initialized)){
+                showBusyPage(qsTr("Loading..."), function(cycle){
+                    if((cycle === MachineAPI.BUSY_CYCLE_1) && (userManageQml.initialized)){
                         closeDialog()
                     }
-                    else if (seconds === 10){
+                    else if (cycle === MachineAPI.BUSY_CYCLE_4){
                         closeDialog()
                     }
                 })

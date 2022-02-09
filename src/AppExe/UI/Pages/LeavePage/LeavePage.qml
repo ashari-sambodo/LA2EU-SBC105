@@ -9,7 +9,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -208,8 +208,8 @@ ViewApp {
                             onClicked: {
                                 MachineAPI.insertEventLog("User: Set Shutting down");
 
-                                viewApp.showBusyPage(qsTr("Please wait..."), function onCallback(second){
-                                    if(second === 3){
+                                viewApp.showBusyPage(qsTr("Please wait..."), function onCallback(cycle){
+                                    if(cycle === MachineAPI.BUSY_CYCLE_1){
                                         let exitCodePowerOff = 6
                                         const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml",
                                                                         {

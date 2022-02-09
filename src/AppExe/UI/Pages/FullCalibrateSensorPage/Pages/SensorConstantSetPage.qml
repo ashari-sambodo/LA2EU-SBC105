@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -212,7 +212,7 @@ ViewApp {
                                 /// give some time space to ensure the value has updated to AirflowSensor Object
                                 viewApp.showBusyPage(qsTr("Setting up..."),
                                                      function onTriggered(cycle){
-                                                         if(cycle === 3){
+                                                         if(cycle === MachineAPI.BUSY_CYCLE_1){
                                                              showDialogMessage(qsTr("Sensor Constant"),
                                                                                qsTr("Sensor constant value have been changed to %1 (DF) and %2 (IF)").arg(props.dfaSensorConstant).arg(props.ifaSensorConstant),
                                                                                dialogInfo,

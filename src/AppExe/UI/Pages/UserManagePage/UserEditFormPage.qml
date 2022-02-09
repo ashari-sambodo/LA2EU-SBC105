@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.9
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import UserManageQmlApp 1.0
@@ -605,8 +605,8 @@ ViewApp {
                 const connectionId = "UserEditFormPage"
                 init(connectionId);
 
-                showBusyPage(qsTr("Loading..."), function(seconds){
-                    if (seconds === 10){
+                showBusyPage(qsTr("Loading..."), function(cycle){
+                    if (cycle === MachineAPI.BUSY_CYCLE_4){
                         closeDialog()
                     }
                 })

@@ -3,7 +3,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 2.0
 import Qt.labs.platform 1.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import UI.CusCom.KeyboardOnScreen 1.0
 import UI.CusCom.HeaderApp.Adapter 1.0
 
@@ -284,6 +284,7 @@ ApplicationWindow {
 
         /// show loading during load the object in background thread
         Loader {
+            id: mainLoader
             anchors.fill: parent
             active: kosLoader.visible && kosLoader.status == Loader.Loading
             sourceComponent: Rectangle {
@@ -291,8 +292,9 @@ ApplicationWindow {
 
                 BusyIndicatorApp {
                     anchors.centerIn: parent
-                    height: 100
-                    width: 100
+                    playing: mainLoader.active
+                    //                    height: 100
+                    //                    width: 100
                 }//
 
                 /// Just for blocking the overlapping mouse area interaction
@@ -521,15 +523,15 @@ ApplicationWindow {
                 contentHeight: iconTopRect.height
                 //                debugSwipe: true
                 swipeOffset: 70
-                x: -(window.width / 2) + 35
 
                 Rectangle {
                     id: iconTopRect
                     height: 70
-                    width: 70
+                    width: window.width
                     radius: 5
                     color: "#55000000"
                     y: -height
+                    x: -(window.width / 2) + 35
 
                     Image {
                         id: iconTopImage

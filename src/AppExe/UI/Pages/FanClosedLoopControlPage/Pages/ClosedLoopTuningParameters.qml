@@ -10,7 +10,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.7
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../../CusCom/JS/IntentApp.js" as IntentApp
 //import Qt.labs.settings 1.0
 import ModulesCpp.RegisterExternalResources 1.0
@@ -710,7 +710,7 @@ The Fan will start at nominal fan duty cycle, and it will be adjusted by loop co
                                             }
 
                                             viewApp.showBusyPage(msg, function onTriggered(cycle){
-                                                if(cycle >= 5){
+                                                if(cycle >= MachineAPI.BUSY_CYCLE_3){
                                                     warmupTime.running =  true
                                                     viewApp.dialogObject.close()
                                                     if(isTurnOn)
@@ -862,8 +862,8 @@ The Fan will start at nominal fan duty cycle, and it will be adjusted by loop co
                                 const message = qsTr("User: Closed loop paramters changed")
                                 MachineAPI.insertEventLog(message)
                                 props.parameterHasChanged = 0
-                                showBusyPage(qsTr("Setting up..."), function(seconds){
-                                    if (seconds === 3){
+                                showBusyPage(qsTr("Setting up..."), function(cycle){
+                                    if (cycle >= MachineAPI.BUSY_CYCLE_1){
                                         closeDialog();
                                     }//
                                 })//

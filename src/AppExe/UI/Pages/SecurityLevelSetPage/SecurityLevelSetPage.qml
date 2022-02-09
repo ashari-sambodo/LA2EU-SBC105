@@ -10,7 +10,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -97,7 +97,7 @@ ViewApp {
                                                                   MachineAPI.insertEventLog(qsTr("User: Set security level to minimum"))
                                                                   viewApp.showBusyPage(qsTr("Setting up..."),
                                                                                        function onCycle(cycle){
-                                                                                           if (cycle === 3){
+                                                                                           if (cycle === MachineAPI.BUSY_CYCLE_1){
                                                                                                viewApp.closeDialog()
                                                                                            }
                                                                                        })
@@ -157,7 +157,7 @@ ViewApp {
 
                                                                   viewApp.showBusyPage(qsTr("Setting up..."),
                                                                                        function onCycle(cycle){
-                                                                                           if (cycle === 3){
+                                                                                           if (cycle === MachineAPI.BUSY_CYCLE_1){
 
                                                                                                viewApp.closeDialog()
                                                                                            }
@@ -215,7 +215,7 @@ ViewApp {
 
                                                                   viewApp.showBusyPage(qsTr("Setting up"),
                                                                                        function onCycle(cycle){
-                                                                                           if (cycle === 3){
+                                                                                           if (cycle === MachineAPI.BUSY_CYCLE_1){
                                                                                                viewApp.closeDialog()
                                                                                            }
                                                                                        })

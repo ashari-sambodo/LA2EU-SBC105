@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -838,7 +838,7 @@ ViewApp {
                 }
 
                 viewApp.showBusyPage(qsTr("Setting up..."), function(cycle){
-                    if (cycle === 5) {
+                    if (cycle >= MachineAPI.BUSY_CYCLE_2) {
                         /// Goto finished page
                         const intent = IntentApp.create("qrc:/UI/Pages/FullCalibrateSensorPage/Pages/_FinishCalibratePage.qml", {})
                         finishView(intent);
@@ -992,16 +992,16 @@ ViewApp {
             MachineAPI.setOperationMaintenanceMode();
             //            props.operationModeBackup = MachineData.operationMode
             //            MachineAPI.setOperationMode(MachineAPI.MODE_OPERATION_MAINTENANCE)
-
+            let executed = false
             viewApp.showBusyPage(qsTr("Please wait!"),
                                  function onCallback(cycle){
                                      //                                    //console.debug(cycle)
                                      ///force to close
-                                     if(cycle === 20) {
+                                     if(cycle >= MachineAPI.BUSY_CYCLE_10) {
                                          viewApp.dialogObject.close()
                                      }
 
-                                     if(cycle === 1) {
+                                     if(cycle === MachineAPI.BUSY_CYCLE_1 && !executed) {
 
                                          props.dfaSensorConstant        = MachineData.getDownflowSensorConstant();
                                          props.dfaSensorAdcZero         = MachineData.getDownflowAdcPointFactory(0);
@@ -1026,6 +1026,7 @@ ViewApp {
                                          props.ifaFanDutyCycleNominal   = MachineData.getFanInflowNominalDutyCycleFactory()
 
                                          props.initCalibrateSpecs(MachineData.machineProfile)
+                                         executed = true
                                      }
 
                                      viewApp.dialogObject.close()

@@ -1,7 +1,7 @@
 ﻿import QtQuick 2.0
 import QtQuick.Controls 2.7
 import QtQuick.Layouts 1.0
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import Qt.labs.settings 1.1
 import ModulesCpp.Machine 1.0
 
@@ -59,7 +59,7 @@ Item {
                     onClicked: {
                         //                        sectionStackView.replace(printeToServerComponent); return
                         viewApp.showBusyPage(qsTr("Connecting..."), function onCallback(cycle){
-                            if (cycle === 30){
+                            if (cycle >= MachineAPI.BUSY_CYCLE_10){
                                 /// time out after 3o second
                                 viewApp.closeDialog()
                             }
@@ -212,7 +212,7 @@ Item {
                         }
 
                         viewApp.showBusyPage(qsTr("Sending..."), function onCallback(cycle){
-                            if (cycle === 30){
+                            if (cycle >= MachineAPI.BUSY_CYCLE_10){
                                 /// time out after 3o second
                                 viewApp.closeDialog()
                             }
@@ -829,7 +829,7 @@ Designer {
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 
 Item {
     StackView {

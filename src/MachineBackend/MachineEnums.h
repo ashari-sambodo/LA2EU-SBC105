@@ -124,6 +124,16 @@ enum ExternalResourcePathCode{
 };
 Q_ENUMS(ExternalResourcePathCode)
 
+enum GeneralPurposeEnums{
+    BUSY_CYCLE_1 = 1,
+    BUSY_CYCLE_2,
+    BUSY_CYCLE_3,
+    BUSY_CYCLE_4,
+    BUSY_CYCLE_5,
+    BUSY_CYCLE_10 = 10
+};
+Q_ENUMS(GeneralPurposeEnums)
+
 }
 
 //class MachineEnums : public QObject

@@ -9,7 +9,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -90,8 +90,8 @@ ViewApp {
                                             let newVal = Number(text)
                                             if (newVal < 1 || newVal > 127) return
 
-                                            showBusyPage(qsTr("Setting up..."), function onCallback(seconds){
-                                                if(seconds === 3) {
+                                            showBusyPage(qsTr("Setting up..."), function onCallback(cycle){
+                                                if(cycle === MachineAPI.BUSY_CYCLE_1) {
                                                     closeDialog();
                                                 }
                                             })
@@ -122,8 +122,8 @@ ViewApp {
                                         }
 
                                         onAccepted: {
-                                            showBusyPage(qsTr("Setting up..."), function onCallback(seconds){
-                                                if(seconds === 3) {
+                                            showBusyPage(qsTr("Setting up..."), function onCallback(cycle){
+                                                if(cycle === MachineAPI.BUSY_CYCLE_1) {
                                                     closeDialog();
                                                 }
                                             })

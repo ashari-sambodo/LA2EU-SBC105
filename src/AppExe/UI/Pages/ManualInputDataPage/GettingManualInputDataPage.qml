@@ -9,7 +9,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -109,8 +109,8 @@ ViewApp {
                                 }//
 
                                 showBusyPage(qsTr("Please wait..."),
-                                             function onCallback(seconds){
-                                                 if (seconds >= 2){
+                                             function onCallback(cycle){
+                                                 if (cycle === MachineAPI.BUSY_CYCLE_1){
                                                      if (props.operationMode == MachineAPI.MODE_OPERATION_MAINTENANCE){
                                                          var intent = IntentApp.create("qrc:/UI/Pages/ManualInputDataPage/ManualInputDataPage.qml", {})
                                                          finishView(intent)

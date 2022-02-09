@@ -2,7 +2,7 @@
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import BookingScheduleQmlApp 1.0
@@ -245,8 +245,8 @@ ViewApp {
 
                 onInsertedHasDone: {
                     console.log("Booking data has inserted!")
-                    showBusyPage(qsTr("Loading"), function(seconds){
-                        if (seconds === 2) {
+                    showBusyPage(qsTr("Loading"), function(cycle){
+                        if (cycle >= MachineAPI.BUSY_CYCLE_1) {
                             const intent = IntentApp.create(uri,
                                                             {
                                                                 "bookingAdd": {

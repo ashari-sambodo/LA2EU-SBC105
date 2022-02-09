@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.12
 import Qt.labs.settings 1.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -290,7 +290,7 @@ ViewApp {
 
                                 viewApp.showBusyPage(qsTr("Setting up..."),
                                                      function onCycle(cycle){
-                                                         if (cycle === 3) {
+                                                         if (cycle >= MachineAPI.BUSY_CYCLE_1) {
                                                              props.currentProfileName = props.profileReq['name']
 
                                                              const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {})

@@ -9,7 +9,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -190,8 +190,8 @@ ViewApp {
                                 viewApp.fnSwipedFromRightEdge   = function(){}
 
                                 showBusyPage(qsTr("Please wait"),
-                                             function onCallback(seconds){
-                                                 if (seconds === 5) {
+                                             function onCallback(cycle){
+                                                 if (cycle >= MachineAPI.BUSY_CYCLE_1) {
                                                      const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {})
                                                      startRootView(intent)
                                                  }

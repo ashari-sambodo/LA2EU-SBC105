@@ -10,7 +10,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.7
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 //import ModulesCpp.RegisterExternalResources 1.0
 
@@ -170,8 +170,8 @@ ViewApp {
                                                                 : qsTr("User: Closed loop control disabled")
                                 MachineAPI.insertEventLog(message)
 
-                                showBusyPage(qsTr("Setting up..."), function(seconds){
-                                    if (seconds === 3){
+                                showBusyPage(qsTr("Setting up..."), function(cycle){
+                                    if (cycle >= MachineAPI.BUSY_CYCLE_1){
                                         props.prevEnableSet = props.enableSet
                                         closeDialog();
                                     }//

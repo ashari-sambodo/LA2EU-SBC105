@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -140,7 +140,7 @@ ViewApp {
 
                                                 viewApp.showBusyPage(qsTr("Switching off DF fan..."),
                                                                      function onTriggered(cycle){
-                                                                         if(cycle === 5){
+                                                                         if(cycle === MachineAPI.BUSY_CYCLE_3){
                                                                              viewApp.dialogObject.close()
                                                                          }
                                                                      })
@@ -338,7 +338,7 @@ ViewApp {
 
                                                 viewApp.showBusyPage(qsTr("Switching off IF fan..."),
                                                                      function onTriggered(cycle){
-                                                                         if(cycle === 5){
+                                                                         if(cycle === MachineAPI.BUSY_CYCLE_3){
                                                                              viewApp.dialogObject.close()
                                                                          }
                                                                      })
@@ -725,7 +725,7 @@ ViewApp {
 
                 viewApp.showBusyPage(qsTr("Turning off the fan..."),
                                      function onTriggered(cycle){
-                                         if(cycle === 5){
+                                         if(cycle === MachineAPI.BUSY_CYCLE_3){
                                              viewApp.dialogObject.close()
                                          }
                                      })

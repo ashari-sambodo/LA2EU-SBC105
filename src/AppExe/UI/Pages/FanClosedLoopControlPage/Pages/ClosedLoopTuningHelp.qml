@@ -11,7 +11,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.7
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -80,7 +80,7 @@ ViewApp {
                                     opacity: mouseAreaCurve1.pressed ? 0.6 : 1
                                     MouseArea{
                                         id: mouseAreaCurve1
-                                        enabled: __osplatform__ ? false : true
+                                        //enabled: __osplatform__ ? false : true
                                         anchors.fill: parent
                                         onClicked: {
                                             props.showInfo(6, qsTr("Manual tuning"))
@@ -91,15 +91,13 @@ ViewApp {
                             Item{
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
-                                enabled: __osplatform__
-                                visible: __osplatform__
-                                CusCom.PidTuningAnimationApp{
-                                    id: pidCurve2
-                                    anchors.centerIn: parent
+                                AnimatedImage{
                                     height: parent.height
-                                    anchors.margins: 10
-                                    running: __osplatform__
+                                    anchors.centerIn: parent
+                                    source: "qrc:/GeneralResources/Animation/PID_Compensation_Animated.gif"
+                                    fillMode: Image.PreserveAspectFit
                                     opacity: mouseAreaCurve2.pressed ? 0.6 : 1
+                                    cache: false
                                     MouseArea{
                                         id: mouseAreaCurve2
                                         anchors.fill: parent
@@ -309,7 +307,7 @@ ViewApp {
             /// onPause
             Component.onDestruction: {
                 ////console.debug("StackView.DeActivating");
-                registerExResources.releaseResource();
+                registerExResources.releaseResource()
             }//
         }//
     }//

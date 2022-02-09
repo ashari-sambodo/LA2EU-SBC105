@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import Qt.labs.settings 1.1
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import ModulesCpp.Machine 1.0
 
 Item {

@@ -2,7 +2,7 @@
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -179,7 +179,7 @@ ViewApp {
 
                                                 viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                      function onTriggered(cycle){
-                                                                         if(cycle === 5){ viewApp.dialogObject.close() }
+                                                                         if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
                                                                      })
                                             }//
                                         }
@@ -713,7 +713,7 @@ ViewApp {
 
                         viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                              function onTriggered(cycle){
-                                                 if(cycle === 5){
+                                                 if(cycle === MachineAPI.BUSY_CYCLE_3){
                                                      // close this pop up dialog
                                                      viewApp.dialogObject.close()
                                                  }

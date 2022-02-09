@@ -105,13 +105,17 @@ Item {
                     || (backgroundLoader.status == Loader.Loading)
                     || (contentLoader.item.visible === false))
         sourceComponent: Item {
-            Image {
+            AnimatedImage {
                 anchors.centerIn: parent
-                source: "ViewApp/ViewApp_BusyIndicator.png"
-                cache: true
-                height: 100
-                width: 100
-                fillMode: Image.PreserveAspectFit
+                playing: busyLoader.active && visible
+                source: "BusyIndicatorApp/esco_loading_150x150.gif"
+                cache: false
+                //                height: 100
+                //                width: 100
+                //                fillMode: Image.PreserveAspectFit
+                onFrameChanged: {
+                    console.debug("ViewApp Loader", currentFrame)
+                }
             }//
         }//
     }//

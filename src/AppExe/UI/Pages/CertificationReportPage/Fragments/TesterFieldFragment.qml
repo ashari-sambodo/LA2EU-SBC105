@@ -1,7 +1,7 @@
 ﻿import QtQuick 2.0
 import Qt.labs.platform 1.0
 import Qt.labs.settings 1.1
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 
 Item {
 

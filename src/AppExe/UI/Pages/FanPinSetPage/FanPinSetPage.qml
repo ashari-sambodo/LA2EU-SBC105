@@ -9,7 +9,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -109,7 +109,7 @@ ViewApp {
                                             if(props.userBlowerPIN !== "00000"){
                                                 viewApp.showBusyPage( qsTr("Setting up..."),
                                                                      function onTriggered(cycle){
-                                                                         if(cycle === 3){
+                                                                         if(cycle >= MachineAPI.BUSY_CYCLE_1){
                                                                              viewApp.dialogObject.close()
                                                                              viewApp.showDialogMessage(qsTr("Notification"),
                                                                                                        qsTr("PIN has been changed!"),
@@ -120,7 +120,7 @@ ViewApp {
                                             }else{
                                                 viewApp.showBusyPage( qsTr("Setting up..."),
                                                                      function onTriggered(cycle){
-                                                                         if(cycle === 3){
+                                                                         if(cycle >= MachineAPI.BUSY_CYCLE_1){
                                                                              viewApp.dialogObject.close()
                                                                              viewApp.showDialogMessage(qsTr("Notification"),
                                                                                                        qsTr("PIN has been reset!"),

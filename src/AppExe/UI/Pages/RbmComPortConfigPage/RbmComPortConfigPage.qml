@@ -10,7 +10,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.7
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -206,12 +206,12 @@ ViewApp {
                         if(props.rbmComPortIfa === props.rbmComPortDfa){
                             viewApp.showDialogMessage(qsTr("RBM Com Port"), qsTr("Port name must be different!"), dialogAlert)
                         } else{
-                            viewApp.showBusyPage(qsTr("Setting up..."), function(seconds){
+                            viewApp.showBusyPage(qsTr("Setting up..."), function(cycle){
                                 if(props.dfaParamChanged)
                                     MachineAPI.setRbmComPortDfa(props.rbmComPortDfa)
                                 if(props.ifaParamChanged)
                                     MachineAPI.setRbmComPortIfa(props.rbmComPortIfa)
-                                if (seconds === 3) {
+                                if (cycle === MachineAPI.BUSY_CYCLE_1) {
                                     const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {})
                                     startRootView(intent)
                                 }//

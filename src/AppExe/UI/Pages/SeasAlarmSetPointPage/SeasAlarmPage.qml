@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 //import "../../../CusCom/JS/IntentApp.js" as IntentApp
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
@@ -268,7 +268,7 @@ ViewApp {
                                 const textSet = qsTr("Value has been set!!!")
                                 viewApp.showBusyPage(qsTr("Setting Up"),
                                                      function onCallback(cycle){
-                                                         if(cycle === 2){
+                                                         if(cycle === MachineAPI.BUSY_CYCLE_1){
                                                              //                                                             viewApp.dialogObject.close()
                                                              viewApp.showDialogMessage(qsTr("Notification"),
                                                                                        textSet,

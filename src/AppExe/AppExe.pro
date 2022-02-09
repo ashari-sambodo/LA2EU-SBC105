@@ -68,7 +68,7 @@ SOURCES += \
         Modules/EventLog/EventLogQmlApp.cpp \
         Modules/EventLog/EventLogSqlGet.cpp \
 #        Modules/FtpServer/SimpleFtpServer.cpp \
-    Modules/ImportExternalResources/RegisterExternalResourcesurces.cpp \
+    Modules/ImportExternalResources/RegisterExternalResources.cpp \
     Modules/JsToText/JstoText.cpp \
         Modules/NetworkManager/NetworkManagerQmlApp.cpp \
         Modules/TranslatorText/TranslatorText.cpp \

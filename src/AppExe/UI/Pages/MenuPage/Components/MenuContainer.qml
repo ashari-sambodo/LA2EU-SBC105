@@ -36,10 +36,15 @@ Item {
         }//
     }
 
-    Image {
+    AnimatedImage {
         visible: gridLoader.status == Loader.Loading
+        playing: visible
         anchors.centerIn: parent
-        source: "qrc:/UI/Pictures/BusyIndicatorApp_Symbol.png"
+        source: "qrc:/UI/CusCom/BusyIndicatorApp/esco_loading_150x150.gif"
+        cache: false
+        onFrameChanged: {
+            console.debug("Menu Container Loader", currentFrame)
+        }
     }
 
     Component.onCompleted: {

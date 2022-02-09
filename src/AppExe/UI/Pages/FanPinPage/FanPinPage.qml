@@ -9,7 +9,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -276,7 +276,7 @@ ViewApp {
                 const message = swithTo ? qsTr("Switching on the fan") + "..."
                                         : qsTr("Switching off the fan") + "..."
                 viewApp.showBusyPage(message, function(cycle){
-                    if(cycle === 5){
+                    if(cycle >= MachineAPI.BUSY_CYCLE_3){
                         viewApp.closeDialog()
                         const intent = IntentApp.create(uri,[])
                         finishView(intent)

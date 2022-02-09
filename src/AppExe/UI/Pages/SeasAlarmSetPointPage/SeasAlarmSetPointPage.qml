@@ -9,7 +9,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -100,17 +100,19 @@ ViewApp {
                 }
                 else {
                     const message = qsTr("Close from calibration sensor?")
+                    let executed = false
                     showDialogAsk(qsTr(title),
                                   message,
                                   dialogAlert,
                                   function onAccepted(){
                                       showBusyPage(qsTr("Please wait"),
-                                                   function onCallback(secs){
-                                                       if(secs === 1) {
+                                                   function onCallback(cycle){
+                                                       if(cycle === MachineAPI.BUSY_CYCLE_1 && !executed) {
                                                            //                                                           MachineAPI.setOperationMode(props.operationModeBackup)
                                                            MachineAPI.setOperationPreviousMode()
+                                                           executed = true
                                                        }
-                                                       if(secs === 3) {
+                                                       if(cycle === MachineAPI.BUSY_CYCLE_2) {
                                                            /// Back to Main Menu
                                                            let intent = IntentApp.create(uri, {})
                                                            finishView(intent)
@@ -138,19 +140,20 @@ ViewApp {
                 }
                 else {
                     const message = qsTr("Close from calibration sensor?")
+                    let executed = false
                     showDialogAsk(qsTr(title),
                                   message,
                                   dialogAlert,
                                   function onAccepted() {
                                       showBusyPage(qsTr("Please wait"),
-                                                   function onCallback(secs){
-                                                       if(secs === 1) {
+                                                   function onCallback(cycle){
+                                                       if(cycle === MachineAPI.BUSY_CYCLE_1 && !executed) {
                                                            //                                                           MachineAPI.setOperationMode(props.operationModeBackup)
                                                            MachineAPI.setOperationPreviousMode()
                                                            MachineAPI.setInflowSensorConstantTemporary(MachineData.getInflowSensorConstant())
+                                                           executed = true
                                                        }
-                                                       if(secs === 3) {
-
+                                                       if(cycle >= MachineAPI.BUSY_CYCLE_2) {
                                                            const intent = IntentApp.create("", {})
                                                            startRootView(intent)
                                                        }

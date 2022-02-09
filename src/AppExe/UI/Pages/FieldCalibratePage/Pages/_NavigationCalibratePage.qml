@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -558,7 +558,7 @@ ViewApp {
                 }
 
                 viewApp.showBusyPage(qsTr("Setting up..."), function(cycle){
-                    if (cycle === 5) {
+                    if (cycle >= MachineAPI.BUSY_CYCLE_2) {
 
                         const intent = IntentApp.create("qrc:/UI/Pages/FullCalibrateSensorPage/Pages/_FinishCalibratePage.qml", {})
                         finishView(intent);
@@ -710,16 +710,16 @@ ViewApp {
             props.measurementUnit = MachineData.measurementUnit
 
             MachineAPI.setOperationMaintenanceMode();
-
+            let executed = false
             viewApp.showBusyPage(qsTr("Please wait!"),
                                  function onCallback(cycle){
                                      //                                    //console.debug(cycle)
                                      ///force to close
-                                     if(cycle === 20) {
+                                     if(cycle === MachineAPI.BUSY_CYCLE_10) {
                                          viewApp.dialogObject.close()
                                      }//
 
-                                     if(cycle === 1) {
+                                     if(cycle >= MachineAPI.BUSY_CYCLE_1 && !executed) {
                                          //// INFLOW
                                          props.ifaSensorAdcZero       = MachineData.getInflowAdcPointFactory(0);
                                          props.ifaSensorAdcMinimum    = MachineData.getInflowAdcPointFactory(1);
@@ -788,6 +788,7 @@ ViewApp {
 
                                          //                                         console.debug("temperatureCalib: " + props.temperatureCalib)
                                          //                                         console.debug("temperatureAdcCalib: " + props.temperatureAdcCalib)
+                                         executed = false
                                      }//
 
                                      viewApp.dialogObject.close()

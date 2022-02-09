@@ -7,7 +7,7 @@
 
 import QtQuick 2.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import ModulesCpp.Utils 1.0
 
 import "../../CusCom/JS/IntentApp.js" as IntentApp

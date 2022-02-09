@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("TranslatorText", &translatorText);
 
     /// enable import of qml component by dot
-    /// (with: import UI.CusCom 1.0 vs wihout: import "../../UI/CusCom")
+    /// (with: import UI.CusCom 1.1 vs wihout: import "../../UI/CusCom")
     engine.addImportPath("qrc:/");
 
 #ifdef __arm__

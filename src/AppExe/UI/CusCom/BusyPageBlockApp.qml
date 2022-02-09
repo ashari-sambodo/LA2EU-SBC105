@@ -26,6 +26,7 @@ Item {
     }
 
     signal fullRotated(int cycle)
+    signal rotationChanged(int cycle)
     signal closed()
 
     property string title:      ""
@@ -50,14 +51,17 @@ Item {
 
                 BusyIndicatorApp {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    height: 100
-                    width: 100
+                    //height: 100
+                    //width: 100
                     running: control.running
                     loops: control.loops
 
                     onFullRotated: {
                         control.fullRotated(cycle)
                     }//
+                    onRotationChanged: {
+                        control.rotationChanged(cycle)
+                    }
                 }//
 
                 Text {

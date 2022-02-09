@@ -34,6 +34,7 @@ class MachineProxy : public QObject
     Q_ENUM(MachineEnums::EnumSecurityAccessState)
     Q_ENUM(MachineEnums::FanList)
     Q_ENUM(MachineEnums::ExternalResourcePathCode)
+    Q_ENUM(MachineEnums::GeneralPurposeEnums)
 
 public:
     explicit MachineProxy(QObject *parent = nullptr);

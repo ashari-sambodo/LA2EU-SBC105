@@ -10,7 +10,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.2
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -558,8 +558,8 @@ ViewApp {
                                     MachineAPI.insertEventLog(message)
                                 }
 
-                                showBusyPage(qsTr("Setting up..."), function(seconds){
-                                    if (seconds === 3){
+                                showBusyPage(qsTr("Setting up..."), function(cycle){
+                                    if (cycle === MachineAPI.BUSY_CYCLE_1){
                                         props.parameterOnHasChanged = 0
                                         props.parameterOffHasChanged = 0
                                         closeDialog();

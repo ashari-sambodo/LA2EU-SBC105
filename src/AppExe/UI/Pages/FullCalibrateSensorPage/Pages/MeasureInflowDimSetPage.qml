@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.0
 
-import UI.CusCom 1.0
+import UI.CusCom 1.1
 import "../../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
@@ -415,7 +415,7 @@ ViewApp {
 
                                             viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                  function onTriggered(cycle){
-                                                                     if(cycle === 5){ viewApp.dialogObject.close() }
+                                                                     if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
                                                                  })
                                             //                                        let index = bufferTextInput.lastIndexAccessed
                                             //                                        props.airflowGridItems[index]["value"] = Number(bufferTextInput.text)
@@ -520,7 +520,7 @@ ViewApp {
 
                                             viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                  function onTriggered(cycle){
-                                                                     if(cycle === 5){ viewApp.dialogObject.close() }
+                                                                     if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
                                                                  })
                                             //                                        let index = bufferTextInput.lastIndexAccessed
                                             //                                        props.airflowGridItems[index]["value"] = Number(bufferTextInput.text)
@@ -1101,7 +1101,7 @@ ViewApp {
 
                     viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                          function onTriggered(cycle){
-                                             if(cycle === 5){
+                                             if(cycle === MachineAPI.BUSY_CYCLE_3){
                                                  // generate grid
                                                  props.initialGrid()
                                                  // close this pop up dialog
