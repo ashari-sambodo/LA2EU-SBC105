@@ -12,7 +12,6 @@ AnimatedImage{
     source: "BusyIndicatorApp/esco_loading_150x150.gif"
     playing: running && visible
     cache: false
-
     property int fullRotatedCycle: 0
     signal fullRotated(int cycle)
     signal rotationChanged(int cycle)

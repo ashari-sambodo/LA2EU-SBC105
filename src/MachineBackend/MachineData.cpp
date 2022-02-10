@@ -355,16 +355,16 @@ int MachineData::getSashMotorOffDelayMsec() const
     return m_sashMotorOffDelayMsec;
 }
 
-void MachineData::setDelayAlarmAirflowMsec(int value)
+void MachineData::setDelayAlarmAirflowSec(int value)
 {
-    if(m_delayAlarmAirflowMsec == value)return;
-    m_delayAlarmAirflowMsec = value;
-    emit delayAlarmAirflowMsecChanged(value);
+    if(m_delayAlarmAirflowSec == value)return;
+    m_delayAlarmAirflowSec = value;
+    emit delayAlarmAirflowSecChanged(value);
 }
 
-int MachineData::getDelayAlarmAirflowMsec() const
+int MachineData::getDelayAlarmAirflowSec() const
 {
-    return m_delayAlarmAirflowMsec;
+    return m_delayAlarmAirflowSec;
 }
 
 //void MachineData::setWifiDisabled(bool value)

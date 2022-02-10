@@ -110,8 +110,6 @@ Item {
                 playing: busyLoader.active && visible
                 source: "BusyIndicatorApp/esco_loading_150x150.gif"
                 cache: false
-                //                height: 100
-                //                width: 100
                 //                fillMode: Image.PreserveAspectFit
                 onFrameChanged: {
                     console.debug("ViewApp Loader", currentFrame)

@@ -2593,8 +2593,8 @@ void MachineBackend::setup()
     }
     {
         ///SKEY_DELAY_ALARM_AIRFLOW
-        int alarmDelay = m_settings->value(SKEY_DELAY_ALARM_AIRFLOW, 2000).toInt();
-        pData->setDelayAlarmAirflowMsec(alarmDelay);
+        int alarmDelay = m_settings->value(SKEY_DELAY_ALARM_AIRFLOW, 2).toInt();
+        pData->setDelayAlarmAirflowSec(alarmDelay);
     }
 
     /// Buzzer indication
@@ -7526,12 +7526,16 @@ void MachineBackend::_onTriggeredEventEverySecond()
         //qDebug() << portAvailable;
         pData->setRbmComPortAvailable(portAvailable);
     }//
-}
+
+    if(m_alarmInflowLowDelayCountdown)m_alarmInflowLowDelayCountdown--;
+    if(m_alarmDownflowLowDelayCountdown)m_alarmDownflowLowDelayCountdown--;
+    if(m_alarmDownflowHighDelayCountdown)m_alarmDownflowHighDelayCountdown--;
+}//
 
 void MachineBackend::_onTriggeredEventEvery50MSecond()
 {
 
-}
+}//
 
 void MachineBackend::_onTriggeredEventEveryMinute2()
 {
@@ -8217,11 +8221,11 @@ void MachineBackend::setSashMotorOffDelayMsec(int value)
     settings.setValue(SKEY_SASH_MOTOR_OFF_DELAY, value);
 }
 
-void MachineBackend::setDelayAlarmAirflowMsec(int value)
+void MachineBackend::setDelayAlarmAirflowSec(int value)
 {
     qDebug() << metaObject()->className() << __func__ << value << thread() ;
 
-    pData->setDelayAlarmAirflowMsec(value);
+    pData->setDelayAlarmAirflowSec(value);
     QSettings settings;
     settings.setValue(SKEY_DELAY_ALARM_AIRFLOW, value);
 }
@@ -8507,12 +8511,11 @@ void MachineBackend::_machineState()
 
                                     /// INFLOW
                                     if(ifaTooLow){
-                                        if(!m_alarmInflowLowDelayExecuted){
-                                            QTimer::singleShot(pData->getDelayAlarmAirflowMsec(), this, [&](){
-                                                m_alarmInflowLowDelayExecuted = true;
-                                            });
+                                        if(!m_alarmInflowLowDelaySet){
+                                            m_alarmInflowLowDelayCountdown = pData->getDelayAlarmAirflowSec();
+                                            m_alarmInflowLowDelaySet = true;
                                         }
-                                        if(!isAlarmActive(pData->getAlarmInflowLow()) && m_alarmInflowLowDelayExecuted){
+                                        if(!isAlarmActive(pData->getAlarmInflowLow()) && m_alarmInflowLowDelaySet && !m_alarmInflowLowDelayCountdown){
                                             pData->setAlarmInflowLow(MachineEnums::ALARM_ACTIVE_STATE);
 
                                             QString text = QString("%1 (%2)")
@@ -8521,12 +8524,13 @@ void MachineBackend::_machineState()
                                         }
                                     }
                                     else {
+                                        if(m_alarmInflowLowDelaySet){
+                                            m_alarmInflowLowDelaySet = false;
+                                            m_alarmInflowLowDelayCountdown = 0;
+                                        }
                                         if(!isAlarmNormal(pData->getAlarmInflowLow())){
-                                            if(m_alarmInflowLowDelayExecuted)
-                                                m_alarmInflowLowDelayExecuted = false;
                                             short prevState = pData->getAlarmInflowLow();
                                             pData->setAlarmInflowLow(MachineEnums::ALARM_NORMAL_STATE);
-
 
                                             if(isAlarmActive(prevState)) {
                                                 QString text = QString("%1 (%2)")
@@ -8537,12 +8541,11 @@ void MachineBackend::_machineState()
                                     }//
                                     /// DOWNFLOW
                                     if(dfaTooLow){
-                                        if(!m_alarmDownflowLowDelayExecuted){
-                                            QTimer::singleShot(pData->getDelayAlarmAirflowMsec(), this, [&](){
-                                                m_alarmDownflowLowDelayExecuted = true;
-                                            });
+                                        if(!m_alarmDownflowLowDelaySet){
+                                            m_alarmDownflowLowDelayCountdown = pData->getDelayAlarmAirflowSec();
+                                            m_alarmDownflowLowDelaySet = true;
                                         }
-                                        if(!isAlarmActive(pData->getAlarmDownflowLow()) && m_alarmDownflowLowDelayExecuted){
+                                        if(!isAlarmActive(pData->getAlarmDownflowLow()) && m_alarmDownflowLowDelaySet && !m_alarmDownflowLowDelayCountdown){
                                             pData->setAlarmDownflowLow(MachineEnums::ALARM_ACTIVE_STATE);
 
                                             QString text = QString("%1 (%2)")
@@ -8551,12 +8554,11 @@ void MachineBackend::_machineState()
                                         }
                                     }
                                     else if(dfaTooHigh){
-                                        if(!m_alarmDownflowHighDelayExecuted){
-                                            QTimer::singleShot(pData->getDelayAlarmAirflowMsec(), this, [&](){
-                                                m_alarmDownflowHighDelayExecuted = true;
-                                            });
+                                        if(!m_alarmDownflowHighDelaySet){
+                                            m_alarmDownflowHighDelayCountdown = pData->getDelayAlarmAirflowSec();
+                                            m_alarmDownflowHighDelaySet = true;
                                         }
-                                        if(!isAlarmActive(pData->getAlarmDownflowHigh()) && m_alarmDownflowHighDelayExecuted){
+                                        if(!isAlarmActive(pData->getAlarmDownflowHigh()) && m_alarmDownflowHighDelaySet && !m_alarmDownflowHighDelayCountdown){
 
                                             pData->setAlarmDownflowHigh(MachineEnums::ALARM_ACTIVE_STATE);
 
@@ -8566,17 +8568,22 @@ void MachineBackend::_machineState()
                                         }
                                     }
                                     else {
+                                        if(m_alarmDownflowLowDelaySet){
+                                            m_alarmDownflowLowDelaySet = false;
+                                            m_alarmDownflowLowDelayCountdown = 0;
+                                        }
+                                        if(m_alarmDownflowHighDelaySet){
+                                            m_alarmDownflowHighDelaySet = false;
+                                            m_alarmDownflowHighDelayCountdown = 0;
+                                        }
+
                                         short prevState = pData->getAlarmDownflowLow();
                                         short prevState1 = pData->getAlarmDownflowHigh();
 
                                         if(!isAlarmNormal(prevState)){
-                                            if(m_alarmDownflowLowDelayExecuted)
-                                                m_alarmDownflowLowDelayExecuted = false;
                                             pData->setAlarmDownflowLow(MachineEnums::ALARM_NORMAL_STATE);
                                         }
                                         if(!isAlarmNormal(prevState1)){
-                                            if(m_alarmDownflowHighDelayExecuted)
-                                                m_alarmDownflowHighDelayExecuted = false;
                                             pData->setAlarmDownflowHigh(MachineEnums::ALARM_NORMAL_STATE);
                                         }
 
@@ -8587,9 +8594,9 @@ void MachineBackend::_machineState()
                                         }//
                                     }//
                                 }//
-                            }
-                        }
-                    }
+                            }//
+                        }//
+                    }//
                     if(!alarmAirflowAvailable){
                         if(!isAlarmNA(pData->getAlarmInflowLow())) {
                             pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);

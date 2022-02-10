@@ -34,7 +34,7 @@ Item {
         Behavior on scale {
             NumberAnimation { duration: 100}
         }//
-    }
+    }//
 
     AnimatedImage {
         visible: gridLoader.status == Loader.Loading

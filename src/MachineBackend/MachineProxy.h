@@ -333,7 +333,7 @@ public slots:
     void setRbmComPortDfa(QString value);
 
     void setSashMotorOffDelayMsec(int value);
-        void setDelayAlarmAirflowMsec(int value);
+        void setDelayAlarmAirflowSec(int value);
 
 private slots:
     void doStopping();

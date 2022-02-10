@@ -51,8 +51,7 @@ Item {
 
                 BusyIndicatorApp {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    //height: 100
-                    //width: 100
+
                     running: control.running
                     loops: control.loops
 

@@ -77,7 +77,7 @@ ViewApp {
 
                             TextApp{
                                 id: dlyAirfailText
-                                text: qsTr("%1 ms").arg(props.delayAirflowAlarm)
+                                text: "%1 %2".arg(props.delayAirflowAlarm).arg(props.delayAirflowAlarm > 1 ? qsTr("seconds") : qsTr("second"))
                                 font.pixelSize: 56
                             }//
 
@@ -99,7 +99,7 @@ ViewApp {
                                 function onClicked(){
                                     dlyAirfailBufferTextInput.text = props.delayAirflowAlarm
                                     //dlyAirfailBufferTextInput.text = props.dlyAirfail
-                                    KeyboardOnScreenCaller.openNumpad(dlyAirfailBufferTextInput, qsTr("Delay (ms)"))
+                                    KeyboardOnScreenCaller.openNumpad(dlyAirfailBufferTextInput, qsTr("Delay (second)"))
                                 }//
                             }
 
@@ -111,7 +111,7 @@ ViewApp {
                                         props.delayAirflowAlarm = value
                                         //console.debug("Serial Number: ", props.dlyAirfail)
 
-                                        MachineAPI.setDelayAlarmAirflowMsec(value)
+                                        MachineAPI.setDelayAlarmAirflowSec(value)
 
                                         viewApp.showBusyPage(qsTr("Setting Delay..."),
                                                              function onTriggered(cycle){
@@ -191,7 +191,7 @@ ViewApp {
                     //                    //console.debug("StackView.Active");
 
                     //props.dlyAirfail = MachineData.dlyAirfail
-                    props.delayAirflowAlarm = MachineData.delayAlarmAirflowMsec
+                    props.delayAirflowAlarm = MachineData.delayAlarmAirflowSec
                 }
 
                 /// onPause

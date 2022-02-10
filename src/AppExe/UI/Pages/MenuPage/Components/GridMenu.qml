@@ -27,7 +27,7 @@ GridView{
                 Layout.fillHeight: true
                 Layout.fillWidth: true
 
-                //                Rectangle{anchors.fill: parent}
+                //Rectangle{anchors.fill: parent}
 
                 Image {
                     id: picIconImage

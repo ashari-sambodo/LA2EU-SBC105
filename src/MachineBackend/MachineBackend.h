@@ -366,7 +366,7 @@ public slots:
 
     void setSashMotorOffDelayMsec(int value);
 
-    void setDelayAlarmAirflowMsec(int value);
+    void setDelayAlarmAirflowSec(int value);
 
 signals:
     void hasStopped();
@@ -667,10 +667,14 @@ private:
     short m_eventLoopCounter = 0;
     short m_delaySashMotorUpAfterStucked = 1500; /// 1500ms for 6ft /// 1000ms for 4ft
     bool m_sashMovedDown = false;
-//    bool m_alarmAirflowFailInterlocked = false;
-    bool m_alarmInflowLowDelayExecuted = false;
-    bool m_alarmDownflowLowDelayExecuted = false;
-    bool m_alarmDownflowHighDelayExecuted = false;
+    //    bool m_alarmAirflowFailInterlocked = false;
+
+    int m_alarmInflowLowDelayCountdown = 0;
+    int m_alarmDownflowLowDelayCountdown = 0;
+    int m_alarmDownflowHighDelayCountdown = 0;
+    bool m_alarmInflowLowDelaySet = false;
+    bool m_alarmDownflowLowDelaySet = false;
+    bool m_alarmDownflowHighDelaySet = false;
 
 #ifdef QT_DEBUG
     QScopedPointer<QWebSocketServer> m_pWebSocketServerDummyState;

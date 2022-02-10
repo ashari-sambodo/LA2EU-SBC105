@@ -882,10 +882,10 @@ void MachineProxy::setSashMotorOffDelayMsec(int value)
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setDelayAlarmAirflowMsec(int value)
+void MachineProxy::setDelayAlarmAirflowSec(int value)
 {
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setDelayAlarmAirflowMsec(value);
+        m_machineBackend->setDelayAlarmAirflowSec(value);
     },
     Qt::QueuedConnection);
 }
