@@ -502,7 +502,7 @@ ViewApp {
 
                                         TextField {
                                             id: averageTextField
-                                            enabled: false
+                                            //enabled: false
                                             anchors.verticalCenter: parent.verticalCenter
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             width: parent.width - 2
@@ -514,14 +514,48 @@ ViewApp {
                                                 id: averageBackgroundTextField
                                                 height: parent.height
                                                 width: parent.width
-                                                color: "#55000000"
+                                                color: averageTextField.enabled ? "#55000000" : "transparent"
 
                                                 Rectangle {
                                                     height: 1
                                                     width: parent.width
                                                     anchors.bottom: parent.bottom
                                                 }//
+                                                MouseArea{
+                                                    id: averageTextFieldMouseArea
+                                                    anchors.fill: parent
+                                                }
                                             }//
+                                            Connections {
+                                                target: averageTextFieldMouseArea
+
+                                                function onClicked() {
+                                                    KeyboardOnScreenCaller.openNumpad(averageTextField, qsTr("Avg. Velocity") + " (%1)".arg(props.measureUnit ? "fpm" : "m/s"))
+                                                }//
+                                            }//
+                                            onAccepted: {
+                                                let valid = Number(text)
+                                                if(isNaN(valid)){
+                                                    showDialogMessage(qsTr("Warning"), qsTr("Value is not valid!"), dialogAlert)
+                                                    return
+                                                }
+                                                let totalIndex = props.airflowGridCount
+
+                                                for(let index=0; index < totalIndex; index++){
+                                                    if(props.measureUnit){
+                                                        props.airflowGridItems[index]["val"] = props.getMpsFromFpm(Number(text))
+                                                        props.airflowGridItems[index]["valImp"] = Number(text)
+                                                    }
+                                                    else{
+                                                        props.airflowGridItems[index]["val"] = Number(text)
+                                                        props.airflowGridItems[index]["valImp"] = props.getFpmFromMps(Number(text))
+                                                    }
+                                                    props.airflowGridItems[index]["acc"] = 1
+                                                }
+
+                                                props.autoSaveToDraftAfterCalculated = true
+                                                helperWorkerScript.calculateGrid(props.airflowGridItems, props.velocityDecimalPoint, props.correctionFactor)
+                                            }
                                         }//
                                     }//
                                 }//
@@ -576,7 +610,7 @@ ViewApp {
                                                 id: velocityBackgroundTextField
                                                 height: parent.height
                                                 width: parent.width
-                                                color: "#55000000"
+                                                color: velocityTextField.enabled ? "#55000000" : "transparent"
 
                                                 Rectangle {
                                                     height: 1
@@ -589,7 +623,7 @@ ViewApp {
                                                         when: props.velocityConpensate == 0
                                                         PropertyChanges {
                                                             target: velocityBackgroundTextField
-                                                            color:  "#55000000"
+                                                            color:  velocityTextField.enabled ? "#55000000" : "transparent"
                                                         }//
                                                     },//
                                                     State {

@@ -9415,16 +9415,21 @@ void MachineBackend::_machineState()
         alarms |= isAlarmActive(pData->getAlarmDownflowLow());
         alarms |= isAlarmActive(pData->getAlarmDownflowHigh());
         alarms |= isAlarmActive(pData->getAlarmSeasPressureLow());
+
         alarms |= isAlarmActive(pData->getSeasFlapAlarmPressure());
         alarms |= isAlarmActive(pData->getAlarmSash());
         alarms |= isAlarmActive(pData->getAlarmTempHigh());
         alarms |= isAlarmActive(pData->getAlarmTempLow());
         alarms |= isAlarmActive(pData->getAlarmStandbyFanOff());
+
         alarms |= isAlarmActive(pData->getSashCycleMotorLockedAlarm());
         alarms |= isAlarmActive(pData->getFrontPanelAlarm());
         alarms |= isAlarmActive(pData->getAlarmSashMotorDownStuck());
         //    alarms = false;
-        //    qDebug() << "alarms" << alarms;
+        qDebug() << "alarms" << alarms;
+        qDebug() << pData->getAlarmBoardComError() << pData->getAlarmInflowLow() << pData->getAlarmDownflowLow() << pData->getAlarmDownflowHigh() << pData->getAlarmSeasPressureLow();
+        qDebug() << pData->getSeasFlapAlarmPressure() << pData->getAlarmSash() << pData->getAlarmTempHigh() << pData->getAlarmTempLow() << pData->getAlarmStandbyFanOff();
+        qDebug() << pData->getSashCycleMotorLockedAlarm() << pData->getFrontPanelAlarm() << pData->getAlarmSashMotorDownStuck();
         {
             int currentAlarm = pData->getAlarmsState();
             if (currentAlarm != alarms) {

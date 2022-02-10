@@ -78,7 +78,7 @@ ApplicationWindow {
             id: mainStackView
             anchors.fill: parent
 
-            property string homeURL: "qrc:/UI/Pages/_HomePage/HomePage.qml"
+            property string homeURL: UserSessionService.loggedIn ? "qrc:/UI/Pages/_HomePage/HomePage.qml" : "qrc:/UI/Pages/LoginPage/LoginPage.qml"
 
             Component.onCompleted: {
                 var intent = IntentApp.create("qrc:/UI/Pages/__StartupPage/StartupPage.qml", {})

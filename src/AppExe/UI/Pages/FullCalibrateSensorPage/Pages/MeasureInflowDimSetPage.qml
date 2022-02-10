@@ -561,7 +561,7 @@ ViewApp {
 
                                         TextField {
                                             id: avgTextField
-                                            enabled: false
+                                            //enabled: false
                                             anchors.verticalCenter: parent.verticalCenter
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             width: parent.width - 2
@@ -573,13 +573,17 @@ ViewApp {
                                                 id: averageBackgroundTextField
                                                 height: parent.height
                                                 width: parent.width
-                                                color: "#55000000"
+                                                color: avgTextField.enabled ? "#55000000" : "transparent"
 
                                                 Rectangle {
                                                     height: 1
                                                     width: parent.width
                                                     anchors.bottom: parent.bottom
                                                 }//
+                                                MouseArea{
+                                                    id: avgTextFieldMouseArea
+                                                    anchors.fill: parent
+                                                }
                                             }//
 
                                             states: [
@@ -587,7 +591,7 @@ ViewApp {
                                                     when: props.volumetric == 0
                                                     PropertyChanges {
                                                         target: averageBackgroundTextField
-                                                        color:  "#55000000"
+                                                        color:  avgTextField.enabled ? "#55000000" : "transparent"
                                                     }//
                                                 },//
                                                 State {
@@ -605,6 +609,36 @@ ViewApp {
                                                     }//
                                                 }//
                                             ]//
+                                            Connections {
+                                                target: avgTextFieldMouseArea
+
+                                                function onClicked() {
+                                                    KeyboardOnScreenCaller.openNumpad(avgTextField, qsTr("Volumetric") + " (%1)".arg(props.measureUnit ? "cfm" : "l/s"))
+                                                }//
+                                            }//
+                                            onAccepted: {
+                                                let valid = Number(text)
+                                                if(isNaN(valid)){
+                                                    showDialogMessage(qsTr("Warning"), qsTr("Value is not valid!"), dialogAlert)
+                                                    return
+                                                }
+                                                let totalIndex = props.airflowGridCount
+                                                console.debug("totalIndex", totalIndex)
+                                                for(let index=0; index<totalIndex; index++){
+                                                    if(props.measureUnit){
+                                                        props.airflowGridItems[index]["val"] = props.getLsFromCfm(Number(text))
+                                                        props.airflowGridItems[index]["valImp"] = Number(text)
+                                                    }
+                                                    else{
+                                                        props.airflowGridItems[index]["val"] = Number(text)
+                                                        props.airflowGridItems[index]["valImp"] = props.getCfmFromLs(Number(text))
+                                                    }
+                                                    props.airflowGridItems[index]["acc"] = 1
+                                                }
+                                                props.autoSaveToDraftAfterCalculated = true
+                                                helperWorkerScript.calculateGrid(props.airflowGridItems,
+                                                                                 props.measureUnit, props.openingArea)
+                                            }//
                                         }//
                                     }//
                                 }//
@@ -659,7 +693,7 @@ ViewApp {
                                                 id: velocityBackgroundTextField
                                                 height: parent.height
                                                 width: parent.width
-                                                color: "#55000000"
+                                                color: velocityTextField.enabled ? "#55000000" : "transparent"
 
                                                 Rectangle {
                                                     height: 1
@@ -672,7 +706,7 @@ ViewApp {
                                                         when: props.velocity == 0
                                                         PropertyChanges {
                                                             target: velocityBackgroundTextField
-                                                            color:  "#55000000"
+                                                            color:  velocityTextField.enabled ? "#55000000" : "transparent"
                                                         }//
                                                     },//
                                                     State {

@@ -59,7 +59,7 @@ ViewApp {
         //        const intent = IntentApp.create("qrc:/UI/Pages/ResetParametersPage/ResetParametersPage.qml", {})
 
         if(MachineData.getSbcCurrentSerialNumberKnown()){
-            intent = IntentApp.create("qrc:/UI/Pages/_HomePage/HomePage.qml", {})
+            intent = IntentApp.create("qrc:/UI/Pages/LoginPage/LoginPage.qml", {})
             if (MachineData.shippingModeEnable)
                 intent = IntentApp.create("qrc:/UI/Pages/InstallationWizardPage/InstallationWizardPage.qml", {})
         }else{

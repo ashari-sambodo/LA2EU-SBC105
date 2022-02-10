@@ -518,7 +518,7 @@ ViewApp {
 
                                         TextField {
                                             id: averageTextField
-                                            enabled: false
+                                            //enabled: false
                                             anchors.verticalCenter: parent.verticalCenter
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             width: parent.width - 2
@@ -530,13 +530,17 @@ ViewApp {
                                                 id: averageBackgroundTextField
                                                 height: parent.height
                                                 width: parent.width
-                                                color: "#55000000"
+                                                color: averageTextField.enabled ? "#55000000" : "transparent"
 
                                                 Rectangle {
                                                     height: 1
                                                     width: parent.width
                                                     anchors.bottom: parent.bottom
                                                 }//
+                                                MouseArea{
+                                                    id: averageTextFieldMouseArea
+                                                    anchors.fill: parent
+                                                }
                                             }//
 
                                             states: [
@@ -544,7 +548,7 @@ ViewApp {
                                                     when: props.velocityAverage == 0
                                                     PropertyChanges {
                                                         target: averageBackgroundTextField
-                                                        color:  "#55000000"
+                                                        color:  averageTextField.enabled ? "#55000000" : "transparent"
                                                     }//
                                                 },//
                                                 State {
@@ -562,6 +566,35 @@ ViewApp {
                                                     }//
                                                 }//
                                             ]//
+                                            Connections {
+                                                target: averageTextFieldMouseArea
+
+                                                function onClicked() {
+                                                    KeyboardOnScreenCaller.openNumpad(averageTextField, qsTr("Avg. Velocity") + " (%1)".arg(props.measureUnit ? "fpm" : "m/s"))
+                                                }//
+                                            }//
+                                            onAccepted: {
+                                                let valid = Number(text)
+                                                if(isNaN(valid)){
+                                                    showDialogMessage(qsTr("Warning"), qsTr("Value is not valid!"), dialogAlert)
+                                                    return
+                                                }
+                                                let totalIndex = props.airflowGridCount
+
+                                                for(let index = 0; index < totalIndex; index++){
+                                                    if(props.measureUnit){
+                                                        props.airflowGridItems[index]["val"] = props.getMpsFromFpm(Number(text))
+                                                        props.airflowGridItems[index]["valImp"] = Number(text)
+                                                    }
+                                                    else{
+                                                        props.airflowGridItems[index]["val"] = Number(text)
+                                                        props.airflowGridItems[index]["valImp"] = props.getFpmFromMps(Number(text))
+                                                    }
+                                                    props.airflowGridItems[index]["acc"] = 1
+                                                }
+                                                props.autoSaveToDraftAfterCalculated = true
+                                                helperWorkerScript.calculateGrid(props.airflowGridItems, props.velocityDecimalPoint)
+                                            }//
                                         }//
                                     }//
                                 }//
@@ -618,7 +651,7 @@ ViewApp {
                                                 id: deviationBackgroundTextField
                                                 height: parent.height
                                                 width: parent.width
-                                                color: "#55000000"
+                                                color: deviationTextField.enabled ? "#55000000" : "transparent"
 
                                                 Rectangle {
                                                     height: 1

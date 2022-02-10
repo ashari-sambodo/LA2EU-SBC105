@@ -2449,8 +2449,8 @@ private:
     float m_fanClosedLoopGainProportional[2];//Index 0 for Downflow, 1 for Inflow
     float m_fanClosedLoopGainIntegral[2];
     float m_fanClosedLoopGainDerivative[2];
-    int m_fanClosedLoopSamplingTime;
-    int m_fanClosedLoopSetpoint[2];
+    int m_fanClosedLoopSamplingTime = {0};
+    int m_fanClosedLoopSetpoint[2] = {0};
 
     ushort m_dfaVelClosedLoopResponse[60] = {0};
     ushort m_ifaVelClosedLoopResponse[60] = {0};
@@ -2459,10 +2459,10 @@ private:
 
     bool m_frontPanelSwitchInstalled = false;
     bool m_frontPanelSwitchState = false;
-    short m_frontPanelAlarm;
-    bool m_dualRbmMode;
-    bool m_sashMotorDownStuckSwitch;
-    short m_alarmSashMotorDownStuck;
+    short m_frontPanelAlarm = 0;
+    bool m_dualRbmMode = false;
+    bool m_sashMotorDownStuckSwitch = false;
+    short m_alarmSashMotorDownStuck = false;
 
     bool m_sashWindowSafeHeight2 = false;
 
