@@ -3061,7 +3061,11 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
 
             //AUTOMATIC IO STATE
             if(m_pSashWindow->isSashStateChanged() && sashChangedValid && !m_eventLoopSashMotorActive){
-                if((pData->getFanState() == MachineEnums::FAN_STATE_ON)){
+                bool autoOnBlower = false;
+                autoOnBlower |= (modeOperation == MachineEnums::MODE_OPERATION_QUICKSTART);
+                autoOnBlower &= (pData->getFanState() != MachineEnums::FAN_STATE_STANDBY);
+
+                if(autoOnBlower){
                     qDebug() << "eventTimerForDelaySafeHeightAction stb" << eventTimerForDelaySafeHeightAction;
                     if(!eventTimerForDelaySafeHeightAction){
                         /// delayQuickModeAutoOn oject will be destroyed when the sash state is changed
@@ -3076,6 +3080,11 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                             //qDebug() << "Sash Standby Height after delay turned on out put";
                             ///Ensure the Buzzer Alarm Off Once in Standby Mode and Fan ON
                             setBuzzerState(MachineEnums::DIG_STATE_ZERO);
+                            // Make sure Fan is not interlocked
+                            if(pData->getFanPrimaryInterlocked())
+                                m_pFanPrimary->setInterlock(MachineEnums::DIG_STATE_ZERO);
+                            if(pData->getFanInflowInterlocked())
+                                m_pFanInflow->setInterlock(MachineEnums::DIG_STATE_ZERO);
                             //TURN BLOWER TO STANDBY SPEED
                             setFanState(MachineEnums::FAN_STATE_STANDBY);
                             //_setFanPrimaryStateStandby();
@@ -3220,10 +3229,15 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                     ////SWITCH BLOWER SPEED TO NOMINAL SPEED
                     bool autoOnBlower = false;
                     autoOnBlower |= (modeOperation == MachineEnums::MODE_OPERATION_QUICKSTART);
-                    autoOnBlower |= (pData->getFanPrimaryState() == MachineEnums::FAN_STATE_STANDBY || pData->getFanInflowState() == MachineEnums::FAN_STATE_STANDBY);
+                    //autoOnBlower |= (pData->getFanPrimaryState() == MachineEnums::FAN_STATE_STANDBY || pData->getFanInflowState() == MachineEnums::FAN_STATE_STANDBY);
                     autoOnBlower &= (pData->getFanState() != MachineEnums::FAN_STATE_ON);
 
                     if(autoOnBlower){
+                        // Make sure Fan is not interlocked
+                        if(pData->getFanPrimaryInterlocked())
+                            m_pFanPrimary->setInterlock(MachineEnums::DIG_STATE_ZERO);
+                        if(pData->getFanInflowInterlocked())
+                            m_pFanInflow->setInterlock(MachineEnums::DIG_STATE_ZERO);
                         //_setFanPrimaryStateNominal();
                         setFanState(MachineEnums::FAN_STATE_ON);
                         /// Tell every one if the fan state will be changing
@@ -6304,45 +6318,90 @@ void MachineBackend::_onTemperatureActualChanged(double value)
 void MachineBackend::_onInflowVelocityActualChanged(int value)
 {
     //    int finalValue = value;
-    if (pData->getMeasurementUnit()) {
-        int valueVel = qRound(value / 100.0);
-        QString valueStr = QString::asprintf("%d fpm", valueVel);
-        pData->setInflowVelocityStr(valueStr);
-        //m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
-        //finalValue = valueVel * 100;
-    }
-    else {
-        double valueVel = value / 100.0;
-        QString valueStr = QString::asprintf("%.2f m/s", valueVel);
-        pData->setInflowVelocityStr(valueStr);
-        //m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+    bool ifaTooLow = value <= pData->getInflowLowLimitVelocity();
+    if(ifaTooLow){
+        if(!m_alarmInflowLowDelaySet){
+            m_alarmInflowLowDelayCountdown = pData->getDelayAlarmAirflowSec();
+            m_alarmInflowLowDelaySet = true;
+            pData->setInflowValueHeld(true);
+        }
+    }else{
+        if(m_alarmInflowLowDelaySet){
+            m_alarmInflowLowDelaySet = false;
+            m_alarmInflowLowDelayCountdown = 0;
+        }
     }
 
-    pData->setInflowVelocity(value);
-    /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.airflowInflow.addr, static_cast<ushort>(value));
+    if(!pData->getInflowValueHeld()){
+        if (pData->getMeasurementUnit()) {
+            int valueVel = qRound(value / 100.0);
+            QString valueStr = QString::asprintf("%d fpm", valueVel);
+            pData->setInflowVelocityStr(valueStr);
+            //m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+            //finalValue = valueVel * 100;
+        }
+        else {
+            double valueVel = value / 100.0;
+            QString valueStr = QString::asprintf("%.2f m/s", valueVel);
+            pData->setInflowVelocityStr(valueStr);
+            //m_pIfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+        }
+        pData->setInflowVelocity(value);
+        /// MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.airflowInflow.addr, static_cast<ushort>(value));
+    }
 
     //    qDebug() << "Inflow" << pData->getInflowVelocityStr();
 }
 void MachineBackend::_onDownflowVelocityActualChanged(int value)
 {
-    if (pData->getMeasurementUnit()) {
-        int valueVel = qRound(value / 100.0);
-        QString valueStr = QString::asprintf("%d fpm", valueVel);
-        pData->setDownflowVelocityStr(valueStr);
-        //m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
-    }
-    else {
-        double valueVel = value / 100.0;
-        QString valueStr = QString::asprintf("%.2f m/s", valueVel);
-        pData->setDownflowVelocityStr(valueStr);
-        //m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
-    }
+    bool dfaTooLow = value <= pData->getDownflowLowLimitVelocity();
+    bool dfaTooHigh = value >= pData->getDownflowHighLimitVelocity();
 
-    pData->setDownflowVelocity(value);
-    /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.airflowDownflow.addr, static_cast<ushort>(value));
+    if(dfaTooLow || dfaTooHigh){
+        if(dfaTooLow){
+            if(!m_alarmDownflowLowDelaySet){
+                m_alarmDownflowLowDelayCountdown = pData->getDelayAlarmAirflowSec();
+                m_alarmDownflowLowDelaySet = true;
+                pData->setDownflowValueHeld(true);
+            }
+        }
+        if(dfaTooHigh){
+            if(!m_alarmDownflowHighDelaySet){
+                m_alarmDownflowHighDelayCountdown = pData->getDelayAlarmAirflowSec();
+                m_alarmDownflowHighDelaySet = true;
+                pData->setDownflowValueHeld(true);
+            }
+        }
+    }
+    else{
+        if(m_alarmDownflowLowDelaySet){
+            m_alarmDownflowLowDelaySet = false;
+            m_alarmDownflowLowDelayCountdown = 0;
+        }
+        if(m_alarmDownflowHighDelaySet){
+            m_alarmDownflowHighDelaySet = false;
+            m_alarmDownflowHighDelayCountdown = 0;
+        }
+    }
+    if(!pData->getDownflowValueHeld()){
+        if (pData->getMeasurementUnit()) {
+            int valueVel = qRound(value / 100.0);
+            QString valueStr = QString::asprintf("%d fpm", valueVel);
+            pData->setDownflowVelocityStr(valueStr);
+            //m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+        }
+        else {
+            double valueVel = value / 100.0;
+            QString valueStr = QString::asprintf("%.2f m/s", valueVel);
+            pData->setDownflowVelocityStr(valueStr);
+            //m_pDfaFanClosedLoopControl->setProcessVariable(static_cast<float>(valueVel));
+        }
 
+        pData->setDownflowVelocity(value);
+        /// MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.airflowDownflow.addr, static_cast<ushort>(value));
+    }
     //    qDebug() << "Inflow" << pData->getInflowVelocityStr();
 }
 
@@ -7527,9 +7586,29 @@ void MachineBackend::_onTriggeredEventEverySecond()
         pData->setRbmComPortAvailable(portAvailable);
     }//
 
-    if(m_alarmInflowLowDelayCountdown)m_alarmInflowLowDelayCountdown--;
-    if(m_alarmDownflowLowDelayCountdown)m_alarmDownflowLowDelayCountdown--;
-    if(m_alarmDownflowHighDelayCountdown)m_alarmDownflowHighDelayCountdown--;
+    if(m_alarmInflowLowDelayCountdown){
+        m_alarmInflowLowDelayCountdown--;
+        //pData->setInflowValueHeld(true);
+    }else{
+        if(pData->getInflowValueHeld()){
+            pData->setInflowValueHeld(false);
+            /// Re initiate the Inflow velocity
+            m_pAirflowInflow->emitVelocityChanged();
+        }
+    }
+    if(m_alarmDownflowLowDelayCountdown || m_alarmDownflowHighDelayCountdown){
+        if(m_alarmDownflowLowDelayCountdown)
+            m_alarmDownflowLowDelayCountdown--;
+        if(m_alarmDownflowHighDelayCountdown)
+            m_alarmDownflowHighDelayCountdown--;
+        //pData->setDownflowValueHeld(true);
+    }else{
+        if(pData->getDownflowValueHeld()){
+            pData->setDownflowValueHeld(false);
+            /// Re-initiate the downflow velocity
+            m_pAirflowDownflow->emitVelocityChanged();
+        }
+    }
 }//
 
 void MachineBackend::_onTriggeredEventEvery50MSecond()
@@ -8511,10 +8590,10 @@ void MachineBackend::_machineState()
 
                                     /// INFLOW
                                     if(ifaTooLow){
-                                        if(!m_alarmInflowLowDelaySet){
-                                            m_alarmInflowLowDelayCountdown = pData->getDelayAlarmAirflowSec();
-                                            m_alarmInflowLowDelaySet = true;
-                                        }
+                                        //                                        if(!m_alarmInflowLowDelaySet){
+                                        //                                            m_alarmInflowLowDelayCountdown = pData->getDelayAlarmAirflowSec();
+                                        //                                            m_alarmInflowLowDelaySet = true;
+                                        //                                        }
                                         if(!isAlarmActive(pData->getAlarmInflowLow()) && m_alarmInflowLowDelaySet && !m_alarmInflowLowDelayCountdown){
                                             pData->setAlarmInflowLow(MachineEnums::ALARM_ACTIVE_STATE);
 
@@ -8524,10 +8603,10 @@ void MachineBackend::_machineState()
                                         }
                                     }
                                     else {
-                                        if(m_alarmInflowLowDelaySet){
-                                            m_alarmInflowLowDelaySet = false;
-                                            m_alarmInflowLowDelayCountdown = 0;
-                                        }
+                                        //                                        if(m_alarmInflowLowDelaySet){
+                                        //                                            m_alarmInflowLowDelaySet = false;
+                                        //                                            m_alarmInflowLowDelayCountdown = 0;
+                                        //                                        }
                                         if(!isAlarmNormal(pData->getAlarmInflowLow())){
                                             short prevState = pData->getAlarmInflowLow();
                                             pData->setAlarmInflowLow(MachineEnums::ALARM_NORMAL_STATE);
@@ -8541,10 +8620,10 @@ void MachineBackend::_machineState()
                                     }//
                                     /// DOWNFLOW
                                     if(dfaTooLow){
-                                        if(!m_alarmDownflowLowDelaySet){
-                                            m_alarmDownflowLowDelayCountdown = pData->getDelayAlarmAirflowSec();
-                                            m_alarmDownflowLowDelaySet = true;
-                                        }
+                                        //                                        if(!m_alarmDownflowLowDelaySet){
+                                        //                                            m_alarmDownflowLowDelayCountdown = pData->getDelayAlarmAirflowSec();
+                                        //                                            m_alarmDownflowLowDelaySet = true;
+                                        //                                        }
                                         if(!isAlarmActive(pData->getAlarmDownflowLow()) && m_alarmDownflowLowDelaySet && !m_alarmDownflowLowDelayCountdown){
                                             pData->setAlarmDownflowLow(MachineEnums::ALARM_ACTIVE_STATE);
 
@@ -8554,10 +8633,10 @@ void MachineBackend::_machineState()
                                         }
                                     }
                                     else if(dfaTooHigh){
-                                        if(!m_alarmDownflowHighDelaySet){
-                                            m_alarmDownflowHighDelayCountdown = pData->getDelayAlarmAirflowSec();
-                                            m_alarmDownflowHighDelaySet = true;
-                                        }
+                                        //                                        if(!m_alarmDownflowHighDelaySet){
+                                        //                                            m_alarmDownflowHighDelayCountdown = pData->getDelayAlarmAirflowSec();
+                                        //                                            m_alarmDownflowHighDelaySet = true;
+                                        //                                        }
                                         if(!isAlarmActive(pData->getAlarmDownflowHigh()) && m_alarmDownflowHighDelaySet && !m_alarmDownflowHighDelayCountdown){
 
                                             pData->setAlarmDownflowHigh(MachineEnums::ALARM_ACTIVE_STATE);
@@ -8568,14 +8647,14 @@ void MachineBackend::_machineState()
                                         }
                                     }
                                     else {
-                                        if(m_alarmDownflowLowDelaySet){
-                                            m_alarmDownflowLowDelaySet = false;
-                                            m_alarmDownflowLowDelayCountdown = 0;
-                                        }
-                                        if(m_alarmDownflowHighDelaySet){
-                                            m_alarmDownflowHighDelaySet = false;
-                                            m_alarmDownflowHighDelayCountdown = 0;
-                                        }
+                                        //                                        if(m_alarmDownflowLowDelaySet){
+                                        //                                            m_alarmDownflowLowDelaySet = false;
+                                        //                                            m_alarmDownflowLowDelayCountdown = 0;
+                                        //                                        }
+                                        //                                        if(m_alarmDownflowHighDelaySet){
+                                        //                                            m_alarmDownflowHighDelaySet = false;
+                                        //                                            m_alarmDownflowHighDelayCountdown = 0;
+                                        //                                        }
 
                                         short prevState = pData->getAlarmDownflowLow();
                                         short prevState1 = pData->getAlarmDownflowHigh();
@@ -9426,10 +9505,10 @@ void MachineBackend::_machineState()
         alarms |= isAlarmActive(pData->getFrontPanelAlarm());
         alarms |= isAlarmActive(pData->getAlarmSashMotorDownStuck());
         //    alarms = false;
-        qDebug() << "alarms" << alarms;
-        qDebug() << pData->getAlarmBoardComError() << pData->getAlarmInflowLow() << pData->getAlarmDownflowLow() << pData->getAlarmDownflowHigh() << pData->getAlarmSeasPressureLow();
-        qDebug() << pData->getSeasFlapAlarmPressure() << pData->getAlarmSash() << pData->getAlarmTempHigh() << pData->getAlarmTempLow() << pData->getAlarmStandbyFanOff();
-        qDebug() << pData->getSashCycleMotorLockedAlarm() << pData->getFrontPanelAlarm() << pData->getAlarmSashMotorDownStuck();
+        //        qDebug() << "alarms" << alarms;
+        //        qDebug() << pData->getAlarmBoardComError() << pData->getAlarmInflowLow() << pData->getAlarmDownflowLow() << pData->getAlarmDownflowHigh() << pData->getAlarmSeasPressureLow();
+        //        qDebug() << pData->getSeasFlapAlarmPressure() << pData->getAlarmSash() << pData->getAlarmTempHigh() << pData->getAlarmTempLow() << pData->getAlarmStandbyFanOff();
+        //        qDebug() << pData->getSashCycleMotorLockedAlarm() << pData->getFrontPanelAlarm() << pData->getAlarmSashMotorDownStuck();
         {
             int currentAlarm = pData->getAlarmsState();
             if (currentAlarm != alarms) {

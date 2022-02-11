@@ -76,20 +76,31 @@ ViewApp {
                     Item {
                         anchors.fill: parent
                         anchors.margins: 5
-
-                        ButtonBarApp {
-                            width: 194
+                        Row{
+                            spacing: 5
                             anchors.verticalCenter: parent.verticalCenter
+                            ButtonBarApp {
+                                width: 194
+                                imageSource: "qrc:/UI/Pictures/back-step.png"
+                                text: qsTr("Back")
 
-                            imageSource: "qrc:/UI/Pictures/back-step.png"
-                            text: qsTr("Back")
+                                onClicked: {
+                                    var intent = IntentApp.create(uri, {"navigation":"back"})
+                                    finishView(intent)
+                                }
+                            }//
+                            ButtonBarApp {
+                                visible: props.calledFromWalcomeSetup
+                                width: 194
+                                imageSource: "qrc:/UI/Pictures/checkicon.png"
+                                text: qsTr("Skip")
 
-                            onClicked: {
-                                var intent = IntentApp.create(uri, {"navigation":"back"})
-                                finishView(intent)
-                            }
-                        }//
-
+                                onClicked: {
+                                    var intent = IntentApp.create(uri, {"skip": true})
+                                    finishView(intent)
+                                }
+                            }//
+                        }
                         ButtonBarApp {
                             width: 194
                             anchors.verticalCenter: parent.verticalCenter
@@ -128,6 +139,7 @@ ViewApp {
             id: props
 
             property int airflowCalibPhase: 0
+            property bool calledFromWalcomeSetup: false
         }//
 
         /// called Once but after onResume
@@ -140,8 +152,9 @@ ViewApp {
             /// onResume
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
-
                 props.airflowCalibPhase = MachineData.airflowCalibrationStatus
+                const extraData = IntentApp.getExtraData(intent)
+                props.calledFromWalcomeSetup = extraData["walcomesetup"] || false
             }
 
             /// onPause

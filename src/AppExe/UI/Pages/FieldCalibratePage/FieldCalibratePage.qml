@@ -71,6 +71,11 @@ ViewApp {
                             //                            stackView.pop()
                             //                            stackView.currentItem.intentResultFinishView = intentResultFinishView
                         } else {
+                            const extraData = IntentApp.getExtraData(intentResultFinishView)
+                            let skipped = extraData["skip"] || false
+                            console.debug("skip:", skipped)
+                            props.skipped = skipped
+
                             props.confirmBackToClose()
                             //                            /// Back to Main Menu
                             //                            let intent = IntentApp.create(uri, {})
@@ -94,17 +99,18 @@ ViewApp {
             property string pgEnd: "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/_FinishCalibratePage.qml"
 
             property bool calledFromWalcomeSetup: false
+            property bool skipped: false
 
             function confirmBackToClose(){
                 const currentPage = stackView.currentItem.uri
                 if ((currentPage === props.pgStart) || (currentPage === props.pgEnd)) {
-
-                    if (props.calledFromWalcomeSetup && (currentPage === props.pgEnd) ){
+                    if ((props.calledFromWalcomeSetup && (currentPage === props.pgEnd)) || props.skipped){
                         /// give indicator to welcome setup
                         let intent = IntentApp.create(uri, {"welcomesetupdone": 1})
                         finishView(intent)
                     }
                     else {
+                        //console.debug("/// Back to Main Menu")
                         /// Back to Main Menu
                         let intent = IntentApp.create(uri, {})
                         finishView(intent)
@@ -141,7 +147,6 @@ ViewApp {
         Component.onCompleted: {
 
             //            props.operationModeBackup = MachineData.operationMode
-
             /// override gesture swipe action
             /// basicly dont allow gesture shortcut to home page during calibration
             viewApp.fnSwipedFromLeftEdge = function(){
@@ -151,7 +156,7 @@ ViewApp {
             viewApp.fnSwipedFromBottomEdge = function(){
                 const currentPage = stackView.currentItem.uri
                 if ((currentPage === props.pgStart) || (currentPage === props.pgEnd)) {
-                    if (props.calledFromWalcomeSetup && (currentPage === props.pgEnd) ){
+                    if (props.calledFromWalcomeSetup && (currentPage === props.pgEnd)){
                         /// give indicator to welcome setup
                         let intent = IntentApp.create(uri, {"welcomesetupdone": 1})
                         finishView(intent)
@@ -199,7 +204,14 @@ ViewApp {
 
                 const extraData = IntentApp.getExtraData(intent)
                 props.calledFromWalcomeSetup = extraData["walcomesetup"] || false
-                if(props.calledFromWalcomeSetup) MachineAPI.setLightState(true);
+
+                if(props.calledFromWalcomeSetup){
+                    MachineAPI.setLightState(true);
+                    stackView.clear()
+                    let intent1 = IntentApp.create("qrc:/UI/Pages/FieldCalibratePage/Pages/_GettingStartedPage.qml", {"walcomesetup": true})
+                    stackView.push(intent1.uri, {"uri": intent1.uri, "intent": intent1})
+                }
+
             }
 
             /// onPause

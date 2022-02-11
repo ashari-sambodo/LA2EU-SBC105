@@ -367,6 +367,32 @@ int MachineData::getDelayAlarmAirflowSec() const
     return m_delayAlarmAirflowSec;
 }
 
+bool MachineData::getInflowValueHeld() const
+{
+    return m_inflowValueHeld;
+}
+
+void MachineData::setInflowValueHeld(bool value)
+{
+     qDebug() << metaObject()->className() << __func__ << value;
+    if(m_inflowValueHeld == value)return;
+    m_inflowValueHeld = value;
+    emit inflowValueHeldChanged(value);
+}
+
+bool MachineData::getDownflowValueHeld() const
+{
+    return m_downflowValueHeld;
+}
+
+void MachineData::setDownflowValueHeld(bool value)
+{
+     qDebug() << metaObject()->className() << __func__ << value;
+    if(m_downflowValueHeld == value)return;
+    m_downflowValueHeld = value;
+    emit downflowValueHeldChanged(value);
+}
+
 //void MachineData::setWifiDisabled(bool value)
 //{
 //    if(m_wifiDisabled == value)return;

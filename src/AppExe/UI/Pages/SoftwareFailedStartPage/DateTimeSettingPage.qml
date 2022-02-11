@@ -237,7 +237,7 @@ ViewApp {
 
                                     property var monthStrings: [
                                         ("January"),
-                                        ("Fabruary"),
+                                        ("February"),
                                         ("March"),
                                         ("April"),
                                         ("May"),

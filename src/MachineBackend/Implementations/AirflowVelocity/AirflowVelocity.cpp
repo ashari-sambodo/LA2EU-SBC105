@@ -337,6 +337,11 @@ void AirflowVelocity::setMeasurementUnit(uchar value)
     m_meaUnit = value;
 }
 
+void AirflowVelocity::emitVelocityChanged()
+{
+    emit velocityChanged(m_velocity);
+}
+
 void AirflowVelocity::setTemperature(double newVal)
 {
     qDebug() << metaObject()->className() << __func__ << newVal;

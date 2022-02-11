@@ -340,7 +340,7 @@ ViewApp {
 
                                                     states: [
                                                         State {
-                                                            when: props.dfaVelocityMin >= props.dfaVelocityNom
+                                                            when: props.dfaVelocityMin >= props.dfaVelocityNom || props.dfaVelocityMin == 0
                                                             PropertyChanges {
                                                                 target: dfaMinText
                                                                 color: "red"
@@ -425,7 +425,7 @@ ViewApp {
                                                     }//
                                                     states: [
                                                         State {
-                                                            when: props.dfaVelocityMax <= props.dfaVelocityNom
+                                                            when: props.dfaVelocityMax <= props.dfaVelocityNom || props.dfaVelocityMax == 0
                                                             PropertyChanges {
                                                                 target: dfaMaxText
                                                                 color: "red"
@@ -834,7 +834,7 @@ ViewApp {
                                                     }//
                                                     states: [
                                                         State {
-                                                            when: props.ifaVelocityMin >= props.ifaVelocityNom
+                                                            when: props.ifaVelocityMin >= props.ifaVelocityNom || props.ifaVelocityMin == 0
                                                             PropertyChanges {
                                                                 target: ifaMinText
                                                                 color: "red"

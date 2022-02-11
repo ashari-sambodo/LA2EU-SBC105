@@ -88,7 +88,7 @@ ViewApp {
 
                                 property var monthStrings: [
                                     qsTr("January"),
-                                    qsTr("Fabruary"),
+                                    qsTr("February"),
                                     qsTr("March"),
                                     qsTr("April"),
                                     qsTr("May"),

@@ -989,6 +989,9 @@ class MachineData : public QObject
 
     Q_PROPERTY(int delayAlarmAirflowSec READ getDelayAlarmAirflowSec NOTIFY delayAlarmAirflowSecChanged)
 
+    Q_PROPERTY(bool inflowValueHeld READ getInflowValueHeld NOTIFY inflowValueHeldChanged)
+    Q_PROPERTY(bool downflowValueHeld READ getDownflowValueHeld NOTIFY downflowValueHeldChanged)
+
     //    Q_PROPERTY(bool wifiDisabled
     //               READ getWifiDisabled
     //               //               WRITE setRbmComPortIfa
@@ -1795,6 +1798,11 @@ public:
     void setDelayAlarmAirflowSec(int value);
     int getDelayAlarmAirflowSec()const;
 
+    bool getInflowValueHeld()const;
+    void setInflowValueHeld(bool value);
+    bool getDownflowValueHeld()const;
+    void setDownflowValueHeld(bool value);
+
 public slots:
     void initSingleton();
 
@@ -2099,6 +2107,8 @@ signals:
 
     void delayAlarmAirflowSecChanged(int value);
     //    void wifiDisabledChanged(bool value);
+    void inflowValueHeldChanged(bool value);
+    void downflowValueHeldChanged(bool value);
 
 private:
     ///
@@ -2474,6 +2484,9 @@ private:
 
     int m_delayAlarmAirflowSec = 0;
     //    bool m_wifiDisabled = false;
+
+    bool m_inflowValueHeld = false;
+    bool m_downflowValueHeld = false;
 };
 
 

@@ -2400,7 +2400,6 @@ ViewApp {
 
         QtObject {
             id: props
-
             property bool currentPageIsForground: false
 
             property int    expTimerCount: 0

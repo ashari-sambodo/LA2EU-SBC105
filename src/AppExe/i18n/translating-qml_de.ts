@@ -1593,7 +1593,7 @@
     </message>
     <message>
         <location filename="../UI/CusCom/CalendarGridApp.qml" line="223"/>
-        <source>Fabruary</source>
+        <source>February</source>
         <translation>Fabruar</translation>
     </message>
     <message>
@@ -1914,62 +1914,62 @@
     </message>
     <message>
         <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="86"/>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="107"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="105"/>
         <source>Manual tuning</source>
         <translation>Manuelle Abstimmung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="123"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="121"/>
         <source>Effect of increasing a parameter independently.</source>
         <translation>Effekt der unabhängigen Erhöhung eines Parameters.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="256"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="254"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="280"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="278"/>
         <source>The time it takes for the plant output to rise beyond 90% of the desired level for the first time.</source>
         <translation>Die Zeit, die es dauert, bis die Anlagenleistung erstmals über 90 % des gewünschten Niveaus ansteigt.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="281"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="279"/>
         <source>How much the the peak level is higher than the steady state, normalized against the steady state.</source>
         <translation>Wie viel der Spitzenpegel höher ist als der stationäre Zustand, normalisiert gegen den stationären Zustand.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="282"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="280"/>
         <source>The time it takes for the system to converge to its steady state.</source>
         <translation>Die Zeit, die das System benötigt, um zu seinem stationären Zustand zu konvergieren.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="283"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="281"/>
         <source>The difference between the steady-state output and the desired output.</source>
         <translation>Die Differenz zwischen der stationären Ausgabe und der gewünschten Ausgabe.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="284"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="282"/>
         <source>The ability of the controller to keep its output at the setpoint value</source>
         <translation>Die Fähigkeit des Reglers, seinen Ausgang auf dem Sollwert zu halten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="285"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="283"/>
         <source>1) Set Ki and Kd values to zero.</source>
         <translation>1) Setzen Sie die Ki- und Kd-Werte auf Null.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="286"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="284"/>
         <source>2) Increase the Kp until the loop gets its best performance.</source>
         <translation>2) Erhöhen Sie Kp, bis die Schleife ihre beste Leistung erzielt.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="287"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="285"/>
         <source>3) Increase the Ki until any offset corrected, be careful too much Ki will cause instability.</source>
         <translation>3) Erhöhen Sie den Ki, bis jeglicher Offset korrigiert ist. Seien Sie vorsichtig, zu viel Ki führt zu Instabilität.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="288"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml" line="286"/>
         <source>4) Increase Kd (if required), until the loop is acceptably quick to reach the setpoint after a load disturbance.</source>
         <translation>4) Erhöhen Sie Kd (falls erforderlich), bis die Schleife nach einer Laststörung akzeptabel schnell den Sollwert erreicht.</translation>
     </message>
@@ -2477,7 +2477,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
     <message>
         <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="91"/>
-        <source>Fabruary</source>
+        <source>February</source>
         <translation>Fabruar</translation>
     </message>
     <message>
@@ -2585,9 +2585,8 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation>Aktuelle</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="80"/>
         <source>%1 ms</source>
-        <translation>%1 ms</translation>
+        <translation type="vanished">%1 ms</translation>
     </message>
     <message>
         <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="85"/>
@@ -2595,9 +2594,23 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation>Zum Ändern tippen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="102"/>
         <source>Delay (ms)</source>
-        <translation>Verzögerung (ms)</translation>
+        <translation type="vanished">Verzögerung (ms)</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="80"/>
+        <source>seconds</source>
+        <translation>Sekunden</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="80"/>
+        <source>second</source>
+        <translation>Sekunde</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="102"/>
+        <source>Delay (second)</source>
+        <translation>Verzögerung (sekunde)</translation>
     </message>
     <message>
         <location filename="../UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml" line="116"/>
@@ -3702,14 +3715,14 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
 <context>
     <name>FieldCalibratePage</name>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/FieldCalibratePage.qml" line="114"/>
-        <location filename="../UI/Pages/FieldCalibratePage/FieldCalibratePage.qml" line="164"/>
+        <location filename="../UI/Pages/FieldCalibratePage/FieldCalibratePage.qml" line="120"/>
+        <location filename="../UI/Pages/FieldCalibratePage/FieldCalibratePage.qml" line="171"/>
         <source>Close from calibration sensor?</source>
         <translation>Nah vom Kalibriersensor?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/FieldCalibratePage.qml" line="119"/>
-        <location filename="../UI/Pages/FieldCalibratePage/FieldCalibratePage.qml" line="169"/>
+        <location filename="../UI/Pages/FieldCalibratePage/FieldCalibratePage.qml" line="126"/>
+        <location filename="../UI/Pages/FieldCalibratePage/FieldCalibratePage.qml" line="177"/>
         <source>Please wait</source>
         <translation>Warten Sie mal</translation>
     </message>
@@ -3780,13 +3793,13 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     <name>FullCalibrateSensorPage</name>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/FullCalibrateSensorPage.qml" line="106"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/FullCalibrateSensorPage.qml" line="150"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/FullCalibrateSensorPage.qml" line="151"/>
         <source>Close from calibration sensor?</source>
         <translation>Nah vom Kalibriersensor?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/FullCalibrateSensorPage.qml" line="111"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/FullCalibrateSensorPage.qml" line="155"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/FullCalibrateSensorPage.qml" line="112"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/FullCalibrateSensorPage.qml" line="157"/>
         <source>Please wait</source>
         <translation>Warten Sie mal</translation>
     </message>
@@ -4391,7 +4404,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation>BEACHTUNG !!!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1495"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1496"/>
         <source>The Airflow velocity is too low!
 Potentially reducing the protective capabilities of the cabinet.
 Ensure that sensors, grill and ventilation paths are not obstructed.</source>
@@ -4400,7 +4413,7 @@ Reduziert möglicherweise die Schutzfähigkeit des Schranks.
 Stellen Sie sicher, dass Sensoren, Gitter und Lüftungswege nicht blockiert sind.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1504"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1505"/>
         <source>The Airflow velocity failed!
 Potentially reducing the protective capabilities of the cabinet.
 Ensure that sensors, grill and ventilation paths are not obstructed.</source>
@@ -4409,7 +4422,7 @@ Reduziert möglicherweise die Schutzfähigkeit des Schranks.
 Stellen Sie sicher, dass Sensoren, Gitter und Lüftungswege nicht blockiert sind.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1511"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1512"/>
         <source>The Downflow velocity is too low!
 Potentially reducing the protective capabilities of the cabinet.
 Ensure that sensors, grill and ventilation paths are not obstructed.</source>
@@ -4418,7 +4431,7 @@ Reduziert möglicherweise die Schutzfähigkeit des Schranks.
 Stellen Sie sicher, dass Sensoren, Gitter und Lüftungswege nicht blockiert sind.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1518"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1519"/>
         <source>The inflow velocity is too low!
 Potentially reducing the protective capabilities of the cabinet.
 Ensure that sensors, grill and ventilation paths are not obstructed.</source>
@@ -4427,7 +4440,7 @@ Reduziert möglicherweise die Schutzfähigkeit des Schranks.
 Stellen Sie sicher, dass Sensoren, Gitter und Lüftungswege nicht blockiert sind.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1525"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1526"/>
         <source>The Downflow velocity is too high!
 Potentially reducing the protective capabilities of the cabinet.
 Ensure that sensors, grill and ventilation paths are not obstructed.</source>
@@ -4436,7 +4449,7 @@ Reduziert möglicherweise die Schutzfähigkeit des Schranks.
 Stellen Sie sicher, dass Sensoren, Gitter und Lüftungswege nicht blockiert sind.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1547"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1548"/>
         <source>The environmental temperature was out off range!%1
  The ideal environmental temperature is between </source>
         <translation>Die Umgebungstemperatur lag außerhalb des zulässigen Bereichs!%1
@@ -4474,22 +4487,22 @@ Stellen Sie sicher, dass Sensoren, Gitter und Lüftungswege nicht blockiert sind
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1081"/>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1142"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1889"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1996"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2078"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2143"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2218"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1890"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1997"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2079"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2144"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2219"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1081"/>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1142"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1889"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1996"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2078"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2143"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2218"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1890"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1997"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2079"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2144"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2219"/>
         <source>Interlocked!</source>
         <translation>Verriegelt!</translation>
     </message>
@@ -4516,57 +4529,57 @@ Stellen Sie sicher, dass Sensoren, Gitter und Lüftungswege nicht blockiert sind
         <translation>Benutzer: Flügel motorisch nach unten stellen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1300"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1301"/>
         <source>Cert. due date has passed!</source>
         <translation>Zert. Fälligkeitsdatum ist abgelaufen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1303"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1304"/>
         <source>days</source>
         <translation>Tage</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1303"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1304"/>
         <source>day</source>
         <translation>Tag</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1304"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1305"/>
         <source>Cert. due date in</source>
         <translation>Zert. Fälligkeitsdatum in</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1312"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1313"/>
         <source>Certification Remainder</source>
         <translation>Zertifizierungsrest</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1313"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1314"/>
         <source>Certification due date has passed on </source>
         <translation>Das Fälligkeitsdatum der Zertifizierung ist überschritten </translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1314"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1315"/>
         <source>Please contact your cabinet service reresentative!</source>
         <translation>Bitte wenden Sie sich an Ihren Schrankservice!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1328"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1329"/>
         <source>Datalog is full!</source>
         <translation>Datenprotokoll ist voll!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1338"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1339"/>
         <source>Event log is full!</source>
         <translation>Ereignisprotokoll ist voll!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1348"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1349"/>
         <source>Alarm log is full!</source>
         <translation>Alarmprotokoll ist voll!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1463"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1464"/>
         <source>The sash motor cycle has exceeded the maximum operating limit!.
 Sash motor has been locked.
 Please contact your service engineer to do maintenance.</source>
@@ -4575,7 +4588,7 @@ Der Fensterzyklus wurde gesperrt.
 Bitte wenden Sie sich für die Wartung an Ihren Servicetechniker.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1471"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1472"/>
         <source>The use of the sash motor is almost at maximum use!.
 Stop using sash motor!.
 Please contact your service engineer to do maintenance.</source>
@@ -4584,7 +4597,7 @@ Stoppen Sie die Verwendung des Fenstermotors.
 Bitte wenden Sie sich für die Wartung an Ihren Servicetechniker.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1479"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1480"/>
         <source>The use of the sash motor is almost at maximum use!.
 Replace the sash motor!.
 Please contact your service engineer to do maintenance.</source>
@@ -4593,7 +4606,7 @@ Ersetzen Sie den Fenstermotor!.
 Bitte wenden Sie sich für die Wartung an Ihren Servicetechniker.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1487"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1488"/>
         <source>The sash height is not in the normal working height (Safe height).
 Set it back to normal working height!</source>
         <translation>Die Flügelhöhe liegt nicht in der normalen Arbeitshöhe (Sichere Höhe).
@@ -4624,8 +4637,8 @@ Reduziert möglicherweise die Schutzfähigkeit des Schranks.
 Stellen Sie sicher, dass Sensoren, Gitter und Lüftungswege nicht blockiert sind.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1532"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1539"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1533"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1540"/>
         <source>The exhaust pressure is too high!
 Potentially reducing the protective capabilities of the cabinet.
 Ensure that exhaust fan is in nominal speed and damper is opened.</source>
@@ -4642,149 +4655,149 @@ Pottentially reduce the reading accuration of the airflow sensor(s).
 The ideal environmental temperature is between </translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1555"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1556"/>
         <source>The Fan should be operating at standby speed during in sash standby height!
  Please switch on the Fan by pressing the Fan button</source>
         <translation>Der Ventilator sollte während der Bereitschaftshöhe des Flügels mit Standby-Geschwindigkeit laufen! Bitte schalten Sie den Lüfter ein, indem Sie die Fan-Taste drücken</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1671"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1678"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1689"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1672"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1679"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1690"/>
         <source>Temp</source>
         <translation>Temp</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1678"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1679"/>
         <source>(Too low)</source>
         <translation>(Zu niedrig)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1689"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1690"/>
         <source>(Too high)</source>
         <translation>(Zu hoch)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1865"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1866"/>
         <source>Attention!</source>
         <translation>Beachtung!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1865"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1866"/>
         <source>Turn off the Fan?</source>
         <translation>Lüfter ausschalten?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1871"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1872"/>
         <source>User: Set Fan off</source>
         <translation>Benutzer: Lüfter ausschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1881"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1882"/>
         <source>User: Set Fan on</source>
         <translation>Benutzer: Lüfter einschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2003"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2004"/>
         <source>User: Set LED light on</source>
         <translation>Benutzer: LED-Licht einschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2003"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2004"/>
         <source>User: Set LED light off</source>
         <translation>Benutzer: LED-Licht ausschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2085"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2086"/>
         <source>User: Set Socket on</source>
         <translation>Benutzer: Steckdose einschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2085"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2086"/>
         <source>User: Set Socket off</source>
         <translation>Benutzer: Steckdose ausschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2150"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2151"/>
         <source>User: Set Gas on</source>
         <translation>Benutzer: Gas einschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2150"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2151"/>
         <source>User: Set Gas off</source>
         <translation>Benutzer: LED-Licht ausschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2225"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2226"/>
         <source>User: Set UV light on</source>
         <translation>Benutzer: UV-Licht einschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2225"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2226"/>
         <source>User: Set UV light off</source>
         <translation>Benutzer: UV-Licht ausschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2297"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2314"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2298"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2315"/>
         <source>Audible Alarm</source>
         <translation>Hörbarer Alarm</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2297"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2298"/>
         <source>There&apos;s no audible alarm.</source>
         <translation>Es gibt keinen akustischen Alarm.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2315"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2316"/>
         <source>This audible alarm can not be muted!</source>
         <translation>Dieser akustische Alarm kann nicht stummgeschaltet werden!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2527"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2528"/>
         <source>Switching on the fan</source>
         <translation>Lüfter einschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2528"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2529"/>
         <source>Switching off the fan</source>
         <translation>Lüfter ausschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2701"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2702"/>
         <source>Power failure has been detected while previous fan state is on!</source>
         <translation>Es wurde ein Stromausfall erkannt, während der vorherige Lüfterstatus eingeschaltet ist!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2702"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2703"/>
         <source>Potential release contamination into the room.</source>
         <translation>Mögliche Freisetzung von Kontaminationen in den Raum.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2703"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2707"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2704"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2708"/>
         <source>Failure at</source>
         <translation>Fehler bei</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2704"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2708"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2705"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2709"/>
         <source>Recover at</source>
         <translation>Erholen um</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2706"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2707"/>
         <source>Power failure has been detected while previous UV decontamination is in progress!</source>
         <translation>Während einer vorherigen UV-Dekontamination wurde ein Stromausfall erkannt!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2715"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2716"/>
         <source>Be Careful!</source>
         <translation>Vorsichtig sein!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2728"/>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2729"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2730"/>
         <source>Login</source>
         <translation>Anmeldung</translation>
     </message>
@@ -5442,10 +5455,10 @@ The ideal environmental temperature is between </translation>
     <name>MeasureDownflowSetPage</name>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="37"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="701"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="725"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="749"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="765"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="734"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="758"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="782"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="798"/>
         <source>Measure Downflow</source>
         <translation>Abwärtsströmung messen</translation>
     </message>
@@ -5456,11 +5469,13 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="190"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="579"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="190"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="579"/>
         <source>Value is not valid!</source>
         <translation>Wert ist ungültig!</translation>
     </message>
@@ -5499,7 +5514,7 @@ The ideal environmental temperature is between </translation>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="389"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="482"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="1082"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="1115"/>
         <source>Adjusting fan duty cycle...</source>
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
@@ -5510,66 +5525,67 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="506"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="573"/>
         <source>Avg. Velocity</source>
         <translation>Durchschnitt. Geschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="593"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="626"/>
         <source>Max. Deviation</source>
         <translation>max. Abweichung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="681"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="714"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="694"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="727"/>
         <source>Load from Draft</source>
         <translation>Aus Entwurf laden</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="697"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="730"/>
         <source>Load grid values from draft?</source>
         <translation>Rasterwerte aus Entwurf laden?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="699"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="732"/>
         <source>Current values will be lost.</source>
         <translation>Aktuelle Werte gehen verloren.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="718"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="751"/>
         <source>Clear All</source>
         <translation>Alles löschen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="721"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="754"/>
         <source>Clear all values?</source>
         <translation>Alle Werte löschen?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="723"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="756"/>
         <source>Current values and drafted values will be removed.</source>
         <translation>Aktuelle Werte und Entwurfswerte werden entfernt.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="743"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="776"/>
         <source>Set</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="750"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="783"/>
         <source>Please fill up all the fields!</source>
         <translation>Bitte alle Felder ausfüllen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="764"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="797"/>
         <source>The deviation is out of specs</source>
         <translation>Die Abweichung liegt außerhalb der Spezifikationen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="764"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="797"/>
         <source>The velocity is out of specs</source>
         <translation>Die Geschwindigkeit ist außerhalb der Spezifikationen</translation>
     </message>
@@ -5578,10 +5594,10 @@ The ideal environmental temperature is between </translation>
     <name>MeasureInflowDimSetPage</name>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="37"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="749"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="773"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="795"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="804"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="783"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="807"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="829"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="838"/>
         <source>Measure Inflow</source>
         <translation>Zufluss messen</translation>
     </message>
@@ -5604,11 +5620,13 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="207"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="622"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="207"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="622"/>
         <source>Value is not valid!</source>
         <translation>Wert ist ungültig!</translation>
     </message>
@@ -5647,7 +5665,7 @@ The ideal environmental temperature is between </translation>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="416"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="521"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="1102"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="1136"/>
         <source>Adjusting fan duty cycle...</source>
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
@@ -5657,57 +5675,62 @@ The ideal environmental temperature is between </translation>
         <translation>Zufluss</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="635"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="616"/>
+        <source>Volumetric</source>
+        <translation>Volumetrisch</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="669"/>
         <source>Velocity</source>
         <translation>Geschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="729"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="763"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="742"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="776"/>
         <source>Load from Draft</source>
         <translation>Aus Entwurf laden</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="745"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="779"/>
         <source>Load grid values from draft?</source>
         <translation>Rasterwerte aus Entwurf laden?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="747"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="781"/>
         <source>Current values will be lost.</source>
         <translation>Aktuelle Werte gehen verloren.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="766"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="800"/>
         <source>Clear All</source>
         <translation>Alles löschen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="769"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="803"/>
         <source>Clear all values?</source>
         <translation>Alle Werte löschen?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="771"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="805"/>
         <source>Current values and drafted values will be removed.</source>
         <translation>Aktuelle Werte und Entwurfswerte werden entfernt.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="791"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="825"/>
         <source>Set</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="796"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="830"/>
         <source>Please fill up all the fields!</source>
         <translation>Bitte alle Felder ausfüllen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="805"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="839"/>
         <source>Velocity result is out of specs</source>
         <translation>Geschwindigkeitsergebnis liegt außerhalb der Spezifikationen</translation>
     </message>
@@ -5716,10 +5739,10 @@ The ideal environmental temperature is between </translation>
     <name>MeasureInflowSecSetPage</name>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="37"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="673"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="697"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="721"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="707"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="731"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="755"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="765"/>
         <source>Inflow Secondary Method</source>
         <translation>Zufluss Sekundärmethode</translation>
     </message>
@@ -5740,11 +5763,13 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="174"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="539"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="174"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="539"/>
         <source>Value is not valid!</source>
         <translation>Wert ist ungültig!</translation>
     </message>
@@ -5783,7 +5808,7 @@ The ideal environmental temperature is between </translation>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="374"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="467"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="1044"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="1078"/>
         <source>Adjusting fan duty cycle...</source>
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
@@ -5794,61 +5819,62 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="491"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="533"/>
         <source>Avg. Velocity</source>
         <translation>Durchschnitt. Geschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="552"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="586"/>
         <source>Conv. Velocity</source>
         <translation>Konv. Geschwindigkeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="653"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="687"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="666"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="700"/>
         <source>Load from Draft</source>
         <translation>Aus Entwurf laden</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="669"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="703"/>
         <source>Load grid values from draft?</source>
         <translation>Rasterwerte aus Entwurf laden?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="671"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="705"/>
         <source>Current values will be lost.</source>
         <translation>Aktuelle Werte gehen verloren.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="690"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="724"/>
         <source>Clear All</source>
         <translation>Alles löschen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="693"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="727"/>
         <source>Clear all values?</source>
         <translation>Alle Werte löschen?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="695"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="729"/>
         <source>Current values and drafted values will be removed.</source>
         <translation>Aktuelle Werte und Entwurfswerte werden entfernt.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="715"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="749"/>
         <source>Set</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="722"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="756"/>
         <source>Please fill up all the fields!</source>
         <translation>Bitte alle Felder ausfüllen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="732"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="766"/>
         <source>The velocity is out of specs</source>
         <translation>Die Geschwindigkeit ist außerhalb der Spezifikationen</translation>
     </message>
@@ -7321,13 +7347,13 @@ every time the sash hits a safe height</source>
     <name>SeasAlarmSetPointPage</name>
     <message>
         <location filename="../UI/Pages/SeasAlarmSetPointPage/SeasAlarmSetPointPage.qml" line="102"/>
-        <location filename="../UI/Pages/SeasAlarmSetPointPage/SeasAlarmSetPointPage.qml" line="140"/>
+        <location filename="../UI/Pages/SeasAlarmSetPointPage/SeasAlarmSetPointPage.qml" line="142"/>
         <source>Close from calibration sensor?</source>
         <translation>Nah vom Kalibriersensor?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SeasAlarmSetPointPage/SeasAlarmSetPointPage.qml" line="107"/>
-        <location filename="../UI/Pages/SeasAlarmSetPointPage/SeasAlarmSetPointPage.qml" line="145"/>
+        <location filename="../UI/Pages/SeasAlarmSetPointPage/SeasAlarmSetPointPage.qml" line="108"/>
+        <location filename="../UI/Pages/SeasAlarmSetPointPage/SeasAlarmSetPointPage.qml" line="148"/>
         <source>Please wait</source>
         <translation>Warten Sie mal</translation>
     </message>
@@ -8654,7 +8680,7 @@ every time the sash hits a safe height</source>
         <translation>Benutzer wurde erfolgreich hinzugefügt!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="565"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="564"/>
         <source>Loading...</source>
         <translation>Wird geladen...</translation>
     </message>
@@ -8817,17 +8843,22 @@ every time the sash hits a safe height</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/_GettingStartedPage.qml" line="99"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/_GettingStartedPage.qml" line="96"/>
+        <source>Skip</source>
+        <translation>überspringen</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/_GettingStartedPage.qml" line="110"/>
         <source>Next</source>
         <translation>Nächste</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/_GettingStartedPage.qml" line="107"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/_GettingStartedPage.qml" line="118"/>
         <source>Don&apos;t allow to field calibration sensor!</source>
         <translation>Lassen Sie den Kalibrierungssensor nicht im Feld verwenden!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/_GettingStartedPage.qml" line="109"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/_GettingStartedPage.qml" line="120"/>
         <source>Required to peform full calibration sensor first</source>
         <translation>Erforderlich, um zuerst eine vollständige Sensorkalibrierung durchzuführen</translation>
     </message>
@@ -9036,7 +9067,7 @@ every time the sash hits a safe height</source>
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.qml" line="615"/>
+        <location filename="../main.qml" line="617"/>
         <source>Slide up to unlock!</source>
         <translation>Zum Entsperren nach oben schieben!</translation>
     </message>

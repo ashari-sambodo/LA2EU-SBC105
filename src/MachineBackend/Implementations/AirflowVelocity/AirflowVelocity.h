@@ -26,6 +26,8 @@ public:
     void setScopeCount(unsigned char scopeCount);
     void setMeasurementUnit(uchar value);
 
+    void emitVelocityChanged();
+
     int adc() const;
     int adcConpensation() const;
     double velocity() const;

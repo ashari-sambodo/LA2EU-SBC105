@@ -156,10 +156,11 @@ ViewApp {
 
                 const extraData = IntentApp.getExtraData(returnIntent)
                 //                console.log(JSON.stringify(extraData))
+                const skipped = extraData['skip'] || false
                 const wcNext = extraData['welcomesetupdone'] || false
-                //                console.log("wcNext: " + wcNext)
-                if (wcNext) {
-                    if(indexSetupPage == (props.setupPageCollections.length - 1)) {
+                console.log("wcNext: " + wcNext + " skip: " + skipped)
+                if (wcNext || skipped) {
+                    if(indexSetupPage == (props.setupPageCollections.length - 1) || skipped) {
                         const url = "qrc:/UI/Pages/InstallationWizardPage/InstallationWizardDonePage.qml"
                         const intent = IntentApp.create(url, {})
                         startRootView(intent);
