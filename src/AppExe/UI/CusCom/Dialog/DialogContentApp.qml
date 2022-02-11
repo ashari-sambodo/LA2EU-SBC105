@@ -1,4 +1,11 @@
-import QtQuick 2.0
+/**
+ *  Copyright (C) 2021 by ESCO Bintan Indonesia
+ *  https://escoglobal.com
+ *
+ *  Author: Heri Cahyono
+**/
+
+import QtQuick 2.6
 import QtQuick.Layouts 1.0
 
 Item {
@@ -16,9 +23,14 @@ Item {
     readonly property int dialogTypeWarning: 1
 
     property bool visibleFeatureImage: true
+    property string featureSourceImage: ""
 
     property alias title: titleText.text
-    property alias text: messageText.text
+    property string text: "Descriptions"
+
+    //    property alias contentMessage: messageText
+
+    property string layoutStyle: "horizontal"
 
     signal accepted()
     signal rejected()
@@ -28,6 +40,13 @@ Item {
         color: "#6E6D6D"
         radius: 5
     }
+
+    visible: false
+
+    scale: visible ? 1.0 : 0.9
+    Behavior on scale {
+        NumberAnimation { duration: 100}
+    }//
 
     ColumnLayout {
         anchors.fill: parent
@@ -44,11 +63,12 @@ Item {
 
             Text {
                 id: titleText
-                anchors.fill: parent
+                height: parent.height
+                width: parent.width
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 font.pixelSize: 20
-                color: "white"
+                color: "#dddddd"
                 font.bold: true
                 text: "Title"
             }
@@ -58,36 +78,119 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
-            RowLayout {
+            Loader {
                 anchors.fill: parent
                 anchors.leftMargin: 5
                 anchors.rightMargin: 5
+                sourceComponent: layoutStyle == "vertical" ? columnStyle : rowStyle
+            }
 
-                Item {
-                    Layout.fillHeight: true
-                    Layout.minimumWidth: 120
-                    visible: root.visibleFeatureImage
+            Component {
+                id: rowStyle
 
-                    Image {
-                        anchors.centerIn: parent
-                        source: dialogType ? "./FeatureWarning" : "./FeaturedInfo"
+                RowLayout {
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.minimumWidth: 120
+                        visible: visibleFeatureImage
+
+                        Image {
+                            id: featureDescImage
+                            anchors.centerIn: parent
+                            source: featureSourceImage.length ? featureSourceImage : (dialogType ? "./FeatureWarning" : "")
+                        }
                     }
-                }
 
-                Item {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
 
-                    Text {
-                        id: messageText
-                        anchors.fill: parent
-                        verticalAlignment: Text.AlignVCenter
-                        //                        horizontalAlignment: Text.AlignHCenter
-                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                        font.pixelSize: 20
-                        color: "white"
-                        textFormat: Text.RichText
-                        text: qsTr("Text")
+                        Text {
+                            id: messageText
+                            //                            anchors.fill: parent
+                            anchors.centerIn: parent
+                            height: parent.height
+                            width: Math.min(controlMaxWidthText.paintedWidth, parent.width)
+                            verticalAlignment: Text.AlignVCenter
+                            //                        horizontalAlignment: Text.AlignHCenter
+                            wrapMode: Text.WordWrap
+                            font.pixelSize: 20
+                            minimumPixelSize: 14
+                            fontSizeMode: Text.Fit
+                            color: "#dddddd"
+                            //                            textFormat: Text.RichText
+                            //                            text: qsTr("Text")
+                            text: root.text
+
+                            Text {
+                                id: controlMaxWidthText
+                                visible: false
+                                text: root.text
+                                font.pixelSize: 20
+                            }//
+                        }//
+                    }//
+                }//
+            }//
+
+            Component {
+                id: columnStyle
+
+                ColumnLayout {
+
+                    Item {
+                        Layout.minimumHeight: 120
+                        Layout.fillWidth: true
+                        visible: root.visibleFeatureImage
+
+                        Image {
+                            anchors.centerIn: parent
+                            source: featureSourceImage.length ? featureSourceImage : (dialogType ? "./FeatureWarning" : "./FeaturedInfo")
+                        }
+                    }
+
+                    Item {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+
+                        Text {
+                            id: messageText
+                            //                            anchors.fill: parent
+                            anchors.centerIn: parent
+                            height: parent.height
+                            width: Math.min(controlMaxWidthText.paintedWidth, parent.width)
+                            verticalAlignment: Text.AlignVCenter
+                            //                        horizontalAlignment: Text.AlignHCenter
+                            wrapMode: Text.WordWrap
+                            font.pixelSize: 20
+                            minimumPixelSize: 14
+                            fontSizeMode: Text.Fit
+                            color: "#dddddd"
+                            padding: 5
+                            //                            textFormat: Text.RichText
+                            //                            text: qsTr("Text")
+                            text: root.text
+
+                            Text {
+                                id: controlMaxWidthText
+                                visible: false
+                                text: root.text
+                                font.pixelSize: 20
+                            }//
+                        }
+
+                        //                        Text {
+                        //                            id: messageText
+                        //                            anchors.fill: parent
+                        //                            verticalAlignment: Text.AlignVCenter
+                        //                            horizontalAlignment: Text.AlignHCenter
+                        //                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                        //                            font.pixelSize: 20
+                        //                            color: "#dddddd"
+                        //                            textFormat: Text.RichText
+                        //                            //                            text: qsTr("Text")
+                        //                            text: root.text
+                        //                        }
                     }
                 }
             }
@@ -127,7 +230,7 @@ Item {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 font.pixelSize: 20
-                color: "white"
+                color: "#dddddd"
                 text: "Close"
             }
         }
@@ -165,7 +268,7 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         font.pixelSize: 20
-                        color: "white"
+                        color: "#dddddd"
                         text: "Cancel"
                     }//
 
@@ -193,7 +296,7 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         font.pixelSize: 20
-                        color: "white"
+                        color: "#dddddd"
                         text: "OK"
                     }//
                 }//

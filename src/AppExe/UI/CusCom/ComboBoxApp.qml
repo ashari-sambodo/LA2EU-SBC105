@@ -4,13 +4,16 @@ import QtQuick.Controls 2.0
 ComboBox {
     id: control
 
-    property color currentTextColor: "#ffffff"
-    property color popupTextColor: "#ffffff"
+    font.pixelSize: 20
 
-    property color colorArrow: "#ffffff"
+    property color currentTextColor: "#e3dac9"
+    property color popupTextColor: "#e3dac9"
+
+    property color colorArrow: "#e3dac9"
 
     property alias backgroundColor: backgroundControl.color
     property alias backgroundBorderColor: backgroundControl.border.color
+    property alias backgroundBorderWidth: backgroundControl.border.width
 
     property alias backgroundPopupColor: popupBackground.color
     property alias backgroundPopupBorderColor: popupBackground.border.color
@@ -38,7 +41,9 @@ ComboBox {
 
         Connections {
             target: control
-            onPressedChanged: canvas.requestPaint()
+            function onPressedChanged() {
+                canvas.requestPaint()
+            }
         }
 
         onPaint: {
@@ -58,7 +63,7 @@ ComboBox {
 
         text: control.displayText
         font: control.font
-        color: "#ffffff"
+        color: "#e3dac9"
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
     }
@@ -67,10 +72,10 @@ ComboBox {
         id: backgroundControl
         implicitWidth: 120
         implicitHeight: 40
-        border.color: "#80808080"
+        border.color: "#e3dac9"
         border.width: control.visualFocus ? 2 : 1
         radius: 5
-        color: "#696969"
+        color: "#404244"
     }
 
     popup: Popup {
@@ -82,6 +87,7 @@ ComboBox {
         contentItem: ListView {
             clip: true
             implicitHeight: contentHeight
+            spacing: 2
             //            model: control.popup.visible ? control.delegateModel : null
             model: control.popup.visible ? control.model : null
             currentIndex: control.highlightedIndex
@@ -94,13 +100,26 @@ ComboBox {
                     text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
                     font: control.font
                     color: control.popupTextColor
+                    elide: Text.ElideRight
                 }
 
                 onPressed: {
-                    //                    console.log("Press")
+                    //                    //console.debug("Press")
                     control.currentIndex = index
                     control.activated(index);
                     control.popup.close()
+                }
+
+                background: Item {
+                    anchors.fill: parent
+
+                    Rectangle {
+                        anchors.bottom: parent.bottom
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: "#e3dac9"
+                        height: 1
+                        width: parent.width - 2
+                    }
                 }
             }
         }
@@ -109,7 +128,7 @@ ComboBox {
             id: popupBackground
             border.color: "#C0C0C0"
             radius: 5
-            color: "#696969"
+            color: "#404244"
         }
     }
 }

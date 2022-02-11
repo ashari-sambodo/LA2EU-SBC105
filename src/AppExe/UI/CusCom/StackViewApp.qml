@@ -5,30 +5,48 @@ StackView {
     id: control
 
     replaceEnter: Transition {
-        YAnimator{
-            from: 10
-            to: 0
+        ScaleAnimator {
+            from: 1.1
+            to: 1
             duration: 200
             easing.type: Easing.OutCubic
         }
+        //        YAnimator{
+        //            from: 10
+        //            to: 0
+        //            duration: 200
+        //            easing.type: Easing.OutCubic
+        //        }
     }
 
     pushEnter: Transition {
-        YAnimator{
-            from: 10
-            to: 0
+        ScaleAnimator {
+            from: 1.1
+            to: 1
             duration: 200
             easing.type: Easing.OutCubic
         }
+        //        YAnimator{
+        //            from: 10
+        //            to: 0
+        //            duration: 200
+        //            easing.type: Easing.OutCubic
+        //        }
     }
 
     popEnter: Transition {
-        YAnimator{
-            from: 10
-            to: 0
+        ScaleAnimator {
+            from: 1.1
+            to: 1
             duration: 200
             easing.type: Easing.OutCubic
         }
+        //        YAnimator{
+        //            from: 10
+        //            to: 0
+        //            duration: 200
+        //            easing.type: Easing.OutCubic
+        //        }
     }
 
     popExit: Transition {}

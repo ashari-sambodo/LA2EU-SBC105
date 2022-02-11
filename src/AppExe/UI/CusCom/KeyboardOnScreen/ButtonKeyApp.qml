@@ -1,3 +1,10 @@
+/**
+ *  Copyright (C) 2021 by ESCO Bintan Indonesia
+ *  https://escoglobal.com
+ *
+ *  Author: Heri Cahyono
+**/
+
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 
@@ -15,13 +22,13 @@ Button {
         radius: 5
         border.color: "gray"
         border.width: 1
-        color: control.down ? "#3498db" : (control.darkMode ? "#666666" : "white")
+        color: control.down ? "#3498db" : (control.darkMode ? "#666666" : "#dddddd")
     }
 
     contentItem: Text {
         text: control.text
         font: control.font
-        color: control.darkMode ? "white" : "#666666"
+        color: control.darkMode ? "#dddddd" : "#666666"
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight

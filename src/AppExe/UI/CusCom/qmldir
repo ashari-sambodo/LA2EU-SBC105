@@ -1,11 +1,39 @@
 module UI.CusCom
-ViewApp             1.0 ViewApp.qml
-StackViewApp        1.0 StackViewApp.qml
-TapIndicatorApp     1.0 TapIndicatorApp.qml
-BusyIndicatorApp    1.0 BusyIndicatorApp.qml
-TextApp             1.0 TextApp.qml
-ButtonBarApp        1.0 ButtonBarApp.qml
-DialogApp           1.0 DialogApp.qml
-ButtonApp           1.0 ButtonApp.qml
-TextFieldApp        1.0 TextFieldApp.qml
-ComboBoxApp         1.0 ComboBoxApp.qml
+ViewApp                 1.0 ViewApp.qml
+StackViewApp            1.0 StackViewApp.qml
+TapIndicatorApp         1.0 TapIndicatorApp.qml
+BusyIndicatorApp        1.1 BusyIndicatorApp.qml
+TextApp                 1.0 TextApp.qml
+ButtonBarApp            1.0 ButtonBarApp.qml
+DialogApp               1.0 DialogApp.qml
+ButtonApp               1.0 ButtonApp.qml
+TextFieldApp            1.0 TextFieldApp.qml
+ComboBoxApp             1.0 ComboBoxApp.qml
+BiosafetyCabinet3D      1.0 BiosafetyCabinet3D.qml
+HeaderApp               1.0 HeaderApp.qml
+SwipeAreaApp            1.0 SwipeAreaApp.qml
+SwipeVAreaApp           1.0 SwipeVAreaApp.qml
+BusyPageBlockApp        1.1 BusyPageBlockApp.qml
+BodyItemApp             1.0 BodyItemApp.qml
+SliderApp               1.0 SliderApp.qml
+AirflowDownflowGridApp  1.0 AirflowDownflowGridApp.qml
+AirflowGridApp          1.0 AirflowGridApp.qml
+CalendarGridApp         1.0 CalendarGridApp.qml
+CabinetProfilesApp      1.0 CabinetProfilesApp.qml
+UtilsApp                1.0 UtilsApp.qml
+CircularProgressBarApp  1.0 CircularProgressBarApp.qml
+TimerTumblerApp         1.0 TimerTumblerApp.qml
+LoaderItemApp           1.1 LoaderItemApp.qml
+ScrollBarApp            1.0 ScrollBarApp.qml
+SwitchApp               1.0 SwitchApp.qml
+JsonStringifyWorkerApp  1.0 JsonStringifyWorkerApp.qml
+CanvasDrawByMouse       1.0 CanvasDrawByMouse.qml
+TextTeleprompter        1.0 TextTeleprompter.qml
+WifiSignalApp           1.0 WifiSignalApp.qml
+ScrollDownNotifApp      1.0 ScrollDownNotifApp.qml
+ContentItemApp          1.0 ContentItemApp.qml
+CheckBoxApp             1.0 CheckBoxApp.qml
+
+singleton ExperimentTimerService    1.0 ExperimentTimerService.qml
+singleton UserSessionService        1.0 UserSessionService.qml
+singleton HeaderAppService          1.0 HeaderAppService.qml

@@ -1,10 +1,7 @@
 #include "NetworkManager.h"
-#include <QQmlEngine>
 #include <QThread>
-#include <QDebug>
-
+#include <QEventLoop>
 #include <QProcess>
-#include <QDir>
 
 /**
  * Network Manager - Exit Status
@@ -22,75 +19,20 @@
  * 65 When used with --complete-args option, a file name is expected to follow.
 */
 
-static NetworkManager* s_instance = nullptr;
-
-QObject* NetworkManager::singletonProvider(QQmlEngine *qmlEngine, QJSEngine *)
-{
-    if(!s_instance){
-        s_instance = new NetworkManager(qmlEngine);
-    }
-    return s_instance;
-}
-
 NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
-    m_readingStatus     = false;
-    m_scanningStatus    = false;
-    m_connectingStatus  = false;
-    m_connectedStatus   = false;
+
 }
 
 NetworkManager::~NetworkManager()
 {
-    //    if (m_thread) {
-    //        if (m_thread->isRunning()) {
-    //            m_thread->terminate();
-    //        }
-    //    }
+    //    qDebug() << "~NetworkManager()";
 }
 
-void NetworkManager::readStatusAsync(/*bool followByScan*/)
+void NetworkManager::readStatus(bool *connected, QString *typeConn, QString *connName, QString *ipv4)
 {
-    //    qDebug() << __FUNCTION__ << QThread::currentThreadId();
+    //    qDebug() << __func__ << QThread::currentThreadId();
 
-
-    if(!m_thread.isNull()) if(m_thread->isRunning()) return;
-
-    m_thread.reset(QThread::create([=]{
-
-        //        qDebug() << __FUNCTION__ << QThread::currentThreadId();
-        //        QThread::sleep(5);
-#ifdef __linux__
-        readStatus();
-#else
-        setConnectedStatus(true);
-        setAccessPoint("AP_X");
-        setIPv4("127.0.0.1");
-
-        emit readStatusFinished();
-#endif
-
-    }));
-
-    QObject::connect(m_thread.data(), &QThread::started, [=]{
-        setBussy(true);
-    });
-    QObject::connect(m_thread.data(), &QThread::finished, [=]{
-        setBussy(false);
-    });
-    //    QObject::connect(m_thread.data(), &QThread::finished, [=]{
-    //        qDebug() << "m_thread has finished";
-    //    });
-    //    QObject::connect(m_thread.data(), &QThread::destroyed, [=]{
-    //        qDebug() << "m_thread will destroyed";
-    //    });
-
-    m_thread->start();
-
-}
-
-void NetworkManager::readStatus()
-{
 #ifdef __linux__
     /// Check Connection status if connected or not
     QProcess qprocess;
@@ -101,353 +43,172 @@ void NetworkManager::readStatus()
     /// wlan0:wifi:connected:ESCO_AP
     /// lo:loopback:unmanaged:
 
-    enum IFACE_INDEX {IFACE_WLAN0, IFACE_LOOPBACK};
-    enum NSATUS_INDEX {NSTATUS_DEVICE, NSTATUS_TYPE, NSTATUS_STATE, NSTATUS_CONNECTION};
-
     ///Parse the output
     QString output = qprocess.readAllStandardOutput();
+    //    qDebug() << __func__ << output;
 
-    //    qDebug() << output;
+    QStringList devicesStatus = output.split("\n").filter(":connected");
+    //    qDebug() << __func__ << devicesStatus;
 
-    QStringList devicesStatus = output.split("\n", QString::SkipEmptyParts);
+    if (!devicesStatus.isEmpty()) {
+        QStringList prof = devicesStatus.front().split(":");
 
-    //    qDebug() << devicesStatus;
-
-    QStringList wlanStatus = devicesStatus[IFACE_WLAN0].split(":");
-    bool wlanConnected = wlanStatus[NSTATUS_STATE] == "connected";
-    QString wlanAP = wlanStatus[NSTATUS_CONNECTION];
-    QString ip;
-    /// IF THERE IS CONNECTED NETWORK, THEN
-    /// READ THE CURRENT IPv4
-    if(wlanConnected) {
-        qprocess.start("nmcli -g ip4.address connection show " + wlanAP);
-        qprocess.waitForFinished();
+        enum NSATUS_INDEX {NSTATUS_DEVICE, NSTATUS_TYPE, NSTATUS_STATE, NSTATUS_AP_CONNECTION};
+        /// IF THERE IS CONNECTED NETWORK, THEN
+        /// READ THE CURRENT IPv4
+        QString command = QString("nmcli -g ip4.address con show \"%1\"").arg(prof[NSTATUS_AP_CONNECTION]);
+        //        qDebug() << __func__ << command;
+        qprocess.start(command);
+        bool res = qprocess.waitForFinished();Q_UNUSED(res)
+        //        qDebug()  << __func__ << res;
 
         /// example ouput
         /// 192.168.1.12/24
 
-        enum IPADDR {IPADDR_ADDR, IPADDR_NETMASK};
+        //        enum IPADDR {IPADDR_ADDR, IPADDR_NETMASK};
+        //        QString output = qprocess.readAllStandardOutput();
+        //        QStringList ipWithNetmask = output.split("/");
+        //        ip = ipWithNetmask[IPADDR_ADDR];
 
-        QString output = qprocess.readAllStandardOutput();
-        QStringList ipWithNetmask = output.split("/");
+        QString ip;
+        ip = qprocess.readAllStandardOutput();
+        //        qDebug() << __func__ << ip;
 
-        ip = ipWithNetmask[IPADDR_ADDR];
+        *connected = true;
+        *typeConn = prof[NSTATUS_TYPE].trimmed();
+        *connName = prof[NSTATUS_AP_CONNECTION].trimmed();
+        *ipv4 = ip.trimmed();
     }
-
-    setConnectedStatus(wlanConnected);
-    setAccessPoint(wlanAP);
-    setIPv4(ip);
-
-    emit readStatusFinished();
-
-#endif
-}
-
-QStringList NetworkManager::getAcceessPointListName() const
-{
-    return m_acceessPointListName;
-}
-
-void NetworkManager::scanAsync()
-{
-    //    qDebug() << __FUNCTION__ << QThread::currentThreadId();
-
-    if(!m_thread.isNull()) if(m_thread->isRunning()) return;
-
-    m_thread.reset(QThread::create([=]{
-
-        //        qDebug() << __FUNCTION__ << QThread::currentThreadId();
-
-        /// CLEAR CURRENT LIST ACCESS POINT
-        setAcceessPointListName(QStringList());
-
-        setScanningStatus(true);
-
-#ifdef __linux__
-        QProcess qprocess;
-        qprocess.start("nmcli --fields SSID,SIGNAL -c no -t d wifi list --rescan yes");
-        qprocess.waitForFinished();
-
-        QStringList apresult;
-        if (qprocess.exitStatus() == QProcess::NormalExit) {
-            apresult = QString(qprocess.readAllStandardOutput()).split("\n", QString::SkipEmptyParts);
-
-        }
 #else
-        QStringList apresult;
-        apresult << "AP_1:90" << "AP_2:80";
-        QThread::sleep(2);
+    *connected = true;
+    *typeConn = "ethernet";
+    *connName = "Wired connection 1";
+    *ipv4 = "192.168.43.110";
 #endif
-
-        //        qDebug() << apresult;
-
-        setAcceessPointListName(apresult);
-
-        setScanningStatus(false);
-
-    }));
-
-    QObject::connect(m_thread.data(), &QThread::started, [=]{
-        setBussy(true);
-    });
-    QObject::connect(m_thread.data(), &QThread::finished, [=]{
-        setBussy(false);
-    });
-    //    QObject::connect(m_thread.data(), &QThread::finished, [=]{
-    //        qDebug() << "m_thread has finished";
-    //    });
-    //    QObject::connect(m_thread.data(), &QThread::destroyed, [=]{
-    //        qDebug() << "m_thread will destroyed";
-    //    });
-
-    m_thread->start();
-
 }
 
-void NetworkManager::connectAsync(const QString name, const QString passwd)
+void NetworkManager::scanAccessPoint(QStringList *availableAP)
 {
-    //    qDebug() << __FUNCTION__ << QThread::currentThreadId();
-
-    if(!m_thread.isNull()) if(m_thread->isRunning()) return;
-
-    m_thread.reset(QThread::create([=]{
-
-        //        qDebug() << __FUNCTION__ << QThread::currentThreadId();
-
+    Q_UNUSED(availableAP)
 #ifdef __linux__
-        QRegExp rx(QString("%1.nm*").arg(name));
-        rx.setPatternSyntax(QRegExp::Wildcard);
+    QProcess qprocess;
+    qprocess.start("nmcli --fields SSID,SIGNAL,SECURITY -c no -t d wifi list --rescan yes");
+    qprocess.waitForFinished();
 
-        QString pathNetworkDir("/etc/NetworkManager/system-connections");
-        QDir networkDir(pathNetworkDir);
-        bool exist = networkDir.entryList().filter(rx).count();
-        if (!exist && passwd.isEmpty()) {
-            //            qDebug() << name << "is new registering ap need password";
-            emit passwordAsked(name);
-            return;
-        }
-        //        else {
-        //            qDebug() << name << "is existing ap";
-        //        }
+    QStringList apsResult;
+    if (qprocess.exitStatus() == QProcess::NormalExit) {
+        apsResult = QString(qprocess.readAllStandardOutput()).split("\n", Qt::SkipEmptyParts);
+        qDebug() << __func__ << apsResult;
 
-        QProcess qprocess;
-
-        ///Merge standard out put and error message to be one, so just need to read "qprocess.readAllStandardOutput();"
-        qprocess.setProcessChannelMode(QProcess::ProcessChannelMode::MergedChannels);
-
-        QString commmand;
-        if (exist) {
-            commmand = QString("nmcli d wifi con \"%1\"").arg(name);
-        }
-        else {
-            commmand = QString("nmcli d wifi con \"%1\" password \"%2\"").arg(name, passwd);
-        }
-        //        qDebug() << commmand;
-
-        qprocess.start(commmand);
+        qprocess.start("nmcli -t --fields NAME con show");
         qprocess.waitForFinished();
+        QStringList apsExist = QString(qprocess.readAllStandardOutput()).split("\n", Qt::SkipEmptyParts);
+        qDebug() << __func__ << apsExist;
 
-        int exitCode = qprocess.exitCode();
-        if(exitCode == 0) setConnectedStatus(true);
-        else setConnectedStatus(false);
-
-        //        qDebug() << qprocess.exitCode();
-#else
-        if (passwd.isEmpty()) {
-            //            qDebug() << name << "is new registering ap need password";
-            emit passwordAsked(name);
-            return;
+        bool exist = false;
+        for(int i=0; i < apsResult.length(); i++){
+            exist = false;
+            for(int j=0; j < apsExist.length(); j++) {
+                if (apsResult[i].contains(apsExist[j])){
+                    exist = true;
+                }
+            }
+            if(exist){
+                apsResult[i].prepend("EXIST:");
+            }
+            else {
+                apsResult[i].prepend("NEW:");
+            }
         }
-
-        int exitCode = 0;
-        QThread::sleep(5);
+    }
+    qDebug() << __func__ << apsResult;
+    *availableAP = apsResult;
+#else
+    //    QStringList apresult;
+    //    apresult << "AP_1:90" << "AP_2:80";
+    //    QThread::sleep(2);
 #endif
-        /// Direct all read status
-        readStatus();
 
-        emit connectingFinished(exitCode, name);
-
-    }));
-
-    QObject::connect(m_thread.data(), &QThread::started, [=]{
-        setBussy(true);
-    });
-    QObject::connect(m_thread.data(), &QThread::finished, [=]{
-        setBussy(false);
-    });
-    //    QObject::connect(m_thread.data(), &QThread::finished, [=]{
-    //        qDebug() << "m_thread has finished";
-    //    });
-    //    QObject::connect(m_thread.data(), &QThread::destroyed, [=]{
-    //        qDebug() << "m_thread will destroyed";
-    //    });
-
-    m_thread->start();
+    //        qDebug() << apresult;
 }
 
-void NetworkManager::deleteConnectionAsync(const QString apName)
+void NetworkManager::connectToNewAccessPoint(const QString connName, const QString passwd)
 {
-    //    qDebug() << __FUNCTION__ << apName;
-
-    if(!m_thread.isNull()) if(m_thread->isRunning()) return;
-
-    m_thread.reset(QThread::create([=]{
-
-        //        qDebug() << __FUNCTION__ << QThread::currentThreadId();
+    qDebug() << __func__ << thread();
+    Q_UNUSED(connName)
+    Q_UNUSED(passwd)
 #ifdef __linux__
-        QProcess qprocess;
+    QProcess qprocess;
+    ///Merge standard out put and error message to be one, so just need to read "qprocess.readAllStandardOutput();"
+    qprocess.setProcessChannelMode(QProcess::ProcessChannelMode::MergedChannels);
 
-        /// Merge standard out and
-        qprocess.setProcessChannelMode(QProcess::MergedChannels);
+    QString commmand;
+    if (passwd.length()) {
+        commmand = QString("nmcli d wifi con \"%1\" password \"%2\"").arg(connName, passwd);
+    }
+    else {
+        commmand = QString("nmcli d wifi con \"%1\"").arg(connName);
+    }
+    qDebug() << __func__ << commmand;
 
-        qprocess.start("nmcli connection delete " + apName);
-        qprocess.waitForFinished();
+    qprocess.start(commmand);
+    qprocess.waitForFinished(-1); /// wait forever
 
-        //        QString ouput = qprocess.readAllStandardOutput();
-        //        qDebug() << ouput;
+    int exitCode = qprocess.exitCode();
+    qDebug() << __func__ << exitCode;
+    qDebug() << __func__ << qprocess.readAllStandardOutput();
 
-        /// Remove current connection if current access point is the same which want to deleted
-        /// Connection will automatically disconnected
-        if(m_accessPoint == apName) {
-            setConnectedStatus(false);
-            setAccessPoint("");
-            setIPv4("");
-
-            /// emualation read status signal, to tell the display for update parameter as like read ststus job
-            emit readStatusFinished();
-        }
-
-        int exitCode = qprocess.exitCode();
-        //        qDebug() << "exitCode" << exitCode;
+    //        qDebug() << qprocess.exitCode();
 #else
-        int exitCode = 0;
-        QThread::sleep(5);
+
 #endif
-
-        emit deletionFinished(exitCode, apName);
-
-    }));
-
-    QObject::connect(m_thread.data(), &QThread::started, [=]{
-        setBussy(true);
-    });
-    QObject::connect(m_thread.data(), &QThread::finished, [=]{
-        setBussy(false);
-    });
-    //    QObject::connect(m_thread.data(), &QThread::finished, [=]{
-    //        qDebug() << "m_thread has finished";
-    //    });
-    //    QObject::connect(m_thread.data(), &QThread::destroyed, [=]{
-    //        qDebug() << "m_thread will destroyed";
-    //    });
-
-    m_thread->start();
-
 }
 
-void NetworkManager::setAcceessPointListName(QStringList acceessPointListName)
+/// 0 "Connection successfully activated (D-Bus active path: /org/freedesktop/NetworkManager/ActiveConnection/10)\n"
+/// 4 "Error: Connection activation failed: The Wi-Fi network could not be found\nHint: use 'journalctl -xe NM_CONNECTION=1847cac4-621d-4d25-b679-b9603a962eb0 + NM_DEVICE=wlx000f00f901e8' to get more details.\n"
+void NetworkManager::connectTo(const QString connName)
 {
-    if (m_acceessPointListName == acceessPointListName)
-        return;
+    qDebug() << __func__ << thread();
+    Q_UNUSED(connName)
+#ifdef __linux__
+    QProcess qprocess;
+    ///Merge standard out put and error message to be one, so just need to read "qprocess.readAllStandardOutput();"
+    qprocess.setProcessChannelMode(QProcess::ProcessChannelMode::MergedChannels);
 
-    m_acceessPointListName = acceessPointListName;
-    emit acceessPointListNameChanged(m_acceessPointListName);
+    QString commmand = QString("nmcli con up \"%1\"").arg(connName);
+    qDebug() << __func__ << commmand;
+
+    qprocess.start(commmand);
+    qprocess.waitForFinished(-1); /// wait forever
+
+    int exitCode = qprocess.exitCode();
+    qDebug() << __func__ << exitCode << qprocess.readAllStandardOutput();
+
+    //        qDebug() << qprocess.exitCode();
+#else
+
+#endif
 }
 
-void NetworkManager::setAccessPoint(QString accessPoint)
+void NetworkManager::forgetConnection(const QString connName)
 {
-    if (m_accessPoint == accessPoint)
-        return;
+    Q_UNUSED(connName)
+#ifdef __linux__
+    QProcess qprocess;
+    ///Merge standard out put and error message to be one, so just need to read "qprocess.readAllStandardOutput();"
+    qprocess.setProcessChannelMode(QProcess::ProcessChannelMode::MergedChannels);
 
-    m_accessPoint = accessPoint;
-    emit accessPointChanged(m_accessPoint);
-}
+    QString commmand = QString("nmcli con del \"%1\"").arg(connName);
+    qDebug() << __func__ << commmand;
 
-void NetworkManager::setReadingStatus(bool readingStatus)
-{
-    if (m_readingStatus == readingStatus)
-        return;
+    qprocess.start(commmand);
+    qprocess.waitForFinished(-1); /// wait forever
 
-    m_readingStatus = readingStatus;
-    emit readingStatusChanged(m_readingStatus);
-}
+    int exitCode = qprocess.exitCode();
+    qDebug() << __func__ << exitCode << qprocess.readAllStandardOutput();
 
-void NetworkManager::setScanningStatus(bool scanningStatus)
-{
-    if (m_scanningStatus == scanningStatus)
-        return;
+    //        qDebug() << qprocess.exitCode();
+#else
 
-    m_scanningStatus = scanningStatus;
-    emit scanningStatusChanged(m_scanningStatus);
-}
-
-void NetworkManager::setConnectingStatus(bool connectingStatus)
-{
-    if (m_connectingStatus == connectingStatus)
-        return;
-
-    m_connectingStatus = connectingStatus;
-    emit connectingStatusChanged(m_connectingStatus);
-}
-
-void NetworkManager::setIPv4(QString ipv4)
-{
-    if (m_ipv4 == ipv4)
-        return;
-
-    m_ipv4 = ipv4;
-    emit ipv4Changed(m_ipv4);
-}
-
-void NetworkManager::setConnectedStatus(bool connectedStatus)
-{
-    if (m_connectedStatus == connectedStatus)
-        return;
-
-    m_connectedStatus = connectedStatus;
-    emit connectedStatusChanged(m_connectedStatus);
-}
-
-void NetworkManager::setBussy(bool bussy)
-{
-    if (m_bussy == bussy)
-        return;
-
-    m_bussy = bussy;
-    emit bussyChanged(m_bussy);
-}
-
-QString NetworkManager::getAccessPoint() const
-{
-    return m_accessPoint;
-}
-
-bool NetworkManager::getReadingStatus() const
-{
-    return m_readingStatus;
-}
-
-bool NetworkManager::getScanningStatus() const
-{
-    return m_scanningStatus;
-}
-
-bool NetworkManager::getConnectingStatus() const
-{
-    return m_connectingStatus;
-}
-
-QString NetworkManager::getIPv4() const
-{
-    return m_ipv4;
-}
-
-bool NetworkManager::getConnectedStatus() const
-{
-    return m_connectedStatus;
-}
-
-bool NetworkManager::getBussy() const
-{
-    return m_bussy;
+#endif
 }

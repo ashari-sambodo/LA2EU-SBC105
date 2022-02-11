@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>GeneralResources/Animation/PID_Compensation_Animated.gif</file>
+    </qresource>
+</RCC>

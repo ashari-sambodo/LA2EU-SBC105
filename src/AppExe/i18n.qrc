@@ -1,10 +1,12 @@
 <RCC>
     <qresource prefix="/">
-        <file>i18n/translating-qml_ar.qm</file>
         <file>i18n/translating-qml_de.qm</file>
         <file>i18n/translating-qml_ja.qm</file>
         <file>i18n/translating-qml_ko.qm</file>
-        <file>i18n/translating-qml_ru.qm</file>
         <file>i18n/translating-qml_zh.qm</file>
+        <file>i18n/translating-qml_es.qm</file>
+        <file>i18n/translating-qml_fi.qm</file>
+        <file>i18n/translating-qml_fr.qm</file>
+        <file>i18n/translating-qml_it.qm</file>
     </qresource>
 </RCC>

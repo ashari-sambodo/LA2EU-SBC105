@@ -187,7 +187,7 @@ QStringList USBStorageMount::findDevices(const QString &regexpFilter)
         QRegExp rx(regexpFilter);
         rx.setPatternSyntax(QRegExp::Wildcard);
 
-        QStringList devices = result.split("\n", QString::SkipEmptyParts).filter(rx);
+        QStringList devices = result.split("\n", Qt::SkipEmptyParts).filter(rx);
 
         //        qDebug() << "devices"  << devices;
 
