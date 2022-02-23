@@ -25,7 +25,7 @@ AnimatedImage{
             busyAnim.fullRotated(fullRotatedCycle)
         }
         //        busyAnim.rotationChanged(fullRotatedCycle)
-        console.debug("frameCount:", busyAnim.frameCount, busyAnim.currentFrame)
+        //console.debug("frameCount:", busyAnim.frameCount, busyAnim.currentFrame)
     }
     //Component.onCompleted: console.debug("frameCount:", busyAnim.frameCount)
 }
