@@ -58,6 +58,8 @@ ViewApp {
                             anchors.fill: parent
                             sashImageItem.state: sashImageItem.stateSafe
                             airflowArrowActive: visible
+                            modelName: MachineData.machineModelName
+                            sideGlass: HeaderAppService.sideGlass
 
                             MouseArea {
                                 anchors.fill: parent
