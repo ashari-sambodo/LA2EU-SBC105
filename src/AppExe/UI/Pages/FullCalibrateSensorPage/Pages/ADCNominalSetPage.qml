@@ -136,6 +136,13 @@ ViewApp {
                                                                         text: qsTr("RPM: ") + props.dfaFanRpmActual
                                                                         states: [
                                                                             State {
+                                                                                when: MachineData.cabinetWidth3Feet
+                                                                                PropertyChanges {
+                                                                                    target: dfaRpmText
+                                                                                    color: "#0F2952"
+                                                                                }
+                                                                            },//
+                                                                            State {
                                                                                 when: props.dfaFanRpmActual == 0
                                                                                 PropertyChanges {
                                                                                     target: dfaRpmText
@@ -915,7 +922,7 @@ ViewApp {
 
                                             let dfaAdc = props.dfaAdcActual
                                             let dfaFanDutyCycle = props.dfaFanDutyCycleActual
-                                            let dfaFanRpm = props.dfaFanRpmActual
+                                            let dfaFanRpm = props.dfaFanRpmActual || MachineData.cabinetWidth3Feet
                                             let dfaVelocityValid = (props.dfaVelocityMin < props.dfaVelocityNom && props.dfaVelocityNom < props.dfaVelocityMax) ? true : false
                                             let dfaAdcNominalValid = (dfaAdc - props.dfaSensorAdcZero) >= 100 ? true : false
                                             //let dfaAdcMinimumValid = (dfaAdc - props.sensorAdcMinimum) >= 100 ? true : false

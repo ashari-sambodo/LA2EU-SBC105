@@ -340,6 +340,7 @@ ViewApp {
 
                                         TextApp {
                                             //                                            color: "#0F2952"
+                                            color: MachineData.cabinetWidth3Feet ? "#0F2952" : "#e3dac9"
                                             text: "RPM: " + props.dfaFanRpmActual
                                         }//
                                     }//

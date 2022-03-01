@@ -165,12 +165,17 @@ ViewApp {
                                 label: qsTr("Fan state (DF | IF)")
 
                                 onLoaded: {
-                                    value1 = Qt.binding(function(){
-                                        return "" + MachineData.fanPrimaryDutyCycle + " % / " + MachineData.fanPrimaryRpm + " RPM"
-                                    })
+                                    if(MachineData.cabinetWidth3Feet)
+                                        value1 = Qt.binding(function(){
+                                            return "" + MachineData.fanPrimaryDutyCycle + " %"
+                                        })
+                                    else
+                                        value1 = Qt.binding(function(){
+                                            return "" + MachineData.fanPrimaryDutyCycle + " % / " + MachineData.fanPrimaryRpm + " RPM"
+                                        })
                                     if(MachineData.getDualRbmMode()){
                                         value2 = Qt.binding(function(){
-                                                return "" + MachineData.fanInflowDutyCycle + " % / " + MachineData.fanInflowRpm + " RPM"
+                                            return "" + MachineData.fanInflowDutyCycle + " % / " + MachineData.fanInflowRpm + " RPM"
                                         })
                                     }
                                     else
@@ -435,7 +440,7 @@ ViewApp {
                                 onLoaded: {
                                     value1 = MachineData.getDownflowAdcPointFactory(2)
                                     value2 = MachineData.getInflowAdcPointFactory(2)
-                                }
+                                }//
                             }//
 
                             //                            CusComPage.RowItemApp {
@@ -720,10 +725,12 @@ ViewApp {
                                         const rpmDfa = MachineData.getFanPrimaryNominalRpmField()
                                         const ducyIfa = MachineData.getFanInflowNominalDutyCycleField()
                                         const rpmIfa = MachineData.getFanInflowNominalRpmField()
-
-                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
+                                        if(MachineData.cabinetWidth3Feet)
+                                            value1 = ducyDfa + " %"
+                                        else
+                                            value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
                                         if(MachineData.getDualRbmMode())
-                                            value1 = ducyIfa + " %" + " / " + rpmIfa + " RPM"
+                                            value2 = ducyIfa + " %" + " / " + rpmIfa + " RPM"
                                         else
                                             value2 = ducyIfa + " %"
                                     }
@@ -733,9 +740,12 @@ ViewApp {
                                         const ducyIfa = MachineData.getFanInflowNominalDutyCycleFactory()
                                         const rpmIfa = MachineData.getFanInflowNominalRpmFactory()
 
-                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
+                                        if(MachineData.cabinetWidth3Feet)
+                                            value1 = ducyDfa + " %"
+                                        else
+                                            value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
                                         if(MachineData.getDualRbmMode())
-                                            value1 = ducyIfa + " %" + " / " + rpmIfa + " RPM"
+                                            value2 = ducyIfa + " %" + " / " + rpmIfa + " RPM"
                                         else
                                             value2 = ducyIfa + " %"
                                     }
@@ -785,17 +795,29 @@ ViewApp {
                                         const ducyDfa = MachineData.getFanPrimaryStandbyDutyCycleField()
                                         const rpmDfa = MachineData.getFanPrimaryStandbyRpmField()
                                         const ducyIfa = MachineData.getFanInflowStandbyDutyCycleField()
-
-                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                        value2 = ducyIfa + " %"
+                                        const rpmIfa = MachineData.getFanInflowStandbyRpmField()
+                                        if(MachineData.cabinetWidth3Feet)
+                                            value1 = ducyDfa + " %"
+                                        else
+                                            value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
+                                        if(MachineData.getDualRbmMode())
+                                            value2 = ducyIfa + " %" + " / " + rpmIfa + " RPM"
+                                        else
+                                            value2 = ducyIfa + " %"
                                     }
                                     else {
                                         const ducyDfa = MachineData.getFanPrimaryStandbyDutyCycleFactory()
                                         const rpmDfa = MachineData.getFanPrimaryStandbyRpmFactory()
                                         const ducyIfa = MachineData.getFanInflowStandbyDutyCycleFactory()
-
-                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                        value2 = ducyIfa + " %"
+                                        const rpmIfa = MachineData.getFanInflowStandbyRpmFactory()
+                                        if(MachineData.cabinetWidth3Feet)
+                                            value1 = ducyDfa + " %"
+                                        else
+                                            value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
+                                        if(MachineData.getDualRbmMode())
+                                            value2 = ducyIfa + " %" + " / " + rpmIfa + " RPM"
+                                        else
+                                            value2 = ducyIfa + " %"
                                     }
                                 }
                             }//
@@ -813,9 +835,16 @@ ViewApp {
                                     const ducyDfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
                                     const rpmDfa = MachineData.getFanPrimaryNominalRpmFactory()
                                     const ducyIfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
+                                    const rpmIfa = MachineData.getFanInflowNominalRpmFactory()
 
-                                    value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                    value2 = ducyIfa + " %"
+                                    if(MachineData.cabinetWidth3Feet)
+                                        value1 = ducyDfa + " %"
+                                    else
+                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
+                                    if(MachineData.getDualRbmMode())
+                                        value2 = ducyIfa + " %" + " / " + rpmIfa + " RPM"
+                                    else
+                                        value2 = ducyIfa + " %"
                                 }
                             }//
 
@@ -851,9 +880,15 @@ ViewApp {
                                     const ducyDfa = MachineData.getFanPrimaryStandbyDutyCycleFactory()
                                     const rpmDfa = MachineData.getFanPrimaryStandbyRpmFactory()
                                     const ducyIfa = MachineData.getFanInflowStandbyDutyCycleFactory()
-
-                                    value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
-                                    value2 = ducyIfa + " %"
+                                    const rpmIfa = MachineData.getFanInflowStandbyRpmFactory()
+                                    if(MachineData.cabinetWidth3Feet)
+                                        value1 = ducyDfa + " %"
+                                    else
+                                        value1 = ducyDfa + " %" + " / " + rpmDfa + " RPM"
+                                    if(MachineData.getDualRbmMode())
+                                        value2 = ducyIfa + " %" + " / " + rpmIfa + " RPM"
+                                    else
+                                        value2 = ducyIfa + " %"
                                 }
                             }//
 
@@ -1117,6 +1152,7 @@ ViewApp {
 
                             CusComPage.RowItemApp {
                                 id: moduleHabInput
+                                enabled: !MachineData.cabinetWidth3Feet
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY
@@ -1138,6 +1174,7 @@ ViewApp {
 
                             CusComPage.RowItemApp {
                                 id: moduleHabOutputLight
+                                enabled: !MachineData.cabinetWidth3Feet
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY
@@ -1164,13 +1201,55 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Module - Analog Input")
+                                label: qsTr("Module - Analog Input 1")
                                 value: connected ? qsTr("OK") : qsTr("Fail")
 
                                 property bool connected: false
 
                                 onLoaded: {
                                     connected = Qt.binding(function() { return MachineData.boardStatusAnalogInput})
+                                }
+
+                                onUnloaded: {
+                                    connected = false
+                                }
+                            }//
+                            CusComPage.RowItemApp {
+                                id: moduleAnalogInput1
+                                enabled: MachineData.cabinetWidth3Feet
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
+                                label: qsTr("Module - Analog Input 2")
+                                value: connected ? qsTr("OK") : qsTr("Fail")
+
+                                property bool connected: false
+
+                                onLoaded: {
+                                    connected = Qt.binding(function() { return MachineData.boardStatusAnalogInput1})
+                                }
+
+                                onUnloaded: {
+                                    connected = false
+                                }
+                            }//
+                            CusComPage.RowItemApp {
+                                id: moduleAnalogOuput
+                                enabled: MachineData.cabinetWidth3Feet
+                                width: view.width
+                                height: 50
+                                viewContentY: view.contentY
+                                viewSpan: view.span
+
+                                label: qsTr("Module - Analog Output")
+                                value: connected ? qsTr("OK") : qsTr("Fail")
+
+                                property bool connected: false
+
+                                onLoaded: {
+                                    connected = Qt.binding(function() { return MachineData.boardStatusAnalogOutput})
                                 }
 
                                 onUnloaded: {
@@ -1202,6 +1281,7 @@ ViewApp {
 
                             CusComPage.RowItemApp {
                                 id: moduleRbmCom
+                                enabled: !MachineData.cabinetWidth3Feet
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY

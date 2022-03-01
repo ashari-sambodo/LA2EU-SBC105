@@ -607,7 +607,7 @@ ViewApp {
                 },
                 {
                     mtype      : "menu",
-                    mtitle     : qsTr("ADC Zero (IF0)"),
+                    mtitle     : qsTr("ADC Zero"),
                     micon      : "qrc:/UI/Pictures/menu/Zero-Sensor.png",
                     mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml",
                     badge      : 0,
@@ -625,7 +625,7 @@ ViewApp {
                 //                },
                 {
                     mtype      : "menu",
-                    mtitle     : qsTr("ADC Nominal (IF2)"),
+                    mtitle     : qsTr("ADC Nominal"),
                     micon      : "qrc:/UI/Pictures/menu/Calibrate-Sensor.png",
                     mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml",
                     badge      : 0,

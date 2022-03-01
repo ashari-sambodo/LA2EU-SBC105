@@ -374,7 +374,7 @@ bool MachineData::getInflowValueHeld() const
 
 void MachineData::setInflowValueHeld(bool value)
 {
-     qDebug() << metaObject()->className() << __func__ << value;
+    qDebug() << metaObject()->className() << __func__ << value;
     if(m_inflowValueHeld == value)return;
     m_inflowValueHeld = value;
     emit inflowValueHeldChanged(value);
@@ -387,10 +387,22 @@ bool MachineData::getDownflowValueHeld() const
 
 void MachineData::setDownflowValueHeld(bool value)
 {
-     qDebug() << metaObject()->className() << __func__ << value;
+    qDebug() << metaObject()->className() << __func__ << value;
     if(m_downflowValueHeld == value)return;
     m_downflowValueHeld = value;
     emit downflowValueHeldChanged(value);
+}
+
+bool MachineData::getCabinetWidth3Feet() const
+{
+    return m_cabinetWidth3Feet;
+}
+
+void MachineData::setCabinetWidth3Feet(bool value)
+{
+    if(m_cabinetWidth3Feet == value)return;
+    m_cabinetWidth3Feet = value;
+    emit cabinetWidth3FeetChanged(value);
 }
 
 //void MachineData::setWifiDisabled(bool value)
@@ -2266,6 +2278,18 @@ void MachineData::setBoardStatusHybridAnalogOutput(bool boardStatusHybridAnalogO
     emit boardStatusHybridAnalogOutputChanged(m_boardStatusHybridAnalogOutput);
 }
 
+bool MachineData::getBoardStatusAnalogOutput() const
+{
+    return m_boardStatusAnalogOutput;
+}
+
+void MachineData::setBoardStatusAnalogOutput(bool boardStatusAnalogOutput)
+{
+    if(m_boardStatusAnalogOutput == boardStatusAnalogOutput)return;
+    m_boardStatusAnalogOutput = boardStatusAnalogOutput;
+    emit boardStatusAnalogOutputChanged(m_boardStatusAnalogOutput);
+}
+
 bool MachineData::getBoardStatusRbmCom() const
 {
     return m_boardStatusRbmCom;
@@ -2297,6 +2321,18 @@ void MachineData::setBoardStatusAnalogInput(bool boardStatusAnalogInput)
 
     m_boardStatusAnalogInput = boardStatusAnalogInput;
     emit boardStatusAnalogInputChanged(m_boardStatusAnalogInput);
+}
+
+bool MachineData::getBoardStatusAnalogInput1() const
+{
+    return m_boardStatusAnalogInput1;
+}
+
+void MachineData::setBoardStatusAnalogInput1(bool boardStatusAnalogInput1)
+{
+    if(m_boardStatusAnalogInput1 == boardStatusAnalogInput1)return;
+    m_boardStatusAnalogInput1 = boardStatusAnalogInput1;
+    emit boardStatusAnalogInput1Changed(m_boardStatusAnalogInput1);
 }
 ///
 

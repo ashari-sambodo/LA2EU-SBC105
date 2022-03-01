@@ -803,11 +803,20 @@ class MachineData : public QObject
                READ getBoardStatusAnalogInput
                //               WRITE setBoardStatusHybridAnalogInput
                NOTIFY boardStatusAnalogInputChanged)
+    Q_PROPERTY(bool boardStatusAnalogInput1
+               READ getBoardStatusAnalogInput1
+               //               WRITE setBoardStatusHybridAnalogInput
+               NOTIFY boardStatusAnalogInput1Changed)
 
     Q_PROPERTY(bool boardStatusHybridAnalogOutput
                READ getBoardStatusHybridAnalogOutput
                //               WRITE setBoardStatusHybridAnalogOutput
                NOTIFY boardStatusHybridAnalogOutputChanged)
+
+    Q_PROPERTY(bool boardStatusAnalogOutput
+               READ getBoardStatusAnalogOutput
+               //               WRITE setBoardStatusHybridAnalogOutput
+               NOTIFY boardStatusAnalogOutputChanged)
 
     Q_PROPERTY(bool boardStatusRbmCom
                READ getBoardStatusRbmCom
@@ -992,6 +1001,7 @@ class MachineData : public QObject
     Q_PROPERTY(bool inflowValueHeld READ getInflowValueHeld NOTIFY inflowValueHeldChanged)
     Q_PROPERTY(bool downflowValueHeld READ getDownflowValueHeld NOTIFY downflowValueHeldChanged)
 
+    Q_PROPERTY(bool cabinetWidth3Feet READ getCabinetWidth3Feet NOTIFY cabinetWidth3FeetChanged)
     //    Q_PROPERTY(bool wifiDisabled
     //               READ getWifiDisabled
     //               //               WRITE setRbmComPortIfa
@@ -1423,9 +1433,13 @@ public:
     //
     bool getBoardStatusAnalogInput() const;
     void setBoardStatusAnalogInput(bool boardStatusAnalogInput);
+    bool getBoardStatusAnalogInput1() const;
+    void setBoardStatusAnalogInput1(bool boardStatusAnalogInput);
     //
     bool getBoardStatusHybridAnalogOutput() const;
     void setBoardStatusHybridAnalogOutput(bool boardStatusHybridAnalogOutput);
+    bool getBoardStatusAnalogOutput() const;
+    void setBoardStatusAnalogOutput(bool boardStatusAnalogOutput);
     //
     bool getBoardStatusRbmCom() const;
     void setBoardStatusRbmCom(bool boardStatusRbmCom);
@@ -1803,6 +1817,9 @@ public:
     bool getDownflowValueHeld()const;
     void setDownflowValueHeld(bool value);
 
+    bool getCabinetWidth3Feet()const;
+    void setCabinetWidth3Feet(bool value);
+
 public slots:
     void initSingleton();
 
@@ -1903,7 +1920,9 @@ signals:
     void boardStatusHybridDigitalInputChanged(bool boardStatusHybridDigitalInput);
     void boardStatusHybridAnalogInputChanged(bool boardStatusHybridAnalogInput);
     void boardStatusAnalogInputChanged(bool boardStatusAnalogInput);
+    void boardStatusAnalogInput1Changed(bool boardStatusAnalogInput);
     void boardStatusHybridAnalogOutputChanged(bool boardStatusHybridAnalogOutput);
+    void boardStatusAnalogOutputChanged(bool boardStatusAnalogOutput);
     void boardStatusRbmComChanged(bool boardStatusRbmCom);
     void boardStatusRbmCom2Changed(bool boardStatusRbmCom2);
     void boardStatusPressureDiffChanged(bool boardStatusPressureDiff);
@@ -2109,7 +2128,7 @@ signals:
     //    void wifiDisabledChanged(bool value);
     void inflowValueHeldChanged(bool value);
     void downflowValueHeldChanged(bool value);
-
+    void cabinetWidth3FeetChanged(bool value);
 private:
     ///
     short m_machineState;
@@ -2298,7 +2317,9 @@ private:
     bool    m_boardStatusHybridDigitalInput = false;
     bool    m_boardStatusHybridAnalogInput  = false;
     bool    m_boardStatusAnalogInput  = false;
+    bool    m_boardStatusAnalogInput1  = false;
     bool    m_boardStatusHybridAnalogOutput = false;
+    bool    m_boardStatusAnalogOutput = false;
     bool    m_boardStatusRbmCom  = false;
     bool    m_boardStatusRbmCom2  = false;
     bool    m_boardStatusPressureDiff  = false;
@@ -2487,6 +2508,8 @@ private:
 
     bool m_inflowValueHeld = false;
     bool m_downflowValueHeld = false;
+
+    bool m_cabinetWidth3Feet = false;
 };
 
 

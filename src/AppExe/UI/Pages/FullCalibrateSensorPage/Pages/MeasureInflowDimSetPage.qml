@@ -375,6 +375,7 @@ ViewApp {
 
                                         TextApp {
                                             Layout.fillWidth: true
+                                            color: MachineData.cabinetWidth3Feet ? "#0F2952" : "#e3dac9"
                                             text: "RPM: " + props.dfaFanRpmActual
                                             //color: "#0F2952"
                                         }//

@@ -401,12 +401,14 @@ private:
     QScopedPointer<PWMpca9685>      m_boardRelay1;
     /// PWM Output
     //    QScopedPointer<PWMpca9685>      m_boardPWMOut;
-    /// HAB - Analog Input (Inflow & Temperature)
+    /// Analog Input (Inflow & Temperature)
     QScopedPointer<AIManage>        m_boardAnalogInput1;
-    /// HAB - Analog Output
+    /// Analog Output
     QScopedPointer<AOmcp4725>       m_boardAnalogOutput1;//Light Intensity
-    /// HAB - Analog Output FAN Inflow
+    /// Analog Output FAN Inflow
     QScopedPointer<AOmcp4725>       m_boardAnalogOutput2;//Fan Inflow Duty Cycle
+    /// Analog Output FAN Downflow
+    QScopedPointer<AOmcp4725>       m_boardAnalogOutput4;//Fan Downflow Duty Cycle
     /// AI - Analog Input (Downflow)
     QScopedPointer<AIManage>        m_boardAnalogInput2;
 
@@ -422,7 +424,7 @@ private:
     QScopedPointer<DeviceDigitalOut>    m_pAlarmContact;
     ///
     //    QScopedPointer<DevicePWMOut>    m_pLightIntensity2;
-    //    QScopedPointer<DevicePWMOut>    m_pFanInflow2;
+    //    QScopedPointer<DevicePWMOut>    m_pFanInflow;
     ///
     QScopedPointer<Temperature>     m_pTemperature;
     QScopedPointer<AirflowVelocity> m_pAirflowInflow;
@@ -448,9 +450,10 @@ private:
     QScopedPointer<QThread>         m_threadForFanRbmDsi2;
     QScopedPointer<QTimer>          m_timerEventForFanRbmDsi2;
     ///
-    QScopedPointer<DeviceAnalogCom> m_pFanInflow;
+    QScopedPointer<DeviceAnalogCom> m_pFanInflowAO;
     QScopedPointer<BlowerRbmDsi>    m_pFanPrimary;
-    QScopedPointer<BlowerRbmDsi>    m_pFanInflow2;
+    QScopedPointer<DeviceAnalogCom> m_pFanPrimaryAO;
+    QScopedPointer<BlowerRbmDsi>    m_pFanInflow;
     QScopedPointer<BlowerRegalECM>  m_boardRegalECM;
     QScopedPointer<BlowerRegalECM>  m_boardRegalECM2;
     ///
