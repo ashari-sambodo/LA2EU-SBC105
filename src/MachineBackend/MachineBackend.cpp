@@ -415,12 +415,18 @@ void MachineBackend::setup()
                 m_boardAnalogInput1.reset(new AIManage);
                 m_boardAnalogInput1->setupAIModule();
                 m_boardAnalogInput1->setI2C(m_i2cPort.data());
-                m_boardAnalogInput1->setAddress(0x69);
+                if(pData->getCabinetWidth3Feet())
+                    m_boardAnalogInput1->setAddress(0x6d);
+                else
+                    m_boardAnalogInput1->setAddress(0x69);
 
                 bool response = m_boardAnalogInput1->init();
                 m_boardAnalogInput1->polling();
 
-                pData->setBoardStatusHybridAnalogInput(!response);
+                if(pData->getCabinetWidth3Feet())
+                    pData->setBoardStatusAnalogInput1(!response);
+                else
+                    pData->setBoardStatusHybridAnalogInput(!response);
 
                 //DEFINE_CHANNEL_FOR_TEMPERATURE
                 m_boardAnalogInput1->setChannelDoPoll(0, true);
@@ -516,7 +522,10 @@ void MachineBackend::setup()
                 bool response = m_boardAnalogOutput1->init();
                 m_boardAnalogOutput1->polling();
 
-                pData->setBoardStatusHybridAnalogOutput(!response);
+                if(pData->getCabinetWidth3Feet())
+                    pData->setBoardStatusAnalogOutput(!response);
+                else
+                    pData->setBoardStatusHybridAnalogOutput(!response);
 
                 /// catch error status of the board
                 QObject::connect(m_boardAnalogOutput1.data(), &AOmcp4725::errorComToleranceReached,
@@ -527,7 +536,7 @@ void MachineBackend::setup()
                     else
                         pData->setBoardStatusHybridAnalogOutput(false);
                 });
-                QObject::connect(m_boardAnalogOutput1.data(), &AIManage::errorComToleranceCleared,
+                QObject::connect(m_boardAnalogOutput1.data(), &AOmcp4725::errorComToleranceCleared,
                                  this, [&](int error){
                     qDebug() << "m_boardAnalogOutput1 Error changed" << error << thread();
                     if(pData->getCabinetWidth3Feet())
@@ -546,7 +555,10 @@ void MachineBackend::setup()
                 bool response = m_boardAnalogOutput2->init();
                 m_boardAnalogOutput2->polling();
 
-                pData->setBoardStatusHybridAnalogOutput(!response);
+                if(pData->getCabinetWidth3Feet())
+                    pData->setBoardStatusAnalogOutput(!response);
+                else
+                    pData->setBoardStatusHybridAnalogOutput(!response);
 
                 /// catch error status of the board
                 QObject::connect(m_boardAnalogOutput2.data(), &AOmcp4725::errorComToleranceReached,
@@ -557,7 +569,7 @@ void MachineBackend::setup()
                     else
                         pData->setBoardStatusHybridAnalogOutput(false);
                 });
-                QObject::connect(m_boardAnalogOutput2.data(), &AIManage::errorComToleranceCleared,
+                QObject::connect(m_boardAnalogOutput2.data(), &AOmcp4725::errorComToleranceCleared,
                                  this, [&](int error){
                     qDebug() << "m_boardAnalogOutput2 Error changed" << error << thread();
                     if(pData->getCabinetWidth3Feet())
@@ -575,18 +587,27 @@ void MachineBackend::setup()
                 bool response = m_boardAnalogOutput4->init();
                 m_boardAnalogOutput4->polling();
 
+                //                if(pData->getCabinetWidth3Feet())
                 pData->setBoardStatusAnalogOutput(!response);
+                //                else
+                //                    pData->setBoardStatusHybridAnalogOutput(!response);
 
                 /// catch error status of the board
                 QObject::connect(m_boardAnalogOutput4.data(), &AOmcp4725::errorComToleranceReached,
                                  this, [&](int error){
                     qDebug() << "m_boardAnalogOutput4 Error changed" << error << thread();
+                    //                    if(pData->getCabinetWidth3Feet())
                     pData->setBoardStatusAnalogOutput(false);
+                    //                    else
+                    //                        pData->setBoardStatusHybridAnalogOutput(false);
                 });
-                QObject::connect(m_boardAnalogOutput4.data(), &AIManage::errorComToleranceCleared,
+                QObject::connect(m_boardAnalogOutput4.data(), &AOmcp4725::errorComToleranceCleared,
                                  this, [&](int error){
                     qDebug() << "m_boardAnalogOutput4 Error changed" << error << thread();
+                    //                    if(pData->getCabinetWidth3Feet())
                     pData->setBoardStatusAnalogOutput(true);
+                    //                    else
+                    //                        pData->setBoardStatusHybridAnalogOutput(true);
                 });
             }//
 
@@ -667,6 +688,10 @@ void MachineBackend::setup()
             m_boardIO->addSlave(m_boardAnalogInput2.data());
             m_boardIO->addSlave(m_boardAnalogOutput1.data());
             m_boardIO->addSlave(m_boardAnalogOutput2.data());
+            if(pData->getCabinetWidth3Feet()){
+                qDebug() << "m_boardAnalogOutput4.data() added";
+                m_boardIO->addSlave(m_boardAnalogOutput4.data());
+            }
             if(pData->getSeasInstalled()){ m_boardIO->addSlave(m_boardSensirionSPD8xx.data());}
 
             m_boardIO->addSlave(m_boardCtpIO.data());
@@ -2575,6 +2600,7 @@ void MachineBackend::setup()
                             else m_pFanPrimary->routineTask();
                             if(pData->getDualRbmMode()) m_pFanInflow->routineTask();
                             else m_pFanInflowAO->routineTask();
+
                             if(pData->getCabinetWidth3Feet()){
                                 if(m_pFanPrimaryAO->getState() == dfaDutyCycle && !dfaUpdated){
                                     //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
@@ -2736,8 +2762,9 @@ void MachineBackend::loop()
     m_pSasWindowMotorize->routineTask();
     if(!pData->getDualRbmMode())
         m_pFanInflowAO->routineTask();
-    if(pData->getCabinetWidth3Feet())
+    if(pData->getCabinetWidth3Feet()){
         m_pFanPrimaryAO->routineTask();
+    }
     m_pLight->routineTask();
     m_pLightIntensity->routineTask();
     //m_pLightIntensity2->routineTask();
@@ -2835,17 +2862,18 @@ void MachineBackend::deallocate()
     }
 
     //    qDebug() << metaObject()->className() << __FUNCTION__ << "phase-3";
-
-    if(m_threadForFanRbmDsi){
-        m_threadForFanRbmDsi->quit();
-        m_threadForFanRbmDsi->wait();
-    }
-    if(pData->getDualRbmMode()){
-        if(m_threadForFanRbmDsi2){
-            m_threadForFanRbmDsi2->quit();
-            m_threadForFanRbmDsi2->wait();
+    if(!pData->getCabinetWidth3Feet()){
+        if(m_threadForFanRbmDsi){
+            m_threadForFanRbmDsi->quit();
+            m_threadForFanRbmDsi->wait();
         }
-    }
+        if(pData->getDualRbmMode()){
+            if(m_threadForFanRbmDsi2){
+                m_threadForFanRbmDsi2->quit();
+                m_threadForFanRbmDsi2->wait();
+            }
+        }
+    }//
 
     //    qDebug() << metaObject()->className() << __FUNCTION__ << "phase-4";
 
@@ -4419,9 +4447,8 @@ void MachineBackend::setFanPrimaryDutyCycle(short value)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << value;
 
-    if(value < 0) return;
-    if(value > 100) return;
-
+    //    if(value < 0) return;
+    //    if(value > 100) return;
 
     _setFanPrimaryDutyCycle(value);
 }
@@ -4847,8 +4874,8 @@ void MachineBackend::setPostPurgeTimeSave(short seconds)
 
 void MachineBackend::setExhaustContactState(short exhaustContactState)
 {
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    qDebug() << exhaustContactState;
+    //    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    //    qDebug() << exhaustContactState;
 
     m_pExhaustContact->setState(exhaustContactState);
     //    pData->setExhaustContactState(exhaustContactState);
@@ -4856,8 +4883,8 @@ void MachineBackend::setExhaustContactState(short exhaustContactState)
 
 void MachineBackend::setAlarmContactState(short alarmContactState)
 {
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    qDebug() << alarmContactState;
+    //    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    //    qDebug() << alarmContactState;
 
     m_pAlarmContact->setState(alarmContactState);
     //    pData->setAlarmContactState(alarmContactState);
@@ -5283,12 +5310,13 @@ void MachineBackend::setDownflowAdcPointFactory(int point, int value)
 void MachineBackend::_setFanPrimaryDutyCycle(short dutyCycle)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    qDebug() << "Set fan duty" << dutyCycle << "%";
     /// talk to another thread
     /// append pending task to target object and target thread
     if(pData->getCabinetWidth3Feet()){
+        qDebug() << "-> Set fan duty" << dutyCycle << "%";
         QMetaObject::invokeMethod(m_pFanPrimaryAO.data(),[&, dutyCycle]{
             m_pFanPrimaryAO->setState(dutyCycle);
+            m_pFanPrimaryAO->routineTask();
         },
         Qt::QueuedConnection);
     }else{
@@ -5320,11 +5348,11 @@ void MachineBackend::_setFanPrimaryInterlocked(bool interlocked)
 void MachineBackend::_setFanInflowDutyCycle(short dutyCycle)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    qDebug() << "Set fan duty" << dutyCycle << "%";
     /// talk to another thread
     /// append pending task to target object and target thread
     if(!pData->getDualRbmMode())
     {
+        qDebug() << "-> Set fan duty" << dutyCycle << "%";
         QMetaObject::invokeMethod(m_pFanInflowAO.data(),[&, dutyCycle]{
             m_pFanInflowAO->setState(dutyCycle);
             m_pFanInflowAO->routineTask();
@@ -5332,6 +5360,7 @@ void MachineBackend::_setFanInflowDutyCycle(short dutyCycle)
         Qt::QueuedConnection);
     }
     else{
+        qDebug() << "Set fan duty" << dutyCycle << "%";
         QMetaObject::invokeMethod(m_pFanInflow.data(),[&, dutyCycle]{
             m_pFanInflow->setDutyCycle(dutyCycle);
         },
@@ -5348,7 +5377,6 @@ void MachineBackend::_setFanInflowInterlocked(bool interlocked)
             m_pFanInflowAO->setInterlock(interlocked);
         },
         Qt::QueuedConnection);
-        pData->setFanInflowInterlocked(interlocked);
     }
     else {
         QMetaObject::invokeMethod(m_pFanInflow.data(),[&, interlocked]{
@@ -8436,10 +8464,10 @@ void MachineBackend::_machineState()
     }else{
         alarmsBoards |= !pData->getBoardStatusHybridAnalogInput();
         alarmsBoards |= !pData->getBoardStatusHybridAnalogOutput();
+        alarmsBoards |= !pData->getBoardStatusRbmCom();
+        if(pData->getDualRbmMode())
+            alarmsBoards |= !pData->getBoardStatusRbmCom2();
     }
-    alarmsBoards |= !pData->getBoardStatusRbmCom();
-    if(pData->getDualRbmMode())
-        alarmsBoards |= !pData->getBoardStatusRbmCom2();
     alarmsBoards |= !pData->getBoardStatusCtpRtc();
     alarmsBoards |= !pData->getBoardStatusCtpIoe();
     if(pData->getSeasInstalled())
