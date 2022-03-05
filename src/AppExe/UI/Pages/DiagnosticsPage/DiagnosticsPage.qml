@@ -1237,7 +1237,7 @@ ViewApp {
                             }//
                             CusComPage.RowItemApp {
                                 id: moduleAnalogOuput
-                                enabled: MachineData.cabinetWidth3Feet
+                                enabled: MachineData.cabinetWidth3Feet && !MachineData.usePwmOutSignal
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY
@@ -1259,7 +1259,7 @@ ViewApp {
 
                             CusComPage.RowItemApp {
                                 id: modulePwmOutput
-                                visible: false
+                                enabled: MachineData.usePwmOutSignal
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY

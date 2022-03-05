@@ -400,7 +400,7 @@ private:
     /// Digital Swith / PWM
     QScopedPointer<PWMpca9685>      m_boardRelay1;
     /// PWM Output
-    //    QScopedPointer<PWMpca9685>      m_boardPWMOut;
+    QScopedPointer<PWMpca9685>      m_boardPWMOut;
     /// Analog Input (Inflow & Temperature)
     QScopedPointer<AIManage>        m_boardAnalogInput1;
     /// Analog Output
@@ -415,6 +415,7 @@ private:
     /// Implementation
     QScopedPointer<SashWindow>          m_pSashWindow;
     QScopedPointer<DeviceAnalogCom>     m_pLightIntensity;
+    QScopedPointer<DevicePWMOut>     m_pLightIntensityPWM;
     QScopedPointer<DeviceDigitalOut>    m_pLight;
     QScopedPointer<DeviceDigitalOut>    m_pSocket;
     QScopedPointer<DeviceDigitalOut>    m_pGas;
@@ -451,8 +452,10 @@ private:
     QScopedPointer<QTimer>          m_timerEventForFanRbmDsi2;
     ///
     QScopedPointer<DeviceAnalogCom> m_pFanInflowAO;
+    QScopedPointer<DevicePWMOut> m_pFanInflowPWM;
     QScopedPointer<BlowerRbmDsi>    m_pFanPrimary;
     QScopedPointer<DeviceAnalogCom> m_pFanPrimaryAO;
+    QScopedPointer<DevicePWMOut> m_pFanPrimaryPWM;
     QScopedPointer<BlowerRbmDsi>    m_pFanInflow;
     QScopedPointer<BlowerRegalECM>  m_boardRegalECM;
     QScopedPointer<BlowerRegalECM>  m_boardRegalECM2;

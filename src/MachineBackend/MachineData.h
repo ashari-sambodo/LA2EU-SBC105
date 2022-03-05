@@ -1002,10 +1002,7 @@ class MachineData : public QObject
     Q_PROPERTY(bool downflowValueHeld READ getDownflowValueHeld NOTIFY downflowValueHeldChanged)
 
     Q_PROPERTY(bool cabinetWidth3Feet READ getCabinetWidth3Feet NOTIFY cabinetWidth3FeetChanged)
-    //    Q_PROPERTY(bool wifiDisabled
-    //               READ getWifiDisabled
-    //               //               WRITE setRbmComPortIfa
-    //               NOTIFY wifiDisabledChanged)
+    Q_PROPERTY(bool usePwmOutSignal READ getUsePwmOutSignal NOTIFY usePwmOutSignalChanged)
 
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
@@ -1820,6 +1817,9 @@ public:
     bool getCabinetWidth3Feet()const;
     void setCabinetWidth3Feet(bool value);
 
+    void setUsePwmOutSignal(bool value);
+    bool getUsePwmOutSignal()const;
+
 public slots:
     void initSingleton();
 
@@ -2129,6 +2129,7 @@ signals:
     void inflowValueHeldChanged(bool value);
     void downflowValueHeldChanged(bool value);
     void cabinetWidth3FeetChanged(bool value);
+    void usePwmOutSignalChanged(bool value);
 private:
     ///
     short m_machineState;
@@ -2510,6 +2511,7 @@ private:
     bool m_downflowValueHeld = false;
 
     bool m_cabinetWidth3Feet = false;
+    bool m_usePwmOutSignal = false;
 };
 
 

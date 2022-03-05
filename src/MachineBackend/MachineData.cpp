@@ -405,6 +405,18 @@ void MachineData::setCabinetWidth3Feet(bool value)
     emit cabinetWidth3FeetChanged(value);
 }
 
+void MachineData::setUsePwmOutSignal(bool value)
+{
+    if(m_usePwmOutSignal == value)return;
+    m_usePwmOutSignal = value;
+    emit usePwmOutSignalChanged(value);
+}
+
+bool MachineData::getUsePwmOutSignal() const
+{
+    return m_usePwmOutSignal;
+}
+
 //void MachineData::setWifiDisabled(bool value)
 //{
 //    if(m_wifiDisabled == value)return;
