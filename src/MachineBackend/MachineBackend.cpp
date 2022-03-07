@@ -392,18 +392,18 @@ void MachineBackend::setup()
                 m_boardAnalogInput1.reset(new AIManage);
                 m_boardAnalogInput1->setupAIModule();
                 m_boardAnalogInput1->setI2C(m_i2cPort.data());
-                if(pData->getCabinetWidth3Feet())
-                    m_boardAnalogInput1->setAddress(0x6d);
-                else
-                    m_boardAnalogInput1->setAddress(0x69);
+                //                if(pData->getCabinetWidth3Feet())
+                //                    m_boardAnalogInput1->setAddress(0x6d);
+                //                else
+                m_boardAnalogInput1->setAddress(0x69);
 
                 bool response = m_boardAnalogInput1->init();
                 m_boardAnalogInput1->polling();
 
-                if(pData->getCabinetWidth3Feet())
-                    pData->setBoardStatusAnalogInput1(!response);
-                else
-                    pData->setBoardStatusHybridAnalogInput(!response);
+                //                if(pData->getCabinetWidth3Feet())
+                //                    pData->setBoardStatusAnalogInput1(!response);
+                //                else
+                pData->setBoardStatusHybridAnalogInput(!response);
 
                 //DEFINE_CHANNEL_FOR_TEMPERATURE
                 m_boardAnalogInput1->setChannelDoPoll(0, true);
@@ -419,20 +419,20 @@ void MachineBackend::setup()
                 QObject::connect(m_boardAnalogInput1.data(), &AIManage::errorComToleranceReached,
                                  this, [&](int error){
                     qDebug() << "AIManage::errorComToleranceReached" << error << thread();
-                    if(pData->getCabinetWidth3Feet())
-                        pData->setBoardStatusAnalogInput1(false);
-                    else
-                        pData->setBoardStatusHybridAnalogInput(false);
+                    //                    if(pData->getCabinetWidth3Feet())
+                    //                        pData->setBoardStatusAnalogInput1(false);
+                    //                    else
+                    pData->setBoardStatusHybridAnalogInput(false);
                 });
                 QObject::connect(m_boardAnalogInput1.data(), &AIManage::errorComToleranceCleared,
                                  this, [&](int error){
                     qDebug() << "AIManage::errorComToleranceCleared" << error << thread();
-                    if(pData->getCabinetWidth3Feet())
-                        pData->setBoardStatusAnalogInput1(true);
-                    else
-                        pData->setBoardStatusHybridAnalogInput(true);
+                    //                    if(pData->getCabinetWidth3Feet())
+                    //                        pData->setBoardStatusAnalogInput1(true);
+                    //                    else
+                    pData->setBoardStatusHybridAnalogInput(true);
                 });
-            }
+            }//
 
             /// AIB - Analog Input For Airflow Downflow
             {
@@ -489,11 +489,42 @@ void MachineBackend::setup()
                     }//
                 });//
             }//
+            /// Analog Output Board - LIGHT INTENSITY
+            {
+                m_boardAnalogOutput1.reset(new AOmcp4725);
+                m_boardAnalogOutput1->setI2C(m_i2cPort.data());
+                m_boardAnalogOutput1->setAddress(0x60);
 
+                bool response = m_boardAnalogOutput1->init();
+                m_boardAnalogOutput1->polling();
+
+                //                if(pData->getCabinetWidth3Feet())
+                //                    pData->setBoardStatusAnalogOutput(!response);
+                //                else
+                pData->setBoardStatusHybridAnalogOutput(!response);
+
+                /// catch error status of the board
+                QObject::connect(m_boardAnalogOutput1.data(), &AOmcp4725::errorComToleranceReached,
+                                 this, [&](int error){
+                    qDebug() << "m_boardAnalogOutput1 Error changed" << error << thread();
+                    //                    if(pData->getCabinetWidth3Feet())
+                    //                        pData->setBoardStatusAnalogOutput(false);
+                    //                    else
+                    pData->setBoardStatusHybridAnalogOutput(false);
+                });
+                QObject::connect(m_boardAnalogOutput1.data(), &AOmcp4725::errorComToleranceCleared,
+                                 this, [&](int error){
+                    qDebug() << "m_boardAnalogOutput1 Error changed" << error << thread();
+                    //                    if(pData->getCabinetWidth3Feet())
+                    //                        pData->setBoardStatusAnalogOutput(true);
+                    //                    else
+                    pData->setBoardStatusHybridAnalogOutput(true);
+                });
+            }//
             if(pData->getCabinetWidth3Feet()){
                 /// If Cabinet 3 feet selected
-                /// Choose wheter to use PWM Outpu Board or Analog Output Board
-                /// for controlling the speed of fan and light intensity
+                /// Choose wheter to use PWM Output Board or Analog Output Board
+                /// for controlling the speed of Fan
                 /// default value of this parameter is false
                 pData->setUsePwmOutSignal(true);
             }
@@ -524,38 +555,6 @@ void MachineBackend::setup()
                 });
             }//
             else{
-                /// Analog Output Board - LIGHT INTENSITY
-                {
-                    m_boardAnalogOutput1.reset(new AOmcp4725);
-                    m_boardAnalogOutput1->setI2C(m_i2cPort.data());
-                    m_boardAnalogOutput1->setAddress(0x60);
-
-                    bool response = m_boardAnalogOutput1->init();
-                    m_boardAnalogOutput1->polling();
-
-                    if(pData->getCabinetWidth3Feet())
-                        pData->setBoardStatusAnalogOutput(!response);
-                    else
-                        pData->setBoardStatusHybridAnalogOutput(!response);
-
-                    /// catch error status of the board
-                    QObject::connect(m_boardAnalogOutput1.data(), &AOmcp4725::errorComToleranceReached,
-                                     this, [&](int error){
-                        qDebug() << "m_boardAnalogOutput1 Error changed" << error << thread();
-                        if(pData->getCabinetWidth3Feet())
-                            pData->setBoardStatusAnalogOutput(false);
-                        else
-                            pData->setBoardStatusHybridAnalogOutput(false);
-                    });
-                    QObject::connect(m_boardAnalogOutput1.data(), &AOmcp4725::errorComToleranceCleared,
-                                     this, [&](int error){
-                        qDebug() << "m_boardAnalogOutput1 Error changed" << error << thread();
-                        if(pData->getCabinetWidth3Feet())
-                            pData->setBoardStatusAnalogOutput(true);
-                        else
-                            pData->setBoardStatusHybridAnalogOutput(true);
-                    });
-                }//
                 /// Analog Output Board - INFLOW FAN
                 {
                     m_boardAnalogOutput2.reset(new AOmcp4725);
@@ -697,22 +696,22 @@ void MachineBackend::setup()
             /// m_boardIO->addSlave(m_boardPWMOut.data());
             m_boardIO->addSlave(m_boardAnalogInput1.data());
             m_boardIO->addSlave(m_boardAnalogInput2.data());
+            m_boardIO->addSlave(m_boardAnalogOutput1.data());///Light Intensity
             if(pData->getUsePwmOutSignal()){
-                m_boardIO->addSlave(m_boardAnalogOutput1.data());
-                m_boardIO->addSlave(m_boardAnalogOutput2.data());
-                if(pData->getCabinetWidth3Feet()){
-                    qDebug() << "m_boardAnalogOutput4.data() added";
-                    m_boardIO->addSlave(m_boardAnalogOutput4.data());
-                }
-            }else{
                 if(pData->getCabinetWidth3Feet())
                     m_boardIO->addSlave(m_boardPWMOut.data());
+            }
+            else{
+                m_boardIO->addSlave(m_boardAnalogOutput2.data());
+                if(pData->getCabinetWidth3Feet()){
+                    m_boardIO->addSlave(m_boardAnalogOutput4.data());
+                }
             }
             if(pData->getSeasInstalled()){ m_boardIO->addSlave(m_boardSensirionSPD8xx.data());}
 
             m_boardIO->addSlave(m_boardCtpIO.data());
             m_boardIO->addSlave(m_boardCtpRTC.data());
-        }
+        }///
         /// setup thread and timer interupt for board IO
         {
             /// create timer for triggering the loop (routine task) and execute any pending request
@@ -861,7 +860,7 @@ void MachineBackend::setup()
         if(pData->getUsePwmOutSignal()){
             m_pFanPrimaryPWM.reset(new DevicePWMOut);
             m_pFanPrimaryPWM->setSubModule(m_boardPWMOut.data());
-            m_pFanPrimaryPWM->setChannelIO(2);
+            m_pFanPrimaryPWM->setChannelIO(0);
             m_pFanPrimaryPWM->setDutyCycleMinimum(0);
 
             connect(m_pFanPrimaryPWM.data(), &DevicePWMOut::stateChanged,
@@ -1240,61 +1239,61 @@ void MachineBackend::setup()
         });
     }//
 
-    /// Light Intensity
-    if(pData->getUsePwmOutSignal())
-    {
-        /// Light Intensity - PWM OUTPUT
-        int min = m_settings->value(SKEY_LIGHT_INTENSITY_MIN, 30).toInt(); //percent
-        int light = static_cast<short>(m_settings->value(SKEY_LIGHT_INTENSITY, 100).toInt());
+    //    /// Light Intensity
+    //    if(pData->getUsePwmOutSignal())
+    //    {
+    //        /// Light Intensity - PWM OUTPUT
+    //        int min = m_settings->value(SKEY_LIGHT_INTENSITY_MIN, 30).toInt(); //percent
+    //        int light = static_cast<short>(m_settings->value(SKEY_LIGHT_INTENSITY, 100).toInt());
 
-        m_pLightIntensityPWM.reset(new DevicePWMOut);
-        m_pLightIntensityPWM->setSubModule(m_boardPWMOut.data());
-        m_pLightIntensityPWM->setChannelIO(0);
-        m_pLightIntensityPWM->setDutyCycleMinimum(static_cast<short>(min));
-        m_pLightIntensityPWM->setState(light);
+    //        m_pLightIntensityPWM.reset(new DevicePWMOut);
+    //        m_pLightIntensityPWM->setSubModule(m_boardPWMOut.data());
+    //        m_pLightIntensityPWM->setChannelIO(0);
+    //        m_pLightIntensityPWM->setDutyCycleMinimum(static_cast<short>(min));
+    //        m_pLightIntensityPWM->setState(light);
 
-        connect(m_pLightIntensityPWM.data(), &DevicePWMOut::stateChanged,
-                this, [&](int newVal){
-            pData->setLightIntensity(static_cast<short>(newVal));
-            /// MODBUS
-            _setModbusRegHoldingValue(modbusRegisterAddress.lightIntensity.addr, static_cast<ushort>(newVal));
-        });
-    }//
-    else
-    {
-        m_pLightIntensity.reset(new DeviceAnalogCom);
-        m_pLightIntensity->setSubBoard(m_boardAnalogOutput1.data());
+    //        connect(m_pLightIntensityPWM.data(), &DevicePWMOut::stateChanged,
+    //                this, [&](int newVal){
+    //            pData->setLightIntensity(static_cast<short>(newVal));
+    //            /// MODBUS
+    //            _setModbusRegHoldingValue(modbusRegisterAddress.lightIntensity.addr, static_cast<ushort>(newVal));
+    //        });
+    //    }//
+    //    else
+    //    {
+    m_pLightIntensity.reset(new DeviceAnalogCom);
+    m_pLightIntensity->setSubBoard(m_boardAnalogOutput1.data());
 
-        int min = m_settings->value(SKEY_LIGHT_INTENSITY_MIN, 30).toInt(); //percent
+    int min = m_settings->value(SKEY_LIGHT_INTENSITY_MIN, 30).toInt(); //percent
 
-        int adcMin;
-        m_boardAnalogOutput1->voltToInputcode((min / 10) * 1000 /*to miliVolt*/, &adcMin);
+    int adcMin;
+    m_boardAnalogOutput1->voltToInputcode((min / 10) * 1000 /*to miliVolt*/, &adcMin);
 
-        //        qDebug() << "adcMin" << adcMin;
+    //        qDebug() << "adcMin" << adcMin;
 
-        m_pLightIntensity->setAdcMin(adcMin);
-        m_pLightIntensity->setStateMin(min);
+    m_pLightIntensity->setAdcMin(adcMin);
+    m_pLightIntensity->setStateMin(min);
 
-        short light = static_cast<short>(m_settings->value(SKEY_LIGHT_INTENSITY, 100).toInt());
+    short light = static_cast<short>(m_settings->value(SKEY_LIGHT_INTENSITY, 100).toInt());
 
-        /// CAUSED BLINKING - NO IMPLEMENTED
-        /// bacasue boardIo poilling not started yet, so we manually call
-        /// the board instead m_lightIntensity object
-        /// this i2c communication will used direct mode
-        //        int inputCode = m_lightIntensity->stateToAdc(light);
-        //        qDebug() << "m_lightIntensity" << inputCode;
-        //        m_boardAnalogOutput1->setDAC(inputCode);
+    /// CAUSED BLINKING - NO IMPLEMENTED
+    /// bacasue boardIo poilling not started yet, so we manually call
+    /// the board instead m_lightIntensity object
+    /// this i2c communication will used direct mode
+    //        int inputCode = m_lightIntensity->stateToAdc(light);
+    //        qDebug() << "m_lightIntensity" << inputCode;
+    //        m_boardAnalogOutput1->setDAC(inputCode);
 
-        m_pLightIntensity->setState(light);
+    m_pLightIntensity->setState(light);
 
-        connect(m_pLightIntensity.data(), &DeviceAnalogCom::stateChanged,
-                pData, [&](int newVal){
-            pData->setLightIntensity(static_cast<short>(newVal));
+    connect(m_pLightIntensity.data(), &DeviceAnalogCom::stateChanged,
+            pData, [&](int newVal){
+        pData->setLightIntensity(static_cast<short>(newVal));
 
-            /// MODBUS
-            _setModbusRegHoldingValue(modbusRegisterAddress.lightIntensity.addr, static_cast<ushort>(newVal));
-        });
-    }//
+        /// MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.lightIntensity.addr, static_cast<ushort>(newVal));
+    });
+    //    }//
 
     /// Light
     {
@@ -2808,20 +2807,22 @@ void MachineBackend::loop()
     /// ACTUATOR
     /// put any actuator routine task in here
     m_pSasWindowMotorize->routineTask();
+
+    m_pLightIntensity->routineTask();
+
     if(pData->getUsePwmOutSignal()){
         if(!pData->getDualRbmMode())
             m_pFanInflowPWM->routineTask();
         if(pData->getCabinetWidth3Feet()){
             m_pFanPrimaryPWM->routineTask();
         }
-        m_pLightIntensityPWM->routineTask();
+        //        m_pLightIntensityPWM->routineTask();
     }else{
         if(!pData->getDualRbmMode())
             m_pFanInflowAO->routineTask();
         if(pData->getCabinetWidth3Feet()){
             m_pFanPrimaryAO->routineTask();
         }
-        m_pLightIntensity->routineTask();
     }
 
     m_pLight->routineTask();
@@ -4825,11 +4826,11 @@ void MachineBackend::setLightIntensity(short lightIntensity)
 
     if(lightIntensity < 30) return;
     if(lightIntensity > 100) return;
-    if(pData->getUsePwmOutSignal()){
-        m_pLightIntensity->setState(lightIntensity);
-    }else{
-        m_pLightIntensityPWM->setState(lightIntensity);
-    }
+    //    if(pData->getUsePwmOutSignal()){
+    //        m_pLightIntensityPWM->setState(lightIntensity);
+    //    }else{
+    m_pLightIntensity->setState(lightIntensity);
+    //    }
 }//
 
 void MachineBackend::saveLightIntensity(short lightIntensity)
@@ -8565,19 +8566,19 @@ void MachineBackend::_machineState()
     bool alarmsBoards = false;
     alarmsBoards |= !pData->getBoardStatusHybridDigitalInput();
     alarmsBoards |= !pData->getBoardStatusHybridDigitalRelay();
+    alarmsBoards |= !pData->getBoardStatusHybridAnalogInput();
+    alarmsBoards |= !pData->getBoardStatusHybridAnalogOutput();
     if(pData->getCabinetWidth3Feet()){
-        alarmsBoards |= !pData->getBoardStatusAnalogInput1();
+        //        alarmsBoards |= !pData->getBoardStatusAnalogInput1();
         if(pData->getUsePwmOutSignal())
             alarmsBoards |= !pData->getBoardStatusPWMOutput();
         else
             alarmsBoards |= !pData->getBoardStatusAnalogOutput();
     }else{
-        alarmsBoards |= !pData->getBoardStatusHybridAnalogInput();
-        alarmsBoards |= !pData->getBoardStatusHybridAnalogOutput();
         alarmsBoards |= !pData->getBoardStatusRbmCom();
         if(pData->getDualRbmMode())
             alarmsBoards |= !pData->getBoardStatusRbmCom2();
-    }
+    }//
     alarmsBoards |= !pData->getBoardStatusCtpRtc();
     alarmsBoards |= !pData->getBoardStatusCtpIoe();
     if(pData->getSeasInstalled())
@@ -10059,24 +10060,24 @@ void MachineBackend::onDummyStateNewConnection()
         }
 
         if(message == QLatin1String("#lampdim#dummy#1")){
-            if(pData->getUsePwmOutSignal())
-                m_pLightIntensityPWM->setDummyStateEnable(1);
-            else
-                m_pLightIntensity->setDummyStateEnable(1);
+            //            if(pData->getUsePwmOutSignal())
+            //                m_pLightIntensityPWM->setDummyStateEnable(1);
+            //            else
+            m_pLightIntensity->setDummyStateEnable(1);
         }
         else if(message == QLatin1String("#lampdim#dummy#0")){
-            if(pData->getUsePwmOutSignal())
-                m_pLightIntensityPWM->setDummyStateEnable(0);
-            else
-                m_pLightIntensity->setDummyStateEnable(0);
+            //            if(pData->getUsePwmOutSignal())
+            //                m_pLightIntensityPWM->setDummyStateEnable(0);
+            //            else
+            m_pLightIntensity->setDummyStateEnable(0);
         }
         else if(message.contains("#lampdim#state#")){
             QString state = message.split("#", Qt::SkipEmptyParts)[2];
             int dim = std::atoi(state.toStdString().c_str());
-            if(pData->getUsePwmOutSignal())
-                m_pLightIntensityPWM->setDummyState(static_cast<short>(dim));
-            else
-                m_pLightIntensity->setDummyState(static_cast<short>(dim));
+            //            if(pData->getUsePwmOutSignal())
+            //                m_pLightIntensityPWM->setDummyState(static_cast<short>(dim));
+            //            else
+            m_pLightIntensity->setDummyState(static_cast<short>(dim));
         }
 
         if(message == QLatin1String("#uv#dummy#1")){

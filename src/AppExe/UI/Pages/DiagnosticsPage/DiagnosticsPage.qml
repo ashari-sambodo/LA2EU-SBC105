@@ -1152,7 +1152,7 @@ ViewApp {
 
                             CusComPage.RowItemApp {
                                 id: moduleHabInput
-                                enabled: !MachineData.cabinetWidth3Feet
+                                //enabled: !MachineData.cabinetWidth3Feet
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY
@@ -1174,7 +1174,7 @@ ViewApp {
 
                             CusComPage.RowItemApp {
                                 id: moduleHabOutputLight
-                                enabled: !MachineData.cabinetWidth3Feet
+                                //enabled: !MachineData.cabinetWidth3Feet
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY
@@ -1201,7 +1201,7 @@ ViewApp {
                                 viewContentY: view.contentY
                                 viewSpan: view.span
 
-                                label: qsTr("Module - Analog Input 1")
+                                label: qsTr("Module - Analog Input")
                                 value: connected ? qsTr("OK") : qsTr("Fail")
 
                                 property bool connected: false
@@ -1216,7 +1216,7 @@ ViewApp {
                             }//
                             CusComPage.RowItemApp {
                                 id: moduleAnalogInput1
-                                enabled: MachineData.cabinetWidth3Feet
+                                enabled: false
                                 width: view.width
                                 height: 50
                                 viewContentY: view.contentY

@@ -415,7 +415,7 @@ private:
     /// Implementation
     QScopedPointer<SashWindow>          m_pSashWindow;
     QScopedPointer<DeviceAnalogCom>     m_pLightIntensity;
-    QScopedPointer<DevicePWMOut>     m_pLightIntensityPWM;
+    //    QScopedPointer<DevicePWMOut>     m_pLightIntensityPWM;
     QScopedPointer<DeviceDigitalOut>    m_pLight;
     QScopedPointer<DeviceDigitalOut>    m_pSocket;
     QScopedPointer<DeviceDigitalOut>    m_pGas;
