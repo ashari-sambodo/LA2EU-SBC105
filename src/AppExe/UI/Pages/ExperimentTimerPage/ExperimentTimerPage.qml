@@ -310,7 +310,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: 70
+                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
 
                 Rectangle {
                     anchors.fill: parent

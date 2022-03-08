@@ -1,9 +1,10 @@
 import QtQuick 2.12
+import ModulesCpp.Machine 1.0
 
 Item {
     id: control
     implicitWidth: 200
-    implicitHeight: 60
+    implicitHeight: MachineAPI.FOOTER_HEIGHT-10
     //    radius: 5
     //    border.color: "#dddddd"
     //    color: controlMouseArea.pressed ?  "#55ffffff" : "transparent"
@@ -24,15 +25,15 @@ Item {
         Image {
             id: controlImage
             source: "ButtonBarApp/button-icon.png"
-            width: 60
-            height: 60
+            width: MachineAPI.FOOTER_HEIGHT-10
+            height: MachineAPI.FOOTER_HEIGHT-10
         }
 
         Text {
             id: controlText
             //            width: 140
             width: control.width * 0.70 - 5
-            height: 60
+            height: MachineAPI.FOOTER_HEIGHT-10
             padding: 2
             text: qsTr("text")
             verticalAlignment: Text.AlignVCenter

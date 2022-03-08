@@ -130,7 +130,9 @@ enum GeneralPurposeEnums{
     BUSY_CYCLE_3,
     BUSY_CYCLE_4,
     BUSY_CYCLE_5,
-    BUSY_CYCLE_10 = 10
+    BUSY_CYCLE_10 = 10,
+
+    FOOTER_HEIGHT = 70
 };
 Q_ENUMS(GeneralPurposeEnums)
 

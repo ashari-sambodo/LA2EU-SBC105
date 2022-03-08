@@ -791,7 +791,7 @@ The Fan will start at nominal fan duty cycle, and it will be adjusted by loop co
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: 70
+                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
 
                 Rectangle {
                     anchors.fill: parent
@@ -805,10 +805,10 @@ The Fan will start at nominal fan duty cycle, and it will be adjusted by loop co
                         anchors.margins: 5
                         Row{
                             spacing: 5
+                            anchors.verticalCenter: parent.verticalCenter
                             ButtonBarApp {
                                 id: back
                                 width: 194
-                                anchors.verticalCenter: parent.verticalCenter
 
                                 imageSource: "qrc:/UI/Pictures/back-step.png"
                                 text: qsTr("Back")
@@ -822,7 +822,6 @@ The Fan will start at nominal fan duty cycle, and it will be adjusted by loop co
                                 id: responseBtn
                                 width: 194
                                 visible: false
-                                anchors.verticalCenter: parent.verticalCenter
                                 imageSource: "qrc:/UI/Pictures/pid/response.png"
                                 text: qsTr("Loop Response")
 

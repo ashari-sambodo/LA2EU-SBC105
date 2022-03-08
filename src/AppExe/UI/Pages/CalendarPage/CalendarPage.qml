@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 
 import UI.CusCom 1.1
+import ModulesCpp.Machine 1.0
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 ViewApp {
@@ -62,7 +63,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: 70
+                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
 
                 Rectangle {
                     anchors.fill: parent
