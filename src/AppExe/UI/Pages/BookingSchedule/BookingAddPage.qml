@@ -4,7 +4,7 @@ import QtQuick.Controls 2.0
 
 import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
-
+import ModulesCpp.Machine 1.0
 import BookingScheduleQmlApp 1.0
 
 ViewApp {
