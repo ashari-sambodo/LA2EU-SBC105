@@ -70,33 +70,43 @@ struct modbusRegisterAddress
     struct ifaFanDutyCycle   {static const short addr = 7;   short rw = 0; uint16_t value;} ifaFanDutyCycle;
     struct ifaFanRpm         {static const short addr = 8;   short rw = 0; uint16_t value;} ifaFanRpm;
     struct fanClosedLoopControl{static const short addr = 9;  short rw = 0; uint16_t value;} fanClosedLoopControl;
-    struct lightState        {static const short addr = 10;   short rw = 0; uint16_t value;} lightState;
-    struct lightIntensity    {static const short addr = 11;  short rw = 0; uint16_t value;} lightIntensity;
-    struct socketState       {static const short addr = 12;  short rw = 0; uint16_t value;} socketState;
-    struct gasState          {static const short addr = 13;  short rw = 0; uint16_t value;} gasState;
-    struct uvState           {static const short addr = 14;  short rw = 0; uint16_t value;} uvState;
-    struct sashMotorizeState {static const short addr = 15;  short rw = 0; uint16_t value;} sashMotorizeState;
-    struct sashCycle         {static const short addr = 16;  short rw = 0; uint16_t value;} sashCycle;
-    struct meaUnit           {static const short addr = 17;  short rw = 0; uint16_t value;} meaUnit;
-    struct temperature       {static const short addr = 18;  short rw = 0; uint16_t value;} temperature;
-    struct airflowInflow     {static const short addr = 19;  short rw = 0; uint16_t value;} airflowInflow;
-    struct airflowDownflow   {static const short addr = 20;  short rw = 0; uint16_t value;} airflowDownflow;
-    struct pressureExhaust   {static const short addr = 21;  short rw = 0; uint16_t value;} pressureExhaust;
-    struct alarmSash         {static const short addr = 22;  short rw = 0; uint16_t value;} alarmSash;
-    struct alarmInflow       {static const short addr = 23;  short rw = 0; uint16_t value;} alarmInflow;
-    struct alarmDownflow     {static const short addr = 24;  short rw = 0; uint16_t value;} alarmDownflow;
-    struct alarmExhaust      {static const short addr = 25;  short rw = 0; uint16_t value;} alarmExhaust;
-    struct alarmCom          {static const short addr = 26;  short rw = 0; uint16_t value;} alarmCom;
-    struct alarmFlapExhaust  {static const short addr = 27;  short rw = 0; uint16_t value;} alarmFlapExhaust;
-    struct filterLife        {static const short addr = 28;  short rw = 0; uint16_t value;} filterLife;
-    struct uvLifeLeft        {static const short addr = 29;  short rw = 0; uint16_t value;} uvLifeLeft;
-    struct dfaFanUsage       {static const short addr = 30;  short rw = 0; uint16_t value;} dfaFanUsage;
-    struct ifaFanUsage       {static const short addr = 31;  short rw = 0; uint16_t value;} ifaFanUsage;
-    struct alarmPanel        {static const short addr = 32;  short rw = 0; uint16_t value;} alarmPanel;
+    struct dfaFanUsage       {static const short addr = 10;  short rw = 0; uint16_t value;} dfaFanUsage;
+    struct ifaFanUsage       {static const short addr = 11;  short rw = 0; uint16_t value;} ifaFanUsage;
+
+    struct lightState        {static const short addr = 12;   short rw = 0; uint16_t value;} lightState;
+    struct lightIntensity    {static const short addr = 13;  short rw = 0; uint16_t value;} lightIntensity;
+    struct socketState       {static const short addr = 14;  short rw = 0; uint16_t value;} socketState;
+    struct gasState          {static const short addr = 15;  short rw = 0; uint16_t value;} gasState;
+    struct uvState           {static const short addr = 16;  short rw = 0; uint16_t value;} uvState;
+    struct uvLifeLeft        {static const short addr = 17;  short rw = 0; uint16_t value;} uvLifeLeft;
+    struct filterLife        {static const short addr = 18;  short rw = 0; uint16_t value;} filterLife;
+
+    struct sashMotorizeState {static const short addr = 19;  short rw = 0; uint16_t value;} sashMotorizeState;
+    struct sashCycle         {static const short addr = 20;  short rw = 0; uint16_t value;} sashCycle;
+    struct meaUnit           {static const short addr = 21;  short rw = 0; uint16_t value;} meaUnit;
+    struct temperature       {static const short addr = 22;  short rw = 0; uint16_t value;} temperature;
+    struct airflowInflow     {static const short addr = 23;  short rw = 0; uint16_t value;} airflowInflow;
+    struct airflowDownflow   {static const short addr = 24;  short rw = 0; uint16_t value;} airflowDownflow;
+    struct pressureExhaust   {static const short addr = 25;  short rw = 0; uint16_t value;} pressureExhaust;
+    struct alarmSash         {static const short addr = 26;  short rw = 0; uint16_t value;} alarmSash;
+    struct alarmInflowLow       {static const short addr = 27;  short rw = 0; uint16_t value;} alarmInflowLow;
+    struct alarmInflowHigh      {static const short addr = 28;  short rw = 0; uint16_t value;} alarmInflowHigh;
+    struct alarmDownflowLow     {static const short addr = 29;  short rw = 0; uint16_t value;} alarmDownflowLow;
+    struct alarmDownflowHigh    {static const short addr = 30;  short rw = 0; uint16_t value;} alarmDownflowHigh;
+    struct alarmExhaustLow      {static const short addr = 31;  short rw = 0; uint16_t value;} alarmExhaustLow;
+    struct alarmExhaustFlap     {static const short addr = 32;  short rw = 0; uint16_t value;} alarmExhaustFlap;
+    struct alarmBoardComErr     {static const short addr = 33;  short rw = 0; uint16_t value;} alarmBoardComErr;
+    struct alarmTempLow         {static const short addr = 34;  short rw = 0; uint16_t value;} alarmTempLow;
+    struct alarmTempHigh        {static const short addr = 35;  short rw = 0; uint16_t value;} alarmTempHigh;
+    struct alarmSashCycleMotorLock  {static const short addr = 36;  short rw = 0; uint16_t value;} alarmSashCycleMotorLock;
+    struct alarmStbFanOff       {static const short addr = 37;  short rw = 0; uint16_t value;} alarmStbFanOff;
+    struct alarmFrontPanel      {static const short addr = 38;  short rw = 0; uint16_t value;} alarmFrontPanel;
+    struct alarmSashDownStucked {static const short addr = 39;  short rw = 0; uint16_t value;} alarmSashDownStucked;
+
 } modbusRegisterAddress;
 
 
-#define MODBUS_REGISTER_COUNT   33
+#define MODBUS_REGISTER_COUNT   40
 #define ALLOW_ANY_IP            "0.0.0.0"
 #define LOCALHOST_ONLY          "127.0.0.1"
 
@@ -778,8 +788,8 @@ void MachineBackend::setup()
 
         enum {REG_RO, REG_RW};
         modbusRegisterAddress.fanState.rw       = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_FAN, REG_RO).toInt());
-        modbusRegisterAddress.ifaFanState.rw    = modbusRegisterAddress.fanState.rw;
-        modbusRegisterAddress.dfaFanState.rw    = modbusRegisterAddress.fanState.rw;
+        //modbusRegisterAddress.ifaFanState.rw    = modbusRegisterAddress.fanState.rw;
+        //modbusRegisterAddress.dfaFanState.rw    = modbusRegisterAddress.fanState.rw;
         modbusRegisterAddress.lightState.rw     = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_LAMP, REG_RO).toInt());
         modbusRegisterAddress.lightIntensity.rw = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_LAMP_DIMM, REG_RO).toInt());
         modbusRegisterAddress.socketState.rw    = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_SOCKET, REG_RO).toInt());
@@ -1561,7 +1571,7 @@ void MachineBackend::setup()
     }
 
     /// Cabinet Display Name
-    /// Also it's used as hotname in network
+    /// Also it's used as hostname in network
     {
         QString cabinetDisplayName = m_settings->value(SKEY_CAB_DISPLAY_NAME, "BSC-1").toString();
         QString nameNormalization = QString(cabinetDisplayName).replace("#~#", " ");
@@ -2700,7 +2710,7 @@ void MachineBackend::setup()
     QObject::connect(pData, &MachineData::frontPanelAlarmChanged,
                      this, [&](bool alarm){
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.alarmPanel.addr, alarm);
+        _setModbusRegHoldingValue(modbusRegisterAddress.alarmFrontPanel.addr, alarm);
     });
     QObject::connect(pData, &MachineData::sashMotorDownStuckSwitchChanged,
                      this, [&](bool alarm){
@@ -3852,8 +3862,8 @@ void MachineBackend::setModbusAllowSetFan(bool value)
     qDebug() << value;
 
     modbusRegisterAddress.fanState.rw = value;
-    modbusRegisterAddress.ifaFanState.rw = value;
-    modbusRegisterAddress.dfaFanState.rw = value;
+    //    modbusRegisterAddress.ifaFanState.rw = value;
+    //    modbusRegisterAddress.dfaFanState.rw = value;
     pData->setModbusAllowSetFan(value);
     QSettings settings;
     settings.setValue(SKEY_MODBUS_RW_FAN, value ? 1 : 0);
@@ -9801,14 +9811,23 @@ void MachineBackend::_machineState()
     }
 
     /// MODBUS ALARM STATUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmCom.addr, static_cast<ushort>(pData->getAlarmBoardComError()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmBoardComErr.addr, static_cast<ushort>(pData->getAlarmBoardComError()));
     _setModbusRegHoldingValue(modbusRegisterAddress.alarmSash.addr, static_cast<ushort>(pData->getAlarmSash()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmInflow.addr, static_cast<ushort>(pData->getAlarmInflowLow()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmInflowLow.addr, static_cast<ushort>(pData->getAlarmInflowLow()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmDownflowLow.addr, static_cast<ushort>(pData->getAlarmDownflowLow()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmDownflowHigh.addr, static_cast<ushort>(pData->getAlarmDownflowHigh()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmTempLow.addr, static_cast<ushort>(pData->getAlarmTempLow()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmTempHigh.addr, static_cast<ushort>(pData->getAlarmTempHigh()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmSashCycleMotorLock.addr, static_cast<ushort>(pData->getSashCycleMotorLockedAlarm()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmStbFanOff.addr, static_cast<ushort>(pData->getAlarmStandbyFanOff()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmFrontPanel.addr, static_cast<ushort>(pData->getFrontPanelAlarm()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.alarmSashDownStucked.addr, static_cast<ushort>(pData->getAlarmSashMotorDownStuck()));
+
     if(pData->getSeasInstalled()){
-        _setModbusRegHoldingValue(modbusRegisterAddress.alarmExhaust.addr, static_cast<ushort>(pData->getAlarmSeasPressureLow()));
+        _setModbusRegHoldingValue(modbusRegisterAddress.alarmExhaustLow.addr, static_cast<ushort>(pData->getAlarmSeasPressureLow()));
     }
     if(pData->getSeasFlapInstalled()){
-        _setModbusRegHoldingValue(modbusRegisterAddress.alarmFlapExhaust.addr, static_cast<ushort>(pData->getSeasFlapAlarmPressure()));
+        _setModbusRegHoldingValue(modbusRegisterAddress.alarmExhaustFlap.addr, static_cast<ushort>(pData->getSeasFlapAlarmPressure()));
     }
 
     //    /// CLEAR FLAG OF SASH STATE FLAG
