@@ -6202,7 +6202,7 @@ void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
 
         pData->setWarmingUpExecuted(false); //reset Warming up executed
 
-        /// Disactivate ClosedLoopControl when in Standby Mode
+        /// Deactivate ClosedLoopControl when in Standby Mode
         if(m_timerEventForClosedLoopControl->isActive())
             m_timerEventForClosedLoopControl->stop();
     }
