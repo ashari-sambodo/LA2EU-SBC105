@@ -433,7 +433,9 @@ private:
     ////
     //QScopedPointer<QTimer>    m_timerEventForSashMotorInterlockSwitch;
     QScopedPointer<QTimer>      m_timerEventForSashWindowRoutine;
+    QScopedPointer<QTimer>      m_timerEventForSashMotorDown;
     void _onTriggeredEventSashWindowRoutine();
+    void _onTriggeredEventSashMotorDown();
     ///
     QScopedPointer<ClosedLoopControl> m_pIfaFanClosedLoopControl;
     QScopedPointer<ClosedLoopControl> m_pDfaFanClosedLoopControl;
@@ -681,6 +683,8 @@ private:
     bool m_alarmInflowLowDelaySet = false;
     bool m_alarmDownflowLowDelaySet = false;
     bool m_alarmDownflowHighDelaySet = false;
+
+    int m_sashDownTimeMsCounter = 0;
 
 #ifdef QT_DEBUG
     QScopedPointer<QWebSocketServer> m_pWebSocketServerDummyState;

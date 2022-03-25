@@ -1247,6 +1247,14 @@ void MachineBackend::setup()
         QObject::connect(this, &MachineBackend::loopStarted, [&](){
             m_timerEventForSashWindowRoutine->start();
         });
+
+        if(pData->getSashWindowMotorizeInstalled()){
+            m_timerEventForSashMotorDown.reset(new QTimer);
+            m_timerEventForSashMotorDown->setInterval(std::chrono::milliseconds(100));
+
+            QObject::connect(m_timerEventForSashMotorDown.data(), &QTimer::timeout,
+                             this, &MachineBackend::_onTriggeredEventSashMotorDown);
+        }
     }//
 
     //    /// Light Intensity
@@ -2867,6 +2875,10 @@ void MachineBackend::deallocate()
     /// Shutting down modbus communication
     m_pModbusServer->disconnectDevice();
     m_timerEventForSashWindowRoutine->stop();
+    if(pData->getSashWindowMotorizeInstalled()){
+        if(m_timerEventForSashMotorDown->isActive())
+            m_timerEventForSashMotorDown->stop();
+    }
     m_timerEventEvery50MSecond->stop();
     m_timerEventEverySecond->stop();
     if(m_timerEventEveryMinute->isActive())
@@ -3050,6 +3062,17 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
     switch(modeOperation){
     case MachineEnums::MODE_OPERATION_QUICKSTART:
     case MachineEnums::MODE_OPERATION_NORMAL:
+        if(pData->getSashWindowMotorizeInstalled()){
+            if(pData->getSashWindowMotorizeState() != MachineEnums::MOTOR_SASH_STATE_DOWN){
+                if(pData->getSashWindowPrevState() != MachineEnums::SASH_STATE_FULLY_OPEN_SSV){
+                    if(m_timerEventForSashMotorDown->isActive()){
+                        m_timerEventForSashMotorDown->stop();
+                        m_sashDownTimeMsCounter = 0;
+                        qDebug() << "m_timerEventForSashMotorDown stopped!!! routine";
+                    }
+                }
+            }
+        }
         switch(sashState){
         case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV:
             ////MOTORIZE SASH
@@ -3524,6 +3547,21 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
     //    qDebug() << "The _onTriggeredEventSashWindowRoutine operation took" << timer.elapsed() << "ms";
     //    qDebug() << "The _onTriggeredEventSashWindowRoutine operation took" << timer.nsecsElapsed() << "ns";
     //#endif
+}
+
+void MachineBackend::_onTriggeredEventSashMotorDown()
+{
+    m_sashDownTimeMsCounter += 100;
+    qDebug() << "m_sashDownTimeMsCounter" << m_sashDownTimeMsCounter;
+    if(m_sashDownTimeMsCounter == 2000){
+        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+        qDebug()<< "Sash Down OFF for 100 ms";
+        m_pSasWindowMotorize->routineTask();
+    }else if(m_sashDownTimeMsCounter > 2000 && m_sashDownTimeMsCounter <= 2100){
+        m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_DOWN);
+        m_pSasWindowMotorize->routineTask();
+        qDebug()<< "Sash Down ON after off 100 ms";
+    }
 }//
 
 void MachineBackend::_onTriggeredEventClosedLoopControl()
@@ -5016,6 +5054,18 @@ void MachineBackend::setSashMotorizeState(short value)
         if(!isAlarmNormal(pData->getSashCycleMotorLockedAlarm())){
             pData->setSashCycleMotorLockedAlarm(MachineEnums::ALARM_NORMAL_STATE);
             _insertAlarmLog(ALARM_LOG_CODE::ALC_SASH_MOTOR_OK, ALARM_LOG_TEXT_SASH_MOTOR_OK);
+        }
+        if(m_sashMovedDown && pData->getSashWindowPrevState() == MachineEnums::SASH_STATE_FULLY_OPEN_SSV){
+            m_timerEventForSashMotorDown->start();
+            m_sashDownTimeMsCounter = 0;
+            qDebug() << "m_timerEventForSashMotorDown started!!!";
+        }
+        else{
+            if(m_timerEventForSashMotorDown->isActive()){
+                m_timerEventForSashMotorDown->stop();
+                m_sashDownTimeMsCounter = 0;
+                qDebug() << "m_timerEventForSashMotorDown stopped!!!";
+            }
         }
     }//
     else{
