@@ -80,7 +80,7 @@ ViewApp {
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
-                                    text: qsTr("ALARM: MODULE NOT RESPONDING")
+                                    text: qsTr("ALARM: MODULE NOT RESPONDING ")
                                 }//
                             }//
                             ,
