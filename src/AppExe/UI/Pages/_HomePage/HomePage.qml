@@ -333,11 +333,11 @@ ViewApp {
                                 when: (props.sashWindowState == MachineAPI.SASH_STATE_FULLY_CLOSE_SSV) && !props.uvState
                                 PropertyChanges {
                                     target: headerBackgroundRectangle
-                                    color: "#4b1263"
+                                    color: props.uvInstalled ? "#4b1263" : "#0F2952"
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
-                                    text: qsTr("UV OFF")
+                                    text: props.uvInstalled ? qsTr("UV OFF") : qsTr("FULLY CLOSED")
                                 }//
                             }//
                             ,
@@ -912,7 +912,7 @@ ViewApp {
                                         }//
                                         visible: active
                                         active: {
-                                            if (!props.alarmBoardComError) {
+                                            if (!props.alarmBoardComError && props.uvInstalled) {
                                                 if(props.sashWindowState == MachineAPI.SASH_STATE_FULLY_CLOSE_SSV){
                                                     return true
                                                 }
@@ -955,7 +955,7 @@ ViewApp {
 
                                         visible: active
                                         active: {
-                                            if (!props.alarmBoardComError) {
+                                            if (!props.alarmBoardComError && props.uvInstalled) {
                                                 if(props.sashWindowState == MachineAPI.SASH_STATE_FULLY_CLOSE_SSV){
                                                     return true
                                                 }
@@ -1281,9 +1281,22 @@ ViewApp {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    //                                    var intent = IntentApp.create("qrc:/UI/Pages/DiagnosticsPage/DiagnosticsPage.qml")
-                                    var intent = IntentApp.create(/*"qrc:/UI/Pages/CertificationReportPage/CertificationReportPage.qml"*/"qrc:/UI/Pages/ShortCutMenuPage/ShortCutMenuPage.qml")
-                                    startView(intent)
+                                    if (!UserSessionService.loggedIn) {
+                                        switch(props.securityAccessLevel) {
+                                        case MachineAPI.MODE_SECURITY_ACCESS_LOW:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                            const intent = IntentApp.create("qrc:/UI/Pages/ShortCutMenuPage/ShortCutMenuPage.qml", {})
+                                            startView(intent)
+                                            break;
+                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                            UserSessionService.askedForLogin()
+                                            break;
+                                        }
+                                    }
+                                    else {
+                                        const intent = IntentApp.create("qrc:/UI/Pages/ShortCutMenuPage/ShortCutMenuPage.qml", {})
+                                        startView(intent)
+                                    }//
                                 }//
                             }//
 
@@ -1645,8 +1658,22 @@ ViewApp {
                                             MouseArea {
                                                 anchors.fill: parent
                                                 onClicked: {
-                                                    const intent = IntentApp.create("qrc:/UI/Pages/NetworkConfigPage/NetworkConfigPage.qml", {})
-                                                    startView(intent)
+                                                    if (!UserSessionService.loggedIn) {
+                                                        switch(props.securityAccessLevel) {
+                                                        case MachineAPI.MODE_SECURITY_ACCESS_LOW:
+                                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                                            const intent = IntentApp.create("qrc:/UI/Pages/NetworkConfigPage/NetworkConfigPage.qml", {})
+                                                            startView(intent)
+                                                            break;
+                                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                                            UserSessionService.askedForLogin()
+                                                            break;
+                                                        }
+                                                    }
+                                                    else {
+                                                        const intent = IntentApp.create("qrc:/UI/Pages/NetworkConfigPage/NetworkConfigPage.qml", {})
+                                                        startView(intent)
+                                                    }//
                                                 }
                                             }
                                         }
@@ -1742,8 +1769,22 @@ ViewApp {
                                         MouseArea {
                                             anchors.fill: parent
                                             onClicked: {
-                                                const intent = IntentApp.create("qrc:/UI/Pages/CalendarPage/CalendarPage.qml", {})
-                                                startView(intent)
+                                                if (!UserSessionService.loggedIn) {
+                                                    switch(props.securityAccessLevel) {
+                                                    case MachineAPI.MODE_SECURITY_ACCESS_LOW:
+                                                    case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                                        const intent = IntentApp.create("qrc:/UI/Pages/CalendarPage/CalendarPage.qml", {})
+                                                        startView(intent)
+                                                        break;
+                                                    case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                                        UserSessionService.askedForLogin()
+                                                        break;
+                                                    }
+                                                }
+                                                else {
+                                                    const intent = IntentApp.create("qrc:/UI/Pages/CalendarPage/CalendarPage.qml", {})
+                                                    startView(intent)
+                                                }//
                                             }//
                                         }//
                                     }//
@@ -2320,7 +2361,6 @@ ViewApp {
                                 onPressAndHold: {
                                     if (!UserSessionService.loggedIn) {
                                         switch(props.securityAccessLevel) {
-
                                         case MachineAPI.MODE_SECURITY_ACCESS_LOW:
                                         case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
                                             const intent = IntentApp.create("qrc:/UI/Pages/VivariumMuteSetPage/VivariumMuteSetPage.qml", {})
@@ -2531,6 +2571,12 @@ ViewApp {
                         viewApp.closeDialog()
                     }
                 })
+            }//
+            onExpTimerTimeoutChanged: {
+                if(expTimerTimeout){
+                    MachineAPI.setBuzzerBeep()
+                    MachineAPI.setBuzzerBeep()
+                }//
             }//
             //            onButtonSashMotorizedDownPressedChanged: {
             //                if(!buttonSashMotorizedDownPressed){

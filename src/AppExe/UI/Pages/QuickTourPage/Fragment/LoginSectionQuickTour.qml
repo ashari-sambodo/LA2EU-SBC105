@@ -125,6 +125,7 @@ Item {
                         id:bacwardArrow
                         anchors.fill: parent
                         source: "qrc:/UI/Pictures/backward.png"
+                        opacity: clickBack.pressed ? 0.5 : 1
                     }
 
                     MouseArea {
@@ -148,7 +149,7 @@ Item {
                     //anchors.verticalCenter: parent.verticalCenter
                     //anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.bottom: parent.bottom
-                    interactive: true
+                    interactive: false
                     currentIndex: props.pageIndicator
                     count: 10
                 }//
@@ -162,6 +163,7 @@ Item {
                     Image {
                         anchors.fill: parent
                         source: "qrc:/UI/Pictures/forward.png"
+                        opacity: forwardArrow.pressed ? 0.5 : 1
                     }
 
                     MouseArea {

@@ -23,6 +23,8 @@ Item {
 
     property int count: 0
     property int countTotal: 0
+    signal experminetTimerOver(bool status)
+    onTimeoutChanged: experminetTimerOver(timeout)
 
     function start(){
         if(countTotal == 0) return

@@ -140,7 +140,7 @@ ViewApp {
                                 radius: 5
                                 height: pageIndexListView.currentIndex == index ?  300 : 50
                                 width: listViewItem.width
-                                color: pageIndexListView.currentIndex == index ? "#fafafa" : "#424242"
+                                color: pageIndexListView.currentIndex == index ? "#aafafafa" : "#424242"
 
                                 //                               width:pageIndexListView.childWidth
 
@@ -151,10 +151,11 @@ ViewApp {
                                     TextApp {
                                         font.pixelSize: 25
                                         font.bold: true
-                                        color: "#DDB620"
+                                        color: "#D9AC00"
                                         text: modelData['title']
                                         width: parent.parent.width
                                         wrapMode: Text.WordWrap
+                                        padding: 2
                                     }//
 
                                     TextApp {
@@ -165,15 +166,18 @@ ViewApp {
                                         text: modelData['subTitle']
                                         width: parent.parent.width - 10
                                         wrapMode: Text.WordWrap
+                                        padding: 2
                                     }//
 
                                     TextApp {
                                         visible: pageIndexListView.currentIndex == index ? true : false
                                         font.pixelSize: 14
-                                        color: "#686868"
+                                        color: "#555555"
                                         text: modelData['description']
                                         width: parent.parent.width - 10
                                         wrapMode: Text.WordWrap
+                                        horizontalAlignment: Text.AlignJustify
+                                        padding: 2
                                     }//
                                 }//
 
@@ -204,7 +208,7 @@ ViewApp {
 
                                 Rectangle {
                                     anchors.fill: parent
-                                    color: "#fafafa"
+                                    color: "#aafafafa"
                                     radius: 5
 
                                     Loader {
@@ -310,7 +314,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
                 
                 Rectangle {
                     anchors.fill: parent

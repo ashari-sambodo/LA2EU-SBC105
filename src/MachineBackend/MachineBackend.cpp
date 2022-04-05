@@ -102,7 +102,6 @@ struct modbusRegisterAddress
     struct alarmStbFanOff       {static const short addr = 37;  short rw = 0; uint16_t value;} alarmStbFanOff;
     struct alarmFrontPanel      {static const short addr = 38;  short rw = 0; uint16_t value;} alarmFrontPanel;
     struct alarmSashDownStucked {static const short addr = 39;  short rw = 0; uint16_t value;} alarmSashDownStucked;
-
 } modbusRegisterAddress;
 
 
@@ -4489,8 +4488,7 @@ void MachineBackend::setFanState(short value)
             }
             /// IF PURGING TIME MORE THAN ZERO
             else if (pData->getPostPurgingTime()
-                     && !pData->getWarmingUpActive()
-                     && !pData->getAlarmsState()){
+                     && !pData->getWarmingUpActive()){
                 /// NO PURGING WHILE WARMING UP
                 /// NO PURGING WHILE ALARMS
                 _startPostPurgingTime();
@@ -6855,6 +6853,12 @@ void MachineBackend::_onTimerEventPostPurging()
     else {
         count--;
         pData->setPostPurgingCountdown(count);
+        if(pData->getSashWindowState() == MachineEnums::SASH_STATE_FULLY_CLOSE_SSV){
+            _cancelPostPurgingTime();
+            /// ACTUALLY TURNING OFF THE FAN
+            _setFanPrimaryStateOFF();
+            _setFanInflowStateOFF();
+        }
     }
 }
 

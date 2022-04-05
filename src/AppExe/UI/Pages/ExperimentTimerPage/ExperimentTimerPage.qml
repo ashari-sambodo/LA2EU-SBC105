@@ -349,6 +349,12 @@ ViewApp {
             property int timerCount: 0
             property int timerStatus: 0
 
+            function onExperimentTimerOver(status){
+                if(status){
+                    MachineAPI.setBuzzerBeep()
+                    MachineAPI.setBuzzerBeep()
+                }
+            }//
         }//
 
         /// Called once time after on resume
@@ -373,11 +379,13 @@ ViewApp {
                 else {
                     fragmentStackView.replace(setTimerFragmentComp)
                 }
+                ExperimentTimerService.experminetTimerOver.connect(props.onExperimentTimerOver)
             }
 
             /// onPause
             Component.onDestruction: {
-                ////console.debug("StackView.DeActivating");
+                ////console.debug("StackView.DeActivating");                
+                ExperimentTimerService.experminetTimerOver.connect(props.onExperimentTimerOver)
             }
         }//
     }//

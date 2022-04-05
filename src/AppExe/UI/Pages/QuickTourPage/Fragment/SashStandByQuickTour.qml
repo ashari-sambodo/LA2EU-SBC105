@@ -54,7 +54,7 @@ Item {
     PageIndicator {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        interactive: true
+        interactive: false
         //currentIndex: props.pageIndicator
         count: 1
     }
