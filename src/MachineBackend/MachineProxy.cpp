@@ -890,6 +890,22 @@ void MachineProxy::setDelayAlarmAirflowSec(int value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setScreenSaverSeconds(int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setScreenSaverSeconds(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setCabinetSideType(short value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setCabinetSideType(value);
+    },
+    Qt::QueuedConnection);
+}
+
 //void MachineProxy::setWifiDisabled(bool value)
 //{
 //    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){

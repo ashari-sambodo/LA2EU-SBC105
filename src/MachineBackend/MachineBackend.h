@@ -367,6 +367,9 @@ public slots:
     void setSashMotorOffDelayMsec(int value);
 
     void setDelayAlarmAirflowSec(int value);
+    void setScreenSaverSeconds(int value);
+
+    void setCabinetSideType(short value);
 
 signals:
     void hasStopped();

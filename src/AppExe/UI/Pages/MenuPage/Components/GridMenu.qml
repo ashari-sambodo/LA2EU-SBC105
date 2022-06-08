@@ -62,6 +62,7 @@ GridView{
                         case "Experiment Timer":    text = qsTr("Experiment Timer"); break
                         case "Light Intensity":     text = qsTr("Light Intensity"); break
                         case "LCD":                 text = qsTr("LCD"); break
+                        case "Screen Saver":        text = qsTr('Screen Saver'); break
                         case "Clean LCD":           text = qsTr("Clean LCD"); break
                         case "Languages":           text = qsTr("Languages"); break
                         case "Booking Schedule":    text = qsTr("Booking Schedule"); break

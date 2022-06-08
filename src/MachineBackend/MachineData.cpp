@@ -417,6 +417,30 @@ bool MachineData::getUsePwmOutSignal() const
     return m_usePwmOutSignal;
 }
 
+void MachineData::setScreenSaverSeconds(int value)
+{
+    if(m_screenSaverSeconds == value) return;
+    m_screenSaverSeconds = value;
+    emit screenSaverSecondsChanged(value);
+}
+
+int MachineData::getScreenSaverSeconds() const
+{
+    return m_screenSaverSeconds;
+}
+
+void MachineData::setCabinetSideType(short value)
+{
+    if(m_cabinetSideType == value)return;
+    m_cabinetSideType = value;
+    emit cabinetSideTypeChanged(value);
+}
+
+short MachineData::getCabinetSideType() const
+{
+    return m_cabinetSideType;
+}
+
 //void MachineData::setWifiDisabled(bool value)
 //{
 //    if(m_wifiDisabled == value)return;

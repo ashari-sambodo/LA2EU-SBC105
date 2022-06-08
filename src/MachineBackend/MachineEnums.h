@@ -135,6 +135,12 @@ enum GeneralPurposeEnums{
     FOOTER_HEIGHT = 70
 };
 Q_ENUMS(GeneralPurposeEnums)
+enum CabinetSideType{
+    CABINET_TYPE_S, // Stainless steel side
+    CABINET_TYPE_E // Glass side
+};
+Q_ENUMS(CabinetSideType)
+
 
 }
 

@@ -1003,6 +1003,9 @@ class MachineData : public QObject
 
     Q_PROPERTY(bool cabinetWidth3Feet READ getCabinetWidth3Feet NOTIFY cabinetWidth3FeetChanged)
     Q_PROPERTY(bool usePwmOutSignal READ getUsePwmOutSignal NOTIFY usePwmOutSignalChanged)
+    Q_PROPERTY(int screenSaverSeconds READ getScreenSaverSeconds NOTIFY screenSaverSecondsChanged)
+
+    Q_PROPERTY(short cabinetSideType READ getCabinetSideType NOTIFY cabinetSideTypeChanged)
 
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
@@ -1820,6 +1823,12 @@ public:
     void setUsePwmOutSignal(bool value);
     bool getUsePwmOutSignal()const;
 
+    void setScreenSaverSeconds(int value);
+    int getScreenSaverSeconds()const;
+
+    void setCabinetSideType(short value);
+    short getCabinetSideType()const;
+
 public slots:
     void initSingleton();
 
@@ -2130,6 +2139,10 @@ signals:
     void downflowValueHeldChanged(bool value);
     void cabinetWidth3FeetChanged(bool value);
     void usePwmOutSignalChanged(bool value);
+
+    void screenSaverSecondsChanged(int value);
+    void cabinetSideTypeChanged(short value);
+
 private:
     ///
     short m_machineState;
@@ -2505,13 +2518,16 @@ private:
     int m_sashMotorOffDelayMsec = 0;
 
     int m_delayAlarmAirflowSec = 0;
-    //    bool m_wifiDisabled = false;
+    //bool m_wifiDisabled = false;
 
     bool m_inflowValueHeld = false;
     bool m_downflowValueHeld = false;
 
     bool m_cabinetWidth3Feet = false;
     bool m_usePwmOutSignal = false;
+
+    int m_screenSaverSeconds = 0;
+    short m_cabinetSideType = 0;
 };
 
 

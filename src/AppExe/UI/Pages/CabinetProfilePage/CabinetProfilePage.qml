@@ -154,6 +154,36 @@ ViewApp {
                                             }//
                                         }//
                                     }//
+                                    TextApp {
+                                        text: qsTr("Cabinet side type") + ":"
+                                    }//
+                                    ComboBoxApp {
+                                        id: sideComboBox
+                                        width: 300
+                                        height: 50
+                                        //                                        backgroundColor: "#0F2952"
+                                        //                                        backgroundBorderColor: "#dddddd"
+                                        //                                        backgroundBorderWidth: 2
+                                        font.pixelSize: 20
+                                        //anchors.verticalCenter: parent.verticalCenter
+                                        textRole: "text"
+
+                                        model: [
+                                            {text: qsTr("Stainless Steel"),   value: MachineAPI.CABINET_TYPE_S},
+                                            {text: qsTr("Glass"),   value: MachineAPI.CABINET_TYPE_E}
+                                        ]
+
+                                        onActivated: {
+                                            ////console.debug(index)
+                                            ////console.debug(model[index].value)
+                                            let newValue = model[index].value
+                                            if(MachineData.cabinetSideType !== newValue){
+                                                //  props.warmupTimer = newValue
+                                                //  console.debug("Warm: ", props.warmupTimer , " min")
+                                                MachineAPI.setCabinetSideType(newValue)
+                                            }
+                                        }//
+                                    }//
                                 }//
                             }//
                         }//

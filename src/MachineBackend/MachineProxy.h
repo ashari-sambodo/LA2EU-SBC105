@@ -35,6 +35,8 @@ class MachineProxy : public QObject
     Q_ENUM(MachineEnums::FanList)
     Q_ENUM(MachineEnums::ExternalResourcePathCode)
     Q_ENUM(MachineEnums::GeneralPurposeEnums)
+    Q_ENUM(MachineEnums::CabinetSideType)
+
 
 public:
     explicit MachineProxy(QObject *parent = nullptr);
@@ -333,7 +335,10 @@ public slots:
     void setRbmComPortDfa(QString value);
 
     void setSashMotorOffDelayMsec(int value);
-        void setDelayAlarmAirflowSec(int value);
+    void setDelayAlarmAirflowSec(int value);
+
+    void setScreenSaverSeconds(int value);
+    void setCabinetSideType(short value);
 
 private slots:
     void doStopping();

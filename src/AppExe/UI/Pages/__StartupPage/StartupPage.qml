@@ -225,7 +225,7 @@ ViewApp {
                         MachineData.machineModelName = props.profileObjectActive['modelStr']
 
                         MachineAPI.setup(MachineData)
-                        HeaderAppService.sideGlass = (props.profileObjectActive['sideGlass']|| 0) > 0
+                        HeaderAppService.sideGlass = /*(props.profileObjectActive['sideGlass']|| 0) > 0*/MachineData.cabinetSideType === MachineAPI.CABINET_TYPE_E
 
                         const connectionId = "StartupPage"
                         userManageQml.init(connectionId);

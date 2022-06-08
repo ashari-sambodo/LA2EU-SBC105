@@ -109,6 +109,9 @@ struct modbusRegisterAddress
 #define ALLOW_ANY_IP            "0.0.0.0"
 #define LOCALHOST_ONLY          "127.0.0.1"
 
+//#define ON_TESTING
+
+
 MachineBackend::MachineBackend(QObject *parent) : QObject(parent)
 {
 }
@@ -153,6 +156,15 @@ void MachineBackend::setup()
     //        pData->setWifiDisabled(wifiDisabled);
     //    }
 
+    {
+        int screensaver = m_settings->value(SKEY_SCREEN_SAVER_SEC, 1800).toInt();
+        pData->setScreenSaverSeconds(screensaver);
+    }
+    {
+        int cabSideType = m_settings->value(SKEY_CABINET_SIDE_TYPE, 0).toInt();
+        pData->setCabinetSideType(cabSideType);
+    }
+
     /// READ SERIAL NUMBER
     {
         QString serialNumber = m_settings->value(SKEY_SBC_SERIAL_NUMBER, SDEF_SBC_SERIAL_NUMBER).toString();
@@ -169,7 +181,7 @@ void MachineBackend::setup()
                 pData->setSbcCurrentSerialNumberKnown(true);
             else
                 pData->setSbcCurrentSerialNumberKnown(false);
-        }
+        }//
         //        pData->setSbcCurrentSerialNumberKnown(false);
     }
     /// READ SYSTEM INFORMATION
@@ -8563,6 +8575,24 @@ void MachineBackend::setDelayAlarmAirflowSec(int value)
     settings.setValue(SKEY_DELAY_ALARM_AIRFLOW, value);
 }
 
+void MachineBackend::setScreenSaverSeconds(int value)
+{
+    qDebug() << metaObject()->className() << __func__ << value << thread() ;
+
+    pData->setScreenSaverSeconds(value);
+    QSettings settings;
+    settings.setValue(SKEY_SCREEN_SAVER_SEC, value);
+}
+
+void MachineBackend::setCabinetSideType(short value)
+{
+    qDebug() << metaObject()->className() << __func__ << value << thread() ;
+
+    pData->setCabinetSideType(value);
+    QSettings settings;
+    settings.setValue(SKEY_CABINET_SIDE_TYPE, value);
+}
+
 //void MachineBackend::setWifiDisabled(bool value)
 //{
 //    qDebug() << metaObject()->className() << __func__ << value << thread() ;
@@ -8603,6 +8633,9 @@ void MachineBackend::_machineState()
 
     ///demo
 #ifdef QT_DEBUG
+    alarmsBoards = false;
+#endif
+#ifdef ON_TESTING
     alarmsBoards = false;
 #endif
 
@@ -9749,7 +9782,7 @@ void MachineBackend::_machineState()
 
     bool alarms = false;
     //Check The Alarms Only when SBC used is the registered SBC
-    if(pData->getSbcCurrentSerialNumberKnown())
+    if(pData->getSbcCurrentSerialNumberKnown()/* && pData->getOperationMode() != MachineEnums::MODE_OPERATION_MAINTENANCE*/)
     {
         alarms |= isAlarmActive(pData->getAlarmBoardComError());
         alarms |= isAlarmActive(pData->getAlarmInflowLow());
@@ -9771,6 +9804,9 @@ void MachineBackend::_machineState()
         //        qDebug() << pData->getAlarmBoardComError() << pData->getAlarmInflowLow() << pData->getAlarmDownflowLow() << pData->getAlarmDownflowHigh() << pData->getAlarmSeasPressureLow();
         //        qDebug() << pData->getSeasFlapAlarmPressure() << pData->getAlarmSash() << pData->getAlarmTempHigh() << pData->getAlarmTempLow() << pData->getAlarmStandbyFanOff();
         //        qDebug() << pData->getSashCycleMotorLockedAlarm() << pData->getFrontPanelAlarm() << pData->getAlarmSashMotorDownStuck();
+#ifdef ON_TESTING
+        alarms = false;
+#endif
         {
             int currentAlarm = pData->getAlarmsState();
             if (currentAlarm != alarms) {

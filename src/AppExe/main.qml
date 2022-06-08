@@ -647,7 +647,7 @@ ApplicationWindow {
                 sourceComponent: Timer {
                     id: delayToOpenScreenSaverTimer
                     //interval: 5000
-                    interval: 1800000 /// auto log out after 30 minutes if there is no interuption condition
+                    interval: MachineData.screenSaverSeconds * 1000 /// auto log out after 30 minutes if there is no interuption condition
                     running: true
                     onTriggered: {
                         //                        console.log("delayToOpenScreenSaverLoader")

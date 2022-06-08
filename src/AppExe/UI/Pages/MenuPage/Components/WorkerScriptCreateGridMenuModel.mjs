@@ -69,6 +69,13 @@
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype        : "menu",
+                                 mtitle    : qsTr("Screen Saver"),
+                                 micon     : "qrc:/UI/Pictures/menu/screensaver.png",
+                                 mlink     : "qrc:/UI/Pages/ScreenSaverSettingPage/ScreenSaverSettingPage.qml"
+                             })
+
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype        : "menu",
                                  mtitle    : qsTr("Languages"),
                                  micon     : "qrc:/UI/Pictures/menu/Language.png",
                                  mlink     : "qrc:/UI/Pages/LanguagePage/LanguagePage.qml"
