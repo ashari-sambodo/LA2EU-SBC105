@@ -418,6 +418,14 @@
                              })
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype        : "menu",
+                                 mtitle    : qsTr("Display Themes"),
+                                 micon     : "qrc:/UI/Pictures/menu/display-theme.png",
+                                 mlink     : "qrc:/UI/Pages/DisplayThemesPage/DisplayThemesPage.qml"
+                                 //                                 mlink     : "qrc:/UI/Pages/FtpFileSharePage/FtpFileSharePage.qml"
+                             })
+
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype         :   "menu",
                                  mtitle     :   qsTr("Shipping Setup"),
                                  micon      :   "qrc:/UI/Pictures/menu/shipping-menu.png",

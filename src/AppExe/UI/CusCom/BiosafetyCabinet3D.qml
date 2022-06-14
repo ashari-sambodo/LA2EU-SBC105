@@ -18,7 +18,7 @@ Item {
 
     property string modelName : "LA2"
     property bool sideGlass : false
-    property string pictureFolder: sideGlass ? "pictures_sdglass" : "pictures"
+    property string pictureFolder: HeaderAppService.darkMode ? "pictures_dark" : (sideGlass ? "pictures_sdglass" : "pictures")
     readonly property string frameModeSourceA: "BiosafetyCabinet3D/%1/BSC3D_blackframe_la.png".arg(pictureFolder)
     readonly property string frameModeSourceB: "BiosafetyCabinet3D/%1/BSC3D_blackframe_ac.png".arg(pictureFolder)
     readonly property string frameModeSourceC: "BiosafetyCabinet3D/%1/BSC3D_blackframe_sc.png".arg(pictureFolder)

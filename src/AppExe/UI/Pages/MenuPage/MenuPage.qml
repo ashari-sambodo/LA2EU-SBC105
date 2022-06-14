@@ -152,7 +152,7 @@ ViewApp {
                     Image {
                         Layout.fillHeight: true
                         Layout.minimumWidth: 120
-                        source: "qrc:/UI/Pictures/HomeButton.png"
+                        source: props.darkMode ? "qrc:/UI/Pictures/dark/HomeButton.png" : "qrc:/UI/Pictures/HomeButton.png"
                         opacity: homeMouseArea.pressed ? 0.5 : 1
 
                         MouseArea {
@@ -209,10 +209,10 @@ ViewApp {
                                 Rectangle {
                                     height: 70
                                     width: pageIndicatorItem.width / pageIndicatorRepeater.count - 2
-                                    color: props.currentIndexMenuGroup === index ? "#0F2952" : "transparent"
+                                    color: props.currentIndexMenuGroup === index ? (props.darkMode ? "black" : "#0F2952") : "transparent"
                                     radius: 5
                                     border.width: 1
-                                    border.color: "#dddddd"
+                                    border.color: props.darkMode ?(props.currentIndexMenuGroup === index ? "#B2A18D" : "#222222") : "#dddddd"
 
                                     TextApp {
                                         anchors.fill: parent
@@ -260,6 +260,7 @@ ViewApp {
                                         sourceComponent: Rectangle {
                                             height: 5
                                             width: 50
+                                            color: props.darkMode ? "#B2A18D" : "#dddddd"
                                         }//
                                     }//
                                 }//
@@ -270,7 +271,7 @@ ViewApp {
                     Image {
                         Layout.fillHeight: true
                         Layout.minimumWidth: 120
-                        source: "qrc:/UI/Pictures/LoginButton.png"
+                        source: props.darkMode ? "qrc:/UI/Pictures/dark/LoginButton.png" : "qrc:/UI/Pictures/LoginButton.png"
 
                         MouseArea {
                             anchors.fill: parent
@@ -324,6 +325,8 @@ ViewApp {
             property bool seasInstalled: false
 
             property bool menuHasCreated: false
+
+            property bool darkMode: false
         }//
 
         /// called Once but after onResume
@@ -351,6 +354,7 @@ ViewApp {
                 props.uvInstalled = Qt.binding(function(){ return MachineData.uvInstalled })
                 props.seasInstalled = Qt.binding(function(){ return MachineData.seasInstalled })
 
+                props.darkMode = Qt.binding(function(){ return MachineData.displayTheme === MachineAPI.THEME_DARK })
                 //                console.log("props.sashWindowMotorizeInstalled: " + props.sashWindowMotorizeInstalled)
 
                 if (!props.menuHasCreated) {

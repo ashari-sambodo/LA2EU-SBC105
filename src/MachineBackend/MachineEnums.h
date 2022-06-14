@@ -140,7 +140,11 @@ enum CabinetSideType{
     CABINET_TYPE_E // Glass side
 };
 Q_ENUMS(CabinetSideType)
-
+enum DisplayTheme{
+    THEME_NORMAL, // Stainless steel side
+    THEME_DARK // Glass side
+};
+Q_ENUMS(DisplayTheme)
 
 }
 

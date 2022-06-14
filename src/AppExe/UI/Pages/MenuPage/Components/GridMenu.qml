@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
+import UI.CusCom 1.1
 
 GridView{
     id: menuGridView
@@ -42,9 +43,9 @@ GridView{
                 Layout.minimumHeight: parent.height* 0.35
                 Layout.fillWidth: true
 
-                //                Rectangle{anchors.fill: parent}
+                // Rectangle{anchors.fill: parent}
 
-                Text {
+                TextApp {
                     id: iconText
                     //text: modelData.mtitle ? modelData.mtitle : ""
                     height: parent.height
@@ -52,7 +53,6 @@ GridView{
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignTop
-                    color: "#dddddd"
                     font.pixelSize: 20
 
                     Component.onCompleted: {

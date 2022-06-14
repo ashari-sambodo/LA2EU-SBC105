@@ -370,6 +370,8 @@ public slots:
     void setScreenSaverSeconds(int value);
 
     void setCabinetSideType(short value);
+    void setDisplayTheme(short value);
+    void setAlarmFrontEndBackground(bool value);
 
 signals:
     void hasStopped();

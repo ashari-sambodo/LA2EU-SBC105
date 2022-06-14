@@ -77,6 +77,7 @@
 #define SKEY_SCREEN_SAVER_SEC         "scrSvSec"
 
 #define SKEY_CABINET_SIDE_TYPE         "cabSdeTyp"
+#define SKEY_THEME_DISPLAY         "displayTheme"
 ///////////////AIRFLOW
 //CALIB PHASE; NONE, FACTORY, or FIELD
 #define SKEY_AF_CALIB_PHASE             "afCalibPhase"
