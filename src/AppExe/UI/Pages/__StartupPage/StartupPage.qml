@@ -29,15 +29,12 @@ ViewApp {
         /// Header
         /// Cabinet model name
         HeaderAppService.modelName = MachineData.machineClassName + "<br>" + MachineData.machineModelName
-        HeaderAppService.darkMode = settings.displayTheme === MachineAPI.THEME_DARK
         //        HeaderAppService.modelName = "CLASS II C1" + "<br>" + "LC1"
         //        HeaderAppService.modelName = "CLASS II A2" + "<br>" + "AC2"
         /// Set time format, 12h or 24h
         HeaderAppService.timePeriod = MachineData.timeClockPeriod
         /// Alarm/Warning/Info Notification
         MachineData.alarmsStateChanged.connect(HeaderAppService.setAlert)
-        MachineData.alarmFrontEndBackgroundChanged.connect(HeaderAppService.setAlertBlinking)
-        MachineData.displayThemeChanged.connect(HeaderAppService.setDarkMode)
         /// The following sytax is to disconnect connection
         //        MachineData.alarmsStateChanged.disconnect(HeaderAppService.setAlert)
 
@@ -71,14 +68,6 @@ ViewApp {
         startRootView(intent)
     }
 
-    Settings {
-        id: settings
-
-        property string machProfId: "NONE"
-        property int displayTheme: MachineAPI.THEME_NORMAL
-
-    }//
-
     background.sourceComponent: Item {}
 
     content.active: true
@@ -92,9 +81,7 @@ ViewApp {
             spacing: 20
 
             Image{
-                source: settings.displayTheme === MachineAPI.THEME_DARK ?
-                            "qrc:/UI/Pictures/logo/esco_lifesciences_group_dark.png" :
-                            "qrc:/UI/Pictures/logo/esco_lifesciences_group_white.png"
+                source: "qrc:/UI/Pictures/logo/esco_lifesciences_group_white.png"
             }//
 
             ProgressBar{
@@ -106,7 +93,6 @@ ViewApp {
                     implicitHeight: 10
                     radius: 5
                     clip: true
-                    color: "#B2A18D"
                 }//
 
                 contentItem: Item {
@@ -117,7 +103,7 @@ ViewApp {
                         width: startupProgressBar.visualPosition * parent.width
                         height: parent.height
                         radius: 5
-                        color: settings.displayTheme == MachineAPI.THEME_DARK ? "#222222" : "#18AA00"
+                        color: "#18AA00"
                     }//
                 }//
 
@@ -170,7 +156,11 @@ ViewApp {
             id: cabinetProfiles
         }//
 
+        Settings {
+            id: settings
 
+            property string machProfId: "NONE"
+        }//
 
         /// Ensure super admin has created
         UserManageQmlApp {
@@ -246,7 +236,7 @@ ViewApp {
 
                 if (loopCycle >= 3) {
                     if (userManageQml.superAdminStatus){
-                        if (MachineData.machineState === MachineAPI.MACHINE_STATE_LOOP) {
+                        if (MachineData.machineState == MachineAPI.MACHINE_STATE_LOOP) {
 
                             ///stop this eventTime then open next page
                             eventTimer.stop()

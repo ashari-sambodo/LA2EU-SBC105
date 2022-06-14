@@ -1006,9 +1006,6 @@ class MachineData : public QObject
     Q_PROPERTY(int screenSaverSeconds READ getScreenSaverSeconds NOTIFY screenSaverSecondsChanged)
 
     Q_PROPERTY(short cabinetSideType READ getCabinetSideType NOTIFY cabinetSideTypeChanged)
-    Q_PROPERTY(short displayTheme READ getDisplayTheme NOTIFY displayThemeChanged)
-
-    Q_PROPERTY(bool alarmFrontEndBackground READ getAlarmFrontEndBackground NOTIFY alarmFrontEndBackgroundChanged)
 
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
@@ -1832,12 +1829,6 @@ public:
     void setCabinetSideType(short value);
     short getCabinetSideType()const;
 
-    void setDisplayTheme(short value);
-    short getDisplayTheme()const;
-
-    void setAlarmFrontEndBackground(bool value);
-    bool getAlarmFrontEndBackground();
-
 public slots:
     void initSingleton();
 
@@ -2151,9 +2142,6 @@ signals:
 
     void screenSaverSecondsChanged(int value);
     void cabinetSideTypeChanged(short value);
-
-    void displayThemeChanged(short value);
-    void alarmFrontEndBackgroundChanged(short value);
 
 private:
     ///
@@ -2540,9 +2528,6 @@ private:
 
     int m_screenSaverSeconds = 0;
     short m_cabinetSideType = 0;
-
-    short m_displayTheme = 0;
-    bool m_alarmFrontEndBackground = false;
 };
 
 

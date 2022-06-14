@@ -441,30 +441,6 @@ short MachineData::getCabinetSideType() const
     return m_cabinetSideType;
 }
 
-void MachineData::setDisplayTheme(short value)
-{
-    if(m_displayTheme == value)return;
-    m_displayTheme = value;
-    emit displayThemeChanged(value);
-}
-
-short MachineData::getDisplayTheme() const
-{
-    return m_displayTheme;
-}
-
-void MachineData::setAlarmFrontEndBackground(bool value)
-{
-    if(m_alarmFrontEndBackground == value)return;
-    m_alarmFrontEndBackground = value;
-    emit alarmFrontEndBackgroundChanged(value);
-}
-
-bool MachineData::getAlarmFrontEndBackground()
-{
-    return m_alarmFrontEndBackground;
-}
-
 //void MachineData::setWifiDisabled(bool value)
 //{
 //    if(m_wifiDisabled == value)return;

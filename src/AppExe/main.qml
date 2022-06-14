@@ -2,7 +2,6 @@ import QtQuick 2.12
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.0
 import Qt.labs.platform 1.0
-import Qt.labs.settings 1.0
 
 import UI.CusCom 1.1
 import UI.CusCom.KeyboardOnScreen 1.0
@@ -24,27 +23,12 @@ ApplicationWindow {
 
     property int stackViewDepth: mainStackView.depth
 
-    Settings{
-        id: settings
-        property int displayTheme: MachineAPI.THEME_NORMAL
-
-        function setDisplayThem(value){
-            settings.displayTheme = value
-        }
-
-        Component.onCompleted: {
-            MachineData.displayThemeChanged.connect(settings.setDisplayThem)
-        }
-    }
-
     Item{
         id: mainItem
         anchors.fill: parent
 
         Image {
             id: backgroundImage
-            enabled: settings.displayTheme === MachineAPI.THEME_NORMAL
-            visible: enabled
             source: "qrc:/UI/Pictures/Background-Blue.png"
 
             Loader {
@@ -63,10 +47,7 @@ ApplicationWindow {
                         ScriptAction {
                             script: {
                                 backgroundOverlay.color = "red"
-                                if(!MachineData.muteAlarmState) {
-                                    MachineAPI.setAlarmFrontEndBackground(true)
-                                    MachineAPI.setBuzzerState(1)
-                                }
+                                if(!MachineData.muteAlarmState) MachineAPI.setBuzzerState(1)
                             }//
                         }//
 
@@ -77,67 +58,7 @@ ApplicationWindow {
                         ScriptAction {
                             script: {
                                 backgroundOverlay.color = "black"
-                                if(!MachineData.muteAlarmState) {
-                                    MachineAPI.setAlarmFrontEndBackground(false)
-                                    MachineAPI.setBuzzerState(0)
-                                }
-                            }//
-                        }//
-
-                        PauseAnimation {
-                            duration: 1000
-                        }//
-                    }//
-
-                    Component.onDestruction: {
-                        MachineAPI.setBuzzerState(false)
-                    }//
-                }//
-            }//
-        }//
-
-        Rectangle{
-            id: backgroundRect
-            enabled: settings.displayTheme === MachineAPI.THEME_DARK
-            visible: enabled
-            color: "black"
-            anchors.fill: parent
-            Loader {
-                anchors.fill: parent
-                active: MachineData.alarmsState
-                sourceComponent: Rectangle {
-                    id: backgroundRectOverlay
-                    anchors.fill: parent
-                    color: "transparent"
-                    border.width: 5
-                    border.color: "red"
-                    opacity: 0.8
-
-                    /// blinking
-                    SequentialAnimation {
-                        running: true
-                        loops: Animation.Infinite
-                        ScriptAction {
-                            script: {
-                                backgroundRectOverlay.border.color = "black"
-                                if(!MachineData.muteAlarmState) {
-                                    MachineAPI.setAlarmFrontEndBackground(true)
-                                    MachineAPI.setBuzzerState(1)
-                                }
-                            }//
-                        }//
-
-                        PauseAnimation {
-                            duration: 2000
-                        }//
-
-                        ScriptAction {
-                            script: {
-                                backgroundRectOverlay.border.color = "red"
-                                if(!MachineData.muteAlarmState) {
-                                    MachineAPI.setAlarmFrontEndBackground(false)
-                                    MachineAPI.setBuzzerState(0)
-                                }
+                                if(!MachineData.muteAlarmState) MachineAPI.setBuzzerState(0)
                             }//
                         }//
 

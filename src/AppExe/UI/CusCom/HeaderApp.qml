@@ -8,7 +8,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 
-import ModulesCpp.Machine 1.0
 //import UI.CusCom.HeaderApp.Adapter 1.0
 
 Item {
@@ -23,8 +22,6 @@ Item {
 
     property alias contentTitleBox: titleBoxLoader
     property alias contentDateTime: dateTimeLoader
-
-    property bool darkMode: HeaderAppService.darkMode
 
     function setTimePeriod(period) {
         HeaderAppService.timePeriod = period
@@ -53,8 +50,6 @@ Item {
 
                 Image {
                     id: vendorBgImage
-                    enabled: !control.darkMode
-                    visible: enabled
                     source: "HeaderApp/header-bg-vendor.png"
                     anchors.fill: parent
                     //                    fillMode: Image.PreserveAspectFit
@@ -69,16 +64,6 @@ Item {
                         }//
                     ]
                 }//
-                Rectangle{
-                    id: rect1
-                    enabled: !vendorBgImage.enabled
-                    visible: enabled
-                    anchors.fill: parent
-                    color: "black"
-                    border.width: 1
-                    border.color: (MachineData.alarmsState && MachineData.alarmFrontEndBackground) ? "red" : "#B2A18D"
-                    radius: 5
-                }
 
                 RowLayout {
                     anchors.fill: parent
@@ -114,7 +99,7 @@ Item {
                             anchors.fill: parent
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            color: control.darkMode ? "#B2A18D" : "#e3dac9"
+                            color: "#e3dac9"
                             font.pixelSize: 20
                             //                            text: "Class II<br>LA2"
                             text: HeaderAppService.modelName
@@ -185,8 +170,6 @@ Item {
 
                     Image {
                         id: menuBgImage
-                        enabled: !control.darkMode
-                        visible: enabled
                         source: "HeaderApp/header-bg-menu.png"
                         anchors.fill: parent
                         //                        fillMode: Image.PreserveAspectFit
@@ -201,16 +184,6 @@ Item {
                             }//
                         ]
                     }
-                    Rectangle{
-                        enabled: control.darkMode
-                        visible: enabled
-                        anchors.fill: parent
-                        color: "black"
-                        border.width: 2
-                        border.color: (MachineData.alarmsState && MachineData.alarmFrontEndBackground) ? "red" : "#B2A18D"
-                        radius: 5
-                    }
-
 
                     Text {
                         id: topBarStatusText
@@ -248,8 +221,6 @@ Item {
 
                     Image {
                         id: timeBgImage
-                        enabled: !control.darkMode
-                        visible: enabled
                         source: "HeaderApp/header-bg-time.png"
                         anchors.fill: parent
                         //                        fillMode: Image.PreserveAspectFit
@@ -264,14 +235,6 @@ Item {
                             }//
                         ]
                     }//
-                    Rectangle{
-                        enabled: control.darkMode
-                        visible: enabled
-                        anchors.fill: parent
-                        color: "black"
-                        border.width: 1
-                        border.color: (MachineData.alarmsState && MachineData.alarmFrontEndBackground) ? "red" : "#B2A18D"
-                    }
 
                     Text {
                         id: topBarClockText

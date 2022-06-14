@@ -164,10 +164,6 @@ void MachineBackend::setup()
         int cabSideType = m_settings->value(SKEY_CABINET_SIDE_TYPE, 0).toInt();
         pData->setCabinetSideType(cabSideType);
     }
-    {
-        int theme = m_settings->value(SKEY_THEME_DISPLAY, MachineEnums::THEME_NORMAL).toInt();
-        pData->setDisplayTheme(theme);
-    }
 
     /// READ SERIAL NUMBER
     {
@@ -8595,20 +8591,6 @@ void MachineBackend::setCabinetSideType(short value)
     pData->setCabinetSideType(value);
     QSettings settings;
     settings.setValue(SKEY_CABINET_SIDE_TYPE, value);
-}
-
-void MachineBackend::setDisplayTheme(short value)
-{
-    qDebug() << metaObject()->className() << __func__ << value << thread() ;
-
-    pData->setDisplayTheme(value);
-    QSettings settings;
-    settings.setValue(SKEY_THEME_DISPLAY, value);
-}
-
-void MachineBackend::setAlarmFrontEndBackground(bool value)
-{
-    pData->setAlarmFrontEndBackground(value);
 }
 
 //void MachineBackend::setWifiDisabled(bool value)

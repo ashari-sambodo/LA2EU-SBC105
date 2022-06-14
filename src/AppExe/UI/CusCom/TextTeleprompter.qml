@@ -15,7 +15,7 @@ Rectangle {
 
     TextApp{
         id: infoText
-        //color: "#e3dac9"
+        color: "#e3dac9"
         font.pixelSize: 20
         x: 2
         width: parent.width - 4

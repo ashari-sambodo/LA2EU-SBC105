@@ -157,6 +157,5 @@
         <file>UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml</file>
         <file>UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml</file>
         <file>UI/Pages/ScreenSaverSettingPage/ScreenSaverSettingPage.qml</file>
-        <file>UI/Pages/DisplayThemesPage/DisplayThemesPage.qml</file>
     </qresource>
 </RCC>

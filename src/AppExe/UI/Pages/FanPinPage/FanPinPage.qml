@@ -216,7 +216,13 @@ ViewApp {
                 Layout.fillWidth: true
                 Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
 
-                BackgroundButtonBarApp {
+                Rectangle {
+                    anchors.fill: parent
+                    color: "#0F2952"
+                    //                    border.color: "#DDDDDD"
+                    //                    border.width: 1
+                    radius: 5
+
                     Item {
                         anchors.fill: parent
                         anchors.margins: 5

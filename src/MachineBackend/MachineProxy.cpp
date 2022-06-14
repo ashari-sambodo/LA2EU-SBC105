@@ -906,22 +906,6 @@ void MachineProxy::setCabinetSideType(short value)
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setDisplayTheme(short value)
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setDisplayTheme(value);
-    },
-    Qt::QueuedConnection);
-}
-
-void MachineProxy::setAlarmFrontEndBackground(bool value)
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setAlarmFrontEndBackground(value);
-    },
-    Qt::QueuedConnection);
-}
-
 //void MachineProxy::setWifiDisabled(bool value)
 //{
 //    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){

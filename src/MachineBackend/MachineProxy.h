@@ -36,8 +36,6 @@ class MachineProxy : public QObject
     Q_ENUM(MachineEnums::ExternalResourcePathCode)
     Q_ENUM(MachineEnums::GeneralPurposeEnums)
     Q_ENUM(MachineEnums::CabinetSideType)
-    Q_ENUM(MachineEnums::DisplayTheme)
-
 
 
 public:
@@ -341,9 +339,6 @@ public slots:
 
     void setScreenSaverSeconds(int value);
     void setCabinetSideType(short value);
-
-    void setDisplayTheme(short value);
-    void setAlarmFrontEndBackground(bool value);
 
 private slots:
     void doStopping();

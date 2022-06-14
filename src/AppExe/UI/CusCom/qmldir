@@ -33,7 +33,6 @@ WifiSignalApp           1.0 WifiSignalApp.qml
 ScrollDownNotifApp      1.0 ScrollDownNotifApp.qml
 ContentItemApp          1.0 ContentItemApp.qml
 CheckBoxApp             1.0 CheckBoxApp.qml
-BackgroundButtonBarApp  1.0 BackgroundButtonBarApp.qml
 
 singleton ExperimentTimerService    1.0 ExperimentTimerService.qml
 singleton UserSessionService        1.0 UserSessionService.qml

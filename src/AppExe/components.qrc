@@ -139,30 +139,5 @@
         <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3Dstatuswarning.png</file>
         <file>UI/CusCom/BusyIndicatorApp/esco_loading_100x100.gif</file>
         <file>UI/CusCom/BusyIndicatorApp/esco_loading_150x150.gif</file>
-        <file>UI/CusCom/HeaderApp/Logo_dark.png</file>
-        <file>UI/CusCom/BackgroundButtonBarApp.qml</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_arrow_df_blue.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_arrow_df_green.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_arrow_df_red.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_arrow_if_blue.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_arrow_if_green.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_arrow_if_green_elbow.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_arrow_if_red.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_blackframe_ac.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_blackframe_la.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_blackframe_sc.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_sash_fc.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_sash_fo.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_sash_safe.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_sash_standby.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_sash_unsafe.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3D_sash_uvon.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3Dbase - Copy.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3Dbase-orange.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3Dbase-red.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3Dbase.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3Dstatusalarm.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3Dstatusok.png</file>
-        <file>UI/CusCom/BiosafetyCabinet3D/pictures_dark/BSC3Dstatuswarning.png</file>
     </qresource>
 </RCC>
