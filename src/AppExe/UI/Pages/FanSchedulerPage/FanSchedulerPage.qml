@@ -634,7 +634,7 @@ ViewApp {
                     props.onTimeSet = minuteSchedule
                 }
                 else{
-                    offTimeText.text = clockSchedule
+                    //                    offTimeText.text = clockSchedule
                     props.offTimeSet = minuteSchedule
                 }
 
@@ -656,7 +656,7 @@ ViewApp {
             let offClockFromMinutes = utilsApp.formatMinutesToClockHourMinuteFormat(offMinutesSchedule, props.timePeriodMode)
             //            console.log("clockFromMinutes: " + clockFromMinutes)
             onTimeText.text = onClockFromMinutes
-            offTimeText.text = offClockFromMinutes
+            //            offTimeText.text = offClockFromMinutes
 
             let onRepeat = MachineData.fanAutoSetDayRepeat
             let offRepeat = MachineData.fanAutoSetDayRepeatOff
@@ -684,15 +684,15 @@ ViewApp {
             }//
 
             onRepeatDayComboBox.currentIndex = onIndex
-            offRepeatDayComboBox.currentIndex = offIndex
+            //            offRepeatDayComboBox.currentIndex = offIndex
 
             props.onEnableSet = MachineData.fanAutoSetEnabled
             props.offEnableSet = MachineData.fanAutoSetEnabledOff
 
             onEnableSwitch.checked = MachineData.fanAutoSetEnabled
             onEnableSwitch.initialized = true
-            offEnableSwitch.checked = MachineData.fanAutoSetEnabledOff
-            offEnableSwitch.initialized = true
+            //            offEnableSwitch.checked = MachineData.fanAutoSetEnabledOff
+            //            offEnableSwitch.initialized = true
 
             props.parameterOnHasChanged = 0
             props.parameterOffHasChanged = 0

@@ -284,24 +284,24 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="96"/>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="551"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="558"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="101"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="605"/>
         <source>Press here to adjust</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="185"/>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="641"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="192"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="648"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="199"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="697"/>
         <source>Fan Duty Cycle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="195"/>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="651"/>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1381"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="202"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="658"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1388"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="209"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="707"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1590"/>
@@ -309,207 +309,207 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="218"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="225"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="234"/>
         <source>Set DF Nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="264"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="271"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="281"/>
         <source>Set Downflow Nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="294"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="301"/>
         <source>DF1 Velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="358"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="365"/>
         <source>DF3 Velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="422"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="429"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="472"/>
         <source>Downflow and Inflow fan must be at Nominal speed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="442"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="449"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="492"/>
         <source>Temperature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="506"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="513"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="556"/>
         <source>Please wait until the values are stable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="529"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="536"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="579"/>
         <source>Inflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="674"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="681"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="732"/>
         <source>Set IF Nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="719"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="726"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="776"/>
         <source>Set Inflow Nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="749"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="756"/>
         <source>IF1 Velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="817"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="824"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="896"/>
         <source>Stabilizing the ADC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="821"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="828"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="900"/>
         <source>Please wait for %1, time left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="909"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="916"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1000"/>
         <source>Actual ADC (DF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="923"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="930"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1014"/>
         <source>Actual ADC (IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="989"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="996"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1080"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1015"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1022"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1121"/>
         <source>Downflow nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1029"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1036"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1179"/>
         <source>Downflow ADC nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1045"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1052"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1209"/>
         <source>Inflow nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1060"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1067"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1265"/>
         <source>Inflow ADC nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1078"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1085"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1283"/>
         <source>Downflow Fan nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1093"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1100"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1298"/>
         <source>Inflow Fan nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1110"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1117"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1315"/>
         <source>Temperature calib</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1137"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1144"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1342"/>
         <source>Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1140"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1147"/>
         <source>IF ADC Nominal ≥ (ADC IF0 + 100) not met!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1141"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1148"/>
         <source>DF ADC Nominal ≥ (ADC DF0 + 100) not met!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1142"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1149"/>
         <source>IF Vel Nominal &gt; Vel IF1 not met!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1143"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1150"/>
         <source>Vel DF1 &lt; DF Vel Nominal &lt; Vel DF3 not met!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1144"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1151"/>
         <source>IF Fan Duty cycle or RPM not valid!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1145"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1152"/>
         <source>DF Fan Duty cycle or RPM not valid!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1146"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1153"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1353"/>
         <source>There may be invalid values!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1150"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1157"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1357"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1180"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1187"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1387"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1185"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1192"/>
         <source>Notification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1186"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1193"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1393"/>
         <source>Cancel this process?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1229"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1236"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1442"/>
         <source>Set</source>
         <translation type="unfinished"></translation>
@@ -3555,85 +3555,67 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="148"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="368"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="214"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="434"/>
         <source>Repeat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="232"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="452"/>
         <source>Once</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="233"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="453"/>
         <source>Everyday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="234"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="454"/>
         <source>Weekdays - Monday to Friday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="235"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="455"/>
         <source>Weekends - Saturday &amp; Sunday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="236"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="456"/>
         <source>Weekly - Monday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="237"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="457"/>
         <source>Weekly - Tuesday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="238"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="458"/>
         <source>Weekly - Wednesday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="239"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="459"/>
         <source>Weekly - Thursday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="240"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="460"/>
         <source>Weekly - Friday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="241"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="461"/>
         <source>Weekly - Saturday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="242"/>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="462"/>
         <source>Weekly - Sunday</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/FanSchedulerPage/FanSchedulerPage.qml" line="318"/>
-        <source>Scheduler Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
