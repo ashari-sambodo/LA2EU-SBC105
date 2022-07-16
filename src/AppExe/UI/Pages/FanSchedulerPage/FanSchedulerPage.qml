@@ -271,226 +271,226 @@ ViewApp {
                             }//
                         }//
                     }//
-                    Rectangle{
-                        Layout.fillHeight: true
-                        Layout.minimumWidth: 1
-                        color: "#dddddd"
-                    }
-                    Item{
-                        Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        Column {
-                            anchors.centerIn: parent
-                            spacing: 10
+                    //                    Rectangle{
+                    //                        Layout.fillHeight: true
+                    //                        Layout.minimumWidth: 1
+                    //                        color: "#dddddd"
+                    //                    }
+                    //                    Item{
+                    //                        Layout.fillHeight: true
+                    //                        Layout.fillWidth: true
+                    //                        Column {
+                    //                            anchors.centerIn: parent
+                    //                            spacing: 10
 
-                            Row {
-                                spacing: 10
+                    //                            Row {
+                    //                                spacing: 10
 
-                                Item {
-                                    height: 100
-                                    width: 200
-                                    //                    radius: 5
-                                    //                    color: "#dd0F2952"
-                                    //                    border.color: "#dddddd"
+                    //                                Item {
+                    //                                    height: 100
+                    //                                    width: 200
+                    //                                    //                    radius: 5
+                    //                                    //                    color: "#dd0F2952"
+                    //                                    //                    border.color: "#dddddd"
 
-                                    Rectangle {
-                                        id: offEnableRectangle
-                                        anchors.fill: parent
-                                        color: "#0F2952"
-                                        border.color: "#e3dac9"
-                                        radius: 5
-                                        states: [
-                                            State{
-                                                when: offEnableSwitch.checked
-                                                PropertyChanges {
-                                                    target: offEnableRectangle
-                                                    color: "#1e824c"
-                                                }
-                                            }
-                                        ]
-                                    }
+                    //                                    Rectangle {
+                    //                                        id: offEnableRectangle
+                    //                                        anchors.fill: parent
+                    //                                        color: "#0F2952"
+                    //                                        border.color: "#e3dac9"
+                    //                                        radius: 5
+                    //                                        states: [
+                    //                                            State{
+                    //                                                when: offEnableSwitch.checked
+                    //                                                PropertyChanges {
+                    //                                                    target: offEnableRectangle
+                    //                                                    color: "#1e824c"
+                    //                                                }
+                    //                                            }
+                    //                                        ]
+                    //                                    }
 
-                                    ColumnLayout{
-                                        anchors.fill: parent
-                                        anchors.margins: 5
+                    //                                    ColumnLayout{
+                    //                                        anchors.fill: parent
+                    //                                        anchors.margins: 5
 
-                                        TextApp {
-                                            text: qsTr("Scheduler Off")
-                                        }//
+                    //                                        TextApp {
+                    //                                            text: qsTr("Scheduler Off")
+                    //                                        }//
 
-                                        Item {
-                                            Layout.fillHeight: true
-                                            Layout.fillWidth: true
+                    //                                        Item {
+                    //                                            Layout.fillHeight: true
+                    //                                            Layout.fillWidth: true
 
-                                            SwitchApp{
-                                                id: offEnableSwitch
-                                                anchors.centerIn: parent
+                    //                                            SwitchApp{
+                    //                                                id: offEnableSwitch
+                    //                                                anchors.centerIn: parent
 
-                                                onCheckedChanged: {
-                                                    if (!initialized) return
+                    //                                                onCheckedChanged: {
+                    //                                                    if (!initialized) return
 
-                                                    props.offEnableSet = checked ? 1 : 0
+                    //                                                    props.offEnableSet = checked ? 1 : 0
 
-                                                    //setButton.visible = true
-                                                }//
-                                            }//
-                                        }//
-                                    }//
-                                }//
+                    //                                                    //setButton.visible = true
+                    //                                                }//
+                    //                                            }//
+                    //                                        }//
+                    //                                    }//
+                    //                                }//
 
-                                Item {
-                                    id: offTimeScheduleRect
-                                    height: 100
-                                    width: 200
-                                    //                    radius: 5
-                                    //                    color: "#dd0F2952"
-                                    //                    border.color: "#dddddd"
-                                    //                    visible: false
+                    //                                Item {
+                    //                                    id: offTimeScheduleRect
+                    //                                    height: 100
+                    //                                    width: 200
+                    //                                    //                    radius: 5
+                    //                                    //                    color: "#dd0F2952"
+                    //                                    //                    border.color: "#dddddd"
+                    //                                    //                    visible: false
 
-                                    visible: offEnableSwitch.checked
-                                    //                            scale: visible ? 1.0 : 0.1
-                                    //                            Behavior on scale {
-                                    //                                NumberAnimation { duration: 100}
-                                    //                            }
+                    //                                    visible: offEnableSwitch.checked
+                    //                                    //                            scale: visible ? 1.0 : 0.1
+                    //                                    //                            Behavior on scale {
+                    //                                    //                                NumberAnimation { duration: 100}
+                    //                                    //                            }
 
-                                    Rectangle {
-                                        anchors.fill: parent
-                                        color: "#0F2952"
-                                        border.color: "#e3dac9"
-                                        radius: 5
-                                    }//
+                    //                                    Rectangle {
+                    //                                        anchors.fill: parent
+                    //                                        color: "#0F2952"
+                    //                                        border.color: "#e3dac9"
+                    //                                        radius: 5
+                    //                                    }//
 
-                                    ColumnLayout{
-                                        anchors.fill: parent
-                                        anchors.margins: 5
+                    //                                    ColumnLayout{
+                    //                                        anchors.fill: parent
+                    //                                        anchors.margins: 5
 
-                                        TextApp {
-                                            text: qsTr("Time")
-                                        }//
+                    //                                        TextApp {
+                    //                                            text: qsTr("Time")
+                    //                                        }//
 
-                                        Item {
-                                            id: offAutoSetTimeItem
-                                            Layout.fillHeight: true
-                                            Layout.fillWidth: true
+                    //                                        Item {
+                    //                                            id: offAutoSetTimeItem
+                    //                                            Layout.fillHeight: true
+                    //                                            Layout.fillWidth: true
 
-                                            TextApp{
-                                                id: offTimeText
-                                                anchors.fill: parent
-                                                horizontalAlignment: Text.AlignHCenter
-                                                verticalAlignment: Text.AlignVCenter
-                                                font.bold: true
-                                                font.pixelSize: 22
-                                            }//
-                                        }//
-                                    }//
+                    //                                            TextApp{
+                    //                                                id: offTimeText
+                    //                                                anchors.fill: parent
+                    //                                                horizontalAlignment: Text.AlignHCenter
+                    //                                                verticalAlignment: Text.AlignVCenter
+                    //                                                font.bold: true
+                    //                                                font.pixelSize: 22
+                    //                                            }//
+                    //                                        }//
+                    //                                    }//
 
-                                    MouseArea {
-                                        anchors.fill: parent
-                                        onClicked: {
-                                            ////console.debug("Open time picker")
-                                            finishViewReturned.connect(props.onReturnFromTimePickerPage)
-                                            let hour = props.offTimeSet/60
-                                            let minute = props.offTimeSet%60
-                                            const intent = IntentApp.create("qrc:/UI/Pages/TimePickerPage/TimePickerPage.qml",
-                                                                            {   "pid": "off",
-                                                                                "temp": props.parameterOffHasChanged,
-                                                                                "hour": hour,
-                                                                                "minute": minute,
-                                                                                "periodMode": props.timePeriodMode
-                                                                            })
-                                            startView(intent)
-                                        }//
-                                    }//
-                                }//
-                            }//
+                    //                                    MouseArea {
+                    //                                        anchors.fill: parent
+                    //                                        onClicked: {
+                    //                                            ////console.debug("Open time picker")
+                    //                                            finishViewReturned.connect(props.onReturnFromTimePickerPage)
+                    //                                            let hour = props.offTimeSet/60
+                    //                                            let minute = props.offTimeSet%60
+                    //                                            const intent = IntentApp.create("qrc:/UI/Pages/TimePickerPage/TimePickerPage.qml",
+                    //                                                                            {   "pid": "off",
+                    //                                                                                "temp": props.parameterOffHasChanged,
+                    //                                                                                "hour": hour,
+                    //                                                                                "minute": minute,
+                    //                                                                                "periodMode": props.timePeriodMode
+                    //                                                                            })
+                    //                                            startView(intent)
+                    //                                        }//
+                    //                                    }//
+                    //                                }//
+                    //                            }//
 
-                            Item {
-                                id: offRepeatScheduleRect
-                                height: 100
-                                width: 410
-                                //                    radius: 5
-                                //                    color: "#dd0F2952"
-                                //                    border.color: "#dddddd"
-                                //                    visible: false
+                    //                            Item {
+                    //                                id: offRepeatScheduleRect
+                    //                                height: 100
+                    //                                width: 410
+                    //                                //                    radius: 5
+                    //                                //                    color: "#dd0F2952"
+                    //                                //                    border.color: "#dddddd"
+                    //                                //                    visible: false
 
-                                visible: offEnableSwitch.checked
-                                //                        scale: visible ? 1.0 : 0.1
-                                //                        Behavior on scale {
-                                //                            NumberAnimation { duration: 100}
-                                //                        }
+                    //                                visible: offEnableSwitch.checked
+                    //                                //                        scale: visible ? 1.0 : 0.1
+                    //                                //                        Behavior on scale {
+                    //                                //                            NumberAnimation { duration: 100}
+                    //                                //                        }
 
-                                Rectangle {
-                                    anchors.fill: parent
-                                    color: "#0F2952"
-                                    border.color: "#e3dac9"
-                                    radius: 5
-                                }//
+                    //                                Rectangle {
+                    //                                    anchors.fill: parent
+                    //                                    color: "#0F2952"
+                    //                                    border.color: "#e3dac9"
+                    //                                    radius: 5
+                    //                                }//
 
-                                ColumnLayout{
-                                    anchors.fill: parent
-                                    anchors.margins: 5
+                    //                                ColumnLayout{
+                    //                                    anchors.fill: parent
+                    //                                    anchors.margins: 5
 
-                                    TextApp {
-                                        text: qsTr("Repeat")
-                                    }//
+                    //                                    TextApp {
+                    //                                        text: qsTr("Repeat")
+                    //                                    }//
 
-                                    Item {
-                                        Layout.fillHeight: true
-                                        Layout.fillWidth: true
+                    //                                    Item {
+                    //                                        Layout.fillHeight: true
+                    //                                        Layout.fillWidth: true
 
-                                        ComboBoxApp {
-                                            id: offRepeatDayComboBox
-                                            anchors.fill: parent
-                                            backgroundColor: "#0F2952"
-                                            backgroundBorderColor: "#dddddd"
-                                            backgroundBorderWidth: 2
-                                            font.pixelSize: 20
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            textRole: "text"
+                    //                                        ComboBoxApp {
+                    //                                            id: offRepeatDayComboBox
+                    //                                            anchors.fill: parent
+                    //                                            backgroundColor: "#0F2952"
+                    //                                            backgroundBorderColor: "#dddddd"
+                    //                                            backgroundBorderWidth: 2
+                    //                                            font.pixelSize: 20
+                    //                                            anchors.verticalCenter: parent.verticalCenter
+                    //                                            textRole: "text"
 
-                                            model: [
-                                                {text: qsTr("Once")},
-                                                {text: qsTr("Everyday")},
-                                                {text: qsTr("Weekdays - Monday to Friday")},
-                                                {text: qsTr("Weekends - Saturday & Sunday")},
-                                                {text: qsTr("Weekly - Monday")},
-                                                {text: qsTr("Weekly - Tuesday")},
-                                                {text: qsTr("Weekly - Wednesday")},
-                                                {text: qsTr("Weekly - Thursday")},
-                                                {text: qsTr("Weekly - Friday")},
-                                                {text: qsTr("Weekly - Saturday")},
-                                                {text: qsTr("Weekly - Sunday")},
-                                            ]
+                    //                                            model: [
+                    //                                                {text: qsTr("Once")},
+                    //                                                {text: qsTr("Everyday")},
+                    //                                                {text: qsTr("Weekdays - Monday to Friday")},
+                    //                                                {text: qsTr("Weekends - Saturday & Sunday")},
+                    //                                                {text: qsTr("Weekly - Monday")},
+                    //                                                {text: qsTr("Weekly - Tuesday")},
+                    //                                                {text: qsTr("Weekly - Wednesday")},
+                    //                                                {text: qsTr("Weekly - Thursday")},
+                    //                                                {text: qsTr("Weekly - Friday")},
+                    //                                                {text: qsTr("Weekly - Saturday")},
+                    //                                                {text: qsTr("Weekly - Sunday")},
+                    //                                            ]
 
-                                            onActivated: {
-                                                //                                        console.log("onActivated")
-                                                props.offRepeatSet = index < 4 ? index : 4
-                                                if (index >= 4) {
-                                                    props.offRepeatDaySet = (index - 4) + 1;
-                                                }//
+                    //                                            onActivated: {
+                    //                                                //                                        console.log("onActivated")
+                    //                                                props.offRepeatSet = index < 4 ? index : 4
+                    //                                                if (index >= 4) {
+                    //                                                    props.offRepeatDaySet = (index - 4) + 1;
+                    //                                                }//
 
-                                                //setButton.visible = true
-                                            }//
+                    //                                                //setButton.visible = true
+                    //                                            }//
 
-                                            //                                    Component.onCompleted: {
-                                            //                                        let repeat = props.uvAutoSetDayRepeat
-                                            //                                        let day = props.uvAutoSetWeeklyDay
+                    //                                            //                                    Component.onCompleted: {
+                    //                                            //                                        let repeat = props.uvAutoSetDayRepeat
+                    //                                            //                                        let day = props.uvAutoSetWeeklyDay
 
-                                            //                                        ////console.debug(repeat)
-                                            //                                        ////console.debug(day)
+                    //                                            //                                        ////console.debug(repeat)
+                    //                                            //                                        ////console.debug(day)
 
-                                            //                                        let index = repeat;
-                                            //                                        if (repeat >= 4) {
-                                            //                                            index = repeat + (day - 1)
-                                            //                                        }//
-                                            //                                        currentIndex = index
-                                            //                                    }//
-                                        }//
-                                    }//
-                                }//
-                            }//
-                        }//
-                    }//
+                    //                                            //                                        let index = repeat;
+                    //                                            //                                        if (repeat >= 4) {
+                    //                                            //                                            index = repeat + (day - 1)
+                    //                                            //                                        }//
+                    //                                            //                                        currentIndex = index
+                    //                                            //                                    }//
+                    //                                        }//
+                    //                                    }//
+                    //                                }//
+                    //                            }//
+                    //                        }//
+                    //                    }//
                 }//
             }//
 

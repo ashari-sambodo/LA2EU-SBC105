@@ -3243,7 +3243,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
             //AUTOMATIC IO STATE
             if(m_pSashWindow->isSashStateChanged() && sashChangedValid && !m_eventLoopSashMotorActive){
                 bool autoOnBlower = false;
-                autoOnBlower |= (modeOperation == MachineEnums::MODE_OPERATION_QUICKSTART);
+                autoOnBlower |= (modeOperation != MachineEnums::MODE_OPERATION_MAINTENANCE);
                 autoOnBlower &= (pData->getFanState() != MachineEnums::FAN_STATE_STANDBY);
 
                 if(autoOnBlower){
@@ -3426,7 +3426,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                     ////SWITCH BLOWER SPEED TO NOMINAL SPEED
                     bool autoOnBlower = false;
                     autoOnBlower |= (modeOperation == MachineEnums::MODE_OPERATION_QUICKSTART);
-                    //autoOnBlower |= (pData->getFanPrimaryState() == MachineEnums::FAN_STATE_STANDBY || pData->getFanInflowState() == MachineEnums::FAN_STATE_STANDBY);
+                    autoOnBlower |= (pData->getFanPrimaryState() == MachineEnums::FAN_STATE_STANDBY || pData->getFanInflowState() == MachineEnums::FAN_STATE_STANDBY);
                     autoOnBlower &= (pData->getFanState() != MachineEnums::FAN_STATE_ON);
 
                     if(autoOnBlower){
@@ -6796,6 +6796,13 @@ void MachineBackend::_onTimerEventWarmingUp()
             m_pIfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanInflowDutyCycle());
             m_timerEventForClosedLoopControl->start();
         }
+
+        /// Ensure The Data Log timer is Active Data Log Once WarmingUp Time finished
+        if(pData->getDataLogEnable()){
+            if(!m_timerEventForDataLog->isActive()){
+                m_timerEventForDataLog->start();
+            }//
+        }//
     }
     else {
         count--;

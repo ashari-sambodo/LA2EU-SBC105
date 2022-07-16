@@ -8,14 +8,41 @@ QT += websockets
 TEMPLATE = app
 CONFIG += c++11
 
+#CHAMBER = 1 ## Set to 1 for pass chamber 1 and 2 for pass chamber 2
+NAME = SBC105
+#equals(CHAMBER, 1){
+#NAME = SBC606_1
+#}
+#equals(CHAMBER, 2){
+#NAME = SBC606_2
+#}
+
 VERSION = 1.0.0
+BUILD = 1
+## b1:
+## - Fan go to nominal if the previous state is standby even the operation mode is not quickstart
+## - Remove Fan scheduler Off as per TUV suggestion
+## - Fixed issue RPM value is still displayed on 3Ft Cabinet
+## - Fixed issue the datalog timer is not run even it's enabled
+## - Fixed issue user edit not working when changes made on the password
+## - Update some icons
+## - Add options to select cabinet side type (SS/Glass)
+
+
+FULL_VERSION = $$VERSION
+greaterThan(BUILD, 0){
+FULL_VERSION = $$VERSION"_"$$BUILD
+}
+
+DEFINES += APP_NAME=\\\"$${NAME}\\\"
 DEFINES += APP_VERSION=\\\"$${VERSION}\\\"
+DEFINES += APP_BUILD=\\\"$${BUILD}\\\"
 DEFINES += INCREMENTAL_VERSION=1
-TARGET = bin/sbc105-$$VERSION
+TARGET = bin/$$NAME-$$FULL_VERSION
 
 ## CREATE SYMBOLIC LINK
 unix {
-    QMAKE_POST_LINK += $$quote(cd $$OUT_PWD/bin; ln -sf sbc105-$$VERSION app-exe)
+    QMAKE_POST_LINK += $$quote(cd $$OUT_PWD/bin; ln -sf $$NAME-$$FULL_VERSION app-exe)
     ## rsync -lavv * root@172.16.30.210:/opt/SBCUpdate/
 }
 # The following define makes your compiler emit warnings if you use

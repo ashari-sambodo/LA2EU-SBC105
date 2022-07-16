@@ -301,7 +301,7 @@ void AirflowVelocity::initScope()
     double m3=0.0, b3=0.0;
     if(m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT){
         m3 = (static_cast<double>(m_adcPoint[3] - m_adcPoint[2])) / (m_velocityPoint[3] - m_velocityPoint[2]);
-        b3 = (static_cast<double>(m_adcPoint[2])) - (m2 * m_velocityPoint[2]);
+        b3 = (static_cast<double>(m_adcPoint[2])) - (m3 * m_velocityPoint[2]);
     }
 
     if((m_m1 != m1) || (m_b1 != b1) || (m_m2 != m2) || (m_b2 != b2) || (((m_m3 != m3) || (m_b3 != b3)) && (m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT))){

@@ -206,7 +206,7 @@ void UserManageQmlApp::updateUserIncludePassword(const QString username,
         qDebug() << __func__ << thread();
 
 
-        bool done = false;
+        bool done = true;
         done &= m_pSql->queryUpdateUserPassword(password, username);
         done &= m_pSql->queryUpdateUserRole(role, username);
         done &= m_pSql->queryUpdateUserFullname(fullName, username);

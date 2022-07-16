@@ -129,6 +129,13 @@ ViewApp {
                                                                         text: "RPM: " + props.dfaFanRpmActual
                                                                         states: [
                                                                             State {
+                                                                                when: MachineData.cabinetWidth3Feet
+                                                                                PropertyChanges {
+                                                                                    target: dfaRpmText
+                                                                                    color: "#0F2952"
+                                                                                }
+                                                                            },//
+                                                                            State {
                                                                                 when: props.dfaFanRpmActual == 0
                                                                                 PropertyChanges {
                                                                                     target: dfaRpmText
