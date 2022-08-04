@@ -208,7 +208,7 @@ void MachineBackend::setup()
         QJsonObject machineProfile = pData->getMachineProfile();
         QJsonObject cabinetSize = machineProfile.value("width").toObject();
         int cabFeet = qRound(cabinetSize.value("feet").toDouble());
-        pData->setCabinetWidth3Feet(cabFeet == 3);
+        pData->setCabinetWidth3Feet(false);
         qDebug() << "Cabinet Width:" << cabFeet << "ft";
         qDebug() << "Cabinet Width 3 Ft:" << pData->getCabinetWidth3Feet();
     }//

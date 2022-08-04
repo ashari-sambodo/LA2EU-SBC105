@@ -49,9 +49,14 @@ void ELSgenerator::calculateKey(QString serialNumber, const QString &targetDate)
         bool success = getEscoLockServicePIN(serialNumber, &elsPinStr, &elsPinStr2, targetDate);
 
         qDebug() << metaObject()->className() << __func__ << success << "elsPinStr" << elsPinStr << elsPinStr2;
-
-        setGeneratedKey(elsPinStr);
-        setGeneratedKey2(elsPinStr2);
+        if(elsPinStr.length() >= 5)
+            setGeneratedKey(QString() + elsPinStr.at(0) + elsPinStr.at(1) + elsPinStr.at(2) + elsPinStr.at(3) + elsPinStr.at(4));
+        else
+            setGeneratedKey("00019");
+        if(elsPinStr2.length() >= 5)
+            setGeneratedKey2(QString() + elsPinStr2.at(0) + elsPinStr2.at(1) + elsPinStr2.at(2) + elsPinStr2.at(3) + elsPinStr2.at(4));
+        else
+            setGeneratedKey2("00019");
 
         setBusy(false);
         emit generatorKeyHasFinished(success);
