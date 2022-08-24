@@ -938,7 +938,7 @@
     </message>
     <message>
         <location filename="../UI/Pages/AlarmLogPage/AlarmLogSettingPage.qml" line="146"/>
-        <source>Delete oldest log start from</source>
+        <source>Delete older log start from</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1423,7 +1423,7 @@
     </message>
     <message>
         <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="465"/>
-        <source>Are you sure to cencel?</source>
+        <source>Are you sure to cancel?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1669,50 +1669,46 @@
     </message>
 </context>
 <context>
-    <name>CertificationRemainderDatePage</name>
+    <name>CertificationReminderDatePage</name>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="47"/>
-        <source>Certification Remainder</source>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="47"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="134"/>
+        <source>Certification Reminder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="63"/>
-        <source>Certification remainder date</source>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="63"/>
+        <source>Certification reminder date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="75"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="75"/>
         <source>Tap here to set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="117"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="117"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="131"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="131"/>
         <source>Disable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="134"/>
-        <source>Certificate Reminder</source>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="135"/>
+        <source>Are you sure to disable certification due date reminder?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="135"/>
-        <source>Are you sure to disable certificate dua date remainder?</source>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="136"/>
+        <source>Never show reminder notification.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="136"/>
-        <source>Never show remainder notification.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="142"/>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="181"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="142"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="181"/>
         <source>Setting up...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4471,17 +4467,12 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1326"/>
-        <source>Certification Remainder</source>
+        <source>Certification Reminder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1327"/>
         <source>Certification due date has passed on </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1328"/>
-        <source>Please contact your cabinet service reresentative!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4573,6 +4564,11 @@ Ensure that sensors, grill and ventilation paths are not obstructed.</source>
         <source>The exhaust pressure is too high!
 Potentially reducing the protective capabilities of the cabinet.
 Ensure that exhaust fan is in nominal speed and damper is opened.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1328"/>
+        <source>Please contact your cabinet service representative!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

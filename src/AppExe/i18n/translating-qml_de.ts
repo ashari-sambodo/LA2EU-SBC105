@@ -942,7 +942,7 @@
     </message>
     <message>
         <location filename="../UI/Pages/AlarmLogPage/AlarmLogSettingPage.qml" line="146"/>
-        <source>Delete oldest log start from</source>
+        <source>Delete older log start from</source>
         <translation>Ältestes Protokoll löschen ab</translation>
     </message>
     <message>
@@ -1431,7 +1431,7 @@
     </message>
     <message>
         <location filename="../UI/Pages/BookingSchedule/BookingSchedule.qml" line="465"/>
-        <source>Are you sure to cencel?</source>
+        <source>Are you sure to cancel?</source>
         <translation>Sind Sie sicher, dass Sie stornieren?</translation>
     </message>
 </context>
@@ -1681,50 +1681,54 @@
     </message>
 </context>
 <context>
-    <name>CertificationRemainderDatePage</name>
+    <name>CertificationReminderDatePage</name>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="47"/>
-        <source>Certification Remainder</source>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="47"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="134"/>
+        <source>Certification Reminder</source>
         <translation>Zertifizierungsrest</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="63"/>
-        <source>Certification remainder date</source>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="63"/>
+        <source>Certification reminder date</source>
         <translation>Restdatum der Zertifizierung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="75"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="75"/>
         <source>Tap here to set</source>
         <translation>Zum Einstellen hier tippen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="117"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="117"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="131"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="131"/>
         <source>Disable</source>
         <translation>Deaktivieren</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="134"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="135"/>
+        <source>Are you sure to disable certification due date reminder?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Certificate Reminder</source>
-        <translation>Zertifikatserinnerung</translation>
+        <translation type="vanished">Zertifikatserinnerung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="135"/>
-        <source>Are you sure to disable certificate dua date remainder?</source>
-        <translation>Möchten Sie die Erinnerung an das Fälligkeitsdatum des Zertifikats wirklich deaktivieren?</translation>
+        <source>Are you sure to disable certificate dua date reminder?</source>
+        <translation type="vanished">Möchten Sie die Erinnerung an das Fälligkeitsdatum des Zertifikats wirklich deaktivieren?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="136"/>
-        <source>Never show remainder notification.</source>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="136"/>
+        <source>Never show reminder notification.</source>
         <translation>Niemals Erinnerungsbenachrichtigung anzeigen.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="142"/>
-        <location filename="../UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml" line="181"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="142"/>
+        <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="181"/>
         <source>Setting up...</source>
         <translation>Einrichten...</translation>
     </message>
@@ -2384,9 +2388,13 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation>Zu exportierende Seite (z. B. 1 oder 1-10, max. 10 Seiten/Export)</translation>
     </message>
     <message>
+        <source>Delete older log start from</source>
+        <translation type="vanished">Ältestes Protokoll löschen ab</translation>
+    </message>
+    <message>
         <location filename="../UI/Pages/DataLogPage/DataLogSettingPage.qml" line="236"/>
         <source>Delete oldest log start from</source>
-        <translation>Ältestes Protokoll löschen ab</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/DataLogPage/DataLogSettingPage.qml" line="258"/>
@@ -4429,6 +4437,11 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation>BEACHTUNG !!!</translation>
     </message>
     <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1328"/>
+        <source>Please contact your cabinet service representative!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1509"/>
         <source>The Airflow velocity is too low!
 Potentially reducing the protective capabilities of the cabinet.
@@ -4575,7 +4588,7 @@ Stellen Sie sicher, dass Sensoren, Gitter und Lüftungswege nicht blockiert sind
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1326"/>
-        <source>Certification Remainder</source>
+        <source>Certification Reminder</source>
         <translation>Zertifizierungsrest</translation>
     </message>
     <message>
@@ -4584,9 +4597,8 @@ Stellen Sie sicher, dass Sensoren, Gitter und Lüftungswege nicht blockiert sind
         <translation>Das Fälligkeitsdatum der Zertifizierung ist überschritten </translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1328"/>
         <source>Please contact your cabinet service reresentative!</source>
-        <translation>Bitte wenden Sie sich an Ihren Schrankservice!</translation>
+        <translation type="vanished">Bitte wenden Sie sich an Ihren Schrankservice!</translation>
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1342"/>

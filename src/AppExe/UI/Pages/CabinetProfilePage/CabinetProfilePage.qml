@@ -297,36 +297,67 @@ ViewApp {
                             }
                         }//
 
-                        ButtonBarApp {
-                            id: setButton
-                            width: 194
+                        Row{
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.right: parent.right
-                            enabled: false
+                            spacing: 5
+                            ButtonBarApp {
+                                id: swupdateButton
+                                visible: false
+                                width: 194
+                                imageSource: "qrc:/UI/Pictures/update.png"
+                                text: qsTr("SWUpdate")
 
-                            /// only visible from second fragment, set options
-                            //                            visible: false
+                                onClicked: {
+                                    const message = qsTr("Are you sure want to continue to update?")
+                                    viewApp.showDialogAsk(qsTr("Notification"),
+                                                          message,
+                                                          viewApp.dialogInfo,
+                                                          function onAccepted(){
+                                                              //console.debug("SBC Update Load...")
+                                                              viewApp.showBusyPage(qsTr("Load the updater..."),
+                                                                                   function onTriggered(cycle){
+                                                                                       if(cycle >= MachineAPI.BUSY_CYCLE_1){
+                                                                                           let exitCodeOpenUpdater = 7
+                                                                                           const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml",
+                                                                                                                           {exitCode: exitCodeOpenUpdater})
+                                                                                           startRootView(intent)
+                                                                                       }
+                                                                                   })
+                                                          })
+                                }
+                            }//
+                            ButtonBarApp {
+                                id: setButton
+                                width: 194
+                                //anchors.verticalCenter: parent.verticalCenter
+                                //anchors.right: parent.right
+                                enabled: false
 
-                            imageSource: "qrc:/UI/Pictures/checkicon.png"
-                            text: qsTr("Apply")
+                                /// only visible from second fragment, set options
+                                //                            visible: false
 
-                            onClicked: {
-                                /// pop out detail profile if it was opened
-                                if (contentStackView.depth > 1) contentStackView.pop()
+                                imageSource: "qrc:/UI/Pictures/checkicon.png"
+                                text: qsTr("Apply")
 
-                                /// save to permanent storage
-                                settings.machProfId = props.profileReq['profilelId']
-                                settings.sync()
+                                onClicked: {
+                                    /// pop out detail profile if it was opened
+                                    if (contentStackView.depth > 1) contentStackView.pop()
 
-                                viewApp.showBusyPage(qsTr("Setting up..."),
-                                                     function onCycle(cycle){
-                                                         if (cycle >= MachineAPI.BUSY_CYCLE_1) {
-                                                             props.currentProfileName = props.profileReq['name']
+                                    /// save to permanent storage
+                                    settings.machProfId = props.profileReq['profilelId']
+                                    settings.sync()
 
-                                                             const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {})
-                                                             startRootView(intent)
-                                                         }//
-                                                     })
+                                    viewApp.showBusyPage(qsTr("Setting up..."),
+                                                         function onCycle(cycle){
+                                                             if (cycle >= MachineAPI.BUSY_CYCLE_1) {
+                                                                 props.currentProfileName = props.profileReq['name']
+
+                                                                 const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {})
+                                                                 startRootView(intent)
+                                                             }//
+                                                         })
+                                }//
                             }//
                         }//
                     }//
@@ -376,6 +407,12 @@ ViewApp {
                 //                    let currentProfile = MachineData.MachineProfileName
                 //                    if(currentProfile.length === 0) currentProfile = qsTr("NONE")
                 //                    props.currentProfile = currentProfile
+
+                const extraData = IntentApp.getExtraData(intent)
+                const thisOpenedFromStartupPage = extraData["startup"] || false
+                if(thisOpenedFromStartupPage) {
+                    swupdateButton.visible = true
+                }
 
                 let profileIdActive = settings.machProfId/*"73ba4552-4da5-11eb-ae93-0242ac130002"*/
                 if(profileIdActive !== "NONE") {

@@ -462,7 +462,7 @@ ViewApp {
             }//
 
             function bookingCancel(time) {
-                showDialogAsk("Booking Schedule", qsTr("Are you sure to cencel?"), dialogAlert, function onAccepted(){
+                showDialogAsk("Booking Schedule", qsTr("Are you sure to cancel?"), dialogAlert, function onAccepted(){
                     showBusyPage(qsTr("Loading"), function(){})
                     bookingScheduleQmlApp.deleteByDateTime(targetDate, time)
                 })

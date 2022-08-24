@@ -106,7 +106,7 @@
         <file>UI/Pages/TimePickerPage/TimePickerPage.qml</file>
         <file>UI/Pages/ScreenShootShowPage/ScreenShootShowPage.qml</file>
         <file>UI/Pages/SecurityLevelSetPage/SecurityLevelSetPage.qml</file>
-        <file>UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml</file>
+        <file>UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml</file>
         <file>UI/Pages/SeasAlarmSetPointPage/_GettingStartedSeasAlarmPage.qml</file>
         <file>UI/Pages/SeasAlarmSetPointPage/SeasAlarmPage.qml</file>
         <file>UI/Pages/SeasAlarmSetPointPage/SeasAlarmSetPointPage.qml</file>

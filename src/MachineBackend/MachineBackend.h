@@ -106,8 +106,8 @@ public slots:
     /// API for Security Access
     void setSecurityAccessModeSave(short value);
 
-    /// API for Certification remainder
-    void setDateCertificationRemainder (const QString remainder);
+    /// API for Certification reminder
+    void setDateCertificationReminder (const QString reminder);
 
     //    void setCertificationExpired (bool certificationExpired );
 

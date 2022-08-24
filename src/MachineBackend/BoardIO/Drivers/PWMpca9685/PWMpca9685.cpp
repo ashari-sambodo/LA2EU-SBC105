@@ -143,6 +143,12 @@ int PWMpca9685::polling()
     return updateRegBuffer(m_countChannelsToPool);
 }
 
+void PWMpca9685::initState(short numberOfChannel)
+{
+    for(short i=0; i< numberOfChannel; i++)
+        setPWM(i, PCA9685_PWM_VAL_FULL_DCY_OFF, ClassDriver::I2C_OUT_BUFFER);
+}
+
 /**
  * @brief PWMpca9685::init
  * @return will -1 if communication i2c have problem

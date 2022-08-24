@@ -956,10 +956,10 @@ void MachineProxy::setSecurityAccessModeSave(short value)
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setDateCertificationRemainder(const QString value)
+void MachineProxy::setDateCertificationReminder(const QString value)
 {
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setDateCertificationRemainder(value);
+        m_machineBackend->setDateCertificationReminder(value);
     },
     Qt::QueuedConnection);
 }

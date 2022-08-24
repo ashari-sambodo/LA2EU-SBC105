@@ -1323,9 +1323,9 @@ ViewApp {
                                             anchors.fill: parent
                                             enabled:props.certfRemExpiredCount < 1
                                             onClicked: {
-                                                showDialogMessage(qsTr("Certification Remainder"),
+                                                showDialogMessage(qsTr("Certification Reminder"),
                                                                   qsTr("Certification due date has passed on ") + props.certfRemExpiredDate + "<br><br>"+
-                                                                  qsTr("Please contact your cabinet service reresentative!"),
+                                                                  qsTr("Please contact your cabinet service representative!"),
                                                                   dialogAlert)
                                             }//
                                         }//
@@ -2711,7 +2711,7 @@ ViewApp {
                 //                    props.alarmlogIsFull = Qt.binding(function() { return MachineData.dataLogIsFull })
 
                 /// certificatio reminder
-                props.certfRemExpiredDate = Qt.binding(function() { return MachineData.dateCertificationRemainder })
+                props.certfRemExpiredDate = Qt.binding(function() { return MachineData.dateCertificationReminder })
                 props.certfRemExpiredValid = Qt.binding(function() { return MachineData.certificationExpiredValid })
                 props.certfRemExpiredDue = Qt.binding(function() { return MachineData.certificationExpired })
                 //                console.log("nilai certif " + props.certfRemExpired)

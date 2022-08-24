@@ -379,6 +379,8 @@ void MachineBackend::setup()
 
                 bool response = m_boardRelay1->init();
                 m_boardRelay1->polling();
+                /// Switch Off All Output
+                m_boardRelay1->initState(8);
 
                 pData->setBoardStatusHybridDigitalRelay(!response);
 
@@ -1360,6 +1362,12 @@ void MachineBackend::setup()
 
         connect(m_pGas.data(), &DeviceDigitalOut::stateChanged,
                 this, &MachineBackend::_onGasStateChanged);
+        //        connect(m_pGas.data(), &DeviceDigitalOut::workerFinished,
+        //                this, [&](){
+        //            qDebug() << "m_pGas Worker finished!";
+        //        });
+        //        connect(pData, &MachineData::alarmsStateChanged,
+        //                m_pGas.data(), &DeviceDigitalOut::setInterlock);
 
         connect(m_pGas.data(), &DeviceDigitalOut::interlockChanged,
                 pData, [&](int newVal){
@@ -1922,7 +1930,7 @@ void MachineBackend::setup()
 
         QString dateExpire = m_settings->value(SKEY_CALENDER_REMAINDER_MODE,dateText).toString();
 
-        pData->setDateCertificationRemainder(dateExpire);
+        pData->setDateCertificationReminder(dateExpire);
 
         _checkCertificationReminder();
     }
@@ -3415,12 +3423,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                                  [=](){
 
                     //qDebug() << "Sash Safe Height after delay turned on out put";
-                    ///Ensure the Buzzer Alarm Off Once Sahs Safe
-                    setBuzzerState(MachineEnums::DIG_STATE_ZERO);
-                    ////TURN ON LAMP
-                    m_pLight->setState(MachineEnums::DIG_STATE_ONE);
-                    ///
-                    _insertEventLog(EVENT_STR_LIGHT_ON);
+
                     ////IF CURRENT MODE MOPERATION IS QUICK START OR
                     ////IF CURRENT FAN STATE IS STANDBY SPEED; THEN
                     ////SWITCH BLOWER SPEED TO NOMINAL SPEED
@@ -3458,6 +3461,15 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                         ////
                         _insertEventLog(EVENT_STR_FAN_ON);
                     }
+
+                    if(!pData->getWarmingUpActive()){
+                        ////TURN ON LAMP
+                        m_pLight->setState(MachineEnums::DIG_STATE_ONE);
+                        ///
+                        _insertEventLog(EVENT_STR_LIGHT_ON);
+                    }
+                    ///Ensure the Buzzer Alarm Off Once Sahs Safe
+                    setBuzzerState(MachineEnums::DIG_STATE_ZERO);
 
                     /// clear vivarium mute state
                     if(pData->getVivariumMuteState()){
@@ -3984,15 +3996,15 @@ void MachineBackend::setSecurityAccessModeSave(short value)
     m_settings->setValue(SKEY_SECURITY_ACCESS_MODE,value);
 }
 
-void MachineBackend::setDateCertificationRemainder(const QString remainder)
+void MachineBackend::setDateCertificationReminder(const QString reminder)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    pData->setDateCertificationRemainder(remainder);
+    pData->setDateCertificationReminder(reminder);
 
     QScopedPointer<QSettings> m_settings(new QSettings);
-    m_settings->setValue(SKEY_CALENDER_REMAINDER_MODE,remainder);
+    m_settings->setValue(SKEY_CALENDER_REMAINDER_MODE,reminder);
 
-    qDebug() << "tanggal" << remainder;
+    qDebug() << "tanggal" << reminder;
 
     _checkCertificationReminder();
 }
@@ -7555,7 +7567,7 @@ void MachineBackend::_checkCertificationReminder()
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
-    QString strDate = pData->getDateCertificationRemainder();
+    QString strDate = pData->getDateCertificationReminder();
     QDate acDate = QDate::fromString(strDate,"yyyy-MM-dd");
 
     if(acDate.isValid()){
@@ -8773,10 +8785,11 @@ void MachineBackend::_machineState()
             }
 
             ///////////////INTERLOCK GAS IF DEVICE INSTALLED AND WARMUP IS NOT ACTIVE
+            /// AND NO ALARM
             if(pData->getGasInstalled()){
                 if(isFanStateNominal()
                         && !pData->getPostPurgingActive()
-                        && !pData->getWarmingUpActive()){
+                        && !pData->getWarmingUpActive() && !pData->getAlarmsState()){
                     if (pData->getGasInterlocked()){
                         m_pGas->setInterlock(MachineEnums::DIG_STATE_ZERO);
                     }
@@ -9852,7 +9865,8 @@ void MachineBackend::_machineState()
     if(pData->getAlarmsState()){
         if(!pData->getAlarmContactState())
             setAlarmContactState(MachineEnums::DIG_STATE_ONE);
-    }else{
+    }
+    else {
         if(pData->getAlarmContactState())
             setAlarmContactState(MachineEnums::DIG_STATE_ZERO);
     }

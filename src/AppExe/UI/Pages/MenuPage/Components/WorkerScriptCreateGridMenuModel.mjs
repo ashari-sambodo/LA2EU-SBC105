@@ -314,7 +314,7 @@
             menu[index].push({mtype        : "menu",
                                  mtitle    : qsTr("Certification Reminder"),
                                  micon     : "qrc:/UI/Pictures/reminder_date.png",
-                                 mlink     : "qrc:/UI/Pages/CertificationRemainderDatePage/CertificationRemainderDatePage.qml"
+                                 mlink     : "qrc:/UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml"
                                  //                                             mlink      : "FanInputPin"
                              })
 

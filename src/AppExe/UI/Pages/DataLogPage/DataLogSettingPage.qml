@@ -233,7 +233,7 @@ ViewApp {
 
                             TextApp {
                                 Layout.margins: 5
-                                text: qsTr("Delete oldest log start from")
+                                text: qsTr("Delete older log start from")
                             }//
 
                             Item {

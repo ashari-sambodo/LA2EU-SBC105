@@ -17,7 +17,7 @@ import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
-    title: "Certification Remainder"
+    title: "Certification Reminder"
 
     background.sourceComponent: Item {
         //        color: "#34495e"
@@ -44,7 +44,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr("Certification Remainder")
+                    title: qsTr("Certification Reminder")
                 }
             }
 
@@ -60,7 +60,7 @@ ViewApp {
                     spacing: 5
 
                     TextApp{
-                        text: qsTr("Certification remainder date")
+                        text: qsTr("Certification reminder date")
                         color: "#cccccc"
                     }//
 
@@ -131,18 +131,18 @@ ViewApp {
                             text: qsTr("Disable")
 
                             onClicked: {
-                                showDialogAsk(qsTr("Certificate Reminder"),
-                                              qsTr("Are you sure to disable certificate dua date remainder?") + "<br><br>" +
-                                              qsTr("Never show remainder notification."),
+                                showDialogAsk(qsTr("Certification Reminder"),
+                                              qsTr("Are you sure to disable certification due date reminder?") + "<br><br>" +
+                                              qsTr("Never show reminder notification."),
                                               dialogAlert,
                                               function onAccepted(){
                                                   let noneCertDate = ""
-                                                  MachineAPI.setDateCertificationRemainder(noneCertDate)
+                                                  MachineAPI.setDateCertificationReminder(noneCertDate)
 
                                                   showBusyPage(qsTr("Setting up..."),
                                                                function onCycle(cycle){
                                                                    if (cycle >= MachineAPI.BUSY_CYCLE_1){
-                                                                       props.targetDate = MachineData.dateCertificationRemainder
+                                                                       props.targetDate = MachineData.dateCertificationReminder
 
                                                                        console.log("targetDateLength: " + props.targetDate.length)
                                                                        if(props.targetDate.length == 0) {
@@ -176,7 +176,7 @@ ViewApp {
                     props.targetDate = calendar['date']
                     currentValueText.text = Qt.formatDate(new Date(props.targetDate), "dd MMM yyyy")
 
-                    MachineAPI.setDateCertificationRemainder(props.targetDate)
+                    MachineAPI.setDateCertificationReminder(props.targetDate)
 
                     showBusyPage(qsTr("Setting up..."),
                                  function onCycle(cycle){
@@ -190,7 +190,7 @@ ViewApp {
 
         /// One time executed after onResume
         Component.onCompleted: {
-            props.targetDate = MachineData.dateCertificationRemainder
+            props.targetDate = MachineData.dateCertificationReminder
 
             console.log("targetDateLength: " + props.targetDate.length)
 

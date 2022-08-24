@@ -868,18 +868,18 @@ void MachineData::setSecurityAccessMode(short securityAccessMode)
     emit securityAccessChanged(m_securityAccessMode);
 }
 
-QString MachineData::getDateCertificationRemainder() const
+QString MachineData::getDateCertificationReminder() const
 {
-    return m_dateCertificationRemainder;
+    return m_dateCertificationReminder;
 }
 
-void MachineData::setDateCertificationRemainder(QString dateCertificationRemainder)
+void MachineData::setDateCertificationReminder(QString dateCertificationReminder)
 {
-    if (m_dateCertificationRemainder == dateCertificationRemainder)
+    if (m_dateCertificationReminder == dateCertificationReminder)
         return;
 
-    m_dateCertificationRemainder = dateCertificationRemainder;
-    emit dateCertificationRemainderChanged(m_dateCertificationRemainder);
+    m_dateCertificationReminder = dateCertificationReminder;
+    emit dateCertificationReminderChanged(m_dateCertificationReminder);
 }
 
 bool MachineData::getCertificationExpired() const

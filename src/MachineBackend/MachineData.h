@@ -586,11 +586,11 @@ class MachineData : public QObject
                //                              WRITE setSecurityAccessMode
                NOTIFY securityAccessChanged)
 
-    /// Certification remainder date
-    Q_PROPERTY(QString dateCertificationRemainder
-               READ getDateCertificationRemainder
-               //               WRITE setDateCertificationRemainder
-               NOTIFY dateCertificationRemainderChanged)
+    /// Certification reminder date
+    Q_PROPERTY(QString dateCertificationReminder
+               READ getDateCertificationReminder
+               //               WRITE setDateCertificationReminder
+               NOTIFY dateCertificationReminderChanged)
     Q_PROPERTY(bool certificationExpired
                READ getCertificationExpired
                //               WRITE setCertificationExpired
@@ -1661,9 +1661,9 @@ public:
     short getSecurityAccessMode() const;
     void setSecurityAccessMode(short securityAccessMode);
 
-    /// Certification Date Remainder
-    QString getDateCertificationRemainder() const;
-    void setDateCertificationRemainder(QString dateCertificationRemainder);
+    /// Certification Date Reminder
+    QString getDateCertificationReminder() const;
+    void setDateCertificationReminder(QString dateCertificationReminder);
     ///
     bool getCertificationExpired() const;
     void setCertificationExpired(bool certificationExpired);
@@ -2057,7 +2057,7 @@ signals:
 
     void securityAccessChanged(short securityAccessMode);
 
-    void dateCertificationRemainderChanged(QString dateCertificationRemainder);
+    void dateCertificationReminderChanged(QString dateCertificationReminder);
 
     void certificationExpiredChanged(bool certificationExpired);
 
@@ -2442,7 +2442,7 @@ private:
 
     short m_securityAccessMode = 0;
 
-    QString m_dateCertificationRemainder;
+    QString m_dateCertificationReminder;
     bool m_certificationExpired = false;
     int m_certificationExpiredCount = 0;
     bool m_certificationExpiredValid = false;

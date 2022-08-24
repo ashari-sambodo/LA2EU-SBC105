@@ -39,6 +39,8 @@ public:
     int testComm();
     int polling();
 
+    void initState(short numberOfChannel);
+
     void preInitOscilatorType(int oscilator = OscType::TYPE_OSC_INTERNAL);
     void preInitFrequency(int frequencyRequest);
     void preInitCountChannelsToPool(int count);

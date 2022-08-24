@@ -68,6 +68,12 @@ ViewApp {
         startRootView(intent)
     }
 
+    Settings {
+        id: settings
+
+        property string machProfId: "NONE"
+    }//
+
     background.sourceComponent: Item {}
 
     content.active: true
@@ -156,11 +162,7 @@ ViewApp {
             id: cabinetProfiles
         }//
 
-        Settings {
-            id: settings
 
-            property string machProfId: "NONE"
-        }//
 
         /// Ensure super admin has created
         UserManageQmlApp {
@@ -215,7 +217,7 @@ ViewApp {
                         eventTimer.stop()
 
                         /// Decide next page decision
-                        var intent = IntentApp.create("qrc:/UI/Pages/CabinetProfilePage/CabinetProfilePage.qml", {})
+                        var intent = IntentApp.create("qrc:/UI/Pages/CabinetProfilePage/CabinetProfilePage.qml", {"startup": 1})
                         startRootView(intent)
                     }
                     else {

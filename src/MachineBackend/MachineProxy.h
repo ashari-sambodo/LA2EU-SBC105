@@ -88,8 +88,8 @@ public slots:
     /// API for Security Access
     void setSecurityAccessModeSave(short value);
 
-    /// API for Certification Date Remainder
-    void setDateCertificationRemainder(const QString value);
+    /// API for Certification Date Reminder
+    void setDateCertificationReminder(const QString value);
 
     void setMeasurementUnit(short value);
 

@@ -37,7 +37,9 @@ short DeviceDigitalOut::dummyState() const
 
 void DeviceDigitalOut::setDummyState(short dummyState)
 {
+    if(m_interlock)return;
     m_dummyState = dummyState;
+    m_stateRequest = dummyState;
 }
 
 void DeviceDigitalOut::routineTask(int parameter)
@@ -76,11 +78,11 @@ void DeviceDigitalOut::routineTask(int parameter)
         //qDebug() << "State changed 2" << m_state;
         //emit stateChanged(m_state);
 
-#ifdef QT_DEBUG
-        if(m_dummyStateEnable){
-            m_dummyState = static_cast<short>(m_stateRequest);
-        }
-#endif
+        //#ifdef QT_DEBUG
+        //        if(m_dummyStateEnable){
+        //            m_dummyState = static_cast<short>(m_stateRequest);
+        //        }
+        //#endif
         //        m_stateRequest = BackendEEnums::DIGITAL_STATE_OFF;
         //        qDebug() << "m_stateRequest: " << m_stateRequest;
     }
@@ -108,10 +110,13 @@ void DeviceDigitalOut::setState(int state)
 {
     //    printf("DigitalOutManager::setState\n");
     //    fflush(stdout);
-
+    qDebug() << m_channelIO << state << m_interlock << m_state << m_stateRequest << m_dummyStateEnable << m_dummyState;
+    if(state >= 1) state = 1;
+    if(m_interlock && state)return;
     if(m_state == state) return;
     if(m_stateRequest == state) return;
     m_stateRequest = state;
+    if(m_dummyStateEnable)m_dummyState = state;
 }
 
 void DeviceDigitalOut::setInterlock(int interlock)
