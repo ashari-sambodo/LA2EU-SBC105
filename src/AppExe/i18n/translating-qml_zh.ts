@@ -5059,7 +5059,7 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
         <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="337"/>
         <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="357"/>
         <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="504"/>
-        <source>Login succes! username: </source>
+        <source>Login success! username: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7620,7 +7620,7 @@ every time the sash hits a safe height</source>
     <message>
         <location filename="../UI/Pages/SoftwareFailedStartPage/SoftwareFailedStartPage.qml" line="381"/>
         <location filename="../UI/Pages/SoftwareFailedStartPage/SoftwareFailedStartPage.qml" line="392"/>
-        <source>Login unknown device succes! username: </source>
+        <source>Login unknown device success! username: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -5179,7 +5179,7 @@ The ideal environmental temperature is between </translation>
         <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="337"/>
         <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="357"/>
         <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="504"/>
-        <source>Login succes! username: </source>
+        <source>Login success! username: </source>
         <translation>Einloggen erfolgreich! Nutzername: </translation>
     </message>
     <message>
@@ -7800,7 +7800,7 @@ every time the sash hits a safe height</source>
     <message>
         <location filename="../UI/Pages/SoftwareFailedStartPage/SoftwareFailedStartPage.qml" line="381"/>
         <location filename="../UI/Pages/SoftwareFailedStartPage/SoftwareFailedStartPage.qml" line="392"/>
-        <source>Login unknown device succes! username: </source>
+        <source>Login unknown device success! username: </source>
         <translation>Anmeldung unbekanntes Gerät erfolgreich! Nutzername: </translation>
     </message>
     <message>

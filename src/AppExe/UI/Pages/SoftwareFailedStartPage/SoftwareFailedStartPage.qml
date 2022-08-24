@@ -378,7 +378,7 @@ ViewApp {
                                         UserSessionService.fullname = "Unknown (service)"
 
                                         MachineAPI.setSignedUser(UserSessionService.username, UserSessionService.fullname)
-                                        const message = qsTr("Login unknown device succes! username: ") + "service"
+                                        const message = qsTr("Login unknown device success! username: ") + "service"
                                         MachineAPI.insertEventLog(message)
 
                                         props.loginSuccessDialog()
@@ -389,7 +389,7 @@ ViewApp {
                                         UserSessionService.fullname = "Unknown (factory)"
 
                                         MachineAPI.setSignedUser(UserSessionService.username, UserSessionService.fullname)
-                                        const message = qsTr("Login unknown device succes! username: ") + "factory"
+                                        const message = qsTr("Login unknown device success! username: ") + "factory"
                                         MachineAPI.insertEventLog(message)
 
                                         props.loginSuccessDialog()
