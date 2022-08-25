@@ -2358,24 +2358,24 @@ ViewApp {
                                     }//
                                 }//
 
-                                onPressAndHold: {
-                                    if (!UserSessionService.loggedIn) {
-                                        switch(props.securityAccessLevel) {
-                                        case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
-                                            const intent = IntentApp.create("qrc:/UI/Pages/VivariumMuteSetPage/VivariumMuteSetPage.qml", {})
-                                            startView(intent)
-                                            break;
-                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
-                                            UserSessionService.askedForLogin()
-                                            break;
-                                        }
-                                    }
-                                    else {
-                                        const intent = IntentApp.create("qrc:/UI/Pages/VivariumMuteSetPage/VivariumMuteSetPage.qml", {})
-                                        startView(intent)
-                                    }//
-                                }
+                                //                                onPressAndHold: {
+                                //                                    if (!UserSessionService.loggedIn) {
+                                //                                        switch(props.securityAccessLevel) {
+                                //                                        case MachineAPI.MODE_SECURITY_ACCESS_LOW:
+                                //                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                //                                            const intent = IntentApp.create("qrc:/UI/Pages/VivariumMuteSetPage/VivariumMuteSetPage.qml", {})
+                                //                                            startView(intent)
+                                //                                            break;
+                                //                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                //                                            UserSessionService.askedForLogin()
+                                //                                            break;
+                                //                                        }
+                                //                                    }
+                                //                                    else {
+                                //                                        const intent = IntentApp.create("qrc:/UI/Pages/VivariumMuteSetPage/VivariumMuteSetPage.qml", {})
+                                //                                        startView(intent)
+                                //                                    }//
+                                //                                }
 
                                 onClicked: {
                                     MachineAPI.setBuzzerBeep();

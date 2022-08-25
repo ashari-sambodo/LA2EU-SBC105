@@ -67,6 +67,7 @@ ViewApp {
                         from: 5
                         to: 100
                         padding: 0
+                        value: MachineData.lcdBrightnessLevel
 
                         Image {
                             anchors.left: parent.left
@@ -111,6 +112,7 @@ ViewApp {
                             textRole: "text"
 
                             model: [
+                                {text: "Disable",   value: 0},
                                 {text: "1 minute",   value: 1},
                                 {text: "5 minutes",  value: 5},
                                 {text: "15 minutes",  value: 15}
@@ -126,24 +128,34 @@ ViewApp {
 
                             Component.onCompleted: {
                                 let time = MachineData.lcdBrightnessDelayToDimm
-                                if (time === 1) {
+                                if (time === 0) {
                                     currentIndex = 0
                                 }
-                                else if (time === 5) {
+                                else if (time === 1) {
                                     currentIndex = 1
                                 }
-                                else if (time === 15) {
+                                else if (time === 5) {
                                     currentIndex = 2
+                                }
+                                else if (time === 15) {
+                                    currentIndex = 3
                                 }
                             }
                         }//
 
                         TextApp {
                             anchors.verticalCenter: parent.verticalCenter
-                            text: qsTr("to dimm automatically")
+                            text: qsTr("to dim automatically")
                         }//
                     }//
                 }//
+                TextApp{
+                    anchors.bottom: parent.bottom
+                    width : parent.width
+                    horizontalAlignment: Text.AlignHCenter
+                    text: "*" + qsTr("The screen will be locked when auto dim is executed.")
+                    font.pixelSize: 18
+                }
             }//
 
             /// FOOTER

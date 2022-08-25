@@ -1838,7 +1838,8 @@ void MachineBackend::setup()
         ///
         QObject::connect(this, &MachineBackend::loopStarted,
                          [&](){
-            m_timerEventForLcdToDimm->start();
+            if(pData->getLcdBrightnessDelayToDimm() > 0)
+                m_timerEventForLcdToDimm->start();
         });
     }
 
@@ -2893,7 +2894,8 @@ void MachineBackend::deallocate()
     m_timerEventEveryMinute2->stop();
     m_timerEventEveryHour->stop();
     m_timerEventForDataLog->stop();
-    m_timerEventForLcdToDimm->stop();
+    if(m_timerEventForLcdToDimm->isActive())
+        m_timerEventForLcdToDimm->stop();
     m_timerEventForRTCWatchdogReset->stop();
     if(m_timerEventForClosedLoopControl->isActive())
         m_timerEventForClosedLoopControl->stop();
@@ -3622,6 +3624,14 @@ void MachineBackend::setLcdBrightnessDelayToDimm(short value)
     pData->setLcdBrightnessDelayToDimm(value);
 
     m_timerEventForLcdToDimm->setInterval(std::chrono::minutes(value));
+    if(!m_timerEventForLcdToDimm->isActive()){
+        if(value > 0)
+            m_timerEventForLcdToDimm->start();
+    }
+    else{
+        if(value == 0)
+            m_timerEventForLcdToDimm->stop();
+    }
 }
 
 void MachineBackend::saveLcdBrightnessLevel(short value)
@@ -4323,8 +4333,9 @@ void MachineBackend::_wakeupLcdBrightnessLevel()
 
     pData->setLcdBrightnessLevelDimmed(false);
 
-    /// If the timer is already running, it will be stopped and restarted.
-    m_timerEventForLcdToDimm->start();
+    if(pData->getLcdBrightnessDelayToDimm() > 0)
+        /// If the timer is already running, it will be stopped and restarted.
+        m_timerEventForLcdToDimm->start();
 }
 
 /**
