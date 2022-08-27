@@ -2565,7 +2565,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
     <message>
         <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="143"/>
-        <source>It will prioritize to make syncronization the time with server based on Time Zone.</source>
+        <source>It will prioritize to make synchronization the time with server based on Time Zone.</source>
         <translation>Die Synchronisierung der Uhrzeit mit dem Server basierend auf der Zeitzone wird priorisiert.</translation>
     </message>
     <message>
@@ -8165,7 +8165,7 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="138"/>
-        <source>It will prioritize to make syncronization the time with server based on Time Zone.</source>
+        <source>It will prioritize to make synchronization the time with server based on Time Zone.</source>
         <translation>Die Synchronisierung der Uhrzeit mit dem Server basierend auf der Zeitzone wird priorisiert.</translation>
     </message>
     <message>

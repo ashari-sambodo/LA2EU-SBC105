@@ -29,15 +29,27 @@ QtObject {
             },
             "sashWindow": 7.874,//200 mm
             "fan": {
-                "horsePower": 0.75,
-                "direction": 1,
-                "highSpeedLimit": 1292,
-                "maxAirVolume": 1800,
+                /// Get From LA2 3 feet profile
+                //                "hoursePower": 0.75,
+                //                "direction": 1,
+                //                "highSpeedLimit": 1292,
+                //                "maxAirVolume": 1800,
+                //                "constant": {
+                //                    "a1": 1.5176,
+                //                    "a2": 0.4353,
+                //                    "a3": 0.00000002617,
+                //                    "a4": 1.098
+                //                }
+                /// Get From Om pangihutan
+                "hoursePower": 0.5,
+                "direction": 0,
+                "highSpeedLimit": 1199,
+                "maxAirVolume": 1500,
                 "constant": {
-                    "a1": 1.4900,
-                    "a2": 0.4430,
-                    "a3": 0.00000009445,
-                    "a4": 1.035
+                    "a1": 2,
+                    "a2": 0.5294,
+                    "a3": 0.000000003016,
+                    "a4": 0.8078
                 }
             },
             "envTempLimit": {
@@ -202,7 +214,7 @@ QtObject {
             },
             "sashWindow": 7.874,//200 mm
             "fan": {
-                "horsePower": 0.75,
+                "hoursePower": 0.75,
                 "direction": 1,
                 "highSpeedLimit": 1292,
                 "maxAirVolume": 2000,
@@ -375,15 +387,15 @@ QtObject {
             },
             "sashWindow": 7.874,//200 mm
             "fan": {
-                "horsePower": 0.75,
+                "hoursePower": 1,
                 "direction": 1,
                 "highSpeedLimit": 1292,
                 "maxAirVolume": 2500,
                 "constant": {
-                    "a1": 1.5882,
-                    "a2": 0.5882,
-                    "a3": 0.00000002311,
-                    "a4": 1.098
+                    "a1": 1.0314,
+                    "a2": 0.1843,
+                    "a3": 0.00004836,
+                    "a4": 0.949
                 }
             },
             "envTempLimit": {
@@ -549,15 +561,15 @@ QtObject {
             },
             "sashWindow": 7.874,//200 mm
             "fan": {
-                "horsePower": 0.75,
+                "hoursePower": 1,
                 "direction": 1,
                 "highSpeedLimit": 1292,
-                "maxAirVolume": 2500,
+                "maxAirVolume": 3000,
                 "constant": {
-                    "a1": 1.5882,
-                    "a2": 0.5882,
-                    "a3": 0.00000002311,
-                    "a4": 1.098
+                    "a1": 1.1137,
+                    "a2": 0.5451,
+                    "a3": 0.000005337,
+                    "a4": 1.0902
                 }
             },
             "envTempLimit": {

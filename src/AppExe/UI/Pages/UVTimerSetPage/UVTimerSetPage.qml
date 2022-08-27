@@ -232,13 +232,13 @@ ViewApp {
                                 }//
 
                                 Component.onCompleted: {
-                                    props.requestTime = 0
-
                                     let hour = props.uvTime / 60
                                     let minutes =  props.uvTime % 60
 
                                     hoursTumbler.currentIndex = hour
                                     minutesTumbler.currentIndex = minutes
+
+                                    props.requestTime = (hour * 60) + minutes
 
                                     setButton.visible = true
                                 }//

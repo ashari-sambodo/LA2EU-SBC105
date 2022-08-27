@@ -110,7 +110,7 @@ void DeviceDigitalOut::setState(int state)
 {
     //    printf("DigitalOutManager::setState\n");
     //    fflush(stdout);
-    qDebug() << m_channelIO << state << m_interlock << m_state << m_stateRequest << m_dummyStateEnable << m_dummyState;
+    //    qDebug() << m_channelIO << state << m_interlock << m_state << m_stateRequest << m_dummyStateEnable << m_dummyState;
     if(state >= 1) state = 1;
     if(m_interlock && state)return;
     if(m_state == state) return;

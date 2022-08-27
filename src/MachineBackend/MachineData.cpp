@@ -393,6 +393,18 @@ void MachineData::setDownflowValueHeld(bool value)
     emit downflowValueHeldChanged(value);
 }
 
+short MachineData::getCabinetWidthFeet() const
+{
+    return m_cabinetWidthFeet;
+}
+
+void MachineData::setCabinetWidthFeet(short value)
+{
+    if(m_cabinetWidthFeet == value)return;
+    m_cabinetWidthFeet = value;
+    emit cabinetWidthFeetChanged(value);
+}
+
 bool MachineData::getCabinetWidth3Feet() const
 {
     return m_cabinetWidth3Feet;

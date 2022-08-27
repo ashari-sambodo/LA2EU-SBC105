@@ -140,7 +140,7 @@ ViewApp {
                             color: "#cccccc"
                             font.pixelSize: 16
                             text:  qsTr("This system has Network Time Protocol feature, pointing to time.google.com.") + "<br>" +
-                                   qsTr("It will prioritize to make syncronization the time with server based on Time Zone.")
+                                   qsTr("It will prioritize to make synchronization the time with server based on Time Zone.")
                         }//
                     }//
                 }//

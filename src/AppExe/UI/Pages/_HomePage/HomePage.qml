@@ -1169,7 +1169,7 @@ ViewApp {
                                                 //console.debug("On DOWN Released!")
                                                 //props. = false;
                                                 //MachineAPI.setButtonSashMotorizedPressed(false)
-                                                MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATEbuttonSashMotorizedDownPressed_OFF)
+                                                MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
 
                                                 MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
                                             }//

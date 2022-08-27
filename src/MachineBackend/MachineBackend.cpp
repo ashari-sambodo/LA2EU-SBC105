@@ -209,6 +209,7 @@ void MachineBackend::setup()
         QJsonObject cabinetSize = machineProfile.value("width").toObject();
         int cabFeet = qRound(cabinetSize.value("feet").toDouble());
         pData->setCabinetWidth3Feet(false);
+        pData->setCabinetWidthFeet(cabFeet);
         qDebug() << "Cabinet Width:" << cabFeet << "ft";
         qDebug() << "Cabinet Width 3 Ft:" << pData->getCabinetWidth3Feet();
     }//
@@ -850,7 +851,7 @@ void MachineBackend::setup()
     {
         ///Specify Dual RBM Mode
         pData->setDualRbmMode(false);
-    }
+    }//
 
 
     /// Fan Exhaust
@@ -945,11 +946,44 @@ void MachineBackend::setup()
             ///// so we dont care the return value of following API
             m_boardRegalECM->stop();
 
-            /// setup blower ecm by torque demand
-            /// in torque mode, we just need to define the direction of rotation
-            int response = m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CLW);
-            //        m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CCW);
-            pData->setBoardStatusRbmCom(response == 0);
+            int maxAirVolume = 1800;
+
+            /// SET AIRFLOW VOLUME MODE IN 3 Feet Cabinet
+            if(pData->getCabinetWidthFeet() == 3)
+            {
+                /// setup profile fan ecm
+                {
+                    /// query profile from machine profile
+                    QJsonObject machineProfile = pData->getMachineProfile();
+                    QJsonObject fanProfile = machineProfile.value("fan").toObject();
+
+                    short direction = static_cast<short>(fanProfile.value("direction").toInt());
+                    int highSpeedLimit = fanProfile.value("highSpeedLimit").toInt();
+                    maxAirVolume = fanProfile.value("maxAirVolume").toInt();
+
+                    QJsonObject constantProfile = fanProfile.value("constant").toObject();
+
+                    double a1 = constantProfile.value("a1").toDouble();
+                    double a2 = constantProfile.value("a2").toDouble();
+                    double a3 = constantProfile.value("a3").toDouble();
+                    double a4 = constantProfile.value("a4").toDouble();
+
+                    m_boardRegalECM->setDirection(direction);
+                    m_boardRegalECM->setCutbackSpeed(highSpeedLimit);
+                    m_boardRegalECM->setAirflowScaling(maxAirVolume);
+                    short response = static_cast<short>(m_boardRegalECM->setBlowerContant(a1, a2, a3, a4));
+
+                    pData->setBoardStatusRbmCom(response == 0);
+                }//
+            }//
+            else{
+                /// setup blower ecm by torque demand
+                /// in torque mode, we just need to define the direction of rotation
+                int response = m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CLW);
+                //        m_boardRegalECM->setDirection(BlowerRegalECM::BLOWER_REGAL_ECM_DIRECTION_CCW);
+                pData->setBoardStatusRbmCom(response == 0);
+
+            }
 
             ////MONITORING COMMUNICATION STATUS
             QObject::connect(m_boardRegalECM.data(), &BlowerRegalECM::errorComToleranceReached,
@@ -968,7 +1002,13 @@ void MachineBackend::setup()
             m_pFanPrimary.reset(new BlowerRbmDsi);
             /// pass the virtual object sub module board
             m_pFanPrimary->setSubModule(m_boardRegalECM.data());
-            m_pFanPrimary->setDemandMode(BlowerRbmDsi::TORQUE_DEMMAND_BRDM);
+            if(pData->getCabinetWidthFeet() == 3){
+                /// use air volume demand mode, blower will have auto compesate to achive the air volume demand
+                m_pFanPrimary->setDemandMode(BlowerRbmDsi::AIRVOLUME_DEMMAND_BRDM);
+                m_pFanPrimary->setAirVolumeScale(maxAirVolume);
+            }
+            else
+                m_pFanPrimary->setDemandMode(BlowerRbmDsi::TORQUE_DEMMAND_BRDM);
 
             /// create timer for triggering the loop (routine task) and execute any pending request
             /// routine task and any pending task will executed by FIFO mechanism

@@ -1001,6 +1001,7 @@ class MachineData : public QObject
     Q_PROPERTY(bool inflowValueHeld READ getInflowValueHeld NOTIFY inflowValueHeldChanged)
     Q_PROPERTY(bool downflowValueHeld READ getDownflowValueHeld NOTIFY downflowValueHeldChanged)
 
+    Q_PROPERTY(bool cabinetWidthFeet READ getCabinetWidthFeet NOTIFY cabinetWidthFeetChanged)
     Q_PROPERTY(bool cabinetWidth3Feet READ getCabinetWidth3Feet NOTIFY cabinetWidth3FeetChanged)
     Q_PROPERTY(bool usePwmOutSignal READ getUsePwmOutSignal NOTIFY usePwmOutSignalChanged)
     Q_PROPERTY(int screenSaverSeconds READ getScreenSaverSeconds NOTIFY screenSaverSecondsChanged)
@@ -1817,6 +1818,9 @@ public:
     bool getDownflowValueHeld()const;
     void setDownflowValueHeld(bool value);
 
+    short getCabinetWidthFeet()const;
+    void setCabinetWidthFeet(short value);
+
     bool getCabinetWidth3Feet()const;
     void setCabinetWidth3Feet(bool value);
 
@@ -2137,6 +2141,7 @@ signals:
     //    void wifiDisabledChanged(bool value);
     void inflowValueHeldChanged(bool value);
     void downflowValueHeldChanged(bool value);
+    void cabinetWidthFeetChanged(short value);
     void cabinetWidth3FeetChanged(bool value);
     void usePwmOutSignalChanged(bool value);
 
@@ -2523,6 +2528,7 @@ private:
     bool m_inflowValueHeld = false;
     bool m_downflowValueHeld = false;
 
+    short m_cabinetWidthFeet = 0;
     bool m_cabinetWidth3Feet = false;
     bool m_usePwmOutSignal = false;
 
