@@ -8,17 +8,28 @@ QT += websockets
 TEMPLATE = app
 CONFIG += c++11
 
-#CHAMBER = 1 ## Set to 1 for pass chamber 1 and 2 for pass chamber 2
-NAME = SBC105
-#equals(CHAMBER, 1){
-#NAME = SBC606_1
-#}
-#equals(CHAMBER, 2){
-#NAME = SBC606_2
-#}
+## Software_release_life_cycle
+## Pre-Alpha : "Pre-alpha refers to all activities performed during the software project before formal testing"
+## Alpha (X.Y.Z-a.1) : "Software testing"
+## Beta (X.Y.Z-b.1) : "Demonstrations and previews software"
+## Release Candidate (X.Y.Z-rc.1) : "Still performing some tests, but pretty sure this we'll be using as stable release"
+## Stable release (X.Y.Z) : "Production release"
+## source:  https://medium.com/fiverr-engineering/major-minor-patch-a5298e2e1798
+##          https://en.wikipedia.org/wiki/Software_versioning
+##          https://en.wikipedia.org/wiki/Software_release_life_cycle
+## 1.0.0-beta -> 1.0.0 -> 2.0.0-rc.1 -> 2.0.0-rc.2 -> 2.0.0
 
+NAME = SBC105
 VERSION = 1.0.0
-BUILD = 1
+
+BUILDTYPE = rc ##UNUSED, use only number to indicate build version
+BUILD = 2
+
+FULL_VERSION = $$VERSION
+greaterThan(BUILD, 0){
+FULL_VERSION = $$VERSION"."$$BUILD
+}
+
 ## b1:
 ## - Fan go to nominal if the previous state is standby even the operation mode is not quickstart
 ## - Remove Fan scheduler Off as per TUV suggestion
@@ -27,15 +38,13 @@ BUILD = 1
 ## - Fixed issue user edit not working when changes made on the password
 ## - Update some icons
 ## - Add options to select cabinet side type (SS/Glass)
-
-
-FULL_VERSION = $$VERSION
-greaterThan(BUILD, 0){
-FULL_VERSION = $$VERSION"_"$$BUILD
-}
+## b2:
+## - Fan decimal
+## - Calendar page
 
 DEFINES += APP_NAME=\\\"$${NAME}\\\"
 DEFINES += APP_VERSION=\\\"$${VERSION}\\\"
+DEFINES += APP_BUILDTYPE=\\\"$${BUILDTYPE}\\\"
 DEFINES += APP_BUILD=\\\"$${BUILD}\\\"
 DEFINES += INCREMENTAL_VERSION=1
 TARGET = bin/$$NAME-$$FULL_VERSION
@@ -45,6 +54,7 @@ unix {
     QMAKE_POST_LINK += $$quote(cd $$OUT_PWD/bin; ln -sf $$NAME-$$FULL_VERSION app-exe)
     ## rsync -lavv * root@172.16.30.210:/opt/SBCUpdate/
 }
+
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Refer to the documentation for the

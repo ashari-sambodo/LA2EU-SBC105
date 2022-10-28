@@ -167,19 +167,19 @@ ViewApp {
                                 onLoaded: {
                                     if(MachineData.cabinetWidth3Feet)
                                         value1 = Qt.binding(function(){
-                                            return "" + MachineData.fanPrimaryDutyCycle + " %"
+                                            return "" + utilsApp.getFanDucyStrf(MachineData.fanPrimaryDutyCycle) + " %"
                                         })
                                     else
                                         value1 = Qt.binding(function(){
-                                            return "" + MachineData.fanPrimaryDutyCycle + " % / " + MachineData.fanPrimaryRpm + " RPM"
+                                            return "" + utilsApp.getFanDucyStrf(MachineData.fanPrimaryDutyCycle) + " % / " + MachineData.fanPrimaryRpm + " RPM"
                                         })
                                     if(MachineData.getDualRbmMode()){
                                         value2 = Qt.binding(function(){
-                                            return "" + MachineData.fanInflowDutyCycle + " % / " + MachineData.fanInflowRpm + " RPM"
+                                            return "" + utilsApp.getFanDucyStrf(MachineData.fanInflowDutyCycle) + " % / " + MachineData.fanInflowRpm + " RPM"
                                         })
                                     }
                                     else
-                                        value2 = Qt.binding(function(){ return "" + MachineData.fanInflowDutyCycle + " % "})
+                                        value2 = Qt.binding(function(){ return "" + utilsApp.getFanDucyStrf(MachineData.fanInflowDutyCycle) + " % "})
 
                                 }//
 

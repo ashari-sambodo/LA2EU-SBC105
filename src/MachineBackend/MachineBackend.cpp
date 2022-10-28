@@ -872,6 +872,7 @@ void MachineBackend::setup()
             else{
                 m_pFanInflowAO.reset(new DeviceAnalogCom);
                 m_pFanInflowAO->setSubBoard(m_boardAnalogOutput2.data());
+                m_pFanInflowAO->setStateMax(1000);
 
                 connect(m_pFanInflowAO.data(), &DeviceAnalogCom::stateChanged,
                         this, [&](int newVal){
@@ -1004,7 +1005,8 @@ void MachineBackend::setup()
             m_pFanPrimary->setSubModule(m_boardRegalECM.data());
             if(pData->getCabinetWidthFeet() == 3){
                 /// use air volume demand mode, blower will have auto compesate to achive the air volume demand
-                m_pFanPrimary->setDemandMode(BlowerRbmDsi::AIRVOLUME_DEMMAND_BRDM);
+                //                m_pFanPrimary->setDemandMode(BlowerRbmDsi::AIRVOLUME_DEMMAND_BRDM);
+                m_pFanPrimary->setDemandMode(BlowerRbmDsi::TORQUE_DEMMAND_BRDM);
                 m_pFanPrimary->setAirVolumeScale(maxAirVolume);
             }
             else
@@ -1980,17 +1982,19 @@ void MachineBackend::setup()
     {
         QSettings settings;
 
+        short fanMultiplier = 10;
+
         ///Fan Downflow
-        int fanDfaMaximumDutyCycleFactory  = settings.value(SKEY_FAN_PRI_MAX_DCY_FACTORY, 40).toInt();
+        int fanDfaMaximumDutyCycleFactory  = settings.value(SKEY_FAN_PRI_MAX_DCY_FACTORY, 40*fanMultiplier).toInt();
         int fanDfaMaximumRpmFactory        = settings.value(SKEY_FAN_PRI_MAX_RPM_FACTORY, 0).toInt();
 
-        int fanDfaNominalDutyCycleFactory  = settings.value(SKEY_FAN_PRI_NOM_DCY_FACTORY, 35).toInt();
+        int fanDfaNominalDutyCycleFactory  = settings.value(SKEY_FAN_PRI_NOM_DCY_FACTORY, 35*fanMultiplier).toInt();
         int fanDfaNominalRpmFactory        = settings.value(SKEY_FAN_PRI_NOM_RPM_FACTORY, 0).toInt();
 
-        int fanDfaMinimumDutyCycleFactory  = settings.value(SKEY_FAN_PRI_MIN_DCY_FACTORY, 25).toInt();
+        int fanDfaMinimumDutyCycleFactory  = settings.value(SKEY_FAN_PRI_MIN_DCY_FACTORY, 25*fanMultiplier).toInt();
         int fanDfaMinimumRpmFactory        = settings.value(SKEY_FAN_PRI_MIN_RPM_FACTORY, 0).toInt();
 
-        int fanDfaStandbyDutyCycleFactory  = settings.value(SKEY_FAN_PRI_STB_DCY_FACTORY, 18).toInt();
+        int fanDfaStandbyDutyCycleFactory  = settings.value(SKEY_FAN_PRI_STB_DCY_FACTORY, 18*fanMultiplier).toInt();
         int fanDfaStandbyRpmFactory        = settings.value(SKEY_FAN_PRI_STB_RPM_FACTORY, 0).toInt();
 
         int fanDfaMaximumDutyCycleField    = settings.value(SKEY_FAN_PRI_MAX_DCY_FIELD, 0).toInt();
@@ -2006,13 +2010,13 @@ void MachineBackend::setup()
         int fanDfaStandbyRpmField          = settings.value(SKEY_FAN_PRI_STB_RPM_FIELD, 0).toInt();
 
         ///Fan Inflow
-        int fanIfaNominalDutyCycleFactory  = settings.value(SKEY_FAN_INF_NOM_DCY_FACTORY, 35).toInt();
+        int fanIfaNominalDutyCycleFactory  = settings.value(SKEY_FAN_INF_NOM_DCY_FACTORY, 35*fanMultiplier).toInt();
         int fanIfaNominalRpmFactory        = settings.value(SKEY_FAN_INF_NOM_RPM_FACTORY, 0).toInt();
 
-        int fanIfaMinimumDutyCycleFactory  = settings.value(SKEY_FAN_INF_MIN_DCY_FACTORY, 25).toInt();
+        int fanIfaMinimumDutyCycleFactory  = settings.value(SKEY_FAN_INF_MIN_DCY_FACTORY, 25*fanMultiplier).toInt();
         int fanIfaMinimumRpmFactory        = settings.value(SKEY_FAN_INF_MIN_RPM_FACTORY, 0).toInt();
 
-        int fanIfaStandbyDutyCycleFactory  = settings.value(SKEY_FAN_INF_STB_DCY_FACTORY, 18).toInt();
+        int fanIfaStandbyDutyCycleFactory  = settings.value(SKEY_FAN_INF_STB_DCY_FACTORY, 18*fanMultiplier).toInt();
         int fanIfaStandbyRpmFactory        = settings.value(SKEY_FAN_INF_STB_RPM_FACTORY, 0).toInt();
 
         int fanIfaNominalDutyCycleField    = settings.value(SKEY_FAN_INF_NOM_DCY_FIELD, 0).toInt();

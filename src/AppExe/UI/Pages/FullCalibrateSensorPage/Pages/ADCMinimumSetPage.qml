@@ -142,7 +142,7 @@ ViewApp {
                                             }//
 
                                             TextApp {
-                                                text: "Dcy: " + props.fanDutyCycleActual + "%"
+                                                text: "Dcy: " + utilsApp.getFanDucyStrf(props.fanDutyCycleActual) + "%"
                                             }//
 
                                             TextApp {
@@ -165,15 +165,15 @@ ViewApp {
 
                                                 function onClicked() {
                                                     //                                        //console.debug(index)
-                                                    fanSpeedBufferTextInput.text = props.fanDutyCycleActual
+                                                    fanSpeedBufferTextInput.text = utilsApp.getFanDucyStrf(props.fanDutyCycleActual)
 
                                                     KeyboardOnScreenCaller.openNumpad(fanSpeedBufferTextInput, qsTr("Fan Duty Cycle") + " " + "(0-99)")
                                                 }//
                                             }//
 
                                             onAccepted: {
-                                                let val = Number(text)
-                                                if(isNaN(val)) return
+                                                let val = Number(text)*10
+                                                if(isNaN(val) || val > 990 || val < 0) return
 
                                                 MachineAPI.setFanPrimaryDutyCycle(val)
 

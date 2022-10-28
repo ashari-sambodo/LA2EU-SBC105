@@ -335,7 +335,7 @@ ViewApp {
                                         }//
 
                                         TextApp {
-                                            text: "Dcy: " + props.dfaFanDutyCycleActual + "%"
+                                            text: "Dcy: " + utilsApp.getFanDucyStrf(props.dfaFanDutyCycleActual) + "%"
                                         }//
 
                                         TextApp {
@@ -353,22 +353,22 @@ ViewApp {
                                     TextInput {
                                         id: dfaFanSpeedBufferTextInput
                                         visible: false
-                                        validator: IntValidator{bottom: 0; top: 99;}
+                                        //validator: IntValidator{bottom: 0; top: 99;}
 
                                         Connections {
                                             target: dfaFanSpeedMouseArea
 
                                             function onClicked() {
                                                 //                                        //console.debug(index)
-                                                dfaFanSpeedBufferTextInput.text = props.dfaFanDutyCycleActual
+                                                dfaFanSpeedBufferTextInput.text = utilsApp.getFanDucyStrf(props.dfaFanDutyCycleActual)
 
                                                 KeyboardOnScreenCaller.openNumpad(dfaFanSpeedBufferTextInput, qsTr("Fan Duty Cycle") + " " + "(0-99)")
                                             }//
                                         }//
 
                                         onAccepted: {
-                                            let val = Number(text)
-                                            if(isNaN(val)) return
+                                            let val = Number(text)*10
+                                            if(isNaN(val) || val > 990 || val < 0) return
 
                                             MachineAPI.setFanPrimaryDutyCycle(val)
 
@@ -428,7 +428,7 @@ ViewApp {
 
                                         TextApp {
                                             Layout.fillWidth: true
-                                            text: "Dcy: " + props.ifaFanDutyCycleActual + "%"
+                                            text: "Dcy: " + utilsApp.getFanDucyStrf(props.ifaFanDutyCycleActual) + "%"
                                         }//
 
                                         TextApp {
@@ -446,22 +446,22 @@ ViewApp {
                                     TextInput {
                                         id: fanSpeedBufferTextInput
                                         visible: false
-                                        validator: IntValidator{bottom: 0; top: 99;}
+                                        //validator: IntValidator{bottom: 0; top: 99;}
 
                                         Connections {
                                             target: fanSpeedMouseArea
 
                                             function onClicked() {
                                                 //                                        //console.debug(index)
-                                                fanSpeedBufferTextInput.text = props.ifaFanDutyCycleActual
+                                                fanSpeedBufferTextInput.text = utilsApp.getFanDucyStrf(props.ifaFanDutyCycleActual)
 
                                                 KeyboardOnScreenCaller.openNumpad(fanSpeedBufferTextInput, qsTr("Fan Duty Cycle") + " " + "(0-99)")
                                             }//
                                         }//
 
                                         onAccepted: {
-                                            let val = Number(text)
-                                            if(isNaN(val)) return
+                                            let val = Number(text)*10
+                                            if(isNaN(val) || val > 990 || val < 0) return
 
                                             MachineAPI.setFanInflowDutyCycle(val)
 
@@ -921,6 +921,10 @@ ViewApp {
         //        /// 0: airflow fix with tolerant, example: 0.30 ± 0.025, 60 ± 5
         //        /// 1: airflow have range, example: 0.27 - 0.35
         //        property int    airflowNominalInRange: 0
+
+        UtilsApp{
+            id: utilsApp
+        }
 
         QtObject {
             id: props

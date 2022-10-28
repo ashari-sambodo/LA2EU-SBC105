@@ -35,7 +35,7 @@ Item {
 
             Rectangle {
                 Layout.fillHeight: true
-                Layout.minimumWidth: 100
+                Layout.minimumWidth: 80
                 color: leftArrowMouseArea.pressed ? "#1F95D7" : colorGridRect
                 border.color: "#dddddd"
                 radius: 5
@@ -75,6 +75,48 @@ Item {
 
             Rectangle {
                 Layout.fillHeight: true
+                Layout.minimumWidth: 80
+                color: rightArrowMouseArea.pressed ? "#1F95D7" : colorGridRect
+                border.color: "#dddddd"
+                radius: 5
+
+                Image {
+                    anchors.fill: parent
+                    fillMode: Image.PreserveAspectFit
+                    source: "qrc:/UI/Pictures/next-step.png"
+                }//
+
+                MouseArea {
+                    id: rightArrowMouseArea
+                    anchors.fill: parent
+                    onClicked: {
+                        monthGrid.nextMonth()
+                    }//
+                }//
+            }//
+            Rectangle {
+                Layout.fillHeight: true
+                Layout.minimumWidth: 80
+                color: leftArrowMouseArea1.pressed ? "#1F95D7" : colorGridRect
+                border.color: "#dddddd"
+                radius: 5
+
+                Image {
+                    anchors.fill: parent
+                    fillMode: Image.PreserveAspectFit
+                    source: "qrc:/UI/Pictures/back-step.png"
+                }//
+
+                MouseArea {
+                    id: leftArrowMouseArea1
+                    anchors.fill: parent
+                    onClicked: {
+                        monthGrid.prevYear()
+                    }//
+                }//
+            }//
+            Rectangle {
+                Layout.fillHeight: true
                 Layout.fillWidth: true
                 color: colorGridRect
                 border.color: "#dddddd"
@@ -93,8 +135,8 @@ Item {
 
             Rectangle {
                 Layout.fillHeight: true
-                Layout.minimumWidth: 100
-                color: rightArrowMouseArea.pressed ? "#1F95D7" : colorGridRect
+                Layout.minimumWidth: 80
+                color: rightArrowMouseArea1.pressed ? "#1F95D7" : colorGridRect
                 border.color: "#dddddd"
                 radius: 5
 
@@ -105,10 +147,10 @@ Item {
                 }//
 
                 MouseArea {
-                    id: rightArrowMouseArea
+                    id: rightArrowMouseArea1
                     anchors.fill: parent
                     onClicked: {
-                        monthGrid.nextMonth()
+                        monthGrid.nextYear()
                     }//
                 }//
             }//
@@ -270,6 +312,41 @@ Item {
                 targetDate = tempMonth
                 monthGrid.month = tempMonth.getMonth()
                 monthGrid.year = tempMonth.getFullYear()
+            }//
+
+            function nextYear(){
+                let tempYear = new Date(targetDate)
+                tempYear.setFullYear(tempYear.getFullYear() + 1)
+
+                //                //console.debug(Qt.formatDate(tempYear, "dd MM yyyy"))
+
+                if (dateHightestLimit !== null) {
+                    //                    //console.debug(Qt.formatDate(dateHightestLimit, "dd MM yyyy"))
+                    if(tempYear > dateHightestLimit) return
+                }
+
+                //                //console.debug(Qt.formatDate(tempYear, "dd MM yyyy"))
+
+                targetDate = tempYear
+                monthGrid.month = tempYear.getMonth()
+                monthGrid.year = tempYear.getFullYear()
+            }//
+
+            function prevYear(){
+                let tempYear = new Date(targetDate)
+                tempYear.setFullYear(tempYear.getFullYear() - 1)
+
+                //                //console.debug(Qt.formatDate(tempYear, "dd MM yyyy"))
+
+                if (dateLowestLimit !== null) {
+                    if(tempYear < dateLowestLimit) return
+                }
+
+                //                //console.debug(Qt.formatDate(tempYear, "dd MM yyyy"))
+
+                targetDate = tempYear
+                monthGrid.month = tempYear.getMonth()
+                monthGrid.year = tempYear.getFullYear()
             }//
 
             //        Component.onCompleted: {

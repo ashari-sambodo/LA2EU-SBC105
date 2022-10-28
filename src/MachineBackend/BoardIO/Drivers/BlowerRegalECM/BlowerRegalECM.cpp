@@ -71,6 +71,8 @@
 #define ECM_TRANS_RESPONSE_TIME                     200 //ms
 #define ECM_TRANS_RESPONSE_TIME_EACH_BUFFER         50 //ms
 
+#define MAX_PERCENTAGE 1000
+
 BlowerRegalECM::BlowerRegalECM(QObject *parent)
     : ClassDriver (parent)
 {
@@ -2122,22 +2124,22 @@ int BlowerRegalECM::setAddressConditional(int /*newVal*/)
 
 int BlowerRegalECM::torqueValToPercent(int newVal)
 {
-    return qRound(((float)newVal / 65535.0) * 100.0);
+    return qRound(((float)newVal / 65535.0) * /*100.0*/(float)MAX_PERCENTAGE);
 }
 
 int BlowerRegalECM::torquePercentToVal(int newVal)
 {
-    return qRound(((float)newVal / 100.0) * 65535.0);
+    return qRound(((float)newVal / /*100.0*/(float)MAX_PERCENTAGE) * 65535.0);
 }
 
 int BlowerRegalECM::airVolumeCfmToPercent(int newVal, int scale)
 {
-    return qRound((((double)newVal) / ((double)scale)) * 100.0);
+    return qRound((((double)newVal) / ((double)scale)) * /*100.0*/(float)MAX_PERCENTAGE);
 }
 
 int BlowerRegalECM::airVolumePercentToCfm(int newVal, int scale)
 {
-    return qRound((((double)newVal) / 100.0) * ((double)scale));
+    return qRound((((double)newVal) / /*100.0*/(float)MAX_PERCENTAGE) * ((double)scale));
 }
 
 void BlowerRegalECM::generateChecksum(QByteArray &byte, QByteArray &checksum)

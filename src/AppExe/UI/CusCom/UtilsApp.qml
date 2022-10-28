@@ -252,4 +252,9 @@ QtObject {
     function fahrenheitToCelcius(value){
         return Math.round((value - 32) * 5/9)
     }
+
+
+    function getFanDucyStrf(ducy){
+        return Number(ducy/10).toFixed(1)
+    }
 }

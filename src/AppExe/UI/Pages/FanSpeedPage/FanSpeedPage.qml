@@ -62,9 +62,9 @@ ViewApp {
                             spacing: 20
                             TextFieldApp {
                                 id: ifaDcyTextField
-                                width: 70
+                                width: 100
                                 height: 50
-                                validator: IntValidator{bottom: 0; top: 100;}
+                                //                                validator: IntValidator{bottom: 0; top: 100;}
 
                                 TextApp {
                                     anchors.right: parent.right
@@ -79,8 +79,10 @@ ViewApp {
                                     KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan (%)"))
                                 }//
                                 onAccepted: {
-                                    fanInflowSlider.value = Number(text)
-                                    MachineAPI.setFanInflowDutyCycle(Number(text))
+                                    let val = Number(text)*10
+                                    if(val > 990) val = 990
+                                    fanInflowSlider.value = val
+                                    MachineAPI.setFanInflowDutyCycle(val)
                                 }
                             }//
                             SliderApp {
@@ -89,13 +91,13 @@ ViewApp {
                                 width: 700
                                 stepSize: 1
                                 from: 0
-                                to: 100
+                                to: 990
                                 padding: 0
 
                                 onValueChanged: {
                                     if (pressed) {
                                         MachineAPI.setFanInflowDutyCycle(fanInflowSlider.value)
-                                        ifaDcyTextField.text = fanInflowSlider.value
+                                        ifaDcyTextField.text = (fanInflowSlider.value/10).toFixed(1)
                                     }//
                                 }//
                             }//
@@ -112,9 +114,9 @@ ViewApp {
                             spacing: 20
                             TextFieldApp {
                                 id: dfaDcyTextField
-                                width: 70
+                                width: 100
                                 height: 50
-                                validator: IntValidator{bottom: 0; top: 100;}
+                                //validator: IntValidator{bottom: 0; top: 100;}
 
                                 TextApp {
                                     anchors.right: parent.right
@@ -129,8 +131,10 @@ ViewApp {
                                     KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Fan (%)"))
                                 }//
                                 onAccepted: {
-                                    fanDownflowSlider.value = Number(text)
-                                    MachineAPI.setFanPrimaryDutyCycle(Number(text))
+                                    let val = Number(text)*10
+                                    if(val > 990) val = 990
+                                    fanDownflowSlider.value = val
+                                    MachineAPI.setFanPrimaryDutyCycle(val)
                                 }
                             }//
                             SliderApp {
@@ -139,13 +143,13 @@ ViewApp {
                                 width: 700
                                 stepSize: 1
                                 from: 0
-                                to: 100
+                                to: 990
                                 padding: 0
 
                                 onValueChanged: {
                                     if (pressed) {
                                         MachineAPI.setFanPrimaryDutyCycle(fanDownflowSlider.value)
-                                        dfaDcyTextField.text = fanDownflowSlider.value
+                                        dfaDcyTextField.text = (fanDownflowSlider.value/10).toFixed(1)
                                     }//
                                 }//
                             }//
@@ -188,6 +192,10 @@ ViewApp {
             }
         }//
 
+        UtilsApp{
+            id: utilsApp
+        }
+
         /// called Once but after onResume
         Component.onCompleted: {
 
@@ -202,8 +210,8 @@ ViewApp {
 
                 fanInflowSlider.value = MachineData.fanInflowDutyCycle
                 fanDownflowSlider.value = MachineData.fanPrimaryDutyCycle
-                ifaDcyTextField.text = fanInflowSlider.value
-                dfaDcyTextField.text = fanDownflowSlider.value
+                ifaDcyTextField.text = utilsApp.getFanDucyStrf(fanInflowSlider.value)
+                dfaDcyTextField.text = utilsApp.getFanDucyStrf(fanDownflowSlider.value)
             }
 
             /// onPause

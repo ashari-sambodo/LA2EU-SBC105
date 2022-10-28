@@ -48,7 +48,7 @@ Item {
                                 }//
 
                                 onAccepted: {
-                                    const val = Number(text)
+                                    const val = Number(text) * 10
                                     settings.mvInitialFanDucyDfa = val
                                 }//
                             }//
@@ -91,7 +91,7 @@ Item {
                                 }//
 
                                 onAccepted: {
-                                    const val = Number(text)
+                                    const val = Number(text) * 10
                                     settings.mvInitialFanDucyIfa = val
                                 }//
                             }//
@@ -231,17 +231,17 @@ Item {
                     text: qsTr("Capture")
 
                     onClicked: {
-                        dfaInitialDutyCycleTextField.text = MachineData.fanPrimaryDutyCycle
+                        dfaInitialDutyCycleTextField.text = utils.getFanDucyStrf(MachineData.fanPrimaryDutyCycle)
                         dfaInitialRpmTextField.text = MachineData.fanPrimaryRpm
-                        ifaInitialDutyCycleTextField.text = MachineData.fanInflowDutyCycle
+                        ifaInitialDutyCycleTextField.text = utils.getFanDucyStrf(MachineData.fanInflowDutyCycle)
                         ifaInitialRpmTextField.text = MachineData.fanInflowRpm
 
                         initialDfaTextField.text = MachineData.dfaVelocityStr.split(" ")[0] || "0"
                         initialIfaTextField.text = MachineData.ifaVelocityStr.split(" ")[0] || "0"
 
-                        settings.mvInitialFanDucyDfa = dfaInitialDutyCycleTextField.text
+                        settings.mvInitialFanDucyDfa = Number(dfaInitialDutyCycleTextField.text) * 10
                         settings.mvInitialFanRpmDfa = dfaInitialRpmTextField.text
-                        settings.mvInitialFanDucyIfa = ifaInitialDutyCycleTextField.text
+                        settings.mvInitialFanDucyIfa = Number(ifaInitialDutyCycleTextField.text) * 10
                         settings.mvInitialFanRpmIfa = ifaInitialRpmTextField.text
 
                         if(MachineData.measurementUnit){
@@ -479,17 +479,17 @@ Item {
                     text: qsTr("Capture")
 
                     onClicked: {
-                        dfaBlockedDutyCycleTextField.text = settings.mvInitialFanDucyDfa/*MachineData.fanPrimaryDutyCycle*/
+                        dfaBlockedDutyCycleTextField.text = utils.getFanDucyStrf(settings.mvInitialFanDucyDfa)/*MachineData.fanPrimaryDutyCycle*/
                         dfaBlockedRpmTextField.text = MachineData.fanPrimaryRpm
-                        ifaBlockedDutyCycleTextField.text = settings.mvInitialFanDucyIfa/*MachineData.fanPrimaryDutyCycle*/
+                        ifaBlockedDutyCycleTextField.text = utils.getFanDucyStrf(settings.mvInitialFanDucyIfa)/*MachineData.fanPrimaryDutyCycle*/
                         ifaBlockedRpmTextField.text = MachineData.fanInflowRpm
 
                         blockedDfaTextField.text = MachineData.dfaVelocityStr.split(" ")[0] || "0"
                         blockedIfaTextField.text = MachineData.ifaVelocityStr.split(" ")[0] || "0"
 
-                        settings.mvBlockFanDucyDfa = dfaBlockedDutyCycleTextField.text
+                        settings.mvBlockFanDucyDfa = Number(dfaBlockedDutyCycleTextField.text)*10
                         settings.mvBlockFanRpmDfa = dfaBlockedRpmTextField.text
-                        settings.mvBlockFanDucyIfa = ifaBlockedDutyCycleTextField.text
+                        settings.mvBlockFanDucyIfa = Number(ifaBlockedDutyCycleTextField.text)*10
                         settings.mvBlockFanRpmIfa = ifaBlockedRpmTextField.text
 
                         if(MachineData.measurementUnit){
@@ -695,17 +695,17 @@ Item {
                     text: qsTr("Capture")
 
                     onClicked: {
-                        dfaFinalDutyCycleTextField.text = settings.mvInitialFanDucyDfa/*MachineData.fanPrimaryDutyCycle*/
+                        dfaFinalDutyCycleTextField.text = utils.getFanDucyStrf(settings.mvInitialFanDucyDfa)/*MachineData.fanPrimaryDutyCycle*/
                         dfaFinalRpmTextField.text = MachineData.fanPrimaryRpm
-                        ifaFinalDutyCycleTextField.text = settings.mvInitialFanDucyIfa/*MachineData.fanPrimaryDutyCycle*/
+                        ifaFinalDutyCycleTextField.text = utils.getFanDucyStrf(settings.mvInitialFanDucyIfa)/*MachineData.fanPrimaryDutyCycle*/
                         ifaFinalRpmTextField.text = MachineData.fanInflowRpm
 
                         finalDfaTextField.text = MachineData.dfaVelocityStr.split(" ")[0] || "0"
                         finalIfaTextField.text = MachineData.ifaVelocityStr.split(" ")[0] || "0"
 
-                        settings.mvFinalFanDucyDfa = dfaFinalDutyCycleTextField.text
+                        settings.mvFinalFanDucyDfa = Number(dfaFinalDutyCycleTextField.text)*10
                         settings.mvFinalFanRpmDfa = dfaFinalRpmTextField.text
-                        settings.mvFinalFanDucyIfa = ifaFinalDutyCycleTextField.text
+                        settings.mvFinalFanDucyIfa = Number(ifaFinalDutyCycleTextField.text)*10
                         settings.mvFinalFanRpmIfa = ifaFinalRpmTextField.text
 
                         if(MachineData.measurementUnit){

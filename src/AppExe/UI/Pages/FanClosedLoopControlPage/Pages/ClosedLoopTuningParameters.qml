@@ -732,8 +732,8 @@ The Fan will start at nominal fan duty cycle, and it will be adjusted by loop co
                                         TextApp{text: ": "}
                                     }
                                     Column{
-                                        TextApp{text: "%1\%".arg(MachineData.fanPrimaryDutyCycle)}
-                                        TextApp{text: "%1\%".arg(MachineData.fanInflowDutyCycle)}
+                                        TextApp{text: "%1\%".arg(utilsApp.getFanDucyStrf(MachineData.fanPrimaryDutyCycle))}
+                                        TextApp{text: "%1\%".arg(utilsApp.getFanDucyStrf(MachineData.fanInflowDutyCycle))}
                                     }//
                                 }//
                             }//
@@ -872,6 +872,10 @@ The Fan will start at nominal fan duty cycle, and it will be adjusted by loop co
                 }//
             }//
         }//
+
+        UtilsApp{
+            id: utilsApp
+        }
 
         RegisterExResources {
             id: registerExResources

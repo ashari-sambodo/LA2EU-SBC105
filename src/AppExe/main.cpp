@@ -43,7 +43,7 @@ SBC105 -> LA2 EU
 //#define APP_NAME    "SBC105"
 #define APP_DOMAIN  "com"
 #define APP_ORG     "escolifesciences"
-#define APP_LNAME   "sbc105"
+//#define APP_LNAME   "sbc105"
 
 #define COMPATIBLE_FOR "LA2-EU-G4"
 
@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
     catchUnixSignals({SIGQUIT, SIGINT, SIGTERM, SIGHUP});
 #endif
 
-    QString build = QString(APP_BUILD).toInt() ? ("_" + QString(APP_BUILD)) : "";
+    QString build = QString(APP_BUILD).toInt() ? (QString(".%1").arg(QString(APP_BUILD))) : "";
 
     /// REGISTER APPLICATION IDENTITY
     QCoreApplication::setApplicationName(APP_NAME);

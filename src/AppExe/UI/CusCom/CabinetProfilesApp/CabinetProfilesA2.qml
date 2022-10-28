@@ -44,7 +44,7 @@ QtObject {
                 "hoursePower": 0.5,
                 "direction": 0,
                 "highSpeedLimit": 1199,
-                "maxAirVolume": 1500,
+                "maxAirVolume": 1200,
                 "constant": {
                     "a1": 2,
                     "a2": 0.5294,

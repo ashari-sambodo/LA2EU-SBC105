@@ -475,9 +475,9 @@ ViewApp {
                     props.ifaFanDutyCycleStandby = MachineData.getFanInflowStandbyDutyCycleFactory()
                 }
                 else{
-                    props.ifaFanDutyCycleNominal = profile['airflow']['ifa']['dim']['nominal']['fanDutyCycle']
-                    props.ifaFanDutyCycleMinimum = profile['airflow']['ifa']['dim']['minimum']['fanDutyCycle']
-                    props.ifaFanDutyCycleStandby = profile['airflow']['ifa']['dim']['stb']['fanDutyCycle']
+                    props.ifaFanDutyCycleNominal = profile['airflow']['ifa']['dim']['nominal']['fanDutyCycle'] * 10
+                    props.ifaFanDutyCycleMinimum = profile['airflow']['ifa']['dim']['minimum']['fanDutyCycle'] * 10
+                    props.ifaFanDutyCycleStandby = profile['airflow']['ifa']['dim']['stb']['fanDutyCycle'] * 10
                 }
 
                 //console.debug("props.ifaFanDutyCycleNominal", props.ifaFanDutyCycleNominal)
@@ -509,9 +509,9 @@ ViewApp {
                     props.dfaFanDutyCycleStandby = MachineData.getFanPrimaryStandbyDutyCycleFactory()
                 }
                 else{
-                    props.dfaFanDutyCycleNominal = profile['airflow']['dfa']['nominal']['fanDutyCycle']
-                    props.dfaFanDutyCycleMinimum = profile['airflow']['dfa']['minimum']['fanDutyCycle']
-                    props.dfaFanDutyCycleMaximum = profile['airflow']['dfa']['maximum']['fanDutyCycle']
+                    props.dfaFanDutyCycleNominal = profile['airflow']['dfa']['nominal']['fanDutyCycle'] * 10
+                    props.dfaFanDutyCycleMinimum = profile['airflow']['dfa']['minimum']['fanDutyCycle'] * 10
+                    props.dfaFanDutyCycleMaximum = profile['airflow']['dfa']['maximum']['fanDutyCycle'] * 10
                     props.dfaFanDutyCycleStandby = props.ifaFanDutyCycleStandby
                 }
 

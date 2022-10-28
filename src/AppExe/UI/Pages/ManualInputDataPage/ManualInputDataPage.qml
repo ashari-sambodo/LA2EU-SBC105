@@ -695,13 +695,13 @@ ViewApp {
                                 let calibTempAdc = Number(calibTempAdcTextField.text)
                                 let calibTemp    = Number(calibTempTextField.text)
 
-                                let dfaFanStandby = Number(dfaFanStandbyTextField.text)
-                                let dfaFanMinimum = Number(dfaFanMinTextField.text)
-                                let dfaFanNominal = Number(dfaFanNominalTextField.text)
-                                let dfaFanMaximum = Number(dfaFanMaxTextField.text)
-                                let ifaFanStandby = Number(ifaFanStandbyTextField.text)
-                                let ifaFanMinimum = Number(ifaFanMinTextField.text)
-                                let ifaFanNominal = Number(ifaFanNominalTextField.text)
+                                let dfaFanStandby = Number(dfaFanStandbyTextField.text)*10
+                                let dfaFanMinimum = Number(dfaFanMinTextField.text)*10
+                                let dfaFanNominal = Number(dfaFanNominalTextField.text)*10
+                                let dfaFanMaximum = Number(dfaFanMaxTextField.text)*10
+                                let ifaFanStandby = Number(ifaFanStandbyTextField.text)*10
+                                let ifaFanMinimum = Number(ifaFanMinTextField.text)*10
+                                let ifaFanNominal = Number(ifaFanNominalTextField.text)*10
 
                                 if (((dfaFanStandby >= dfaFanMinimum) || (dfaFanMinimum >= dfaFanNominal) || (dfaFanNominal >= dfaFanMaximum))
                                         || ((ifaFanStandby >= ifaFanMinimum) || (ifaFanMinimum >= ifaFanNominal))) {
@@ -786,6 +786,10 @@ ViewApp {
             }//
         }//
 
+        UtilsApp{
+        id: utilsAPp
+        }
+
         //// Put all private property inside here
         //// if none, please comment this block to optimize the code
         QtObject {
@@ -862,14 +866,14 @@ ViewApp {
                 calibTempAdcTextField.text = MachineData.getInflowTempCalibAdc()
                 calibTempTextField.text = MachineData.getInflowTempCalib()
 
-                dfaFanNominalTextField.text = MachineData.getFanPrimaryNominalDutyCycle()
-                dfaFanMinTextField.text = MachineData.getFanPrimaryMinimumDutyCycle()
-                dfaFanMaxTextField.text = MachineData.getFanPrimaryMaximumlDutyCycle()
-                dfaFanStandbyTextField.text = MachineData.getFanPrimaryStandbyDutyCycle()
+                dfaFanNominalTextField.text = utilsAPp.getFanDucyStrf(MachineData.getFanPrimaryNominalDutyCycle())
+                dfaFanMinTextField.text = utilsAPp.getFanDucyStrf(MachineData.getFanPrimaryMinimumDutyCycle())
+                dfaFanMaxTextField.text = utilsAPp.getFanDucyStrf(MachineData.getFanPrimaryMaximumlDutyCycle())
+                dfaFanStandbyTextField.text = utilsAPp.getFanDucyStrf(MachineData.getFanPrimaryStandbyDutyCycle())
 
-                ifaFanNominalTextField.text = MachineData.getFanInflowNominalDutyCycle()
-                ifaFanMinTextField.text = MachineData.getFanInflowMinimumDutyCycle()
-                ifaFanStandbyTextField.text = MachineData.getFanInflowStandbyDutyCycle()
+                ifaFanNominalTextField.text = utilsAPp.getFanDucyStrf(MachineData.getFanInflowNominalDutyCycle())
+                ifaFanMinTextField.text = utilsAPp.getFanDucyStrf(MachineData.getFanInflowMinimumDutyCycle())
+                ifaFanStandbyTextField.text = utilsAPp.getFanDucyStrf(MachineData.getFanInflowStandbyDutyCycle())
             }//
 
             /// onPause
