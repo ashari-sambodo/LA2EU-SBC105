@@ -1024,10 +1024,6 @@ ViewApp {
                             }//
                         }//
 
-                        UtilsApp {
-                            id: utilsApp
-                        }//
-
                         Component.onCompleted: {
                             setButton.visible = false
                         }//
@@ -1450,6 +1446,10 @@ ViewApp {
             }//
         }//
 
+        UtilsApp {
+            id: utilsApp
+        }//
+
         QtObject {
             id: props
 
@@ -1596,7 +1596,7 @@ ViewApp {
                                          })
                 }
                 if(!props.dfaSensorConstant && !props.ifaSensorConstant)
-                    props.stabilizingTimer = MachineData.warmingUpTime <= 180 ? MachineData.warmingUpTime : 180
+                    props.stabilizingTimer = 60 // Degree C Sensor
                 else
                     props.stabilizingTimer = 180
             }

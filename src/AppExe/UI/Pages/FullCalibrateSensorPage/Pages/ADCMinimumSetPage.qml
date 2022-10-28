@@ -411,10 +411,6 @@ ViewApp {
                             }//
                         }//
 
-                        UtilsApp {
-                            id: utilsApp
-                        }//
-
                         Component.onCompleted: {
                             setButton.visible = false
                         }//
@@ -619,6 +615,10 @@ ViewApp {
             }//
         }//
 
+        UtilsApp {
+            id: utilsApp
+        }//
+
         /// Private property
         QtObject{
             id: props
@@ -721,7 +721,7 @@ ViewApp {
                     }
 
                     if(!props.dfaSensorConstant && !props.ifaSensorConstant)
-                        props.stabilizingTimer = 30
+                        props.stabilizingTimer = 60 // Degree C Sensor
                     else
                         props.stabilizingTimer = 180
                 }//

@@ -480,9 +480,9 @@ ViewApp {
                     props.ifaFanDutyCycleStandby = profile['airflow']['ifa']['dim']['stb']['fanDutyCycle'] * 10
                 }
 
-                //console.debug("props.ifaFanDutyCycleNominal", props.ifaFanDutyCycleNominal)
-                //console.debug("props.ifaFanDutyCycleMinimum", props.ifaFanDutyCycleMinimum)
-                //console.debug("props.ifaFanDutyCycleStandby", props.ifaFanDutyCycleStandby)
+                console.debug("props.ifaFanDutyCycleNominal", props.ifaFanDutyCycleNominal)
+                console.debug("props.ifaFanDutyCycleMinimum", props.ifaFanDutyCycleMinimum)
+                console.debug("props.ifaFanDutyCycleStandby", props.ifaFanDutyCycleStandby)
 
                 /// DOWNFLOW
                 for (const label1 of ['nominal', 'minimum', 'maximum']){
@@ -515,9 +515,9 @@ ViewApp {
                     props.dfaFanDutyCycleStandby = props.ifaFanDutyCycleStandby
                 }
 
-                //console.debug("props.dfaFanDutyCycleNominal", props.dfaFanDutyCycleNominal)
-                //console.debug("props.dfaFanDutyCycleMinimum", props.dfaFanDutyCycleMinimum)
-                //console.debug("props.dfaFanDutyCycleMaximum", props.dfaFanDutyCycleMaximum)
+                console.debug("props.dfaFanDutyCycleNominal", props.dfaFanDutyCycleNominal)
+                console.debug("props.dfaFanDutyCycleMinimum", props.dfaFanDutyCycleMinimum)
+                console.debug("props.dfaFanDutyCycleMaximum", props.dfaFanDutyCycleMaximum)
 
                 /////demo
                 //props.fanDutyCycleNominal = 5
