@@ -7,6 +7,7 @@ pragma Singleton
 **/
 
 import QtQuick 2.0
+import ModulesCpp.Machine 1.0
 
 Item {
     id: control
@@ -15,7 +16,7 @@ Item {
     readonly property int statusPlay:  1
     readonly property int statusPause: 2
 
-    property int status: 0
+    property int status: statusStop
 
     property bool timeout: false
     property bool isPaused: status == statusPause
@@ -24,21 +25,30 @@ Item {
     property int count: 0
     property int countTotal: 0
     signal experminetTimerOver(bool status)
-    onTimeoutChanged: experminetTimerOver(timeout)
+
+    onTimeoutChanged: {
+        experminetTimerOver(timeout)
+        if(timeout){
+            MachineAPI.insertEventLog(qsTr("Experiment timer is completed"))
+        }
+    }//
 
     function start(){
         if(countTotal == 0) return
         if(status !== statusPause) count = countTotal
         status = statusPlay
         timeout = false
+        MachineAPI.insertEventLog(qsTr("Experiment timer is started"))
     }
 
     function pause(){
         status = statusPause
+        MachineAPI.insertEventLog(qsTr("Experiment timer is paused"))
     }
 
     function stop(){
         status = statusStop
+        MachineAPI.insertEventLog(qsTr("Experiment timer is stopped"))
     }
 
     Timer {

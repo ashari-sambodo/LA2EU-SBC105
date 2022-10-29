@@ -50,6 +50,20 @@ ViewApp {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
+                Rectangle {
+                    id: msgInfoTextApp
+                    visible: false
+                    color: "#80000000"
+                    TextApp {
+                        //id: msgInfoTextApp
+                        text: qsTr("Ensure you have removed the plastic (insulator) of the RTC Module battery!")
+                        verticalAlignment: Text.AlignVCenter
+                        padding: 2
+                    }
+                    width: childrenRect.width
+                    height: childrenRect.height
+                }//
+
                 /// fragment container
                 StackView {
                     id: fragmentStackView
@@ -151,21 +165,39 @@ ViewApp {
 
                     Item {
 
+                        TextFieldApp{
+                            id: tempYearTextField
+                            color: "transparent"
+                            colorBackground: "transparent"
+                            colorBorder: "transparent"
+
+                            onAccepted: {
+                                console.debug(text)
+                                calendarGridLoader.loaderYearTemp = text
+                                calendarGridLoader.active = false
+                                calendarGridLoader.active = true
+                            }
+                        }
+
                         Loader {
                             id: calendarGridLoader
                             anchors.fill: parent
                             asynchronous: true
                             visible: status == Loader.Ready
+
+                            property string loaderYearTemp: props.yearTemp
+
                             sourceComponent:  CalendarGridApp {
                                 id: calendar
 
                                 Component.onCompleted: {
                                     let today = new Date()
                                     today.setHours(0, 0, 0, 0)
+                                    today.setFullYear(calendarGridLoader.loaderYearTemp)
 
                                     targetDate = today
                                     targetMonth = today.getMonth()
-                                    targetYear = today.getFullYear()
+                                    targetYear = calendarGridLoader.loaderYearTemp //today.getFullYear()
 
                                     let futureLimit = new Date()
                                     futureLimit.setHours(0, 0, 0, 0)
@@ -178,9 +210,13 @@ ViewApp {
                                     olderLimit.setHours(0, 0, 0, 0)
                                     olderLimit.setDate(1)
                                     olderLimit.setMonth(Calendar.January)
-                                    olderLimit.setFullYear(2020)
+                                    olderLimit.setFullYear(2000)
                                     olderDateLimit = olderLimit
                                 }//
+
+                                onYearRectanglePressed: {
+                                    KeyboardOnScreenCaller.openNumpad(tempYearTextField, qsTr("Set Year"));
+                                }
 
                                 onClicked: {
                                     viewApp.showBusyPage(qsTr("Setting up..."),
@@ -211,7 +247,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
                 Rectangle {
                     anchors.fill: parent
@@ -241,6 +277,25 @@ ViewApp {
                                 finishView(intent)
                             }
                         }//
+
+                        ButtonBarApp {
+                            id: setButton
+                            width: 194
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.right: parent.right
+                            visible: false
+
+                            imageSource: "qrc:/UI/Pictures/checkicon.png"
+                            text: qsTr("Next")
+
+                            onClicked: {
+                                //                                currentTimeZoneText.text = currentTimeZoneText.text + "AAAA-"
+                                /// if this page called from welcome page
+                                /// show this button to making more mantap
+                                var intent = IntentApp.create(uri, {"welcomesetupdone": 1})
+                                finishView(intent)
+                            }//
+                        }//
                     }//
                 }//
             }
@@ -250,6 +305,7 @@ ViewApp {
         ///// if none, please comment this block to optimize the code
         QtObject {
             id: props
+            property string yearTemp: ""
 
             //            property int counting: 0
             //            onCountingChanged: {
@@ -276,22 +332,24 @@ ViewApp {
                 let strDate = dateTime.split(" ")[0]
                 let currentYear = Number(strDate.split("-")[0])
 
+                props.yearTemp = currentYear
+
                 //console.debug("current year:", currentYear)
 
-                if(currentYear < 2021){
-                    let strTime = dateTime.split(" ")[1]
-                    let dateTimeSet = "2021-10-01 " + strTime
-                    /// tell to machine
-                    MachineAPI.setDateTime(dateTimeSet);
-                    MachineAPI.insertEventLog(qsTr("User: Init date time") + " " + dateTimeSet)
-                    viewApp.showBusyPage(qsTr("Setting up initial date..."),
-                                         function onCycle(cycle){
-                                             if (cycle >= MachineAPI.BUSY_CYCLE_3) {
-                                                 closeDialog()
-                                             }//
-                                         })
-                }
-            }
+                const extraData = IntentApp.getExtraData(intent)
+                //                console.debug("extraData", extraData)
+                const thisOpenedFromWelcomePage = extraData["welcomesetup"] || false
+                //                console.debug("extraData[\"welcomesetup\"]", extraData["welcomesetup"])
+                //                console.debug(extraData["thisOpenedFromWelcomePage"], thisOpenedFromWelcomePage)
+                if(thisOpenedFromWelcomePage) {
+                    setButton.visible = true
+                    msgInfoTextApp.visible = true
+
+                    viewApp.enabledSwipedFromLeftEdge   = false
+                    viewApp.enabledSwipedFromRightEdge  = false
+                    viewApp.enabledSwipedFromBottomEdge = false
+                }//
+            }//
 
             /// onPause
             Component.onDestruction: {

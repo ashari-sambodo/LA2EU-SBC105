@@ -8,6 +8,7 @@ import ModulesCpp.Machine 1.0
 Item {
     id: control
     signal finished()
+    signal goBack()
 
     property bool autoPlay: false
 
@@ -17,76 +18,88 @@ Item {
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            Loader {
-                id: animationImageLoaderModbusSection
-                anchors.fill: parent
-                anchors.margins: 10
-                active: true
-
-                sourceComponent:Image {
-                    id: homepageImageSquenceModbusSection
-                    source: screenColection[indexScreen]
-
-                    cache: false
-
-
-                    property int indexScreen: props.indexing
-                    property var screenColection: [
-                        "qrc:/Assets/QuickTourHomepage/HomeEnd.png",
-                        "qrc:/Assets/QuickTourModbus/RemoteFirst.png",
-                        "qrc:/Assets/QuickTourModbus/RemoteSecond.png",
-                        "qrc:/Assets/QuickTourModbus/RemoteThird.png",
-                        "qrc:/Assets/QuickTourModbus/Remote3_1.png",
-                        "qrc:/Assets/QuickTourModbus/Remote3_2.png"
-                    ]
-
-                    Timer {
-                        id: screenTimerModbusSection
-                        running: autoPlay
-                        interval: 3000
-                        repeat: true
-                        onTriggered: {
-                            let indexing = homepageImageSquenceModbusSection.indexScreen
-                            indexing = indexing + 1
-                            props.pageIndicator = indexing
-                            //homepageImageSquenceModbusSection.indexScreen = indexing
-                            props.indexing = indexing
-                            let maxValue = homepageImageSquenceModbusSection.screenColection.length
-
-                            if (indexing === maxValue){
-                                screenTimerModbusSection.running = false
-                                props.pageIndicator = maxValue
-                                control.finished()
-                            }
-                        }//
-                    }//
-
-                    MouseArea {
+            Image{
+                source: "qrc:/Assets/background-qtour.png"
+                anchors.centerIn: parent
+                Item {
+                    height: 380
+                    width: 649
+                    anchors.centerIn: parent
+                    Loader {
+                        id: imageLoaderSection
                         anchors.fill: parent
+                        //anchors.margins: 10
+                        active: true
 
-                        onClicked: {
+                        sourceComponent:Image {
+                            id: imageSquenceSection
+                            source: screenColection[indexScreen]
 
-                            let indexing = homepageImageSquenceModbusSection.indexScreen
+                            cache: false
 
-                            let maxValue = homepageImageSquenceModbusSection.screenColection.length
 
-                            if (indexing < maxValue - 1){
+                            property int indexScreen: props.indexing
+                            property var screenColection: [
+                                "qrc:/Assets/QuickTourHomepage/homepage_00.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_11.png",
+                                "qrc:/Assets/QuickTourModbus/remote_00.png",
+                                "qrc:/Assets/QuickTourModbus/remote_01.png",
+                                "qrc:/Assets/QuickTourModbus/remote_02.png",
+                                "qrc:/Assets/QuickTourModbus/remote_03.png",
+                                "qrc:/Assets/QuickTourModbus/remote_04.png",
+                                "qrc:/Assets/QuickTourModbus/remote_05.png",
+                                "qrc:/Assets/QuickTourModbus/remote_06.png",
+                            ]//
 
-                                indexing = indexing + 1
+                            Timer {
+                                id: screenTimerSection
+                                running: autoPlay && props.timerRunning
+                                interval: 3000
+                                repeat: true
+                                onTriggered: {
+                                    let indexing = imageSquenceSection.indexScreen
+                                    let maxValue = imageSquenceSection.screenColection.length
+                                    indexing = indexing + 1
+                                    if (indexing === maxValue){
+                                        screenTimerSection.running = false
+                                        props.pageIndicator = maxValue
+                                        control.finished()
+                                    }else{
+                                        props.pageIndicator = indexing
+                                        //imageSquenceSection.indexScreen = indexing
+                                        props.indexing = indexing
+                                    }//
+                                }//
+                            }//
 
-                                props.pageIndicator = indexing
+                            MouseArea {
+                                anchors.fill: parent
 
-                                props.indexing = indexing
+                                onClicked: {
+                                    let indexing = imageSquenceSection.indexScreen
 
-                            }
-                            else {
-                                screenTimerModbusSection.running = false
-                                control.finished()
-                            }
+                                    let maxValue = imageSquenceSection.screenColection.length
+
+                                    if (indexing < maxValue - 1){
+
+                                        indexing = indexing + 1
+
+                                        props.pageIndicator = indexing
+
+                                        props.indexing = indexing
+
+                                    }
+                                    else {
+                                        screenTimerSection.running = false
+                                        control.finished()
+                                    }
+                                }//
+                            }//
+                            Component.onCompleted: props.screenCollectionCount = imageSquenceSection.screenColection.length
                         }//
                     }//
-                }//
-            }//
+                }
+            }
         }//
         Item {
             Layout.minimumHeight: 20
@@ -120,20 +133,23 @@ Item {
                                 props.pageIndicator = props.indexing
                             }
                             else {
-                                return
+                                if(control.autoPlay){
+                                    props.timerRunning = false
+                                    control.goBack()
+                                }
                             }
                         }//
                     }//
                 }//
 
                 PageIndicator {
-                    id: pageLoginSectionIndicator
+                    id: pageSectionIndicator
                     //anchors.verticalCenter: parent.verticalCenter
                     //anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.bottom: parent.bottom
                     interactive: false
                     currentIndex: props.pageIndicator
-                    count: 6
+                    count: props.screenCollectionCount
                 }//
 
                 Rectangle {
@@ -153,13 +169,15 @@ Item {
                         anchors.fill: parent
 
                         onClicked: {
-
-                            if (props.indexing < pageLoginSectionIndicator.count - 1){
+                            if (props.indexing < pageSectionIndicator.count - 1){
                                 props.indexing = props.indexing + 1
                                 props.pageIndicator = props.indexing
                             }
                             else {
-                                return
+                                if(control.autoPlay){
+                                    props.timerRunning = false
+                                    control.finished()
+                                }else return
                             }
                         }//
                     }//
@@ -173,5 +191,7 @@ Item {
         property int pageIndicator: 0
 
         property int indexing: 0
+        property bool timerRunning: true
+        property int screenCollectionCount: 0
     }//
 }//

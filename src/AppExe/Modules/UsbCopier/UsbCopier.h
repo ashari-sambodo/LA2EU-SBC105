@@ -28,6 +28,7 @@ public:
 
 public slots:
     void copy(const QString source, const QString destination, bool withMd5Sum = true);
+    void remove(const QString source);
     void setCancel();
 
 signals:

@@ -3,7 +3,7 @@ import QtQuick.Controls 2.0
 
 Switch {
     id: control
-
+    opacity: enabled ? 1 : 0.5
     property bool initialized: false
 
     indicator: Rectangle {

@@ -342,8 +342,9 @@ void DataLogQmlApp::exportLogs(int pageNumber,
         /// GENERATE PDF FILE SECTION
         QString targetDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
         qDebug() << targetDir;
-
-        QString fileName = targetDir + QString("/datalog_p%1-%2of%3.pdf").arg(pageNumber).arg(pageNumber + pagesCount - 1).arg(totalPages);
+        QString dateTime = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
+        QString fileName = targetDir + QString("/DataLog_P%1-%2of%3_%4.pdf").arg(pageNumber).arg(pageNumber + pagesCount - 1).arg(totalPages).arg(dateTime);
+        //QString fileName = targetDir + QString("/datalog_p%1-%2of%3.pdf").arg(pageNumber).arg(pageNumber + pagesCount - 1).arg(totalPages);
         QFile pdfFile(fileName);
         bool fileIsOK = pdfFile.open(QIODevice::WriteOnly);
         qDebug() << fileIsOK;

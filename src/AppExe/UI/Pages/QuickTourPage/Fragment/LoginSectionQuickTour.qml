@@ -8,6 +8,7 @@ import ModulesCpp.Machine 1.0
 Item {
     id: control
     signal finished()
+    signal goBack()
 
     property bool autoPlay: false
 
@@ -17,93 +18,96 @@ Item {
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
-
-            Loader {
-                id: animationImageLoaderLoginSection
-                anchors.fill: parent
-                anchors.margins: 10
-                active: true
-
-                sourceComponent:Image {
-                    id: homepageImageSquenceLoginSection
-                    source: screenColection[indexScreen]
-
-                    cache: false
-
-
-                    property int indexScreen: props.indexing
-                    property var screenColection: [
-                        "qrc:/Assets/QuickTourHomepage/HomeFirst.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFifth.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeSeventh.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeSeventh_1.png",
-                        "qrc:/Assets/QuickTourLogin/LoginFirst.png",
-                        "qrc:/Assets/QuickTourLogin/LoginSecond.png",
-                        "qrc:/Assets/QuickTourLogin/LoginSecond_1.png",
-                        "qrc:/Assets/QuickTourLogin/LoginThird.png",
-                        "qrc:/Assets/QuickTourLogin/LoginFourth.png",
-                        "qrc:/Assets/QuickTourLogin/LoginFifth.png"
-                    ]
-
-                    Timer {
-                        id: screenTimerLoginSection
-                        running: autoPlay
-                        //interval: 3000
-                        interval: 3000
-                        repeat: true
-                        onTriggered: {
-                            let indexing = homepageImageSquenceLoginSection.indexScreen
-                            indexing = indexing + 1
-
-                            props.pageIndicator = indexing
-
-                            //homepageImageSquenceLoginSection.indexScreen = indexing
-                            props.indexing = indexing
-
-                            let maxValue = homepageImageSquenceLoginSection.screenColection.length
-
-                            if (indexing === maxValue){
-                                screenTimerLoginSection.running = false
-                                //animationImageLoaderNetworkSection.active = true
-
-                                props.pageIndicator = maxValue
-
-                                control.finished()
-
-                            }
-                            console.log("timer:" + screenTimerLoginSection.running)
-                        }//
-                    }//
-
-                    MouseArea {
+            Image{
+                source: "qrc:/Assets/background-qtour.png"
+                anchors.centerIn: parent
+                Item {
+                    height: 380
+                    width: 649
+                    anchors.centerIn: parent
+                    Loader {
+                        id: animationImageLoaderSection
                         anchors.fill: parent
+                        //anchors.margins: 10
+                        active: true
 
-                        onClicked: {
+                        sourceComponent:Image {
+                            id: imageSquenceSection
+                            source: screenColection[indexScreen]
 
-                            let indexing = homepageImageSquenceLoginSection.indexScreen
+                            cache: false
 
-                            let maxValue = homepageImageSquenceLoginSection.screenColection.length
+                            property int indexScreen: props.indexing
+                            property var screenColection: [
+                                "qrc:/Assets/QuickTourHomepage/homepage_00.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_12.png",
+                                "qrc:/Assets/QuickTourLogin/Login_00.png",
+                                "qrc:/Assets/QuickTourLogin/Login_01.png",
+                                "qrc:/Assets/QuickTourLogin/Login_02.png",
+                                "qrc:/Assets/QuickTourLogin/Login_03.png",
+                                "qrc:/Assets/QuickTourLogin/Login_04.png",
+                                "qrc:/Assets/QuickTourLogin/Login_05.png",
+                                "qrc:/Assets/QuickTourLogin/Login_06.png",
+                                "qrc:/Assets/QuickTourLogin/Login_07.png",
+                            ]//
 
-                            if (indexing < maxValue - 1){
+                            Timer {
+                                id: screenTimerLoginSection
+                                running: autoPlay && props.timerRunning
+                                //interval: 3000
+                                interval: 3000
+                                repeat: true
+                                onTriggered: {
+                                    let indexing = imageSquenceSection.indexScreen
+                                    let maxValue = imageSquenceSection.screenColection.length
+                                    indexing = indexing + 1
+                                    if (indexing === maxValue){
+                                        screenTimerLoginSection.running = false
+                                        //animationImageLoaderNetworkSection.active = true
+                                        props.pageIndicator = maxValue
+                                        control.finished()
+                                    }
+                                    else{
+                                        props.pageIndicator = indexing
+                                        //imageSquenceSection.indexScreen = indexing
+                                        props.indexing = indexing
+                                    }
+                                    console.log("timer:" + screenTimerLoginSection.running)
+                                }//
+                            }//
 
-                                indexing = indexing + 1
+                            MouseArea {
+                                anchors.fill: parent
 
-                                 props.pageIndicator = indexing
+                                onClicked: {
+
+                                    let indexing = imageSquenceSection.indexScreen
+
+                                    let maxValue = imageSquenceSection.screenColection.length
+
+                                    if (indexing < maxValue - 1){
+
+                                        indexing = indexing + 1
+
+                                        props.pageIndicator = indexing
 
 
-                                props.indexing = indexing
-                            }
-                            else {
-                                screenTimerLoginSection.running = false
+                                        props.indexing = indexing
+                                    }
+                                    else {
+                                        screenTimerLoginSection.running = false
 
-                                control.finished()
-                                //animationImageLoaderNetworkSection.active = true
+                                        control.finished()
+                                        //animationImageLoaderNetworkSection.active = true
 
-                            }
+                                    }
+                                }//
+                            }//
+                            Component.onCompleted: props.screenCollectionCount = imageSquenceSection.screenColection.length
                         }//
                     }//
-                }//
-            }//
+                }
+            }
         }//
 
         Item {
@@ -138,20 +142,23 @@ Item {
                                 props.pageIndicator = props.indexing
                             }
                             else {
-                                return
+                                if(control.autoPlay){
+                                    props.timerRunning = false
+                                    control.goBack()
+                                }
                             }
                         }//
                     }//
                 }//
 
                 PageIndicator {
-                    id: pageLoginSectionIndicator
+                    id: pageSectionIndicator
                     //anchors.verticalCenter: parent.verticalCenter
                     //anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.bottom: parent.bottom
                     interactive: false
                     currentIndex: props.pageIndicator
-                    count: 10
+                    count: props.screenCollectionCount
                 }//
 
                 Rectangle {
@@ -172,12 +179,15 @@ Item {
 
                         onClicked: {
 
-                            if (props.indexing < pageLoginSectionIndicator.count - 1){
+                            if (props.indexing < pageSectionIndicator.count - 1){
                                 props.indexing = props.indexing + 1
                                 props.pageIndicator = props.indexing
                             }
                             else {
-                                return
+                                if(control.autoPlay){
+                                    props.timerRunning = false
+                                    control.finished()
+                                }else return
                             }
                         }//
                     }//
@@ -189,8 +199,9 @@ Item {
     QtObject {
         id: props
         property int pageIndicator: 0
-
         property int indexing: 0
+        property int screenCollectionCount: 0
+        property bool timerRunning: true
     }//
 }//
 

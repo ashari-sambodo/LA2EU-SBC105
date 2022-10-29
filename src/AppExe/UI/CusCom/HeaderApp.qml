@@ -80,9 +80,11 @@ Item {
                             anchors.margins: 5
                             fillMode: Image.PreserveAspectFit
                             source: HeaderAppService.sourceImgLogo
+                            opacity: vendorMArea.pressed ? 0.8 : 1
                         }//
 
                         MouseArea {
+                            id: vendorMArea
                             anchors.fill: parent
                             onPressAndHold: {
                                 HeaderAppService.vendorLogoPressandHold()

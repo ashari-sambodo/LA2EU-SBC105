@@ -20,7 +20,7 @@ TextField {
         implicitWidth: 200
         implicitHeight: 40
         radius: 5
-        color: "#0F2952"
+        color: control.enabled ? "#0F2952" : "#40000000"
         border.color: "#E3DAC9"
         border.width: 2
     }

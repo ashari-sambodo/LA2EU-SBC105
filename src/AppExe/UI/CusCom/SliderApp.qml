@@ -21,10 +21,10 @@ Slider {
         width: control.availableWidth
         height: implicitHeight
         radius: 10
-        color: "#0F2952"
+        color: "#aa0F2952"
         border.color: "#dddddd"
         border.width: 2
-    }
+    }//
 
     handle: Image {
         x: control.leftPadding + control.visualPosition * (control.availableWidth - width)
@@ -32,5 +32,5 @@ Slider {
         width: height
         height: control.height - (controlBackground.border.width * 2)
         source: "SliderApp/slider_handle.png"
-    }
+    }//
 }//

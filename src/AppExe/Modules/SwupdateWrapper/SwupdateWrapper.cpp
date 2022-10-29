@@ -17,6 +17,11 @@ SwupdateWrapper::SwupdateWrapper(QObject *parent) : QObject(parent)
     m_dryMode = false;
     m_progressPercent = 0;
     m_progressStatus = PROGRESS_STATUS::PS_IDLE;
+#ifdef __arm__
+    QProcess rootrw;
+    rootrw.start("rootrw");
+    rootrw.waitForFinished();
+#endif
 }
 
 /**
@@ -31,6 +36,11 @@ SwupdateWrapper::~SwupdateWrapper()
     //    if(m_thread != nullptr){
     //        m_thread->terminate();
     //    }
+#ifdef __arm__
+    QProcess rootro;
+    rootro.start("rootro");
+    rootro.waitForFinished();
+#endif
 }
 
 int SwupdateWrapper::getExitStatus() const

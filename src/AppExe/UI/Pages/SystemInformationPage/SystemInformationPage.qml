@@ -182,7 +182,7 @@ ViewApp {
                                     }//
                                 }//
                             }//
-                        }
+                        }//
                     }//
                     Rectangle{
                         Layout.fillHeight: true
@@ -328,7 +328,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
                 Rectangle {
                     anchors.fill: parent
@@ -353,7 +353,48 @@ ViewApp {
                                 finishView(intent)
                             }
                         }//
+
+                        Row{
+                            spacing: 5
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.right: parent.right
+                            ButtonBarApp {
+                                visible: !configureButton.visible
+                                width: 194
+                                anchors.verticalCenter: parent.verticalCenter
+                                //anchors.right: parent.right
+                                imageSource: "qrc:/UI/Pictures/reset-save-60px.png"
+                                text: qsTr("Export Configuration")
+
+                                onClicked: {
+                                    console.debug(Qt.application.name)
+                                    let fileSource = "/home/root/.config/escolifesciences/%1.conf".arg(Qt.application.name)
+                                    const intent = IntentApp.create("qrc:/UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml",
+                                                                    {
+                                                                        "sourceFilePath": fileSource,
+                                                                        "dontRmFile": 1,
+                                                                    });
+                                    startView(intent);
+                                }
+                            }//
+                            ButtonBarApp {
+                                visible: !configureButton.visible
+                                width: 194
+                                anchors.verticalCenter: parent.verticalCenter
+                                //anchors.right: parent.right
+                                imageSource: "qrc:/UI/Pictures/reset-save-60px.png"
+                                text: qsTr("Import Configuration")
+
+                            onClicked: {
+                                console.debug("this pressed")
+                                const intent = IntentApp.create("qrc:/UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml", {})
+                                startView(intent)
+                            }
+                        }//
+                        }
+
                         ButtonBarApp {
+                            id: configureButton
                             visible: !MachineData.getSbcCurrentSerialNumberKnown()
                             width: 194
                             anchors.verticalCenter: parent.verticalCenter
@@ -371,7 +412,7 @@ ViewApp {
                                                   MachineAPI.setCurrentSystemAsKnown(true);
                                                   showBusyPage(qsTr("Please wait"),
                                                                function onCallback(cycle){
-                                                                   if(cycle === MachineAPI.BUSY_CYCLE_1) {
+                                                                   if(cycle >= MachineAPI.BUSY_CYCLE_2) {
                                                                        const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {})
                                                                        startRootView(intent)
                                                                    }
@@ -381,7 +422,7 @@ ViewApp {
                                               undefined,
                                               undefined,
                                               10
-                                              )
+                                              )//
                             }//
                         }//
                     }//
@@ -415,7 +456,9 @@ ViewApp {
                 props.modelLength1 = props.sbcCurSysInfo.length
                 props.modelLength2 = props.sbcSysInfo.length
                 props.compCompleted = true
+
             }
+
             /// onPause
             Component.onDestruction: {
                 ////console.debug("StackView.DeActivating");

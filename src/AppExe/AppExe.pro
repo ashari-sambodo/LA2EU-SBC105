@@ -4,6 +4,7 @@ QT += sql
 QT += serialport
 QT += serialbus
 QT += websockets
+QT += printsupport
 
 TEMPLATE = app
 CONFIG += c++11
@@ -41,6 +42,8 @@ FULL_VERSION = $$VERSION"."$$BUILD
 ## b2:
 ## - Fan decimal
 ## - Calendar page
+## - Datalog export file naming
+## -
 
 DEFINES += APP_NAME=\\\"$${NAME}\\\"
 DEFINES += APP_VERSION=\\\"$${VERSION}\\\"
@@ -78,12 +81,19 @@ HEADERS += \
     Modules/EventLog/EventLogQmlApp.h \
     Modules/EventLog/EventLogSqlGet.h \
 #    Modules/FtpServer/SimpleFtpServer.h \
+    Modules/FileReader/FileReader.h \
     Modules/ImportExternalResources/RegisterExternalResources.h \
     Modules/JsToText/JstoText.h \
     Modules/NetworkManager/NetworkManagerQmlApp.h \
+    Modules/ReplaceableCompRecord/ReplaceableCompRecordQmlApp.h \
+    Modules/ReplaceableCompRecord/ReplaceableCompRecordSqlGet.h \
+    Modules/ResourceMonitorLog/ResourceMonitorLogQmlApp.h \
+    Modules/ResourceMonitorLog/ResourceMonitorLogSqlGet.h \
+    Modules/SettingsData/SettingsData.h \
+    Modules/SwupdateWrapper/SwupdateWrapper.h \
     Modules/TranslatorText/TranslatorText.h \
     Modules/ExitCodeCustom/ExitCodeCustom.h \
-#    Modules/FileDirUtils/FileDirUtils.h \
+    Modules/FileDirUtils/FileDirUtils.h \
     Modules/NetworkManager/NetworkManager.h \
 #    Modules/USBStorageMount/USBStorageMount.h \
     Modules/UsbCopier/UsbCopier.h \
@@ -105,11 +115,18 @@ SOURCES += \
         Modules/EventLog/EventLogQmlApp.cpp \
         Modules/EventLog/EventLogSqlGet.cpp \
 #        Modules/FtpServer/SimpleFtpServer.cpp \
+    Modules/FileReader/FileReader.cpp \
     Modules/ImportExternalResources/RegisterExternalResources.cpp \
     Modules/JsToText/JstoText.cpp \
         Modules/NetworkManager/NetworkManagerQmlApp.cpp \
+    Modules/ReplaceableCompRecord/ReplaceableCompRecordQmlApp.cpp \
+    Modules/ReplaceableCompRecord/ReplaceableCompRecordSqlGet.cpp \
+    Modules/ResourceMonitorLog/ResourceMonitorLogQmlApp.cpp \
+    Modules/ResourceMonitorLog/ResourceMonitorLogSqlGet.cpp \
+    Modules/SettingsData/SettingsData.cpp \
+        Modules/SwupdateWrapper/SwupdateWrapper.cpp \
         Modules/TranslatorText/TranslatorText.cpp \
-#        Modules/FileDirUtils/FileDirUtils.cpp \
+        Modules/FileDirUtils/FileDirUtils.cpp \
         Modules/NetworkManager/NetworkManager.cpp \
 #        Modules/USBStorageMount/USBStorageMount.cpp \
     Modules/UsbCopier/UsbCopier.cpp \

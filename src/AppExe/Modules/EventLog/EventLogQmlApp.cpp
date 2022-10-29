@@ -339,7 +339,9 @@ void EventLogQmlApp::exportLogs(int pageNumber,
         QString targetDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
         qDebug() << targetDir;
 
-        QString fileName = targetDir + QString("/eventlog_p%1-%2of%3.pdf").arg(pageNumber).arg(pageNumber + pagesCount - 1).arg(totalPages);
+        QString dateTime = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
+        QString fileName = targetDir + QString("/EventLog_P%1-%2of%3_%4.pdf").arg(pageNumber).arg(pageNumber + pagesCount - 1).arg(totalPages).arg(dateTime);
+        //        QString fileName = targetDir + QString("/eventlog_p%1-%2of%3.pdf").arg(pageNumber).arg(pageNumber + pagesCount - 1).arg(totalPages);
         QFile pdfFile(fileName);
         bool fileIsOK = pdfFile.open(QIODevice::WriteOnly);
         qDebug() << fileIsOK;

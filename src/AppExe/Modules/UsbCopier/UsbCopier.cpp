@@ -26,7 +26,6 @@ int UsbCopier::getProgressInPercent() const
 
 void UsbCopier::copy(const QString source, const QString destination, bool withMd5Sum)
 {
-    qDebug()<<"copy from"<< source << "to" << destination;
     QFuture<void> future = QtConcurrent::run([&, source, destination]{
         setCopying(true);
         //        bool copied = QFile::copy(source, destination);
@@ -106,6 +105,12 @@ void UsbCopier::copy(const QString source, const QString destination, bool withM
         emit fileHasCopied(fSize == 0, source, destination);
         setCopying(false);
     });
+}
+
+void UsbCopier::remove(const QString source)
+{
+    QFile srcFile(source);
+    srcFile.remove();
 }
 
 void UsbCopier::setProgressInPercent(int progressInPercent)

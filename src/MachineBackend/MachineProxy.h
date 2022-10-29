@@ -36,11 +36,13 @@ class MachineProxy : public QObject
     Q_ENUM(MachineEnums::ExternalResourcePathCode)
     Q_ENUM(MachineEnums::GeneralPurposeEnums)
     Q_ENUM(MachineEnums::CabinetSideType)
+    Q_ENUM(MachineEnums::ScreenState)
 
+    Q_ENUM(MachineEnums::EnumDigitalState)
 
 public:
     explicit MachineProxy(QObject *parent = nullptr);
-    ~MachineProxy();
+    ~MachineProxy() override;
 
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
 
@@ -317,12 +319,24 @@ public slots:
 
     void setFanClosedLoopControlEnable(bool value);
     void setFanClosedLoopControlEnablePrevState(bool value);// needed in Calibration page
+
     void setFanClosedLoopSamplingTime(int value);
     void setFanClosedLoopGainIntegralDfa(float value);
     void setFanClosedLoopGainProportionalDfa(float value);
     void setFanClosedLoopGainDerivativeDfa(float value);
     void setFanClosedLoopGainIntegralIfa(float value);
     void setFanClosedLoopGainProportionalIfa(float value);
+
+    void setEth0ConName(const QString value);
+    void setEth0Ipv4Address(const QString value);
+    void setEth0ConEnabled(bool value);
+    void setWiredNetworkHasbeenConfigured(bool value);
+    void initWiredConnectionStaticIP();
+
+    void setSvnUpdateHasBeenApplied();
+    void setSvnUpdateCheckEnable(bool value);
+    void setSvnUpdateCheckPeriod(int value);
+    void checkSoftwareVersionHistory();
     void setFanClosedLoopGainDerivativeIfa(float value);
 
     void setReadClosedLoopResponse(bool value);
@@ -330,11 +344,17 @@ public slots:
     /// FRONT PANEL SWITCH LA2EU
     void setFrontPanelSwitchInstalled(bool value);
     ///
+    //    void setFrontEndScreenState(short value);
     void scanRbmComPortAvalaible(bool value);
+
+    void setSomeSettingsAfterExtConfigImported();
+
     void setRbmComPortIfa(QString value);
     void setRbmComPortDfa(QString value);
 
     void setSashMotorOffDelayMsec(int value);
+
+    void setAllOutputShutdown();
     void setDelayAlarmAirflowSec(int value);
 
     void setScreenSaverSeconds(int value);

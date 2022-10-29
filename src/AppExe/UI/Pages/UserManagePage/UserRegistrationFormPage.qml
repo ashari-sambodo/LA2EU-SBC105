@@ -108,9 +108,12 @@ ViewApp {
 
                                         onAccepted: {
                                             let newText = text
-                                            if ((newText.length < 2) || (newText === "  ")) {
-                                                isValid = false
+                                            if(newText.length < props.textMinimumLength || newText.length > props.textMaximumLength) {
+                                                //console.debug("true")
+                                                fullnameWarningText.text = " | " +  qsTr("min/max length: %1/%2!").arg(props.textMinimumLength).arg(props.textMaximumLength)
                                                 fullnameWarningText.visible = true
+                                                //passwordWarningText.color = "#E20000"
+                                                isValid = false
                                             }
                                             else {
                                                 isValid = true
@@ -130,7 +133,7 @@ ViewApp {
 
                                         TextApp {
                                             id: usernameWarningText
-                                            text: " | " +  qsTr("Invalid!")
+                                            text: ""
                                             font.pixelSize: 14
                                             color: "orange"
                                             visible: false
@@ -158,19 +161,37 @@ ViewApp {
                                         }//
 
                                         onPressed: {
-                                            KeyboardOnScreenCaller.openKeyboard(usernameTextField, qsTr("User Name"))
+                                            KeyboardOnScreenCaller.openKeyboard(usernameTextField, qsTr("Username"))
                                         }//
 
                                         onAccepted: {
                                             //                                            console.log("Hello")
-                                            const pattern = /^[a-zA-Z\-]+$/;
+                                            const pattern = /^[a-zA-Z0-9\-]+$/;
                                             const newText = text
-                                            if(newText.match(pattern)) {
-                                                isValid = true
-                                                usernameWarningText.visible = false
+
+                                            if(newText == "service" || newText == "factory"){
+                                                isValid = false
+                                                usernameWarningText.text = " | " +  qsTr("Invalid!")
+                                                usernameWarningText.visible = true
+                                                return
+                                            }
+                                            if(newText.length < props.textMinimumLength || newText.length > props.textMaximumLength)
+                                            {
+                                                //console.debug("true")
+                                                usernameWarningText.text = " | " +  qsTr("min/max length: %1/%2!").arg(props.textMinimumLength).arg(props.textMaximumLength)
+                                                usernameWarningText.visible = true
+                                                //usernameWarningText.color = "#E20000"
+                                                isValid = false
+                                            }
+                                            else if(newText.match(pattern)) {
+                                                //isValid = true
+                                                //usernameWarningText.visible = false
+                                                showBusyPage(qsTr("Please wait"))
+                                                userManageQml.checkUsernameAvailability(newText)
                                             }
                                             else {
                                                 isValid = false
+                                                usernameWarningText.text = " | " +  qsTr("Invalid!")
                                                 usernameWarningText.visible = true
                                             }
                                         }
@@ -189,7 +210,7 @@ ViewApp {
 
                                         TextApp {
                                             id: passwordWarningText
-                                            text: " | " +  qsTr("Min. length is") + " " + props.passwordMinimumLength
+                                            text: ""
                                             font.pixelSize: 14
                                             color: "orange"
                                             visible: false
@@ -199,7 +220,7 @@ ViewApp {
 
                                     TextFieldApp {
                                         id: passwordTextField
-                                        placeholderText: qsTr("Create New Password")
+                                        placeholderText: qsTr("Create Password")
                                         width: 299
                                         height: 40
                                         font.pixelSize: 20
@@ -219,23 +240,35 @@ ViewApp {
                                         echoMode: TextFieldApp.Password
 
                                         onAccepted: {
-                                            console.debug(props.passwordStrengthString(props.calculatePasswordStrength(passwordTextField.text)))
+                                            const pwdInput = passwordTextField.text
+                                            const pwdLevel = props.calculatePasswordStrength(pwdInput)
+                                            const meetComplexity = true // no need to check the complexity
 
-                                            if(passwordTextField.text.length < props.passwordMinimumLength)
+                                            if(passwordTextField.text.length < props.passwordMinimumLength || passwordTextField.text.length > props.textMaximumLength)
                                             {
                                                 //console.debug("true")
+                                                passwordWarningText.text = " | " +  qsTr("min/max length: %1/%2!").arg(props.passwordMinimumLength).arg(props.textMaximumLength)
                                                 passwordWarningText.visible = true
+                                                //passwordWarningText.color = "#E20000"
+                                                isValid = false
+                                            }
+                                            else if(!meetComplexity){
+                                                passwordWarningText.text = " | " +  qsTr("must contain letters, numbers & special chars.")
+                                                passwordWarningText.visible = true
+                                                //passwordWarningText.color = "#E20000"
                                                 isValid = false
                                             }
                                             else
                                             {
                                                 //console.debug("false")
-                                                passwordWarningText.visible = false
+                                                passwordWarningText.text = " | " + props.passwordStrengthString(pwdLevel)
+                                                passwordWarningText.color = "#003EDD"
+                                                passwordWarningText.visible = true
                                                 isValid = true
                                             }
                                         }
                                         onPressed: {
-                                            KeyboardOnScreenCaller.openKeyboard(passwordTextField, qsTr("Create New Password"))
+                                            KeyboardOnScreenCaller.openKeyboard(passwordTextField, qsTr("Create Password"))
                                         }//
                                     }//
 
@@ -253,7 +286,7 @@ ViewApp {
 
                                         TextApp {
                                             id:confirmPassWarningText
-                                            text: " | " + qsTr("Not match!")
+                                            text: " | " + qsTr("Not matched!")
                                             font.pixelSize: 14
                                             color: "orange"
                                             visible: false
@@ -283,7 +316,7 @@ ViewApp {
                                         }//
 
                                         onAccepted: {
-                                            props.calculatePasswordStrength(passwordConfirmTextField.text)
+                                            //props.calculatePasswordStrength(passwordConfirmTextField.text)
                                             if(passwordTextField.text == passwordConfirmTextField.text)
                                             {
                                                 //console.debug("true")
@@ -300,7 +333,7 @@ ViewApp {
                                         }//
 
                                         onPressed: {
-                                            KeyboardOnScreenCaller.openKeyboard(passwordConfirmTextField, qsTr("Retype New Password"))
+                                            KeyboardOnScreenCaller.openKeyboard(passwordConfirmTextField, qsTr("Retype Password"))
                                         }//
                                     }//
 
@@ -392,9 +425,7 @@ ViewApp {
                                             border.width: 2
                                         }//
 
-                                        model: UserSessionService.roleLevel >= UserSessionService.roleLevelSAdmin ?
-                                                   ["Operator",  "Administrator", "Supervisor"] :
-                                                   ["Operator",  "Administrator"]
+                                        model: [qsTr("Operator"), qsTr("Supervisor"), qsTr("Administrator")]
                                     }//
                                 }// user level
                             }//
@@ -451,7 +482,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
                 Rectangle {
                     anchors.fill: parent
@@ -498,16 +529,20 @@ ViewApp {
                                         || !passwordTextField.isValid
                                         || !passwordConfirmTextField.isValid
                                         || !emailTextField.isValid) {
-
                                     showDialogMessage(qsTr("User Registration"),
                                                       qsTr("There is invalid value!"),
                                                       dialogAlert)
                                     return
-                                }
+                                }//
 
                                 showBusyPage(qsTr("Please wait"))
-                                const username  = usernameTextField.text
-                                userManageQml.checkUsernameAvailability(username)
+                                //const username  = usernameTextField.text
+                                userManageQml.addUser(usernameTextField.text,
+                                                      Qt.md5(passwordTextField.text),
+                                                      userLevelComboBox.currentIndex+1,
+                                                      fullnameTextField.text,
+                                                      emailTextField.text
+                                                      )//
                             }//
                         }//
                     }//
@@ -531,17 +566,15 @@ ViewApp {
                     return
                 }
                 if(!available){
-                    showDialogMessage(qsTr("User Registration"), qsTr("Username is already exist!"), dialogAlert)
-                    return
-                }
-
-                const fullname  = fullnameTextField.text
-                const password  = Qt.md5(passwordTextField.text)
-                const email     = emailTextField.text
-                const role      = userLevelComboBox.currentIndex + 1
-
-                showBusyPage(qsTr("Please wait"))
-                userManageQml.addUser(username, password, role, fullname, email)
+                    usernameWarningText.text = " | " +  qsTr("username already taken!")
+                    usernameTextField.isValid = false
+                    usernameWarningText.visible = true
+                }//
+                else{
+                    usernameTextField.isValid = true
+                    usernameWarningText.visible = false
+                }//
+                closeDialog()
             }//
 
             onUserWasAdded: {
@@ -551,7 +584,7 @@ ViewApp {
                     return
                 }
 
-                showDialogMessage(qsTr("User Registration"), qsTr("User was added successfully!"), dialogInfo,
+                showDialogMessage(qsTr("User Registration"), qsTr("User has been added successfully!"), dialogInfo,
                                   function onClosed(){
                                       var intent = IntentApp.create(uri, {"hiReload": true})
                                       finishView(intent)
@@ -561,11 +594,12 @@ ViewApp {
             Component.onCompleted: {
                 const connectionId = "UserRegistrationFormPage"
                 init(connectionId);
-                showBusyPage(qsTr("Loading..."), function(cycle){
-                    if((cycle === MachineAPI.BUSY_CYCLE_1) && (userManageQml.initialized)){
+
+                showBusyPage(qsTr("Loading..."), function(seconds){
+                    if((seconds === MachineAPI.BUSY_CYCLE_1) && (userManageQml.initialized)){
                         closeDialog()
                     }
-                    else if (cycle === MachineAPI.BUSY_CYCLE_4){
+                    else if (seconds >= MachineAPI.BUSY_CYCLE_2){
                         closeDialog()
                     }
                 })
@@ -578,6 +612,8 @@ ViewApp {
             id: props
 
             property int passwordMinimumLength: 5
+            property int textMinimumLength: 5
+            property int textMaximumLength: 16
 
             function isLowerCase(chr) {
                 if (/[a-z]/.test(chr))
@@ -606,7 +642,7 @@ ViewApp {
                 let passwordStr = String(password)
                 let isHasUpperCase = 0
                 let isHasLowerCase = 0
-                let isLengthMoreEqual8Char = passwordStr.length >= 8 ? 1 : 0
+                let isLengthMoreEqual10Char = passwordStr.length >= 10 ? 1 : 0
                 let isHasNumbers = 0
                 let isHasSpecialChar = 0 ///(e.g. @#$%^&*()_+|~-=\`{}[]:";'<>/ etc)
                 let allCharNotLetter = 0
@@ -647,36 +683,37 @@ ViewApp {
                 if((seqNumberCount < 3 && seqLowCaseCount < 3 && seqUpCaseCount < 3) && allCharNotLetter && allCharNotNumber) mixNumberLetterCase = 1
                 else mixNumberLetterCase = 0
 
-                console.debug("isHasUpperCase", isHasUpperCase)
-                console.debug("isHasLowerCase", isHasLowerCase)
-                console.debug("isLengthMoreEqual8Char", isLengthMoreEqual8Char)
-                console.debug("isHasNumbers", isHasNumbers)
-                console.debug("isHasSpecialChar", isHasSpecialChar)
+                //                console.debug("isHasUpperCase", isHasUpperCase)
+                //                console.debug("isHasLowerCase", isHasLowerCase)
+                //                console.debug("isLengthMoreEqual10Char", isLengthMoreEqual10Char)
+                //                console.debug("isHasNumbers", isHasNumbers)
+                //                console.debug("isHasSpecialChar", isHasSpecialChar)
 
-                console.debug("seqNumberCount", seqNumberCount)
-                console.debug("seqLowCaseCount", seqLowCaseCount)
-                console.debug("seqUpCaseCount", seqUpCaseCount)
-                console.debug("allCharNotLetter", allCharNotLetter)
-                console.debug("allCharNotNumber", allCharNotNumber)
-                console.debug("mixNumberLetterCase", mixNumberLetterCase)
+                //                console.debug("seqNumberCount", seqNumberCount)
+                //                console.debug("seqLowCaseCount", seqLowCaseCount)
+                //                console.debug("seqUpCaseCount", seqUpCaseCount)
+                //                console.debug("allCharNotLetter", allCharNotLetter)
+                //                console.debug("allCharNotNumber", allCharNotNumber)
+                //                console.debug("mixNumberLetterCase", mixNumberLetterCase)
                 ///http://www.passwordmeter.com/
                 ///very weak, weak, Good, Strong, Very Strong
                 //1~6 (1 weakest ~ 6 strongest)
 
                 let meetComplexity = ((isHasLowerCase || isHasUpperCase) && isHasNumbers && isHasSpecialChar)
                 if(meetComplexity)
-                    return (isHasUpperCase + isHasLowerCase + isLengthMoreEqual8Char + isHasNumbers + isHasSpecialChar + mixNumberLetterCase)
+                    return (isHasUpperCase + isHasLowerCase + isLengthMoreEqual10Char + isHasNumbers + isHasSpecialChar + mixNumberLetterCase)
                 else return 0
             }
 
             function passwordStrengthString(level){
-                if(level >= 6)      return "Very strong"
-                else if(level >= 5) return "Strong"
+                console.debug("Password Level:", level)
+                if(level >= 5)      return "Very strong"
+                else if(level >= 4) return "Strong"
                 else if(level >= 3) return "Good"
-                else if(level >= 2)  return "Weak"
+                else if(level >= 2) return "Weak"
                 else                return "Very weak"
             }
-        }
+        }//
 
         /// OnCreated
         Component.onCompleted: {

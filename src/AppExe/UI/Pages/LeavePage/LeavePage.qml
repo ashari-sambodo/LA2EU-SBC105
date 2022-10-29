@@ -99,7 +99,7 @@ ViewApp {
                                     wrapMode: Text.WordWrap
                                     horizontalAlignment: Text.AlignJustify
                                     rightPadding: 5
-                                    text: qsTr("This action only needed if you want to take out the electricity to the unit.")
+                                    text: qsTr("This action only be needed if you want to take out the electricity to the unit.")
                                 }//
 
                                 Rectangle {height: 1; width: parent.width; color: "gray"}
@@ -111,7 +111,7 @@ ViewApp {
                                     wrapMode: Text.WordWrap
                                     horizontalAlignment: Text.AlignJustify
                                     rightPadding: 5
-                                    text: qsTr("This to ensure all the tasks will be stopped properly and not caused disk error.")
+                                    text: qsTr("This is to ensure all the tasks will be stopped properly and not caused disk error.")
                                 }//
 
                                 Rectangle {height: 1; width: parent.width; color: "gray"}
@@ -123,7 +123,7 @@ ViewApp {
                                     wrapMode: Text.WordWrap
                                     horizontalAlignment: Text.AlignJustify
                                     rightPadding: 5
-                                    text: qsTr("System will automatically turn off all the output, then go to black screen.")
+                                    text: qsTr("The system will automatically turns off all the output, then go to black screen.")
                                 }//
 
                                 Rectangle {height: 1; width: parent.width; color: "gray"}

@@ -147,7 +147,12 @@
         <file>UI/Pages/SoftwareFailedStartPage/ButtonBlackApp.qml</file>
         <file>UI/Pages/SoftwareFailedStartPage/DateTimeSettingPage.qml</file>
         <file>UI/Pages/SystemInformationPage/SystemInformationPage.qml</file>
+        <file>UI/Pages/SoftwareUpdatePage/SvnUpdateSettingsPage.qml</file>
+        <file>UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml</file>
+        <file>UI/Pages/SoftwareUpdatePage/SoftwareHistoryPage.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/FanClosedLoopControlPage.qml</file>
+        <file>UI/Pages/SoftwareLicensePage/gpl-3.0.txt</file>
+        <file>UI/Pages/SoftwareLicensePage/lgpl-3.0.txt</file>
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningParameters.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/InflowGridFieldFragment.qml</file>
@@ -155,6 +160,7 @@
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopResponse.qml</file>
         <file>UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml</file>
         <file>UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml</file>
+        <file>UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml</file>
         <file>UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml</file>
         <file>UI/Pages/ScreenSaverSettingPage/ScreenSaverSettingPage.qml</file>
     </qresource>

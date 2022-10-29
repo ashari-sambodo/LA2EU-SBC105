@@ -4,24 +4,25 @@
 #define DEFAULT_DB_FILENAME                 "usermanage.db"
 
 #define DB_QUERY_INIT                       "\
-CREATE TABLE IF NOT EXISTS usermanage_V1 \
+CREATE TABLE IF NOT EXISTS usermanage_V2 \
 (username TEXT, password TEXT, role INT, active INT, fullname TEXT, email TEXT, createdAt TEXT, lastLogin TEXT)"
 
-#define DB_QUERY_ADD                        "INSERT INTO usermanage_V1 VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+#define DB_QUERY_ADD                        "INSERT INTO usermanage_V2 VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 
-#define DB_QUERY_UPDATE_FULLNAME            "UPDATE usermanage_V1 SET fullname = ? WHERE username = ?"
-#define DB_QUERY_UPDATE_EMAIL               "UPDATE usermanage_V1 SET email = ? WHERE username = ?"
-#define DB_QUERY_UPDATE_ROLE                "UPDATE usermanage_V1 SET role = ? WHERE username = ?"
-#define DB_QUERY_UPDATE_PASSWORD            "UPDATE usermanage_V1 SET password = ? WHERE username = ?"
-#define DB_QUERY_UPDATE_LASTLOGIN           "UPDATE usermanage_V1 SET lastLogin = ? WHERE username = ?"
+#define DB_QUERY_UPDATE_USERNAME            "UPDATE usermanage_V2 SET username = ? WHERE username = ?"
+#define DB_QUERY_UPDATE_FULLNAME            "UPDATE usermanage_V2 SET fullname = ? WHERE username = ?"
+#define DB_QUERY_UPDATE_EMAIL               "UPDATE usermanage_V2 SET email = ? WHERE username = ?"
+#define DB_QUERY_UPDATE_ROLE                "UPDATE usermanage_V2 SET role = ? WHERE username = ?"
+#define DB_QUERY_UPDATE_PASSWORD            "UPDATE usermanage_V2 SET password = ? WHERE username = ?"
+#define DB_QUERY_UPDATE_LASTLOGIN           "UPDATE usermanage_V2 SET lastLogin = ? WHERE username = ?"
 
-#define DB_QUERY_DELETE                     "DELETE FROM usermanage_V1"
-#define DB_QUERY_COUNT_ROWS                 "SELECT COUNT(*) FROM usermanage_V1"
+#define DB_QUERY_DELETE                     "DELETE FROM usermanage_V2"
+#define DB_QUERY_COUNT_ROWS                 "SELECT COUNT(*) FROM usermanage_V2"
 
-#define DB_QUERY_SELECT_WITH_OFFSET_LIMIT_ASC        "SELECT * FROM usermanage_V1 ORDER BY ROWID ASC LIMIT :limit OFFSET :offset;"
-#define DB_QUERY_SELECT_WITH_OFFSET_LIMIT_DESC       "SELECT * FROM usermanage_V1 ORDER BY ROWID DESC LIMIT :limit OFFSET :offset;"
+#define DB_QUERY_SELECT_WITH_OFFSET_LIMIT_ASC        "SELECT * FROM usermanage_V2 ORDER BY ROWID ASC LIMIT :limit OFFSET :offset;"
+#define DB_QUERY_SELECT_WITH_OFFSET_LIMIT_DESC       "SELECT * FROM usermanage_V2 ORDER BY ROWID DESC LIMIT :limit OFFSET :offset;"
 
-#define DB_QUERY_SELECT                     "SELECT * FROM usermanage_V1"
+#define DB_QUERY_SELECT                     "SELECT * FROM usermanage_V2"
 
 UserManageSql::UserManageSql(QObject *parent) : QObject(parent)
 {
@@ -67,7 +68,7 @@ bool UserManageSql::queryInsert(const QVariantMap data)
     QSqlQuery query(QSqlDatabase::database(m_connectionName));
 
     bool prepared = query.prepare(DB_QUERY_ADD);
-    Q_UNUSED(prepared)
+    Q_UNUSED(prepared);
     //    qDebug() << prepared;
 
     query.addBindValue(data["username"].toString());
@@ -162,6 +163,26 @@ bool UserManageSql::queryCount(int *count)
         success = true;
         query.next();
         *count = query.value(0).toInt();
+    }
+    m_queryLastErrorStr = query.lastError().text();
+    return success;
+}
+
+bool UserManageSql::queryUpdateUserUsername(const QString value, const QString username)
+{
+    bool success = false;
+
+    QSqlQuery query(QSqlDatabase::database(m_connectionName));
+
+    bool prepared = query.prepare(DB_QUERY_UPDATE_USERNAME);
+    Q_UNUSED(prepared);
+
+    query.addBindValue(value);
+    query.addBindValue(username);
+    qDebug() << query.lastQuery();
+
+    if (query.exec()) {
+        success = true;
     }
     m_queryLastErrorStr = query.lastError().text();
     return success;

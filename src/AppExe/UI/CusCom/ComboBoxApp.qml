@@ -1,5 +1,6 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0
+import QtQuick.Controls.Styles 1.3
 
 ComboBox {
     id: control
@@ -18,6 +19,7 @@ ComboBox {
     property alias backgroundPopupColor: popupBackground.color
     property alias backgroundPopupBorderColor: popupBackground.border.color
 
+    property int popupHeight: 0
 
     delegate: ItemDelegate {
         width: control.width
@@ -81,6 +83,7 @@ ComboBox {
     popup: Popup {
         y: control.height - 1
         width: control.width
+        height: control.popupHeight ? control.popupHeight : contentItem.implicitHeight
         implicitHeight: contentItem.implicitHeight
         padding: 1
 
@@ -92,7 +95,7 @@ ComboBox {
             model: control.popup.visible ? control.model : null
             currentIndex: control.highlightedIndex
 
-            ScrollIndicator.vertical: ScrollIndicator { }
+            ScrollIndicator.vertical: ScrollIndicator {}
 
             delegate: ItemDelegate {
                 width: control.width
@@ -101,9 +104,10 @@ ComboBox {
                     font: control.font
                     color: control.popupTextColor
                     elide: Text.ElideRight
+                    opacity: pressed ? 0.5 : 1
                 }
 
-                onPressed: {
+                onClicked: {
                     //                    //console.debug("Press")
                     control.currentIndex = index
                     control.activated(index);

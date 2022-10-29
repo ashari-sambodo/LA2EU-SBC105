@@ -48,7 +48,7 @@ public slots:
                                    int role,
                                    const QString fullName,
                                    const QString email);
-    void updateUserIncludePassword(const QString username,
+    void updateUserIncludePassword(const QString username, const QString newUsername,
                                 const QString password,
                                 int role,
                                 const QString fullName,
@@ -79,6 +79,25 @@ signals:
     void delayEmitSignalChanged(int delayEmitSignal);
 
 private:
+    enum UserRoleLevel {
+        USER_LEVEL_GUEST,
+        USER_LEVEL_OPERATOR,
+        USER_LEVEL_SUPERVISOR,
+        USER_LEVEL_ADMIN,
+        USER_LEVEL_SERVICE,
+        USER_LEVEL_FACTORY,
+    };
+    enum TableHeaderEnum {
+        TH_USERNAME,
+        TH_PASSWORD,
+        TH_ROLE,
+        TH_ACTIVE,
+        TH_FULLNAME,
+        TH_EMAIL,
+        TH_CREATED_AT,
+        TH_LAST_LOGIN,
+    };
+
     QThread *m_pThread = nullptr;
 //    UserManageSql *m_pSql = nullptr;
     QScopedPointer<UserManageSql> m_pSql;

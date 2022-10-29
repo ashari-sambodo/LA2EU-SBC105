@@ -27,6 +27,8 @@ Item {
     property bool autoClose: true
     property bool autoDestroy: false
     property int interval : 3000
+    property string acceptedText: qsTr("OK")
+    property string rejectedText: qsTr("Cancel")
 
     signal clickedAtBackground()
     signal accepted()
@@ -53,6 +55,8 @@ Item {
     DialogContentApp {
         id: dialogContentApp
         visible: control.visible
+        acceptedText: control.acceptedText
+        rejectedText: control.rejectedText
     }//
 
     Loader {

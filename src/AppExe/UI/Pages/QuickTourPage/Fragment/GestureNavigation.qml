@@ -8,6 +8,7 @@ import ModulesCpp.Machine 1.0
 Item {
     id: control
     signal finished()
+    signal goBack()
 
     property bool autoPlay
 
@@ -17,74 +18,107 @@ Item {
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
+            Image{
+                source: "qrc:/Assets/background-qtour.png"
+                anchors.centerIn: parent
+                Item {
+                    height: 380
+                    width: 649
+                    anchors.centerIn: parent
+                    Loader {
+                        id: animationGifLoader
+                        anchors.fill: parent
+                        //anchors.margins: 10
+                        active: true
 
-            Loader {
-                id:animationGifLoader
-                anchors.fill: parent
-                anchors.margins: 10
-                active: true
+                        sourceComponent:AnimatedImage {
+                            id: animationGif
+                            anchors.fill: parent
+                            playing: props.playing
 
-                sourceComponent:AnimatedImage {
-                    id: homepageGif
-                    anchors.fill: parent
+                            cache: false
 
-                    cache: false
+                            source: screenColection[indexScreen]
 
-                    source: screenColection[indexScreen]
-
-                    property bool autoPlay: control.autoPlay
-                    onAutoPlayChanged: {
-                        homepageGif.playing = true
-                    }
-
-                    property int indexScreen: props.indexing
-                    property var screenColection: [
-
-                        "qrc:/Assets/QuickTourGestureNav/GestureNavigationButtom.gif",
-                        "qrc:/Assets/QuickTourGestureNav/GestureNavigationLeft.gif",
-                        "qrc:/Assets/QuickTourGestureNav/GestureNavigationRight.gif",
-                        "qrc:/Assets/QuickTourGestureNav/GestureNavigationUp.gif"
-                    ]
-
-                    onPlayingChanged: {
-                        if (homepageGif.playing == false) {
-
-                            let index = homepageGif.indexScreen
-                            index = index + 1
-
-                            if (autoPlay == true) {
-                                props.indexing = index
-                                homepageGif.playing = true
+                            property bool autoPlay: control.autoPlay
+                            onAutoPlayChanged: {
+                                props.playing = true
                             }
 
-                            props.pageIndicator = props.indexing
+                            property int indexScreen: props.indexing
+                            property var screenColection: [
+                                "qrc:/Assets/QuickTourGestureNav/GestureNavigationLeft.gif",
+                                "qrc:/Assets/QuickTourGestureNav/GestureNavigationBottom.gif",
+                                "qrc:/Assets/QuickTourGestureNav/GestureNavigationRight.gif",
+                                "qrc:/Assets/QuickTourGestureNav/GestureNavigationUp.gif"
+                            ]//
+                            onCurrentFrameChanged: {
+                                if(animationGif.currentFrame == (animationGif.frameCount-1) && control.autoPlay){
+                                    if (props.indexing < pageSectionIndicator.count -1) {
+                                        let index = props.indexing
+                                        index = index + 1
 
-                            if (props.indexing == 4) {
-                                control.finished()
+                                        props.indexing = index
+                                        props.pageIndicator = props.indexing
+
+                                        props.playing = true
+                                    }//
+                                    else{
+                                        console.debug(props.indexing, props.screenCollectionCount)
+                                        props.playing = false
+                                    }
+                                }//
                             }//
+                            onPlayingChanged: {
+                                if (props.playing == false && !props.isGoBack) {
+
+                                    let index = animationGif.indexScreen
+                                    index = index + 1
+
+                                    if (autoPlay == true) {
+                                        if (index == screenColection.length) {
+                                            control.finished()
+                                            return
+                                        }//
+                                        else{
+                                            props.indexing = index
+                                            props.playing = true
+                                        }
+                                    }
+
+                                    props.pageIndicator = props.indexing
+                                    //                            if (props.indexing == screenColection.length) {
+                                    //                                control.finished()
+                                    //                            }//
+                                }//
+                            }//
+
+                            MouseArea {
+                                anchors.fill: parent
+
+                                onClicked: {
+                                    console.debug(props.indexing, props.screenCollectionCount)
+                                    if (props.indexing == props.screenCollectionCount-1) {
+                                        props.playing = false
+                                    }//
+                                    else{
+                                        let index = animationGif.indexScreen
+                                        index = index + 1
+
+                                        props.indexing = index
+                                        props.playing = true
+                                        props.pageIndicator = props.indexing
+                                    }
+                                }//
+                            }//
+                            Component.onCompleted: {
+                                props.screenCollectionCount = animationGif.screenColection.length
+                                console.debug("Screen collection:", props.screenCollectionCount)
+                            }
                         }//
                     }//
-
-                    MouseArea {
-                        anchors.fill: parent
-
-                        onClicked: {
-                            let index = homepageGif.indexScreen
-                            index = index + 1
-
-                            props.indexing = index
-
-                            homepageGif.playing = true
-
-                            props.pageIndicator = props.indexing
-
-                            if (props.indexing == 4) {
-                                control.finished()
-                            }//
-                        }//
-                    }//
-                }//
-            }//
+                }
+            }
         }//
 
         Item {
@@ -122,20 +156,27 @@ Item {
                                 props.indexing = index
                                 props.pageIndicator = props.indexing
 
-                                homepageGif.playing = true
+                                props.playing = true
+                            }//
+                            else{
+                                if(control.autoPlay){
+                                    props.isGoBack = true
+                                    props.playing = false
+                                    control.goBack()
+                                }//
                             }//
                         }//
                     }//
                 }//
 
                 PageIndicator {
-                    id: pageLoginSectionIndicator
+                    id: pageSectionIndicator
                     //anchors.verticalCenter: parent.verticalCenter
                     //anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.bottom: parent.bottom
                     interactive: false
                     currentIndex: props.pageIndicator
-                    count: 4
+                    count: props.screenCollectionCount
                 }//
 
                 Rectangle {
@@ -155,17 +196,18 @@ Item {
                         anchors.fill: parent
 
                         onClicked: {
-
-                            if (props.indexing < pageLoginSectionIndicator.count -1) {
-
+                            if (props.indexing >= pageSectionIndicator.count - 1) {
+                                props.playing = false
+                            }//
+                            else{
                                 let index = props.indexing
                                 index = index + 1
 
                                 props.indexing = index
                                 props.pageIndicator = props.indexing
 
-                                homepageGif.playing = true
-                            }//
+                                props.playing = true
+                            }
                         }//
                     }//
                 }//
@@ -182,6 +224,9 @@ Item {
 
         property int indexing: 0
 
+        property bool playing: true
+        property int screenCollectionCount: 0
+        property bool isGoBack: false
         //rproperty int maxIndex: value
 
     }//

@@ -24,6 +24,8 @@ Item {
     property alias olderDateLimit: monthGrid.dateLowestLimit
     property alias futureDateLimit: monthGrid.dateHightestLimit
 
+    signal yearRectanglePressed()
+
     ColumnLayout {
         anchors.fill: parent
         spacing: 5
@@ -72,7 +74,6 @@ Item {
                     color: "#dddddd"
                 }//
             }//
-
             Rectangle {
                 Layout.fillHeight: true
                 Layout.minimumWidth: 80
@@ -130,6 +131,13 @@ Item {
                     verticalAlignment: Text.AlignVCenter
                     color: "#dddddd"
                 }//
+
+                MouseArea{
+                    anchors.fill: parent
+                    onPressed: {
+                        yearRectanglePressed()
+                    }
+                }
 
             }//
 
@@ -252,7 +260,7 @@ Item {
                     selectDate.setDate(model.day)
                     selectDate.setMonth(model.month)
                     selectDate.setFullYear(model.year)
-                    //console.debug(Qt.formatDate(selectDate, "yyyy-MMM-dd"))
+                    //                    //console.debug(Qt.formatDate(selectDate, "yyyy-MMM-dd"))
                     control.clicked(selectDate)
                 }
             }//

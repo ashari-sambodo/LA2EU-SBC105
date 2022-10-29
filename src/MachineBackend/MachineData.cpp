@@ -152,6 +152,122 @@ void MachineData::setFanClosedLoopGainDerivative(float value, short index)
     m_fanClosedLoopGainDerivative[index] = value;
 }
 
+void MachineData::setEth0ConName(QString value)
+{
+    if(m_eth0ConName == value)return;
+    m_eth0ConName = value;
+}
+
+void MachineData::setEth0Ipv4Address(QString value)
+{
+    if(m_eth0Ipv4Address == value)return;
+    m_eth0Ipv4Address = value;
+}
+
+void MachineData::setEth0ConEnabled(bool value)
+{
+    if(m_eth0ConEnabled == value)return;
+    m_eth0ConEnabled = value;
+}
+
+QString MachineData::getEth0ConName() const
+{
+    return m_eth0ConName;
+}
+
+QString MachineData::getEth0Ipv4Address() const
+{
+    return m_eth0Ipv4Address;
+}
+
+bool MachineData::getEth0ConEnabled() const
+{
+    return m_eth0ConEnabled;
+}
+
+void MachineData::setWiredNetworkHasbeenConfigured(bool value)
+{
+    if(m_wiredNetworkHasbeenConfigured == value)return;
+    m_wiredNetworkHasbeenConfigured = value;
+    emit wiredNetworkHasbeenConfiguredChanged(value);
+}
+
+bool MachineData::getWiredNetworkHasbeenConfigured() const
+{
+    return m_wiredNetworkHasbeenConfigured;
+}
+
+void MachineData::setSvnUpdateAvailable(bool value)
+{
+    if(m_svnUpdateAvailable == value)return;
+    m_svnUpdateAvailable = value;
+    emit svnUpdateAvailableChanged(value);
+}
+
+void MachineData::setSvnUpdateSwuVersion(QString value)
+{
+    if(m_svnUpdateSwuVersion == value)return;
+    m_svnUpdateSwuVersion = value;
+    emit svnUpdateSwuVersionChanged(value);
+}
+
+void MachineData::setSvnUpdatePath(QString value)
+{
+    if(m_svnUpdatePath == value)return;
+    m_svnUpdatePath = value;
+    emit svnUpdatePathChanged(value);
+}
+
+void MachineData::setSvnUpdateHistory(QJsonObject value)
+{
+    if(m_svnUpdateHistory == value)return;
+    m_svnUpdateHistory = value;
+    emit svnUpdateHistoryChanged(value);
+}
+
+bool MachineData::getSvnUpdateAvailable() const
+{
+    return m_svnUpdateAvailable;
+}
+
+QString MachineData::getSvnUpdateSwuVersion() const
+{
+    return m_svnUpdateSwuVersion;
+}
+
+QString MachineData::getSvnUpdatePath() const
+{
+    return m_svnUpdatePath;
+}
+
+QJsonObject MachineData::getSvnUpdateHistory() const
+{
+    return m_svnUpdateHistory;
+}
+
+bool MachineData::getSvnUpdateCheckForUpdateEnable() const
+{
+    return m_svnUpdateCheckForUpdateEnable;
+}
+
+int MachineData::getSvnUpdateCheckForUpdatePeriod() const
+{
+    return m_svnUpdateCheckForUpdatePeriod;
+}
+
+void MachineData::setSvnUpdateCheckForUpdateEnable(bool value)
+{
+    if(m_svnUpdateCheckForUpdateEnable == value)return;
+    m_svnUpdateCheckForUpdateEnable = value;
+    emit svnUpdateCheckForUpdateEnableChanged(value);
+}
+
+void MachineData::setSvnUpdateCheckForUpdatePeriod(int value)
+{
+    if(m_svnUpdateCheckForUpdatePeriod == value)return;
+    m_svnUpdateCheckForUpdatePeriod = value;
+    emit svnUpdateCheckForUpdatePeriodChanged(value);
+}
 int MachineData::getFanClosedLoopSamplingTime() const
 {
     return m_fanClosedLoopSamplingTime;

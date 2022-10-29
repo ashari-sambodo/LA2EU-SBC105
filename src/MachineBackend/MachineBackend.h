@@ -10,6 +10,8 @@
 #include <QtWebSockets/QWebSocket>
 #endif
 
+#include "MachineEnums.h"
+
 class QSettings;
 class QThread;
 class QTimer;
@@ -56,6 +58,8 @@ class QGpioSysfs;
 class SensirionSPD8xx;
 class ParticleCounterZH03B;
 
+class CheckSWUpdate;
+
 class MachineData;
 
 
@@ -64,7 +68,7 @@ class MachineBackend : public QObject
     Q_OBJECT
 public:
     explicit MachineBackend(QObject *parent = nullptr);
-    ~MachineBackend();
+    ~MachineBackend() override;
 
 public slots:
     void routineTask();
@@ -357,6 +361,17 @@ public slots:
 
     void setReadClosedLoopResponse(bool value);
 
+void setEth0ConName(const QString value);
+    void setEth0Ipv4Address(const QString value);
+    void setEth0ConEnabled(bool value);
+    void setWiredNetworkHasbeenConfigured(bool value);
+    void initWiredConnectionStaticIP();
+
+    void setSvnUpdateHasBeenApplied();
+    void setSvnUpdateCheckEnable(bool value);
+    void setSvnUpdateCheckPeriod(int value);
+    void checkSoftwareVersionHistory();
+	
     /// FRONT PANEL SWITCH LA2EU
     void setFrontPanelSwitchInstalled(bool value);
     /// Set FAN RBM Address
@@ -370,6 +385,9 @@ public slots:
     void setScreenSaverSeconds(int value);
 
     void setCabinetSideType(short value);
+
+ void setSomeSettingsAfterExtConfigImported();
+    void setAllOutputShutdown();
 
 signals:
     void hasStopped();
@@ -507,6 +525,10 @@ private:
     QScopedPointer<QThread>      m_threadForEventLog;
     QScopedPointer<EventLog>     m_pEventLog;
     QScopedPointer<EventLogSql>  m_pEventLogSql;
+    ///CHECK FOR SWU UPDATE
+    QScopedPointer<QThread>      m_threadForCheckSwUpdate;
+    QScopedPointer<QTimer>       m_timerEventForCheckSwUpdate;
+    QScopedPointer<CheckSWUpdate> m_pCheckSwUpdate;
 
     /// OUTPUT AUTO SET
     /// UV SCHEDULER
@@ -659,6 +681,8 @@ private:
 
     void _machineState();
 
+    void _setSoftwareUpdateAvailable(QString swu, QString path, QJsonObject history);
+    void _setSoftwareUpdateAvailableReset();
     QString m_signedUsername;
     QString m_signedFullname;
 

@@ -18,43 +18,46 @@ import ModulesCpp.RegisterExternalResources 1.0
 ViewApp {
     id: viewApp
     title: "Quick Tour"
-    
+
     background.sourceComponent: Item {}
-    
+
     content.asynchronous: true
     content.sourceComponent: ContentItemApp {
         id: contentView
         height: viewApp.height
         width: viewApp.width
-        
+
         ColumnLayout {
             anchors.fill: parent
             anchors.margins: 5
             spacing: 5
-            
+
             /// HEADER
             Item {
                 id: headerItem
                 Layout.fillWidth: true
                 Layout.minimumHeight: 60
-                
+
                 HeaderApp {
                     id: headerApp
                     anchors.fill: parent
                     title: qsTr("Quick Tour")
                 }
+                Component.onCompleted: {
+
+                }
             }
-            
+
             /// BODY
             Item {
                 id: bodyItem
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                
+
                 RowLayout {
                     anchors.fill: parent
                     spacing: 5
-                    
+
                     Item {
                         id: listViewItem
                         Layout.minimumWidth: 300
@@ -110,11 +113,16 @@ ViewApp {
                                     'description': qsTr("Define and schedule cabinet usage for multiple users. Register, edit, cancel, delete or export the cabinet usage booking schedule through Bluetooth or USB."),
                                     'link': "qrc:/UI/Pages/QuickTourPage/Fragment/BookingScheduleQuickTour.qml"},
 
-                                ///scheduler
-                                {'title': qsTr("Fan & UV Scheduler"),
+                                ///UV scheduler
+                                {'title': qsTr("UV Scheduler"),
                                     'subTitle':    qsTr("Your Regular Assistant"),
-                                    'description': qsTr("Help to schedule the daily or weekly UV sterilization, turn off and turn on the fan prior and after use automatically"),
+                                    'description': qsTr("Help to schedule the daily or weekly UV sterilization, turn off and turn on the UV lamp prior to and after use automatically"),
                                     'link': "qrc:/UI/Pages/QuickTourPage/Fragment/UVSchedulerQuickTour.qml"},
+                                ///Fan scheduler
+                                {'title': qsTr("Fan Scheduler"),
+                                    'subTitle':    qsTr("Your Regular Assistant"),
+                                    'description': qsTr("Help to schedule the daily or weekly Fan operation, turn on the Fan automatically"),
+                                    'link': "qrc:/UI/Pages/QuickTourPage/Fragment/FanSchedulerQuickTour.qml"},
 
                                 ///sash standby
                                 {'title': qsTr("Sash Standby"),
@@ -125,13 +133,13 @@ ViewApp {
                                 ///homepage Error section
                                 {'title': qsTr("Airflow Fail"),
                                     'subTitle':    qsTr("Ultimate Protection Alarm"),
-                                    'description': qsTr("Acoustic and visual alarms in any failure of air flows "),
+                                    'description': qsTr("Audible and visual alarms in any failure of air flows "),
                                     'link': "qrc:/UI/Pages/QuickTourPage/Fragment/ErorrAirflow.qml"},
 
                                 ///homepage Error section
                                 {'title': qsTr("Sash Unsafe"),
                                     'subTitle':    qsTr("Uncompromising Safety"),
-                                    'description': qsTr("Acoustic and visual alarms in a false sash window position "),
+                                    'description': qsTr("Audible and visual alarms in a false sash window position "),
                                     'link': "qrc:/UI/Pages/QuickTourPage/Fragment/SashUnsafeQuickTour.qml"},
                             ]
 
@@ -177,7 +185,10 @@ ViewApp {
                                         width: parent.parent.width - 10
                                         wrapMode: Text.WordWrap
                                         horizontalAlignment: Text.AlignJustify
-                                        padding: 2
+                                        leftPadding: 2
+                                        topPadding: 2
+                                        bottomPadding: 2
+                                        rightPadding: 5
                                     }//
                                 }//
 
@@ -218,9 +229,8 @@ ViewApp {
                                         source: ""
 
                                         Component.onCompleted: {
-
-                                            fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/HomeSectionQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
-                                        }
+                                            //fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/HomeSectionQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                        }//
 
                                         Connections {
 
@@ -277,25 +287,101 @@ ViewApp {
 
                                                 else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/UVSchedulerQuickTour.qml" ) {
                                                     //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/SashStandByQuickTour.qml"
-                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/SashStandByQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/FanSchedulerQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
                                                     pageIndexListView.currentIndex = 8
+                                                }//
+
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/FanSchedulerQuickTour.qml" ) {
+                                                    //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/SashStandByQuickTour.qml"
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/SashStandByQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    pageIndexListView.currentIndex = 9
                                                 }//
 
                                                 else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/SashStandByQuickTour.qml" ) {
                                                     //                                                    fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/ErorrAirflow.qml"
                                                     fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/ErorrAirflow.qml", {"autoPlay":autoplayCheckBox.checked})
-                                                    pageIndexListView.currentIndex = 9
+                                                    pageIndexListView.currentIndex = 10
                                                 }//
 
                                                 else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/ErorrAirflow.qml") {
-                                                    fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/SashUnsafeQuickTour.qml"
+                                                    //                                                    fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/SashUnsafeQuickTour.qml"
                                                     fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/SashUnsafeQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
-                                                    pageIndexListView.currentIndex = 10
+                                                    pageIndexListView.currentIndex = 11
                                                 }//
-                                                //}
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/SashUnsafeQuickTour.qml") {
+                                                    //                                                    fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/SashUnsafeQuickTour.qml"
+                                                    //fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/SashUnsafeQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    //pageIndexListView.currentIndex = 12
+                                                    if(props.shipModeEn){
+                                                        var intent = IntentApp.create(uri, {"welcomesetupdone": 1})
+                                                        finishView(intent)
+                                                    }
+                                                }//
                                                 //                                                console.log ("onFinished")
                                                 //                                                console.log (fragmentLoader.source)
                                             }//
+
+                                            function onGoBack(){
+                                                if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/HomeSectionQuickTour.qml" ){
+                                                    //fragmentLoader.setSource( "qrc:/UI/Pages/QuickTourPage/Fragment/GestureNavigation.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    //pageIndexListView.currentIndex = 1
+                                                }
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/GestureNavigation.qml" ) {
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/HomeSectionQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    pageIndexListView.currentIndex = 0
+                                                    //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml"
+                                                }//
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/LoginSectionQuickTour.qml" ) {
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/GestureNavigation.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    pageIndexListView.currentIndex = 1
+                                                    //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml"
+                                                }//
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml" ) {
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/LoginSectionQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    pageIndexListView.currentIndex = 2
+                                                    //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml"
+                                                }//
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/ModbusSectionQuickTour.qml" ) {
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    pageIndexListView.currentIndex = 3
+                                                    //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml"
+                                                }//
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/EventLogQuickTour.qml" ) {
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/ModbusSectionQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    pageIndexListView.currentIndex = 4
+                                                    //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml"
+                                                }//
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/BookingScheduleQuickTour.qml" ) {
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/EventLogQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    pageIndexListView.currentIndex = 5
+                                                    //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml"
+                                                }//
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/UVSchedulerQuickTour.qml" ) {
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/BookingScheduleQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    pageIndexListView.currentIndex = 6
+                                                    //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml"
+                                                }//
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/FanSchedulerQuickTour.qml" ) {
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/UVSchedulerQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    pageIndexListView.currentIndex = 7
+                                                    //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml"
+                                                }//
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/SashStandByQuickTour.qml" ) {
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/FanSchedulerQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    pageIndexListView.currentIndex = 8
+                                                    //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml"
+                                                }//
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/ErorrAirflow.qml" ) {
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/SashStandByQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    pageIndexListView.currentIndex = 9
+                                                    //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml"
+                                                }//
+                                                else if (fragmentLoader.source == "qrc:/UI/Pages/QuickTourPage/Fragment/SashUnsafeQuickTour.qml" ) {
+                                                    fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/ErorrAirflow.qml", {"autoPlay":autoplayCheckBox.checked})
+                                                    pageIndexListView.currentIndex = 10
+                                                    //fragmentLoader.source = "qrc:/UI/Pages/QuickTourPage/Fragment/NetworkSectionQuickTour.qml"
+                                                }//
+                                            }
                                         }//
                                     }//
 
@@ -309,33 +395,47 @@ ViewApp {
                     }//
                 }//
             }//
-            
+
             /// FOOTER
             Item {
                 id: footerItem
                 Layout.fillWidth: true
                 Layout.minimumHeight: 70
-                
+
                 Rectangle {
                     anchors.fill: parent
                     color: "#0F2952"
                     //                    border.color: "#e3dac9"
                     //                    border.width: 1
                     radius: 5
-                    
+
                     RowLayout {
                         anchors.fill: parent
                         anchors.margins: 5
-                        
+
                         ButtonBarApp {
                             Layout.minimumWidth: 194
                             Layout.fillHeight: true
-                            
+
                             imageSource: "qrc:/UI/Pictures/back-step.png"
                             text: qsTr("Back")
-                            
+
                             onClicked: {
                                 var intent = IntentApp.create(uri, {})
+                                finishView(intent)
+                            }//
+                        }//
+
+                        ButtonBarApp {
+                            visible: props.shipModeEn
+                            Layout.minimumWidth: 194
+                            Layout.fillHeight: true
+
+                            imageSource: "qrc:/UI/Pictures/checkicon.png"
+                            text: qsTr("Skip")
+
+                            onClicked: {
+                                var intent = IntentApp.create(uri, {"welcomesetupdone": 1})
                                 finishView(intent)
                             }//
                         }//
@@ -381,7 +481,7 @@ ViewApp {
         RegisterExResources {
             id: registerExResources
         }
-        
+
         /// Put all private property inside here
         /// if none, please comment this block to optimize the code
         QtObject {
@@ -391,13 +491,14 @@ ViewApp {
             property int pageIndicator: 0
 
             property bool autoPlayCheck: false
+            property bool shipModeEn: false
         }
-        
+
         /// called Once but after onResume
         Component.onCompleted: {
-            
+
         }//
-        
+
         /// Execute This Every This Screen Active/Visible
         executeOnPageVisible:  QtObject {
 
@@ -412,7 +513,18 @@ ViewApp {
                 else
                     console.debug("Failed to set Resource_QuickTourAsset!")
 
+                fragmentLoader.setSource("qrc:/UI/Pages/QuickTourPage/Fragment/HomeSectionQuickTour.qml", {"autoPlay":autoplayCheckBox.checked})
+
                 props.serialNumber = MachineData.serialNumber
+
+                const extraData = IntentApp.getExtraData(intent)
+                const thisOpenedFromWelcomePage = extraData["welcomesetup"] || false
+                if(thisOpenedFromWelcomePage) {
+                    props.shipModeEn = true
+                    viewApp.enabledSwipedFromLeftEdge   = false
+                    viewApp.enabledSwipedFromRightEdge  = false
+                    viewApp.enabledSwipedFromBottomEdge = false
+                }
             }
 
             /// onPause

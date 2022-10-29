@@ -1,0 +1,68 @@
+table#headerTable th{
+    font-weight: normal;
+    font-size: 12px;
+    text-align: right;
+    vertical-align: middle;
+    padding: 1px;
+    font-family: "Times New Roman", Arial, sans-serif;
+}
+table#headerTable td{
+    font-weight: normal;
+    font-size: 12px;
+    text-align: left;
+    vertical-align: middle;
+    padding: 1px;
+    font-family: "Times New Roman", Arial, sans-serif;
+}
+/*table, td {
+    border:1px solid #000000;
+    border-collapse: collapse;
+}*/
+table#footerTable th{
+    font-weight: normal;
+    font-size: 10px;
+    vertical-align: middle;
+    padding: 1px;
+    font-family: "Times New Roman", Arial, sans-serif;
+}
+table#contentResult th{
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Times New Roman", Arial, sans-serif;
+}
+table#contentResult td{
+    font-weight: normal;
+    font-size: 12px;
+    padding: 1px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Times New Roman", Arial, sans-serif;
+}
+
+.titleTable {
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Times New Roman", Arial, sans-serif;
+}
+.thBold {
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Times New Roman", Arial, sans-serif;
+}
+.pageBreak {
+    page-break-before: always;
+}
+
+.collapsetable{
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+.bg {
+  background-color: #E2E2E2;
+}
+

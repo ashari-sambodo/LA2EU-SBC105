@@ -236,5 +236,7 @@
         <file>UI/Pictures/menu/af_alarm_delay.png</file>
         <file>UI/Pictures/af-alarm-delay-icon.png</file>
         <file>UI/Pictures/menu/screensaver.png</file>
+	<file>UI/Pictures/wired-conn.png</file>
+	<file>UI/Pictures/svnupdate.png</file>
     </qresource>
 </RCC>

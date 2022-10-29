@@ -9,109 +9,106 @@ import ModulesCpp.Machine 1.0
 Item {
     id: control
     signal finished()
+    signal goBack()
 
     property bool autoPlay: false
 
     ColumnLayout {
         anchors.fill: parent
-
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
+            Image{
+                source: "qrc:/Assets/background-qtour.png"
+                anchors.centerIn: parent
+                Item {
+                    height: 380
+                    width: 649
+                    anchors.centerIn: parent
 
-            Loader {
-                id: animationImageLoaderLoginSection
-                anchors.fill: parent
-                anchors.margins: 10
-                active: true
-
-                sourceComponent:Image {
-                    id: homepageImageSquenceLoginSection
-                    source: screenColection[indexScreen]
-
-                    cache: false
-
-
-                    property int indexScreen: props.indexing
-                    property var screenColection: [
-                        "qrc:/Assets/QuickTourHomepage/HomeFirst.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeEnd.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_1.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_2.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_3.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_4.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_5.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_6.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_7.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_8.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_9.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_10.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_11.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_12.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_14.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_13.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_15.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_16.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_17.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_18.png",
-                        "qrc:/Assets/QuickTourUvScheduler/UvScheduler_19.png"
-                    ]
-
-                    Timer {
-                        id: screenTimerLoginSection
-                        running: autoPlay
-                        //interval: 3000
-                        interval: 3000
-                        repeat: true
-                        onTriggered: {
-                            let indexing = homepageImageSquenceLoginSection.indexScreen
-                            indexing = indexing + 1
-
-                            props.pageIndicator = indexing
-
-                            //homepageImageSquenceLoginSection.indexScreen = indexing
-                            props.indexing = indexing
-
-                            let maxValue = homepageImageSquenceLoginSection.screenColection.length
-
-                            if (indexing === maxValue){
-                                screenTimerLoginSection.running = false
-                                //animationImageLoaderNetworkSection.active = true
-
-                                props.pageIndicator = maxValue
-
-                                control.finished()
-
-                            }
-                            //                            console.log("timer:" + screenTimerLoginSection.running)
-                        }//
-                    }//
-
-                    MouseArea {
+                    Loader {
+                        id: animationImageLoaderSection
                         anchors.fill: parent
+                        //anchors.margins: 10
+                        active: true
 
-                        onClicked: {
+                        sourceComponent:Image {
+                            id: imageSquenceSection
+                            source: screenColection[indexScreen]
+                            cache: false
 
-                            let indexing = homepageImageSquenceLoginSection.indexScreen
+                            property int indexScreen: props.indexing
+                            property var screenColection: [
+                                "qrc:/Assets/QuickTourHomepage/homepage_00.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_11.png",
+                                "qrc:/Assets/QuickTourEventLog/eventlog_01.png",
+                                "qrc:/Assets/QuickTourEventLog/eventlog_02.png",
+                                "qrc:/Assets/QuickTourUvScheduler/uv-schedule_00.png",
+                                "qrc:/Assets/QuickTourUvScheduler/uv-schedule_01.png",
+                                "qrc:/Assets/QuickTourUvScheduler/uv-schedule_02.png",
+                                "qrc:/Assets/QuickTourUvScheduler/uv-schedule_03.png",
+                                "qrc:/Assets/QuickTourUvScheduler/uv-schedule_04.png",
+                                "qrc:/Assets/QuickTourUvScheduler/uv-schedule_05.png",
+                                "qrc:/Assets/QuickTourUvScheduler/uv-schedule_06.png",
+                                "qrc:/Assets/QuickTourUvScheduler/uv-schedule_07.png",
+                                "qrc:/Assets/QuickTourUvScheduler/uv-schedule_08.png",
+                                "qrc:/Assets/QuickTourUvScheduler/uv-schedule_09.png",
+                                "qrc:/Assets/QuickTourUvScheduler/uv-schedule_10.png",
+                            ]//
 
-                            let maxValue = homepageImageSquenceLoginSection.screenColection.length
+                            Timer {
+                                id: screenTimerSection
+                                running: autoPlay && props.timerRunning
+                                interval: 3000
+                                repeat: true
+                                onTriggered: {
+                                    let indexing = imageSquenceSection.indexScreen
+                                    let maxValue = imageSquenceSection.screenColection.length
+                                    indexing = indexing + 1
+                                    if (indexing === maxValue){
+                                        screenTimerSection.running = false
 
-                            if (indexing < maxValue - 1){
+                                        control.finished()
+                                        //animationImageLoaderModbusSection.active = true
+                                    }else{
+                                        props.pageIndicator = indexing
+                                        //imageSquenceSection.indexScreen = indexing
 
-                                indexing = indexing + 1
+                                        props.indexing = indexing
+                                    }//
 
-                                props.pageIndicator = indexing
+                                    console.log("timer:" + screenTimerSection.running)
+                                }//
+                            }//
 
+                            MouseArea {
+                                anchors.fill: parent
 
-                                props.indexing = indexing
-                            }
-                            else {
-                                screenTimerLoginSection.running = false
+                                onClicked: {
 
-                                control.finished()
-                                //animationImageLoaderNetworkSection.active = true
+                                    let indexing = imageSquenceSection.indexScreen
 
-                            }
+                                    let maxValue = imageSquenceSection.screenColection.length
+
+                                    if (indexing < maxValue - 1){
+                                        //screenTimerSection.restart()
+
+                                        indexing = indexing + 1
+
+                                        props.pageIndicator = indexing
+
+                                        props.indexing = indexing
+
+                                        //omepageimageSquenceSection.indexScreen = indexing
+                                    }
+                                    else {
+                                        screenTimerSection.running = false
+                                        control.finished()
+                                        //animationImageLoaderModbusSection.active = true
+                                    }
+                                }//
+                            }//
+                            Component.onCompleted: props.screenCollectionCount = imageSquenceSection.screenColection.length
                         }//
                     }//
                 }//
@@ -150,20 +147,23 @@ Item {
                                 props.pageIndicator = props.indexing
                             }
                             else {
-                                return
+                                if(control.autoPlay){
+                                    props.timerRunning = false
+                                    control.goBack()
+                                }
                             }
                         }//
                     }//
                 }//
 
                 PageIndicator {
-                    id: pageLoginSectionIndicator
+                    id: pageSectionIndicator
                     //anchors.verticalCenter: parent.verticalCenter
                     //anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.bottom: parent.bottom
                     interactive: false
                     currentIndex: props.pageIndicator
-                    count: 21
+                    count: props.screenCollectionCount
                 }//
 
                 Rectangle {
@@ -183,13 +183,15 @@ Item {
                         anchors.fill: parent
 
                         onClicked: {
-
-                            if (props.indexing < pageLoginSectionIndicator.count - 1){
+                            if (props.indexing < pageSectionIndicator.count - 1){
                                 props.indexing = props.indexing + 1
                                 props.pageIndicator = props.indexing
                             }
                             else {
-                                return
+                                if(control.autoPlay){
+                                    props.timerRunning = false
+                                    control.finished()
+                                }else return
                             }
                         }//
                     }//
@@ -203,6 +205,8 @@ Item {
         property int pageIndicator: 0
 
         property int indexing: 0
+        property bool timerRunning: true
+        property int screenCollectionCount: 0
     }//
 }//
 

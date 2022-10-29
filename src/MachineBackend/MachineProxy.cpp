@@ -850,6 +850,78 @@ void MachineProxy::setFrontPanelSwitchInstalled(bool value)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setEth0ConName(const QString value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setEth0ConName(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setEth0Ipv4Address(const QString value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setEth0Ipv4Address(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setEth0ConEnabled(bool value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setEth0ConEnabled(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setWiredNetworkHasbeenConfigured(bool value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setWiredNetworkHasbeenConfigured(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::initWiredConnectionStaticIP()
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+        m_machineBackend->initWiredConnectionStaticIP();
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setSvnUpdateHasBeenApplied()
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+        m_machineBackend->setSvnUpdateHasBeenApplied();
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setSvnUpdateCheckEnable(bool value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setSvnUpdateCheckEnable(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setSvnUpdateCheckPeriod(int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setSvnUpdateCheckPeriod(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::checkSoftwareVersionHistory()
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+        m_machineBackend->checkSoftwareVersionHistory();
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::scanRbmComPortAvalaible(bool value)
 {
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
@@ -913,6 +985,22 @@ void MachineProxy::setCabinetSideType(short value)
 //    },
 //    Qt::QueuedConnection);
 //}
+
+void MachineProxy::setSomeSettingsAfterExtConfigImported()
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+        m_machineBackend->setSomeSettingsAfterExtConfigImported();
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setAllOutputShutdown()
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+        m_machineBackend->setAllOutputShutdown();
+    },
+    Qt::QueuedConnection);
+}
 
 void MachineProxy::setOperationModeSave(short value)
 {
@@ -1608,7 +1696,7 @@ void MachineProxy::setSashWindowMotorizeState(short sashMotorizeState)
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, sashMotorizeState](){
         m_machineBackend->setSashMotorizeState(sashMotorizeState);
     },
-    Qt::QueuedConnection);
+    Qt::DirectConnection);
 }
 
 void MachineProxy::setSeasFlapInstalled(short value)

@@ -34,11 +34,13 @@
 
 #define LCD_DIMM_LEVEL  5
 
+#define ALARMREPLACEABLECOMPRECORD_MAX_ROW     100
 #define ALARMEVENTLOG_MAX_ROW     94608000   // 94,608,000 rows /// if 1 second / 1 event, about 3 years
 //#define ALARMEVENTLOG_MAX_ROW     20          ///DEMO
 //#define DATALOG_MAX_ROW           5256000     // if 1 log / 1 miniute, for 10 years (5,2jt rows) in Windows for 100.000 rows = 8192KB (8MB) (dbeaver), so for 5jt is about 400MB
 #define DATALOG_MAX_ROW             2256000     // if 1 minute / 1 log // for 5 years
-//#define DATALOG_MAX_ROW           25          ///DEMO
+#define RESMONLOG_MAX_ROW           2256000
+//#define RESMONLOG_MAX_ROW           5///DEMO
 
 #define SDEF_UV_MAXIMUM_TIME_LIFE       120000  //minutes or 2000 hours
 #define SDEF_FILTER_MAXIMUM_TIME_LIFE   600000  //minutes or 10000 hours
@@ -71,12 +73,29 @@
 #define SKEY_CAB_DISPLAY_NAME       "cabDisNam"
 
 #define SKEY_MACH_PROFILE           "machProName"
+#define SKEY_MACH_PROFILE_ID        "machProfId"
 
 #define SKEY_SBC_SYS_INFO         "sbcSysInfo"
 #define SKEY_SBC_SERIAL_NUMBER         "sbcSN"
 #define SKEY_SCREEN_SAVER_SEC         "scrSvSec"
+#define SKEY_SBC_SOFTWARE_VERSION   "softVer"
 
 #define SKEY_CABINET_SIDE_TYPE         "cabSdeTyp"
+#define SKEY_SBC_SWU_VERSION        "swuVer"
+#define SKEY_SBC_SWU_PATH           "swuPath"
+#define SKEY_SBC_SWU_AVAILABLE      "swuAvlbl"
+#define SKEY_SBC_SVN_UPDATE_EN      "svnUpdtEn"
+#define SKEY_SBC_SVN_UPDATE_PRD     "svnUpdtPrd"
+
+#define SKEY_PM_LAST_ACK_DAILY          "pmLastAckDly"
+#define SKEY_PM_LAST_ACK_WEEKLY         "pmLastAckWek"
+#define SKEY_PM_LAST_ACK_MONTHLY        "pmLastAckMnt"
+#define SKEY_PM_LAST_ACK_QUARTERLY      "pmLastAckQrt"
+#define SKEY_PM_LAST_ACK_ANNUALLY       "pmLastAckAnn"
+#define SKEY_PM_LAST_ACK_BIENNIALLY     "pmLastAckBie"
+#define SKEY_PM_LAST_ACK_QUINQUENNIALLY "pmLastAckQin"
+#define SKEY_PM_LAST_ACK_CANOPY         "pmLastAckCan"
+#define SKEY_PM_ALARM_EN         "pmAlarmEn"
 ///////////////AIRFLOW
 //CALIB PHASE; NONE, FACTORY, or FIELD
 #define SKEY_AF_CALIB_PHASE             "afCalibPhase"
@@ -308,6 +327,8 @@
 /// DATALOG
 #define SKEY_DATALOG_ENABLE             "dtLogEn"
 #define SKEY_DATALOG_PERIOD             "dtLogPer"
+#define SKEY_RESMONLOG_ENABLE           "rmLogEn"
+#define SKEY_RESMONLOG_PERIOD           "rmLogPer"
 
 #define SKEY_GAS_INSTALLED              "gasIns"
 #define SKEY_SOCKET_INSTALLED           "sokIns"
@@ -367,6 +388,10 @@
 #define SKEY_MODBUS_RW_SOCKET           "modRwSock"
 #define SKEY_MODBUS_RW_GAS              "modRwGas"
 #define SKEY_MODBUS_RW_UV               "modRwUv"
+
+#define SKEY_ETH_CON_NAME       "ethConNm"
+#define SKEY_ETH_CON_IPv4       "ethConIp4"
+#define SKEY_ETH_CON_ENABLE     "ethConEn"
 
 /// UV SCHEDULER
 #define SKEY_SCHED_UV_ENABLE            "schdUvEn"

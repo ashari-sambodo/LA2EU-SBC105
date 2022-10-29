@@ -35,7 +35,7 @@ QObject* NetworkManagerQmlApp::singletonProvider(QQmlEngine *qmlEngine, QJSEngin
 }
 
 void NetworkManagerQmlApp::init()
-{
+{   
     if (m_pThread) return;
 
     m_pThread = QThread::create([&](){
@@ -72,6 +72,7 @@ void NetworkManagerQmlApp::init()
         /// then that signal will tell Qt to do delete that object
     });
 
+
     /// Tells the thread's event loop to exit with return code 0 (success).
     /// Equivalent to calling QThread::exit(0).
     /// This function does nothing if the thread does not have an event loop.
@@ -88,8 +89,8 @@ void NetworkManagerQmlApp::init()
 
 NetworkManagerQmlApp::NetworkManagerQmlApp(QObject *parent) : QObject(parent)
 {
-    qDebug() << __func__ << thread();
-}
+
+}//
 
 NetworkManagerQmlApp::~NetworkManagerQmlApp()
 {
@@ -116,6 +117,16 @@ void NetworkManagerQmlApp::readStatus()
         setConnName(connName);
         setTypeConn(typeConn);
         setConnectedStatus(connected);
+
+        connected = false; typeConn.clear(); connName.clear(); ipv4.clear();
+        m_pNetworkManager->readStatus(&connected, &typeConn, &connName, &ipv4, "ethernet");
+
+        setIPv4Eth(ipv4);
+        setConnNameEth(connName);
+        //        setTypeConn(typeConn);
+
+        /// WiFi conneted or Ethernet Conneted
+        setConnectedStatus(connected || m_connected);
 
         setReadingState(false);
     });
@@ -204,6 +215,70 @@ void NetworkManagerQmlApp::forgetConnection(const QString connName)
     });
 }
 
+void NetworkManagerQmlApp::readWlanMacAddress()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    QString mac = "00:00:00:00:00:00";
+
+#ifdef __linux__
+    QProcess qprocess;
+    QStringList commandStrList;
+    commandStrList.clear();
+    commandStrList.append("wlan0");
+    qprocess.start("gmacaddr", commandStrList);
+    qprocess.waitForFinished(); /// wait about maximum 30 seconds
+    mac = qprocess.readAllStandardOutput();
+    int exitCode = qprocess.exitCode();
+    if (exitCode) {
+        mac = "00:00:00:00:00:00";
+        qWarning() << "Failed" << mac << "!!!";
+    }
+#endif
+    setWlanMacAddress(mac);
+    qDebug() << "MAC:" << mac;
+}
+
+void NetworkManagerQmlApp::readEth0MacAddress()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    QString mac = "00:00:00:00:00:00";
+
+#ifdef __linux__
+    QProcess qprocess;
+    QStringList commandStrList;
+    commandStrList.clear();
+    commandStrList.append("eth0");
+    qprocess.start("gmacaddr", commandStrList);
+    qprocess.waitForFinished(); /// wait about maximum 30 seconds
+    mac = qprocess.readAllStandardOutput();
+    int exitCode = qprocess.exitCode();
+    if (exitCode) {
+        mac = "00:00:00:00:00:00";
+        qWarning() << "Failed" << mac << "!!!";
+    }
+#endif
+    setEth0MacAddress(mac);
+    qDebug() << "MAC:" << mac;
+}//
+
+void NetworkManagerQmlApp::setConnNameEth(QString connNameEth)
+{
+    if (m_connNameEth == connNameEth)
+        return;
+
+    m_connNameEth = connNameEth;
+    emit connNameEthChanged(m_connNameEth);
+}
+
+void NetworkManagerQmlApp::setIPv4Eth(QString ipv4Eth)
+{
+    if (m_ipv4Eth == ipv4Eth)
+        return;
+
+    m_ipv4Eth = ipv4Eth;
+    emit ipv4EthChanged(m_ipv4Eth);
+}
+
 void NetworkManagerQmlApp::setForgettingConnState(bool forgettingConn)
 {
     qDebug() << __func__ << thread();
@@ -213,6 +288,40 @@ void NetworkManagerQmlApp::setForgettingConnState(bool forgettingConn)
 
     m_forgettingConn = forgettingConn;
     emit forgettingConnStateChanged(m_forgettingConn);
+}
+
+void NetworkManagerQmlApp::setWlanMacAddress(QString value)
+{
+    if(m_wlanMacAddress == value)return;
+    m_wlanMacAddress = value;
+    emit wlanMacAddressChanged(value);
+}
+
+QString NetworkManagerQmlApp::getWlanMacAddress() const
+{
+    return m_wlanMacAddress;
+}
+
+void NetworkManagerQmlApp::setEth0MacAddress(QString value)
+{
+    if(m_eth0MacAddress == value)return;
+    m_eth0MacAddress = value;
+    emit eth0MacAddressChanged(value);
+}
+
+QString NetworkManagerQmlApp::getEth0MacAddress() const
+{
+    return m_eth0MacAddress;
+}
+
+QString NetworkManagerQmlApp::getConnNameEth() const
+{
+    return m_connNameEth;
+}
+
+QString NetworkManagerQmlApp::getIPv4Eth() const
+{
+    return m_ipv4Eth;
 }
 
 void NetworkManagerQmlApp::setConnectingState(bool connecting)
@@ -284,7 +393,13 @@ void NetworkManagerQmlApp::setConnectedStatus(bool connected)
         return;
 
     m_connected = connected;
+
+
     emit connectedStatusChanged(m_connected);
+
+    if(connected){
+        readWlanMacAddress();
+    }
 }
 
 void NetworkManagerQmlApp::setConnName(QString connName)
@@ -337,3 +452,5 @@ bool NetworkManagerQmlApp::getReadingState() const
 {
     return m_reading;
 }
+
+

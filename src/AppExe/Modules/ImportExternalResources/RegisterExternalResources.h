@@ -18,6 +18,8 @@ signals:
 private:
     QString m_resourcePath;
     short m_pathCode = 0;
+
     enum PathCode{Resource_QuickTourAsset, Resource_General};
+
 };
 

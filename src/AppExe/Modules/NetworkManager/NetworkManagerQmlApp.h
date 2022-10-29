@@ -55,6 +55,25 @@ class NetworkManagerQmlApp : public QObject
                WRITE setForgettingConnState
                NOTIFY forgettingConnStateChanged)
 
+    Q_PROPERTY(QString wlanMacAddress
+               READ getWlanMacAddress
+               //WRITE setMacAddress
+               NOTIFY wlanMacAddressChanged)
+    Q_PROPERTY(QString eth0MacAddress
+               READ getEth0MacAddress
+               //WRITE setMacAddress
+               NOTIFY eth0MacAddressChanged)
+
+    /// ETEHRNET
+    Q_PROPERTY(QString connNameEth
+               READ getConnNameEth
+               //               WRITE setConnNameEth
+               NOTIFY connNameEthChanged)
+    Q_PROPERTY(QString ipv4Eth
+               READ getIPv4Eth
+               //               WRITE setIPv4Eth
+               NOTIFY ipv4EthChanged)
+
 public:
     explicit NetworkManagerQmlApp(QObject *parent = nullptr);
     ~NetworkManagerQmlApp();
@@ -83,6 +102,14 @@ public:
     void setReadingState(bool reading);
     void setForgettingConnState(bool forgettingConn);
 
+    QString getConnNameEth() const;
+    QString getIPv4Eth() const;
+
+    void setWlanMacAddress(QString value);
+    QString getWlanMacAddress()const;
+    void setEth0MacAddress(QString value);
+    QString getEth0MacAddress()const;
+
 public slots:
     void init();
     void readStatus();
@@ -90,6 +117,12 @@ public slots:
     void connectToNewAccessPoint(const QString connName, const QString password = QString());
     void connectTo(const QString connName);
     void forgetConnection(const QString connName);
+
+    void setConnNameEth(QString connNameEth);
+    void setIPv4Eth(QString ipv4Eth);
+
+    void readWlanMacAddress();
+    void readEth0MacAddress();
 
 signals:
     void connectedStatusChanged(bool connected);
@@ -101,6 +134,12 @@ signals:
     void readingStateChanged(bool reading);
     void scanningStateChanged(bool scanning);
     void forgettingConnStateChanged(bool forgettingConn);
+
+    void connNameEthChanged(QString connNameEth);
+    void ipv4EthChanged(QString ipv4Eth);
+
+    void wlanMacAddressChanged(QString value);
+    void eth0MacAddressChanged(QString value);
 
 private:
     QThread *m_pThread = nullptr;
@@ -115,4 +154,9 @@ private:
     bool m_scanning = false;
     bool m_reading = false;
     bool m_forgettingConn = false;
+    QString m_connNameEth;
+    QString m_ipv4Eth;
+    QString m_wlanMacAddress;
+    QString m_eth0MacAddress;
+
 };

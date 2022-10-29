@@ -7,6 +7,7 @@ import ModulesCpp.Machine 1.0
 Item {
     id: control
     signal finished()
+    signal goBack()
 
     property bool autoPlay: false
 
@@ -16,84 +17,99 @@ Item {
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
-
-            Loader {
-                id: animationImageLoaderNetworkSection
-                anchors.fill: parent
-                anchors.margins: 10
-                active: true
-
-                sourceComponent:Image {
-                    id: homepageImageSquenceNetworkSection
-                    source: screenColection[indexScreen]
-
-                    cache: false
-
-                    property int indexScreen: props.indexing
-                    property var screenColection: [
-                        "qrc:/Assets/QuickTourHomepage/HomeFirst.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFifth.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeSixth.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeSixth_1.png",
-                        "qrc:/Assets/QuickTourWifi/Network.png",
-                        "qrc:/Assets/QuickTourWifi/Network1.png",
-                        "qrc:/Assets/QuickTourWifi/network2.png"
-                    ]
-
-                    Timer {
-                        id: screenTimerNetworkSection
-                        running: autoPlay
-                        interval: 3000
-                        repeat: true
-                        onTriggered: {
-                            let indexing = homepageImageSquenceNetworkSection.indexScreen
-                            indexing = indexing + 1
-                            props.pageIndicator = indexing
-                            //homepageImageSquenceNetworkSection.indexScreen = indexing
-
-                            props.indexing = indexing
-
-                            let maxValue = homepageImageSquenceNetworkSection.screenColection.length
-
-                            if (indexing === maxValue){
-                                screenTimerNetworkSection.running = false
-
-                                control.finished()
-                                //animationImageLoaderModbusSection.active = true
-                            }
-                            console.log("timer:" + screenTimerNetworkSection.running)
-                        }//
-                    }//
-
-                    MouseArea {
+            Image{
+                source: "qrc:/Assets/background-qtour.png"
+                anchors.centerIn: parent
+                Item {
+                    height: 380
+                    width: 649
+                    anchors.centerIn: parent
+                    Loader {
+                        id: animationImageLoaderSection
                         anchors.fill: parent
+                        //anchors.margins: 10
+                        active: true
 
-                        onClicked: {
+                        sourceComponent:Image {
+                            id: imageSquenceSection
+                            source: screenColection[indexScreen]
 
-                            let indexing = homepageImageSquenceNetworkSection.indexScreen
+                            cache: false
 
-                            let maxValue = homepageImageSquenceNetworkSection.screenColection.length
+                            property int indexScreen: props.indexing
+                            property var screenColection: [
+                                "qrc:/Assets/QuickTourHomepage/homepage_00.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_11.png",
+                                "qrc:/Assets/QuickTourWifi/network_00.png",
+                                "qrc:/Assets/QuickTourWifi/network_01.png",
+                                "qrc:/Assets/QuickTourWifi/network_02.png",
+                                "qrc:/Assets/QuickTourWifi/network_03.png",
+                                "qrc:/Assets/QuickTourWifi/network_04.png",
+                                "qrc:/Assets/QuickTourWifi/network_05.png",
+                                "qrc:/Assets/QuickTourWifi/network_06.png",
+                                "qrc:/Assets/QuickTourWifi/network_07.png",
+                                "qrc:/Assets/QuickTourWifi/network_08.png",
+                                "qrc:/Assets/QuickTourWifi/network_09.png",
+                                "qrc:/Assets/QuickTourWifi/network_10.png",
+                                "qrc:/Assets/QuickTourWifi/network_11.png",
+                            ]//
 
-                            if (indexing < maxValue - 1){
-                                //screenTimerNetworkSection.restart()
+                            Timer {
+                                id: screenTimerSection
+                                running: autoPlay
+                                interval: 3000
+                                repeat: true
+                                onTriggered: {
+                                    let indexing = imageSquenceSection.indexScreen
+                                    let maxValue = imageSquenceSection.screenColection.length
+                                    indexing = indexing + 1
+                                    if (indexing === maxValue){
+                                        screenTimerSection.running = false
 
-                                indexing = indexing + 1
+                                        control.finished()
+                                        //animationImageLoaderModbusSection.active = true
+                                    }else{
+                                        props.pageIndicator = indexing
+                                        //imageSquenceSection.indexScreen = indexing
 
-                                props.pageIndicator = indexing
+                                        props.indexing = indexing
+                                    }//
 
-                                props.indexing = indexing
+                                    console.log("timer:" + screenTimerSection.running)
+                                }//
+                            }//
 
-                                //omepageImageSquenceNetworkSection.indexScreen = indexing
-                            }
-                            else {
-                                screenTimerNetworkSection.running = false
-                                control.finished()
-                                //animationImageLoaderModbusSection.active = true
-                            }
+                            MouseArea {
+                                anchors.fill: parent
+
+                                onClicked: {
+                                    let indexing = imageSquenceSection.indexScreen
+
+                                    let maxValue = imageSquenceSection.screenColection.length
+
+                                    if (indexing < maxValue - 1){
+                                        //screenTimerSection.restart()
+
+                                        indexing = indexing + 1
+
+                                        props.pageIndicator = indexing
+
+                                        props.indexing = indexing
+
+                                        //omepageimageSquenceSection.indexScreen = indexing
+                                    }
+                                    else {
+                                        screenTimerSection.running = false
+                                        control.finished()
+                                        //animationImageLoaderModbusSection.active = true
+                                    }
+                                }//
+                            }//
+                            Component.onCompleted: props.screenCollectionCount = imageSquenceSection.screenColection.length
                         }//
                     }//
-                }//
-            }//
+                }
+            }
         }//
         Item {
             Layout.minimumHeight: 20
@@ -127,20 +143,23 @@ Item {
                                 props.pageIndicator = props.indexing
                             }
                             else {
-                                return
+                                if(control.autoPlay){
+                                    props.timerRunning = false
+                                    control.goBack()
+                                }
                             }
                         }//
                     }//
                 }//
 
                 PageIndicator {
-                    id: pageLoginSectionIndicator
+                    id: pageSectionIndicator
                     //anchors.verticalCenter: parent.verticalCenter
                     //anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.bottom: parent.bottom
                     interactive: false
                     currentIndex: props.pageIndicator
-                    count: 7
+                    count: props.screenCollectionCount
                 }//
 
                 Rectangle {
@@ -160,13 +179,15 @@ Item {
                         anchors.fill: parent
 
                         onClicked: {
-
-                            if (props.indexing < pageLoginSectionIndicator.count - 1){
+                            if (props.indexing < pageSectionIndicator.count - 1){
                                 props.indexing = props.indexing + 1
                                 props.pageIndicator = props.indexing
                             }
                             else {
-                                return
+                                if(control.autoPlay){
+                                    props.timerRunning = false
+                                    control.finished()
+                                }else return
                             }
                         }//
                     }//
@@ -180,6 +201,8 @@ Item {
         property int pageIndicator: 0
 
         property int indexing: 0
+        property bool timerRunning: true
+        property int screenCollectionCount: 0
     }//
 }//
 

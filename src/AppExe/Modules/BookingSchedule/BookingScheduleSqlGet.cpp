@@ -57,7 +57,7 @@ bool BookingScheduleSqlGet::queryInsert(const QVariantMap data)
     QSqlQuery query(QSqlDatabase::database(m_connectionName));
 
     bool prepared = query.prepare(DB_QUERY_ADD);
-    Q_UNUSED(prepared)
+    Q_UNUSED(prepared);
     //    qDebug() << prepared;
 
     query.addBindValue(data["date"].toString());

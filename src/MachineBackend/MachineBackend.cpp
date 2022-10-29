@@ -6,6 +6,8 @@
 #include <QProcess>
 #include <QtConcurrent/QtConcurrent>
 #include "QtNetwork/QNetworkInterface"
+#include <QJsonObject>
+#include <QJsonArray>
 
 #include <QTcpSocket>
 #include <QModbusTcpServer>
@@ -15,7 +17,7 @@
 #include "MachineBackend.h"
 
 #include "MachineData.h"
-#include "MachineEnums.h"
+//#include "MachineEnums.h"
 #include "MachineDefaultParameters.h"
 
 #include "BoardIO/Drivers/QGpioSysfs/QGpioSysfs.h"
@@ -57,6 +59,7 @@
 
 #include "Implementations/SchedulerDayOutput/SchedulerDayOutput.h"
 
+#include "Implementations/CheckSWUpdate/CheckSWUpdate.h"
 /// MODBUS REGISTER
 struct modbusRegisterAddress
 {
@@ -155,6 +158,91 @@ void MachineBackend::setup()
     //        bool wifiDisabled = m_settings->value(SKEY_WIFI_DISABLED, false).toBool();
     //        pData->setWifiDisabled(wifiDisabled);
     //    }
+
+    /// Read App Software version
+    QString newAppName = (QFileInfo(QCoreApplication::applicationFilePath()).fileName()).replace(".exe", "");
+    newAppName = newAppName.toUpper();
+    qDebug() << "&&&&!!!!!" << newAppName;
+
+    QString  appNameVersion = m_settings->value(SKEY_SBC_SOFTWARE_VERSION, newAppName).toString();
+    if(appNameVersion != newAppName){
+        m_settings->setValue(SKEY_SBC_SOFTWARE_VERSION, newAppName);
+        appNameVersion = newAppName;
+        ///event log
+        qWarning() << QObject::tr("Software has been updated to") + QString(" %1").arg(newAppName);
+        //_insertEventLog(QString(EVENT_STR_APP_UPDATED) + QString(" %1").arg(newAppName));
+    }
+
+    /// CHECK FOR SOFTWARE UPDATE
+    {
+        QString targetDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+        qDebug() << targetDir;
+        QString targetLocation = targetDir + QString("/swupdate/");
+
+        bool  swuAvailable = m_settings->value(SKEY_SBC_SWU_AVAILABLE, false).toBool();
+        QString  swu = m_settings->value(SKEY_SBC_SWU_VERSION, appNameVersion.replace(" ", "")).toString();
+        QString  path = m_settings->value(SKEY_SBC_SWU_PATH, targetLocation + swu + ".swu").toString();
+        bool checkEn = m_settings->value(SKEY_SBC_SVN_UPDATE_EN, false).toBool(); //Enable manually from Software Update Page
+        int checkPeriod = m_settings->value(SKEY_SBC_SVN_UPDATE_PRD, 1).toInt();
+
+        pData->setSvnUpdateAvailable(swuAvailable);
+        pData->setSvnUpdateSwuVersion(swu);
+        pData->setSvnUpdatePath(path);
+        pData->setSvnUpdateCheckForUpdateEnable(checkEn);
+        pData->setSvnUpdateCheckForUpdatePeriod(checkPeriod);
+
+        m_pCheckSwUpdate.reset(new CheckSWUpdate);
+        m_pCheckSwUpdate->setCheckForSWUpdateEnable(checkEn);
+        m_pCheckSwUpdate->setCurrentSoftwareVersion(appNameVersion);
+        m_pCheckSwUpdate->setProductionLine(CheckSWUpdate::ProductionLine::One);
+        /// Initialize history file
+        m_pCheckSwUpdate->initSoftwareHistoryUrl();
+        pData->setSvnUpdateHistory(m_pCheckSwUpdate->getSwUpdateHistory());
+
+        QObject::connect(m_pCheckSwUpdate.data(), &CheckSWUpdate::swUpdateAvailable,
+                         this, [&](QString swu, QString path, QJsonObject history){
+            _setSoftwareUpdateAvailable(swu, path, history);
+        });
+        QObject::connect(m_pCheckSwUpdate.data(), &CheckSWUpdate::swUpdateAvailableReset,
+                         this, [&](){
+            _setSoftwareUpdateAvailableReset();
+        });
+        QObject::connect(pData, &MachineData::svnUpdateCheckForUpdateEnableChanged,
+                         m_pCheckSwUpdate.data(), &CheckSWUpdate::setCheckForSWUpdateEnable);
+
+        /// TIMER
+        m_timerEventForCheckSwUpdate.reset(new QTimer);
+        m_timerEventForCheckSwUpdate->setInterval(checkPeriod * 60000);
+        ///
+        QObject::connect(m_timerEventForCheckSwUpdate.data(), &QTimer::timeout,
+                         m_pCheckSwUpdate.data(), [&](){
+            if(!m_pCheckSwUpdate->getProcessRunning()){
+                m_pCheckSwUpdate->routineTask();
+            }//
+        });
+
+        /// THREAD
+        m_threadForCheckSwUpdate.reset(new QThread);
+
+        QObject::connect(m_threadForCheckSwUpdate.data(), &QThread::started,
+                         m_timerEventForCheckSwUpdate.data(), [&](){
+            if(pData->getSvnUpdateCheckForUpdateEnable())
+                m_timerEventForCheckSwUpdate->start();
+        });
+        QObject::connect(m_threadForCheckSwUpdate.data(), &QThread::finished,
+                         m_timerEventForCheckSwUpdate.data(), [&](){
+            m_timerEventForCheckSwUpdate->stop();
+        });
+
+        QObject::connect(this, &MachineBackend::loopStarted,
+                         [&](){
+            m_threadForCheckSwUpdate->start();
+        });
+
+        /// move the object to extra thread, so every query will execute in the separated thread
+        m_pCheckSwUpdate->moveToThread(m_threadForCheckSwUpdate.data());
+        m_timerEventForCheckSwUpdate->moveToThread(m_threadForCheckSwUpdate.data());
+    }//
 
     {
         int screensaver = m_settings->value(SKEY_SCREEN_SAVER_SEC, 1800).toInt();
@@ -388,12 +476,12 @@ void MachineBackend::setup()
                 ////MONITORING COMMUNICATION STATUS
                 QObject::connect(m_boardRelay1.data(), &PWMpca9685::errorComToleranceReached,
                                  this, [&](int error){
-                    qDebug() << "m_boardRelay1::errorComToleranceReached" << error << thread();
+                    qDebug() << "PWMpca9685::errorComToleranceReached" << error << thread();
                     pData->setBoardStatusHybridDigitalRelay(false);
                 });
                 QObject::connect(m_boardRelay1.data(), &PWMpca9685::errorComToleranceCleared,
                                  this, [&](int error){
-                    qDebug() << "m_boardRelay1::errorComToleranceCleared" << error << thread();
+                    qDebug() << "PWMpca9685::errorComToleranceCleared" << error << thread();
                     pData->setBoardStatusHybridDigitalRelay(true);
                 });
             }
@@ -2988,6 +3076,11 @@ void MachineBackend::deallocate()
     //        waitLoop.exec();
     //    }//
 
+    if(m_threadForCheckSwUpdate){
+        m_threadForCheckSwUpdate->quit();
+        m_threadForCheckSwUpdate->wait();
+    }
+
     qDebug() << metaObject()->className() << __FUNCTION__ << "phase-2";
     if(m_threadForBoardIO){
         m_threadForBoardIO->quit();
@@ -5151,6 +5244,10 @@ void MachineBackend::setAirflowMonitorEnable(bool airflowMonitorEnable)
 
     QSettings m_settings;
     m_settings.setValue(SKEY_AF_MONITOR_ENABLE, airflowMonitorEnable);
+    if(!pData->getWarmingUpTime()){
+        /// Set back the warm up timer to 3 minutes
+        setWarmingUpTimeSave(3 * 60);
+    }//
 }
 
 void MachineBackend::saveInflowMeaDimNominalGrid(QJsonArray grid, int total,
@@ -6870,6 +6967,9 @@ void MachineBackend::_onTimerEventWarmingUp()
                 m_timerEventForDataLog->start();
             }//
         }//
+
+        /// Turned bright LED
+        _wakeupLcdBrightnessLevel();
     }
     else {
         count--;
@@ -8450,6 +8550,9 @@ void MachineBackend::setShippingModeEnable(bool shippingModeEnable)
         setting.setValue(SKEY_FAN_INF_METER, 0);
         setting.setValue(SKEY_SASH_CYCLE_METER, 0);
         setting.setValue(SKEY_UV_METER, SDEF_UV_MAXIMUM_TIME_LIFE);
+
+        /// Disable Software SVN Check for Update
+        setting.setValue(SKEY_SBC_SVN_UPDATE_EN, false);
     }
 
     pData->setShippingModeEnable(shippingModeEnable);
@@ -8599,6 +8702,174 @@ void MachineBackend::setReadClosedLoopResponse(bool value)
     pData->setReadClosedLoopResponse(value);
 }
 
+void MachineBackend::setEth0ConName(const QString value)
+{
+    qDebug() << metaObject()->className() << __func__ << value << thread();
+
+    QSettings settings;
+    settings.setValue(SKEY_ETH_CON_NAME + QString("0"), value);
+    pData->setEth0ConName(value);
+}
+
+void MachineBackend::setEth0Ipv4Address(const QString value)
+{
+    qDebug() << metaObject()->className() << __func__ << value << thread() ;
+
+    QSettings settings;
+    settings.setValue(SKEY_ETH_CON_IPv4 + QString("0"), value);
+    pData->setEth0Ipv4Address(value);
+}
+
+void MachineBackend::setEth0ConEnabled(bool value)
+{
+    qDebug() << metaObject()->className() << __func__ << value << thread() ;
+
+    QSettings settings;
+    settings.setValue(SKEY_ETH_CON_ENABLE + QString("0"), value);
+    pData->setEth0ConEnabled(value);
+#ifdef __linux__
+    if(!value){
+        QProcess qprocess;
+        QString command = QString("nmcli connection delete id %1").arg(pData->getEth0ConName());
+        qWarning() << command;
+        qprocess.start(command);
+        qprocess.waitForFinished();
+        if (qprocess.exitCode()) {
+            qWarning() << "Failed while trying to delete connection" << pData->getEth0ConName();
+        }
+
+    }
+#endif
+}
+
+void MachineBackend::setWiredNetworkHasbeenConfigured(bool value)
+{
+    pData->setWiredNetworkHasbeenConfigured(value);
+}
+
+void MachineBackend::initWiredConnectionStaticIP()
+{
+    qDebug() << metaObject()->className() << __func__ << thread() ;
+
+    QScopedPointer<QSettings> m_settings(new QSettings);
+    /// Init Wired Connection Static IP Address
+
+    QString eth0ConName = m_settings->value(SKEY_ETH_CON_NAME + QString("0"), "ESCO_BSC").toString();
+    QString eth0Ipv4Address = m_settings->value(SKEY_ETH_CON_IPv4 + QString("0"), "192.168.2.10").toString();
+    bool eth0ConEnabled = m_settings->value(SKEY_ETH_CON_ENABLE + QString("0"), false).toBool();
+    //    QString gateway = QString("%1.%2.%3.1").arg(eth0Ipv4Address.split(".").at(0)).arg(eth0Ipv4Address.split(".").at(1)).arg(eth0Ipv4Address.split(".").at(2));
+    //        qWarning() << "gateway:" << gateway;
+
+    pData->setEth0ConName(eth0ConName);
+    pData->setEth0Ipv4Address(eth0Ipv4Address);
+    pData->setEth0ConEnabled(eth0ConEnabled);
+
+    if(eth0ConEnabled){
+#ifdef __linux__
+        QProcess qprocess;
+
+        QString gateway = QString("%1.%2.").arg(eth0Ipv4Address.split(".").at(0), eth0Ipv4Address.split(".").at(1));
+        gateway += QString("%3.1").arg(eth0Ipv4Address.split(".").at(2));
+        qDebug() << "Gateway:" << gateway;
+
+        QStringList commandStrList;
+        commandStrList.clear();
+        commandStrList.append("eth0");
+        commandStrList.append(eth0ConName);
+        commandStrList.append(QString("%1/24").arg(eth0Ipv4Address));
+        commandStrList.append(gateway);
+        qWarning() << commandStrList;
+
+        qprocess.start("wiredconinitstatic", commandStrList);
+        qprocess.waitForFinished(); /// wait about maximum 30 seconds
+        QString output(qprocess.readAllStandardOutput());
+        int exitCode = qprocess.exitCode();
+        qWarning() << output;
+        qWarning() << "Exit Code:" << exitCode;
+
+        /// Check eth0 Metric, it must be greater than 600 (wlan0 default)
+        commandStrList.clear();
+        commandStrList.append("eth0");
+        commandStrList.append(eth0ConName);
+        commandStrList.append(eth0Ipv4Address);
+        commandStrList.append("800");/// set the metric to 800
+        qWarning() << commandStrList;
+
+        qprocess.start("wiredconsetmetric", commandStrList);
+        qprocess.waitForFinished(); /// wait about maximum 30 seconds
+        output = qprocess.readAllStandardOutput();
+        exitCode = qprocess.exitCode();
+        qWarning() << output;
+        qWarning() << "Exit Code:" << exitCode;
+        if(exitCode == 5){
+            /// If the metric was successfully set, then need to Reboot the system
+            pData->setWiredNetworkHasbeenConfigured(true);
+        }
+#endif
+    }
+}
+
+void MachineBackend::setSvnUpdateHasBeenApplied()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    QSettings settings;
+    settings.setValue(SKEY_SBC_SWU_AVAILABLE, false);
+
+    pData->setSvnUpdateAvailable(false);
+}
+
+void MachineBackend::setSvnUpdateCheckEnable(bool value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    QSettings settings;
+    settings.setValue(SKEY_SBC_SVN_UPDATE_EN, value);
+
+    pData->setSvnUpdateCheckForUpdateEnable(value);
+
+    QMetaObject::invokeMethod(m_timerEventForCheckSwUpdate.data(), [&, value](){
+        if(!value){
+            if(m_timerEventForCheckSwUpdate->isActive())
+                m_timerEventForCheckSwUpdate->stop();
+        }else{
+            m_timerEventForCheckSwUpdate->setInterval(pData->getSvnUpdateCheckForUpdatePeriod() * 60000);
+            if(!m_timerEventForCheckSwUpdate->isActive())
+                m_timerEventForCheckSwUpdate->start();
+        }
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineBackend::setSvnUpdateCheckPeriod(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    if(pData->getSvnUpdateCheckForUpdatePeriod() == value)return;
+
+    QSettings settings;
+    settings.setValue(SKEY_SBC_SVN_UPDATE_PRD, value);
+
+    pData->setSvnUpdateCheckForUpdatePeriod(value);
+    bool enable = pData->getSvnUpdateCheckForUpdateEnable();
+
+    QMetaObject::invokeMethod(m_timerEventForCheckSwUpdate.data(), [&, enable, value](){
+        m_timerEventForCheckSwUpdate->setInterval(value * 60000);
+        if(!enable){
+            if(m_timerEventForCheckSwUpdate->isActive())
+                m_timerEventForCheckSwUpdate->stop();
+        }else{
+            if(!m_timerEventForCheckSwUpdate->isActive())
+                m_timerEventForCheckSwUpdate->start();
+        }
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineBackend::checkSoftwareVersionHistory()
+{
+    //    if(m_signedUserLevel == MachineEnums::USER_LEVEL_FACTORY)
+    pData->setSvnUpdateHistory(m_pCheckSwUpdate->getSwUpdateHistory());
+}
+
 void MachineBackend::setFrontPanelSwitchInstalled(bool value)
 {
     qDebug() << metaObject()->className() << __func__ << value << thread() ;
@@ -8665,6 +8936,30 @@ void MachineBackend::setCabinetSideType(short value)
     pData->setCabinetSideType(value);
     QSettings settings;
     settings.setValue(SKEY_CABINET_SIDE_TYPE, value);
+}
+
+void MachineBackend::setSomeSettingsAfterExtConfigImported()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+#ifdef __linux__
+    QSettings settings;
+    QString year_sn = QDate::currentDate().toString("yyyy-000000");
+
+    settings.setValue("sbcSN", "0000000000000001");
+    settings.setValue("sbcSysInfo", "sysInfo:sbc");
+    settings.setValue("serNum", year_sn);
+#endif
+}
+
+void MachineBackend::setAllOutputShutdown()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+#ifdef __linux__
+    QProcess qprocess;
+    qprocess.start("boardinit", QStringList());
+    qprocess.waitForFinished();
+    qDebug() << qprocess.readAllStandardOutput();
+#endif
 }
 
 //void MachineBackend::setWifiDisabled(bool value)
@@ -8887,7 +9182,8 @@ void MachineBackend::_machineState()
                 /// ENVIRONMENTAL TEMPERATURE ALARM
                 if(isFanStateNominal()
                         && !pData->getWarmingUpActive()
-                        && !pData->getPostPurgingActive()){
+                        && !pData->getPostPurgingActive()
+                        && isAirflowHasCalibrated()){
 
                     if (isTempAmbientHigh() && !isAlarmActive(pData->getAlarmTempHigh())) {
                         pData->setAlarmTempHigh(MachineEnums::ALARM_ACTIVE_STATE);
@@ -9716,6 +10012,10 @@ void MachineBackend::_machineState()
                 }
             }
 
+            //// NA ALARM STANDBY FAN OFF
+            if(!isAlarmNA(pData->getAlarmStandbyFanOff())){
+                pData->setAlarmStandbyFanOff(MachineEnums::ALARM_NA_STATE);
+            }
             ///NO APPLICABLE AIRFLOW ALARM IF THE SASH NOT IN WORKING HEIGHT
             if(!isAlarmNA(pData->getAlarmInflowLow())){
                 pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);
@@ -9950,6 +10250,38 @@ void MachineBackend::_machineState()
     //    if(m_pSashWindow->isSashStateChanged()){
     //        m_pSashWindow->clearFlagSashStateChanged();
     //    }
+}
+
+void MachineBackend::_setSoftwareUpdateAvailable(QString swu, QString path, QJsonObject history)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    //    qDebug() << sysInfo;
+
+    QSettings settings;
+    settings.setValue(SKEY_SBC_SWU_AVAILABLE, true);
+    settings.setValue(SKEY_SBC_SWU_VERSION, swu);
+    settings.setValue(SKEY_SBC_SWU_PATH, path);
+
+    pData->setSvnUpdateAvailable(true);
+    pData->setSvnUpdateSwuVersion(swu);
+    pData->setSvnUpdatePath(path);
+    pData->setSvnUpdateHistory(history);
+
+
+    qWarning() << "Software Update available:" << swu << path;
+    qWarning() << history;
+}
+
+void MachineBackend::_setSoftwareUpdateAvailableReset()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    //    qDebug() << sysInfo;
+    if(!pData->getSvnUpdateAvailable())return;
+
+    QSettings settings;
+    settings.setValue(SKEY_SBC_SWU_AVAILABLE, false);
+
+    pData->setSvnUpdateAvailable(false);
 }
 
 #ifdef QT_DEBUG

@@ -92,7 +92,7 @@ public slots:
 private:
     void update();
 
-   QScopedPointer<QThread> m_thread;
+    QScopedPointer<QThread> m_thread;
 
     int m_exitStatus;
     QString m_fileNamePath;

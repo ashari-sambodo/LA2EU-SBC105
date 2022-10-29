@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QDebug>
+#include <QCryptographicHash>
 
 class NetworkManager : public QObject
 {
@@ -24,7 +25,7 @@ public:
     //    };
     //    Q_ENUM(NM_EXIT_CODE)
 
-    void readStatus(bool *connected, QString *typeConn, QString *connName, QString *ipv4);
+    void readStatus(bool *connected, QString *typeConn, QString *connName, QString *ipv4, const QString iface = "wifi");
     void scanAccessPoint(QStringList *availableAP);
     void connectToNewAccessPoint(const QString connName, const QString passwd = QString());
     void connectTo(const QString connName);
@@ -32,4 +33,8 @@ public:
 
 private:
     QThread *m_pThread = nullptr;
+
+    bool _filesAreTheSame(const QString &fileName1, const QString &fileName2);
+    QByteArray _fileChecksum(const QString &fileName,
+                            QCryptographicHash::Algorithm hashAlgorithm = QCryptographicHash::Md5);
 };

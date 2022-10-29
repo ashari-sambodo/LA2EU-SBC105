@@ -2,6 +2,7 @@
 #include <QThread>
 #include <QEventLoop>
 #include <QProcess>
+#include <QDir>
 
 /**
  * Network Manager - Exit Status
@@ -21,18 +22,18 @@
 
 NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
-
-}
+    qDebug() << __func__;
+}//
 
 NetworkManager::~NetworkManager()
 {
     //    qDebug() << "~NetworkManager()";
 }
 
-void NetworkManager::readStatus(bool *connected, QString *typeConn, QString *connName, QString *ipv4)
+void NetworkManager::readStatus(bool *connected, QString *typeConn, QString *connName, QString *ipv4, const QString iface)
 {
     //    qDebug() << __func__ << QThread::currentThreadId();
-
+    Q_UNUSED(iface)
 #ifdef __linux__
     /// Check Connection status if connected or not
     QProcess qprocess;
@@ -48,6 +49,7 @@ void NetworkManager::readStatus(bool *connected, QString *typeConn, QString *con
     //    qDebug() << __func__ << output;
 
     QStringList devicesStatus = output.split("\n").filter(":connected");
+    devicesStatus = devicesStatus.filter(iface);
     //    qDebug() << __func__ << devicesStatus;
 
     if (!devicesStatus.isEmpty()) {
@@ -59,7 +61,7 @@ void NetworkManager::readStatus(bool *connected, QString *typeConn, QString *con
         QString command = QString("nmcli -g ip4.address con show \"%1\"").arg(prof[NSTATUS_AP_CONNECTION]);
         //        qDebug() << __func__ << command;
         qprocess.start(command);
-        bool res = qprocess.waitForFinished();Q_UNUSED(res)
+        bool res = qprocess.waitForFinished();
         //        qDebug()  << __func__ << res;
 
         /// example ouput
@@ -211,4 +213,22 @@ void NetworkManager::forgetConnection(const QString connName)
 #else
 
 #endif
+}
+
+bool NetworkManager::_filesAreTheSame(const QString &fileName1, const QString &fileName2)
+{
+    return _fileChecksum(fileName1) == _fileChecksum(fileName2);
+}
+
+// Returns empty QByteArray() on failure.
+QByteArray NetworkManager::_fileChecksum(const QString &fileName, QCryptographicHash::Algorithm hashAlgorithm)
+{
+    QFile f(fileName);
+    if (f.open(QFile::ReadOnly)) {
+        QCryptographicHash hash(hashAlgorithm);
+        if (hash.addData(&f)) {
+            return hash.result();
+        }
+    }
+    return QByteArray();
 }

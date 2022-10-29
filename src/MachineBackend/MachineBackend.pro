@@ -27,6 +27,7 @@ SOURCES +=  \
     Implementations/AlarmLog/AlarmLog.cpp \
     Implementations/AlarmLog/AlarmLogSql.cpp \
     Implementations/BlowerRbm/BlowerRbmDsi.cpp \
+    Implementations/CheckSWUpdate/CheckSWUpdate.cpp \
     Implementations/ClassManager.cpp \
     Implementations/AirflowVelocity/AirflowVelocity.cpp \
     Implementations/ClosedLoopControl/ClosedLoopControl.cpp \
@@ -57,6 +58,7 @@ HEADERS +=  \
     Implementations/AlarmLog/AlarmLogSql.h \
     Implementations/AlarmLog/AlarmLogText.h \
     Implementations/BlowerRbm/BlowerRbmDsi.h \
+    Implementations/CheckSWUpdate/CheckSWUpdate.h \
     Implementations/ClassManager.h \
     Implementations/AirflowVelocity/AirflowVelocity.h \
     Implementations/ClosedLoopControl/ClosedLoopControl.h \

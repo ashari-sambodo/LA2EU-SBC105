@@ -20,22 +20,82 @@
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="8"/>
-        <source>Power recovered! Set back Fan to on</source>
+        <source>Power recovered! Set back Fan to ON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="9"/>
-        <source>Power recovered! Set back UV to on</source>
+        <source>Power recovered! Set back UV to ON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="11"/>
-        <source>Sash safe height</source>
+        <source>Sash at safe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="12"/>
-        <source>Sash unsafe height</source>
+        <source>Sash at unsafe height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="15"/>
+        <source>Sash at standby</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="18"/>
+        <source>Fan On scheduler has triggered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="19"/>
+        <source>Fan Off scheduler has triggered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="20"/>
+        <source>UV On scheduler has triggered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="21"/>
+        <source>UV Off scheduler has triggered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="23"/>
+        <source>Set Fan ON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="24"/>
+        <source>Set Fan Standby</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="25"/>
+        <source>Set Fan OFF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="27"/>
+        <source>Set Light ON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="33"/>
+        <source>Environmental temp too low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="34"/>
+        <source>Environmental temp too high</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="35"/>
+        <source>Environmental temp normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -49,53 +109,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="15"/>
-        <source>Sash fully standby</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="16"/>
         <source>Sash unknown state</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="18"/>
-        <source>Fan On scheduler has trigger</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="19"/>
-        <source>Fan Off scheduler has trigger</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="20"/>
-        <source>UV On scheduler has trigger</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="21"/>
-        <source>UV Off scheduler has trigger</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="23"/>
-        <source>Set Fan on</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="24"/>
-        <source>Set Fan standby</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="25"/>
-        <source>Set Fan off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="27"/>
-        <source>Set Light on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -111,21 +126,6 @@
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="31"/>
         <source>Modbus rejected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="33"/>
-        <source>Enviromental temp too low</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="34"/>
-        <source>Enviromental temp too high</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="35"/>
-        <source>Enviromental temp too normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -242,6 +242,11 @@
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="32"/>
         <source>Front Panel Alarm | Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../MachineBackend.cpp" line="172"/>
+        <source>Software has been updated to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

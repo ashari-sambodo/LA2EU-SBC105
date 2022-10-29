@@ -72,6 +72,15 @@ enum EnumOperationModeState{
 };
 Q_ENUMS(EnumOperationModeState)
 
+enum EnumUserRoleLevel {
+    USER_LEVEL_GUEST,
+    USER_LEVEL_OPERATOR,
+    USER_LEVEL_SUPERVISOR,
+    USER_LEVEL_ADMIN,
+    USER_LEVEL_SERVICE,
+    USER_LEVEL_FACTORY,
+};
+Q_ENUMS(EnumUserRoleLevel)
 enum EnumSecurityAccessState{
     MODE_SECURITY_ACCESS_LOW,
     MODE_SECURITY_ACCESS_MODERATE,
@@ -135,13 +144,25 @@ enum GeneralPurposeEnums{
     FOOTER_HEIGHT = 70
 };
 Q_ENUMS(GeneralPurposeEnums)
+enum ScreenState{
+    ScreenState_Home,
+    ScreenState_ResourceMonitor,
+    ScreenState_Other,
+};
+Q_ENUMS(ScreenState)
+
+enum ResourceMonitor{
+    ResMon_CPU_Usage,
+    ResMon_CPU_Temp,
+    ResMon_Memory_Usage
+};
+Q_ENUMS(ResourceMonitor)
+
 enum CabinetSideType{
     CABINET_TYPE_S, // Stainless steel side
     CABINET_TYPE_E // Glass side
 };
 Q_ENUMS(CabinetSideType)
-
-
 }
 
 //class MachineEnums : public QObject

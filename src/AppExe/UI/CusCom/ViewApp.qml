@@ -135,7 +135,7 @@ Item {
         dialogObject.close()
     }
 
-    function showDialogMessage(title, text, alert, callbackOnClosed, autoClosed, urlFeatureImage){
+    function showDialogMessage(title, text, alert, callbackOnClosed, autoClosed, urlFeatureImage, intrval){
         closeDialog()
         let component = Qt.createComponent("DialogApp.qml");
         if (component.status === Component.Ready) {
@@ -144,6 +144,7 @@ Item {
             if (callbackOnClosed !== undefined) control.dialogObject.closed.connect(callbackOnClosed)
 
             autoClosed = autoClosed !== undefined ? autoClosed : true
+            intrval = intrval !== undefined ? intrval : 3000
 
             if (urlFeatureImage !== undefined) control.dialogObject.contentItem.featureSourceImage = urlFeatureImage
 
@@ -155,11 +156,12 @@ Item {
             control.dialogObject.contentItem.standardButton = 0 // standardButtonClose
             control.dialogObject.autoDestroy = true
             control.dialogObject.autoClose = autoClosed
+            control.dialogObject.interval = intrval
             control.dialogObject.visible = true
         }//
     }//
 
-    function showDialogAsk(title, text, alert, callbackOnAccepted, callbackOnRejected, callbackOnClosed, autoClosed, interval){
+    function showDialogAsk(title, text, alert, callbackOnAccepted, callbackOnRejected, callbackOnClosed, autoClosed, interval, acceptedText, rejectedText){
         closeDialog()
         let component = Qt.createComponent("DialogApp.qml");
         if (component.status === Component.Ready) {
@@ -171,6 +173,8 @@ Item {
 
             autoClosed = autoClosed !== undefined ? autoClosed : true
             interval = interval !== undefined ? interval : 3
+            acceptedText = acceptedText !== undefined ? acceptedText : qsTr("OK")
+            rejectedText = rejectedText !== undefined ? rejectedText : qsTr("Cancel")
 
             control.dialogObject.anchors.fill = control
             control.dialogObject.contentItem.title = title
@@ -182,6 +186,8 @@ Item {
             control.dialogObject.interval = interval * 1000 //second to milisecond
             control.dialogObject.autoClose = autoClosed
             control.dialogObject.visible = true
+            control.dialogObject.acceptedText = acceptedText
+            control.dialogObject.rejectedText = rejectedText
         }//
     }//
 

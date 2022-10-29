@@ -408,7 +408,7 @@ void BookingScheduleQmlApp::exportData(const QString targetDate,
         QString targetDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
         qDebug() << targetDir;
 
-        QString fileName = targetDir + QString("/booking_wk%1.pdf").arg(weekNumber);
+        QString fileName = targetDir + QString("/Booking_Wk%1.pdf").arg(weekNumber);
         QFile pdfFile(fileName);
         bool fileIsOK = pdfFile.open(QIODevice::WriteOnly);
         //        qDebug() << fileIsOK;

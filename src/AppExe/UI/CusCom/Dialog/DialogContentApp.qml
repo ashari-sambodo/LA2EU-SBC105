@@ -28,6 +28,9 @@ Item {
     property alias title: titleText.text
     property string text: "Descriptions"
 
+    property string acceptedText: qsTr("OK")
+    property string rejectedText: qsTr("Cancel")
+
     //    property alias contentMessage: messageText
 
     property string layoutStyle: "horizontal"
@@ -68,7 +71,7 @@ Item {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 font.pixelSize: 20
-                color: "#dddddd"
+                color: "#effffd"
                 font.bold: true
                 text: "Title"
             }
@@ -117,7 +120,7 @@ Item {
                             font.pixelSize: 20
                             minimumPixelSize: 14
                             fontSizeMode: Text.Fit
-                            color: "#dddddd"
+                            color: "#effffd"
                             //                            textFormat: Text.RichText
                             //                            text: qsTr("Text")
                             text: root.text
@@ -165,8 +168,8 @@ Item {
                             font.pixelSize: 20
                             minimumPixelSize: 14
                             fontSizeMode: Text.Fit
-                            color: "#dddddd"
-                            padding: 5
+                            color: "#effffd"
+                            padding: 10
                             //                            textFormat: Text.RichText
                             //                            text: qsTr("Text")
                             text: root.text
@@ -186,7 +189,7 @@ Item {
                         //                            horizontalAlignment: Text.AlignHCenter
                         //                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                         //                            font.pixelSize: 20
-                        //                            color: "#dddddd"
+                        //                            color: "#effffd"
                         //                            textFormat: Text.RichText
                         //                            //                            text: qsTr("Text")
                         //                            text: root.text
@@ -230,7 +233,7 @@ Item {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 font.pixelSize: 20
-                color: "#dddddd"
+                color: "#effffd"
                 text: "Close"
             }
         }
@@ -268,8 +271,8 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         font.pixelSize: 20
-                        color: "#dddddd"
-                        text: "Cancel"
+                        color: "#effffd"
+                        text: root.rejectedText
                     }//
 
                 }//
@@ -296,8 +299,8 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         font.pixelSize: 20
-                        color: "#dddddd"
-                        text: "OK"
+                        color: "#effffd"
+                        text: root.acceptedText
                     }//
                 }//
             }//

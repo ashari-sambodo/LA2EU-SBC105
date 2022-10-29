@@ -2,6 +2,8 @@
 
 #include <QObject>
 #include <QJsonObject>
+#include <QJsonArray>
+#include "MachineEnums.h"
 
 class QQmlEngine;
 class QJSEngine;
@@ -1001,6 +1003,14 @@ class MachineData : public QObject
     Q_PROPERTY(bool inflowValueHeld READ getInflowValueHeld NOTIFY inflowValueHeldChanged)
     Q_PROPERTY(bool downflowValueHeld READ getDownflowValueHeld NOTIFY downflowValueHeldChanged)
 
+    Q_PROPERTY(bool wiredNetworkHasbeenConfigured     READ getWiredNetworkHasbeenConfigured      NOTIFY wiredNetworkHasbeenConfiguredChanged)
+    Q_PROPERTY(bool svnUpdateAvailable READ getSvnUpdateAvailable NOTIFY svnUpdateAvailableChanged)
+    Q_PROPERTY(QString svnUpdateSwuVersion READ getSvnUpdateSwuVersion NOTIFY svnUpdateSwuVersionChanged)
+    Q_PROPERTY(QString svnUpdatePath READ getSvnUpdatePath NOTIFY svnUpdatePathChanged)
+    Q_PROPERTY(QJsonObject svnUpdateHistory READ getSvnUpdateHistory NOTIFY svnUpdateHistoryChanged)
+    Q_PROPERTY(bool svnUpdateCheckForUpdateEnable READ getSvnUpdateCheckForUpdateEnable NOTIFY svnUpdateCheckForUpdateEnableChanged)
+    Q_PROPERTY(int svnUpdateCheckForUpdatePeriod READ getSvnUpdateCheckForUpdatePeriod NOTIFY svnUpdateCheckForUpdatePeriodChanged)
+
     Q_PROPERTY(bool cabinetWidthFeet READ getCabinetWidthFeet NOTIFY cabinetWidthFeetChanged)
     Q_PROPERTY(bool cabinetWidth3Feet READ getCabinetWidth3Feet NOTIFY cabinetWidth3FeetChanged)
     Q_PROPERTY(bool usePwmOutSignal READ getUsePwmOutSignal NOTIFY usePwmOutSignalChanged)
@@ -1013,7 +1023,7 @@ public:
     static void singletonDelete();
 
     explicit MachineData(QObject *parent = nullptr);
-    ~MachineData();
+    ~MachineData() override;
 
     Q_INVOKABLE short getMachineBackendState() const;
     void setMachineBackendState(short getMachineBackendState);
@@ -1778,6 +1788,34 @@ public:
     bool getReadClosedLoopResponse() const;
     void setReadClosedLoopResponse(bool value);
 
+    /// ETHERNET CONNECTION
+    void setEth0ConName(QString value);
+    void setEth0Ipv4Address(QString value);
+    void setEth0ConEnabled(bool value);
+
+    Q_INVOKABLE QString getEth0ConName()const;
+    Q_INVOKABLE QString getEth0Ipv4Address()const;
+    Q_INVOKABLE bool getEth0ConEnabled()const;
+
+    void setWiredNetworkHasbeenConfigured(bool value);
+    bool getWiredNetworkHasbeenConfigured()const;
+
+    /// SVN UPDATE
+    void setSvnUpdateAvailable(bool value);
+    void setSvnUpdateSwuVersion(QString value);
+    void setSvnUpdatePath(QString value);
+    void setSvnUpdateHistory(QJsonObject value);
+
+    bool getSvnUpdateAvailable()const;
+    QString getSvnUpdateSwuVersion()const;
+    QString getSvnUpdatePath()const;
+    QJsonObject getSvnUpdateHistory()const;
+
+    bool getSvnUpdateCheckForUpdateEnable()const;
+    int getSvnUpdateCheckForUpdatePeriod()const;
+    void setSvnUpdateCheckForUpdateEnable(bool value);
+    void setSvnUpdateCheckForUpdatePeriod(int value);
+
     /// Front Panel Switch on LA2EU
     bool getFrontPanelSwitchInstalled() const;
     bool getFrontPanelSwitchState() const;
@@ -2116,6 +2154,18 @@ signals:
     ///Closed Loop
     void fanClosedLoopControlEnableChanged(bool value);
     void fanFanClosedLoopControlEnablePrevStateChanged(bool value);
+
+    void wiredNetworkHasbeenConfiguredChanged(bool value);
+
+    /// SVN UPDATE
+    //bool m_centurionUpdateEnable = false;
+    void svnUpdateAvailableChanged(bool value);
+    void svnUpdateSwuVersionChanged(QString value);
+    void svnUpdatePathChanged(QString value);
+    void svnUpdateHistoryChanged(QJsonObject value);
+
+    void svnUpdateCheckForUpdateEnableChanged(bool value);
+    void svnUpdateCheckForUpdatePeriodChanged(int value);
     void closedLoopResponseStatusChanged(bool value);
 
     /// Front Panel Switch on LA2EU
@@ -2507,6 +2557,21 @@ private:
     bool m_readClosedLoopResponse = false;
     bool m_closeLoopResponseStatus = false;
 
+    /// ETHERNET CONNECTION
+    QString m_eth0ConName;
+    QString m_eth0Ipv4Address;
+    bool m_eth0ConEnabled = false;
+    bool m_wiredNetworkHasbeenConfigured = false;
+
+    /// SVN UPDATE
+    //bool m_centurionUpdateEnable = false;
+    bool m_svnUpdateAvailable = false;
+    QString m_svnUpdateSwuVersion;
+    QString m_svnUpdatePath;
+    QJsonObject m_svnUpdateHistory;
+
+    bool m_svnUpdateCheckForUpdateEnable;
+    int m_svnUpdateCheckForUpdatePeriod;
     bool m_frontPanelSwitchInstalled = false;
     bool m_frontPanelSwitchState = false;
     short m_frontPanelAlarm = 0;

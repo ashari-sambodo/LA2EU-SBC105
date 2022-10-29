@@ -116,10 +116,14 @@ ViewApp {
                                                 fontSizeMode: Text.Fit
 
                                                 Component.onCompleted: {
+                                                    let valueStr = modelData.fullname
                                                     let str = modelData.fullname || "AA";
-                                                    let rstr = str.substring(0,1);
-                                                    //console.debug(rstr);
-                                                    fiturtext.text = rstr
+                                                    let initial = str.substring(0,1);
+                                                    if(valueStr.split(" ")[1] !== undefined){
+                                                        initial = valueStr.split(" ")[0].substring(0,1).toUpperCase() + valueStr.split(" ")[1].substring(0,1).toUpperCase()
+                                                        //console.debug(fname.split(" ")[0], fname.split(" ")[1], rstr);
+                                                    }
+                                                    fiturtext.text = initial
                                                 }//
                                             }//
 
@@ -164,10 +168,21 @@ ViewApp {
                                                     MouseArea {
                                                         anchors.fill: parent
                                                         onClicked: {
-                                                            props.editUser(modelData.username,
-                                                                           modelData.role,
-                                                                           modelData.fullname,
-                                                                           modelData.email)
+                                                            const modelUsername = String(modelData.username)
+                                                            const username = String(UserSessionService.username)
+                                                            console.debug("Username:", modelUsername, username, (modelUsername == username))
+                                                            if((modelUsername == username)
+                                                                    || (UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin
+                                                                        && UserSessionService.roleLevel != UserSessionService.roleLevelService)){
+                                                                props.editUser(modelData.username,
+                                                                               modelData.role,
+                                                                               modelData.fullname,
+                                                                               modelData.email)
+                                                            }else{
+                                                                showDialogMessage(qsTr("Access denied"),
+                                                                                  qsTr("You do not have permission to perform this action!"),
+                                                                                  dialogAlert)
+                                                            }//
                                                         }//
                                                     }//
                                                 }//
@@ -181,9 +196,21 @@ ViewApp {
                                                     MouseArea {
                                                         anchors.fill: parent
                                                         onClicked: {
-                                                            props.deleteUser(modelData.username,
-                                                                             modelData.role,
-                                                                             modelData.fullname)
+                                                            const modelUsername = String(modelData.username)
+                                                            const username = String(UserSessionService.username)
+                                                            console.debug("Username:", modelUsername, username)
+                                                            if((modelUsername != username)
+                                                                    && (UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin
+                                                                        && UserSessionService.roleLevel != UserSessionService.roleLevelService))
+                                                            {
+                                                                props.deleteUser(modelData.username,
+                                                                                 modelData.role,
+                                                                                 modelData.fullname)
+                                                            }else{
+                                                                showDialogMessage(qsTr("Access denied"),
+                                                                                  qsTr("You do not have permission to perform this action!"),
+                                                                                  dialogAlert)
+                                                            }//
                                                         }//
                                                     }//
                                                 }//
@@ -273,16 +300,16 @@ ViewApp {
                                                     text: {
                                                         let roleCode = modelData.role
                                                         switch(roleCode){
-                                                        case 1:
-                                                            return qsTr("operator")
-                                                        case 2:
-                                                            return qsTr("admin")
-                                                        case 3:
-                                                            return qsTr("supervisor")
-                                                        case 4:
-                                                            return qsTr("service")
-                                                        case 5:
-                                                            return qsTr("factory")
+                                                        case UserSessionService.roleLevelGuest:
+                                                            return qsTr("Guest")
+                                                        case UserSessionService.roleLevelOperator:
+                                                            return qsTr("Operator")
+                                                        case UserSessionService.roleLevelSupervisor:
+                                                            return qsTr("Supervisor")
+                                                        case UserSessionService.roleLevelAdmin:
+                                                            return qsTr("Administrator")
+                                                        case UserSessionService.roleLevelService:
+                                                            return qsTr("Maintenance")
                                                         default:
                                                             return qsTr("Unknown")
                                                         }
@@ -308,7 +335,7 @@ ViewApp {
                             }//
                         }//
                     }//
-                }
+                }//
 
                 Loader {
                     active: userGridView.count == 0 && userManageQml.initialized
@@ -351,7 +378,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
                 Rectangle {
                     anchors.fill: parent
@@ -391,6 +418,8 @@ ViewApp {
                         }//
 
                         ButtonBarApp {
+                            enabled: (UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin
+                                      && UserSessionService.roleLevel != UserSessionService.roleLevelService)
                             width: 194
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.right: parent.right
@@ -429,9 +458,24 @@ ViewApp {
             onSelectHasDone: {
                 //                console.log(total)
                 props.userTotal = total
-                userGridView.model = dataBuffer
+                props.userModel = []
+                ////// Filter which User Accounts will be Shown on The Screen
+                for(let i=0; i<total; i++){
+                    /// Higher role level user can see lower role level user or equal
+                    /// Admin and Super admin user can see all users except esco
+                    /// Esco and Developer User can see All Users
+                    let modelData = dataBuffer[i]
+                    let visible = ((modelData.role <= UserSessionService.roleLevel) ||
+                                   ((modelData.role <= UserSessionService.roleLevelAdmin) &&
+                                    (UserSessionService.roleLevel == UserSessionService.roleLevelAdmin)))
+                    if(visible) props.userModel.push(modelData)
+                }
+
+                userGridView.model = props.userModel
+                //console.debug("Length:", dataBuffer.length, dataBuffer[0], dataBuffer[0].fullname)
+
                 closeDialog()
-            }
+            }//
 
             onDeleteHasDone: {
                 //                console.log(totalAfterDelete)
@@ -444,7 +488,7 @@ ViewApp {
                 init(connectionId);
 
                 showBusyPage(qsTr("Loading..."), function(cycle){
-                    if (cycle === MachineAPI.BUSY_CYCLE_4){
+                    if (cycle >= MachineAPI.BUSY_CYCLE_2){
                         closeDialog()
                     }
                 })
@@ -456,46 +500,48 @@ ViewApp {
         QtObject {
             id: props
 
+            property var userModel: []
+            //property bool initializeDone: false
             readonly property int userMaximum: 50
             property int userTotal: 0
 
             function editUser(username, role, fullname, email){
-                if(UserSessionService.roleLevel > role || (role === UserSessionService.roleLevelSAdmin && UserSessionService.roleLevel >= role)){
-                    const intent = IntentApp.create("qrc:/UI/Pages/UserManagePage/UserEditFormPage.qml",
-                                                    {
-                                                        "username": username,
-                                                        "role":     role,
-                                                        "fullname": fullname,
-                                                        "email":    email,
-                                                    })
-                    startView(intent);
-                }else{
-                    const message = qsTr("Access denied!")
-                    showDialogMessage(qsTr("Edit User"), message, dialogAlert)
-                }
+                //                if(UserSessionService.roleLevel > role || (role === UserSessionService.roleLevelSupervisor && UserSessionService.roleLevel >= role)){
+                const intent = IntentApp.create("qrc:/UI/Pages/UserManagePage/UserEditFormPage.qml",
+                                                {
+                                                    "username": username,
+                                                    "role":     role,
+                                                    "fullname": fullname,
+                                                    "email":    email,
+                                                })
+                startView(intent);
+                //                }else{
+                //                    const message = qsTr("Access denied!")
+                //                    showDialogMessage(qsTr("Edit User"), message, dialogAlert)
+                //                }
             }//
 
             function deleteUser(username, role, fullname){
                 //                console.debug("deleteUser")
-                if(UserSessionService.roleLevel > role || (role === UserSessionService.roleLevelSAdmin && UserSessionService.roleLevel >= role)){
-                    const message = qsTr("Delete user") + " " + fullname + " ?"
-                    showDialogAsk(qsTr("Delete"), message, dialogAlert, function onAccepted(){
-                        showBusyPage(qsTr("Loading..."), function(cycle){
-                            if (cycle === MachineAPI.BUSY_CYCLE_4){
-                                closeDialog()
-                            }
-                        })
-                        userManageQml.deleteByUsername(username);
+                //                if(UserSessionService.roleLevel > role || (role === UserSessionService.roleLevelSupervisor && UserSessionService.roleLevel >= role)){
+                const message = qsTr("Delete user") + " " + fullname + " ?"
+                showDialogAsk(qsTr("Delete"), message, dialogAlert, function onAccepted(){
+                    showBusyPage(qsTr("Loading..."), function(cycle){
+                        if (cycle >= MachineAPI.BUSY_CYCLE_2){
+                            closeDialog()
+                        }
                     })
-                }else{
-                    const message = qsTr("Access denied!")
-                    showDialogMessage(qsTr("Delete User"), message, dialogAlert)
-                }
-            }
+                    userManageQml.deleteByUsername(username);
+                })
+                //                }else{
+                //                    const message = qsTr("Access denied!")
+                //                    showDialogMessage(qsTr("Delete User"), message, dialogAlert)
+                //                }
+            }//
 
             function reloadUser(){
                 showBusyPage(qsTr("Loading..."), function(cycle){
-                    if (cycle === MachineAPI.BUSY_CYCLE_4){
+                    if (cycle >= MachineAPI.BUSY_CYCLE_2){
                         closeDialog()
                     }
                 })

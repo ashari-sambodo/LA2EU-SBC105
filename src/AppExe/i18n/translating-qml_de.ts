@@ -207,62 +207,62 @@
         <translation>tatsächlicher ADC</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="449"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="445"/>
         <source>Done</source>
         <translation>getan</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="474"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="470"/>
         <source>Velocity low alarm</source>
         <translation>Geschwindigkeit niedriger Alarm</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="487"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="483"/>
         <source>Velocity minimum</source>
         <translation>Geschwindigkeitsminimum</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="500"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="496"/>
         <source>ADC minimum</source>
         <translation>ADC-Minimum</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="516"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="512"/>
         <source>ADC zero</source>
         <translation>ADC Null</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="530"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="526"/>
         <source>Failed</source>
         <translation>Gescheitert</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="533"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="529"/>
         <source>Required at least 80 points ADC greater than ADC zero</source>
         <translation>Erforderlich mindestens 80 Punkte ADC größer als ADC Null</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="536"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="532"/>
         <source>Close</source>
         <translation>nah dran</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="566"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="562"/>
         <source>Back</source>
         <translation>zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="571"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="567"/>
         <source>Notification</source>
         <translation>Benachrichtigungen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="572"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="568"/>
         <source>Cancel this process?</source>
         <translation>diesen Vorgang abbrechen?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="611"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="607"/>
         <source>Set</source>
         <translation>setzen</translation>
     </message>
@@ -272,7 +272,7 @@
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="35"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="35"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1392"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1388"/>
         <source>ADC Nominal</source>
         <translation>ADC-Nominal</translation>
     </message>
@@ -397,55 +397,55 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="996"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1080"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1076"/>
         <source>Done</source>
         <translation>getan</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1022"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1121"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1117"/>
         <source>Downflow nominal</source>
         <translation>Downflow nominal</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1036"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1179"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1175"/>
         <source>Downflow ADC nominal</source>
         <translation>Downflow ADC Nominal</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1052"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1209"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1205"/>
         <source>Inflow nominal</source>
         <translation>Zufluss nominal</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1067"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1265"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1261"/>
         <source>Inflow ADC nominal</source>
         <translation>Zufluss ADC nominal</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1085"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1283"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1279"/>
         <source>Downflow Fan nominal</source>
         <translation>Downflow-Ventilator nominal</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1100"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1298"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1294"/>
         <source>Inflow Fan nominal</source>
         <translation>Zulaufventilator Nennwert</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1117"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1315"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1311"/>
         <source>Temperature calib</source>
         <translation>Temperaturkalibrierung</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1144"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1342"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1338"/>
         <source>Failed</source>
         <translation>gescheitert</translation>
     </message>
@@ -485,19 +485,19 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1153"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1353"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1349"/>
         <source>There may be invalid values!</source>
         <translation>möglicherweise gibt es einen ungültigen Wert!</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1157"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1357"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1353"/>
         <source>Save</source>
         <translation>speichern</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1187"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1387"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1383"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
@@ -508,13 +508,13 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1193"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1393"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1389"/>
         <source>Cancel this process?</source>
         <translation>Diesen Vorgang abbrechen?</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1236"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1442"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1438"/>
         <source>Set</source>
         <translation>Legen</translation>
     </message>
@@ -562,67 +562,67 @@
         <translation>IF-Tiefalarm einstellen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1106"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1102"/>
         <source>Downflow low alarm</source>
         <translation>Niedriger Abflussalarm</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1136"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1132"/>
         <source>Downflow high alarm</source>
         <translation>Abwärtsstrom hoher Alarm</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1153"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1149"/>
         <source>Downflow ADC zero</source>
         <translation>Downflow-ADC Null</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1194"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1190"/>
         <source>Inflow low alarm</source>
         <translation>Zufluss niedriger Alarm</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1239"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1235"/>
         <source>Inflow ADC zero</source>
         <translation>Zufluss ADC Null</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1345"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1341"/>
         <source>ADC DF2 ≥ (ADC DF0 + 100) not met!</source>
         <translation>ADC DF2 ≥ (ADC DF0 + 100) nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1346"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1342"/>
         <source>Vel DF1 &lt; DF2 &lt; DF3 not met!</source>
         <translation>Vel DF1 &lt; DF2 &lt; DF3 nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1347"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1343"/>
         <source>Duty cycle DF2 not valid!</source>
         <translation>Auslastungsgrad DF2 ungültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1348"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1344"/>
         <source>ADC IF2 ≥ (ADC IF0 + 100) not met!</source>
         <translation>ADC IF2 ≥ (ADC IF0 + 100) nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1349"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1345"/>
         <source>Vel IF1 &lt; DF2 not met!</source>
         <translation>Vel IF1 &lt; DF2 nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1350"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1346"/>
         <source>Duty cycle IF2 not valid!</source>
         <translation>Einschaltdauer IF2 nicht gültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1351"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1347"/>
         <source>DF Fan RPM not valid!</source>
         <translation>DF-UPM nicht gültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1352"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1348"/>
         <source>IF Fan RPM not valid!</source>
         <translation>IF-UPM nicht gültig!</translation>
     </message>
@@ -640,129 +640,129 @@
         <translation>Downflow</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="98"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="296"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="99"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="298"/>
         <source>Press here to turn off the Fan</source>
         <translation>Drücken Sie hier, um den Lüfter auszuschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="142"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="143"/>
         <source>Switching off DF fan...</source>
         <translation>Ausschalten des DF-Lüfters...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="166"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="167"/>
         <source>Downflow and Inflow fan must be Off!</source>
         <translation>Downflow and Inflow Lüfter muss aus sein!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="173"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="174"/>
         <source>Sensors Constant</source>
         <translation>Sensorkonstante</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="186"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="187"/>
         <source>Temperature</source>
         <translation>Temperatur</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="250"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="251"/>
         <source>Please wait until the values are stable</source>
         <translation>Bitte warten bis der Wert stabil ist</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="272"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="273"/>
         <source>Inflow</source>
         <translation>Inflow</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="340"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="342"/>
         <source>Switching off IF fan...</source>
         <translation>IF-Lüfter ausschalten...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="368"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="370"/>
         <source>Stabilizing the ADC</source>
         <translation>Stabilisierung des ADC</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="372"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="374"/>
         <source>Please wait for %1, time left</source>
         <translation>Bitte warte auf %1, noch Zeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="426"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="428"/>
         <source>Actual ADC (DF)</source>
         <translation>tatsächlicher ADC (DF)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="440"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="442"/>
         <source>Actual ADC (IF)</source>
         <translation>tatsächlicher ADC (IF)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="487"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="486"/>
         <source>Done</source>
         <translation>Getan</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="514"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="513"/>
         <source>DF ADC Zero</source>
         <translation>DF ADC Null</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="530"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="529"/>
         <source>IF ADC Zero</source>
         <translation>IF ADC Null</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="566"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="565"/>
         <source>Failed</source>
         <translation>Gescheitert</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="568"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="567"/>
         <source>The minimum required ADC is 1</source>
         <translation>der minimal erforderliche ADC ist 1</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="570"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="569"/>
         <source>Please check the sensor input port!</source>
         <translation>Bitte überprüfen Sie den Sensoreingang!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="573"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="572"/>
         <source>Close</source>
         <translation>abschließen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="603"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="602"/>
         <source>Back</source>
         <translation>zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="609"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="650"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="608"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="649"/>
         <source>Notification</source>
         <translation>Benachrichtigung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="610"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="609"/>
         <source>Cancel this process?</source>
         <translation>Brechen Sie diesen Vorgang ab?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="645"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="644"/>
         <source>Set</source>
         <translation>set</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="651"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="650"/>
         <source>Please turned off the fan and wait until ADC has stable!</source>
         <translation>Bitte schalte den Lüfter aus und warte bis ADC stabil ist!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="727"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="730"/>
         <source>Turning off the fan...</source>
         <translation>Lüfter ausschalten...</translation>
     </message>
@@ -902,7 +902,7 @@
 <context>
     <name>AlarmLogQmlApp</name>
     <message>
-        <location filename="../Modules/AlarmLog/AlarmLogQmlApp.cpp" line="346"/>
+        <location filename="../Modules/AlarmLog/AlarmLogQmlApp.cpp" line="347"/>
         <source>Failed to initiate file</source>
         <translation>Fehler beim Starten der Datei</translation>
     </message>
@@ -1043,13 +1043,17 @@
         <translation>Die neue Konfiguration wird nach dem Neustart des Systems angewendet</translation>
     </message>
     <message>
-        <source>System will be restarting after you click the &apos;Apply&apos; button</source>
+        <source>System will be restarting after you press the &apos;Apply&apos; button</source>
         <translation type="vanished">Das System wird neu gestartet, nachdem Sie auf die Schaltfläche &quot;Übernehmen&quot; geklickt haben</translation>
     </message>
     <message>
+        <source>The system will be restarted after you press the &apos;Save&apos; button</source>
+        <translation type="vanished">Das System wird neu gestartet, nachdem Sie auf die Schaltfläche &apos;Speichern&apos; geklickt haben</translation>
+    </message>
+    <message>
         <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="141"/>
-        <source>The system will be restarted after you click the &apos;Save&apos; button</source>
-        <translation>Das System wird neu gestartet, nachdem Sie auf die Schaltfläche &apos;Speichern&apos; geklickt haben</translation>
+        <source>The system will be restarted after you press the &apos;%1&apos; button</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="170"/>
@@ -1057,52 +1061,52 @@
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="185"/>
+        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="186"/>
         <source>Apply</source>
         <translation>Anwenden</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="192"/>
+        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="193"/>
         <source>Please wait</source>
         <translation>Warten Sie mal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="261"/>
+        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="262"/>
         <source>Built-in SEAS</source>
         <translation>Eingebautes SEAS</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="264"/>
+        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="265"/>
         <source>Seas Board Flap</source>
         <translation>Seas Board Klappe</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="267"/>
+        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="268"/>
         <source>Motorize Sash</source>
         <translation>Motorisieren Scheibe</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="270"/>
+        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="271"/>
         <source>UV Lamp</source>
         <translation>UV-Lampe</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="273"/>
+        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="274"/>
         <source>Gas Valve</source>
         <translation>Gasventil</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="276"/>
+        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="277"/>
         <source>Electric Socket</source>
         <translation>Steckdose</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="279"/>
+        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="280"/>
         <source>Particle Counter Sensor</source>
         <translation>Partikelzählersensor</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="282"/>
+        <location filename="../UI/Pages/AuxiliaryFunctionsPage/AuxiliaryFunctionsPage.qml" line="283"/>
         <source>Front Panel Switch</source>
         <translation>Schalter an der Vorderseite</translation>
     </message>
@@ -1536,11 +1540,15 @@
     </message>
     <message>
         <location filename="../UI/Pages/CabinetProfilePage/CabinetProfilePage.qml" line="196"/>
-        <source>The system will be restarted after you click the &apos;Save&apos; button</source>
-        <translation>Das System wird neu gestartet, nachdem Sie auf die Schaltfläche &apos;Speichern&apos; geklickt haben</translation>
+        <source>The system will be restarted after you press the &apos;%1&apos; button</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>System will be restarting after you click the &apos;Apply&apos; button</source>
+        <source>The system will be restarted after you press the &apos;Save&apos; button</source>
+        <translation type="vanished">Das System wird neu gestartet, nachdem Sie auf die Schaltfläche &apos;Speichern&apos; geklickt haben</translation>
+    </message>
+    <message>
+        <source>System will be restarting after you press the &apos;Apply&apos; button</source>
         <translation type="vanished">Das System wird neu gestartet, nachdem Sie auf die Schaltfläche &quot;Übernehmen&quot; geklickt haben</translation>
     </message>
     <message>
@@ -1549,17 +1557,37 @@
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CabinetProfilePage/CabinetProfilePage.qml" line="311"/>
+        <location filename="../UI/Pages/CabinetProfilePage/CabinetProfilePage.qml" line="309"/>
+        <source>SWUpdate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CabinetProfilePage/CabinetProfilePage.qml" line="312"/>
+        <source>Are you sure want to continue to update?</source>
+        <translation type="unfinished">Möchten Sie die Aktualisierung wirklich fortsetzen?</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CabinetProfilePage/CabinetProfilePage.qml" line="313"/>
+        <source>Notification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CabinetProfilePage/CabinetProfilePage.qml" line="318"/>
+        <source>Load the updater...</source>
+        <translation type="unfinished">Laden Sie den Updater...</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CabinetProfilePage/CabinetProfilePage.qml" line="341"/>
         <source>Apply</source>
         <translation>Anwenden</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CabinetProfilePage/CabinetProfilePage.qml" line="321"/>
+        <location filename="../UI/Pages/CabinetProfilePage/CabinetProfilePage.qml" line="351"/>
         <source>Setting up...</source>
         <translation>Einrichten...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CabinetProfilePage/CabinetProfilePage.qml" line="358"/>
+        <location filename="../UI/Pages/CabinetProfilePage/CabinetProfilePage.qml" line="389"/>
         <source>NONE</source>
         <translation>KEINER</translation>
     </message>
@@ -1567,97 +1595,97 @@
 <context>
     <name>CalendarGridApp</name>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="128"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="178"/>
         <source>Sunday</source>
         <translation>Sonntag</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="129"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="179"/>
         <source>Monday</source>
         <translation>Montag</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="130"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="180"/>
         <source>Tuesday</source>
         <translation>Dienstag</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="131"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="181"/>
         <source>Wednesday</source>
         <translation>Mittwoch</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="132"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="182"/>
         <source>Thursday</source>
         <translation>Donnerstag</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="133"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="183"/>
         <source>Friday</source>
         <translation>Freitag</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="134"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="184"/>
         <source>Saturday</source>
         <translation>Samstag</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="222"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="272"/>
         <source>January</source>
         <translation>Januar</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="223"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="273"/>
         <source>February</source>
         <translation>Fabruar</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="224"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="274"/>
         <source>March</source>
         <translation>März</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="225"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="275"/>
         <source>April</source>
         <translation>April</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="226"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="276"/>
         <source>May</source>
         <translation>Kann</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="227"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="277"/>
         <source>June</source>
         <translation>Juni</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="228"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="278"/>
         <source>July</source>
         <translation>Juli</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="229"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="279"/>
         <source>August</source>
         <translation>August</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="230"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="280"/>
         <source>September</source>
         <translation>September</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="231"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="281"/>
         <source>October</source>
         <translation>Oktober</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="232"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="282"/>
         <source>November</source>
         <translation>November</translation>
     </message>
     <message>
-        <location filename="../UI/CusCom/CalendarGridApp.qml" line="233"/>
+        <location filename="../UI/CusCom/CalendarGridApp.qml" line="283"/>
         <source>December</source>
         <translation>Dezember</translation>
     </message>
@@ -1851,6 +1879,71 @@
         <location filename="../UI/Pages/LoginPage/ChangePasswordPage.qml" line="75"/>
         <source>Back</source>
         <translation>Zurück</translation>
+    </message>
+</context>
+<context>
+    <name>ChooseConfigFilePage</name>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="51"/>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="365"/>
+        <source>USB Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="116"/>
+        <source>From</source>
+        <translation type="unfinished">Von</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="125"/>
+        <source>To</source>
+        <translation type="unfinished">Zu</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="208"/>
+        <source>Select Config file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="239"/>
+        <source>Empty</source>
+        <translation type="unfinished">Leer</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="342"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="357"/>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="396"/>
+        <source>Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="365"/>
+        <source>Please select valid source file!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="369"/>
+        <source>Are you sure want to import %1 as a new settings?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="370"/>
+        <source>Notification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="374"/>
+        <source>Copying...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml" line="397"/>
+        <source>New Configuration file has been imported</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2172,12 +2265,12 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation>Einrichten...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningParameters.qml" line="979"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningParameters.qml" line="983"/>
         <source>Setting failed</source>
         <translation>Einstellung fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningParameters.qml" line="980"/>
+        <location filename="../UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningParameters.qml" line="984"/>
         <source>The set value out of the allowable value limit (%1-%2)</source>
         <translation>Der eingestellte Wert außerhalb der zulässigen Wertgrenze (%1-%2)</translation>
     </message>
@@ -2314,7 +2407,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
 <context>
     <name>DataLogQmlApp</name>
     <message>
-        <location filename="../Modules/DataLog/DataLogQmlApp.cpp" line="351"/>
+        <location filename="../Modules/DataLog/DataLogQmlApp.cpp" line="352"/>
         <source>Failed to initiate file</source>
         <translation>Fehler beim Starten der Datei</translation>
     </message>
@@ -2388,13 +2481,9 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation>Zu exportierende Seite (z. B. 1 oder 1-10, max. 10 Seiten/Export)</translation>
     </message>
     <message>
-        <source>Delete older log start from</source>
-        <translation type="vanished">Ältestes Protokoll löschen ab</translation>
-    </message>
-    <message>
         <location filename="../UI/Pages/DataLogPage/DataLogSettingPage.qml" line="236"/>
-        <source>Delete oldest log start from</source>
-        <translation type="unfinished"></translation>
+        <source>Delete older log start from</source>
+        <translation>Ältestes Protokoll löschen ab</translation>
     </message>
     <message>
         <location filename="../UI/Pages/DataLogPage/DataLogSettingPage.qml" line="258"/>
@@ -2489,109 +2578,122 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation>Datum</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="71"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="59"/>
+        <source>Ensure you have removed the plastic (insulator) of the RTC Module battery!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="85"/>
         <source>Current date</source>
         <translation>Aktuelles Datum</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="90"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="104"/>
         <source>January</source>
         <translation>January</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="91"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="105"/>
         <source>February</source>
         <translation>Fabruar</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="92"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="106"/>
         <source>March</source>
         <translation>März</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="93"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="107"/>
         <source>April</source>
         <translation>April</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="94"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="108"/>
         <source>May</source>
         <translation>Kann</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="95"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="109"/>
         <source>June</source>
         <translation>Juni</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="96"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="110"/>
         <source>July</source>
         <translation>Juli</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="97"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="111"/>
         <source>August</source>
         <translation>August</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="98"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="112"/>
         <source>September</source>
         <translation>September</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="99"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="113"/>
         <source>October</source>
         <translation>Oktober</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="100"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="114"/>
         <source>November</source>
         <translation>November</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="101"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="115"/>
         <source>December</source>
         <translation>Dezember</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="123"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="137"/>
         <source>Tap to change</source>
         <translation>Zum Ändern tippen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="142"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="156"/>
         <source>This system has Network Time Protocol feature, pointing to time.google.com.</source>
         <translation>Dieses System verfügt über die Funktion Network Time Protocol, die auf time.google.com verweist.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="143"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="157"/>
         <source>It will prioritize to make synchronization the time with server based on Time Zone.</source>
         <translation>Die Synchronisierung der Uhrzeit mit dem Server basierend auf der Zeitzone wird priorisiert.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="186"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="218"/>
+        <source>Set Year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="222"/>
         <source>Setting up...</source>
         <translation>Setting up...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="197"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="233"/>
         <source>User: Set the date to</source>
         <translation>Benutzer: Stellen Sie das Datum auf . ein</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="232"/>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="268"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="286"/>
-        <source>User: Init date time</source>
-        <translation>Benutzer: Datum/Uhrzeit initialisieren</translation>
+        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="289"/>
+        <source>Next</source>
+        <translation type="unfinished">Nächste</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/DateSetPage/DateSetPage.qml" line="287"/>
+        <source>User: Init date time</source>
+        <translation type="vanished">Benutzer: Datum/Uhrzeit initialisieren</translation>
+    </message>
+    <message>
         <source>Setting up initial date...</source>
-        <translation>Ersttermin einrichten...</translation>
+        <translation type="vanished">Ersttermin einrichten...</translation>
     </message>
 </context>
 <context>
@@ -3056,6 +3158,32 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
 </context>
 <context>
+    <name>DialogApp</name>
+    <message>
+        <location filename="../UI/CusCom/DialogApp.qml" line="30"/>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/DialogApp.qml" line="31"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
+    </message>
+</context>
+<context>
+    <name>DialogContentApp</name>
+    <message>
+        <location filename="../UI/CusCom/Dialog/DialogContentApp.qml" line="31"/>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/Dialog/DialogContentApp.qml" line="32"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
+    </message>
+</context>
+<context>
     <name>DownflowGridFieldFragment</name>
     <message>
         <location filename="../UI/Pages/CertificationReportPage/Fragments/DownflowGridFieldFragment.qml" line="22"/>
@@ -3352,7 +3480,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
 <context>
     <name>EventLogQmlApp</name>
     <message>
-        <location filename="../Modules/EventLog/EventLogQmlApp.cpp" line="347"/>
+        <location filename="../Modules/EventLog/EventLogQmlApp.cpp" line="349"/>
         <source>Failed to initiate file</source>
         <translation>Fehler beim Starten der Datei</translation>
     </message>
@@ -3378,6 +3506,29 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <location filename="../UI/Pages/ExperimentTimerPage/ExperimentTimerPage.qml" line="331"/>
         <source>Back</source>
         <translation>Zurück</translation>
+    </message>
+</context>
+<context>
+    <name>ExperimentTimerService</name>
+    <message>
+        <location filename="../UI/CusCom/ExperimentTimerService.qml" line="32"/>
+        <source>Experiment timer is completed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/ExperimentTimerService.qml" line="41"/>
+        <source>Experiment timer is started</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/ExperimentTimerService.qml" line="46"/>
+        <source>Experiment timer is paused</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/ExperimentTimerService.qml" line="51"/>
+        <source>Experiment timer is stopped</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3720,17 +3871,17 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation>Zulaufventilator (%)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanSpeedPage/FanSpeedPage.qml" line="109"/>
+        <location filename="../UI/Pages/FanSpeedPage/FanSpeedPage.qml" line="111"/>
         <source>Downflow Fan</source>
         <translation>Downflow-Ventilator</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanSpeedPage/FanSpeedPage.qml" line="129"/>
+        <location filename="../UI/Pages/FanSpeedPage/FanSpeedPage.qml" line="131"/>
         <source>Downflow Fan (%)</source>
         <translation>Downflow-Ventilator (%)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FanSpeedPage/FanSpeedPage.qml" line="179"/>
+        <location filename="../UI/Pages/FanSpeedPage/FanSpeedPage.qml" line="183"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
@@ -4999,12 +5150,21 @@ The ideal environmental temperature is between </translation>
         <translation>LCD-Helligkeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LcdBrightnessPage/LcdBrightnessPage.qml" line="143"/>
-        <source>to dimm automatically</source>
-        <translation>automatisch dimmen</translation>
+        <location filename="../UI/Pages/LcdBrightnessPage/LcdBrightnessPage.qml" line="148"/>
+        <source>to dim automatically</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LcdBrightnessPage/LcdBrightnessPage.qml" line="171"/>
+        <location filename="../UI/Pages/LcdBrightnessPage/LcdBrightnessPage.qml" line="156"/>
+        <source>The screen will be locked when auto dim is executed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to dimm automatically</source>
+        <translation type="vanished">automatisch dimmen</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LcdBrightnessPage/LcdBrightnessPage.qml" line="183"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
@@ -5478,12 +5638,12 @@ The ideal environmental temperature is between </translation>
         <translation>Der Wert für das Lüfter-Tastverhältnis ist nicht gültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="798"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="802"/>
         <source>Close from manual input data?</source>
         <translation>Schließen von manuellen Eingabedaten?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="805"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="809"/>
         <source>Please wait</source>
         <translation>Warten Sie mal</translation>
     </message>
@@ -5551,7 +5711,7 @@ The ideal environmental temperature is between </translation>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="390"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="483"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="1116"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="1120"/>
         <source>Adjusting fan duty cycle...</source>
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
@@ -5702,7 +5862,7 @@ The ideal environmental temperature is between </translation>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="417"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="522"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="1137"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="1141"/>
         <source>Adjusting fan duty cycle...</source>
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
@@ -5845,7 +6005,7 @@ The ideal environmental temperature is between </translation>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="375"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="468"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="1079"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="1083"/>
         <source>Adjusting fan duty cycle...</source>
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
@@ -6193,58 +6353,135 @@ The ideal environmental temperature is between </translation>
     <name>NetworkConfigPage</name>
     <message>
         <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="44"/>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="367"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="670"/>
         <source>Network</source>
         <translation>Netzwerk</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="69"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="86"/>
         <source>Connected to</source>
         <translation>Verbunden</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="76"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="93"/>
         <source>Connecting to</source>
         <translation>Verbinden mit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="90"/>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="122"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="107"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="139"/>
         <source>None</source>
         <translation>Keiner</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="147"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="164"/>
         <source>forget</source>
         <translation>vergessen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="191"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="215"/>
         <source>Available Access Point</source>
         <translation>Available Access Point</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="223"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="247"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="284"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="308"/>
         <source>Scanning...</source>
         <translation>Scannen...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="333"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="345"/>
+        <source>Static Wired Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="375"/>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="375"/>
+        <source>Disabled</source>
+        <translation type="unfinished">Behinderte</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="415"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="433"/>
+        <source>IPv4 Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="470"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="485"/>
+        <source>IPv4 Conn Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="541"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="347"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="556"/>
+        <source>Wired Conn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="556"/>
+        <source>Wireless Conn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="571"/>
+        <source>Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="575"/>
+        <source>Setting up...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="581"/>
+        <source>Restart Now</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="582"/>
+        <source>You may need to restart the system to apply these changes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="585"/>
+        <source>Restart...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="600"/>
+        <source>Restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="601"/>
+        <source>Restart Later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="614"/>
         <source>Scan</source>
         <translation>Scan</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="367"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="627"/>
+        <source>Next</source>
+        <translation type="unfinished">Nächste</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="670"/>
         <source>Forget the connection?</source>
         <translation>Verbindung vergessen?</translation>
     </message>
@@ -6790,8 +7027,12 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="156"/>
-        <source>The system will be restarted after you click the &apos;Save&apos; button</source>
-        <translation>Das System wird neu gestartet, nachdem Sie auf die Schaltfläche &apos;Speichern&apos; geklickt haben</translation>
+        <source>The system will be restarted after you press the &apos;%1&apos; button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The system will be restarted after you press the &apos;Save&apos; button</source>
+        <translation type="vanished">Das System wird neu gestartet, nachdem Sie auf die Schaltfläche &apos;Speichern&apos; geklickt haben</translation>
     </message>
     <message>
         <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="185"/>
@@ -6939,6 +7180,14 @@ accepted for read operation.</source>
         <location filename="../UI/Pages/RemoteModbusPage/RemoteModbusPage.qml" line="435"/>
         <source>None</source>
         <translation>Keiner</translation>
+    </message>
+</context>
+<context>
+    <name>ReplaceableCompRecordQmlApp</name>
+    <message>
+        <location filename="../Modules/ReplaceableCompRecord/ReplaceableCompRecordQmlApp.cpp" line="330"/>
+        <source>Failed to initiate file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7209,6 +7458,14 @@ every time the sash hits a safe height</source>
         <location filename="../UI/Pages/ResetUvLifePage/ResetUvLifePage.qml" line="129"/>
         <source>Back</source>
         <translation>Zurück</translation>
+    </message>
+</context>
+<context>
+    <name>ResourceMonitorLogQmlApp</name>
+    <message>
+        <location filename="../Modules/ResourceMonitorLog/ResourceMonitorLogQmlApp.cpp" line="342"/>
+        <source>Failed to initiate file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7820,54 +8077,162 @@ every time the sash hits a safe height</source>
     </message>
 </context>
 <context>
-    <name>SoftwareLicensePage</name>
+    <name>SoftwareHistoryPage</name>
     <message>
-        <location filename="../UI/Pages/SoftwareLicensePage/SoftwareLicensePage.qml" line="47"/>
-        <source>Blank Page</source>
-        <translation>Leere Seite</translation>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareHistoryPage.qml" line="47"/>
+        <source>Software Version History</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SoftwareLicensePage/SoftwareLicensePage.qml" line="97"/>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareHistoryPage.qml" line="410"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SoftwareLicensePage</name>
+    <message>
+        <source>Blank Page</source>
+        <translation type="vanished">Leere Seite</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareLicensePage/SoftwareLicensePage.qml" line="48"/>
+        <source>Software License</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareLicensePage/SoftwareLicensePage.qml" line="125"/>
         <source>Back</source>
         <translation>Zurück</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareLicensePage/SoftwareLicensePage.qml" line="141"/>
+        <source>Next</source>
+        <translation type="unfinished">Nächste</translation>
     </message>
 </context>
 <context>
     <name>SoftwareUpdatePage</name>
     <message>
-        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="43"/>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="45"/>
         <source>Software Update</source>
         <translation>Software-Aktualisierung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="63"/>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="65"/>
         <source>Current</source>
         <translation>Strom</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="121"/>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="94"/>
+        <source>Tap to view version history</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="114"/>
+        <source>New update software version is currently available on SVN server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="115"/>
+        <source>Press &lt;b&gt;SVN Update&lt;/b&gt; to perform the update!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="120"/>
+        <source>No SVN update available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="146"/>
+        <source>SVN Update Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="193"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="133"/>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="209"/>
+        <source>SVN Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="222"/>
+        <source>Warning</source>
+        <translation type="unfinished">Warnung</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="223"/>
+        <source>Software update file path is not exist!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="248"/>
         <source>Next</source>
         <translation>Nächste</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="136"/>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="212"/>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="251"/>
         <source>Are you sure want to continue to update?</source>
         <translation>Möchten Sie die Aktualisierung wirklich fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="137"/>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="213"/>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="252"/>
         <source>Notification</source>
         <translation>Benachrichtigung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="142"/>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="229"/>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SoftwareUpdatePage.qml" line="257"/>
         <source>Load the updater...</source>
         <translation>Laden Sie den Updater...</translation>
+    </message>
+</context>
+<context>
+    <name>SvnUpdateSettingsPage</name>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SvnUpdateSettingsPage.qml" line="43"/>
+        <source>SVN Update Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SvnUpdateSettingsPage.qml" line="69"/>
+        <source>Enable</source>
+        <translation type="unfinished">Aktivieren</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SvnUpdateSettingsPage.qml" line="105"/>
+        <source>Check for update every</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SvnUpdateSettingsPage.qml" line="123"/>
+        <source>1 minute</source>
+        <translation type="unfinished">1 Minute</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SvnUpdateSettingsPage.qml" line="124"/>
+        <source>10 minutes</source>
+        <translation type="unfinished">10 Minuten</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SvnUpdateSettingsPage.qml" line="125"/>
+        <source>30 minutes</source>
+        <translation type="unfinished">10 Minuten {30 ?}</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SvnUpdateSettingsPage.qml" line="126"/>
+        <source>1 hour</source>
+        <translation type="unfinished">1 Stunde</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/SvnUpdateSettingsPage.qml" line="161"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7893,27 +8258,37 @@ every time the sash hits a safe height</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SystemInformationPage/SystemInformationPage.qml" line="362"/>
+        <location filename="../UI/Pages/SystemInformationPage/SystemInformationPage.qml" line="367"/>
+        <source>Export Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/SystemInformationPage.qml" line="386"/>
+        <source>Import Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SystemInformationPage/SystemInformationPage.qml" line="403"/>
         <source>Configure</source>
         <translation>Konfigurieren</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SystemInformationPage/SystemInformationPage.qml" line="365"/>
+        <location filename="../UI/Pages/SystemInformationPage/SystemInformationPage.qml" line="406"/>
         <source>Configure the current system to be registered system?</source>
         <translation>Das aktuelle System als registriertes System konfigurieren?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SystemInformationPage/SystemInformationPage.qml" line="366"/>
+        <location filename="../UI/Pages/SystemInformationPage/SystemInformationPage.qml" line="407"/>
         <source>The system will restart after this action!</source>
         <translation>Das System wird nach dieser Aktion neu gestartet!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SystemInformationPage/SystemInformationPage.qml" line="367"/>
+        <location filename="../UI/Pages/SystemInformationPage/SystemInformationPage.qml" line="408"/>
         <source>Configure system</source>
         <translation>System konfigurieren</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SystemInformationPage/SystemInformationPage.qml" line="372"/>
+        <location filename="../UI/Pages/SystemInformationPage/SystemInformationPage.qml" line="413"/>
         <source>Please wait</source>
         <translation></translation>
     </message>
@@ -8430,14 +8805,72 @@ every time the sash hits a safe height</source>
     </message>
 </context>
 <context>
+    <name>UpdateExecutePage</name>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml" line="87"/>
+        <source>Starting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml" line="93"/>
+        <source>Don&apos;t turn off the device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml" line="109"/>
+        <source>Log: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml" line="159"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml" line="164"/>
+        <source>Attention</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml" line="165"/>
+        <source>This process cannot be undone!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml" line="191"/>
+        <source>Restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml" line="248"/>
+        <source>Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml" line="256"/>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml" line="269"/>
+        <source>Starting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml" line="278"/>
+        <source>Updating...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>UserEditFormPage</name>
     <message>
         <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="37"/>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="535"/>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="546"/>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="570"/>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="593"/>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="597"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="572"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="583"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="604"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="627"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="631"/>
         <source>Edit User</source>
         <translation>Benutzer bearbeiten</translation>
     </message>
@@ -8450,102 +8883,140 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="77"/>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="339"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="195"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="374"/>
         <source>Invalid!</source>
         <translation>Ungültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="132"/>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="148"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="137"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="153"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="172"/>
         <source>Username</source>
         <translation>Nutzername</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="138"/>
         <source>Not editable!</source>
-        <translation>Nicht editierbar!</translation>
+        <translation type="vanished">Nicht editierbar!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="198"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="213"/>
         <source>New Password</source>
         <translation>Neues Kennwort</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="204"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="219"/>
         <source>Min. length is</source>
         <translation>Mindest. Länge ist</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="214"/>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="258"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="229"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="293"/>
         <source>Create New Password</source>
         <translation>Neues Passwort erstellen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="270"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="305"/>
         <source>Confirm Password</source>
         <translation>Kennwort bestätigen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="276"/>
         <source>Not match!</source>
-        <translation>Kennwort bestätigen!</translation>
+        <translation type="vanished">Kennwort bestätigen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="287"/>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="321"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="322"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="356"/>
         <source>Retype New Password</source>
         <translation>Neues Passwort erneut eingeben</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="333"/>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="391"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="368"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="426"/>
         <source>Email</source>
         <translation>Email</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="401"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="436"/>
         <source>User Level</source>
         <translation>Benutzerlevel</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="504"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="541"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="518"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="555"/>
         <source>Update</source>
         <translation>Aktualisieren</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="536"/>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="547"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="573"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="584"/>
         <source>There is invalid value!</source>
         <translation>Es ist ein ungültiger Wert vorhanden!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="552"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="200"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="589"/>
         <source>Please wait</source>
         <translation>Warten Sie mal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="571"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="113"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="182"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="264"/>
+        <source>min/max length: %1/%2!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="257"/>
+        <source>try another password!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="271"/>
+        <source>must contain letters, numbers &amp; special chars.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="311"/>
+        <source>Not matched!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="605"/>
         <source>There are no new values that need to updated!</source>
         <translation>Es gibt keine neuen Werte, die aktualisiert werden müssen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="593"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="627"/>
         <source>There is problem during editing user in database!</source>
         <translation>Es gibt ein Problem beim Bearbeiten des Benutzers in der Datenbank!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="597"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="631"/>
         <source>User has updated successfully!</source>
         <translation>Benutzer hat erfolgreich aktualisiert!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="608"/>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="640"/>
+        <source>User Registration</source>
+        <translation type="unfinished">Benutzer Registration</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="640"/>
+        <source>Failed database transaction!</source>
+        <translation type="unfinished">Fehlgeschlagene Datenbanktransaktion!</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="649"/>
+        <source>username already taken!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserEditFormPage.qml" line="663"/>
         <source>Loading...</source>
         <translation>Wird geladen...</translation>
     </message>
@@ -8554,118 +9025,145 @@ every time the sash hits a safe height</source>
     <name>UserManagePage</name>
     <message>
         <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="44"/>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="406"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="435"/>
         <source>Users</source>
         <translation>Benutzer</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="277"/>
         <source>operator</source>
-        <translation>Operator</translation>
+        <translation type="vanished">Operator</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="279"/>
         <source>admin</source>
-        <translation>Administrator</translation>
+        <translation type="vanished">Administrator</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="281"/>
         <source>supervisor</source>
-        <translation>Supervisor</translation>
+        <translation type="vanished">Supervisor</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="283"/>
         <source>service</source>
-        <translation>Service</translation>
+        <translation type="vanished">Service</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="285"/>
         <source>factory</source>
-        <translation>Fabrik</translation>
+        <translation type="vanished">Fabrik</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="287"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="182"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="210"/>
+        <source>Access denied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="183"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="211"/>
+        <source>You do not have permission to perform this action!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="304"/>
+        <source>Guest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="306"/>
+        <source>Operator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="308"/>
+        <source>Supervisor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="310"/>
+        <source>Administrator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="312"/>
+        <source>Maintenance</source>
+        <translation type="unfinished">Instandhaltung</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="314"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="322"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="349"/>
         <source>Oops!</source>
         <translation>Hoppla!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="327"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="354"/>
         <source>Seems like there&apos;s no users registered yet.</source>
         <translation>Anscheinend sind noch keine Benutzer registriert.</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="372"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="399"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="385"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="412"/>
         <source>Refresh</source>
         <translation>Aktualisierung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="399"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="428"/>
         <source>Add User</source>
         <translation>Nutzer hinzufügen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="403"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="432"/>
         <source>All the slots has been occupied!</source>
         <translation>Alle Plätze sind belegt!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="405"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="434"/>
         <source>Maximum user registered is </source>
         <translation>Die maximale Anzahl registrierter Benutzer ist </translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="446"/>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="483"/>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="497"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="490"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="529"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="543"/>
         <source>Loading...</source>
         <translation>Wird geladen...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="473"/>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="491"/>
         <source>Access denied!</source>
-        <translation>Zugriff abgelehnt!</translation>
+        <translation type="vanished">Zugriff abgelehnt!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="474"/>
         <source>Edit User</source>
-        <translation>Benutzer bearbeiten</translation>
+        <translation type="vanished">Benutzer bearbeiten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="481"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="527"/>
         <source>Delete user</source>
         <translation>Benutzer löschen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="482"/>
+        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="528"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserManagePage.qml" line="492"/>
         <source>Delete User</source>
-        <translation>Benutzer löschen</translation>
+        <translation type="vanished">Benutzer löschen</translation>
     </message>
 </context>
 <context>
     <name>UserRegistrationFormPage</name>
     <message>
         <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="39"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="502"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="530"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="534"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="550"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="554"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="532"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="565"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="583"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="587"/>
         <source>User Registration</source>
         <translation>Benutzer Registration</translation>
     </message>
@@ -8678,111 +9176,171 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="79"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="133"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="321"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="174"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="194"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="354"/>
         <source>Invalid!</source>
         <translation>Ungültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="127"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="144"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="113"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="181"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="250"/>
+        <source>min/max length: %1/%2!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="130"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="147"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="164"/>
         <source>Username</source>
         <translation>Nutzername</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="161"/>
         <source>User Name</source>
-        <translation>Nutzername</translation>
+        <translation type="vanished">Nutzername</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="186"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="207"/>
         <source>New Password</source>
         <translation>Neues Kennwort</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="192"/>
         <source>Min. length is</source>
-        <translation>Mindest. Länge ist</translation>
+        <translation type="vanished">Mindest. Länge ist</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="202"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="238"/>
         <source>Create New Password</source>
-        <translation>Neues Passwort erstellen</translation>
+        <translation type="vanished">Neues Passwort erstellen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="250"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="283"/>
         <source>Confirm Password</source>
         <translation>Kennwort bestätigen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="256"/>
         <source>Not match!</source>
-        <translation>Kennwort bestätigen!</translation>
+        <translation type="vanished">Kennwort bestätigen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="267"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="303"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="300"/>
         <source>Retype New Password</source>
         <translation>Neues Passwort erneut eingeben</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="315"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="366"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="336"/>
+        <source>Retype Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="348"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="399"/>
         <source>Email</source>
         <translation>Email</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="376"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="409"/>
         <source>User Level</source>
         <translation>Benutzerlevel</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="430"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="428"/>
+        <source>Operator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="428"/>
+        <source>Supervisor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="428"/>
+        <source>Administrator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="461"/>
         <source>I have confirmed for all the filled data in the form</source>
         <translation>Ich habe alle ausgefüllten Daten im Formular bestätigt</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="472"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="503"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="487"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="518"/>
         <source>Submit</source>
         <translation>einreichen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="503"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="533"/>
         <source>There is invalid value!</source>
         <translation>Es ist ein ungültiger Wert vorhanden!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="508"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="543"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="569"/>
+        <source>username already taken!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="587"/>
+        <source>User has been added successfully!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="189"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="538"/>
         <source>Please wait</source>
         <translation>Warten Sie mal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="530"/>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="550"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="223"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="271"/>
+        <source>Create Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="256"/>
+        <source>must contain letters, numbers &amp; special chars.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="289"/>
+        <source>Not matched!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="565"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="583"/>
         <source>Failed database transaction!</source>
         <translation>Fehlgeschlagene Datenbanktransaktion!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="534"/>
         <source>Username is already exist!</source>
-        <translation>Benutzername ist bereits vorhanden!</translation>
+        <translation type="vanished">Benutzername ist bereits vorhanden!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="554"/>
         <source>User was added successfully!</source>
-        <translation>Benutzer wurde erfolgreich hinzugefügt!</translation>
+        <translation type="vanished">Benutzer wurde erfolgreich hinzugefügt!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="564"/>
+        <location filename="../UI/Pages/UserManagePage/UserRegistrationFormPage.qml" line="598"/>
         <source>Loading...</source>
         <translation>Wird geladen...</translation>
+    </message>
+</context>
+<context>
+    <name>ViewApp</name>
+    <message>
+        <location filename="../UI/CusCom/ViewApp.qml" line="176"/>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/ViewApp.qml" line="177"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
 </context>
 <context>

@@ -8,6 +8,7 @@ import ModulesCpp.Machine 1.0
 Item {
     id: control
     signal finished()
+    signal goBack()
 
     property bool autoPlay
 
@@ -17,142 +18,142 @@ Item {
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
-
-            Loader {
-                id:animationGifLoader
-                anchors.fill: parent
-                anchors.margins: 10
-
-                sourceComponent:AnimatedImage {
-                    id: homepageGif
-                    anchors.fill: parent
-
-                    cache: false
-
-                    source: "qrc:/Assets/QuickTourGIF/HomePage.gif"
-
-                    property int indexgif: 1
-
-                    onPlayingChanged: {
-                        if (homepageGif.playing == false) {
-                            animationGifLoader.active = false
-                            animationImageLoader.active = true
-
-                            props.pageIndicatorGif = indexgif
-                        }
-                    }//
-
-                    MouseArea {
+            Image{
+                source: "qrc:/Assets/background-qtour.png"
+                anchors.centerIn: parent
+                Item {
+                    height: 380
+                    width: 649
+                    anchors.centerIn: parent
+                    Loader {
+                        id:animationGifLoader
                         anchors.fill: parent
+                        //anchors.margins: 10
 
-                        onClicked: {
-                            animationGifLoader.active = false
-                            animationImageLoader.active = true
+                        sourceComponent:AnimatedImage {
+                            id: animationGif
+                            anchors.fill: parent
 
-                            props.pageIndicatorGif = indexgif
+                            cache: false
+
+                            source: "qrc:/Assets/QuickTourGIF/HomePage.gif"
+
+                            property int indexgif: 1
+
+                            onPlayingChanged: {
+                                if (animationGif.playing == false) {
+                                    animationGifLoader.active = false
+                                    animationImageLoader.active = true
+
+                                    props.pageIndicatorGif = indexgif
+                                }
+                            }//
+
+                            MouseArea {
+                                anchors.fill: parent
+
+                                onClicked: {
+                                    animationGifLoader.active = false
+                                    animationImageLoader.active = true
+
+                                    props.pageIndicatorGif = indexgif
+                                }//
+                            }//
                         }//
                     }//
-                }//
-            }//
-
-            Loader {
-                id: animationImageLoader
-                anchors.fill: parent
-                anchors.margins: 10
-                active: false
-
-                sourceComponent:Image {
-                    id: homepageImageSquence
-                    source: screenColection[indexScreen]
-
-                    cache: false
-
-                    property int indexScreen: props.indexing
-                    property var screenColection: [
-                        "qrc:/Assets/QuickTourHomepage/HomeFirst.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeSecond.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFirst.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeThird.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFirst.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFourth.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFourth_1.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFirst.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFourth_LampButton_dim.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFourth_silder100.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFourth_slider65.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFourth_lamp65.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFourth_v2.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFifth.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeSixth.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeFifth.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeSeventh.png"
-                    ]
-
-                    Timer {
-                        id: screenTimer
-                        running: autoPlay
-                        interval: 3000
-                        repeat: true
-                        onTriggered: {
-
-
-                            props.indexing = homepageImageSquence.indexScreen
-
-                            props.maxIndex = homepageImageSquence.screenColection.length
-
-
-                            let indexing = homepageImageSquence.indexScreen
-                            indexing = indexing + 1
-
-                            props.pageIndicator = props.pageIndicatorGif + indexing -1
-
-                            console.log("timerpr: " + props.pageIndicator)
-
-                            props.indexing = indexing
-
-                            let maxValue = homepageImageSquence.screenColection.length
-
-                            if (indexing === maxValue){
-                                screenTimer.running = false
-
-                                control.finished()
-
-                                props.pageIndicator = maxValue
-
-                            }
-                            console.log("timer:" + screenTimer.running)
-                            console.log("checkboxAutoPlay:" + autoPlay)
-                        }//
-                    }//
-
-                    MouseArea {
+                }
+                Item {
+                    height: 380
+                    width: 649
+                    anchors.centerIn: parent
+                    Loader {
+                        id: animationImageLoader
                         anchors.fill: parent
+                        //anchors.margins: 10
+                        active: false
 
-                        onClicked: {
+                        sourceComponent:Image {
+                            id: imageSquence
+                            source: screenColection[indexScreen]
+
+                            cache: false
+
+                            property int indexScreen: props.indexing
+                            property var screenColection: [
+                                "qrc:/Assets/QuickTourHomepage/homepage_00.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_01.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_02.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_03.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_04.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_05.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_06.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_07.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_08.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_09.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_09_1.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_10.png",
+                            ]//
+
+                            Timer {
+                                id: screenTimer
+                                running: autoPlay && props.timerRunning
+                                interval: 3000
+                                repeat: true
+                                onTriggered: {
+                                    props.indexing = imageSquence.indexScreen
+
+                                    props.maxIndex = imageSquence.screenColection.length
 
 
-                            let indexing = homepageImageSquence.indexScreen
+                                    let indexing = imageSquence.indexScreen
+                                    indexing = indexing + 1
 
-                            let maxValue = homepageImageSquence.screenColection.length
+                                    props.pageIndicator = props.pageIndicatorGif + indexing -1
 
-                            if (indexing < maxValue - 1){
-                                //screenTimer.restart()
-                                indexing = indexing + 1
+                                    console.log("timerpr: " + props.pageIndicator)
 
-                                props.pageIndicator = props.pageIndicatorGif + indexing - 1
+                                    props.indexing = indexing
 
-                                console.log("mouse: " + props.pageIndicator)
+                                    let maxValue = imageSquence.screenColection.length
 
-                                props.indexing = indexing
-                            }
-                            else {
-                                screenTimer.running = false
-                                //animationImageLoaderLoginSection.active = true
-                                control.finished()
-                            }
+                                    if (indexing === maxValue){
+                                        screenTimer.running = false
+                                        props.pageIndicator = maxValue
+                                        control.finished()
+                                    }
+                                    console.log("timer:" + screenTimer.running)
+                                    console.log("checkboxAutoPlay:" + autoPlay)
+                                }//
+                            }//
+
+                            MouseArea {
+                                anchors.fill: parent
+
+                                onClicked: {
+                                    let indexing = imageSquence.indexScreen
+
+                                    let maxValue = imageSquence.screenColection.length
+
+                                    if (indexing < maxValue - 1){
+                                        //screenTimer.restart()
+                                        indexing = indexing + 1
+                                        props.pageIndicator = props.pageIndicatorGif + indexing - 1
+
+                                        console.log("mouse: " + props.pageIndicator)
+
+                                        props.indexing = indexing
+                                    }
+                                    else {
+                                        screenTimer.running = false
+                                        //animationImageLoaderLoginSection.active = true
+                                        control.finished()
+                                    }
+                                }//
+                            }//
+                            Component.onCompleted: props.screenCollectionCount = imageSquence.screenColection.length
                         }//
                     }//
-                }//
+                }
             }//
         }//
 
@@ -195,13 +196,13 @@ Item {
                 }//
 
                 PageIndicator {
-                    id: pageLoginSectionIndicator
+                    id: pageSectionIndicator
                     //anchors.verticalCenter: parent.verticalCenter
                     //anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.bottom: parent.bottom
                     interactive: false
                     currentIndex: props.pageIndicator
-                    count: 17
+                    count: props.screenCollectionCount
                 }//
 
                 Rectangle {
@@ -221,13 +222,21 @@ Item {
                         anchors.fill: parent
 
                         onClicked: {
-
-                            if (props.indexing < pageLoginSectionIndicator.count - 1){
-                                props.indexing = props.indexing + 1
-                                props.pageIndicator = props.indexing
-                            }
-                            else {
-                                return
+                            if(animationGifLoader.active){
+                                animationGifLoader.active = false
+                                animationImageLoader.active = true
+                                props.pageIndicatorGif = 1
+                            }else{
+                                if (props.indexing < pageSectionIndicator.count - 1){
+                                    props.indexing = props.indexing + 1
+                                    props.pageIndicator = props.indexing
+                                }
+                                else {
+                                    if(control.autoPlay){
+                                        props.timerRunning = false
+                                        control.finished()
+                                    }else return
+                                }
                             }
                         }//
                     }//
@@ -246,6 +255,8 @@ Item {
         property int indexing: 0
 
         property int maxIndex: 0
+        property int screenCollectionCount: 0
+        property bool timerRunning: true
 
     }//
 }//

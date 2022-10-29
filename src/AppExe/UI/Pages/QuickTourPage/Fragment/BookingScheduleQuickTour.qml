@@ -9,6 +9,7 @@ import ModulesCpp.Machine 1.0
 Item {
     id: control
     signal finished()
+    signal goBack()
 
     property bool autoPlay: false
 
@@ -18,107 +19,108 @@ Item {
         Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
-
-            Loader {
-                id: animationImageLoaderLoginSection
-                anchors.fill: parent
-                anchors.margins: 10
-                active: true
-
-                sourceComponent:Image {
-                    id: homepageImageSquenceLoginSection
-                    source: screenColection[indexScreen]
-
-                    cache: false
-
-
-                    property int indexScreen: props.indexing
-                    property var screenColection: [
-                        "qrc:/Assets/QuickTourHomepage/HomeFirst.png",
-                        "qrc:/Assets/QuickTourHomepage/HomeEnd.png",
-                        "qrc:/Assets/QuickTourEventLog/eventLog1.png",
-                        "qrc:/Assets/QuickTourEventLog/eventlog2.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/BookingMenu.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking1.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking2.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking3.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking1.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking4.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking5.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking6.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Booking7.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking8.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking9.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking10.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking11.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking12.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking13.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking13_1.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking14.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking14_1.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking15.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking16.png",
-                        "qrc:/Assets/QuickTourBookingSchedule/Boooking17.png",
-                    ]
-
-                    Timer {
-                        id: screenTimerLoginSection
-                        running: autoPlay
-                        //interval: 3000
-                        interval: 3000
-                        repeat: true
-                        onTriggered: {
-                            let indexing = homepageImageSquenceLoginSection.indexScreen
-                            indexing = indexing + 1
-
-                            props.pageIndicator = indexing
-
-                            //homepageImageSquenceLoginSection.indexScreen = indexing
-                            props.indexing = indexing
-
-                            let maxValue = homepageImageSquenceLoginSection.screenColection.length
-
-                            if (indexing === maxValue){
-                                screenTimerLoginSection.running = false
-                                //animationImageLoaderNetworkSection.active = true
-
-                                props.pageIndicator = maxValue
-
-                                control.finished()
-
-                            }
-//                            console.log("timer:" + screenTimerLoginSection.running)
-                        }//
-                    }//
-
-                    MouseArea {
+            Image{
+                source: "qrc:/Assets/background-qtour.png"
+                anchors.centerIn: parent
+                Item {
+                    height: 380
+                    width: 649
+                    anchors.centerIn: parent
+                    Loader {
+                        id: animationImageLoaderSection
                         anchors.fill: parent
+                        //anchors.margins: 10
+                        active: true
 
-                        onClicked: {
+                        sourceComponent:Image {
+                            id: imageSquenceSection
+                            source: screenColection[indexScreen]
 
-                            let indexing = homepageImageSquenceLoginSection.indexScreen
-
-                            let maxValue = homepageImageSquenceLoginSection.screenColection.length
-
-                            if (indexing < maxValue - 1){
-
-                                indexing = indexing + 1
-
-                                props.pageIndicator = indexing
+                            cache: false
 
 
-                                props.indexing = indexing
-                            }
-                            else {
-                                screenTimerLoginSection.running = false
+                            property int indexScreen: props.indexing
+                            property var screenColection: [
+                                "qrc:/Assets/QuickTourHomepage/homepage_00.png",
+                                "qrc:/Assets/QuickTourHomepage/homepage_11.png",
+                                "qrc:/Assets/QuickTourEventLog/eventlog_00.png",
+                                "qrc:/Assets/QuickTourEventLog/eventlog_01.png",
+                                "qrc:/Assets/QuickTourEventLog/eventlog_02.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_00.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_01.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_02.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_03.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_04.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_05.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_06.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_07.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_08.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_09.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_10.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_11.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_12.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_13.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_14.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_15.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_16.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_17.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_18.png",
+                                "qrc:/Assets/QuickTourBookingSchedule/booking_19.png",
+                            ]
 
-                                control.finished()
-                                //animationImageLoaderNetworkSection.active = true
+                            Timer {
+                                id: screenTimerSection
+                                running: autoPlay & props.timerRunning
+                                //interval: 3000
+                                interval: 3000
+                                repeat: true
+                                onTriggered: {
+                                    let indexing = imageSquenceSection.indexScreen
+                                    let maxValue = imageSquenceSection.screenColection.length
+                                    indexing = indexing + 1
 
-                            }
+                                    if (indexing === maxValue){
+                                        screenTimerSection.running = false
+                                        props.pageIndicator = maxValue
+                                        control.finished()
+                                    }else{
+                                        props.pageIndicator = indexing
+                                        props.indexing = indexing
+                                    }
+                                }//
+                            }//
+
+                            MouseArea {
+                                anchors.fill: parent
+
+                                onClicked: {
+
+                                    let indexing = imageSquenceSection.indexScreen
+
+                                    let maxValue = imageSquenceSection.screenColection.length
+
+                                    if (indexing < maxValue - 1){
+
+                                        indexing = indexing + 1
+
+                                        props.pageIndicator = indexing
+
+
+                                        props.indexing = indexing
+                                    }
+                                    else {
+                                        screenTimerSection.running = false
+
+                                        control.finished()
+                                        //animationImageLoaderNetworkSection.active = true
+
+                                    }
+                                }//
+                            }//
+                            Component.onCompleted: props.screenCollectionCount = imageSquenceSection.screenColection.length
                         }//
                     }//
-                }//
+                }
             }//
         }//
 
@@ -154,20 +156,23 @@ Item {
                                 props.pageIndicator = props.indexing
                             }
                             else {
-                                return
+                                if(control.autoPlay){
+                                    props.timerRunning = false
+                                    control.goBack()
+                                }
                             }
                         }//
                     }//
                 }//
 
                 PageIndicator {
-                    id: pageLoginSectionIndicator
+                    id: pageSectionIndicator
                     //anchors.verticalCenter: parent.verticalCenter
                     //anchors.horizontalCenter: parent.horizontalCenter
                     //anchors.bottom: parent.bottom
                     interactive: false
                     currentIndex: props.pageIndicator
-                    count: 25
+                    count: props.screenCollectionCount
                 }//
 
                 Rectangle {
@@ -188,11 +193,15 @@ Item {
 
                         onClicked: {
 
-                            if (props.indexing < pageLoginSectionIndicator.count - 1){
+                            if (props.indexing < pageSectionIndicator.count - 1){
                                 props.indexing = props.indexing + 1
                                 props.pageIndicator = props.indexing
                             }
                             else {
+                                if(control.autoPlay){
+                                    props.timerRunning = false
+                                    control.finished()
+                                }
                                 return
                             }
                         }//
@@ -205,7 +214,8 @@ Item {
     QtObject {
         id: props
         property int pageIndicator: 0
-
+        property int screenCollectionCount: 0
+        property bool timerRunning: true
         property int indexing: 0
     }//
 }//

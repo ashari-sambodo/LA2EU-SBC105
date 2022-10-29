@@ -257,7 +257,7 @@ ViewApp {
 
                                         MouseArea {
                                             anchors.fill: parent
-                                            onPressed: {
+                                            onClicked: {
                                                 if (fileIsDir) {
                                                     // console.log("fileURL: " + fileURL)
                                                     folderListModel.folder = fileURL
@@ -308,8 +308,7 @@ ViewApp {
                             text: qsTr("Back")
 
                             onClicked: {
-                                var intent = IntentApp.create(uri, {"message":""})
-                                finishView(intent)
+                                props.confirmBackToClose()
                             }//
                         }//
 
@@ -361,11 +360,69 @@ ViewApp {
             property string sourceFileName: ""
             property string destinationPath: ""
             property string destinationFilePath: ""
+            property bool removeAfterCopy: true
+
+            function showUsbEjectInstruction(goToHome){
+                const bypass = false
+                if(MachineData.usbDetectedList !== "" || bypass){
+                    if(goToHome === undefined) goToHome = false
+                    const text = qsTr("To safely remove your USB drive:")
+                               + "<ul><li>"+ qsTr("Double click on USB drive icon at Homescreen,") + "</li><li>"
+                               + qsTr("Select your USB drive.") + "</li></ul>"
+                    showDialogMessage(qsTr("Remove USB Drive"),
+                                      text,
+                                      dialogInfo,
+                                      function onCLosed(){
+                                          if(props.removeAfterCopy)
+                                              usbCopier.remove(props.sourceFilePath)
+                                          if(goToHome){
+                                              const intent = IntentApp.create("", {})
+                                              startRootView(intent)
+                                          }
+                                          else{
+                                              var intent = IntentApp.create(uri, {"message":""})
+                                              finishView(intent)
+                                          }
+                                      }, true, undefined, 5000)
+                }//
+                else{
+                    var intent = IntentApp.create(uri, {"message":""})
+                    finishView(intent)
+                }
+            }//
+            function confirmBackToClose(){
+                //                if(UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin)
+                //                    showUsbEjectInstruction()
+                //                else{
+                if(props.removeAfterCopy)
+                    usbCopier.remove(props.sourceFilePath)
+                var intent = IntentApp.create(uri, {"message":""})
+                finishView(intent)
+                //                }
+            }//
+            function confirmBackToCloseGoToHome(){
+                //                if(UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin)
+                //                    showUsbEjectInstruction(true)
+                //                else{
+                if(props.removeAfterCopy)
+                    usbCopier.remove(props.sourceFilePath)
+                const intent = IntentApp.create("", {})
+                startRootView(intent)
+                //                }
+            }//
         }//
 
         /// One time executed after onResume
         Component.onCompleted: {
+            /// override gesture swipe action
+            /// basicly dont allow gesture shortcut to home page during calibration
+            viewApp.fnSwipedFromLeftEdge = function(){
+                props.confirmBackToClose()
+            }//
 
+            viewApp.fnSwipedFromBottomEdge = function(){
+                props.confirmBackToCloseGoToHome()
+            }//
         }//
 
         /// Execute This Every This Screen Active/Visible
@@ -377,6 +434,10 @@ ViewApp {
 
                 const extraData = IntentApp.getExtraData(intent)
                 const _sourceFilePath = extraData['sourceFilePath'] || ""
+                const _dontRmFile = extraData['dontRmFile'] || 0
+                if(_dontRmFile){
+                    props.removeAfterCopy = false
+                }
 
                 props.sourceFilePath = _sourceFilePath
 

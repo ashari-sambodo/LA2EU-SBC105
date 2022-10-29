@@ -80,26 +80,28 @@ void UserManageQmlApp::initDefaultUserAccount()
             if (!dataBuffer.length()) {
                 /// no super admin yet, let's create new
                 QVariantMap data;
+
+                /// Create admin
+                data.clear();
                 QString password = QString(QCryptographicHash::hash("00005", QCryptographicHash::Md5).toHex());
-                data.insert("username", "supervisor");
+                data.insert("username", "admin");
                 data.insert("password", password);
-                data.insert("role",     3);
+                data.insert("role",     USER_LEVEL_ADMIN);
                 data.insert("active",   1);
-                data.insert("fullname", "Supervisor");
-                data.insert("email",    "supervisor@mail.com");
+                data.insert("fullname", "Administrator");
+                data.insert("email",    "admin@mail.com");
                 data.insert("createdAt", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
 
                 bool done = m_pSql->queryInsert(data);
 
-                /// Create admin
                 data.clear();
                 password = QString(QCryptographicHash::hash("00001", QCryptographicHash::Md5).toHex());
-                data.insert("username", "admin");
+                data.insert("username", "supervisor");
                 data.insert("password", password);
-                data.insert("role",     2);
+                data.insert("role",     USER_LEVEL_SUPERVISOR);
                 data.insert("active",   1);
-                data.insert("fullname", "Administrator");
-                data.insert("email",    "admin@mail.com");
+                data.insert("fullname", "Supervisor");
+                data.insert("email",    "supervisor@mail.com");
                 data.insert("createdAt", QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
 
                 done = m_pSql->queryInsert(data);
@@ -109,7 +111,7 @@ void UserManageQmlApp::initDefaultUserAccount()
                 password = QString(QCryptographicHash::hash("00000", QCryptographicHash::Md5).toHex());
                 data.insert("username", "operator");
                 data.insert("password", password);
-                data.insert("role",     1);
+                data.insert("role",     USER_LEVEL_OPERATOR);
                 data.insert("active",   1);
                 data.insert("fullname", "Operator");
                 data.insert("email",    "operator@mail.com");
@@ -195,14 +197,14 @@ void UserManageQmlApp::updateUserExcludePassword(const QString username,
     });
 }
 
-void UserManageQmlApp::updateUserIncludePassword(const QString username,
+void UserManageQmlApp::updateUserIncludePassword(const QString username, const QString newUsername,
                                                  const QString password,
                                                  int role,
                                                  const QString fullName,
                                                  const QString email)
 {
     QMetaObject::invokeMethod(m_pSql.data(),
-                              [&, username, password, role, fullName, email](){
+                              [&, username, newUsername, password, role, fullName, email](){
         qDebug() << __func__ << thread();
 
 
@@ -211,6 +213,8 @@ void UserManageQmlApp::updateUserIncludePassword(const QString username,
         done &= m_pSql->queryUpdateUserRole(role, username);
         done &= m_pSql->queryUpdateUserFullname(fullName, username);
         done &= m_pSql->queryUpdateUserEmail(email, username);
+        if(username != newUsername)
+            done &= m_pSql->queryUpdateUserUsername(newUsername, username);
 
         if(!done) {
             qWarning() << m_pSql->lastQueryErrorStr();
@@ -252,14 +256,14 @@ void UserManageQmlApp::selectDescendingWithPagination(short limit, short pageNum
                 itemTemp = dataBuffer.at(i).toList();
                 //                qDebug() << itemTemp.length();
 
-                item.insert("username", itemTemp.at(0));
-                item.insert("password", itemTemp.at(1));
-                item.insert("role",     itemTemp.at(2));
-                item.insert("active",   itemTemp.at(3));
-                item.insert("fullname", itemTemp.at(4));
-                item.insert("email",    itemTemp.at(5));
-                item.insert("createdAt",itemTemp.at(6));
-                item.insert("lastLogin",itemTemp.at(7));
+                item.insert("username", itemTemp.at(TH_USERNAME));
+                item.insert("password", itemTemp.at(TH_PASSWORD));
+                item.insert("role",     itemTemp.at(TH_ROLE));
+                item.insert("active",   itemTemp.at(TH_ACTIVE));
+                item.insert("fullname", itemTemp.at(TH_FULLNAME));
+                item.insert("email",    itemTemp.at(TH_EMAIL));
+                item.insert("createdAt",itemTemp.at(TH_CREATED_AT));
+                item.insert("lastLogin",itemTemp.at(TH_LAST_LOGIN));
 
                 dataReady.append(item);
             }
@@ -298,14 +302,14 @@ void UserManageQmlApp::selectUserByUsername(const QString username)
                 itemTemp = dataBuffer.at(0).toList();
                 //                qDebug() << itemTemp.length();
 
-                item.insert("username", itemTemp.at(0));
-                item.insert("password", itemTemp.at(1));
-                item.insert("role",     itemTemp.at(2));
-                item.insert("active",   itemTemp.at(3));
-                item.insert("fullname", itemTemp.at(4));
-                item.insert("email",    itemTemp.at(5));
-                item.insert("createdAt",itemTemp.at(6));
-                item.insert("lastLogin",itemTemp.at(7));
+                item.insert("username", itemTemp.at(TH_USERNAME));
+                item.insert("password", itemTemp.at(TH_PASSWORD));
+                item.insert("role",     itemTemp.at(TH_ROLE));
+                item.insert("active",   itemTemp.at(TH_ACTIVE));
+                item.insert("fullname", itemTemp.at(TH_FULLNAME));
+                item.insert("email",    itemTemp.at(TH_EMAIL));
+                item.insert("createdAt",itemTemp.at(TH_CREATED_AT));
+                item.insert("lastLogin",itemTemp.at(TH_LAST_LOGIN));
             }
         }
         else {

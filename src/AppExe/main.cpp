@@ -9,11 +9,15 @@
 
 //#include <QMovie>
 
+#include "Modules/SwupdateWrapper/SwupdateWrapper.h"
+#include "Modules/FileDirUtils/FileDirUtils.h"
 #include "Modules/ExitCodeCustom/ExitCodeCustom.h"
 #include "Modules/TranslatorText/TranslatorText.h"
 #include "Modules/DataLog/DataLogQmlApp.h"
+#include "Modules/ResourceMonitorLog/ResourceMonitorLogQmlApp.h"
 #include "Modules/AlarmLog/AlarmLogQmlApp.h"
 #include "Modules/EventLog/EventLogQmlApp.h"
+#include "Modules/ReplaceableCompRecord/ReplaceableCompRecordQmlApp.h"
 #include "Modules/UserManage/UserManageQmlApp.h"
 #include "Modules/BookingSchedule/BookingScheduleQmlApp.h"
 //#include "Modules/FtpServer/SimpleFtpServer.h"
@@ -24,6 +28,9 @@
 #include "Modules/ImportExternalResources/RegisterExternalResources.h"
 
 #include "Modules/NetworkManager/NetworkManagerQmlApp.h"
+//#include "Modules/ImportExternalConfiguration/ImportExternalConfiguration.h"
+#include "Modules/FileReader/FileReader.h"
+#include "Modules/SettingsData/SettingsData.h"
 
 #include "UI/CusCom/KeyboardOnScreen/KeyboardOnScreenAdapter.h"
 #include "UI/CusCom/KeyboardOnScreen/KeyboardOnScreenCaller.h"
@@ -144,9 +151,12 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<ExitCodeCustom>("ModulesCpp.Utils", 1, 0, "ExitCode", "Cannot implemented ExitCode");
     qmlRegisterSingletonType<NetworkManagerQmlApp>("ModulesCpp.Connectify", 1, 0, "NetworkService", NetworkManagerQmlApp::singletonProvider);
 
+    qmlRegisterType<FileDirUtils>("ModulesCpp.Utils", 1, 0, "FileDirUtils");
     qmlRegisterType<DataLogQmlApp>("DataLogQmlApp", 1, 0, "DataLogQmlApp");
     qmlRegisterType<AlarmLogQmlApp>("AlarmLogQmlApp", 1, 0, "AlarmLogQmlApp");
     qmlRegisterType<EventLogQmlApp>("EventLogQmlApp", 1, 0, "EventLogQmlApp");
+    qmlRegisterType<ReplaceableCompRecordQmlApp>("ReplaceableCompRecordQmlApp", 1, 0, "ReplaceableCompRecordQmlApp");
+    qmlRegisterType<ResourceMonitorLogQmlApp>("ResourceMonitorLogQmlApp", 1, 0, "ResourceMonitorLogQmlApp");
     qmlRegisterType<UserManageQmlApp>("UserManageQmlApp", 1, 0, "UserManageQmlApp");
     qmlRegisterType<BookingScheduleQmlApp>("BookingScheduleQmlApp", 1, 0, "BookingScheduleQmlApp");
     qmlRegisterType<UsbCopier>("ModulesCpp.UsbCopier", 1, 0, "USBCopier");
@@ -154,9 +164,13 @@ int main(int argc, char *argv[])
     qmlRegisterType<JstoText>("ModulesCpp.JstoText", 1, 0, "JstoText");
     qmlRegisterType<ELSgenerator>("ModulesCpp.ELSkeygen", 1, 0, "ELSkeygen");
     qmlRegisterType<RegisterExternalResources>("ModulesCpp.RegisterExternalResources", 1, 0, "RegisterExResources");
+    qmlRegisterType<SwupdateWrapper>("ModulesCpp.Swupdate", 1, 0, "SWUpdate");
+    //    qmlRegisterType<ImportExternalConfiguration>("ModulesCpp.ImportExternalConfiguration", 1, 0, "ImportExternalConfiguration");
+    qmlRegisterType<FileReader>("ModulesCpp.FileReader", 1, 0, "FileReader");
 
     qmlRegisterSingletonType<MachineProxy>("ModulesCpp.Machine", 1, 0, "MachineAPI", MachineProxy::singletonProvider);
     qmlRegisterSingletonType<MachineData>("ModulesCpp.Machine", 1, 0, "MachineData", MachineData::singletonProvider);
+    qmlRegisterSingletonType<SettingsData>("ModulesCpp.Settings", 1, 0, "SettingsData", SettingsData::singletonProvider);
 
     qmlRegisterType<KeyboardOnScreenAdapter>("UI.CusCom.KeyboardOnScreen.Adapter", 1, 0, "KeyboardOnScreenAdapter");
     KeyboardOnScreenCaller keyboardOnScreenCaller;

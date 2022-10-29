@@ -23,6 +23,7 @@ public:
     bool queryDelete(const QString &dbQueryConfig = QString());
     bool queryCount(int *count);
 
+    bool queryUpdateUserUsername(const QString value, const QString username);
     bool queryUpdateUserFullname(const QString value, const QString username);
     bool queryUpdateUserEmail(const QString value, const QString username);
     bool queryUpdateUserRole(int value, const QString username);

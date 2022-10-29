@@ -3,7 +3,7 @@
  *  https://escoglobal.com
  *
  *  Author:
- *  - Heri Cahyono
+ *  - Ahmad Qodri
 **/
 
 import QtQuick 2.12
@@ -14,10 +14,11 @@ import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
 import ModulesCpp.Machine 1.0
+import ModulesCpp.FileReader 1.0
 
 ViewApp {
     id: viewApp
-    title: "Blank Page"
+    title: "Software License"
 
     background.sourceComponent: Item {}
 
@@ -44,7 +45,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr("Blank Page")
+                    title: qsTr("Software License")
                 }
             }
 
@@ -53,36 +54,63 @@ ViewApp {
                 id: bodyItem
                 Layout.fillWidth: true
                 Layout.fillHeight: true
+                Rectangle{
+                    color: "#66000000"
+                    anchors.fill: parent
+                    radius: 5
+                    border.width: 1
+                    border.color: "#e3dac9"
+                    z : -1
+                }
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.margins: 5
 
+                    Flickable {
+                        id: view
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        //                        anchors.fill: parent
+                        //                        anchors.margins: 2
+                        contentWidth: content.width
+                        contentHeight: content.height
+                        property real span : contentY + height
+                        clip: true
 
-                //                RowLayout {
-                //                    anchors.fill: parent
-
-                //                    Item {
-                //                        Layout.fillHeight: true
-                //                        Layout.fillWidth: true
-
-                //                    }//
-
-                //                    Item {
-                //                        Layout.fillHeight: true
-                //                        Layout.fillWidth: true
-                //                    }
-                //                    //
-                //                }//
+                        flickableDirection: Flickable.VerticalFlick
+                        ScrollBar.vertical: verticalScrollBar.scrollBar
+                        TextApp {
+                            id: content
+                            width: parent.width
+                            //height: parent.height
+                            leftPadding: 150
+                            topPadding: 10
+                            rightPadding: 10
+                            bottomPadding: 10
+                            wrapMode: Text.WrapAnywhere
+                            text: props.textToDisplay1 + "\n\n\n" + props.textToDisplay2
+                        }//
+                    }//
+                    ScrollBarApp {
+                        id: verticalScrollBar
+                        Layout.fillHeight: true
+                        Layout.minimumWidth: 20
+                        Layout.fillWidth: false
+                    }//
+                }//
             }//
 
             /// FOOTER
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
                 Rectangle {
                     anchors.fill: parent
                     color: "#0F2952"
-                    //                    border.color: "#e3dac9"
-                    //                    border.width: 1
+                    //border.color: "#e3dac9"
+                    //border.width: 1
                     radius: 5
 
                     Item {
@@ -101,18 +129,64 @@ ViewApp {
                                 finishView(intent)
                             }
                         }//
+
+                        ButtonBarApp {
+                            id: setButton
+                            width: 194
+                            visible: false
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.right: parent.right
+
+                            imageSource: "qrc:/UI/Pictures/checkicon.png"
+                            text: qsTr("Next")
+
+                            onClicked: {
+                                //                                currentTimeZoneText.text = currentTimeZoneText.text + "AAAA-"
+                                /// if this page called from welcome page
+                                /// show this button to making more mantap
+                                var intent = IntentApp.create(uri, {"welcomesetupdone": 1})
+                                finishView(intent)
+                            }//
+                        }//
                     }//
                 }//
             }//
         }//
+
+        FileReader{
+            id: lgpl3
+
+            onFileOutputChanged: {
+                props.textToDisplay1 = value;
+            }
+
+            Component.onCompleted: {
+                setFilePath(":/UI/Pages/SoftwareLicensePage/lgpl-3.0.txt")
+                readFile()
+            }
+        }
+
+        FileReader{
+            id: gpl3
+
+            onFileOutputChanged: {
+                props.textToDisplay2 = value;
+            }
+
+            Component.onCompleted: {
+                setFilePath(":/UI/Pages/SoftwareLicensePage/gpl-3.0.txt")
+                readFile()
+            }
+        }
 
         ///// Put all private property inside here
         ///// if none, please comment this block to optimize the code
         QtObject {
             id: props
 
-            //            property int countDefault: 50
-            //            property int count: 50
+            property string textToDisplay1: ""
+            property string textToDisplay2: ""
+
         }//
 
         /// One time executed after onResume
@@ -125,7 +199,15 @@ ViewApp {
 
             /// onResume
             Component.onCompleted: {
-                //                    //console.debug("StackView.Active");
+                const extraData = IntentApp.getExtraData(intent)
+                const thisOpenedFromWelcomePage = extraData["welcomesetup"] || false
+                if(thisOpenedFromWelcomePage) {
+                    setButton.visible = true
+
+                    viewApp.enabledSwipedFromLeftEdge   = false
+                    viewApp.enabledSwipedFromRightEdge  = false
+                    viewApp.enabledSwipedFromBottomEdge = false
+                }//
             }
 
             /// onPause

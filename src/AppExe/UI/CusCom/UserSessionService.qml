@@ -11,9 +11,9 @@ import QtQuick 2.0
 Item {
 
     readonly property int roleLevelGuest:   0
-    readonly property int roleLevelRegular: 1
-    readonly property int roleLevelAdmin:   2
-    readonly property int roleLevelSAdmin:  3
+    readonly property int roleLevelOperator: 1
+    readonly property int roleLevelSupervisor:  2
+    readonly property int roleLevelAdmin:   3
     readonly property int roleLevelService: 4
     readonly property int roleLevelFactory: 5
 
