@@ -7,10 +7,16 @@ ParticleCounter::ParticleCounter(QObject *parent) : ClassManager(parent)
 
 void ParticleCounter::routineTask(int parameter)
 {
-    //    qDebug() << metaObject()->className() << __func__;
+    //qDebug() << metaObject()->className() << __func__;
     Q_UNUSED(parameter);
 
     if(!pModule) return;
+
+    //    //Check Port Communication
+    //    if(!pModule->isPortValid()){
+    //        bool state = pModule->openPort();
+    //        qDebug() << "open port status: " << state;
+    //    }
 
     int fanStateParticleCountActual = pModule->getFanStateBuffer();
     if(m_fanStatePaCo != fanStateParticleCountActual){
@@ -24,14 +30,11 @@ void ParticleCounter::routineTask(int parameter)
         pModule->setDormantMode(m_fanStatePaCoReq);
     }
 
-
     int pm1_0 = 0, pm2_5 = 0, pm10 = 0;
-    if (m_fanStatePaCo){
-        int resp = pModule->getQAReadSample(&pm1_0, &pm2_5, &pm10);
-
-        //    qDebug() << metaObject()->className() << __func__ << "resp" << resp;
-
-        if(resp == 0){
+    int resp = pModule->getQAReadSample(&pm1_0, &pm2_5, &pm10);
+    qDebug() << metaObject()->className() << __func__ << "resp" << resp;
+    if(resp == 0){
+        if (m_fanStatePaCo){
             if(m_pm1_0 != pm1_0){
                 m_pm1_0 = pm1_0;
 
@@ -49,37 +52,45 @@ void ParticleCounter::routineTask(int parameter)
 
                 emit pm10Changed(m_pm10);
             }
-        }
-    }
+        }//
+
+        else{
+            if(m_pm1_0 != pm1_0){
+                m_pm1_0 = pm1_0;
+
+                emit pm1_0Changed(m_pm1_0);
+            }
+
+            if(m_pm2_5 != pm2_5){
+                m_pm2_5 = pm2_5;
+
+                emit pm2_5Changed(m_pm2_5);
+            }
+
+            if(m_pm10 != pm10){
+                m_pm10 = pm10;
+
+                emit pm10Changed(m_pm10);
+            }
+        }//
+        ///SENSOR COMMUNICATION SUCCESS
+        pModule->clearErrorComToleranceCount();
+    }//
     else {
-        if(m_pm1_0 != pm1_0){
-            m_pm1_0 = pm1_0;
+        ///SENSOR COMMUNICATION HAVE NO RESPONSE CORRECTLY
+        ///INCREASE_COMM_ERROR_COUNT
+        pModule->increaseErrorComToleranceCount();
+        //qDebug() << "open port status: " << pModule->isPortValid();
 
-            emit pm1_0Changed(m_pm1_0);
-        }
-
-        if(m_pm2_5 != pm2_5){
-            m_pm2_5 = pm2_5;
-
-            emit pm2_5Changed(m_pm2_5);
-        }
-
-        if(m_pm10 != pm10){
-            m_pm10 = pm10;
-
-            emit pm10Changed(m_pm10);
-        }
-    }
+        //if(pModule->isErrorComToleranceReached()){
+        pModule->openPort();
+        //}
+    }//
 }
 
 void ParticleCounter::setSubModule(ParticleCounterZH03B *module)
 {
     pModule = module;
-}
-
-short ParticleCounter::getFanStatePaCo() const
-{
-    return m_fanStatePaCoReq;
 }
 
 void ParticleCounter::setFanStatePaCo(short state)

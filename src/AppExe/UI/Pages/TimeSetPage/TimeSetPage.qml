@@ -43,6 +43,20 @@ ViewApp {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
+                Rectangle {
+                    id: msgInfoTextApp
+                    visible: false
+                    color: "#80000000"
+                    TextApp {
+                        //id: msgInfoTextApp
+                        text: qsTr("Ensure you have removed the plastic (insulator) of the RTC Module battery!")
+                        verticalAlignment: Text.AlignVCenter
+                        padding: 2
+                    }
+                    width: childrenRect.width
+                    height: childrenRect.height
+                }//
+
                 /// fragment container
                 StackView {
                     id: fragmentStackView
@@ -442,51 +456,72 @@ ViewApp {
                             }//
                         }//
 
-                        ButtonBarApp {
-                            id: setButton
-                            width: 194
+                        Row{
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.right: parent.right
+                            spacing: 5
+                            ButtonBarApp {
+                                id: setButton
+                                width: 194
+                                //anchors.verticalCenter: parent.verticalCenter
+                                //anchors.right: parent.right
 
-                            /// only visible from second fragment, set options
-                            visible: false
+                                /// only visible from second fragment, set options
+                                visible: false
 
-                            imageSource: "qrc:/UI/Pictures/checkicon.png"
-                            text: qsTr("Set")
+                                imageSource: "qrc:/UI/Pictures/checkicon.png"
+                                text: qsTr("Set")
 
-                            onClicked: {
+                                onClicked: {
 
-                                if(props.requestTime !== null) {
-                                    MachineAPI.setDateTime(props.requestTime);
-                                    const timeStr = String(props.requestTime).split(" ")[1]
-                                    MachineAPI.insertEventLog(qsTr("User: Set the time to") + " " + timeStr)
+                                    if(props.requestTime !== null) {
+                                        MachineAPI.setDateTime(props.requestTime);
+                                        const timeStr = String(props.requestTime).split(" ")[1]
+                                        MachineAPI.insertEventLog(qsTr("User: Set the time to") + " " + timeStr)
+                                    }
+
+                                    if(props.requestPeriodTime !== null) {
+
+                                        props.currentTimePeriod = props.requestPeriodTime
+
+                                        let timeFormatStr = "h:mm:ss AP"
+                                        if (props.currentTimePeriod === 24) timeFormatStr = "hh:mm:ss"
+                                        props.currentTimeStrf = timeFormatStr
+
+                                        headerApp.setTimePeriod(props.requestPeriodTime)
+                                        headerApp.forceUpdateCurrentTime()
+
+                                        MachineAPI.saveTimeClockPeriod(props.requestPeriodTime);
+
+                                        const timePerStr = props.currentTimePeriod === 24 ? qsTr("User: Set the time to 24h") : qsTr("User: Set the time to 12h")
+                                        MachineAPI.insertEventLog(timePerStr)
+                                    }
+
+                                    viewApp.showBusyPage(qsTr("Setting up..."),
+                                                         function onCycle(cycle){
+                                                             if (cycle >= MachineAPI.BUSY_CYCLE_3) {
+                                                                 fragmentStackView.pop()
+                                                                 viewApp.dialogObject.close()
+                                                             }//
+                                                         })
                                 }
+                            }//
+                            ButtonBarApp {
+                                id: setButton2
+                                width: 194
+                                visible: false
 
-                                if(props.requestPeriodTime !== null) {
+                                imageSource: "qrc:/UI/Pictures/checkicon.png"
+                                text: qsTr("Next")
 
-                                    props.currentTimePeriod = props.requestPeriodTime
-
-                                    let timeFormatStr = "h:mm:ss AP"
-                                    if (props.currentTimePeriod === 24) timeFormatStr = "hh:mm:ss"
-                                    props.currentTimeStrf = timeFormatStr
-
-                                    headerApp.setTimePeriod(props.requestPeriodTime)
-                                    headerApp.forceUpdateCurrentTime()
-
-                                    MachineAPI.saveTimeClockPeriod(props.requestPeriodTime);
-
-                                    const timePerStr = props.currentTimePeriod === 24 ? qsTr("User: Set the time to 24h") : qsTr("User: Set the time to 12h")
-                                    MachineAPI.insertEventLog(timePerStr)
-                                }
-
-                                viewApp.showBusyPage(qsTr("Setting up..."),
-                                                     function onCycle(cycle){
-                                                         if (cycle === MachineAPI.BUSY_CYCLE_3) {
-                                                             fragmentStackView.pop()
-                                                             viewApp.dialogObject.close()
-                                                         }//
-                                                     })
-                            }
+                                onClicked: {
+                                    //                                currentTimeZoneText.text = currentTimeZoneText.text + "AAAA-"
+                                    /// if this page called from welcome page
+                                    /// show this button to making more mantap
+                                    var intent = IntentApp.create(uri, {"welcomesetupdone": 1})
+                                    finishView(intent)
+                                }//
+                            }//
                         }//
                     }//
                 }//
@@ -526,7 +561,21 @@ ViewApp {
                 else {
                     props.currentTimeStrf = "h:mm:ss AP"
                 }
-            }
+
+                const extraData = IntentApp.getExtraData(intent)
+                //                console.debug("extraData", extraData)
+                const thisOpenedFromWelcomePage = extraData["welcomesetup"] || false
+                //                console.debug("extraData[\"welcomesetup\"]", extraData["welcomesetup"])
+                //                console.debug(extraData["thisOpenedFromWelcomePage"], thisOpenedFromWelcomePage)
+                if(thisOpenedFromWelcomePage) {
+                    setButton2.visible = true
+                    msgInfoTextApp.visible = true
+
+                    viewApp.enabledSwipedFromLeftEdge   = false
+                    viewApp.enabledSwipedFromRightEdge  = false
+                    viewApp.enabledSwipedFromBottomEdge = false
+                }//
+            }//
 
             /// onPause
             Component.onDestruction: {

@@ -88,7 +88,7 @@ ViewApp {
                 MouseArea {
                     anchors.fill: currentValueColumn
                     onClicked: {
-                        KeyboardOnScreenCaller.openNumpad(newValueTextField, qsTr("Reset Filter Life (minutes)"))
+                        KeyboardOnScreenCaller.openNumpad(newValueTextField, qsTr("Reset Filter Life (0 - 100%)"))
                     }//
                 }//
 
@@ -101,7 +101,7 @@ ViewApp {
                         MachineAPI.setFilterUsageMeter(val)
 
                         showBusyPage(qsTr("Setting up..."), function(cycle){
-                            if(cycle === MachineAPI.BUSY_CYCLE_1) {
+                            if(cycle >= MachineAPI.BUSY_CYCLE_1) {
                                 closeDialog()
                             }
                         })
@@ -113,7 +113,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
                 Rectangle {
                     anchors.fill: parent
@@ -136,6 +136,20 @@ ViewApp {
                             onClicked: {
                                 var intent = IntentApp.create(uri, {"message":""})
                                 finishView(intent)
+                            }
+                        }//
+
+                        ButtonBarApp {
+                            width: 194
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
+
+                            imageSource: "qrc:/UI/Pictures/settings-icon-35px.png"
+                            text: qsTr("Settings")
+
+                            onClicked: {
+                                var intent = IntentApp.create("qrc:/UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml", {"message":""})
+                                startView(intent)
                             }
                         }//
                     }//

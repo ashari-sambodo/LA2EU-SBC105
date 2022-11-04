@@ -13,7 +13,7 @@
 #define PASSWORD "BSCg42022"
 
 /// Comment this for Release version
-#define TESTING
+//#define TESTING
 
 CheckSWUpdate::CheckSWUpdate(QObject *parent) : ClassManager(parent)
 {
@@ -287,9 +287,10 @@ bool CheckSWUpdate::getCheckForSWUpdateEnable() const
 /// \brief CheckSWUpdate::setCurrentSoftwareVersion
 /// \param swVersion : Software Name and Version (e.g., SBC101-1.0.0)
 /// \return false swVersion is invalid, otherwise true
-bool CheckSWUpdate::setCurrentSoftwareVersion(QString swVersion)
+bool CheckSWUpdate::setCurrentSoftwareVersion(const QString &swVer)
 {
     short versionDigitLength = 0;
+    QString swVersion = swVer;
     swVersion.replace(" ", "");
     bool isSWVersionValid = swVersion.split("-").length() == 2;// Check software name
     if(isSWVersionValid){

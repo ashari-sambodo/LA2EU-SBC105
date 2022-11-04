@@ -19,6 +19,7 @@ public:
     bool queryInsert(const QVariantMap data);
     //    bool querySelect(QVariantList *data, const QString &dbQueryConfig = QString());
     bool queryDelete(const QString &dbQueryConfig = QString());
+    bool queryDeleteOldestRowId();
     bool queryCount(int *count);
 
     QString lastQueryErrorStr() const;

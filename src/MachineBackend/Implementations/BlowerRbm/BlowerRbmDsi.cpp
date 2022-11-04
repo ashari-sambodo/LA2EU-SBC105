@@ -289,6 +289,7 @@ void BlowerRbmDsi::setDutyCycle(int newVal)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << newVal << QObject::thread();
     int percentDemand = newVal;
+    Q_UNUSED(percentDemand)
 
     if(m_interlocked) {
         qDebug() << "Interlocked";

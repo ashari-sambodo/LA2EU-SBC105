@@ -188,12 +188,11 @@
         <file>UI/Pictures/lowsecure.png</file>
         <file>UI/Pictures/mediumsecure.png</file>
         <file>UI/Pictures/booking_schedule.png</file>
-        <file>UI/Pictures/reminder_date.png</file>
+        <file>UI/Pictures/menu/reminder_date.png</file>
         <file>UI/Pictures/seas_alarm.png</file>
         <file>UI/Pictures/security_level.png</file>
         <file>UI/Pictures/backward.png</file>
         <file>UI/Pictures/forward.png</file>
-        <file>UI/Pictures/quick_tour.png</file>
         <file>UI/Pictures/logo/esco_lifesciences_group_blue.png</file>
         <file>UI/Pictures/logo/esco_lifesciences_group_white.png</file>
         <file>UI/Pictures/menu/cert_report_icon_full.png</file>
@@ -236,7 +235,42 @@
         <file>UI/Pictures/menu/af_alarm_delay.png</file>
         <file>UI/Pictures/af-alarm-delay-icon.png</file>
         <file>UI/Pictures/menu/screensaver.png</file>
-	<file>UI/Pictures/wired-conn.png</file>
-	<file>UI/Pictures/svnupdate.png</file>
+	<file>UI/Pictures/alert-snooze.png</file>
+        <file>UI/Pictures/menu/preventive-maintenance.png</file>
+        <file>UI/Pictures/wired-conn.png</file>
+        <file>UI/Pictures/menu/about-us.png</file>
+        <file>UI/Pictures/tuning.png</file>
+        <file>UI/Pictures/button-icon-select.png</file>
+        <file>UI/Pictures/start_small.png</file>
+        <file>UI/Pictures/stop_small.png</file>
+        <file>UI/Pictures/svnupdate.png</file>
+        <file>UI/Pictures/menu/ifa_sec_min_measure.png</file>
+        <file>UI/Pictures/menu/ifa_sec_nom_measure.png</file>
+        <file>UI/Pictures/menu/ifa_sec_stb_measure.png</file>
+        <file>UI/Pictures/menu/particulate_matter_icon.png</file>
+        <file>UI/Pictures/collapse-history.png</file>
+        <file>UI/Pictures/vertical-line-history.png</file>
+        <file>UI/Pictures/menu/quick_tour.png</file>
+        <file>UI/Pictures/menu/contact-us.png</file>
+        <file>UI/Pictures/about/about-email.png</file>
+        <file>UI/Pictures/about/about-fax.png</file>
+        <file>UI/Pictures/about/about-office.png</file>
+        <file>UI/Pictures/about/about-phone.png</file>
+        <file>UI/Pictures/about/about-tech-support.png</file>
+        <file>UI/Pictures/about/about-telephone.png</file>
+        <file>UI/Pictures/about/about-web.png</file>
+        <file>UI/Pictures/about/esco-group-map.png</file>
+        <file>UI/Pictures/add-record.png</file>
+        <file>UI/Pictures/itemOption.png</file>
+        <file>UI/Pictures/checked.png</file>
+        <file>UI/Pictures/unchecked.png</file>
+        <file>UI/Pictures/usb-eject.png</file>
+        <file>UI/Pictures/user-last-login.png</file>
+        <file>UI/Pictures/menu/resource-mon.png</file>
+        <file>UI/Pictures/cpu-temp.png</file>
+        <file>UI/Pictures/cpu-usage.png</file>
+        <file>UI/Pictures/memory-usage.png</file>
+        <file>UI/Pictures/airflow-out-temp-set.png</file>
+        <file>UI/Pictures/menu/sensor-constant-corr.png</file>
     </qresource>
 </RCC>

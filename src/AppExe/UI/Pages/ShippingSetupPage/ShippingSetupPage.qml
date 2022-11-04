@@ -101,7 +101,7 @@ ViewApp {
 
                                               showBusyPage(qsTr("Setting up..."),
                                                            (cycle)=>{
-                                                               if(cycle === MachineAPI.BUSY_CYCLE_3){
+                                                               if(cycle >= MachineAPI.BUSY_CYCLE_1){
                                                                    let exitCodePowerOff = 6
                                                                    const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {exitCode: exitCodePowerOff})
                                                                    startRootView(intent)

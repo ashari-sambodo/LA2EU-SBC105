@@ -322,10 +322,14 @@ ViewApp {
                 }
 
                 const extraData = IntentApp.getExtraData(intent)
-                const thisOpenedFromWelcomePage = extraData["walcomesetup"] || false
+                const thisOpenedFromWelcomePage = extraData["welcomesetup"] || false
                 if(thisOpenedFromWelcomePage) {
                     setButton.visible = true
-                }
+
+                    viewApp.enabledSwipedFromLeftEdge   = false
+                    viewApp.enabledSwipedFromRightEdge  = false
+                    viewApp.enabledSwipedFromBottomEdge = false
+                }//
             }//
 
             /// onPause

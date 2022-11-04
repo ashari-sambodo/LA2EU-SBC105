@@ -303,15 +303,15 @@ class MachineData : public QObject
                NOTIFY uvLifePercentChanged)
 
     /// Filter Life
-    Q_PROPERTY(int filterLifeMinutes
-               READ getFilterLifeMinutes
-               //               WRITE setFilterLifeMinutes
-               NOTIFY filterLifeMinutesChanged)
-    ///
-    Q_PROPERTY(short filterLifePercent
-               READ getFilterLifePercent
-               //               WRITE setFilterLifePercent
-               NOTIFY filterLifePercentChanged)
+    Q_PROPERTY(int filterLifeMinutes READ getFilterLifeMinutes NOTIFY filterLifeMinutesChanged)
+    Q_PROPERTY(short filterLifePercent READ getFilterLifePercent NOTIFY filterLifePercentChanged)
+    Q_PROPERTY(int filterLifeRpm READ getFilterLifeRpm NOTIFY filterLifeRpmChanged)
+    Q_PROPERTY(int filterLifeCalculationMode READ getFilterLifeCalculationMode NOTIFY filterLifeCalculationModeChanged)
+    Q_PROPERTY(int filterLifeMinimumBlowerUsageMode READ getFilterLifeMinimumBlowerUsageMode NOTIFY filterLifeMinimumBlowerUsageModeChanged)
+    Q_PROPERTY(int filterLifeMaximumBlowerUsageMode READ getFilterLifeMaximumBlowerUsageMode NOTIFY filterLifeMaximumBlowerUsageModeChanged)
+    Q_PROPERTY(int filterLifeMinimumBlowerRpmMode READ getFilterLifeMinimumBlowerRpmMode NOTIFY filterLifeMinimumBlowerRpmModeChanged)
+    Q_PROPERTY(int filterLifeMaximumBlowerRpmMode READ getFilterLifeMaximumBlowerRpmMode NOTIFY filterLifeMinimumBlowerRpmModeChanged)
+
 
     /// Blower Meter
     Q_PROPERTY(int fanPrimaryUsageMeter
@@ -415,6 +415,8 @@ class MachineData : public QObject
                READ getAlarmStandbyFanOff
                //               WRITE setAlarmSash
                NOTIFY alarmStandbyFanOffChanged)
+    ///
+    Q_PROPERTY(short alarmExperimentTimerIsOver READ getAlarmExperimentTimerIsOver NOTIFY alarmExperimentTimerIsOverChanged)
 
     // Temperature
     Q_PROPERTY(int temperatureAdc
@@ -717,6 +719,23 @@ class MachineData : public QObject
                READ getEventLogSpaceMaximum
                //               WRITE setEventLogSpaceMaximum
                NOTIFY eventLogSpaceMaximumChanged)
+    /// REPLACEABLECOMPONENT RECORD
+    Q_PROPERTY(int replaceableCompRecordCount
+               READ getReplaceableCompRecordCount
+               NOTIFY replaceableCompRecordCountChanged)
+    Q_PROPERTY(bool replaceableCompRecordIsFull
+               READ getReplaceableCompRecordIsFull
+               NOTIFY replaceableCompRecordIsFullChanged)
+    Q_PROPERTY(int replaceableCompRecordSpaceMaximum
+               READ getReplaceableCompRecordSpaceMaximum
+               NOTIFY replaceableCompRecordSpaceMaximumChanged)
+    /// RESOURCE MONITOR
+    Q_PROPERTY(short resourceMonitorLogPeriod READ getResourceMonitorLogPeriod NOTIFY resourceMonitorLogPeriodChanged)
+    Q_PROPERTY(bool resourceMonitorLogRunning READ getResourceMonitorLogRunning NOTIFY resourceMonitorLogRunningChanged)
+    Q_PROPERTY(bool resourceMonitorLogEnable READ getResourceMonitorLogEnable NOTIFY resourceMonitorLogEnableChanged)
+    Q_PROPERTY(int resourceMonitorLogCount READ getResourceMonitorLogCount NOTIFY resourceMonitorLogCountChanged)
+    Q_PROPERTY(bool resourceMonitorLogIsFull READ getResourceMonitorLogIsFull NOTIFY resourceMonitorLogIsFullChanged)
+    Q_PROPERTY(int resourceMonitorLogSpaceMaximum READ getResourceMonitorLogSpaceMaximum NOTIFY resourceMonitorLogSpaceMaximumChanged)
 
     ///MODBUS
     Q_PROPERTY(short modbusSlaveID
@@ -845,6 +864,11 @@ class MachineData : public QObject
                //               WRITE setBoardStatusCtpIoe
                NOTIFY boardStatusCtpIoeChanged)
 
+    Q_PROPERTY(bool boardStatusParticleCounter
+               READ getBoardStatusParticleCounter
+               //               WRITE setBoardStatusParticleCounter
+               NOTIFY boardStatusParticleCounterChanged)
+
     Q_PROPERTY(bool boardStatusPWMOutput
                READ getBoardStatusPWMOutput
                //               WRITE setBoardStatusPWMOutput
@@ -933,6 +957,8 @@ class MachineData : public QObject
                //               WRITE setShippingModeEnable
                NOTIFY shippingModeEnableChanged)
 
+Q_PROPERTY(QString machineProfileID READ getMachineProfileID WRITE setMachineProfileID NOTIFY machineProfileIDChanged)
+
     /// Closed Loop Enable
     Q_PROPERTY(bool fanClosedLoopControlEnable
                READ getFanClosedLoopControlEnable
@@ -1003,6 +1029,45 @@ class MachineData : public QObject
     Q_PROPERTY(bool inflowValueHeld READ getInflowValueHeld NOTIFY inflowValueHeldChanged)
     Q_PROPERTY(bool downflowValueHeld READ getDownflowValueHeld NOTIFY downflowValueHeldChanged)
 
+    Q_PROPERTY(bool cabinetWidthFeet READ getCabinetWidthFeet NOTIFY cabinetWidthFeetChanged)
+    Q_PROPERTY(bool cabinetWidth3Feet READ getCabinetWidth3Feet NOTIFY cabinetWidth3FeetChanged)
+    Q_PROPERTY(bool usePwmOutSignal READ getUsePwmOutSignal NOTIFY usePwmOutSignalChanged)
+    Q_PROPERTY(int screenSaverSeconds READ getScreenSaverSeconds NOTIFY screenSaverSecondsChanged)
+
+    Q_PROPERTY(short cabinetSideType READ getCabinetSideType NOTIFY cabinetSideTypeChanged)
+
+ Q_PROPERTY(ushort alarmPreventMaintState READ getAlarmPreventMaintState NOTIFY alarmPreventMaintStateChanged)
+    Q_PROPERTY(ushort alarmPreventMaintStateEnable READ getAlarmPreventMaintStateEnable NOTIFY alarmPreventMaintStateEnableChanged)
+    Q_PROPERTY(ushort alarmPreventMaintStateAck READ getAlarmPreventMaintStateAck NOTIFY alarmPreventMaintStateAckChanged)
+    //    Q_PROPERTY(ushort preventMaintChecklistNotEmpty READ getPreventMaintChecklistNotEmpty WRITE setPreventMaintChecklistNotEmpty NOTIFY preventMaintChecklistNotEmptyChanged)
+
+    //    Q_PROPERTY(bool dailyPreventMaintAck READ getDailyPreventMaintAck NOTIFY dailyPreventMaintAckChanged)
+    //    Q_PROPERTY(bool weeklyPreventMaintAck READ getWeeklyPreventMaintAck NOTIFY weeklyPreventMaintAckChanged)
+    //    Q_PROPERTY(bool monthlyPreventMaintAck READ getMonthlyPreventMaintAck NOTIFY monthlyPreventMaintAckChanged)
+    //    Q_PROPERTY(bool quarterlyPreventMaintAck READ getQuarterlyPreventMaintAck NOTIFY quarterlyPreventMaintAckChanged)
+    //    Q_PROPERTY(bool annuallyPreventMaintAck READ getAnnuallyPreventMaintAck NOTIFY annuallyPreventMaintAckChanged)
+    //    Q_PROPERTY(bool bienniallyPreventMaintAck READ getBienniallyPreventMaintAck NOTIFY bienniallyPreventMaintAckChanged)
+    //    Q_PROPERTY(bool quinquenniallyPreventMaintAck READ getQuinquenniallyPreventMaintAck NOTIFY quinquenniallyPreventMaintAckChanged)
+    //    Q_PROPERTY(bool canopyPreventMaintAck READ getCanopyPreventMaintAck NOTIFY canopyPreventMaintAckChanged)
+
+    Q_PROPERTY(QString dailyPreventMaintAckDueDate READ getDailyPreventMaintAckDueDate NOTIFY dailyPreventMaintAckDueDateChanged)
+    Q_PROPERTY(QString weeklyPreventMaintAckDueDate READ getWeeklyPreventMaintAckDueDate NOTIFY weeklyPreventMaintAckDueDateChanged)
+    Q_PROPERTY(QString monthlyPreventMaintAckDueDate READ getMonthlyPreventMaintAckDueDate NOTIFY monthlyPreventMaintAckDueDateChanged)
+    Q_PROPERTY(QString quarterlyPreventMaintAckDueDate READ getQuarterlyPreventMaintAckDueDate NOTIFY quarterlyPreventMaintAckDueDateChanged)
+    Q_PROPERTY(QString annuallyPreventMaintAckDueDate READ getAnnuallyPreventMaintAckDueDate NOTIFY annuallyPreventMaintAckDueDateChanged)
+    Q_PROPERTY(QString bienniallyPreventMaintAckDueDate READ getBienniallyPreventMaintAckDueDate NOTIFY bienniallyPreventMaintAckDueDateChanged)
+    Q_PROPERTY(QString quinquenniallyPreventMaintAckDueDate READ getQuinquenniallyPreventMaintAckDueDate NOTIFY quinquenniallyPreventMaintAckDueDateChanged)
+    Q_PROPERTY(QString canopyPreventMaintAckDueDate READ getCanopyPreventMaintAckDueDate NOTIFY canopyPreventMaintAckDueDateChanged)
+
+    Q_PROPERTY(QString dailyPreventMaintLastAckDate READ getDailyPreventMaintLastAckDate NOTIFY dailyPreventMaintLastAckDateChanged)
+    Q_PROPERTY(QString weeklyPreventMaintLastAckDate READ getWeeklyPreventMaintLastAckDate NOTIFY weeklyPreventMaintLastAckDateChanged)
+    Q_PROPERTY(QString monthlyPreventMaintLastAckDate READ getMonthlyPreventMaintLastAckDate NOTIFY monthlyPreventMaintLastAckDateChanged)
+    Q_PROPERTY(QString quarterlyPreventMaintLastAckDate READ getQuarterlyPreventMaintLastAckDate NOTIFY quarterlyPreventMaintLastAckDateChanged)
+    Q_PROPERTY(QString annuallyPreventMaintLastAckDate READ getAnnuallyPreventMaintLastAckDate NOTIFY annuallyPreventMaintLastAckDateChanged)
+    Q_PROPERTY(QString bienniallyPreventMaintLastAckDate READ getBienniallyPreventMaintLastAckDate NOTIFY bienniallyPreventMaintLastAckDateChanged)
+    Q_PROPERTY(QString quinquenniallyPreventMaintLastAckDate READ getQuinquenniallyPreventMaintLastAckDate NOTIFY quinquenniallyPreventMaintLastAckDateChanged)
+    Q_PROPERTY(QString canopyPreventMaintLastAckDate READ getCanopyPreventMaintLastAckDate NOTIFY canopyPreventMaintLastAckDateChanged)
+
     Q_PROPERTY(bool wiredNetworkHasbeenConfigured     READ getWiredNetworkHasbeenConfigured      NOTIFY wiredNetworkHasbeenConfiguredChanged)
     Q_PROPERTY(bool svnUpdateAvailable READ getSvnUpdateAvailable NOTIFY svnUpdateAvailableChanged)
     Q_PROPERTY(QString svnUpdateSwuVersion READ getSvnUpdateSwuVersion NOTIFY svnUpdateSwuVersionChanged)
@@ -1011,13 +1076,33 @@ class MachineData : public QObject
     Q_PROPERTY(bool svnUpdateCheckForUpdateEnable READ getSvnUpdateCheckForUpdateEnable NOTIFY svnUpdateCheckForUpdateEnableChanged)
     Q_PROPERTY(int svnUpdateCheckForUpdatePeriod READ getSvnUpdateCheckForUpdatePeriod NOTIFY svnUpdateCheckForUpdatePeriodChanged)
 
-    Q_PROPERTY(bool cabinetWidthFeet READ getCabinetWidthFeet NOTIFY cabinetWidthFeetChanged)
-    Q_PROPERTY(bool cabinetWidth3Feet READ getCabinetWidth3Feet NOTIFY cabinetWidth3FeetChanged)
-    Q_PROPERTY(bool usePwmOutSignal READ getUsePwmOutSignal NOTIFY usePwmOutSignalChanged)
-    Q_PROPERTY(int screenSaverSeconds READ getScreenSaverSeconds NOTIFY screenSaverSecondsChanged)
+    ////
+    Q_PROPERTY(QJsonObject rpListDefault READ getRpListDefault WRITE setRpListDefault NOTIFY rpListDefaultChanged)
+    Q_PROPERTY(QVariantList rpListLast READ getRpListLast NOTIFY rpListLastChanged)
+    Q_PROPERTY(QVariantList rpListSelected READ getRpListSelected NOTIFY rpListSelectedChanged)
+    Q_PROPERTY(QString keyboardStringOnAcceptedEvent READ getKeyboardStringOnAcceptedEvent NOTIFY keyboardStringOnAcceptedEventChanged)
 
-    Q_PROPERTY(short cabinetSideType READ getCabinetSideType NOTIFY cabinetSideTypeChanged)
+    Q_PROPERTY(QJsonArray userLastLogin READ getUserLastLogin NOTIFY userLastLoginChanged)
 
+    /// USB Auto Mount
+    Q_PROPERTY(QString usbDetectedList READ getUsbDetectedList NOTIFY usbDetectedListChanged)
+    Q_PROPERTY(QString lastUsbDetectedName READ getLastUsbDetectedName NOTIFY lastUsbDetectedNameChanged)
+
+    ///
+    Q_PROPERTY(short frontEndScreenState READ getFrontEndScreenState NOTIFY frontEndScreenStateChanged)
+    Q_PROPERTY(short frontEndScreenStatePrev READ getFrontEndScreenStatePrev NOTIFY frontEndScreenStatePrevChanged)
+    Q_PROPERTY(bool installationWizardActive READ getInstallationWizardActive NOTIFY installationWizardActiveChanged)
+    Q_PROPERTY(int cabinetUpTime READ getCabinetUpTime NOTIFY cabinetUpTimeChanged)
+	
+	///Resource Monitor
+    //    Q_PROPERTY(bool resourceMonitorParamsActive READ getResourceMonitorParamsActive NOTIFY resourceMonitorParamsActiveChanged)
+    Q_PROPERTY(QStringList resourceMonitorParams READ getResourceMonitorParams NOTIFY resourceMonitorParamsChanged)
+
+	/// HYBRID ANALOG INPUT MVOLT
+    Q_PROPERTY(int haBoardInputCh1MVolt READ getHaBoardInputCh1MVolt NOTIFY haBoardInputCh1MVoltChanged)
+    Q_PROPERTY(int haBoardInputCh2MVolt READ getHaBoardInputCh2MVolt NOTIFY haBoardInputCh2MVoltChanged)
+	
+	
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
     static void singletonDelete();
@@ -1034,6 +1119,8 @@ public:
     bool getHasStopped() const;
     void setHasStopped(bool hasStopped);
 
+    void setMachineProfileID(QString value);
+    QString getMachineProfileID()const;
     ///CONTROL STATE
 
     ///SASH
@@ -1168,6 +1255,9 @@ public:
     ///
     short getAlarmStandbyFanOff() const;
     void setAlarmStandbyFanOff(short alarm);
+    ///
+    short getAlarmExperimentTimerIsOver() const;
+    void setAlarmExperimentTimerIsOver(short value);
     ///
     //    void setAlarmDownfLow(bool alarmDownflowLow);
     //    void setAlarmDownfHigh(bool alarmDownflowHigh);
@@ -1483,6 +1573,20 @@ public:
     void setDataLogPeriod(short dataLogPeriod);
     void setDataLogIsFull(bool dataLogIsFull);
 
+    /// RESOURCE MONITOR
+    bool getResourceMonitorLogEnable() const;
+    bool getResourceMonitorLogRunning() const;
+    short getResourceMonitorLogPeriod() const;
+    int   getResourceMonitorLogCount() const;
+    bool  getResourceMonitorLogIsFull() const;
+    //
+    void setResourceMonitorLogEnable(bool value);
+    void setResourceMonitorLogRunning(bool value);
+    void setResourceMonitorLogCount(int value);
+    void setResourceMonitorLogPeriod(short value);
+    void setResourceMonitorLogIsFull(bool value);
+
+
     /// OPERATION MODE
     short getOperationMode() const;
     void setOperationMode(short operationMode);
@@ -1515,6 +1619,20 @@ public:
     ///
     short getFilterLifePercent() const;
     void setFilterLifePercent(short filterLifePercent);
+
+    void setFilterLifeRpm                   (int value);
+    void setFilterLifeCalculationMode       (int value);
+    void setFilterLifeMinimumBlowerUsageMode (int value);
+    void setFilterLifeMaximumBlowerUsageMode (int value);
+    void setFilterLifeMinimumBlowerRpmMode   (int value);
+    void setFilterLifeMaximumBlowerRpmMode   (int value);
+
+    int getFilterLifeRpm                    ()const;
+    int getFilterLifeCalculationMode        ()const;
+    int getFilterLifeMinimumBlowerUsageMode  ()const;
+    int getFilterLifeMaximumBlowerUsageMode  ()const;
+    int getFilterLifeMinimumBlowerRpmMode    ()const;
+    int getFilterLifeMaximumBlowerRpmMode    ()const;
 
     /// POWER OUTAGE
     bool getPowerOutage() const;
@@ -1615,6 +1733,13 @@ public:
     ///
     bool getEventLogIsFull() const;
     void setEventLogIsFull(bool eventLogIsFull);
+
+    /// REPLACEABLECOMP RECORD
+    int getReplaceableCompRecordCount() const;
+    void setReplaceableCompRecordCount(int value);
+    ///
+    bool getReplaceableCompRecordIsFull() const;
+    void setReplaceableCompRecordIsFull(bool value);
 
     /// UV AUTO SET
     /// ON
@@ -1741,10 +1866,14 @@ public:
     int getDataLogSpaceMaximum() const;
     int getAlarmLogSpaceMaximum() const;
     int getEventLogSpaceMaximum() const;
+    int getReplaceableCompRecordSpaceMaximum() const;
+    int getResourceMonitorLogSpaceMaximum() const;
     ///
     void setAlarmLogSpaceMaximum(int alarmLogSpaceMaximum);
     void setEventLogSpaceMaximum(int eventLogSpaceMaximum);
     void setDataLogSpaceMaximum(int dataLogSpaceMaximum);
+    void setReplaceableCompRecordSpaceMaximum(int value);
+    void setResourceMonitorLogSpaceMaximum(int dataLogSpaceMaximum);
 
     bool getShippingModeEnable() const;
     void setShippingModeEnable(bool shippingModeEnable);
@@ -1788,34 +1917,7 @@ public:
     bool getReadClosedLoopResponse() const;
     void setReadClosedLoopResponse(bool value);
 
-    /// ETHERNET CONNECTION
-    void setEth0ConName(QString value);
-    void setEth0Ipv4Address(QString value);
-    void setEth0ConEnabled(bool value);
-
-    Q_INVOKABLE QString getEth0ConName()const;
-    Q_INVOKABLE QString getEth0Ipv4Address()const;
-    Q_INVOKABLE bool getEth0ConEnabled()const;
-
-    void setWiredNetworkHasbeenConfigured(bool value);
-    bool getWiredNetworkHasbeenConfigured()const;
-
-    /// SVN UPDATE
-    void setSvnUpdateAvailable(bool value);
-    void setSvnUpdateSwuVersion(QString value);
-    void setSvnUpdatePath(QString value);
-    void setSvnUpdateHistory(QJsonObject value);
-
-    bool getSvnUpdateAvailable()const;
-    QString getSvnUpdateSwuVersion()const;
-    QString getSvnUpdatePath()const;
-    QJsonObject getSvnUpdateHistory()const;
-
-    bool getSvnUpdateCheckForUpdateEnable()const;
-    int getSvnUpdateCheckForUpdatePeriod()const;
-    void setSvnUpdateCheckForUpdateEnable(bool value);
-    void setSvnUpdateCheckForUpdatePeriod(int value);
-
+	
     /// Front Panel Switch on LA2EU
     bool getFrontPanelSwitchInstalled() const;
     bool getFrontPanelSwitchState() const;
@@ -1871,11 +1973,155 @@ public:
     void setCabinetSideType(short value);
     short getCabinetSideType()const;
 
+
+/// PREVENTIVE MAINTENANCE
+    //    QJsonObject getMaintenanceChecklist()const;
+    ushort getAlarmPreventMaintState()const;
+    ushort getAlarmPreventMaintStateEnable()const;
+    ushort getAlarmPreventMaintStateAck()const;
+    //    ushort getPreventMaintChecklistNotEmpty()const;
+
+    //    bool getDailyPreventMaintAck()const;
+    //    bool getWeeklyPreventMaintAck()const;
+    //    bool getMonthlyPreventMaintAck()const;
+    //    bool getQuarterlyPreventMaintAck()const;
+    //    bool getAnnuallyPreventMaintAck()const;
+    //    bool getBienniallyPreventMaintAck()const;
+    //    bool getQuinquenniallyPreventMaintAck()const;
+    //    bool getCanopyPreventMaintAck()const;
+
+    QString getDailyPreventMaintAckDueDate()const;
+    QString getWeeklyPreventMaintAckDueDate()const;
+    QString getMonthlyPreventMaintAckDueDate()const;
+    QString getQuarterlyPreventMaintAckDueDate()const;
+    QString getAnnuallyPreventMaintAckDueDate()const;
+    QString getBienniallyPreventMaintAckDueDate()const;
+    QString getQuinquenniallyPreventMaintAckDueDate()const;
+    QString getCanopyPreventMaintAckDueDate()const;
+
+    QString getDailyPreventMaintLastAckDate()const;
+    QString getWeeklyPreventMaintLastAckDate()const;
+    QString getMonthlyPreventMaintLastAckDate()const;
+    QString getQuarterlyPreventMaintLastAckDate()const;
+    QString getAnnuallyPreventMaintLastAckDate()const;
+    QString getBienniallyPreventMaintLastAckDate()const;
+    QString getQuinquenniallyPreventMaintLastAckDate()const;
+    QString getCanopyPreventMaintLastAckDate()const;
+
+    //    void setMaintenanceChecklist(QJsonObject value);
+    void setAlarmPreventMaintState(ushort value);
+    void setAlarmPreventMaintStateEnable(ushort value);
+    void setAlarmPreventMaintStateAck(ushort value);
+    //    void setPreventMaintChecklistNotEmpty(ushort value);
+
+    //    void setDailyPreventMaintAck(bool value);
+    //    void setWeeklyPreventMaintAck(bool value);
+    //    void setMonthlyPreventMaintAck(bool value);
+    //    void setQuarterlyPreventMaintAck(bool value);
+    //    void setAnnuallyPreventMaintAck(bool value);
+    //    void setBienniallyPreventMaintAck(bool value);
+    //    void setQuinquenniallyPreventMaintAck(bool value);
+    //    void setCanopyPreventMaintAck(bool value);
+
+    void setDailyPreventMaintAckDueDate(QString value);
+    void setWeeklyPreventMaintAckDueDate(QString value);
+    void setMonthlyPreventMaintAckDueDate(QString value);
+    void setQuarterlyPreventMaintAckDueDate(QString value);
+    void setAnnuallyPreventMaintAckDueDate(QString value);
+    void setBienniallyPreventMaintAckDueDate(QString value);
+    void setQuinquenniallyPreventMaintAckDueDate(QString value);
+    void setCanopyPreventMaintAckDueDate(QString value);
+
+    void setDailyPreventMaintLastAckDate(QString value);
+    void setWeeklyPreventMaintLastAckDate(QString value);
+    void setMonthlyPreventMaintLastAckDate(QString value);
+    void setQuarterlyPreventMaintLastAckDate(QString value);
+    void setAnnuallyPreventMaintLastAckDate(QString value);
+    void setBienniallyPreventMaintLastAckDate(QString value);
+    void setQuinquenniallyPreventMaintLastAckDate(QString value);
+    void setCanopyPreventMaintLastAckDate(QString value);
+
+    /// ETHERNET CONNECTION
+    void setEth0ConName(QString value);
+    void setEth0Ipv4Address(QString value);
+    void setEth0ConEnabled(bool value);
+
+    Q_INVOKABLE QString getEth0ConName()const;
+    Q_INVOKABLE QString getEth0Ipv4Address()const;
+    Q_INVOKABLE bool getEth0ConEnabled()const;
+
+    void setWiredNetworkHasbeenConfigured(bool value);
+    bool getWiredNetworkHasbeenConfigured()const;
+
+    /// SVN UPDATE
+    void setSvnUpdateAvailable(bool value);
+    void setSvnUpdateSwuVersion(QString value);
+    void setSvnUpdatePath(QString value);
+    void setSvnUpdateHistory(QJsonObject value);
+
+    bool getSvnUpdateAvailable()const;
+    QString getSvnUpdateSwuVersion()const;
+    QString getSvnUpdatePath()const;
+    QJsonObject getSvnUpdateHistory()const;
+
+    bool getSvnUpdateCheckForUpdateEnable()const;
+    int getSvnUpdateCheckForUpdatePeriod()const;
+    void setSvnUpdateCheckForUpdateEnable(bool value);
+    void setSvnUpdateCheckForUpdatePeriod(int value);
+
+    void setRpListDefault(QJsonObject value);
+    void setRpListLast(QVariantList value);
+    void setRpListLast(short index, QString value);
+    QJsonObject getRpListDefault()const;
+    QVariantList getRpListLast()const;
+    QString getRpListLastAtIndex(short index)const;
+
+    void setRpListSelected(QVariantList value);
+    void setRpListSelected(short index, QString value);
+    QVariantList getRpListSelected()const;
+    QString getRpListSelectedAtIndex(short index)const;
+
+    void setKeyboardStringOnAcceptedEvent(const QString &value);
+    QString getKeyboardStringOnAcceptedEvent()const;
+
+    void setUserLasLogin(QJsonArray value);
+    QJsonArray getUserLastLogin()const;
+
+    QString getUsbDetectedList() const;
+    void setUsbDetectedList(QString list);
+
+    QString getLastUsbDetectedName() const;
+    void setLastUsbDetectedName(QString name);
+
+    void setFrontEndScreenState(short value);
+    short getFrontEndScreenState() const;
+    void setFrontEndScreenStatePrev(short value);
+    short getFrontEndScreenStatePrev() const;
+
+    void setInstallationWizardActive(bool value);
+    bool getInstallationWizardActive()const;
+
+    void setCabinetUpTime(int value);
+    int getCabinetUpTime()const;
+	
+	 //    void setResourceMonitorParamsActive(bool value);
+    //    bool getResourceMonitorParamsActive()const;
+    void setResourceMonitorParams(QStringList value);
+    QStringList getResourceMonitorParams()const;
+	
+	/// HYBRID ANALOG INPUT MVOLT
+    void setHaBoardInputCh1MVolt(int value);
+    void setHaBoardInputCh2MVolt(int value);
+    int getHaBoardInputCh1MVolt()const;
+    int getHaBoardInputCh2MVolt()const;
+	
+
 public slots:
     void initSingleton();
 
 signals:
     void machineStateChanged(int machineState);
+    void machineProfileIDChanged(QString value);
 
     void countChanged(int count);
 
@@ -1907,6 +2153,7 @@ signals:
     void alarmSashChanged(short alarmSash);
     void alarmSashUnsafeChanged(short alarmSashUnsafe);
     void alarmStandbyFanOffChanged(short alarm);
+    void alarmExperimentTimerIsOverChanged(short value);
 
     //AIRFLOW MONITOR
     void airflowMonitorEnableChanged(bool airflowMonitorEnable);
@@ -1978,6 +2225,7 @@ signals:
     void boardStatusRbmCom2Changed(bool boardStatusRbmCom2);
     void boardStatusPressureDiffChanged(bool boardStatusPressureDiff);
     void boardStatusCtpRtcChanged(bool boardStatusCtpRtc);
+    void boardStatusParticleCounterChanged(bool boardStatusParticleCounter);
     void boardStatusCtpIoeChanged(bool boardStatusCtpIoe);
     void boardStatusPWMOutputChanged(bool boardStatusPwmOutput);
 
@@ -1987,6 +2235,13 @@ signals:
     void dataLogCountChanged(int dataLogCount);
     void dataLogPeriodChanged(int dataLogCount);
     void dataLogIsFullChanged(bool dataLogIsFull);
+
+    /// RESOURCE MONITOR
+    void resourceMonitorLogEnableChanged(bool value);
+    void resourceMonitorLogRunningChanged(bool value);
+    void resourceMonitorLogCountChanged(int value);
+    void resourceMonitorLogPeriodChanged(int value);
+    void resourceMonitorLogIsFullChanged(bool value);
 
     void fanPrimaryInterlockedChanged(short fanPrimaryInterlocked);
     void fanInflowInterlockedChanged(short fanInflowInterlocked);
@@ -2030,8 +2285,15 @@ signals:
     void postPurgingTimeChanged(int postPurgingTime);
     void postPurgingCountdownChanged(int postPurgingCountdown);
 
+    /// Filter lIfe
     void filterLifeMinutesChanged(int filterLifeMinutes);
     void filterLifePercentChanged(short filterLifePercent);
+    void filterLifeRpmChanged                   (int value);
+    void filterLifeCalculationModeChanged       (int value);
+    void filterLifeMinimumBlowerUsageModeChanged (int value);
+    void filterLifeMaximumBlowerUsageModeChanged (int value);
+    void filterLifeMinimumBlowerRpmModeChanged   (int value);
+    void filterLifeMaximumBlowerRpmModeChanged   (int value);
 
     void powerOutageChanged(bool powerOutage);
     void powerOutageTimeChanged(QString powerOutageTime);
@@ -2076,6 +2338,8 @@ signals:
 
     void eventLogCountChanged(int eventLogCount);
     void eventLogIsFullChanged(bool eventLogIsFull);
+    void replaceableCompRecordCountChanged(int value);
+    void replaceableCompRecordIsFullChanged(bool value);
 
     void uvAutoEnabledChanged(int uvAutoSetEnabled);
     void uvAutoTimeChanged(int uvAutoSetTime);
@@ -2148,24 +2412,14 @@ signals:
     void alarmLogSpaceMaximumChanged(int alarmLogSpaceMaximum);
 
     void eventLogSpaceMaximumChanged(int eventLogSpaceMaximum);
+    void replaceableCompRecordSpaceMaximumChanged(int value);
+    void resourceMonitorLogSpaceMaximumChanged(int value);
 
     void shippingModeEnableChanged(bool shippingModeEnable);
 
     ///Closed Loop
     void fanClosedLoopControlEnableChanged(bool value);
     void fanFanClosedLoopControlEnablePrevStateChanged(bool value);
-
-    void wiredNetworkHasbeenConfiguredChanged(bool value);
-
-    /// SVN UPDATE
-    //bool m_centurionUpdateEnable = false;
-    void svnUpdateAvailableChanged(bool value);
-    void svnUpdateSwuVersionChanged(QString value);
-    void svnUpdatePathChanged(QString value);
-    void svnUpdateHistoryChanged(QJsonObject value);
-
-    void svnUpdateCheckForUpdateEnableChanged(bool value);
-    void svnUpdateCheckForUpdatePeriodChanged(int value);
     void closedLoopResponseStatusChanged(bool value);
 
     /// Front Panel Switch on LA2EU
@@ -2198,8 +2452,73 @@ signals:
     void screenSaverSecondsChanged(int value);
     void cabinetSideTypeChanged(short value);
 
+ /// PREVENTIVE MAINTENANCE
+    //    void maintenanceChecklistChanged(QJsonObject value);
+    void alarmPreventMaintStateChanged(ushort value);
+    void alarmPreventMaintStateEnableChanged(ushort value);
+    void alarmPreventMaintStateAckChanged(ushort value);
+    //    void preventMaintChecklistNotEmptyChanged(ushort value);
+    //    void dailyPreventMaintAckChanged(bool value);
+    //    void weeklyPreventMaintAckChanged(bool value);
+    //    void monthlyPreventMaintAckChanged(bool value);
+    //    void quarterlyPreventMaintAckChanged(bool value);
+    //    void annuallyPreventMaintAckChanged(bool value);
+    //    void bienniallyPreventMaintAckChanged(bool value);
+    //    void quinquenniallyPreventMaintAckChanged(bool value);
+    //    void canopyPreventMaintAckChanged(bool value);
+
+    void dailyPreventMaintAckDueDateChanged(QString value);
+    void weeklyPreventMaintAckDueDateChanged(QString value);
+    void monthlyPreventMaintAckDueDateChanged(QString value);
+    void quarterlyPreventMaintAckDueDateChanged(QString value);
+    void annuallyPreventMaintAckDueDateChanged(QString value);
+    void bienniallyPreventMaintAckDueDateChanged(QString value);
+    void quinquenniallyPreventMaintAckDueDateChanged(QString value);
+    void canopyPreventMaintAckDueDateChanged(QString value);
+
+    void dailyPreventMaintLastAckDateChanged(QString value);
+    void weeklyPreventMaintLastAckDateChanged(QString value);
+    void monthlyPreventMaintLastAckDateChanged(QString value);
+    void quarterlyPreventMaintLastAckDateChanged(QString value);
+    void annuallyPreventMaintLastAckDateChanged(QString value);
+    void bienniallyPreventMaintLastAckDateChanged(QString value);
+    void quinquenniallyPreventMaintLastAckDateChanged(QString value);
+    void canopyPreventMaintLastAckDateChanged(QString value);
+
+    void wiredNetworkHasbeenConfiguredChanged(bool value);
+
+    /// SVN UPDATE
+    //bool m_centurionUpdateEnable = false;
+    void svnUpdateAvailableChanged(bool value);
+    void svnUpdateSwuVersionChanged(QString value);
+    void svnUpdatePathChanged(QString value);
+    void svnUpdateHistoryChanged(QJsonObject value);
+
+    void svnUpdateCheckForUpdateEnableChanged(bool value);
+    void svnUpdateCheckForUpdatePeriodChanged(int value);
+
+    void rpListDefaultChanged(QJsonObject value);
+    void rpListLastChanged(QVariantList value);
+    void rpListSelectedChanged(QVariantList value);
+    void keyboardStringOnAcceptedEventSignal(QString value);
+    void keyboardStringOnAcceptedEventChanged(QString value);
+
+    void userLastLoginChanged(QJsonArray value);
+
+    void usbDetectedListChanged(QString list);
+    void lastUsbDetectedNameChanged(QString name);
+
+    void usbHasMounted(QString name);
+    void usbHasEjected(QString name);
+
+    void frontEndScreenStateChanged(short value);
+    void frontEndScreenStatePrevChanged(short value);
+    void installationWizardActiveChanged(short value);
+    void cabinetUpTimeChanged(int value);
+
 private:
     ///
+    QString m_machineProfileID;
     short m_machineState;
 
     int m_count = 0;
@@ -2251,6 +2570,7 @@ private:
     short m_alarmDownflowHigh = 0;
     short m_alarmSash = 0;
     short m_alarmStandbyFanOff = 0;
+    short m_alarmExperimentTimerIsOver = 0;
     //    bool m_alarmDownflowLow = false;
     //    bool m_alarmDownflowHigh = false;
     short m_alarmTempHigh = 0;
@@ -2393,6 +2713,7 @@ private:
     bool    m_boardStatusRbmCom2  = false;
     bool    m_boardStatusPressureDiff  = false;
     bool    m_boardStatusCtpRtc = false;
+    bool    m_boardStatusParticleCounter = false;
     bool    m_boardStatusCtpIoe = false;
     bool    m_boardStatusPWMOutput = false;
 
@@ -2402,6 +2723,12 @@ private:
     short m_dataLogPeriod   = 10; //minutes
     int   m_dataLogCount    = 0;
     bool  m_dataLogIsFull   = false;
+    /// Resource Monitor
+    bool m_resourceMonitorLogEnable    = false;
+    bool m_resourceMonitorLogRunning   = false;
+    short m_resourceMonitorLogPeriod   = 10; //minutes
+    int   m_resourceMonitorLogCount    = 0;
+    bool  m_resourceMonitorLogIsFull   = false;
 
     bool m_fanPrimaryInterlocked = false;
     bool m_fanInflowInterlocked = false;
@@ -2431,8 +2758,15 @@ private:
     int m_postPurgingTime = 0;
     int m_postPurgingCountdown = 0;
 
+    /// Filter Life
     int m_filterLifeMinutes = 0;
     short m_filterLifePercent = 0;
+    int m_filterLifeRpm                    = 0;
+    int m_filterLifeCalculationMode        = 0;
+    int m_filterLifeMinimumBlowerUsageMode  = 0;
+    int m_filterLifeMaximumBlowerUsageMode  = 0;
+    int m_filterLifeMinimumBlowerRpmMode    = 0;
+    int m_filterLifeMaximumBlowerRpmMode    = 0;
 
     bool m_powerOutage = false;
     QString m_powerOutageTime;
@@ -2476,6 +2810,9 @@ private:
 
     int m_eventLogCount = 0;
     bool m_eventLogIsFull = false;
+
+    int m_replaceableCompRecordCount = 0;
+    bool m_replaceableCompRecordIsFull = false;
 
     int m_uvAutoSetEnabled = 0;
     int m_uvAutoSetTime = 0;
@@ -2534,6 +2871,8 @@ private:
     int m_dataLogSpaceMaximum = 0;
     int m_alarmLogSpaceMaximum = 0;
     int m_eventLogSpaceMaximum = 0;
+    int m_replaceableCompRecordSpaceMaximum = 0;
+    int m_resourceMonitorLogSpaceMaximum = 0;
 
     bool m_shippingModeEnable = false;
 
@@ -2557,21 +2896,6 @@ private:
     bool m_readClosedLoopResponse = false;
     bool m_closeLoopResponseStatus = false;
 
-    /// ETHERNET CONNECTION
-    QString m_eth0ConName;
-    QString m_eth0Ipv4Address;
-    bool m_eth0ConEnabled = false;
-    bool m_wiredNetworkHasbeenConfigured = false;
-
-    /// SVN UPDATE
-    //bool m_centurionUpdateEnable = false;
-    bool m_svnUpdateAvailable = false;
-    QString m_svnUpdateSwuVersion;
-    QString m_svnUpdatePath;
-    QJsonObject m_svnUpdateHistory;
-
-    bool m_svnUpdateCheckForUpdateEnable;
-    int m_svnUpdateCheckForUpdatePeriod;
     bool m_frontPanelSwitchInstalled = false;
     bool m_frontPanelSwitchState = false;
     short m_frontPanelAlarm = 0;
@@ -2599,6 +2923,95 @@ private:
 
     int m_screenSaverSeconds = 0;
     short m_cabinetSideType = 0;
+	
+	 /// PREVENTIVE MAINTENANCE
+    //    QJsonObject m_maintenanceChecklist;
+    ushort m_alarmPreventMaintState = 0;
+    ushort m_alarmPreventMaintStateEnable = 0;
+    ushort m_alarmPreventMaintStateAck = 0;
+    //    ushort m_preventMaintChecklistNotEmpty = 0;
+
+    //    bool m_dailyPreventMaintAck = false;
+    //    bool m_weeklyPreventMaintAck = false;
+    //    bool m_monthlyPreventMaintAck = false;
+    //    bool m_quarterlyPreventMaintAck = false;
+    //    bool m_annuallyPreventMaintAck = false;
+    //    bool m_bienniallyPreventMaintAck = false;
+    //    bool m_quinquenniallyPreventMaintAck = false;
+    //    bool m_canopyPreventMaintAck = false;
+
+    QString m_dailyPreventMaintAckDueDate;
+    QString m_weeklyPreventMaintAckDueDate;
+    QString m_monthlyPreventMaintAckDueDate;
+    QString m_quarterlyPreventMaintAckDueDate;
+    QString m_annuallyPreventMaintAckDueDate;
+    QString m_bienniallyPreventMaintAckDueDate;
+    QString m_quinquenniallyPreventMaintAckDueDate;
+    QString m_canopyPreventMaintAckDueDate;
+
+    QString m_dailyPreventMaintLastAckDate;
+    QString m_weeklyPreventMaintLastAckDate;
+    QString m_monthlyPreventMaintLastAckDate;
+    QString m_quarterlyPreventMaintLastAckDate;
+    QString m_annuallyPreventMaintLastAckDate;
+    QString m_bienniallyPreventMaintLastAckDate;
+    QString m_quinquenniallyPreventMaintLastAckDate;
+    QString m_canopyPreventMaintLastAckDate;
+
+    bool m_meaIfNominalFactoryCalib = false;
+    bool m_meaIfMinimumFactoryCalib = false;
+    bool m_meaIfStandbyFactoryCalib = false;
+    bool m_meaDfNominalFactoryCalib = false;
+
+    bool m_meaIfNominalFactorySecCalib = false;
+    bool m_meaIfMinimumFactorySecCalib = false;
+    bool m_meaIfStandbyFactorySecCalib = false;
+    bool m_meaDfNominalFactorySecCalib = false;
+
+    bool m_sensorConstantFactoryCalib = false;
+    bool m_adcIfNominalFactoryCalib = false;
+    bool m_adcIfMinimumFactoryCalib = false;
+    bool m_adcDfNominalFactoryCalib = false;
+
+    bool m_airflowFieldCalibrationState[4] = {false};
+
+    /// ETHERNET CONNECTION
+    QString m_eth0ConName;
+    QString m_eth0Ipv4Address;
+    bool m_eth0ConEnabled = false;
+    bool m_wiredNetworkHasbeenConfigured = false;
+
+    /// SVN UPDATE
+    //bool m_centurionUpdateEnable = false;
+    bool m_svnUpdateAvailable = false;
+    QString m_svnUpdateSwuVersion;
+    QString m_svnUpdatePath;
+    QJsonObject m_svnUpdateHistory;
+
+    bool m_svnUpdateCheckForUpdateEnable;
+    int m_svnUpdateCheckForUpdatePeriod;
+
+    QJsonObject m_rpListDefault;
+    QVariantList m_rpListLast;
+    QVariantList m_rpListSelected;
+    QString m_keyboardStringOnAcceptedEvent;
+
+    QJsonArray m_userLastLogin;
+
+    QString m_usbDetectedList = "";
+    QString m_lastUsbDetectedName = "";
+
+    short m_frontEndScreenState = 0;
+    short m_frontEndScreenStatePrev = 0;
+    bool m_installationWizardActive= false;
+    int m_cabinetUpTime = 0;
+	
+//    bool m_resourceMonitorParamsActive = false;
+    QStringList m_resourceMonitorParams;
+	
+	    /// HYBRID ANALOG INPUT MVOLT
+    int m_haBoardInputCh1MVolt = 0;
+    int m_haBoardInputCh2MVolt = 0;
 };
 
 

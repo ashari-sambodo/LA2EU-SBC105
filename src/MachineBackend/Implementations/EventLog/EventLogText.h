@@ -1,18 +1,18 @@
 #pragma once
 #include <QObject>
 
-#define EVENT_STR_POWER_ON          QObject::tr("System on")
+#define EVENT_STR_POWER_ON          QObject::tr("System ON")
 #define EVENT_STR_POWER_OFF         QObject::tr("System stopped")
 #define EVENT_STR_POWER_FAILURE     QObject::tr("Power failure at")
 
 #define EVENT_STR_PWR_FAIL_FAN      QObject::tr("Power recovered! Set back Fan to ON")
 #define EVENT_STR_PWR_FAIL_UV       QObject::tr("Power recovered! Set back UV to ON")
 
-#define EVENT_STR_SASH_SAFE         QObject::tr("Sash at safe height")
-#define EVENT_STR_SASH_UNSAFE       QObject::tr("Sash at unsafe height")
-#define EVENT_STR_SASH_FC           QObject::tr("Sash fully close")
-#define EVENT_STR_SASH_FO           QObject::tr("Sash fully open")
-#define EVENT_STR_SASH_STB          QObject::tr("Sash at standby")
+#define EVENT_STR_SASH_SAFE         QObject::tr("Sash safe height")
+#define EVENT_STR_SASH_UNSAFE       QObject::tr("Sash unsafe height")
+#define EVENT_STR_SASH_FC           QObject::tr("Sash fully closed")
+#define EVENT_STR_SASH_FO           QObject::tr("Sash fully opened")
+#define EVENT_STR_SASH_STB          QObject::tr("Sash standby")
 #define EVENT_STR_SASH_ERROR        QObject::tr("Sash unknown state")
 
 #define EVENT_STR_FAN_ON_SCH        QObject::tr("Fan On scheduler has triggered")

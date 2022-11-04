@@ -377,7 +377,7 @@ ViewApp {
                                         UserSessionService.username = "service"
                                         UserSessionService.fullname = "Unknown (service)"
 
-                                        MachineAPI.setSignedUser(UserSessionService.username, UserSessionService.fullname)
+                                        MachineAPI.setSignedUser(UserSessionService.username, UserSessionService.fullname, UserSessionService.roleLevel)
                                         const message = qsTr("Login unknown device success! username: ") + "service"
                                         MachineAPI.insertEventLog(message)
 
@@ -388,7 +388,7 @@ ViewApp {
                                         UserSessionService.username = "factory"
                                         UserSessionService.fullname = "Unknown (factory)"
 
-                                        MachineAPI.setSignedUser(UserSessionService.username, UserSessionService.fullname)
+                                        MachineAPI.setSignedUser(UserSessionService.username, UserSessionService.fullname, UserSessionService.roleLevel)
                                         const message = qsTr("Login unknown device success! username: ") + "factory"
                                         MachineAPI.insertEventLog(message)
 

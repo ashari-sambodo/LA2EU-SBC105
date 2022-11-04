@@ -56,59 +56,60 @@
 #include "Implementations/EventLog/EventLogSql.h"
 #include "Implementations/EventLog/EventLog.h"
 #include "Implementations/EventLog/EventLogText.h"
+#include "Implementations/ReplaceableCompRecord/ReplaceableCompRecord.h"
+#include "Implementations/ReplaceableCompRecord/ReplaceableCompRecordSql.h"
+
+#include "Implementations/ResourceMonitorLog/ResourceMonitorLogSql.h"
+#include "Implementations/ResourceMonitorLog/ResourceMonitorLog.h"
 
 #include "Implementations/SchedulerDayOutput/SchedulerDayOutput.h"
+#include "Implementations/Modbus/QModbusTcpAddressEnum.h"
 
 #include "Implementations/CheckSWUpdate/CheckSWUpdate.h"
+#include "Implementations/USBAutoMount/USBAutoMount.h"
+
 /// MODBUS REGISTER
 struct modbusRegisterAddress
 {
-    struct operationMode     {static const short addr = 0;   short rw = 0; uint16_t value;} operationMode;
-    struct sashState         {static const short addr = 1;   short rw = 0; uint16_t value;} sashState;
-    struct fanState          {static const short addr = 2;   short rw = 0; uint16_t value;} fanState;
-    struct dfaFanState       {static const short addr = 3;   short rw = 0; uint16_t value;} dfaFanState;
-    struct dfaFanDutyCycle   {static const short addr = 4;   short rw = 0; uint16_t value;} dfaFanDutyCycle;
-    struct dfaFanRpm         {static const short addr = 5;   short rw = 0; uint16_t value;} dfaFanRpm;
-    struct ifaFanState       {static const short addr = 6;   short rw = 0; uint16_t value;} ifaFanState;
-    struct ifaFanDutyCycle   {static const short addr = 7;   short rw = 0; uint16_t value;} ifaFanDutyCycle;
-    struct ifaFanRpm         {static const short addr = 8;   short rw = 0; uint16_t value;} ifaFanRpm;
-    struct fanClosedLoopControl{static const short addr = 9;  short rw = 0; uint16_t value;} fanClosedLoopControl;
-    struct dfaFanUsage       {static const short addr = 10;  short rw = 0; uint16_t value;} dfaFanUsage;
-    struct ifaFanUsage       {static const short addr = 11;  short rw = 0; uint16_t value;} ifaFanUsage;
+    struct OperationMode     {static const short addr = Addrs::OperationMode;   short rw = 0; /*uint16_t value;*/} OperationMode;
+    struct SashState         {static const short addr = Addrs::SashState;       short rw = 0; /*uint16_t value;*/} SashState;
+    struct FanState          {static const short addr = Addrs::FanState;        short rw = 0; /*uint16_t value;*/} FanState;
+    struct IfaFanState       {static const short addr = Addrs::IfaFanState;        short rw = 0; /*uint16_t value;*/} IfaFanState;
+    struct IfaFanDutyCycle   {static const short addr = Addrs::IfaFanDutyCycle;    short rw = 0; /*uint16_t value;*/} IfaFanDutyCycle;
+    struct IfaFanRpm         {static const short addr = Addrs::IfaFanRpm;          short rw = 0; /*uint16_t value;*/} IfaFanRpm;
+    struct IfaFanUsage       {static const short addr = Addrs::IfaFanUsage;        short rw = 0; /*uint16_t value;*/} IfaFanUsage;
+    struct LightState        {static const short addr = Addrs::LightState;      short rw = 0; /*uint16_t value;*/} LightState;
+    struct LightIntensity    {static const short addr = Addrs::LightIntensity;  short rw = 0; /*uint16_t value;*/} LightIntensity;
+    struct SocketState       {static const short addr = Addrs::SocketState;     short rw = 0; /*uint16_t value;*/} SocketState;
+    struct GasState          {static const short addr = Addrs::GasState;        short rw = 0; /*uint16_t value;*/} GasState;
+    struct UvState           {static const short addr = Addrs::UvState;         short rw = 0; /*uint16_t value;*/} UvState;
+    struct UvLifeLeft        {static const short addr = Addrs::UvLifeLeft;      short rw = 0; /*uint16_t value;*/} UvLifeLeft;
+    struct FilterLife        {static const short addr = Addrs::FilterLife;      short rw = 0; /*uint16_t value;*/} FilterLife;
 
-    struct lightState        {static const short addr = 12;   short rw = 0; uint16_t value;} lightState;
-    struct lightIntensity    {static const short addr = 13;  short rw = 0; uint16_t value;} lightIntensity;
-    struct socketState       {static const short addr = 14;  short rw = 0; uint16_t value;} socketState;
-    struct gasState          {static const short addr = 15;  short rw = 0; uint16_t value;} gasState;
-    struct uvState           {static const short addr = 16;  short rw = 0; uint16_t value;} uvState;
-    struct uvLifeLeft        {static const short addr = 17;  short rw = 0; uint16_t value;} uvLifeLeft;
-    struct filterLife        {static const short addr = 18;  short rw = 0; uint16_t value;} filterLife;
-
-    struct sashMotorizeState {static const short addr = 19;  short rw = 0; uint16_t value;} sashMotorizeState;
-    struct sashCycle         {static const short addr = 20;  short rw = 0; uint16_t value;} sashCycle;
-    struct meaUnit           {static const short addr = 21;  short rw = 0; uint16_t value;} meaUnit;
-    struct temperature       {static const short addr = 22;  short rw = 0; uint16_t value;} temperature;
-    struct airflowInflow     {static const short addr = 23;  short rw = 0; uint16_t value;} airflowInflow;
-    struct airflowDownflow   {static const short addr = 24;  short rw = 0; uint16_t value;} airflowDownflow;
-    struct pressureExhaust   {static const short addr = 25;  short rw = 0; uint16_t value;} pressureExhaust;
-    struct alarmSash         {static const short addr = 26;  short rw = 0; uint16_t value;} alarmSash;
-    struct alarmInflowLow       {static const short addr = 27;  short rw = 0; uint16_t value;} alarmInflowLow;
-    struct alarmInflowHigh      {static const short addr = 28;  short rw = 0; uint16_t value;} alarmInflowHigh;
-    struct alarmDownflowLow     {static const short addr = 29;  short rw = 0; uint16_t value;} alarmDownflowLow;
-    struct alarmDownflowHigh    {static const short addr = 30;  short rw = 0; uint16_t value;} alarmDownflowHigh;
-    struct alarmExhaustLow      {static const short addr = 31;  short rw = 0; uint16_t value;} alarmExhaustLow;
-    struct alarmExhaustFlap     {static const short addr = 32;  short rw = 0; uint16_t value;} alarmExhaustFlap;
-    struct alarmBoardComErr     {static const short addr = 33;  short rw = 0; uint16_t value;} alarmBoardComErr;
-    struct alarmTempLow         {static const short addr = 34;  short rw = 0; uint16_t value;} alarmTempLow;
-    struct alarmTempHigh        {static const short addr = 35;  short rw = 0; uint16_t value;} alarmTempHigh;
-    struct alarmSashCycleMotorLock  {static const short addr = 36;  short rw = 0; uint16_t value;} alarmSashCycleMotorLock;
-    struct alarmStbFanOff       {static const short addr = 37;  short rw = 0; uint16_t value;} alarmStbFanOff;
-    struct alarmFrontPanel      {static const short addr = 38;  short rw = 0; uint16_t value;} alarmFrontPanel;
-    struct alarmSashDownStucked {static const short addr = 39;  short rw = 0; uint16_t value;} alarmSashDownStucked;
+    struct SashMotorizeState {static const short addr = Addrs::SashMotorizeState;  short rw = 0; /*uint16_t value;*/} SashMotorizeState;//Spare
+    struct SashCycle         {static const short addr = Addrs::SashCycle;       short rw = 0; /*uint16_t value;*/} SashCycle;//Spare
+    struct MeaUnit           {static const short addr = Addrs::MeaUnit;         short rw = 0; /*uint16_t value;*/} MeaUnit;
+    struct Temperature       {static const short addr = Addrs::Temperature;     short rw = 0; /*uint16_t value;*/} Temperature;
+    struct AirflowInflow     {static const short addr = Addrs::AirflowInflow;   short rw = 0; /*uint16_t value;*/} AirflowInflow;
+    struct AirflowDownflow   {static const short addr = Addrs::AirflowDownflow;  short rw = 0; /*uint16_t value;*/} AirflowDownflow;
+    struct PressureExhaust   {static const short addr = Addrs::PressureExhaust;  short rw = 0; /*uint16_t value;*/} PressureExhaust;//Spare
+    struct AlarmSash         {static const short addr = Addrs::AlarmSash;       short rw = 0; /*uint16_t value;*/} AlarmSash;
+    struct AlarmInflowLow    {static const short addr = Addrs::AlarmInflowLow;  short rw = 0; /*uint16_t value;*/} AlarmInflowLow;
+    struct AlarmInflowHigh   {static const short addr = Addrs::AlarmInflowHigh; short rw = 0; /*uint16_t value;*/} AlarmInflowHigh;//Spare
+    struct AlarmDownflowLow  {static const short addr = Addrs::AlarmDownflowLow;short rw = 0; /*uint16_t value;*/} AlarmDownflowLow;//Spare
+    struct AlarmDownflowHigh {static const short addr = Addrs::AlarmDownflowHigh;short rw = 0; /*uint16_t value;*/} AlarmDownflowHigh;//Spare
+    struct AlarmExhaustLow   {static const short addr = Addrs::AlarmExhaustLow;  short rw = 0; /*uint16_t value;*/} AlarmExhaustLow;//Spare
+    struct AlarmFlapExhaust  {static const short addr = Addrs::AlarmFlapExhaust; short rw = 0; /*uint16_t value;*/} AlarmFlapExhaust;//Spare
+    struct AlarmCom          {static const short addr = Addrs::AlarmCom;        short rw = 0; /*uint16_t value;*/} AlarmCom;
+    struct AlarmTempLow      {static const short addr = Addrs::AlarmTempLow;    short rw = 0; /*uint16_t value;*/} AlarmTempLow;
+    struct AlarmTempHigh     {static const short addr = Addrs::AlarmTempHigh;   short rw = 0; /*uint16_t value;*/} AlarmTempHigh;
+    struct AlarmSashCycleMotorLocked {static const short addr = Addrs::AlarmSashCycleMotorLocked;  short rw = 0; /*uint16_t value;*/} AlarmSashCycleMotorLocked;//Spare
+    struct AlarmStbFanOff     {static const short addr = Addrs::AlarmStbFanOff; short rw = 0; /*uint16_t value;*/} AlarmStbFanOff;
+    /// Not used
+    struct FanClosedLoopControl{static const short addr = Addrs::FanClosedLoopControl;  short rw = 0; /*uint16_t value;*/} FanClosedLoopControl;
 } modbusRegisterAddress;
 
-
-#define MODBUS_REGISTER_COUNT   40
+#define MODBUS_REGISTER_COUNT   Addrs::Total
 #define ALLOW_ANY_IP            "0.0.0.0"
 #define LOCALHOST_ONLY          "127.0.0.1"
 
@@ -159,12 +160,77 @@ void MachineBackend::setup()
     //        pData->setWifiDisabled(wifiDisabled);
     //    }
 
+        /// USB Auto Mount
+    {
+        m_pUSBAutoMount.reset(new USBAutoMount);
+
+        QObject::connect(m_pUSBAutoMount.data(), &USBAutoMount::usbDetectedListChanged,
+                         this, [&](const QString &usbList){
+            //qDebug() << "USB List Changed " << usbList;
+            pData->setUsbDetectedList(usbList);
+
+            if(usbList != ""){
+                QStringList nameList = usbList.split(",", Qt::SplitBehaviorFlags::SkipEmptyParts);
+                pData->setLastUsbDetectedName(nameList[nameList.length() - 1]);
+            }
+            else pData->setLastUsbDetectedName("");
+        });
+
+        QObject::connect(m_pUSBAutoMount.data(), &USBAutoMount::usbHasMounted,
+                         this, [&](const QString &name){
+            //qDebug() << "USB Has Mounted " << name;
+            //pData->setLastUsbDetectedName(name);
+
+            emit pData->usbHasMounted(name);
+        });
+
+        QObject::connect(m_pUSBAutoMount.data(), &USBAutoMount::usbHasEjected,
+                         this, [&](const QString &name){
+            //qDebug() << "USB Has Ejected " << name;
+            emit pData->usbHasEjected(name);
+        });
+
+        /// TIMER
+        m_timerEventForUSBAutoMount.reset(new QTimer);
+        m_timerEventForUSBAutoMount->setInterval(5000);
+
+        QObject::connect(m_timerEventForUSBAutoMount.data(), &QTimer::timeout,
+                         m_pUSBAutoMount.data(), [&](){
+            //qDebug() << "Check USB List";
+            m_pUSBAutoMount->routineTask();
+        });
+
+        /// THREAD
+        m_threadForUSBAutoMount.reset(new QThread);
+
+        QObject::connect(m_threadForUSBAutoMount.data(), &QThread::started,
+                         m_timerEventForUSBAutoMount.data(), [&](){
+            m_timerEventForUSBAutoMount->start();
+        });
+        QObject::connect(m_threadForUSBAutoMount.data(), &QThread::finished,
+                         m_timerEventForUSBAutoMount.data(), [&](){
+            m_timerEventForUSBAutoMount->stop();
+        });
+
+        QObject::connect(this, &MachineBackend::loopStarted,
+                         [&](){
+            m_threadForUSBAutoMount->start();
+        });
+
+        /// move the object to extra thread, so every query will execute in the separated thread
+        m_pUSBAutoMount->moveToThread(m_threadForUSBAutoMount.data());
+        m_timerEventForUSBAutoMount->moveToThread(m_threadForUSBAutoMount.data());
+    }//
+
     /// Read App Software version
     QString newAppName = (QFileInfo(QCoreApplication::applicationFilePath()).fileName()).replace(".exe", "");
     newAppName = newAppName.toUpper();
     qDebug() << "&&&&!!!!!" << newAppName;
 
-    QString  appNameVersion = m_settings->value(SKEY_SBC_SOFTWARE_VERSION, newAppName).toString();
+    QString  appNameVersion = m_settings->value(SKEY_SBC_SOFTWARE_VERSION, "none").toString();
+    if(appNameVersion == "none"){
+        m_settings->setValue(SKEY_SBC_SOFTWARE_VERSION, newAppName);
+    }
     if(appNameVersion != newAppName){
         m_settings->setValue(SKEY_SBC_SOFTWARE_VERSION, newAppName);
         appNameVersion = newAppName;
@@ -243,8 +309,8 @@ void MachineBackend::setup()
         m_pCheckSwUpdate->moveToThread(m_threadForCheckSwUpdate.data());
         m_timerEventForCheckSwUpdate->moveToThread(m_threadForCheckSwUpdate.data());
     }//
-
-    {
+	
+	{
         int screensaver = m_settings->value(SKEY_SCREEN_SAVER_SEC, 1800).toInt();
         pData->setScreenSaverSeconds(screensaver);
     }
@@ -476,12 +542,12 @@ void MachineBackend::setup()
                 ////MONITORING COMMUNICATION STATUS
                 QObject::connect(m_boardRelay1.data(), &PWMpca9685::errorComToleranceReached,
                                  this, [&](int error){
-                    qDebug() << "PWMpca9685::errorComToleranceReached" << error << thread();
+                    qDebug() << "m_boardRelay1::errorComToleranceReached" << error << thread();
                     pData->setBoardStatusHybridDigitalRelay(false);
                 });
                 QObject::connect(m_boardRelay1.data(), &PWMpca9685::errorComToleranceCleared,
                                  this, [&](int error){
-                    qDebug() << "PWMpca9685::errorComToleranceCleared" << error << thread();
+                    qDebug() << "m_boardRelay1::errorComToleranceCleared" << error << thread();
                     pData->setBoardStatusHybridDigitalRelay(true);
                 });
             }
@@ -934,6 +1000,63 @@ void MachineBackend::setup()
         if (!connected) {
             qWarning() << m_pModbusServer->errorString();
         }
+		
+		/// SETUP CONNECTION TO KEEP THE REGISTER VALUES
+        /// SYNCED WITH THE ACTUAL VALUE
+        {
+            //
+            QObject::connect(pData, &MachineData::fanPrimaryStateChanged,
+                             this, [&](short value){
+                _setModbusRegHoldingValue(modbusRegisterAddress.FanState.addr, static_cast<ushort>(value));
+                _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanState.addr, static_cast<ushort>(value));
+            });
+            //            QObject::connect(pData, &MachineData::fanPrimaryStateChanged,
+            //                             this, [&](short value){
+            //                _setModbusRegHoldingValue(modbusRegisterAddress.DfaFanState.addr, static_cast<ushort>(value));
+            //            });
+            QObject::connect(pData, &MachineData::fanPrimaryDutyCycleChanged,
+                             this, [&](short value){
+                _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanDutyCycle.addr, static_cast<ushort>(value));
+            });
+            QObject::connect(pData, &MachineData::fanPrimaryRpmChanged,
+                             this, [&](short value){
+                _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanRpm.addr, static_cast<ushort>(value));
+            });
+            //
+            //            QObject::connect(pData, &MachineData::fanInflowStateChanged,
+            //                             this, [&](short value){
+            //                _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanState.addr, static_cast<ushort>(value));
+            //            });
+            //            QObject::connect(pData, &MachineData::fanInflowDutyCycleChanged,
+            //                             this, [&](short value){
+            //                _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanDutyCycle.addr, static_cast<ushort>(value));
+            //            });
+            //            QObject::connect(pData, &MachineData::fanInflowRpmChanged,
+            //                             this, [&](short value){
+            //                _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanRpm.addr, static_cast<ushort>(value));
+            //            });
+            //
+            QObject::connect(pData, &MachineData::lightStateChanged,
+                             this, [&](short value){
+                _setModbusRegHoldingValue(modbusRegisterAddress.LightState.addr, static_cast<ushort>(value));
+            });
+            QObject::connect(pData, &MachineData::lightIntensityChanged,
+                             this, [&](short value){
+                _setModbusRegHoldingValue(modbusRegisterAddress.LightIntensity.addr, static_cast<ushort>(value));
+            });
+            QObject::connect(pData, &MachineData::socketStateChanged,
+                             this, [&](short value){
+                _setModbusRegHoldingValue(modbusRegisterAddress.SocketState.addr, static_cast<ushort>(value));
+            });
+            QObject::connect(pData, &MachineData::gasStateChanged,
+                             this, [&](short value){
+                _setModbusRegHoldingValue(modbusRegisterAddress.GasState.addr, static_cast<ushort>(value));
+            });
+            QObject::connect(pData, &MachineData::uvStateChanged,
+                             this, [&](short value){
+                _setModbusRegHoldingValue(modbusRegisterAddress.UvState.addr, static_cast<ushort>(value));
+            });
+        }//
     }
 
     {
@@ -1578,44 +1701,43 @@ void MachineBackend::setup()
         if(pData->getParticleCounterSensorInstalled()) {
             /// find and initializing serial port for fan
             m_serialPort2.reset(new QSerialPort());
+
+#ifndef __linux__
+            //// FOR TESTING IN DEVELOPER PC
+            m_serialPort2->setPortName("COM9");
+            m_serialPort2->setBaudRate(QSerialPort::BaudRate::Baud9600);
+            m_serialPort2->setDataBits(QSerialPort::DataBits::Data8);
+            m_serialPort2->setParity(QSerialPort::Parity::NoParity);
+            m_serialPort2->setStopBits(QSerialPort::StopBits::OneStop);
+#endif
+
+#ifdef __arm__
             foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts()){
-
-                qDebug() << info.vendorIdentifier() << info.productIdentifier();
-
+                qDebug() << info.vendorIdentifier() << info.productIdentifier() << info.portName();
                 if((info.vendorIdentifier() == PARTICLE_COUNTER_UART_VID) &&
                         (info.productIdentifier() == PARTICLE_COUNTER_UART_PID)){
-
-                    m_serialPort2->setPort(info);
-
-                    if(m_serialPort2->open(QIODevice::ReadWrite)){
-                        m_serialPort2->setBaudRate(QSerialPort::BaudRate::Baud9600);
-                        m_serialPort2->setDataBits(QSerialPort::DataBits::Data8);
-                        m_serialPort2->setParity(QSerialPort::Parity::NoParity);
-                        m_serialPort2->setStopBits(QSerialPort::StopBits::OneStop);
-                    }
+                    qDebug() << "port name: " << info.portName();
+                    m_serialPort2->setPortName(info.portName());
+                    m_serialPort2->setBaudRate(QSerialPort::BaudRate::Baud9600);
+                    m_serialPort2->setDataBits(QSerialPort::DataBits::Data8);
+                    m_serialPort2->setParity(QSerialPort::Parity::NoParity);
+                    m_serialPort2->setStopBits(QSerialPort::StopBits::OneStop);
                     break;
                 }
             }
-
-            //        //// FOR TESTING IN DEVELOPER PC
-            //        ////
-            //        //        m_serialPort2->setPortName("COM3");
-            //        //        m_serialPort2->setPortName("COM7");
-            //        m_serialPort2->setPortName("COM10");
-            //        m_serialPort2->setBaudRate(QSerialPort::BaudRate::Baud9600);
-            //        m_serialPort2->setDataBits(QSerialPort::DataBits::Data8);
-            //        m_serialPort2->setParity(QSerialPort::Parity::NoParity);
-            //        m_serialPort2->setStopBits(QSerialPort::StopBits::OneStop);
-            //        m_serialPort2->open(QIODevice::ReadWrite);
-            //        /////
+#endif
+            //Open Here
+            m_serialPort2->open(QIODevice::ReadWrite);
 
             /// Board is OK and ready to send fan paramaters
             if (!m_serialPort2->isOpen()) {
                 qWarning() << metaObject()->className() << __FUNCTION__ << "PARTICLE_COUNTER" << "serial port 2 for particle counter cannot be opened";
+                pData->setBoardStatusParticleCounter(false);
                 //            pData->setBoardStatusRbmCom(false);
             }
             else {
                 qDebug() << metaObject()->className() << "PARTICLE_COUNTER Port open at " << __func__ << m_serialPort2->portName();
+                pData->setBoardStatusParticleCounter(true);
             }
             /// initializing the fan object
             m_boardParticleCounterZH03B.reset(new ParticleCounterZH03B);
@@ -1633,6 +1755,25 @@ void MachineBackend::setup()
 
             ///initially turned off Fan
             m_boardParticleCounterZH03B->setDormantMode(MachineEnums::FAN_STATE_OFF);
+
+            ////MONITORING COMMUNICATION STATUS
+            QObject::connect(m_boardParticleCounterZH03B.data(), &ParticleCounterZH03B::errorComToleranceReached,
+                             this, [&](int error){
+                qDebug() << "ParticleCounterZH03B::errorComToleranceReached" << error << thread();
+                pData->setBoardStatusParticleCounter(false);
+            });
+
+            QObject::connect(m_boardParticleCounterZH03B.data(), &ParticleCounterZH03B::errorComToleranceCountChanged,
+                             this, [&](int error){
+                qDebug() << "ParticleCounterZH03B::errorComToleranceCountChanged: " << error;
+                //pData->setBoardStatusParticleCounter(false);
+            });
+
+            QObject::connect(m_boardParticleCounterZH03B.data(), &ParticleCounterZH03B::errorComToleranceCleared,
+                             this, [&](int error){
+                qDebug() << "ParticleCounterZH03B::errorComToleranceCleared" << error << thread();
+                pData->setBoardStatusParticleCounter(true);
+            });
 
             /// create object for value keeper
             /// ensure actuator value is what machine value requested
@@ -1947,7 +2088,7 @@ void MachineBackend::setup()
 
     /// LCD Brightness
     {
-        int time          = m_settings->value(SKEY_LCD_DELAY_TO_DIMM, 1/*minute*/).toInt();
+        int time          = m_settings->value(SKEY_LCD_DELAY_TO_DIMM, 5 /*minute*/).toInt();
         int brightness    = m_settings->value(SKEY_LCD_BL, 50).toInt();
 
         /// SEND TO BOARD
@@ -1975,7 +2116,7 @@ void MachineBackend::setup()
 
     /// Language
     {
-        QString langCode = m_settings->value(SKEY_LANGUAGE, "en#0").toString();
+        QString langCode = m_settings->value(SKEY_LANGUAGE, "en#0#English").toString();
         pData->setLanguage(langCode);
     }
 
@@ -2059,7 +2200,7 @@ void MachineBackend::setup()
         QDate currentDate = QDate::currentDate();
         QString dateText = currentDate.toString("dd-MM-yyyy");
 
-        QString dateExpire = m_settings->value(SKEY_CALENDER_REMAINDER_MODE,dateText).toString();
+        QString dateExpire = m_settings->value(SKEY_CALENDER_REMINDER_MODE,dateText).toString();
 
         pData->setDateCertificationReminder(dateExpire);
 
@@ -2518,6 +2659,85 @@ void MachineBackend::setup()
         });
     }
 
+    /// REPLACEABLECOMPONENT LOG
+    {
+        m_pReplaceableCompRecordSql.reset(new ReplaceableCompRecordSql);
+        m_pReplaceableCompRecord.reset(new ReplaceableCompRecord);
+        m_pReplaceableCompRecord->setPSqlInterface(m_pReplaceableCompRecordSql.data());
+
+        pData->setReplaceableCompRecordSpaceMaximum(ALARMREPLACEABLECOMPRECORD_MAX_ROW);
+
+        m_threadForReplaceableCompRecord.reset(new QThread);
+        /// move the object to extra thread, so every query will execute in the separated thread
+        m_pReplaceableCompRecord->moveToThread(m_threadForReplaceableCompRecord.data());
+        m_pReplaceableCompRecordSql->moveToThread(m_threadForReplaceableCompRecord.data());
+
+        QObject::connect(m_threadForReplaceableCompRecord.data(), &QThread::started,
+                         m_pReplaceableCompRecord.data(), [&](){
+            m_pReplaceableCompRecord->routineTask();
+        });
+        QObject::connect(this, &MachineBackend::loopStarted,
+                         [&](){
+            m_threadForReplaceableCompRecord->start();
+        });
+
+        for(short i=0; i<MachineEnums::RPList_Total; i++)
+            m_rpListSettings[i] =  m_pReplaceableCompRecordSql->getParameterStringFromIndex(i);
+
+        m_settings->beginGroup("rplist");
+        for(short i=1; i < MachineEnums::RPList_Total; i++){
+            QString defaultValue = _getRpListDefaultValue(i);
+            pData->setRpListLast(i, m_settings->value(m_rpListSettings[i], defaultValue).toString());
+            pData->setRpListSelected(i, "");
+            //            qDebug() << i << pData->getRpListLastAtIndex(i);
+        }//
+        m_settings->endGroup();
+
+        //initReplaceablePartsSettings();
+    }//
+
+    /// RESOURCE MONITOR LOG
+    {
+        bool enable = m_settings->value(SKEY_RESMONLOG_ENABLE, false).toBool();
+        int period = m_settings->value(SKEY_RESMONLOG_PERIOD, 10).toInt(); /// default every 10 minutes
+
+        pData->setResourceMonitorLogEnable(enable);
+        pData->setResourceMonitorLogPeriod(static_cast<short>(period));
+        pData->setResourceMonitorLogSpaceMaximum(RESMONLOG_MAX_ROW);
+
+        m_timerEventForResourceMonitorLog.reset(new QTimer);
+        m_timerEventForResourceMonitorLog->setInterval(period * 60 * 1000);
+        ///
+        QObject::connect(m_timerEventForResourceMonitorLog.data(), &QTimer::timeout,
+                         this, &MachineBackend::_insertResourceMonitorLog);
+        ///
+        if(enable) {
+            QObject::connect(this, &MachineBackend::loopStarted,
+                             [&](){
+                pData->setResourceMonitorLogRunning(true);
+                m_timerEventForResourceMonitorLog->start();
+            });
+        }//
+
+        m_pResourceMonitorLogSql.reset(new ResourceMonitorLogSql);
+        m_pResourceMonitorLog.reset(new ResourceMonitorLog);
+        m_pResourceMonitorLog->setPSqlInterface(m_pResourceMonitorLogSql.data());
+
+        m_threadForResourceMonitorLog.reset(new QThread);
+        /// move the object to extra thread, so every query will execute in the separated thread
+        m_pResourceMonitorLog->moveToThread(m_threadForResourceMonitorLog.data());
+        m_pResourceMonitorLogSql->moveToThread(m_threadForResourceMonitorLog.data());
+
+        QObject::connect(m_threadForResourceMonitorLog.data(), &QThread::started,
+                         m_pResourceMonitorLog.data(), [&](){
+            m_pResourceMonitorLog->routineTask();
+        });
+        QObject::connect(this, &MachineBackend::loopStarted,
+                         [&](){
+            m_threadForResourceMonitorLog->start();
+        });
+    }
+
     /// Sensor Warming up
     {
         int seconds = m_settings->value(SKEY_WARMUP_TIME, 180).toInt(); //3 minutes
@@ -2534,17 +2754,51 @@ void MachineBackend::setup()
 
     /// Filter Meter
     {
-        int minutes = m_settings->value(SKEY_FILTER_METER, SDEF_FILTER_MAXIMUM_TIME_LIFE).toInt();
-        int minutesPercentLeft = __getPercentFrom(minutes, SDEF_FILTER_MAXIMUM_TIME_LIFE);
+        int mode    = m_settings->value(SKEY_FILTER_METER_MODE,     MachineEnums::FilterLifeCalc_BlowerUsage).toInt();
+        int minTime = m_settings->value(SKEY_FILTER_METER_MIN_TIME, SDEF_FILTER_MINIMUM_TIME_LIFE).toInt();
+        int maxTime = m_settings->value(SKEY_FILTER_METER_MAX_TIME, SDEF_FILTER_MAXIMUM_TIME_LIFE).toInt();
+        int minRpm  = m_settings->value(SKEY_FILTER_METER_MIN_RPM,  SDEF_FILTER_MINIMUM_RPM_LIFE).toInt();
+        int maxRpm  = m_settings->value(SKEY_FILTER_METER_MAX_RPM,  SDEF_FILTER_MAXIMUM_RPM_LIFE).toInt();
+
+        int lifeMinutes = m_settings->value(SKEY_FILTER_METER_MIN, SDEF_FILTER_MAXIMUM_TIME_LIFE).toInt();
+        int lifeRpm = m_settings->value(SKEY_FILTER_METER_RPM, SDEF_FILTER_MINIMUM_RPM_LIFE).toInt(); ///Current Nominal RPM
+
+        int percentLeft = 100;
+        if(mode == MachineEnums::FilterLifeCalc_BlowerRpm){
+            int value = lifeRpm - minRpm;
+            value = value > 0 ? value : 0;
+            int rangeValue = maxRpm - minRpm;
+            rangeValue = rangeValue > 0 ? rangeValue : 0;
+
+            percentLeft = __getPercentFrom((rangeValue - value), rangeValue);
+        }
+        else{
+            percentLeft = __getPercentFrom(lifeMinutes, maxTime);
+        }
+
         /// event if in % value is zero but the minutes more then 0 minutes, then set % to 1
-        if (minutesPercentLeft == 0 && minutes > 0) minutesPercentLeft = 1;
+        if (percentLeft == 0 && lifeMinutes > 0) percentLeft = 1;
 
         //update to global observable variable
-        pData->setFilterLifeMinutes(minutes);
-        pData->setFilterLifePercent(static_cast<short>(minutesPercentLeft));
+        pData->setFilterLifeMinutes(lifeMinutes);
+        pData->setFilterLifeRpm(lifeRpm);
+        pData->setFilterLifePercent(static_cast<short>(percentLeft));
+
+        pData->setFilterLifeCalculationMode(mode);
+        pData->setFilterLifeMinimumBlowerUsageMode(minTime);
+        pData->setFilterLifeMaximumBlowerUsageMode(maxTime);
+        pData->setFilterLifeMinimumBlowerRpmMode(minRpm);
+        pData->setFilterLifeMaximumBlowerRpmMode(maxRpm);
 
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.filterLife.addr, static_cast<ushort>(minutesPercentLeft));
+        _setModbusRegHoldingValue(modbusRegisterAddress.FilterLife.addr, static_cast<ushort>(percentLeft));
+
+        /// Setup variable buffer for fan rpm (moving average)
+        {
+            m_fanPrimaryRpmActualBuffer.reset(new QVector<uint16_t>);
+            /// reset the buffer value
+            m_fanPrimaryRpmActualBuffer->clear();
+        }
     }
 
     /// Sash Cycle Meter
@@ -2626,6 +2880,15 @@ void MachineBackend::setup()
         //            m_timerEventEveryMinute->start();
         //        });
 
+        m_timerEventEveryHalfHour.reset(new QTimer);
+        m_timerEventEveryHalfHour->setInterval(std::chrono::minutes(30));
+
+        QObject::connect(m_timerEventEveryHalfHour.data(), &QTimer::timeout,
+                         this, &MachineBackend::_onTriggeredEventEveryHalfHour);
+        QObject::connect(this, &MachineBackend::loopStarted, [&]{
+            m_timerEventEveryHalfHour->start();
+        });
+		
         m_timerEventEveryMinute2.reset(new QTimer);
         m_timerEventEveryMinute2->setInterval(std::chrono::minutes(1));
 
@@ -2846,6 +3109,152 @@ void MachineBackend::setup()
             }//
         }//
     }//
+    //    _initPreventMaintReminder();
+    {
+        QDateTime nowDateTime = QDateTime().currentDateTime();
+        //        QString curDateTimeStr = nowDateTime.toString("dd-MM-yyyy hh:mm:ss");
+        QString curDateTimeStr = "01-01-2000 00:00:00";
+
+        QString daily       = m_settings->value(SKEY_PM_LAST_ACK_DAILY, curDateTimeStr).toString();
+        QString weekly      = m_settings->value(SKEY_PM_LAST_ACK_WEEKLY, curDateTimeStr).toString();
+        QString monthly     = m_settings->value(SKEY_PM_LAST_ACK_MONTHLY, curDateTimeStr).toString();
+        QString quarterly   = m_settings->value(SKEY_PM_LAST_ACK_QUARTERLY, curDateTimeStr).toString();
+        QString annually    = m_settings->value(SKEY_PM_LAST_ACK_ANNUALLY, curDateTimeStr).toString();
+        QString biennially  = m_settings->value(SKEY_PM_LAST_ACK_BIENNIALLY, curDateTimeStr).toString();
+        QString quinquennially = m_settings->value(SKEY_PM_LAST_ACK_QUINQUENNIALLY, curDateTimeStr).toString();
+        QString canopy      = m_settings->value(SKEY_PM_LAST_ACK_CANOPY, curDateTimeStr).toString();
+
+        //        qDebug() << "Current Date:";
+        //        qDebug() << curDateTimeStr;
+        //        qDebug() << "Last PM Acknowledge:";
+        //        qDebug() << daily;
+        //        qDebug() << weekly;
+        //        qDebug() << monthly;
+        //        qDebug() << quarterly;
+        //        qDebug() << annually;
+        //        qDebug() << biennially;
+        //        qDebug() << quinquennially;
+        //        qDebug() << canopy;
+
+
+        ushort dfault = (MachineEnums::PM_QUARTERLY_CODE |
+                         MachineEnums::PM_ANNUALLY_CODE |
+                         MachineEnums::PM_BIENNIALLY_CODE |
+                         MachineEnums::PM_QUINQUENNIALLY_CODE /*|
+                                                                                                                                                                                                                                                                                                                                                                                                       MachineEnums::PM_CANOPY_CODE*/);
+
+        ushort alarmEn = static_cast<ushort>(m_settings->value(SKEY_PM_ALARM_EN, dfault).toInt());
+
+        //        qDebug() << "Default & AlarmEnable:";
+        //        qDebug() << dfault << alarmEn;
+
+        pData->setAlarmPreventMaintStateEnable(alarmEn);
+
+        pData->setDailyPreventMaintLastAckDate(daily);
+        pData->setWeeklyPreventMaintLastAckDate(weekly);
+        pData->setMonthlyPreventMaintLastAckDate(monthly);
+        pData->setQuarterlyPreventMaintLastAckDate(quarterly);
+        pData->setAnnuallyPreventMaintLastAckDate(annually);
+        pData->setBienniallyPreventMaintLastAckDate(biennially);
+        pData->setQuinquenniallyPreventMaintLastAckDate(quinquennially);
+        pData->setCanopyPreventMaintLastAckDate(canopy);
+
+        QDateTime lastAckDailyDateTime = QDateTime().fromString(daily, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckWeeklyDateTime = QDateTime().fromString(weekly, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckMonthlyDateTime = QDateTime().fromString(monthly, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckQuarterlyDateTime = QDateTime().fromString(quarterly, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckAnnuallyDateTime = QDateTime().fromString(annually, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckBienniallyDateTime = QDateTime().fromString(biennially, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckQuinquenniallyDateTime = QDateTime().fromString(quinquennially, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckCanopyDateTime = QDateTime().fromString(canopy, "dd-MM-yyyy hh:mm:ss");
+
+        QDateTime dueDateTimeDaily = lastAckDailyDateTime.addDays(1);
+        QDateTime dueDateTimeWeekly = lastAckWeeklyDateTime.addDays(7);
+        QDateTime dueDateTimeMonthly = lastAckMonthlyDateTime.addMonths(1);
+        QDateTime dueDateTimeQuarterly = lastAckQuarterlyDateTime.addMonths(3);
+        QDateTime dueDateTimeAnnually = lastAckAnnuallyDateTime.addYears(1);
+        QDateTime dueDateTimeBiennially = lastAckBienniallyDateTime.addYears(2);
+        QDateTime dueDateTimeQuinquennially = lastAckQuinquenniallyDateTime.addYears(5);
+        QDateTime dueDateTimeCanopy = lastAckCanopyDateTime.addMonths(1);
+
+        //        qDebug() << "Due date for acknowledging:";
+        //        qDebug() << dueDateTimeDaily.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeWeekly.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeMonthly.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeQuarterly.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeAnnually.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeBiennially.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeQuinquennially.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeCanopy.toString("dd-MM-yyyy hh:mm:ss");
+
+        pData->setDailyPreventMaintAckDueDate(dueDateTimeDaily.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setWeeklyPreventMaintAckDueDate(dueDateTimeWeekly.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setMonthlyPreventMaintAckDueDate(dueDateTimeMonthly.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setQuarterlyPreventMaintAckDueDate(dueDateTimeQuarterly.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setAnnuallyPreventMaintAckDueDate(dueDateTimeAnnually.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setBienniallyPreventMaintAckDueDate(dueDateTimeBiennially.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setQuinquenniallyPreventMaintAckDueDate(dueDateTimeQuinquennially.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setCanopyPreventMaintAckDueDate(dueDateTimeCanopy.toString("dd-MM-yyyy hh:mm:ss"));
+
+        ushort alarmPm = 0;
+        qint64 dayLeft = 0;
+        if(alarmEn & MachineEnums::PM_DAILY_CODE){
+            dayLeft = nowDateTime.secsTo(dueDateTimeDaily);
+            if(dayLeft <= 82800) alarmPm |= MachineEnums::PM_DAILY_CODE; /// Activate the alarm when time left less than 6 hours
+            //            qDebug() << "secsLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_WEEKLY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeWeekly);
+            if(dayLeft <= 2) alarmPm |= MachineEnums::PM_WEEKLY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_MONTHLY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeMonthly);
+            if(dayLeft < 7) alarmPm |= MachineEnums::PM_MONTHLY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_QUARTERLY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeQuarterly);
+            if(dayLeft < 14) alarmPm |= MachineEnums::PM_QUARTERLY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_ANNUALLY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeAnnually);
+            if(dayLeft < 30) alarmPm |= MachineEnums::PM_ANNUALLY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_BIENNIALLY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeBiennially);
+            if(dayLeft < 30) alarmPm |= MachineEnums::PM_BIENNIALLY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_QUINQUENNIALLY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeQuinquennially);
+            if(dayLeft < 30) alarmPm |= MachineEnums::PM_QUINQUENNIALLY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_CANOPY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeCanopy);
+            if(dayLeft < 7) alarmPm |= MachineEnums::PM_CANOPY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+
+        //        qDebug() << "Alarm PM:" << alarmPm;
+        pData->setAlarmPreventMaintState(alarmPm);
+    }
+
+    /// User Last Login
+    {
+        QJsonArray userLastLoginArr = m_settings->value(SKEY_USER_LAST_LOGIN, QJsonArray()).toJsonArray();
+        pData->setUserLasLogin(userLastLoginArr);
+    }//
+
+    {
+        /// Execute later
+        QTimer::singleShot(30000, this, [&](){
+            initWiredConnectionStaticIP();
+        });
+    }
     /// General connection for Debugging
     QObject::connect(pData, &MachineData::fanStateChanged,
                      this, [&](short value){
@@ -2910,6 +3319,11 @@ void MachineBackend::setup()
         m_pBuzzer->setState(MachineEnums::DIG_STATE_ONE);
         sleep(1);
         m_pBuzzer->setState(MachineEnums::DIG_STATE_ZERO);
+    }
+	
+	    /// Initialize ResourceMonitorParams value
+    {
+        pData->setResourceMonitorParams(QStringList() << "00" << "00" << "00");
     }
 
     ///event log
@@ -3024,8 +3438,10 @@ void MachineBackend::deallocate()
     if(m_timerEventEveryMinute->isActive())
         m_timerEventEveryMinute->stop();
     m_timerEventEveryMinute2->stop();
+	 m_timerEventEveryHalfHour->stop();
     m_timerEventEveryHour->stop();
     m_timerEventForDataLog->stop();
+m_timerEventForResourceMonitorLog->stop();
     if(m_timerEventForLcdToDimm->isActive())
         m_timerEventForLcdToDimm->stop();
     m_timerEventForRTCWatchdogReset->stop();
@@ -3076,6 +3492,11 @@ void MachineBackend::deallocate()
     //        waitLoop.exec();
     //    }//
 
+    QMetaObject::invokeMethod(m_pUSBAutoMount.data(), [&](){
+        m_pUSBAutoMount->ejectAllUsb();
+    },
+    Qt::DirectConnection);
+
     if(m_threadForCheckSwUpdate){
         m_threadForCheckSwUpdate->quit();
         m_threadForCheckSwUpdate->wait();
@@ -3122,12 +3543,28 @@ void MachineBackend::deallocate()
         m_threadForEventLog->wait();
     }
 
+    if(m_threadForReplaceableCompRecord){
+        m_threadForReplaceableCompRecord->quit();
+        m_threadForReplaceableCompRecord->wait();
+    }
+
+    if(m_threadForResourceMonitorLog){
+        m_threadForResourceMonitorLog->quit();
+        m_threadForResourceMonitorLog->wait();
+    }
     if(m_threadForParticleCounter){
         m_threadForParticleCounter->quit();
         m_threadForParticleCounter->wait();
     }
 
-    qDebug() << metaObject()->className() << __FUNCTION__ << "phase-7";
+    //    qDebug() << metaObject()->className() << __FUNCTION__ << "phase-7";
+
+    if(m_threadForUSBAutoMount){
+        m_threadForUSBAutoMount->quit();
+        m_threadForUSBAutoMount->wait();
+    }
+
+    //    qDebug() << metaObject()->className() << __FUNCTION__ << "phase-8";
 
     /// turned off all the relays
     m_boardRelay1->setAllPWM(MachineEnums::DIG_STATE_ZERO);
@@ -3391,6 +3828,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
             if(m_pSashWindow->isSashStateChanged() && sashChangedValid && !m_eventLoopSashMotorActive){
                 bool autoOnBlower = false;
                 autoOnBlower |= (modeOperation != MachineEnums::MODE_OPERATION_MAINTENANCE);
+                autoOnBlower &= (pData->getFanState() != MachineEnums::FAN_STATE_OFF);
                 autoOnBlower &= (pData->getFanState() != MachineEnums::FAN_STATE_STANDBY);
 
                 if(autoOnBlower){
@@ -3600,9 +4038,11 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                         ////
                         _insertEventLog(EVENT_STR_FAN_ON);
                     }
-
-                    if(!pData->getWarmingUpActive()){
+                    else if(!pData->getWarmingUpActive()){
                         ////TURN ON LAMP
+                        /// ONLY IF BLOWER IS'NT AT WARMING UP CONDITION
+                        /// AND NO EXHAUST ALARM
+                        qDebug() << "Turn on the lamp if no warming up at safe height";
                         m_pLight->setState(MachineEnums::DIG_STATE_ONE);
                         ///
                         _insertEventLog(EVENT_STR_LIGHT_ON);
@@ -3948,14 +4388,99 @@ void MachineBackend::setBuzzerBeep()
     });
 }
 
-void MachineBackend::setSignedUser(const QString username, const QString fullname)
+void MachineBackend::setSignedUser(const QString username, const QString fullname, short userLevel)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-    qDebug() << username << fullname;
+    qDebug() << username << fullname << userLevel;
 
     m_signedUsername = username;
     m_signedFullname = fullname;
+    m_signedUserLevel = userLevel;
 }
+
+void MachineBackend::setUserLastLogin(const QString username, const QString fullname)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << username << fullname << thread();
+    if(username == "" || fullname == "") return;
+
+    QDateTime loginDateTime = QDateTime::currentDateTime();
+    QString loginDateTimeText = loginDateTime.toString("yyyy-MM-dd hh:mm:ss");
+
+    /// https://thecodeprogram.com/how-to-use-json-data-with-qt-c--
+    QJsonArray userLastLoginArr = pData->getUserLastLogin();
+    QJsonObject userLastLoginObjNew;
+
+    //    qDebug() << "before:" << userLastLoginArr;
+
+    /// Remember Only 10 user last login
+    /// Remove the 10th data
+    if(userLastLoginArr.size() >= 10)
+        userLastLoginArr.pop_back();
+
+    bool usernameOnList = false;
+    short usernameOnListAtIndex = 0;
+
+    for(short i=0; i<userLastLoginArr.count(); i++){
+        QJsonObject userLastLoginObj = userLastLoginArr[i].toObject();
+        if(userLastLoginObj.value("username").toString() == username){
+            usernameOnList = true;
+            usernameOnListAtIndex = i;
+            //            qDebug() << "User exist at index:" << i;
+            break;
+        }//
+    }//
+    if(!usernameOnList){
+        userLastLoginObjNew.insert("username", username);
+        userLastLoginObjNew.insert("fullname", fullname);
+        userLastLoginObjNew.insert("login", loginDateTimeText);
+    }//
+    else{
+        // update the last login date and time
+        userLastLoginObjNew = userLastLoginArr.at(usernameOnListAtIndex).toObject();
+        userLastLoginObjNew.remove("login");
+        userLastLoginObjNew.insert("login", loginDateTimeText);
+
+        // Remove the object at current index and append to front later
+        userLastLoginArr.removeAt(usernameOnListAtIndex);
+    }//
+
+    //    qDebug() << "add:" << userLastLoginObjNew;
+
+    userLastLoginArr.prepend(userLastLoginObjNew);
+
+    //    qDebug() << "after:" << userLastLoginArr;
+
+    QSettings settings;
+    settings.setValue(SKEY_USER_LAST_LOGIN, userLastLoginArr);
+
+    pData->setUserLasLogin(userLastLoginArr);
+}
+
+void MachineBackend::deleteUserLastLogin(const QString username)
+{
+    QJsonArray userLastLoginArr = pData->getUserLastLogin();
+
+    bool usernameOnList = false;
+    short usernameOnListAtIndex = 0;
+
+    for(short i=0; i<userLastLoginArr.count(); i++){
+        QJsonObject userLastLoginObj = userLastLoginArr[i].toObject();
+        if(userLastLoginObj.value("username").toString() == username){
+            usernameOnList = true;
+            usernameOnListAtIndex = i;
+            //            qDebug() << "User exist at index:" << i;
+            break;
+        }//
+    }//
+    if(usernameOnList){
+        userLastLoginArr.removeAt(usernameOnListAtIndex);
+    }//
+
+    QSettings settings;
+    settings.setValue(SKEY_USER_LAST_LOGIN, userLastLoginArr);
+
+    pData->setUserLasLogin(userLastLoginArr);
+}//
 
 void MachineBackend::setDataLogEnable(bool dataLogEnable)
 {
@@ -3981,7 +4506,8 @@ void MachineBackend::setDataLogPeriod(short dataLogPeriod)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << dataLogPeriod;
-
+    if(m_timerEventForDataLog->isActive())
+        m_timerEventForDataLog->stop();
     m_timerEventForDataLog->setInterval(dataLogPeriod * 60 * 1000); /// convert minute to ms
     if(pData->getDataLogEnable()) m_timerEventForDataLog->start();
 
@@ -3997,6 +4523,55 @@ void MachineBackend::setDataLogCount(int dataLogCount)
 
     pData->setDataLogCount(dataLogCount);
     pData->setDataLogIsFull(dataLogCount >= DATALOG_MAX_ROW);
+}
+
+void MachineBackend::setResourceMonitorLogEnable(bool value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    pData->setResourceMonitorLogEnable(value);
+
+    QScopedPointer<QSettings> m_settings(new QSettings);
+    m_settings->setValue(SKEY_RESMONLOG_ENABLE, value ? 1 : 0);
+
+    if(value)
+        setResourceMonitorLogRunning(true);
+    else
+        setResourceMonitorLogRunning(false);
+}
+
+void MachineBackend::setResourceMonitorLogRunning(bool value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    if(value) m_timerEventForResourceMonitorLog->start();
+    else m_timerEventForResourceMonitorLog->stop();
+
+    pData->setResourceMonitorLogRunning(value);
+}
+
+void MachineBackend::setResourceMonitorLogPeriod(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << value;
+
+    if(m_timerEventForResourceMonitorLog->isActive())
+        m_timerEventForResourceMonitorLog->stop();
+    m_timerEventForResourceMonitorLog->setInterval(value * 60 * 1000); /// convert minute to ms
+    if(pData->getResourceMonitorLogEnable()) m_timerEventForResourceMonitorLog->start();
+
+    pData->setResourceMonitorLogPeriod(value);
+
+    QScopedPointer<QSettings> m_settings(new QSettings);
+    m_settings->setValue(SKEY_RESMONLOG_PERIOD, value);
+}
+
+void MachineBackend::setResourceMonitorLogCount(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    pData->setResourceMonitorLogCount(value);
+    pData->setResourceMonitorLogIsFull(value >= RESMONLOG_MAX_ROW);
 }
 
 void MachineBackend::setModbusSlaveID(short slaveId)
@@ -4100,6 +4675,20 @@ void MachineBackend::setOperationModeSave(short value)
 
     if(pData->getOperationMode() == value) return;
 
+    if(m_operationPrevMode == MachineEnums::MODE_OPERATION_MAINTENANCE){
+        //Also check if prev. fan condition is on(while maintenance), set warmingup executed as true
+        //and start power outage capture, if not started yet
+        if(pData->getFanPrimaryState() == MachineEnums::FAN_STATE_ON){
+            if(!pData->getWarmingUpExecuted())
+                pData->setWarmingUpExecuted(true);
+            QSettings settings;
+            bool powerFailCapt = settings.value(SKEY_POWER_OUTAGE).toBool();
+            if(powerFailCapt != true){
+                _startPowerOutageCapture();
+            }
+        }
+    }
+
     m_operationPrevMode = value;
     pData->setOperationMode(value);
 
@@ -4128,6 +4717,23 @@ void MachineBackend::setOperationPreviousMode()
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
     pData->setOperationMode(m_operationPrevMode);
+
+    // To force triggered dutycycle changed
+    if(m_operationPrevMode != MachineEnums::MODE_OPERATION_MAINTENANCE){
+        //_onFanPrimaryActualDucyChanged(pData->getFanPrimaryDutyCycle());
+
+        //Also check if prev. fan condition is on(while maintenance), set warmingup executed as true
+        //and start power outage capture, if not started yet
+        if(pData->getFanPrimaryState() == MachineEnums::FAN_STATE_ON){
+            if(!pData->getWarmingUpExecuted())
+                pData->setWarmingUpExecuted(true);
+            QSettings settings;
+            bool powerFailCapt = settings.value(SKEY_POWER_OUTAGE).toBool();
+            if(powerFailCapt != true){
+                _startPowerOutageCapture();
+            }
+        }
+    }
 
     ///MODBUS
     _setModbusRegHoldingValue(modbusRegisterAddress.operationMode.addr, static_cast<ushort>(m_operationPrevMode));
@@ -4264,10 +4870,10 @@ void MachineBackend::setMeasurementUnit(short value)
 
     /// Not calibrated yet
     //    qDebug() << __func__ << "getAirflowCalibrationStatus" << pData->getAirflowCalibrationStatus();
-    if(pData->getAirflowCalibrationStatus() == MachineEnums::AF_CALIB_NONE
-            && pData->getInflowCalibrationStatus() == MachineEnums::AF_CALIB_NONE
-            && pData->getDownflowCalibrationStatus() == MachineEnums::AF_CALIB_NONE)
-        return;
+    //if(pData->getAirflowCalibrationStatus() == MachineEnums::AF_CALIB_NONE
+    //        && pData->getInflowCalibrationStatus() == MachineEnums::AF_CALIB_NONE
+    //       && pData->getDownflowCalibrationStatus() == MachineEnums::AF_CALIB_NONE)
+    //   return;
 
     /// convert calibration airflow value to target measurement unit
     int ifaVelPointMinFactory      = pData->getInflowVelocityPointFactory(1);
@@ -4429,6 +5035,18 @@ void MachineBackend::setMeasurementUnit(short value)
     settings.setValue(SKEY_DFA_CAL_VEL_LOW_LIMIT, _dfaVelPointLowAlarm);
     settings.setValue(SKEY_DFA_CAL_VEL_HIGH_LIMIT, _dfaVelPointHighAlarm);
 
+
+    /// UPDATE PRESSURE VALAUE BASED ON CURRENT MEASUREMENT UNIT
+    if(pData->getSeasInstalled()){
+        int pa = pData->getSeasPressureDiffPa();
+        _onSeasPressureDiffPaChanged(pa);
+    }
+	
+	    // If not calibrated yet, skip reinit
+    if(pData->getAirflowCalibrationStatus() == MachineEnums::AF_CALIB_NONE){
+        return;
+    }
+	
     /// reinit calibration point
     initAirflowCalibrationStatus(pData->getAirflowCalibrationStatus());
     //    /// force recalculate velocity
@@ -4443,11 +5061,6 @@ void MachineBackend::setMeasurementUnit(short value)
     //    qDebug() << "getDownflowVelocityPointField-2" << pData->getDownflowVelocityPointField(2);
     //    qDebug() << "getInflowTempCalib" << pData->getInflowTempCalib();
 
-    /// UPDATE PRESSURE VALAUE BASED ON CURRENT MEASUREMENT UNIT
-    if(pData->getSeasInstalled()){
-        int pa = pData->getSeasPressureDiffPa();
-        _onSeasPressureDiffPaChanged(pa);
-    }
 }
 
 void MachineBackend::setSerialNumber(QString value)
@@ -4656,7 +5269,13 @@ void MachineBackend::setFanState(short value)
         if (!isMaintenanceModeActive()) {
             /// IF NO IN PURGING CONDITION
             if(pData->getPostPurgingActive()){
+                if(pData->getSashWindowState() == MachineEnums::SASH_STATE_FULLY_CLOSE_SSV){
+                    _cancelPostPurgingTime();
+                    _setFanPrimaryStateOFF();
+                }//
+                else{
                 return;
+                }//
             }
             /// IF PURGING TIME MORE THAN ZERO
             else if (pData->getPostPurgingTime()
@@ -5134,7 +5753,7 @@ void MachineBackend::setExhaustContactState(short exhaustContactState)
     //    qDebug() << exhaustContactState;
 
     m_pExhaustContact->setState(exhaustContactState);
-    //    pData->setExhaustContactState(exhaustContactState);
+    pData->setExhaustContactState(exhaustContactState);
 }
 
 void MachineBackend::setAlarmContactState(short alarmContactState)
@@ -5143,7 +5762,7 @@ void MachineBackend::setAlarmContactState(short alarmContactState)
     //    qDebug() << alarmContactState;
 
     m_pAlarmContact->setState(alarmContactState);
-    //    pData->setAlarmContactState(alarmContactState);
+    pData->setAlarmContactState(alarmContactState);
 }
 
 void MachineBackend::setSashMotorizeInstalled(short value)
@@ -5244,11 +5863,12 @@ void MachineBackend::setAirflowMonitorEnable(bool airflowMonitorEnable)
 
     QSettings m_settings;
     m_settings.setValue(SKEY_AF_MONITOR_ENABLE, airflowMonitorEnable);
+
     if(!pData->getWarmingUpTime()){
         /// Set back the warm up timer to 3 minutes
         setWarmingUpTimeSave(3 * 60);
     }//
-}
+}//
 
 void MachineBackend::saveInflowMeaDimNominalGrid(QJsonArray grid, int total,
                                                  int average, int volume,
@@ -5702,8 +6322,9 @@ void MachineBackend::setInflowAdcPointField(int point, int value)
     pData->setInflowAdcPointField(static_cast<short>(point), value);
 }
 
-void MachineBackend::setInflowVelocityPointField(int /*pointZero*/, int pointMin, int pointNom)
+void MachineBackend::setInflowVelocityPointField(int pointZero, int pointMin, int pointNom)
 {
+    Q_UNUSED(pointZero)
     QSettings settings;
     settings.setValue(QString(SKEY_IFA_CAL_VEL_FIELD) + "1", pointMin);
     settings.setValue(QString(SKEY_IFA_CAL_VEL_FIELD) + "2", pointNom);
@@ -6897,6 +7518,10 @@ void MachineBackend::_startWarmingUpTime()
     qDebug() << __FUNCTION__ ;
 
     int seconds = pData->getWarmingUpTime();
+    Q_UNUSED(seconds)
+#ifndef __arm__
+    seconds = 40;
+#endif
     pData->setWarmingUpCountdown(seconds);
     pData->setWarmingUpActive(MachineEnums::DIG_STATE_ONE);
 
@@ -7162,6 +7787,12 @@ void MachineBackend::_startFanFilterLifeMeter()
     /// double ensure this slot not connected yet, minimize chance to double connect the signal
     disconnect(m_timerEventEveryMinute.data(), &QTimer::timeout,
                this, &MachineBackend::_onTimerEventFanFilterUsageMeterCalculate);
+
+    {
+        /// reset the buffer value
+        m_fanPrimaryRpmActualBuffer->clear();
+        //        m_fanPrimaryRpmIndexMovAvg = 0;
+    }
     /// connect uniqly timer event for warming up count down
     connect(m_timerEventEveryMinute.data(), &QTimer::timeout,
             this, &MachineBackend::_onTimerEventFanFilterUsageMeterCalculate,
@@ -7179,7 +7810,7 @@ void MachineBackend::_stopFanFilterLifeMeter()
 
 void MachineBackend::_onTimerEventFanFilterUsageMeterCalculate()
 {
-    //    qDebug() << __FUNCTION__ ;
+    qDebug() << metaObject()->className() << __func__  << thread();
 
     QSettings settings;
     ///FILTER LIFE
@@ -7188,22 +7819,23 @@ void MachineBackend::_onTimerEventFanFilterUsageMeterCalculate()
         if(minutes > 0){
             minutes--;
             //            minutes = minutes - 1000;
-            int minutesPercentLeft = __getPercentFrom(minutes, SDEF_FILTER_MAXIMUM_TIME_LIFE);
+            int percentLife = __getPercentFrom(minutes, pData->getFilterLifeMaximumBlowerUsageMode());
 
             /// event if in % value is zero but the minutes more then 0 minutes, then set % to 1
-            if (minutesPercentLeft == 0 && minutes > 0) minutesPercentLeft = 1;
+            if (percentLife == 0 && minutes > 0) percentLife = 1;
 
             //update to global observable variable
             pData->setFilterLifeMinutes(minutes);
-            pData->setFilterLifePercent(static_cast<short>(minutesPercentLeft));
 
             //save to sattings
-            settings.setValue(SKEY_FILTER_METER, minutes);
+            settings.setValue(SKEY_FILTER_METER_MIN, minutes);
 
-            //            qDebug() << __FUNCTION__  << minutes;
+            if(pData->getFilterLifeCalculationMode() == MachineEnums::FilterLifeCalc_BlowerUsage){
+                pData->setFilterLifePercent(static_cast<short>(percentLife));
 
-            ///MODBUS
-            _setModbusRegHoldingValue(modbusRegisterAddress.filterLife.addr, static_cast<ushort>(minutesPercentLeft));
+                ///MODBUS
+                _setModbusRegHoldingValue(modbusRegisterAddress.FilterLife.addr, static_cast<ushort>(percentLife));
+            }
         }
     }
 
@@ -7482,7 +8114,11 @@ void MachineBackend::_insertAlarmLog(int alarmCode, const QString alarmText)
         if(success){
             pData->setAlarmLogCount(count);
             //            qDebug() << count << maximumRowCount;
-            pData->setAlarmLogIsFull(count >= ALARMEVENTLOG_MAX_ROW);
+            bool logHasFull = count >= ALARMEVENTLOG_MAX_ROW;
+            pData->setAlarmLogIsFull(logHasFull);
+            if(count > ALARMEVENTLOG_MAX_ROW)
+                /// delete the last row from table
+                success = sql->queryDeleteOldestRowId();
         }//
     },
     Qt::QueuedConnection);
@@ -7490,9 +8126,9 @@ void MachineBackend::_insertAlarmLog(int alarmCode, const QString alarmText)
 
 void MachineBackend::_insertEventLog(const QString logText)
 {
-    if(pData->getEventLogIsFull()){
-        return;
-    }
+    //    if(pData->getEventLogIsFull()){
+    //        return;
+    //    }
 
     QDateTime dateTime = QDateTime::currentDateTime();
     QString dateText = dateTime.toString("yyyy-MM-dd");
@@ -7526,10 +8162,58 @@ void MachineBackend::_insertEventLog(const QString logText)
         if(success){
             pData->setEventLogCount(count);
             //            qDebug() << count << maximumRowCount;
-            pData->setEventLogIsFull(count >= ALARMEVENTLOG_MAX_ROW);
+            bool logHasFull = count >= ALARMEVENTLOG_MAX_ROW;
+            pData->setEventLogIsFull(logHasFull);
+            if(count > ALARMEVENTLOG_MAX_ROW)
+                /// delete the last row from table
+                success = sql->queryDeleteOldestRowId();
         }//
     });
 }//
+
+void MachineBackend::_insertResourceMonitorLog()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QDateTime dateTime = QDateTime::currentDateTime();
+    QString dateText = dateTime.toString("yyyy-MM-dd");
+    QString timeText = dateTime.toString("hh:mm:ss");
+
+    if(pData->getFrontEndScreenState() != MachineEnums::ScreenState_ResourceMonitor)
+        _readResourceMonitorParams();
+
+    /// execute this function in where thread the m_pResourceMonitorLog live at
+    QMetaObject::invokeMethod(m_pResourceMonitorLog.data(),
+                              [&,
+                              dateText,
+                              timeText](){
+
+        QVariantMap dataMap;
+        dataMap.insert("date", dateText);
+        dataMap.insert("time", timeText);
+        dataMap.insert("cpuUsage", pData->getResourceMonitorParams().at(MachineEnums::ResMon_CPU_Usage));
+        dataMap.insert("memUsage", pData->getResourceMonitorParams().at(MachineEnums::ResMon_Memory_Usage));
+        dataMap.insert("cpuTemp",  pData->getResourceMonitorParams().at(MachineEnums::ResMon_CPU_Temp));
+
+        ResourceMonitorLogSql *sql = m_pResourceMonitorLog->getPSqlInterface();
+        bool success = sql->queryInsert(dataMap);
+
+        /// check how many data log has stored now
+        int count;
+        success = sql->queryCount(&count);
+        //        qDebug() << "success: " << success ;
+        if(success){
+            pData->setResourceMonitorLogCount(count);
+            //            qDebug() << count << maximumRowCount;
+            bool logHasFull = count >= RESMONLOG_MAX_ROW;
+            pData->setResourceMonitorLogIsFull(logHasFull);
+            if(count > RESMONLOG_MAX_ROW)
+                /// delete the last row from table
+                success = sql->queryDeleteOldestRowId();
+        }//
+    },
+    Qt::QueuedConnection);
+}
 
 void MachineBackend::_setFanInflowStateNominal()
 {
@@ -7810,56 +8494,76 @@ void MachineBackend::_modbusCommandHandler(int address, uint16_t value)
     qDebug() << __func__ << address << value;
 
     bool revertData = true;
+    if(m_signedUserLevel > MachineEnums::USER_LEVEL_GUEST && m_signedUserLevel != MachineEnums::USER_LEVEL_ADMIN){
     switch (address) {
     case modbusRegisterAddress.fanState.addr:
         if (modbusRegisterAddress.fanState.rw){
+if(!pData->getFanPrimaryInterlocked() && !pData->getFanInflowInterlocked()){
             setFanState(static_cast<short>(value));
             revertData = false;
         }
+		}
         break;
     case modbusRegisterAddress.dfaFanState.addr:
         if (modbusRegisterAddress.dfaFanState.rw){
+		if(!pData->getFanPrimaryInterlocked())
+                {
             setFanPrimaryState(static_cast<short>(value));
             revertData = false;
+			}
         }
         break;
     case modbusRegisterAddress.ifaFanState.addr:
         if (modbusRegisterAddress.ifaFanState.rw){
+if(!pData->getFanInflowInterlocked())
+                {
             setFanInflowState(static_cast<short>(value));
             revertData = false;
+			}
         }
         break;
     case modbusRegisterAddress.lightState.addr:
         if (modbusRegisterAddress.lightState.rw){
+		if(!pData->getLightInterlocked()){
             setLightState(static_cast<short>(value));
             revertData = false;
         }
+		}
         break;
     case modbusRegisterAddress.lightIntensity.addr:
         if (modbusRegisterAddress.lightIntensity.rw){
-            setLightIntensity(static_cast<short>(value));
-            revertData = false;
-        }
+                if(!pData->getLightInterlocked()){
+                    setLightIntensity(static_cast<short>(value));
+                    revertData = false;
+                }//
+            }
         break;
     case modbusRegisterAddress.socketState.addr:
         if (modbusRegisterAddress.socketState.rw){
-            setSocketState(static_cast<short>(value));
-            revertData = false;
-        }
+                if(!pData->getSocketInterlocked()){
+                    setSocketState(static_cast<short>(value));
+                    revertData = false;
+                }//
+            }
         break;
     case modbusRegisterAddress.gasState.addr:
         if (modbusRegisterAddress.gasState.rw){
-            setGasState(static_cast<short>(value));
-            revertData = false;
-        }
+                if(!pData->getGasInterlocked()){
+                    setGasState(static_cast<short>(value));
+                    revertData = false;
+                }//
+            }
         break;
     case modbusRegisterAddress.uvState.addr:
         if (modbusRegisterAddress.uvState.rw){
-            setUvState(static_cast<short>(value));
-            revertData = false;
-        }
-        break;
-    }
+                if(!pData->getUvInterlocked()){
+                    setUvState(static_cast<short>(value));
+                    revertData = false;
+                }//
+            }
+            break;
+        }//
+    }//
 
     if(revertData){
         /// if the register is read-only
@@ -7988,6 +8692,40 @@ void MachineBackend::refreshLogRowsCount(const QString table)
             }//
         });
     }//
+    else if (table == QLatin1String("replaceablecomprecord")){
+
+        QMetaObject::invokeMethod(m_pReplaceableCompRecord.data(), [&](){
+
+            ReplaceableCompRecordSql *sql = m_pReplaceableCompRecord->getPSqlInterface();
+
+            /// check how many data log has stored now
+            int count;
+            bool success = sql->queryCount(&count);
+            //        qDebug() << __FUNCTION__ << "success: " << success << count;
+            if(success){
+                pData->setReplaceableCompRecordCount(count);
+                //            qDebug() << count << maximumRowCount;
+                pData->setReplaceableCompRecordIsFull(count >= ALARMREPLACEABLECOMPRECORD_MAX_ROW);
+            }//
+        });
+    }//
+    else if (table == QLatin1String("resourcemonitorlog")){
+
+        QMetaObject::invokeMethod(m_pResourceMonitorLog.data(), [&](){
+
+            ResourceMonitorLogSql *sql = m_pResourceMonitorLog->getPSqlInterface();
+
+            /// check how many data log has stored now
+            int count;
+            bool success = sql->queryCount(&count);
+            //        qDebug() << __FUNCTION__ << "success: " << success << count;
+            if(success){
+                pData->setResourceMonitorLogCount(count);
+                //            qDebug() << count << maximumRowCount;
+                pData->setResourceMonitorLogIsFull(count >= RESMONLOG_MAX_ROW);
+            }//
+        });
+    }//
 }//
 
 void MachineBackend::_onTriggeredEventEverySecond()
@@ -8003,6 +8741,14 @@ void MachineBackend::_onTriggeredEventEverySecond()
             m_timerEventEveryMinute->start();
         }
     }
+
+    /// Cabinet Up Time
+    pData->setCabinetUpTime(pData->getCabinetUpTime()+1);
+
+    /// Resource Monitor
+    if(pData->getFrontEndScreenState() == MachineEnums::ScreenState_ResourceMonitor)
+        _readResourceMonitorParams();
+		
     if(m_scanRbmComPortAvailable){
         short index = 0;
         short max = 2;
@@ -8049,6 +8795,62 @@ void MachineBackend::_onTriggeredEventEverySecond()
             m_pAirflowDownflow->emitVelocityChanged();
         }
     }
+
+
+    {
+
+        if(pData->getFanPrimaryState() == MachineEnums::FAN_STATE_ON
+                && pData->getFanPrimaryDutyCycle()
+                && pData->getFanPrimaryRpm()){
+            //            for(short i=0; i<60; i++)
+            if(m_fanPrimaryRpmActualBuffer->length() >= SDEF_FILTER_RPM_MOV_AVG){
+                m_fanPrimaryRpmMovAvgTotal = m_fanPrimaryRpmMovAvgTotal - m_fanPrimaryRpmActualBuffer->front();
+                m_fanPrimaryRpmActualBuffer->pop_front();
+            }//
+
+            int rpm = pData->getFanPrimaryRpm();
+
+            m_fanPrimaryRpmActualBuffer->push_back(rpm);
+            m_fanPrimaryRpmMovAvgTotal   = m_fanPrimaryRpmMovAvgTotal + rpm;
+            m_fanPrimaryRpmMovAvg = m_fanPrimaryRpmMovAvgTotal / m_fanPrimaryRpmActualBuffer->length();
+
+            /// Consider as stable if the fluctuation is less than +- 10
+            if(qAbs(m_fanPrimaryRpmActualBuffer->back() - rpm) <= 10){
+                if(++m_fanPrimaryRpmMovAvgCountStable >= 60){
+                    m_fanPrimaryRpmMovAvgCountStable = 60;
+                    /// Save the new stable rpm as a new nominal rpm
+                    if(pData->getFilterLifeRpm() != m_fanPrimaryRpmMovAvg){
+                        pData->setFilterLifeRpm(m_fanPrimaryRpmMovAvg);
+                        QSettings settings;
+                        settings.setValue(SKEY_FILTER_METER_RPM, m_fanPrimaryRpmMovAvg);
+                    }//
+                }//
+            }//
+            else m_fanPrimaryRpmMovAvgCountStable = 0;
+
+            int percentLife = 100;
+
+            int minRpm  = pData->getFilterLifeMinimumBlowerRpmMode();
+            int maxRpm  = pData->getFilterLifeMaximumBlowerRpmMode();
+
+
+            int value = m_fanPrimaryRpmMovAvg - minRpm;
+            value = value > 0 ? value : 0;
+            int rangeValue = maxRpm - minRpm;
+            rangeValue = rangeValue > 0 ? rangeValue : 0;
+
+            percentLife = __getPercentFrom((rangeValue - value), rangeValue);
+
+            if(pData->getFilterLifeCalculationMode() == MachineEnums::FilterLifeCalc_BlowerRpm){
+                pData->setFilterLifePercent(static_cast<short>(percentLife));
+
+                ///MODBUS
+                _setModbusRegHoldingValue(modbusRegisterAddress.FilterLife.addr, static_cast<ushort>(percentLife));
+            }//
+
+            qDebug() << rpm << m_fanPrimaryRpmMovAvg << percentLife << m_fanPrimaryRpmMovAvgCountStable;
+        }//
+    }//
 }//
 
 void MachineBackend::_onTriggeredEventEvery50MSecond()
@@ -8069,7 +8871,10 @@ void MachineBackend::_onTriggeredEventEveryMinute()
     m_fanSchedulerAutoSet->routineTask();
     m_uvSchedulerAutoSetOff->routineTask();
     m_fanSchedulerAutoSetOff->routineTask();
+}
 
+void MachineBackend::_onTriggeredEventEveryHalfHour()
+{
     //// SYNC LINUX TIME TO RTC
 #ifdef __arm__
     QDateTime dateTimeLinux = QDateTime::currentDateTime();
@@ -8420,24 +9225,67 @@ void MachineBackend::setUvUsageMeter(int minutes)
     _setModbusRegHoldingValue(modbusRegisterAddress.uvLifeLeft.addr, static_cast<ushort>(minutesPercentLeft));
 }
 
-void MachineBackend::setFilterUsageMeter(int minutes)
+void MachineBackend::setFilterUsageMeter(int percent)
 {
     qDebug() << metaObject()->className() << __func__  << thread();
 
-    int minutesPercentLeft = __getPercentFrom(minutes, SDEF_FILTER_MAXIMUM_TIME_LIFE);
+    int maxMinsUsage = pData->getFilterLifeMaximumBlowerUsageMode();
+    int maxRpmUsage = pData->getFilterLifeMaximumBlowerRpmMode();
+    int minRpmUsage = pData->getFilterLifeMinimumBlowerRpmMode();
+    int rangeRpm = maxRpmUsage - minRpmUsage;
+
+    int minutesLeft = qRound((double)maxMinsUsage - (((100.0-(double)percent)/100.0)*(double)maxMinsUsage));
+    int currRpmNom = qRound((double)minRpmUsage + (((100.0-(double)percent)/100.0) * (double)rangeRpm));
 
     /// event if in % value is zero but the minutes more then 0 minutes, then set % to 1
-    if (minutesPercentLeft == 0 && minutes > 0) minutesPercentLeft = 1;
+    if (percent == 0 && (minutesLeft > 0 || currRpmNom < maxRpmUsage)) percent = 1;
 
     //update to global observable variable
-    pData->setFilterLifeMinutes(minutes);
-    pData->setFilterLifePercent(static_cast<short>(minutesPercentLeft));
+    pData->setFilterLifeMinutes(minutesLeft);
+    pData->setFilterLifeRpm(currRpmNom);
+    pData->setFilterLifePercent(static_cast<short>(percent));
 
     //save to sattings
     QSettings settings;
-    settings.setValue(SKEY_FILTER_METER, minutes);
+    settings.setValue(SKEY_FILTER_METER_MIN, minutesLeft);
+    settings.setValue(SKEY_FILTER_METER_RPM, currRpmNom);
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.filterLife.addr, static_cast<ushort>(minutesPercentLeft));
+    _setModbusRegHoldingValue(modbusRegisterAddress.FilterLife.addr, static_cast<ushort>(percent));
+}
+
+void MachineBackend::setFilterLifeCalculationMode(int value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FILTER_METER_MODE, value);
+    pData->setFilterLifeCalculationMode(value);
+}
+
+void MachineBackend::setFilterLifeMinimumBlowerUsageMode(int value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FILTER_METER_MIN_TIME, value*60);
+    pData->setFilterLifeMinimumBlowerUsageMode(value*60);
+}
+
+void MachineBackend::setFilterLifeMaximumBlowerUsageMode(int value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FILTER_METER_MAX_TIME, value*60);
+    pData->setFilterLifeMaximumBlowerUsageMode(value*60);
+}
+
+void MachineBackend::setFilterLifeMinimumBlowerRpmMode(int value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FILTER_METER_MIN_RPM, value);
+    pData->setFilterLifeMinimumBlowerRpmMode(value);
+}
+
+void MachineBackend::setFilterLifeMaximumBlowerRpmMode(int value)
+{
+    QSettings settings;
+    settings.setValue(SKEY_FILTER_METER_MAX_RPM, value);
+    pData->setFilterLifeMaximumBlowerRpmMode(value);
 }
 
 void MachineBackend::setSashCycleMeter(int sashCycleMeter)
@@ -8522,6 +9370,8 @@ void MachineBackend::setShippingModeEnable(bool shippingModeEnable)
         m_threadForEventLog->wait();
         m_threadForDatalog->quit();
         m_threadForDatalog->wait();
+        m_threadForResourceMonitorLog->quit();
+        m_threadForResourceMonitorLog->wait();
 
         /// DATA LOG
         {
@@ -8544,8 +9394,16 @@ void MachineBackend::setShippingModeEnable(bool shippingModeEnable)
             m_pEventLogSql->queryDelete();
         }
 
+        /// RESOURCE MONITOR
+        {
+            m_pResourceMonitorLogSql.reset(new ResourceMonitorLogSql);
+            m_pResourceMonitorLogSql->init("m_pResourceMonitorLogSqlqueryDelete");
+            m_pResourceMonitorLogSql->queryDelete();
+        }
+
         /// reset boys
-        setting.setValue(SKEY_FILTER_METER, SDEF_FILTER_MAXIMUM_TIME_LIFE);
+        setting.setValue(SKEY_FILTER_METER_MIN, pData->getFilterLifeMaximumBlowerUsageMode());
+        setting.setValue(SKEY_FILTER_METER_RPM, pData->getFilterLifeMinimumBlowerRpmMode());
         setting.setValue(SKEY_FAN_PRI_METER, 0);
         setting.setValue(SKEY_FAN_INF_METER, 0);
         setting.setValue(SKEY_SASH_CYCLE_METER, 0);
@@ -8553,6 +9411,9 @@ void MachineBackend::setShippingModeEnable(bool shippingModeEnable)
 
         /// Disable Software SVN Check for Update
         setting.setValue(SKEY_SBC_SVN_UPDATE_EN, false);
+
+        /// Clear User Login History
+        setting.setValue(SKEY_USER_LAST_LOGIN, QJsonArray());
     }
 
     pData->setShippingModeEnable(shippingModeEnable);
@@ -8700,6 +9561,175 @@ void MachineBackend::setFanClosedLoopGainDerivativeIfa(float value)
 void MachineBackend::setReadClosedLoopResponse(bool value)
 {
     pData->setReadClosedLoopResponse(value);
+}
+
+void MachineBackend::setAlarmPreventMaintStateEnable(ushort pmCode, bool value)
+{
+    ushort alarmEn = pData->getAlarmPreventMaintStateEnable();
+    if(value){
+        alarmEn |= pmCode;
+    }else{
+        alarmEn &= ~pmCode;
+    }
+
+    QSettings setting;
+    setting.setValue(SKEY_PM_ALARM_EN, alarmEn);
+    pData->setAlarmPreventMaintStateEnable(alarmEn);
+
+    /// Update the active alarm
+    QDateTime nowDateTime = QDateTime().currentDateTime();
+    QDateTime dueDateTimeDaily = QDateTime().fromString(pData->getDailyPreventMaintAckDueDate(), "dd-MM-yyyy hh:mm:ss");
+    QDateTime dueDateTimeWeekly = QDateTime().fromString(pData->getWeeklyPreventMaintAckDueDate(), "dd-MM-yyyy hh:mm:ss");
+    QDateTime dueDateTimeMonthly = QDateTime().fromString(pData->getMonthlyPreventMaintAckDueDate(), "dd-MM-yyyy hh:mm:ss");
+    QDateTime dueDateTimeQuarterly = QDateTime().fromString(pData->getQuarterlyPreventMaintAckDueDate(), "dd-MM-yyyy hh:mm:ss");
+    QDateTime dueDateTimeAnnually = QDateTime().fromString(pData->getAnnuallyPreventMaintAckDueDate(), "dd-MM-yyyy hh:mm:ss");
+    QDateTime dueDateTimeBiennially = QDateTime().fromString(pData->getBienniallyPreventMaintAckDueDate(), "dd-MM-yyyy hh:mm:ss");
+    QDateTime dueDateTimeQuinquennially = QDateTime().fromString(pData->getQuinquenniallyPreventMaintAckDueDate(), "dd-MM-yyyy hh:mm:ss");
+    QDateTime dueDateTimeCanopy = QDateTime().fromString(pData->getCanopyPreventMaintAckDueDate(), "dd-MM-yyyy hh:mm:ss");
+
+    ushort alarmPm = 0;
+    qint64 dayLeft = 0;
+    if(alarmEn & MachineEnums::PM_DAILY_CODE){
+        dayLeft = nowDateTime.secsTo(dueDateTimeDaily);
+        if(dayLeft <= 82800) alarmPm |= MachineEnums::PM_DAILY_CODE; /// Activate the alarm when time left less than 6 hours
+        qDebug() << "secsLeft:" << dayLeft;
+    }
+    if(alarmEn & MachineEnums::PM_WEEKLY_CODE){
+        dayLeft = nowDateTime.daysTo(dueDateTimeWeekly);
+        if(dayLeft <= 2) alarmPm |= MachineEnums::PM_WEEKLY_CODE;
+        qDebug() << "dayLeft:" << dayLeft;
+    }
+    if(alarmEn & MachineEnums::PM_MONTHLY_CODE){
+        dayLeft = nowDateTime.daysTo(dueDateTimeMonthly);
+        if(dayLeft < 7) alarmPm |= MachineEnums::PM_MONTHLY_CODE;
+        qDebug() << "dayLeft:" << dayLeft;
+    }
+    if(alarmEn & MachineEnums::PM_QUARTERLY_CODE){
+        dayLeft = nowDateTime.daysTo(dueDateTimeQuarterly);
+        if(dayLeft < 14) alarmPm |= MachineEnums::PM_QUARTERLY_CODE;
+        qDebug() << "dayLeft:" << dayLeft;
+    }
+    if(alarmEn & MachineEnums::PM_ANNUALLY_CODE){
+        dayLeft = nowDateTime.daysTo(dueDateTimeAnnually);
+        if(dayLeft < 30) alarmPm |= MachineEnums::PM_ANNUALLY_CODE;
+        qDebug() << "dayLeft:" << dayLeft;
+    }
+    if(alarmEn & MachineEnums::PM_BIENNIALLY_CODE){
+        dayLeft = nowDateTime.daysTo(dueDateTimeBiennially);
+        if(dayLeft < 30) alarmPm |= MachineEnums::PM_BIENNIALLY_CODE;
+        qDebug() << "dayLeft:" << dayLeft;
+    }
+    if(alarmEn & MachineEnums::PM_QUINQUENNIALLY_CODE){
+        dayLeft = nowDateTime.daysTo(dueDateTimeQuinquennially);
+        if(dayLeft < 30) alarmPm |= MachineEnums::PM_QUINQUENNIALLY_CODE;
+        qDebug() << "dayLeft:" << dayLeft;
+    }
+    if(alarmEn & MachineEnums::PM_CANOPY_CODE){
+        dayLeft = nowDateTime.daysTo(dueDateTimeCanopy);
+        if(dayLeft < 7) alarmPm |= MachineEnums::PM_CANOPY_CODE;
+        qDebug() << "dayLeft:" << dayLeft;
+    }
+
+    qDebug() << "Alarm PM:" << alarmPm;
+    pData->setAlarmPreventMaintState(alarmPm);
+}
+
+void MachineBackend::setAlarmPreventMaintStateAck(ushort pmCode, bool value, bool snooze)
+{
+    qDebug() << metaObject()->className() << __func__  << pmCode << value << snooze << thread();
+
+    QDateTime nowDateTime = QDateTime().currentDateTime();
+    QDateTime dueDateTime;
+    QString curDateTimeStr = nowDateTime.toString("dd-MM-yyyy hh:mm:ss");
+    QString dueDateTimeStr;
+
+    QSettings setting;
+
+    ushort alarmAck = pData->getAlarmPreventMaintStateAck();
+
+    if(value){
+        alarmAck |= pmCode;
+    }else{
+        alarmAck &= ~pmCode;
+    }
+
+    switch(pmCode){
+    case MachineEnums::PM_DAILY_CODE:
+        if(value && !snooze){
+            dueDateTime = QDateTime().fromString(curDateTimeStr, "dd-MM-yyyy hh:mm:ss").addDays(1);
+            dueDateTimeStr = dueDateTime.toString("dd-MM-yyyy hh:mm:ss");
+            pData->setDailyPreventMaintAckDueDate(dueDateTimeStr);
+            setting.setValue(SKEY_PM_LAST_ACK_DAILY, curDateTimeStr);
+            pData->setDailyPreventMaintLastAckDate(curDateTimeStr);
+        }
+        break;
+    case MachineEnums::PM_WEEKLY_CODE:
+        if(value && !snooze){
+            dueDateTime = QDateTime().fromString(curDateTimeStr, "dd-MM-yyyy hh:mm:ss").addDays(7);
+            dueDateTimeStr = dueDateTime.toString("dd-MM-yyyy hh:mm:ss");
+            pData->setWeeklyPreventMaintAckDueDate(dueDateTimeStr);
+            setting.setValue(SKEY_PM_LAST_ACK_WEEKLY, curDateTimeStr);
+            pData->setWeeklyPreventMaintLastAckDate(curDateTimeStr);
+        }
+        break;
+    case MachineEnums::PM_MONTHLY_CODE:
+        if(value && !snooze){
+            dueDateTime = QDateTime().fromString(curDateTimeStr, "dd-MM-yyyy hh:mm:ss").addMonths(1);
+            dueDateTimeStr = dueDateTime.toString("dd-MM-yyyy hh:mm:ss");
+            pData->setMonthlyPreventMaintAckDueDate(dueDateTimeStr);
+            setting.setValue(SKEY_PM_LAST_ACK_MONTHLY, curDateTimeStr);
+            pData->setMonthlyPreventMaintLastAckDate(curDateTimeStr);
+        }
+        break;
+    case MachineEnums::PM_QUARTERLY_CODE:
+        if(value && !snooze){
+            dueDateTime = QDateTime().fromString(curDateTimeStr, "dd-MM-yyyy hh:mm:ss").addMonths(3);
+            dueDateTimeStr = dueDateTime.toString("dd-MM-yyyy hh:mm:ss");
+            pData->setQuarterlyPreventMaintAckDueDate(dueDateTimeStr);
+            setting.setValue(SKEY_PM_LAST_ACK_QUARTERLY, curDateTimeStr);
+            pData->setQuarterlyPreventMaintLastAckDate(curDateTimeStr);
+        }
+        break;
+    case MachineEnums::PM_ANNUALLY_CODE:
+        if(value && !snooze){
+            dueDateTime = QDateTime().fromString(curDateTimeStr, "dd-MM-yyyy hh:mm:ss").addYears(1);
+            dueDateTimeStr = dueDateTime.toString("dd-MM-yyyy hh:mm:ss");
+            pData->setAnnuallyPreventMaintAckDueDate(dueDateTimeStr);
+            setting.setValue(SKEY_PM_LAST_ACK_ANNUALLY, curDateTimeStr);
+            pData->setAnnuallyPreventMaintLastAckDate(curDateTimeStr);
+        }
+        break;
+    case MachineEnums::PM_BIENNIALLY_CODE:
+        if(value && !snooze){
+            dueDateTime = QDateTime().fromString(curDateTimeStr, "dd-MM-yyyy hh:mm:ss").addYears(2);
+            dueDateTimeStr = dueDateTime.toString("dd-MM-yyyy hh:mm:ss");
+            pData->setBienniallyPreventMaintAckDueDate(dueDateTimeStr);
+            setting.setValue(SKEY_PM_LAST_ACK_BIENNIALLY, curDateTimeStr);
+            pData->setBienniallyPreventMaintLastAckDate(curDateTimeStr);
+        }
+        break;
+    case MachineEnums::PM_QUINQUENNIALLY_CODE:
+        if(value && !snooze){
+            dueDateTime = QDateTime().fromString(curDateTimeStr, "dd-MM-yyyy hh:mm:ss").addYears(5);
+            dueDateTimeStr = dueDateTime.toString("dd-MM-yyyy hh:mm:ss");
+            pData->setQuinquenniallyPreventMaintAckDueDate(dueDateTimeStr);
+            setting.setValue(SKEY_PM_LAST_ACK_QUINQUENNIALLY, curDateTimeStr);
+            pData->setQuinquenniallyPreventMaintLastAckDate(curDateTimeStr);
+        }
+        break;
+    case MachineEnums::PM_CANOPY_CODE:
+        if(value && !snooze){
+            dueDateTime = QDateTime().fromString(curDateTimeStr, "dd-MM-yyyy hh:mm:ss").addMonths(1);
+            dueDateTimeStr = dueDateTime.toString("dd-MM-yyyy hh:mm:ss");
+            pData->setCanopyPreventMaintAckDueDate(dueDateTimeStr);
+            setting.setValue(SKEY_PM_LAST_ACK_CANOPY, curDateTimeStr);
+            pData->setCanopyPreventMaintLastAckDate(curDateTimeStr);
+        }
+        break;
+    default: break;
+    }
+
+    pData->setAlarmPreventMaintStateAck(alarmAck);
 }
 
 void MachineBackend::setEth0ConName(const QString value)
@@ -8866,8 +9896,206 @@ void MachineBackend::setSvnUpdateCheckPeriod(int value)
 
 void MachineBackend::checkSoftwareVersionHistory()
 {
-    //    if(m_signedUserLevel == MachineEnums::USER_LEVEL_FACTORY)
-    pData->setSvnUpdateHistory(m_pCheckSwUpdate->getSwUpdateHistory());
+    if(m_signedUserLevel == MachineEnums::USER_LEVEL_FACTORY)
+        pData->setSvnUpdateHistory(m_pCheckSwUpdate->getSwUpdateHistory());
+}
+
+void MachineBackend::setAlarmExperimentTimerIsOver(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << value << thread();
+    pData->setAlarmExperimentTimerIsOver(value);
+
+    if(isAlarmActive(value)){
+        _insertAlarmLog(ALARM_LOG_CODE::ALC_EXP_TIMER_OVER_ALARM, ALARM_LOG_TEXT_EXP_TIMER_OVER_OK);
+    }//
+    else if(isAlarmNormal(value)){
+        _insertAlarmLog(ALARM_LOG_CODE::ALC_EXP_TIMER_OVER_OK, ALARM_LOG_TEXT_EXP_TIMER_OVER_ALARM);
+    }//
+}
+
+//void MachineBackend::initReplaceablePartsSettings()
+//{
+//    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+//    QSettings settings;
+//    settings.beginGroup("rplist");
+
+//    for(short i=1; i < MachineEnums::RPList_Total; i++){
+//        pData->setRpListLast(i, settings.value(m_rpListSettings[i], "").toString());
+//    }
+
+//    settings.endGroup();
+//}
+
+void MachineBackend::setReplaceablePartsSettings(short index, const QString value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << m_rpListSettings[index] << value << thread();
+
+    QSettings settings;
+
+    settings.beginGroup("rplist");
+    settings.setValue(m_rpListSettings[index], value);
+    settings.endGroup();
+
+    pData->setRpListLast(index, value);
+}
+
+void MachineBackend::setReplaceablePartsSelected(short descRowId)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ <<  descRowId << thread();
+
+    QMetaObject::invokeMethod(m_pReplaceableCompRecord.data(), [&, descRowId](){
+        QStringList strList;
+        ReplaceableCompRecordSql *sql = m_pReplaceableCompRecord->getPSqlInterface();
+        int count;
+        bool success = sql->queryCount(&count);
+        short indexRowId = count-descRowId;//index start from 0
+        short rowId = indexRowId + 1;
+        qDebug() << "Actual row ID" << rowId;
+
+        if(success){
+            success = m_pReplaceableCompRecord->getDataFromTableAtRowId(&strList, rowId);
+            if(success){
+                //qDebug() << strList;
+                if(strList.length() != MachineEnums::RPList_Total){
+                    qWarning() << "Data length invalid!" << strList.length() << "should be" << MachineEnums::RPList_Total;
+                    return;
+                }//
+                for(short i=1; i < MachineEnums::RPList_Total; i++){
+                    //pData->setRpListLast(i, m_settings->value(m_rpListSettings[i], "").toString());
+                    //if(i==1) qDebug() << strList.at(i);
+                    pData->setRpListSelected(i, strList.at(i));
+                    //            qDebug() << i << pData->getRpListLastAtIndex(i);
+                }//
+            }//
+        }//
+    });
+
+    //QJsonDocument doc = value.toJsonDocument();
+    //qDebug() << doc;
+    //pData->setRpListSelected();
+}//
+
+void MachineBackend::setKeyboardStringOnAcceptedEvent(const QString value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << value << thread();
+
+    pData->setKeyboardStringOnAcceptedEvent(value);
+}
+
+void MachineBackend::insertReplaceableComponentsForm()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    //    int currentRowCount = pData->getReplaceableCompRecordCount();
+    //    /// This system has limited the datalog count only up to DATALOG_MAX_ROW
+    //    if (currentRowCount >= ALARMREPLACEABLECOMPRECORD_MAX_ROW){
+    //        return;
+    //    }
+
+    //    QDateTime dateTime = QDateTime::currentDateTime();
+    //    QString dateTimeText = dateTime.toString("yyyy-MM-dd hh:mm:ss");
+
+    QVariantMap dataMap;
+    for(short i=MachineEnums::RPList_UnitModel; i<MachineEnums::RPList_Total; i++){
+        if(i == MachineEnums::RPList_UserName){
+            dataMap.insert(m_rpListSettings[i], m_signedUsername);
+            qDebug() << i << m_rpListSettings[i] << m_signedUsername;
+        }
+        else if(i == MachineEnums::RPList_UserFullName){
+            dataMap.insert(m_rpListSettings[i], m_signedFullname);
+            qDebug() << i << m_rpListSettings[i] << m_signedFullname;
+        }
+        else{
+            dataMap.insert(m_rpListSettings[i], pData->getRpListLastAtIndex(i));
+            qDebug() << i << m_rpListSettings[i] << pData->getRpListLastAtIndex(i);
+        }//
+    }//
+
+    /// execute this function in where thread the m_pReplaceableCompRecord live at
+    QMetaObject::invokeMethod(m_pReplaceableCompRecord.data(),
+                              [&,
+                              dataMap](){
+        ReplaceableCompRecordSql *sql = m_pReplaceableCompRecord->getPSqlInterface();
+        bool success = sql->queryInsert(dataMap);
+
+        /// check how many data log has stored now
+        int count;
+        success = sql->queryCount(&count);
+        //        qDebug() << "success: " << success ;
+        if(success){
+            pData->setReplaceableCompRecordCount(count);
+            //            qDebug() << count << maximumRowCount;
+            bool logHasFull = count >= ALARMREPLACEABLECOMPRECORD_MAX_ROW;
+            pData->setReplaceableCompRecordIsFull(logHasFull);
+            if(count > ALARMREPLACEABLECOMPRECORD_MAX_ROW)
+                /// delete the last row from table
+                success = sql->queryDeleteOldestRowId();
+        }//
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineBackend::resetReplaceablePartsSettings()
+{
+    QSettings settings;
+
+    settings.beginGroup("rplist");
+    for(short i=1; i < MachineEnums::RPList_Total; i++){
+        QString defaultValue = _getRpListDefaultValue(i);
+        settings.setValue(m_rpListSettings[i], defaultValue);
+        pData->setRpListLast(i, defaultValue);
+        pData->setRpListSelected(i, "");
+        //            qDebug() << i << pData->getRpListLastAtIndex(i);
+    }//
+    settings.endGroup();
+}
+
+void MachineBackend::requestEjectUsb(QString usbName)
+{
+    /**
+     * The reason to use QMetaObject::invokeMethod if the recipient object might be in another thread
+     * is that attempting to call a slot directly on an object in another thread can lead to corruption
+     * or worse if it accesses or modifies non-thread-safe data **/
+    QMetaObject::invokeMethod(m_pUSBAutoMount.data(), [&, usbName](){
+        m_pUSBAutoMount->requestEjectUsb(usbName);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineBackend::setFrontEndScreenState(short value)
+{
+    pData->setFrontEndScreenStatePrev(pData->getFrontEndScreenState());
+    pData->setFrontEndScreenState(value);
+}
+
+void MachineBackend::setInstallationWizardActive(bool value)
+{
+    pData->setInstallationWizardActive(value);
+}
+
+void MachineBackend::setSomeSettingsAfterExtConfigImported()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+#ifdef __linux__
+    QSettings settings;
+    QString year_sn = QDate::currentDate().toString("yyyy-000000");
+
+    settings.setValue("sbcSN", "0000000000000001");
+    settings.setValue("sbcSysInfo", "sysInfo:sbc");
+    settings.setValue("serNum", year_sn);
+#endif
+}
+
+void MachineBackend::setAllOutputShutdown()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+#ifdef __linux__
+    QProcess qprocess;
+    qprocess.start("boardinit", QStringList());
+    qprocess.waitForFinished();
+    qDebug() << qprocess.readAllStandardOutput();
+#endif
+}
 }
 
 void MachineBackend::setFrontPanelSwitchInstalled(bool value)
@@ -8936,30 +10164,6 @@ void MachineBackend::setCabinetSideType(short value)
     pData->setCabinetSideType(value);
     QSettings settings;
     settings.setValue(SKEY_CABINET_SIDE_TYPE, value);
-}
-
-void MachineBackend::setSomeSettingsAfterExtConfigImported()
-{
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-#ifdef __linux__
-    QSettings settings;
-    QString year_sn = QDate::currentDate().toString("yyyy-000000");
-
-    settings.setValue("sbcSN", "0000000000000001");
-    settings.setValue("sbcSysInfo", "sysInfo:sbc");
-    settings.setValue("serNum", year_sn);
-#endif
-}
-
-void MachineBackend::setAllOutputShutdown()
-{
-    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
-#ifdef __linux__
-    QProcess qprocess;
-    qprocess.start("boardinit", QStringList());
-    qprocess.waitForFinished();
-    qDebug() << qprocess.readAllStandardOutput();
-#endif
 }
 
 //void MachineBackend::setWifiDisabled(bool value)
@@ -10016,6 +11220,7 @@ void MachineBackend::_machineState()
             if(!isAlarmNA(pData->getAlarmStandbyFanOff())){
                 pData->setAlarmStandbyFanOff(MachineEnums::ALARM_NA_STATE);
             }
+
             ///NO APPLICABLE AIRFLOW ALARM IF THE SASH NOT IN WORKING HEIGHT
             if(!isAlarmNA(pData->getAlarmInflowLow())){
                 pData->setAlarmInflowLow(MachineEnums::ALARM_NA_STATE);
@@ -10123,7 +11328,7 @@ void MachineBackend::_machineState()
         if (!isAlarmNA(pData->getAlarmTempHigh())) {
             pData->setAlarmTempHigh(MachineEnums::ALARM_NA_STATE);
         }
-        if (isAlarmNA(pData->getAlarmTempLow())) {
+        if (!isAlarmNA(pData->getAlarmTempLow())) {
             pData->setAlarmTempLow(MachineEnums::ALARM_NA_STATE);
         }
         //// NA ALARM STANDBY FAN OFF
@@ -10174,6 +11379,7 @@ void MachineBackend::_machineState()
         alarms |= isAlarmActive(pData->getSashCycleMotorLockedAlarm());
         alarms |= isAlarmActive(pData->getFrontPanelAlarm());
         alarms |= isAlarmActive(pData->getAlarmSashMotorDownStuck());
+        alarms |= isAlarmActive(pData->getAlarmExperimentTimerIsOver());
         //    alarms = false;
         //        qDebug() << "alarms" << alarms;
         //        qDebug() << pData->getAlarmBoardComError() << pData->getAlarmInflowLow() << pData->getAlarmDownflowLow() << pData->getAlarmDownflowHigh() << pData->getAlarmSeasPressureLow();
@@ -10251,7 +11457,6 @@ void MachineBackend::_machineState()
     //        m_pSashWindow->clearFlagSashStateChanged();
     //    }
 }
-
 void MachineBackend::_setSoftwareUpdateAvailable(QString swu, QString path, QJsonObject history)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
@@ -10283,6 +11488,211 @@ void MachineBackend::_setSoftwareUpdateAvailableReset()
 
     pData->setSvnUpdateAvailable(false);
 }
+
+void MachineBackend::_readResourceMonitorParams()
+{
+    ///$CPUUSAGE $CPUTEMP $MEMUSAGE
+    QString resMonOut = "00 00 00";
+    QStringList resMonParams;
+
+#ifdef __linux__
+    QProcess qprocess;
+    qprocess.start("resmon", QStringList() << "all");
+    qprocess.waitForFinished();
+    if(!qprocess.exitCode()){
+        resMonOut = qprocess.readAllStandardOutput();
+    }
+#endif
+    resMonOut.replace("\n", "");
+    for(short i=0; i<resMonOut.split(" ").length(); i++){
+        resMonParams.append(resMonOut.split(" ")[i]);
+    }
+
+    qDebug() << resMonParams;
+    pData->setResourceMonitorParams(resMonParams);
+}
+
+QString MachineBackend::_getRpListDefaultValue(short index)
+{
+    QString retStr = "";
+    QJsonObject dbDefault = pData->getRpListDefault();
+
+    if(index < MachineEnums::RPList_SBCSet1Name){
+        switch(index){
+        case MachineEnums::RPList_UnitModel: retStr = pData->getMachineModelName(); break;
+        case MachineEnums::RPList_UnitSerialNumber: retStr = pData->getSerialNumber(); break;
+        case MachineEnums::RPList_Date: break;
+        case MachineEnums::RPList_Time: break;
+        case MachineEnums::RPList_UserManualCode: break;
+        case MachineEnums::RPList_UserManualVersion: break;
+        case MachineEnums::RPList_ElectricalPanel: break;
+        case MachineEnums::RPList_ElectricalPanelSerialNumber: break;
+        case MachineEnums::RPList_ElectricalTester: break;
+        }
+    }
+    else if(index >= MachineEnums::RPList_SBCSet1Name && index <= MachineEnums::RPList_SBCSet15Qty){
+        bool isName = index < MachineEnums::RPList_SBCSet1Code;
+        bool isCode = !isName && (index < MachineEnums::RPList_SBCSet1Qty);
+        //bool isQty = !isName && !isCode;
+        short startIndex = isName ? MachineEnums::RPList_SBCSet1Name
+                                  : (isCode ? MachineEnums::RPList_SBCSet1Code
+                                            : MachineEnums::RPList_SBCSet1Qty);
+        QString key = isName ? "desc" : (isCode ? "id" : "qty");
+        QJsonArray defArray = dbDefault["sbcSet"].toArray();
+        if(!defArray[index-startIndex].isUndefined()){
+            QJsonObject defObj = defArray[index-startIndex].toObject();
+            retStr = defObj[key].toString();
+        }//
+    }//
+    else if(index == MachineEnums::RPList_SBCSet1SN || index == MachineEnums::RPList_SBCSet1SW){
+        if(index == MachineEnums::RPList_SBCSet1SN){
+            retStr = pData->getSbcSerialNumber();
+        }
+        else{
+            QSettings settings;
+            retStr = settings.value(SKEY_SBC_SOFTWARE_VERSION, "").toString();
+        }
+    }
+    else if(index >= MachineEnums::RPList_Sensor1Name && index <= MachineEnums::RPList_Sensor5Qty){
+        bool isName = index < MachineEnums::RPList_Sensor1Code;
+        bool isCode = !isName && (index < MachineEnums::RPList_Sensor1Qty);
+        //bool isQty = !isName && !isCode;
+        short startIndex = isName ? MachineEnums::RPList_Sensor1Name
+                                  : (isCode ? MachineEnums::RPList_Sensor1Code
+                                            : MachineEnums::RPList_Sensor1Qty);
+        QString key = isName ? "desc" : (isCode ? "id" : "qty");
+        QJsonArray defArray = dbDefault["sensors"].toArray();
+        if(!defArray[index-startIndex].isUndefined()){
+            QJsonObject defObj = defArray[index-startIndex].toObject();
+            retStr = defObj[key].toString();
+        }
+    }
+    else if(index >= MachineEnums::RPList_UVLED1Name && index <= MachineEnums::RPList_UVLED6Qty){
+        bool isName = index < MachineEnums::RPList_UVLED1Code;
+        bool isCode = !isName && (index < MachineEnums::RPList_UVLED1Qty);
+        //bool isQty = !isName && !isCode;
+        short startIndex = isName ? MachineEnums::RPList_UVLED1Name
+                                  : (isCode ? MachineEnums::RPList_UVLED1Code
+                                            : MachineEnums::RPList_UVLED1Qty);
+        QString key = isName ? "desc" : (isCode ? "id" : "qty");
+
+        QJsonArray defArray = dbDefault["uvLed"].toArray();
+        if(!defArray[index-startIndex].isUndefined()){
+            QJsonObject defObj = defArray[index-startIndex].toObject();
+            retStr = defObj[key].toString();
+        }
+    }
+    else if(index >= MachineEnums::RPList_PSU1Name && index <= MachineEnums::RPList_PSU5Qty){
+        bool isName = index < MachineEnums::RPList_PSU1Code;
+        bool isCode = !isName && (index < MachineEnums::RPList_PSU1Qty);
+        //bool isQty = !isName && !isCode;
+        short startIndex = isName ? MachineEnums::RPList_PSU1Name
+                                  : (isCode ? MachineEnums::RPList_PSU1Code
+                                            : MachineEnums::RPList_PSU1Qty);
+        QString key = isName ? "desc" : (isCode ? "id" : "qty");
+
+        QJsonArray defArray = dbDefault["psu"].toArray();
+        if(!defArray[index-startIndex].isUndefined()){
+            QJsonObject defObj = defArray[index-startIndex].toObject();
+            retStr = defObj[key].toString();
+        }
+    }
+    else if(index >= MachineEnums::RPList_MCBEMI1Name && index <= MachineEnums::RPList_MCBEMI5Qty){
+        bool isName = index < MachineEnums::RPList_MCBEMI1Code;
+        bool isCode = !isName && (index < MachineEnums::RPList_MCBEMI1Qty);
+        //bool isQty = !isName && !isCode;
+        short startIndex = isName ? MachineEnums::RPList_MCBEMI1Name
+                                  : (isCode ? MachineEnums::RPList_MCBEMI1Code
+                                            : MachineEnums::RPList_MCBEMI1Qty);
+        QString key = isName ? "desc" : (isCode ? "id" : "qty");
+
+        QJsonArray defArray = dbDefault["mcbEmi"].toArray();
+        if(!defArray[index-startIndex].isUndefined()){
+            QJsonObject defObj = defArray[index-startIndex].toObject();
+            retStr = defObj[key].toString();
+        }
+    }
+    else if(index >= MachineEnums::RPList_ContactSw1Name && index <= MachineEnums::RPList_ContactSw5Qty){
+        bool isName = index < MachineEnums::RPList_ContactSw1Code;
+        bool isCode = !isName && (index < MachineEnums::RPList_ContactSw1Qty);
+        //bool isQty = !isName && !isCode;
+        short startIndex = isName ? MachineEnums::RPList_ContactSw1Name
+                                  : (isCode ? MachineEnums::RPList_ContactSw1Code
+                                            : MachineEnums::RPList_ContactSw1Qty);
+        QString key = isName ? "desc" : (isCode ? "id" : "qty");
+
+        QJsonArray defArray = dbDefault["contactSw"].toArray();
+        if(!defArray[index-startIndex].isUndefined()){
+            QJsonObject defObj = defArray[index-startIndex].toObject();
+            retStr = defObj[key].toString();
+        }
+    }
+    else if(index >= MachineEnums::RPList_BMotor1Name && index <= MachineEnums::RPList_BMotor5Qty){
+        bool isName = index < MachineEnums::RPList_BMotor1Code;
+        bool isCode = !isName && (index < MachineEnums::RPList_BMotor1Qty);
+        //bool isQty = !isName && !isCode;
+        short startIndex = isName ? MachineEnums::RPList_BMotor1Name
+                                  : (isCode ? MachineEnums::RPList_BMotor1Code
+                                            : MachineEnums::RPList_BMotor1Qty);
+        QString key = isName ? "desc" : (isCode ? "id" : "qty");
+
+        QJsonArray defArray = dbDefault["bMotor"].toArray();
+        if(!defArray[index-startIndex].isUndefined()){
+            QJsonObject defObj = defArray[index-startIndex].toObject();
+            retStr = defObj[key].toString();
+        }
+    }
+    else if(index >= MachineEnums::RPList_CapInd1Name && index <= MachineEnums::RPList_CapInd5Qty){
+        bool isName = index < MachineEnums::RPList_CapInd1Code;
+        bool isCode = !isName && (index < MachineEnums::RPList_CapInd1Qty);
+        //bool isQty = !isName && !isCode;
+        short startIndex = isName ? MachineEnums::RPList_CapInd1Name
+                                  : (isCode ? MachineEnums::RPList_CapInd1Code
+                                            : MachineEnums::RPList_CapInd1Qty);
+        QString key = isName ? "desc" : (isCode ? "id" : "qty");
+
+        QJsonArray defArray = dbDefault["capInd"].toArray();
+        if(!defArray[index-startIndex].isUndefined()){
+            QJsonObject defObj = defArray[index-startIndex].toObject();
+            retStr = defObj[key].toString();
+        }
+    }
+    else if(index >= MachineEnums::RPList_Custom1Name && index <= MachineEnums::RPList_Custom8Qty){
+        //        bool isName = index < MachineEnums::RPList_Custom1Code;
+        //        bool isCode = !isName && (index < MachineEnums::RPList_Custom1Qty);
+        //        //bool isQty = !isName && !isCode;
+        //        short startIndex = isName ? MachineEnums::RPList_Custom1Name
+        //                                  : (isCode ? MachineEnums::RPList_Custom1Code
+        //                                            : MachineEnums::RPList_Custom1Qty);
+        //        QString key = isName ? "desc" : (isCode ? "id" : "qty");
+        //        QJsonArray defArray = dbDefault["custom"].toArray();
+        //        if(!defArray[index-startIndex].isUndefined()){
+        //            QJsonObject defObj = defArray[index-startIndex].toObject();
+        //            retStr = defObj[key].toString();
+        //        }
+    }
+    else if(index >= MachineEnums::RPList_Filter1Name && index <= MachineEnums::RPList_Filter5Qty){
+        bool isName = index < MachineEnums::RPList_Filter1Code;
+        bool isCode = !isName && (index < MachineEnums::RPList_Filter1Qty);
+        //bool isQty = !isName && !isCode;
+        short startIndex = isName ? MachineEnums::RPList_Filter1Name
+                                  : (isCode ? MachineEnums::RPList_Filter1Code
+                                            : MachineEnums::RPList_Filter1Qty);
+        QString key = isName ? "desc" : (isCode ? "id" : "qty");
+
+        QJsonArray defArray = dbDefault["filter"].toArray();
+        if(!defArray[index-startIndex].isUndefined()){
+            QJsonObject defObj = defArray[index-startIndex].toObject();
+            retStr = defObj[key].toString();
+        }
+    }
+    return retStr;
+}//
+
+//void MachineBackend::_initPreventMaintReminder()
+//{
+//    QScopedPointer<QSettings> m_settings(new QSettings);
+//}//
 
 #ifdef QT_DEBUG
 void MachineBackend::onDummyStateNewConnection()

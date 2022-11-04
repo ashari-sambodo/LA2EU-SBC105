@@ -54,6 +54,7 @@ void AirflowVelocity::routineTask(int parameter)
 
     //// Map the original ADC value to specific bits
     int adc = /*pAI->getAdcMap(m_channel, m_maxAdcResBits);*/pAI->getADC(m_channel);
+    int mvolt = pAI->getmVolt(m_channel);
 
 #ifdef QT_DEBUG
     if(m_dummyStateEnable){
@@ -72,6 +73,11 @@ void AirflowVelocity::routineTask(int parameter)
         emit adcChanged(m_adc);
 
         //        qDebug() << __func__ << "m_adc" << m_adc;
+    }
+
+    if(m_mVolt != mvolt){
+        m_mVolt = mvolt;
+        emit mVoltChanged(mvolt);
     }
 
     //TEMPERATURE EFFECTED TO AIRFLOW SENSOR

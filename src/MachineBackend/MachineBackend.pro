@@ -43,9 +43,14 @@ SOURCES +=  \
     Implementations/PWMOut/DevicePWMOut.cpp \
     Implementations/ParticleCounter/ParticleCounter.cpp \
     Implementations/PressureDiff/PressureDiff.cpp \
+    Implementations/ReplaceableCompRecord/ReplaceableCompRecord.cpp \
+    Implementations/ReplaceableCompRecord/ReplaceableCompRecordSql.cpp \
+    Implementations/ResourceMonitorLog/ResourceMonitorLog.cpp \
+    Implementations/ResourceMonitorLog/ResourceMonitorLogSql.cpp \
     Implementations/SashWindow/SashWindow.cpp \
     Implementations/SchedulerDayOutput/SchedulerDayOutput.cpp \
     Implementations/Temperature/Temperature.cpp \
+    Implementations/USBAutoMount/USBAutoMount.cpp \
     MachineBackend.cpp \
     MachineData.cpp \
     MachineProxy.cpp
@@ -70,14 +75,20 @@ HEADERS +=  \
     Implementations/EventLog/EventLogSql.h \
     Implementations/EventLog/EventLogText.h \
     Implementations/LampDimm/LampDimm.h \
+    Implementations/Modbus/QModbusTcpAddressEnum.h \
     Implementations/Modbus/QModbusTcpConnObserverImp.h \
     Implementations/MotorizeOnRelay/MotorizeOnRelay.h \
     Implementations/PWMOut/DevicePWMOut.h \
     Implementations/ParticleCounter/ParticleCounter.h \
     Implementations/PressureDiff/PressureDiff.h \
+    Implementations/ReplaceableCompRecord/ReplaceableCompRecord.h \
+    Implementations/ReplaceableCompRecord/ReplaceableCompRecordSql.h \
+    Implementations/ResourceMonitorLog/ResourceMonitorLog.h \
+    Implementations/ResourceMonitorLog/ResourceMonitorLogSql.h \
     Implementations/SashWindow/SashWindow.h \
     Implementations/SchedulerDayOutput/SchedulerDayOutput.h \
     Implementations/Temperature/Temperature.h \
+    Implementations/USBAutoMount/USBAutoMount.h \
     MachineBackend.h \
     MachineData.h \
     MachineDefaultParameters.h \

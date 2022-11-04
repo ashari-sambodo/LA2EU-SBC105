@@ -102,6 +102,14 @@ void MachineProxy::stop()
                               Qt::QueuedConnection);
 }
 
+void MachineProxy::setMachineProfileID(const QString value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setMachineProfileID(value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setLcdTouched()
 {
     //    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
@@ -269,13 +277,30 @@ void MachineProxy::setBuzzerBeep()
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setSignedUser(const QString username, const QString fullname)
+void MachineProxy::setSignedUser(const QString username, const QString fullname, short userLevel)
 {
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, username, fullname](){
-        m_machineBackend->setSignedUser(username, fullname);
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, username, fullname, userLevel](){
+        m_machineBackend->setSignedUser(username, fullname, userLevel);
     },
     Qt::QueuedConnection);
 }
+
+void MachineProxy::setUserLastLogin(const QString username, const QString fullname)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, username, fullname](){
+        m_machineBackend->setUserLastLogin(username, fullname);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::deleteUserLastLogin(const QString username)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, username](){
+        m_machineBackend->deleteUserLastLogin(username);
+    },
+    Qt::QueuedConnection);
+}
+
 
 void MachineProxy::setDataLogEnable(bool dataLogEnable)
 {
@@ -313,6 +338,46 @@ void MachineProxy::setDataLogCount(int dataLogCount)
 
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, dataLogCount](){
         m_machineBackend->setDataLogCount(dataLogCount);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setResourceMonitorLogEnable(bool value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setResourceMonitorLogEnable(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setResourceMonitorLogRunning(bool value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setResourceMonitorLogRunning(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setResourceMonitorLogPeriod(short value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setResourceMonitorLogPeriod(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setResourceMonitorLogCount(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setResourceMonitorLogCount(value);
     },
     Qt::QueuedConnection);
 }
@@ -643,6 +708,46 @@ void MachineProxy::setFilterUsageMeter(int minutes)
     Qt::QueuedConnection);
 }
 
+void MachineProxy::setFilterLifeCalculationMode(int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFilterLifeCalculationMode(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFilterLifeMinimumBlowerUsageMode(int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFilterLifeMinimumBlowerUsageMode(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFilterLifeMaximumBlowerUsageMode(int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFilterLifeMaximumBlowerUsageMode(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFilterLifeMinimumBlowerRpmMode(int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFilterLifeMinimumBlowerRpmMode(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFilterLifeMaximumBlowerRpmMode(int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFilterLifeMaximumBlowerRpmMode(value);
+    },
+    Qt::QueuedConnection);
+}
+
 void MachineProxy::setSashCycleMeter(int sashCycleMeter)
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
@@ -850,78 +955,6 @@ void MachineProxy::setFrontPanelSwitchInstalled(bool value)
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setEth0ConName(const QString value)
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setEth0ConName(value);
-    },
-    Qt::QueuedConnection);
-}
-
-void MachineProxy::setEth0Ipv4Address(const QString value)
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setEth0Ipv4Address(value);
-    },
-    Qt::QueuedConnection);
-}
-
-void MachineProxy::setEth0ConEnabled(bool value)
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setEth0ConEnabled(value);
-    },
-    Qt::QueuedConnection);
-}
-
-void MachineProxy::setWiredNetworkHasbeenConfigured(bool value)
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setWiredNetworkHasbeenConfigured(value);
-    },
-    Qt::QueuedConnection);
-}
-
-void MachineProxy::initWiredConnectionStaticIP()
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
-        m_machineBackend->initWiredConnectionStaticIP();
-    },
-    Qt::QueuedConnection);
-}
-
-void MachineProxy::setSvnUpdateHasBeenApplied()
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
-        m_machineBackend->setSvnUpdateHasBeenApplied();
-    },
-    Qt::QueuedConnection);
-}
-
-void MachineProxy::setSvnUpdateCheckEnable(bool value)
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setSvnUpdateCheckEnable(value);
-    },
-    Qt::QueuedConnection);
-}
-
-void MachineProxy::setSvnUpdateCheckPeriod(int value)
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setSvnUpdateCheckPeriod(value);
-    },
-    Qt::QueuedConnection);
-}
-
-void MachineProxy::checkSoftwareVersionHistory()
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
-        m_machineBackend->checkSoftwareVersionHistory();
-    },
-    Qt::QueuedConnection);
-}
-
 void MachineProxy::scanRbmComPortAvalaible(bool value)
 {
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
@@ -986,21 +1019,14 @@ void MachineProxy::setCabinetSideType(short value)
 //    Qt::QueuedConnection);
 //}
 
-void MachineProxy::setSomeSettingsAfterExtConfigImported()
+void MachineProxy::setAlarmExperimentTimerIsOver(short value)
 {
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
-        m_machineBackend->setSomeSettingsAfterExtConfigImported();
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setAlarmExperimentTimerIsOver(value);
     },
     Qt::QueuedConnection);
 }
 
-void MachineProxy::setAllOutputShutdown()
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
-        m_machineBackend->setAllOutputShutdown();
-    },
-    Qt::QueuedConnection);
-}
 
 void MachineProxy::setOperationModeSave(short value)
 {
@@ -2034,6 +2060,190 @@ void MachineProxy::initAirflowCalibrationStatus(short value)
 {
     QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
         m_machineBackend->initAirflowCalibrationStatus(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setAlarmPreventMaintStateEnable(ushort pmCode, bool value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << pmCode << value;
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, pmCode, value](){
+        m_machineBackend->setAlarmPreventMaintStateEnable(pmCode, value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setAlarmPreventMaintStateAck(ushort pmCode, bool value, bool snooze)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    qDebug() << pmCode << value;
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, pmCode, value, snooze](){
+        m_machineBackend->setAlarmPreventMaintStateAck(pmCode, value, snooze);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setEth0ConName(const QString value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setEth0ConName(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setEth0Ipv4Address(const QString value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setEth0Ipv4Address(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setEth0ConEnabled(bool value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setEth0ConEnabled(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setWiredNetworkHasbeenConfigured(bool value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setWiredNetworkHasbeenConfigured(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::initWiredConnectionStaticIP()
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+        m_machineBackend->initWiredConnectionStaticIP();
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setSvnUpdateHasBeenApplied()
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+        m_machineBackend->setSvnUpdateHasBeenApplied();
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setSvnUpdateCheckEnable(bool value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setSvnUpdateCheckEnable(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setSvnUpdateCheckPeriod(int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setSvnUpdateCheckPeriod(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::checkSoftwareVersionHistory()
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+        m_machineBackend->checkSoftwareVersionHistory();
+    },
+    Qt::QueuedConnection);
+}
+
+//void MachineProxy::initReplaceablePartsSettings()
+//{
+//    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+//        m_machineBackend->initReplaceablePartsSettings();
+//    },
+//    Qt::QueuedConnection);
+//}
+
+void MachineProxy::setReplaceablePartsSettings(short index, const QString value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, index, value](){
+        m_machineBackend->setReplaceablePartsSettings(index, value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setReplaceablePartsSelected(short descRowId)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, descRowId](){
+        m_machineBackend->setReplaceablePartsSelected(descRowId);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setKeyboardStringOnAcceptedEvent(const QString value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&,value](){
+        m_machineBackend->setKeyboardStringOnAcceptedEvent(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::resetReplaceablePartsSettings()
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+        m_machineBackend->resetReplaceablePartsSettings();
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::insertReplaceableComponentsForm()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+        m_machineBackend->insertReplaceableComponentsForm();
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::requestEjectUsb(QString usbName)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, usbName](){
+        m_machineBackend->requestEjectUsb(usbName);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setFrontEndScreenState(short value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setFrontEndScreenState(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setInstallationWizardActive(bool value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setInstallationWizardActive(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setSomeSettingsAfterExtConfigImported()
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+        m_machineBackend->setSomeSettingsAfterExtConfigImported();
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setAllOutputShutdown()
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&](){
+        m_machineBackend->setAllOutputShutdown();
     },
     Qt::QueuedConnection);
 }

@@ -60,12 +60,13 @@ void USBAutoMount::_detectUSBConnected()
 
     //Debug Output
     QStringList listDevices = output.split("\n");
-    QStringList detailDevices;
+
     QStringList deviceList;
     QStringList deviceList_Temp;
 
     //qDebug() << "Start ListDevices";
     for(int i = 1; i < listDevices.length() - 1; i ++){
+        QStringList detailDevices;
         //qDebug() << listDevices[i];
         detailDevices = listDevices[i].split(QRegExp("\\s+"), Qt::SplitBehaviorFlags::SkipEmptyParts);
 
@@ -156,7 +157,7 @@ void USBAutoMount::_detectUSBConnected()
     }
 }
 
-int USBAutoMount::_mountUSBToPath(QString device)
+int USBAutoMount::_mountUSBToPath(const QString &device)
 {
 
     QProcess qprocess;
@@ -178,7 +179,7 @@ int USBAutoMount::_mountUSBToPath(QString device)
     //qDebug() << "Exit Code:" << exitCode;
 }
 
-int USBAutoMount::_unmountUSBFromPath(QString device)
+int USBAutoMount::_unmountUSBFromPath(const QString &device)
 {
     qDebug() << __func__ << device;
     QProcess qprocess;
@@ -200,7 +201,7 @@ int USBAutoMount::_unmountUSBFromPath(QString device)
     //qDebug() << "Exit Code:" << exitCode;
 }
 
-void USBAutoMount::_setUsbDetectedList(QString usbList)
+void USBAutoMount::_setUsbDetectedList(const QString &usbList)
 {
     if(m_deviceListStr == usbList)
         return;

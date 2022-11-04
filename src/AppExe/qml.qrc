@@ -106,7 +106,6 @@
         <file>UI/Pages/TimePickerPage/TimePickerPage.qml</file>
         <file>UI/Pages/ScreenShootShowPage/ScreenShootShowPage.qml</file>
         <file>UI/Pages/SecurityLevelSetPage/SecurityLevelSetPage.qml</file>
-        <file>UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml</file>
         <file>UI/Pages/SeasAlarmSetPointPage/_GettingStartedSeasAlarmPage.qml</file>
         <file>UI/Pages/SeasAlarmSetPointPage/SeasAlarmPage.qml</file>
         <file>UI/Pages/SeasAlarmSetPointPage/SeasAlarmSetPointPage.qml</file>
@@ -125,6 +124,7 @@
         <file>UI/Pages/ShortCutMenuPage/ShortCutMenuPage.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/ExportFragment.qml</file>
         <file>UI/Pages/CertificationShortCut/CertificationShortCut.qml</file>
+        <file>UI/Pages/CertificationReportPage/Fragments/InflowGridFieldFragment.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/TesterFieldFragment.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/DownflowGridFieldFragment.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/ExportFieldFragment.qml</file>
@@ -147,12 +147,7 @@
         <file>UI/Pages/SoftwareFailedStartPage/ButtonBlackApp.qml</file>
         <file>UI/Pages/SoftwareFailedStartPage/DateTimeSettingPage.qml</file>
         <file>UI/Pages/SystemInformationPage/SystemInformationPage.qml</file>
-        <file>UI/Pages/SoftwareUpdatePage/SvnUpdateSettingsPage.qml</file>
-        <file>UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml</file>
-        <file>UI/Pages/SoftwareUpdatePage/SoftwareHistoryPage.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/FanClosedLoopControlPage.qml</file>
-        <file>UI/Pages/SoftwareLicensePage/gpl-3.0.txt</file>
-        <file>UI/Pages/SoftwareLicensePage/lgpl-3.0.txt</file>
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningParameters.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/InflowGridFieldFragment.qml</file>
@@ -160,8 +155,43 @@
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopResponse.qml</file>
         <file>UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml</file>
         <file>UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml</file>
-        <file>UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml</file>
         <file>UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml</file>
         <file>UI/Pages/ScreenSaverSettingPage/ScreenSaverSettingPage.qml</file>
+	<file>UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml</file>
+        <file>UI/Pages/PreventiveMaintenancePage/Pages/PMChecklistPage.qml</file>
+        <file>UI/Pages/PreventiveMaintenancePage/Pages/Components/RowItemApp.qml</file>
+        <file>UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml</file>
+        <file>UI/Pages/QuickTourPage/Fragment/FanSchedulerQuickTour.qml</file>
+        <file>UI/Pages/SoftwareUpdatePage/SvnUpdateSettingsPage.qml</file>
+        <file>UI/Pages/SoftwareUpdatePage/UpdateExecutePage.qml</file>
+        <file>UI/Pages/SoftwareUpdatePage/SoftwareHistoryPage.qml</file>
+        <file>UI/Pages/ContactUsPage/ContactUsPage.qml</file>
+        <file>UI/Pages/SoftwareLicensePage/gpl-3.0.txt</file>
+        <file>UI/Pages/SoftwareLicensePage/lgpl-3.0.txt</file>
+        <file>UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Components/RowItemApp.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Fragments/SbcSetFragments.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Fragments/SensorsFragments.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Fragments/UVLEDFragments.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Fragments/PSUFragments.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Fragments/MCBEMIFragments.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Fragments/ContactSwitchesFragments.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Fragments/CapInductorFragments.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Fragments/CustomizeFragments.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Fragments/FilterFragments.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml</file>
+        <file>UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml</file>
+        <file>UI/Pages/ResetFieldCalibrationPage/ResetFieldCalibrationPage.qml</file>
+        <file>UI/Pages/ResourceMonitorPage/ResourceMonitorPage.qml</file>
+        <file>UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml</file>
+        <file>UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml</file>
+        <file>UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml</file>
+        <file>UI/Pages/AirflowOutTempPage/AirflowOutTempPage.qml</file>
+        <file>UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml</file>
+        <file>UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml</file>
+        <file>UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml</file>
     </qresource>
 </RCC>

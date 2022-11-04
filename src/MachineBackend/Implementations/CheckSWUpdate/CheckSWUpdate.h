@@ -16,7 +16,7 @@ public:
     void setCheckForSWUpdateEnable(bool value);
     bool getCheckForSWUpdateEnable()const;
 
-    bool setCurrentSoftwareVersion(QString swVersion);
+    bool setCurrentSoftwareVersion(const QString &swVersion);
     bool getProcessRunning()const;
 
     QJsonObject getSwUpdateHistory();
@@ -35,7 +35,7 @@ public:
     void initSoftwareHistoryUrl();
 
 signals:
-    void swUpdateAvailable(QString swuVersion, QString path, QJsonObject history);
+    void swUpdateAvailable(const QString &swuVersion, const QString &path, QJsonObject history);
     void swUpdateAvailableReset();
 
 private:

@@ -203,6 +203,7 @@ ApplicationWindow {
 
             function onOpenKeyboardRequested() {
 
+                MachineAPI.setFrontEndScreenState(MachineAPI.ScreenState_KeyboardOnScreen)
                 //                //console.debug(KeyboardOnScreenCaller.title())
                 //                //console.debug(KeyboardOnScreenCaller.targetTextInput().text)
 
@@ -230,7 +231,7 @@ ApplicationWindow {
             }
 
             function onOpenNumpadRequested() {
-
+                MachineAPI.setFrontEndScreenState(MachineAPI.ScreenState_KeyboardOnScreen)
                 //                //console.debug(KeyboardOnScreenCaller.title())
                 //                //console.debug(KeyboardOnScreenCaller.targetTextInput().text)
 
@@ -261,12 +262,15 @@ ApplicationWindow {
 
             function onHideClicked() {
                 kosLoader.visible = false
+                MachineAPI.setFrontEndScreenState(MachineData.frontEndScreenStatePrev)
             }
 
             function onEnterClicked(textValue) {
                 KeyboardOnScreenCaller.targetTextInput().text = textValue
                 KeyboardOnScreenCaller.targetTextInput().accepted()
                 kosLoader.visible = false
+
+                MachineAPI.setFrontEndScreenState(MachineData.frontEndScreenStatePrev)
             }
         }//
 
@@ -701,6 +705,233 @@ ApplicationWindow {
         }//
     }//
 
+    Loader{
+        id: svnUpdateLoader
+        enabled: UserSessionService.roleLevel >= UserSessionService.roleLevelFactory
+        width: parent.width
+        height: 110
+        anchors.bottomMargin: 5
+        anchors.bottom: parent.bottom
+        clip: true
+        active: false
+        sourceComponent: Rectangle{
+            id: svnUpdateRect
+            y: svnUpdateLoader.height
+            width: svnUpdateLoader.width
+            height: svnUpdateLoader.height
+            color: "#BB0F2952"
+            border.width: 1
+            border.color: "#BB777777"
+            radius: 5
+
+            property bool showState: false
+
+            TextApp {
+                width: parent.width
+                height: parent.height
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                text: qsTr("New Software update is available on SVN server.") + "<br>"
+                      + (!svnUpdateLoader.enabled ? qsTr("To update, please Login as factory, then go to Software Update!")
+                                                  : qsTr("To update, please go to Software Update page!"))
+
+            }//
+
+            Timer{
+                id: svnRectTimer
+                interval: 50
+                repeat: true
+                running: true
+                onTriggered: {
+                    //console.debug("onTriggered!!!")
+                    if(svnUpdateRect.y > 0 && !svnUpdateRect.showState){
+                        svnUpdateRect.y = svnUpdateRect.y - 5
+                    }else if(svnUpdateRect.y < svnUpdateLoader.height && svnUpdateRect.showState){
+                        svnUpdateRect.y = svnUpdateRect.y + 5
+                    }
+                    else{
+                        const temp = svnUpdateRect.showState
+                        svnUpdateRect.showState = !svnUpdateRect.showState;
+                        running = false
+                        if(temp) svnUpdateLoader.active = false
+                    }
+                }
+            }
+
+            MouseArea{
+                anchors.fill: parent
+                preventStealing: true
+                onClicked: {
+                    //svnUpdateRect.y = svnUpdateLoader.height
+                    svnRectTimer.running = true
+                }
+            }
+        }
+        //onActiveChanged: console.debug("Active:", active)
+    }//
+
+    Loader{
+        id: expTimeoutLoader
+        enabled: UserSessionService.roleLevel > UserSessionService.roleLevelGuest
+        width: parent.width
+        height: 110
+        anchors.bottomMargin: 5
+        anchors.bottom: parent.bottom
+        clip: true
+        active: false
+        sourceComponent: Rectangle{
+            id: expTimeoutRect
+            y: expTimeoutLoader.height
+            width: expTimeoutLoader.width
+            height: expTimeoutLoader.height
+            color: "#BB0F2952"
+            border.width: 1
+            border.color: "#BB777777"
+            radius: 5
+
+            property bool showState: false
+
+            TextApp {
+                width: parent.width
+                height: parent.height
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                text: qsTr("The experiment timer has been completed!") + "<br>"
+                      + (!expTimeoutLoader.enabled ? qsTr("Login and Press this notification to acknowledge.")
+                                                   : qsTr("Press this notification to acknowledge."))
+
+            }//
+
+            Timer{
+                id: expTimeoutRectTimer
+                interval: 50
+                repeat: true
+                running: true
+                onTriggered: {
+                    //console.debug("onTriggered!!!")
+                    if(expTimeoutRect.y > 0 && !expTimeoutRect.showState){
+                        expTimeoutRect.y = expTimeoutRect.y - 5
+                    }else if(expTimeoutRect.y < expTimeoutLoader.height && expTimeoutRect.showState){
+                        expTimeoutRect.y = expTimeoutRect.y + 5
+                    }
+                    else{
+                        const temp = expTimeoutRect.showState
+                        expTimeoutRect.showState = !expTimeoutRect.showState;
+                        running = false
+                        if(temp) expTimeoutLoader.active = false
+                    }
+                }
+            }
+
+            MouseArea{
+                anchors.fill: parent
+                preventStealing: true
+                onClicked: {
+                    //expTimeoutRect.y = expTimeoutLoader.height
+                    expTimeoutRectTimer.running = true
+                    ExperimentTimerService.timeout = false
+                    MachineAPI.setAlarmExperimentTimerIsOver(MachineAPI.ALARM_NORMAL_STATE)
+                }
+            }
+        }
+        //onActiveChanged: console.debug("Active:", active)
+    }//
+
+    Loader{
+        id: usbNotifLoader
+        enabled: UserSessionService.roleLevel == UserSessionService.roleLevelAdmin
+        width: 655//parent.width
+        height: 50
+        anchors.bottomMargin: MachineData.frontEndScreenState === MachineAPI.ScreenState_Home ? 120 : 80
+        anchors.bottom: parent.bottom
+        //anchors.centerIn: parent
+        anchors.horizontalCenter: parent.horizontalCenter
+        clip: true
+        active: false
+
+        property string text: ""
+
+        sourceComponent: Rectangle {
+            id: usbNotifRect
+            y: usbNotifLoader.height
+            width: usbNotifLoader.width
+            height: usbNotifLoader.height
+            color: "#BB0F2952"
+            opacity: 0.95
+            border.width: 1
+            border.color: "#BB777777"
+            radius: 5
+
+            property bool showState: false
+
+            TextApp {
+                width: parent.width
+                height: parent.height
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                text: usbNotifLoader.text
+            }//
+
+            Timer {
+                id: autocloseTimer1
+                interval: 2000
+                running: usbNotifLoader.active
+                onTriggered: {
+                    running = false
+                    usbNotifTimer.running = true
+                }//
+            }//
+
+            Timer{
+                id: usbNotifTimer
+                interval: 50
+                repeat: true
+                running: true
+                onTriggered: {
+                    //console.debug("onTriggered!!!")
+                    if(usbNotifRect.y > 0 && !usbNotifRect.showState){
+                        usbNotifRect.y = usbNotifRect.y - 5
+                    }else if(usbNotifRect.y < usbNotifLoader.height && usbNotifRect.showState){
+                        usbNotifRect.y = usbNotifRect.y + 5
+                    }
+                    else{
+                        const temp = usbNotifRect.showState
+                        usbNotifRect.showState = !usbNotifRect.showState;
+                        running = false
+                        if(temp) usbNotifLoader.active = false
+                    }
+                }
+            }//
+
+            MouseArea{
+                anchors.fill: parent
+                preventStealing: true
+                onClicked: {
+                    //svnUpdateRect.y = svnUpdateLoader.height
+                    usbNotifTimer.running = true
+                }
+            }
+
+            Timer{
+                id: usbNotifRemovePopupTimer
+                interval: 3000
+                repeat: true
+                running: true
+                onTriggered: {
+                    usbNotifTimer.running = true
+                    running = false
+                }//
+            }//
+
+            Component.onCompleted: {
+                usbNotifRemovePopupTimer.running = true
+            }//
+        }//
+        //            onActiveChanged: {
+        //                removeEjectPopupTimer.running = true
+        //            }
+    }//
+
     //// Touch or Mouse pressed indicator
     //// Show circle item on the touched/pressed point
     TapIndicatorApp {
@@ -713,13 +944,106 @@ ApplicationWindow {
         }//
     }//
 
-    property bool lcdBacklightDimmed: MachineData.lcdBrightnessLevelDimmed
-    onLcdBacklightDimmedChanged: {
-        //        console.debug("onLcdBacklightDimmedChanged: " + lcdBacklightDimmed)
-        if(lcdBacklightDimmed && !lockScreenLoader.active && MachineData.getSbcCurrentSerialNumberKnown()) {
-            lockScreenLoader.active = true
+    /// Monitor All Keys Event from Keyboard
+    TextInput {
+        id: globalTextInput
+        enabled: (MachineData.frontEndScreenState === MachineAPI.ScreenState_ReplaceableComponent
+                 || MachineData.frontEndScreenState === MachineAPI.ScreenState_SerialNumber)
+        visible: false
+        focus: false
+
+        Connections{
+            target: tapIndicatorItem
+            function onPressed(){
+                if(globalTextInput.enabled){
+                    globalTextInput.focus = true
+                    console.debug("globalTextInput.focus = true")
+                }
+                else{
+                    if(globalTextInput.focus){
+                        globalTextInput.focus = false
+                        console.debug("globalTextInput.focus = false")
+                    }//
+                }//
+            }//
+        }//
+        /// onFocusChanged: console.debug("FOCUSED CHANGED !!!!!!!!!", focus)
+        onAccepted: {
+            MachineAPI.setKeyboardStringOnAcceptedEvent(text)
+            //            console.debug("Text Generated:", text)
+            globalTextInput.clear()
+            //            console.debug("Text Cleared:", text)
+        }//
+        //        Keys.onPressed: {
+        //            if(Number(event.key) == Number(Qt.Key_Down))
+        //                accepted()
+        //            //console.log("Key="+event.key+" "+event.text);
+        //        }
+        Keys.onReleased: {
+            if(Number(event.key) == Number(Qt.Key_Down))
+                accepted()
+            //console.log("Key="+event.key+" "+event.text);
         }
-    }
+        //        Component.onCompleted: {
+
+        //        }
+    }//
+
+
+    QtObject{
+        id: props
+
+        property bool lcdBacklightDimmed: MachineData.lcdBrightnessLevelDimmed
+
+        function showSvnUpdateAvailable(newAvailable){
+            if(!newAvailable || (MachineData.machineState != MachineAPI.MACHINE_STATE_LOOP))return
+            svnUpdateLoader.active = true;
+        }//
+        function showExpTimeoutLoader(status){
+            if(status !== MachineAPI.ALARM_ACTIVE_STATE || (MachineData.machineState != MachineAPI.MACHINE_STATE_LOOP))return
+            expTimeoutLoader.active = true;
+        }//
+
+        function usbHasMounted(name){
+            console.debug("USB Has Mounted")
+            //            usbName = name
+            const text = qsTr("USB drive \"%1\" has been detected").arg(name)
+            usbNotifLoader.text = text
+            usbNotifLoader.active = true
+        }//
+
+        function usbHasEjected(name){
+            console.debug("USB Has Ejected")
+            //            usbName = name
+            const text = qsTr("The \"%1\" can now be safely remove from the cabinet").arg(name)
+            usbNotifLoader.text = text
+            usbNotifLoader.active = true
+        }//
+
+        function globalTextInputEnableFocus(screenState){
+            if(screenState === MachineAPI.ScreenState_ReplaceableComponent
+                             || screenState === MachineAPI.ScreenState_SerialNumber)
+                globalTextInput.focus = true
+            else
+                globalTextInput.focus = false
+        }
+
+        onLcdBacklightDimmedChanged: {
+            //        console.debug("onLcdBacklightDimmedChanged: " + lcdBacklightDimmed)
+            if(lcdBacklightDimmed && !lockScreenLoader.active && MachineData.getSbcCurrentSerialNumberKnown()) {
+                lockScreenLoader.active = true
+            }
+        }
+
+        Component.onCompleted: {
+            MachineData.svnUpdateAvailableChanged.connect(props.showSvnUpdateAvailable)
+            MachineData.alarmExperimentTimerIsOverChanged.connect(props.showExpTimeoutLoader)
+            MachineData.usbHasMounted.connect(props.usbHasMounted)
+            MachineData.usbHasEjected.connect(props.usbHasEjected)
+
+            MachineData.frontEndScreenStateChanged.connect(props.globalTextInputEnableFocus)
+        }
+    }//
 }//
 
 /*##^##

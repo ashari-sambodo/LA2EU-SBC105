@@ -66,7 +66,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
                 Rectangle {
                     anchors.fill: parent
@@ -92,58 +92,60 @@ ViewApp {
                             }
                         }//
 
-                        //                        ButtonBarApp {
-                        //                            visible: false
-                        //                            width: 194
-                        //                            anchors.right: parent.right
-                        //                            anchors.verticalCenter: parent.verticalCenter
-
-                        //                            imageSource: "qrc:/UI/Pictures/bluetooth.png"
-                        //                            text: qsTr("Share via Bluetooth")
-
-                        //                            onClicked: {
-                        //                                const pictureSource = String(getPicScreenImage.source)
-                        //                                const sourceFilePath = pictureSource.replace("file:///C:", "c:")
-                        //                                const intent = IntentApp.create("qrc:/UI/Pages/BluetoothFileTransfer/BluetoothFileTransfer.qml",
-                        //                                                                {
-                        //                                                                    "sourceFilePath": sourceFilePath
-                        //                                                                });
-                        //                                startView(intent);
-                        //                            }//
-                        //                        }//
-
-                        ButtonBarApp {
-                            x: 386
-                            width: 194
+                        Row{
+                            spacing: 5
                             anchors.right: parent.right
                             anchors.verticalCenter: parent.verticalCenter
+                            ButtonBarApp {
+                                visible: false
+                                width: 194
 
-                            imageSource: "qrc:/UI/Pictures/usbvia.png"
-                            text: qsTr("Share via USB")
+                                imageSource: "qrc:/UI/Pictures/bluetooth.png"
+                                text: qsTr("Share via Bluetooth")
 
-                            onClicked: {
-                                let pictureSource = String(getPicScreenImage.source)
-                                if (__osplatform__) {
-                                    /// linux
-                                    pictureSource = pictureSource.replace("file://", "")
-                                }
-                                else {
-                                    /// windows
-                                    pictureSource = pictureSource.replace("file:///C:", "c:")
-                                }
-                                const intent = IntentApp.create("qrc:/UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml",
-                                                                {
-                                                                    "sourceFilePath": pictureSource
-                                                                });
-                                startView(intent);
+                                onClicked: {
+                                    if(UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin){
+                                        const pictureSource = String(getPicScreenImage.source)
+                                        const sourceFilePath = pictureSource.replace("file:///C:", "c:")
+                                        const intent = IntentApp.create("qrc:/UI/Pages/BluetoothFileTransfer/BluetoothFileTransfer.qml",
+                                                                        {
+                                                                            "sourceFilePath": sourceFilePath
+                                                                        });
+                                        startView(intent);
+                                    }else{
+                                        showDialogMessage(qsTr("Access denied"), qsTr("You do not have permission to perform this action!"), dialogAlert)
+                                    }
+                                }//
+                            }//
+                            ButtonBarApp {
+                                //                            x: 386
+                                width: 194
+                                //                            anchors.right: parent.right
+                                //                            anchors.verticalCenter: parent.verticalCenter
 
-                                //const pictureSource = String(getPicScreenImage.source)
-                                //const sourceFilePath = pictureSource.replace("file:///C:", "c:")
-                                //const intent = IntentApp.create("qrc:/UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml",
-                                //                                {
-                                //                                    "sourceFilePath": sourceFilePath
-                                //                                });
-                                //startView(intent);
+                                imageSource: "qrc:/UI/Pictures/usbvia.png"
+                                text: qsTr("Share via USB")
+
+                                onClicked: {
+                                    if(UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin){
+                                        let pictureSource = String(getPicScreenImage.source)
+                                        if (__osplatform__) {
+                                            /// linux
+                                            pictureSource = pictureSource.replace("file://", "")
+                                        }
+                                        else {
+                                            /// windows
+                                            pictureSource = pictureSource.replace("file:///C:", "c:")
+                                        }
+                                        const intent = IntentApp.create("qrc:/UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml",
+                                                                        {
+                                                                            "sourceFilePath": pictureSource
+                                                                        });
+                                        startView(intent);
+                                    }else{
+                                        showDialogMessage(qsTr("Access denied"), qsTr("You do not have permission to perform this action!"), dialogAlert)
+                                    }
+                                }//
                             }//
                         }//
                     }//

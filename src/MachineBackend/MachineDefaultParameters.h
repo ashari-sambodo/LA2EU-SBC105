@@ -42,8 +42,13 @@
 #define RESMONLOG_MAX_ROW           2256000
 //#define RESMONLOG_MAX_ROW           5///DEMO
 
-#define SDEF_UV_MAXIMUM_TIME_LIFE       120000  //minutes or 2000 hours
-#define SDEF_FILTER_MAXIMUM_TIME_LIFE   600000  //minutes or 10000 hours
+#define SDEF_FILTER_RPM_MOV_AVG 60
+
+#define SDEF_UV_MAXIMUM_TIME_LIFE      120000  //minutes or 2000 hours
+#define SDEF_FILTER_MAXIMUM_TIME_LIFE  600000  //minutes or 10000 hours
+#define SDEF_FILTER_MAXIMUM_RPM_LIFE   1300
+#define SDEF_FILTER_MINIMUM_TIME_LIFE  0  //minutes or 10000 hours
+#define SDEF_FILTER_MINIMUM_RPM_LIFE   600
 
 #define SDEY_ENV_TEMP_HIGHEST       15 /// Celcius, this value based on esco airflow sensor
 #define SDEY_ENV_TEMP_LOWEST        35 /// Celcius,
@@ -96,6 +101,8 @@
 #define SKEY_PM_LAST_ACK_QUINQUENNIALLY "pmLastAckQin"
 #define SKEY_PM_LAST_ACK_CANOPY         "pmLastAckCan"
 #define SKEY_PM_ALARM_EN         "pmAlarmEn"
+
+#define SKEY_CABINET_SIDE_TYPE         "cabSdeTyp"
 ///////////////AIRFLOW
 //CALIB PHASE; NONE, FACTORY, or FIELD
 #define SKEY_AF_CALIB_PHASE             "afCalibPhase"
@@ -324,9 +331,14 @@
 #define SKEY_DFA_CAL_GRID_MAX_DCY       "dfaCalGridMaxDcy"
 #define SKEY_DFA_CAL_GRID_MAX_RPM       "dfaCalGridMaxRpm"
 
+#define SKEY_AIRFLOW_FACTORY_CALIB_STATE    "afCalFacState"
+#define SKEY_ADC_FACTORY_CALIB_STATE        "adcCalFacState"
+#define SKEY_AIRFLOW_FIELD_CALIB_STATE    "afCalFieState"
+
 /// DATALOG
 #define SKEY_DATALOG_ENABLE             "dtLogEn"
 #define SKEY_DATALOG_PERIOD             "dtLogPer"
+//RESOURCE MONITOR LOG
 #define SKEY_RESMONLOG_ENABLE           "rmLogEn"
 #define SKEY_RESMONLOG_PERIOD           "rmLogPer"
 
@@ -354,7 +366,14 @@
 
 #define SKEY_SASH_CYCLE_METER           "sasCycMet"
 
-#define SKEY_FILTER_METER               "flMet"
+#define SKEY_FILTER_METER_MIN           "flMetMn"
+#define SKEY_FILTER_METER_RPM           "flMetRpm"
+#define SKEY_FILTER_METER_MODE          "flMetMd"
+#define SKEY_FILTER_METER_MAX_TIME      "flMetMxTm"
+#define SKEY_FILTER_METER_MIN_TIME      "flMetMnTm"
+#define SKEY_FILTER_METER_MAX_RPM       "flMetMxRpm"
+#define SKEY_FILTER_METER_MIN_RPM       "flMetMnRpm"
+
 #define SKEY_FAN_PRI_METER                  "fanPriMet"
 #define SKEY_FAN_INF_METER                  "fanInfMet"
 
@@ -422,5 +441,6 @@
 
 #define SKEY_AF_MONITOR_ENABLE          "afMonEn"
 
+#define SKEY_USER_LAST_LOGIN    "usrLastLogin"
 #define SKEY_SASH_MOTOR_OFF_DELAY "sMotorOffDly"
 #define SKEY_DELAY_ALARM_AIRFLOW "sDlyAlmAf"

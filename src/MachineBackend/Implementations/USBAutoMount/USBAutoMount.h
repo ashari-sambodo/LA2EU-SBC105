@@ -20,15 +20,15 @@ public:
 
 signals:
     //void usbHasDetected(QString device);
-    void usbHasMounted(QString name);
-    void usbHasEjected(QString name);
-    void usbDetectedListChanged(QString usbList);
+    void usbHasMounted(const QString &name);
+    void usbHasEjected(const QString &name);
+    void usbDetectedListChanged(const QString &usbList);
 
 private:
     void _detectUSBConnected();
-    int _mountUSBToPath(QString device);
-    int _unmountUSBFromPath(QString device);
-    void _setUsbDetectedList(QString usbList);
+    int _mountUSBToPath(const QString &device);
+    int _unmountUSBFromPath(const QString &device);
+    void _setUsbDetectedList(const QString &usbList);
 
     enum{
         name,

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Generic/layout-rp.css</file>
+        <file>Generic/rp-temp.html</file>
+    </qresource>
+</RCC>

@@ -90,7 +90,13 @@ ViewApp {
                                 MouseArea {
                                     anchors.fill: parent
                                     onClicked: {
-                                        fragmentStackView.push(configureComponent)
+                                        if(UserSessionService.roleLevel > UserSessionService.roleLevelOperator)
+                                            fragmentStackView.push(configureComponent)
+                                        else{
+                                            showDialogMessage(qsTr("Access denied"),
+                                                              qsTr("You do not have permission to perform this action!"),
+                                                              dialogAlert)
+                                        }
                                     }//
                                 }//
                             }//
@@ -232,13 +238,13 @@ ViewApp {
                                 }//
 
                                 Component.onCompleted: {
+                                    props.requestTime = props.uvTime//0
+
                                     let hour = props.uvTime / 60
                                     let minutes =  props.uvTime % 60
 
                                     hoursTumbler.currentIndex = hour
                                     minutesTumbler.currentIndex = minutes
-
-                                    props.requestTime = (hour * 60) + minutes
 
                                     setButton.visible = true
                                 }//

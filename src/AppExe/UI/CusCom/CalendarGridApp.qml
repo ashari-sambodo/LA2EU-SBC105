@@ -321,7 +321,6 @@ Item {
                 monthGrid.month = tempMonth.getMonth()
                 monthGrid.year = tempMonth.getFullYear()
             }//
-
             function nextYear(){
                 let tempYear = new Date(targetDate)
                 tempYear.setFullYear(tempYear.getFullYear() + 1)
@@ -356,7 +355,6 @@ Item {
                 monthGrid.month = tempYear.getMonth()
                 monthGrid.year = tempYear.getFullYear()
             }//
-
             //        Component.onCompleted: {
             //            currentDate = new Date()
             //            currentDate.setHours(0, 0, 0, 0)

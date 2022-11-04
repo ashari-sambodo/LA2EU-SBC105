@@ -63,9 +63,10 @@ ViewApp {
                         
                         ComboBoxApp {
                             id: comboBox
+                            enabled: UserSessionService.roleLevel >= UserSessionService.roleLevelSupervisor
                             width: 190
                             height: 50
-                            backgroundColor: "#0F2952"
+                            backgroundColor: enabled ? "#0F2952" : "#404244"
                             backgroundBorderColor: "#dddddd"
                             backgroundBorderWidth: 2
                             font.pixelSize: 20
@@ -78,14 +79,14 @@ ViewApp {
                                 ////console.debug(index)
                                 ////console.debug(model[index].value)
                                 let newValue = model[index].value
-                                if(props.warmupTimer !== newValue){
+                                if(MachineData.warmingUpTime !== newValue){
                                     //  props.warmupTimer = newValue
                                     //  console.debug("Warm: ", props.warmupTimer , " min")
                                     MachineAPI.setWarmingUpTimeSave(newValue)
 
                                     viewApp.showBusyPage((qsTr("Setting Warmup timer...")),
                                                          function onTriggered(cycle){
-                                                             if(cycle === MachineAPI.BUSY_CYCLE_1){
+                                                             if(cycle >= MachineAPI.BUSY_CYCLE_1 || MachineData.warmingUpTime === newValue){
                                                                  viewApp.dialogObject.close()}
                                                          })
                                 }
@@ -120,7 +121,7 @@ This is to ensure that the sensors, the blower, and the control system are stabi
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
                 Rectangle {
                     anchors.fill: parent
@@ -167,6 +168,19 @@ This is to ensure that the sensors, the blower, and the control system are stabi
                 {text: qsTr("5 Minutes"),   value: 300},
                 {text: qsTr("15 Minutes"),  value: 900}
             ]
+            property var modelList3: [
+                {text: qsTr("Disable"),   value: 0},
+                {text: qsTr("3 Minutes"),   value: 180},
+                {text: qsTr("5 Minutes"),   value: 300},
+                {text: qsTr("15 Minutes"),  value: 900}
+            ]
+            property var modelList4: [
+                {text: qsTr("Disable"),   value: 0},
+                {text: qsTr("1 Minute"),   value: 60},
+                {text: qsTr("3 Minutes"),   value: 180},
+                {text: qsTr("5 Minutes"),   value: 300},
+                {text: qsTr("15 Minutes"),  value: 900}
+            ]
         }
 
         /// called Once but after onResume
@@ -181,34 +195,59 @@ This is to ensure that the sensors, the blower, and the control system are stabi
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
                 let constant = 0;
-                if(!MachineData.getDownflowSensorConstant() && !MachineData.getInflowSensorConstant())
-                    comboBox.model = props.modelList2
+                let modelListSelected = []
+
+                if(!MachineData.getInflowSensorConstant()){
+                    if(!MachineData.airflowMonitorEnable)
+                        modelListSelected = props.modelList4
+                    else
+                        modelListSelected = props.modelList2
+                }
                 else{
-                    comboBox.model = props.modelList1
+                    if(!MachineData.airflowMonitorEnable)
+                        modelListSelected = props.modelList3
+                    else
+                        modelListSelected = props.modelList1
                     constant = 1
                 }
+
+                comboBox.model = modelListSelected
+
                 props.warmupTimer = MachineData.warmingUpTime
-                console.debug("Constant Df:", MachineData.getDownflowSensorConstant(),"Constant If:", MachineData.getInflowSensorConstant())
-                if(constant){
-                    if(props.warmupTimer == 180)
-                        comboBox.currentIndex = 0
-                    else if(props.warmupTimer == 300)
-                        comboBox.currentIndex = 1
-                    else if(props.warmupTimer == 900)
-                        comboBox.currentIndex = 2
-                    else comboBox.currentIndex = 0
-                }else{
-                    if(props.warmupTimer == 60)//1 minute
-                        comboBox.currentIndex = 0
-                    else if(props.warmupTimer == 180)// 3 minutes
-                        comboBox.currentIndex = 1
-                    else if(props.warmupTimer == 300)// 5 minutes
-                        comboBox.currentIndex = 2
-                    else if(props.warmupTimer == 900)// 15 minutes
-                        comboBox.currentIndex = 3
-                    else comboBox.currentIndex = 0
-                }
-            }
+                //console.debug("Constant If:", MachineData.getInflowSensorConstant())
+                //console.debug("comboBox.count", comboBox.count)
+                let currIndex = 0
+                for(let i=0; i<modelListSelected.length; i++){
+                    if(props.warmupTimer === modelListSelected[i]["value"]){
+                        currIndex = i
+                        break;
+                    }//
+                }//
+
+                comboBox.currentIndex = currIndex
+
+                console.debug("currentIndex", currIndex)
+
+                //                if(constant){
+                //                    if(props.warmupTimer == 180)
+                //                        comboBox.currentIndex = 0
+                //                    else if(props.warmupTimer == 300)
+                //                        comboBox.currentIndex = 1
+                //                    else if(props.warmupTimer == 900)
+                //                        comboBox.currentIndex = 2
+                //                    else comboBox.currentIndex = 0
+                //                }else{
+                //                    if(props.warmupTimer == 60)//1 minute
+                //                        comboBox.currentIndex = 0
+                //                    else if(props.warmupTimer == 180)// 3 minutes
+                //                        comboBox.currentIndex = 1
+                //                    else if(props.warmupTimer == 300)// 5 minutes
+                //                        comboBox.currentIndex = 2
+                //                    else if(props.warmupTimer == 900)// 15 minutes
+                //                        comboBox.currentIndex = 3
+                //                    else comboBox.currentIndex = 0
+                //                }
+            }//
 
             /// onPause
             Component.onDestruction: {

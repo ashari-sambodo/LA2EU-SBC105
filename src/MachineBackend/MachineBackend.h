@@ -31,6 +31,10 @@ class AlarmLogSql;
 class AlarmLog;
 class EventLogSql;
 class EventLog;
+class ReplaceableCompRecordSql;
+class ReplaceableCompRecord;
+class ResourceMonitorLogSql;
+class ResourceMonitorLog;
 
 class ParticleCounter;
 class PressureDiffManager;
@@ -57,6 +61,7 @@ class BoardIO;
 class QGpioSysfs;
 class SensirionSPD8xx;
 class ParticleCounterZH03B;
+class USBAutoMount;
 
 class CheckSWUpdate;
 
@@ -100,7 +105,9 @@ public slots:
     void setBuzzerState(bool value);
     void setBuzzerBeep();
 
-    void setSignedUser(const QString username, const QString fullname);
+    void setSignedUser(const QString username, const QString fullname, short userLevel);
+    void setUserLastLogin(const QString username, const QString fullname);
+    void deleteUserLastLogin(const QString username);
 
     /// API for Cabinet operational
     void setOperationModeSave(short value);
@@ -265,12 +272,24 @@ public slots:
                                     int ducy, int rpm);
     //
     void initAirflowCalibrationStatus(short value);
+    void initFanConfigurationStatus(short value);
+
+    void setAirflowFactoryCalibrationState(int index, bool state);
+    void setAirflowFactorySecondaryCalibrationState(int index, bool state);
+    void setAdcFactoryCalibrationState(int index, bool state);
+    void setAirflowFieldCalibrationState(int index, bool value);
 
     /// DATALOG
     void setDataLogEnable(bool dataLogEnable);
     void setDataLogRunning(bool dataLogRunning);
     void setDataLogPeriod(short dataLogPeriod);
     void setDataLogCount(int dataLogCount);
+
+    /// RESOURCE MONITOR LOG
+    void setResourceMonitorLogEnable(bool value);
+    void setResourceMonitorLogRunning(bool value);
+    void setResourceMonitorLogPeriod(short value);
+    void setResourceMonitorLogCount(int value);
 
     /// MODBUS
     void setModbusSlaveID(short slaveId);
@@ -329,7 +348,14 @@ public slots:
     void setUvUsageMeter(int minutes);
 
     /// FILTER USAGE
-    void setFilterUsageMeter(int minutes);
+    void setFilterUsageMeter(int percent);
+//    void setFilterLifeRpm                   (int value);
+    void setFilterLifeCalculationMode       (int value);
+    void setFilterLifeMinimumBlowerUsageMode (int value);
+    void setFilterLifeMaximumBlowerUsageMode (int value);
+    void setFilterLifeMinimumBlowerRpmMode   (int value);
+    void setFilterLifeMaximumBlowerRpmMode   (int value);
+
 
     /// SASH CYCLE METER
     void setSashCycleMeter(int sashCycleMeter);
@@ -349,6 +375,37 @@ public slots:
 
     void readSbcCurrentFullMacAddress();
 
+void setAlarmPreventMaintStateEnable(ushort pmCode, bool value);
+    void setAlarmPreventMaintStateAck(ushort pmCode, bool value, bool snooze);
+
+    void setEth0ConName(const QString value);
+    void setEth0Ipv4Address(const QString value);
+    void setEth0ConEnabled(bool value);
+    void setWiredNetworkHasbeenConfigured(bool value);
+    void initWiredConnectionStaticIP();
+
+    void setSvnUpdateHasBeenApplied();
+    void setSvnUpdateCheckEnable(bool value);
+    void setSvnUpdateCheckPeriod(int value);
+    void checkSoftwareVersionHistory();
+
+    void setAlarmExperimentTimerIsOver(short value);
+
+    //    void initReplaceablePartsSettings();
+    void setReplaceablePartsSettings(short index, const QString value);
+    void setReplaceablePartsSelected(short descRowId);
+    void setKeyboardStringOnAcceptedEvent(const QString value);
+    void insertReplaceableComponentsForm();
+    void resetReplaceablePartsSettings();
+
+    ///
+    void requestEjectUsb(QString usbName);
+    void setFrontEndScreenState(short value);
+    void setInstallationWizardActive(bool value);
+
+    void setSomeSettingsAfterExtConfigImported();
+    void setAllOutputShutdown();
+
     void setFanClosedLoopControlEnable(bool value);
     void setFanClosedLoopControlEnablePrevState(bool value);
     void setFanClosedLoopSamplingTime(int value);
@@ -361,17 +418,6 @@ public slots:
 
     void setReadClosedLoopResponse(bool value);
 
-void setEth0ConName(const QString value);
-    void setEth0Ipv4Address(const QString value);
-    void setEth0ConEnabled(bool value);
-    void setWiredNetworkHasbeenConfigured(bool value);
-    void initWiredConnectionStaticIP();
-
-    void setSvnUpdateHasBeenApplied();
-    void setSvnUpdateCheckEnable(bool value);
-    void setSvnUpdateCheckPeriod(int value);
-    void checkSoftwareVersionHistory();
-	
     /// FRONT PANEL SWITCH LA2EU
     void setFrontPanelSwitchInstalled(bool value);
     /// Set FAN RBM Address
@@ -385,9 +431,6 @@ void setEth0ConName(const QString value);
     void setScreenSaverSeconds(int value);
 
     void setCabinetSideType(short value);
-
- void setSomeSettingsAfterExtConfigImported();
-    void setAllOutputShutdown();
 
 signals:
     void hasStopped();
@@ -502,12 +545,14 @@ private:
     QScopedPointer<QTimer> m_timerEventEverySecond;
     QScopedPointer<QTimer> m_timerEventEveryMinute;
     QScopedPointer<QTimer> m_timerEventEveryMinute2;
+	QScopedPointer<QTimer> m_timerEventEveryHalfHour;
     QScopedPointer<QTimer> m_timerEventEveryHour;
 
     void _onTriggeredEventEvery50MSecond();
     void _onTriggeredEventEverySecond();
     void _onTriggeredEventEveryMinute();
     void _onTriggeredEventEveryMinute2();
+    void _onTriggeredEventEveryHalfHour();
     void _onTriggeredEventEveryHour();
 
     ///DATA LOG
@@ -525,10 +570,27 @@ private:
     QScopedPointer<QThread>      m_threadForEventLog;
     QScopedPointer<EventLog>     m_pEventLog;
     QScopedPointer<EventLogSql>  m_pEventLogSql;
+
+    ///REPLACEABLECOMP RECORD
+    QScopedPointer<QThread>      m_threadForReplaceableCompRecord;
+    QScopedPointer<ReplaceableCompRecord>     m_pReplaceableCompRecord;
+    QScopedPointer<ReplaceableCompRecordSql>  m_pReplaceableCompRecordSql;
+
+    ///RESOURCE MONITOR LOG
+    QScopedPointer<QThread>     m_threadForResourceMonitorLog;
+    QScopedPointer<QTimer>      m_timerEventForResourceMonitorLog;
+    QScopedPointer<ResourceMonitorLog>     m_pResourceMonitorLog;
+    QScopedPointer<ResourceMonitorLogSql>  m_pResourceMonitorLogSql;
+
     ///CHECK FOR SWU UPDATE
     QScopedPointer<QThread>      m_threadForCheckSwUpdate;
     QScopedPointer<QTimer>       m_timerEventForCheckSwUpdate;
     QScopedPointer<CheckSWUpdate> m_pCheckSwUpdate;
+
+    /// USB Auto Mount
+    QScopedPointer<QThread>      m_threadForUSBAutoMount;
+    QScopedPointer<QTimer>       m_timerEventForUSBAutoMount;
+    QScopedPointer<USBAutoMount> m_pUSBAutoMount;
 
     /// OUTPUT AUTO SET
     /// UV SCHEDULER
@@ -558,6 +620,8 @@ private:
     void _insertDataLog();
     void _insertAlarmLog(int alarmCode, const QString alarmText);
     void _insertEventLog(const QString logText);
+
+    void _insertResourceMonitorLog();
 
     //    void _setFanDownflowDutyCycle(short value);
 
@@ -683,8 +747,14 @@ private:
 
     void _setSoftwareUpdateAvailable(QString swu, QString path, QJsonObject history);
     void _setSoftwareUpdateAvailableReset();
+    //    void _initPreventMaintReminder();
+
+    void _readResourceMonitorParams();
+    QString _getRpListDefaultValue(short index);
+
     QString m_signedUsername;
     QString m_signedFullname;
+    short m_signedUserLevel = 0;
 
     QTimer* eventTimerForDelaySafeHeightAction = nullptr;
     int  m_sashSafeAutoOnOutputDelayTimeMsec = 100; /// 100ms //original 3 seconds
@@ -693,6 +763,15 @@ private:
     //int  m_sashMotorizedOffAtFullyClosedDelayTimeMsec = 500; /// 500ms for 6 feet /// 700ms for 4 feet
     bool  m_delaySashMotorFullyClosedExecuted = false;
     uchar m_counter = 0;
+    QString m_rpListSettings[MachineEnums::RPList_Total];
+
+
+    long m_fanPrimaryRpmMovAvgTotal = 0;
+    int m_fanPrimaryRpmMovAvg = 0;
+    short m_fanPrimaryRpmMovAvgCountStable = 0;
+    QScopedPointer<QVector<uint16_t>>  m_fanPrimaryRpmActualBuffer;
+	
+	
     bool m_scanRbmComPortAvailable = false;
     bool m_dummySashMotorDownStuckSwitchEnabled = false;
     bool m_dummySashMotorDownStuckSwitchState = false;

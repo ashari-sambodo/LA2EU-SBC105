@@ -61,12 +61,14 @@ signals:
     void adcConpensationChanged(int val);
     void velocityChanged(double val);
     void velocityForClosedLoopChanged(double val);
+    void mVoltChanged(int value);
     void workerFinished();
 
 private:
     AIManage * pAI;
     int m_channel;
 
+    int m_mVolt = 0;
     int m_adc;
     int m_adcConpensation;
     double m_velocity;

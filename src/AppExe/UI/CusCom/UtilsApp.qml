@@ -190,9 +190,14 @@ QtObject {
         return Math.round(value * helperNumber) / helperNumber
     }
 
+    ////adc_ifn, vel_ifn, adc_if1, vel_if1, adc_if2, vel_if2
+    /// a - ((b-y1)*(x2-x1)/y2-y1)
     function interpolation(a, b, x1, y1, x2, y2){
         return a - ((x2 - x1) / (y2 - y1) * (b - y1))
     }
+    //    function interpolation1(a, b, x1, y1, x2, y2){
+    //        return a - ((b - y1) * (x2 - x1) / (y2 - y1))
+    //    }
 
     function urlToPath(urlString) {
         var s

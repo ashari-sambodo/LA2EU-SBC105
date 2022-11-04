@@ -95,6 +95,21 @@ void MachineData::setSbcCurrentSystemInformation(QStringList sbcCurrentSystemInf
     m_sbcCurrentSystemInformation = sbcCurrentSystemInformation;
 }
 
+ushort MachineData::getAlarmPreventMaintState() const
+{
+    return m_alarmPreventMaintState;
+}
+
+ushort MachineData::getAlarmPreventMaintStateEnable() const
+{
+    return m_alarmPreventMaintStateEnable;
+}
+
+ushort MachineData::getAlarmPreventMaintStateAck() const
+{
+    return m_alarmPreventMaintStateAck;
+}
+
 bool MachineData::getFanClosedLoopControlEnable() const
 {
     return m_fanClosedLoopControlEnable;
@@ -150,6 +165,360 @@ void MachineData::setFanClosedLoopGainDerivative(float value, short index)
 {
     if(m_fanClosedLoopGainDerivative[index] == value)return;
     m_fanClosedLoopGainDerivative[index] = value;
+}
+
+int MachineData::getFanClosedLoopSamplingTime() const
+{
+    return m_fanClosedLoopSamplingTime;
+}
+
+void MachineData::setFanClosedLoopSamplingTime(int value)
+{
+    if(m_fanClosedLoopSamplingTime == value)return;
+    m_fanClosedLoopSamplingTime = value;
+}
+
+int MachineData::getFanClosedLoopSetpoint(short index) const
+{
+    return m_fanClosedLoopSetpoint[index];
+}
+
+void MachineData::setFanClosedLoopSetpoint(int value, short index)
+{
+    if(m_fanClosedLoopSetpoint[index] == value)return;
+    m_fanClosedLoopSetpoint[index] = value;
+}
+
+ushort MachineData::getDfaVelClosedLoopResponse(short index) const
+{
+    if(index >= 60) return 0;
+    return m_dfaVelClosedLoopResponse[index];
+}
+
+void MachineData::setDfaVelClosedLoopResponse(ushort value, short index)
+{
+    if(index >= 60) return;
+    if(m_dfaVelClosedLoopResponse[index] == value) return;
+    m_dfaVelClosedLoopResponse[index] = value;
+}
+
+ushort MachineData::getIfaVelClosedLoopResponse(short index) const
+{
+    if(index >= 60) return 0;
+    return m_ifaVelClosedLoopResponse[index];
+}
+
+void MachineData::setIfaVelClosedLoopResponse(ushort value, short index)
+{
+    if(index >= 60) return;
+    if(m_ifaVelClosedLoopResponse[index] == value) return;
+    m_ifaVelClosedLoopResponse[index] = value;
+}
+
+bool MachineData::getClosedLoopResponseStatus() const
+{
+    return m_closeLoopResponseStatus;
+}
+
+void MachineData::setClosedLoopResponseStatus(bool value)
+{
+    if(m_closeLoopResponseStatus == value) return;
+    m_closeLoopResponseStatus = value;
+    emit closedLoopResponseStatusChanged(value);
+}
+
+bool MachineData::getReadClosedLoopResponse() const
+{
+    return m_readClosedLoopResponse;
+}
+
+void MachineData::setReadClosedLoopResponse(bool value)
+{
+    if(m_readClosedLoopResponse == value) return;
+    m_readClosedLoopResponse = value;
+}
+
+QString MachineData::getDailyPreventMaintAckDueDate() const
+{
+    return m_dailyPreventMaintAckDueDate;
+}
+
+QString MachineData::getWeeklyPreventMaintAckDueDate() const
+{
+    return m_weeklyPreventMaintAckDueDate;
+}
+
+QString MachineData::getMonthlyPreventMaintAckDueDate() const
+{
+    return m_monthlyPreventMaintAckDueDate;
+}
+
+QString MachineData::getQuarterlyPreventMaintAckDueDate() const
+{
+    return m_quarterlyPreventMaintAckDueDate;
+}
+
+QString MachineData::getAnnuallyPreventMaintAckDueDate() const
+{
+    return m_annuallyPreventMaintAckDueDate;
+}
+
+QString MachineData::getBienniallyPreventMaintAckDueDate() const
+{
+    return m_bienniallyPreventMaintAckDueDate;
+}
+
+QString MachineData::getQuinquenniallyPreventMaintAckDueDate() const
+{
+    return m_quinquenniallyPreventMaintAckDueDate;
+}
+
+QString MachineData::getCanopyPreventMaintAckDueDate() const
+{
+    return m_canopyPreventMaintAckDueDate;
+}
+
+QString MachineData::getDailyPreventMaintLastAckDate() const
+{
+    return m_dailyPreventMaintLastAckDate;
+}
+
+QString MachineData::getWeeklyPreventMaintLastAckDate() const
+{
+    return m_weeklyPreventMaintLastAckDate;
+}
+
+QString MachineData::getMonthlyPreventMaintLastAckDate() const
+{
+    return m_monthlyPreventMaintLastAckDate;
+}
+
+QString MachineData::getQuarterlyPreventMaintLastAckDate() const
+{
+    return m_quarterlyPreventMaintLastAckDate;
+}
+
+QString MachineData::getAnnuallyPreventMaintLastAckDate() const
+{
+    return m_annuallyPreventMaintLastAckDate;
+}
+
+QString MachineData::getBienniallyPreventMaintLastAckDate() const
+{
+    return m_bienniallyPreventMaintLastAckDate;
+}
+
+QString MachineData::getQuinquenniallyPreventMaintLastAckDate() const
+{
+    return m_quinquenniallyPreventMaintLastAckDate;
+}
+
+QString MachineData::getCanopyPreventMaintLastAckDate() const
+{
+    return m_canopyPreventMaintLastAckDate;
+}
+
+//void MachineData::setMaintenanceChecklist(QJsonObject value)
+//{
+//    if(m_maintenanceChecklist == value)return;
+//    m_maintenanceChecklist = value;
+//    emit maintenanceChecklistChanged(value);
+//}
+
+void MachineData::setAlarmPreventMaintState(ushort value)
+{
+    if(m_alarmPreventMaintState == value)return;
+    m_alarmPreventMaintState = value;
+    emit alarmPreventMaintStateChanged(value);
+}
+
+void MachineData::setAlarmPreventMaintStateEnable(ushort value)
+{
+    if(m_alarmPreventMaintStateEnable == value)return;
+    m_alarmPreventMaintStateEnable = value;
+    emit alarmPreventMaintStateEnableChanged(value);
+}
+
+void MachineData::setAlarmPreventMaintStateAck(ushort value)
+{
+    if(m_alarmPreventMaintStateAck == value) return;
+    m_alarmPreventMaintStateAck = value;
+    emit alarmPreventMaintStateAckChanged(value);
+}
+
+//void MachineData::setPreventMaintChecklistNotEmpty(ushort value)
+//{
+//    if(m_preventMaintChecklistNotEmpty == value)return;
+//    m_preventMaintChecklistNotEmpty = value;
+//    emit preventMaintChecklistNotEmptyChanged(value);
+//}
+
+//void MachineData::setDailyPreventMaintAck(bool value)
+//{
+//    if(m_dailyPreventMaintAck == value)return;
+//    m_dailyPreventMaintAck = value;
+//    emit dailyPreventMaintAckChanged(value);
+//}
+
+//void MachineData::setWeeklyPreventMaintAck(bool value)
+//{
+//    if(m_weeklyPreventMaintAck == value)return;
+//    m_weeklyPreventMaintAck = value;
+//    emit weeklyPreventMaintAckChanged(value);
+//}
+
+//void MachineData::setMonthlyPreventMaintAck(bool value)
+//{
+//    if(m_monthlyPreventMaintAck == value)return;
+//    m_monthlyPreventMaintAck = value;
+//    emit monthlyPreventMaintAckChanged(value);
+//}
+
+//void MachineData::setQuarterlyPreventMaintAck(bool value)
+//{
+//    if(m_quarterlyPreventMaintAck == value)return;
+//    m_quarterlyPreventMaintAck = value;
+//    emit quarterlyPreventMaintAckChanged(value);
+//}
+
+//void MachineData::setAnnuallyPreventMaintAck(bool value)
+//{
+//    if(m_annuallyPreventMaintAck == value)return;
+//    m_annuallyPreventMaintAck = value;
+//    emit annuallyPreventMaintAckChanged(value);
+//}
+
+//void MachineData::setBienniallyPreventMaintAck(bool value)
+//{
+//    if(m_bienniallyPreventMaintAck == value)return;
+//    m_bienniallyPreventMaintAck = value;
+//    emit bienniallyPreventMaintAckChanged(value);
+//}
+
+//void MachineData::setQuinquenniallyPreventMaintAck(bool value)
+//{
+//    if(m_quinquenniallyPreventMaintAck == value)return;
+//    m_quinquenniallyPreventMaintAck = value;
+//    emit quinquenniallyPreventMaintAckChanged(value);
+//}
+
+//void MachineData::setCanopyPreventMaintAck(bool value)
+//{
+//    if(m_canopyPreventMaintAck == value)return;
+//    m_canopyPreventMaintAck = value;
+//    emit canopyPreventMaintAckChanged(value);
+//}
+
+void MachineData::setDailyPreventMaintAckDueDate(QString value)
+{
+    if(m_dailyPreventMaintAckDueDate == value)return;
+    m_dailyPreventMaintAckDueDate = value;
+    emit dailyPreventMaintAckDueDateChanged(value);
+}
+
+void MachineData::setWeeklyPreventMaintAckDueDate(QString value)
+{
+    if(m_weeklyPreventMaintAckDueDate == value)return;
+    m_weeklyPreventMaintAckDueDate = value;
+    emit weeklyPreventMaintAckDueDateChanged(value);
+}
+
+void MachineData::setMonthlyPreventMaintAckDueDate(QString value)
+{
+    if(m_monthlyPreventMaintAckDueDate == value)return;
+    m_monthlyPreventMaintAckDueDate = value;
+    emit monthlyPreventMaintAckDueDateChanged(value);
+}
+
+void MachineData::setQuarterlyPreventMaintAckDueDate(QString value)
+{
+    if(m_quarterlyPreventMaintAckDueDate == value)return;
+    m_quarterlyPreventMaintAckDueDate = value;
+    emit quarterlyPreventMaintAckDueDateChanged(value);
+}
+
+void MachineData::setAnnuallyPreventMaintAckDueDate(QString value)
+{
+    if(m_annuallyPreventMaintAckDueDate == value)return;
+    m_annuallyPreventMaintAckDueDate = value;
+    emit annuallyPreventMaintAckDueDateChanged(value);
+}
+
+void MachineData::setBienniallyPreventMaintAckDueDate(QString value)
+{
+    if(m_bienniallyPreventMaintAckDueDate == value)return;
+    m_bienniallyPreventMaintAckDueDate = value;
+    emit bienniallyPreventMaintAckDueDateChanged(value);
+}
+
+void MachineData::setQuinquenniallyPreventMaintAckDueDate(QString value)
+{
+    if(m_quinquenniallyPreventMaintAckDueDate == value)return;
+    m_quinquenniallyPreventMaintAckDueDate = value;
+    emit quinquenniallyPreventMaintAckDueDateChanged(value);
+}
+
+void MachineData::setCanopyPreventMaintAckDueDate(QString value)
+{
+    if(m_canopyPreventMaintAckDueDate == value)return;
+    m_canopyPreventMaintAckDueDate = value;
+    emit canopyPreventMaintAckDueDateChanged(value);
+}
+
+void MachineData::setDailyPreventMaintLastAckDate(QString value)
+{
+    if(m_dailyPreventMaintLastAckDate == value)return;
+    m_dailyPreventMaintLastAckDate = value;
+    emit dailyPreventMaintLastAckDateChanged(value);
+}
+
+void MachineData::setWeeklyPreventMaintLastAckDate(QString value)
+{
+    if(m_weeklyPreventMaintLastAckDate == value)return;
+    m_weeklyPreventMaintLastAckDate = value;
+    emit weeklyPreventMaintLastAckDateChanged(value);
+}
+
+void MachineData::setMonthlyPreventMaintLastAckDate(QString value)
+{
+    if(m_monthlyPreventMaintLastAckDate == value)return;
+    m_monthlyPreventMaintLastAckDate = value;
+    emit monthlyPreventMaintLastAckDateChanged(value);
+}
+
+void MachineData::setQuarterlyPreventMaintLastAckDate(QString value)
+{
+    if(m_quarterlyPreventMaintLastAckDate == value)return;
+    m_quarterlyPreventMaintLastAckDate = value;
+    emit quarterlyPreventMaintLastAckDateChanged(value);
+}
+
+void MachineData::setAnnuallyPreventMaintLastAckDate(QString value)
+{
+    if(m_annuallyPreventMaintLastAckDate == value)return;
+    m_annuallyPreventMaintLastAckDate = value;
+    emit annuallyPreventMaintLastAckDateChanged(value);
+}
+
+void MachineData::setBienniallyPreventMaintLastAckDate(QString value)
+{
+    if(m_bienniallyPreventMaintLastAckDate == value)return;
+    m_bienniallyPreventMaintLastAckDate = value;
+    emit bienniallyPreventMaintLastAckDateChanged(value);
+}
+
+void MachineData::setQuinquenniallyPreventMaintLastAckDate(QString value)
+{
+    if(m_quinquenniallyPreventMaintLastAckDate == value)return;
+    m_quinquenniallyPreventMaintLastAckDate = value;
+    emit quinquenniallyPreventMaintLastAckDateChanged(value);
+}
+
+void MachineData::setCanopyPreventMaintLastAckDate(QString value)
+{
+    if(m_canopyPreventMaintLastAckDate == value)return;
+    m_canopyPreventMaintLastAckDate = value;
+    emit canopyPreventMaintLastAckDateChanged(value);
 }
 
 void MachineData::setEth0ConName(QString value)
@@ -268,75 +637,181 @@ void MachineData::setSvnUpdateCheckForUpdatePeriod(int value)
     m_svnUpdateCheckForUpdatePeriod = value;
     emit svnUpdateCheckForUpdatePeriodChanged(value);
 }
-int MachineData::getFanClosedLoopSamplingTime() const
+
+void MachineData::setRpListDefault(QJsonObject value)
 {
-    return m_fanClosedLoopSamplingTime;
+    if(m_rpListDefault == value)return;
+    m_rpListDefault = value;
+    emit rpListDefaultChanged(value);
+    qDebug() << value;
 }
 
-void MachineData::setFanClosedLoopSamplingTime(int value)
+void MachineData::setRpListLast(QVariantList value)
 {
-    if(m_fanClosedLoopSamplingTime == value)return;
-    m_fanClosedLoopSamplingTime = value;
+    if(m_rpListLast == value)return;
+    m_rpListLast = value;
+    emit rpListLastChanged(value);
 }
 
-int MachineData::getFanClosedLoopSetpoint(short index) const
+void MachineData::setRpListLast(short index, QString value)
 {
-    return m_fanClosedLoopSetpoint[index];
+    if(index >= m_rpListLast.length() || index < 0) return;
+    if(m_rpListLast.at(index).toString() == value) return;
+
+    QVariantList tempVarList = m_rpListLast;
+    //    qDebug() << "replace index" << index << tempVarList.at(index) << "with" << value;
+    //    qDebug() << "before" << tempVarList.at(index).toString();
+    tempVarList.takeAt(index);
+    tempVarList.insert(index, value);
+    //    qDebug() << "after" << tempVarList.at(index).toString();
+    setRpListLast(tempVarList);
 }
 
-void MachineData::setFanClosedLoopSetpoint(int value, short index)
+QJsonObject MachineData::getRpListDefault() const
 {
-    if(m_fanClosedLoopSetpoint[index] == value)return;
-    m_fanClosedLoopSetpoint[index] = value;
+    return m_rpListDefault;
 }
 
-ushort MachineData::getDfaVelClosedLoopResponse(short index) const
+QVariantList MachineData::getRpListLast() const
 {
-    if(index >= 60) return 0;
-    return m_dfaVelClosedLoopResponse[index];
+    return m_rpListLast;
 }
 
-void MachineData::setDfaVelClosedLoopResponse(ushort value, short index)
+QString MachineData::getRpListLastAtIndex(short index) const
 {
-    if(index >= 60) return;
-    if(m_dfaVelClosedLoopResponse[index] == value) return;
-    m_dfaVelClosedLoopResponse[index] = value;
+    if(index >= m_rpListLast.length() || m_rpListLast.length() < 0) return "";
+    return m_rpListLast.at(index).toString();
 }
 
-ushort MachineData::getIfaVelClosedLoopResponse(short index) const
+void MachineData::setRpListSelected(QVariantList value)
 {
-    if(index >= 60) return 0;
-    return m_ifaVelClosedLoopResponse[index];
+    if(m_rpListSelected == value)return;
+    m_rpListSelected = value;
+    emit rpListSelectedChanged(value);
 }
 
-void MachineData::setIfaVelClosedLoopResponse(ushort value, short index)
+void MachineData::setRpListSelected(short index, QString value)
 {
-    if(index >= 60) return;
-    if(m_ifaVelClosedLoopResponse[index] == value) return;
-    m_ifaVelClosedLoopResponse[index] = value;
+    if(index >= m_rpListSelected.length() || index < 0) return;
+    if(m_rpListSelected.at(index).toString() == value) return;
+
+    QVariantList tempVarList = m_rpListSelected;
+    //    qDebug() << "replace index" << index << tempVarList.at(index) << "with" << value;
+    //    qDebug() << "before" << tempVarList.at(index).toString();
+    tempVarList.takeAt(index);
+    tempVarList.insert(index, value);
+    //    qDebug() << "after" << tempVarList.at(index).toString();
+    setRpListSelected(tempVarList);
 }
 
-bool MachineData::getClosedLoopResponseStatus() const
+QVariantList MachineData::getRpListSelected() const
 {
-    return m_closeLoopResponseStatus;
+    return m_rpListSelected;
 }
 
-void MachineData::setClosedLoopResponseStatus(bool value)
+QString MachineData::getRpListSelectedAtIndex(short index) const
 {
-    if(m_closeLoopResponseStatus == value) return;
-    m_closeLoopResponseStatus = value;
-    emit closedLoopResponseStatusChanged(value);
+    if(index >= m_rpListSelected.length() || m_rpListSelected.length() < 0) return "";
+    return m_rpListSelected.at(index).toString();
 }
 
-bool MachineData::getReadClosedLoopResponse() const
+void MachineData::setKeyboardStringOnAcceptedEvent(const QString &value)
 {
-    return m_readClosedLoopResponse;
+    emit keyboardStringOnAcceptedEventSignal(value);
+    if(m_keyboardStringOnAcceptedEvent == value)return;
+    m_keyboardStringOnAcceptedEvent = value;
+    emit keyboardStringOnAcceptedEventChanged(value);
 }
 
-void MachineData::setReadClosedLoopResponse(bool value)
+QString MachineData::getKeyboardStringOnAcceptedEvent() const
 {
-    if(m_readClosedLoopResponse == value) return;
-    m_readClosedLoopResponse = value;
+    return m_keyboardStringOnAcceptedEvent;
+}
+
+void MachineData::setUserLasLogin(QJsonArray value)
+{
+    if(m_userLastLogin == value) return;
+    m_userLastLogin = value;
+    emit userLastLoginChanged(value);
+}
+
+QJsonArray MachineData::getUserLastLogin() const
+{
+    return m_userLastLogin;
+}
+
+QString MachineData::getUsbDetectedList() const
+{
+    return m_usbDetectedList;
+}
+
+void MachineData::setUsbDetectedList(QString list)
+{
+    if(m_usbDetectedList == list)
+        return;
+    m_usbDetectedList = list;
+    emit usbDetectedListChanged(m_usbDetectedList);
+}
+
+QString MachineData::getLastUsbDetectedName() const
+{
+    return m_lastUsbDetectedName;
+}
+
+void MachineData::setLastUsbDetectedName(QString name)
+{
+    if(m_lastUsbDetectedName == name)
+        return;
+    m_lastUsbDetectedName = name;
+    emit lastUsbDetectedNameChanged(m_lastUsbDetectedName);
+}
+
+void MachineData::setFrontEndScreenState(short value)
+{
+    if(m_frontEndScreenState == value) return;
+    m_frontEndScreenState = value;
+    emit frontEndScreenStateChanged(value);
+}
+
+short MachineData::getFrontEndScreenState() const
+{
+    return m_frontEndScreenState;
+}
+
+void MachineData::setFrontEndScreenStatePrev(short value)
+{
+    if(m_frontEndScreenStatePrev == value) return;
+    m_frontEndScreenStatePrev = value;
+    emit frontEndScreenStatePrevChanged(value);
+}
+
+short MachineData::getFrontEndScreenStatePrev() const
+{
+    return m_frontEndScreenStatePrev;
+}
+
+void MachineData::setInstallationWizardActive(bool value)
+{
+    if(m_installationWizardActive == value)return;
+    m_installationWizardActive = value;
+    emit installationWizardActiveChanged(value);
+}
+
+bool MachineData::getInstallationWizardActive() const
+{
+    return m_installationWizardActive;
+}
+
+void MachineData::setCabinetUpTime(int value)
+{
+    if(m_cabinetUpTime == value)return;
+    m_cabinetUpTime = value;
+    emit cabinetUpTimeChanged(value);
+}
+
+int MachineData::getCabinetUpTime() const
+{
+    return m_cabinetUpTime;
 }
 
 bool MachineData::getFrontPanelSwitchInstalled() const
@@ -470,6 +945,56 @@ int MachineData::getSashMotorOffDelayMsec() const
 {
     return m_sashMotorOffDelayMsec;
 }
+
+//void MachineData::setResourceMonitorParamsActive(bool value)
+//{
+//    if(m_resourceMonitorParamsActive == value) return;
+//    m_resourceMonitorParamsActive = value;
+//    emit resourceMonitorParamsActiveChanged(value);
+//}
+
+//bool MachineData::getResourceMonitorParamsActive() const
+//{
+//    return m_resourceMonitorParamsActive;
+//}
+
+void MachineData::setResourceMonitorParams(QStringList value)
+{
+    if(m_resourceMonitorParams == value)return;
+    m_resourceMonitorParams = value;
+    emit resourceMonitorParamsChanged(value);
+}
+
+QStringList MachineData::getResourceMonitorParams() const
+{
+    return m_resourceMonitorParams;
+}
+
+void MachineData::setHaBoardInputCh1MVolt(int value)
+{
+    if(m_haBoardInputCh1MVolt == value)return;
+    m_haBoardInputCh1MVolt = value;
+    emit haBoardInputCh1MVoltChanged(value);
+}
+
+void MachineData::setHaBoardInputCh2MVolt(int value)
+{
+    if(m_haBoardInputCh2MVolt == value)return;
+    m_haBoardInputCh2MVolt = value;
+    emit haBoardInputCh2MVoltChanged(value);
+}
+
+int MachineData::getHaBoardInputCh1MVolt() const
+{
+    return m_haBoardInputCh1MVolt;
+}
+
+int MachineData::getHaBoardInputCh2MVolt() const
+{
+    return m_haBoardInputCh2MVolt;
+}
+
+
 
 void MachineData::setDelayAlarmAirflowSec(int value)
 {
@@ -619,6 +1144,20 @@ void MachineData::setDataLogSpaceMaximum(int dataLogSpaceMaximum)
     emit dataLogSpaceMaximumChanged(m_dataLogSpaceMaximum);
 }
 
+void MachineData::setReplaceableCompRecordSpaceMaximum(int value)
+{
+    if(m_replaceableCompRecordSpaceMaximum == value)return;
+    m_replaceableCompRecordSpaceMaximum = value;
+    emit replaceableCompRecordSpaceMaximumChanged(value);
+}
+
+void MachineData::setResourceMonitorLogSpaceMaximum(int value)
+{
+    if(m_resourceMonitorLogSpaceMaximum == value)return;
+    m_resourceMonitorLogSpaceMaximum = value;
+    emit resourceMonitorLogSpaceMaximumChanged(value);
+}
+
 bool MachineData::getShippingModeEnable() const
 {
     return m_shippingModeEnable;
@@ -664,6 +1203,16 @@ int MachineData::getAlarmLogSpaceMaximum() const
 int MachineData::getEventLogSpaceMaximum() const
 {
     return m_eventLogSpaceMaximum;
+}
+
+int MachineData::getReplaceableCompRecordSpaceMaximum() const
+{
+    return m_replaceableCompRecordSpaceMaximum;
+}
+
+int MachineData::getResourceMonitorLogSpaceMaximum() const
+{
+    return m_resourceMonitorLogSpaceMaximum;
 }
 
 void MachineData::setVivariumMuteState(bool vivariumMuteState)
@@ -1172,6 +1721,30 @@ void MachineData::setEventLogIsFull(bool eventLogIsFull)
     emit eventLogIsFullChanged(m_eventLogIsFull);
 }
 
+int MachineData::getReplaceableCompRecordCount() const
+{
+    return m_replaceableCompRecordCount;
+}
+
+void MachineData::setReplaceableCompRecordCount(int value)
+{
+    if(m_replaceableCompRecordCount == value) return;
+    m_replaceableCompRecordCount = value;
+    emit replaceableCompRecordCountChanged(value);
+}
+
+bool MachineData::getReplaceableCompRecordIsFull() const
+{
+    return m_replaceableCompRecordIsFull;
+}
+
+void MachineData::setReplaceableCompRecordIsFull(bool value)
+{
+    if(m_replaceableCompRecordIsFull == value) return;
+    m_replaceableCompRecordIsFull = value;
+    emit replaceableCompRecordIsFullChanged(value);
+}
+
 int MachineData::getUVAutoEnabled() const
 {
     return m_uvAutoSetEnabled;
@@ -1340,8 +1913,15 @@ bool MachineData::getModbusAllowSetFan() const
 
 MachineData::MachineData(QObject *parent) : QObject(parent)
 {
+    m_rpListLast.clear();
+    m_rpListSelected.clear();
 
-}
+    for(short i=0; i< MachineEnums::RPList_Total; i++){
+        m_rpListLast.append("");
+        m_rpListSelected.append("");
+    }
+    //qDebug() << "m_rpListLast.length()" << ((m_rpListLast.length() == MachineEnums::RPList_Total) ? "Valid" : "Invalid");
+}//
 
 MachineData::~MachineData()
 {
@@ -1388,6 +1968,22 @@ void MachineData::setHasStopped(bool hasStopped)
 
     m_hasStopped = hasStopped;
     emit hasStoppedChanged(m_hasStopped);
+}
+
+void MachineData::setMachineProfileID(QString value)
+{
+    if(m_machineProfileID == value)return;
+
+    //    QSettings settings;
+    //    settings.setValue("machProfId", value);
+
+    m_machineProfileID = value;
+    emit machineProfileIDChanged(value);
+}//
+
+QString MachineData::getMachineProfileID() const
+{
+    return m_machineProfileID;
 }
 
 void MachineData::setAlarmLogCount(int alarmLogCount)
@@ -1809,6 +2405,78 @@ void MachineData::setFilterLifePercent(short filterLifePercent)
     emit filterLifePercentChanged(m_filterLifePercent);
 }
 
+void MachineData::setFilterLifeRpm(int value)
+{
+    if(m_filterLifeRpm == value) return;
+    m_filterLifeRpm = value;
+    emit filterLifeRpmChanged(value);
+}
+
+void MachineData::setFilterLifeCalculationMode(int value)
+{
+    if(m_filterLifeCalculationMode == value) return;
+    m_filterLifeCalculationMode = value;
+    emit filterLifeCalculationModeChanged(value);
+}
+
+void MachineData::setFilterLifeMinimumBlowerUsageMode(int value)
+{
+    if(m_filterLifeMinimumBlowerUsageMode == value) return;
+    m_filterLifeMinimumBlowerUsageMode = value;
+    emit filterLifeMinimumBlowerUsageModeChanged(value);
+}
+
+void MachineData::setFilterLifeMaximumBlowerUsageMode(int value)
+{
+    if(m_filterLifeMaximumBlowerUsageMode == value) return;
+    m_filterLifeMaximumBlowerUsageMode = value;
+    emit filterLifeMaximumBlowerUsageModeChanged(value);
+}
+
+void MachineData::setFilterLifeMinimumBlowerRpmMode(int value)
+{
+    if(m_filterLifeMinimumBlowerRpmMode == value) return;
+    m_filterLifeMinimumBlowerRpmMode = value;
+    emit filterLifeMinimumBlowerRpmModeChanged(value);
+}
+
+void MachineData::setFilterLifeMaximumBlowerRpmMode(int value)
+{
+    if(m_filterLifeMaximumBlowerRpmMode == value) return;
+    m_filterLifeMaximumBlowerRpmMode = value;
+    emit filterLifeMaximumBlowerRpmModeChanged(value);
+}
+
+int MachineData::getFilterLifeRpm() const
+{
+    return m_filterLifeRpm;
+}
+
+int MachineData::getFilterLifeCalculationMode() const
+{
+    return m_filterLifeCalculationMode;
+}
+
+int MachineData::getFilterLifeMinimumBlowerUsageMode() const
+{
+    return m_filterLifeMinimumBlowerUsageMode;
+}
+
+int MachineData::getFilterLifeMaximumBlowerUsageMode() const
+{
+    return m_filterLifeMaximumBlowerUsageMode;
+}
+
+int MachineData::getFilterLifeMinimumBlowerRpmMode() const
+{
+    return m_filterLifeMinimumBlowerRpmMode;
+}
+
+int MachineData::getFilterLifeMaximumBlowerRpmMode() const
+{
+    return m_filterLifeMaximumBlowerRpmMode;
+}
+
 bool MachineData::getPowerOutage() const
 {
     return m_powerOutage;
@@ -2225,6 +2893,66 @@ void MachineData::setDataLogIsFull(bool dataLogIsFull)
     emit dataLogIsFullChanged(m_dataLogIsFull);
 }
 
+bool MachineData::getResourceMonitorLogEnable() const
+{
+    return m_resourceMonitorLogEnable;
+}
+
+bool MachineData::getResourceMonitorLogRunning() const
+{
+    return m_resourceMonitorLogRunning;
+}
+
+short MachineData::getResourceMonitorLogPeriod() const
+{
+    return m_resourceMonitorLogPeriod;
+}
+
+int MachineData::getResourceMonitorLogCount() const
+{
+    return m_resourceMonitorLogCount;
+}
+
+bool MachineData::getResourceMonitorLogIsFull() const
+{
+    return m_resourceMonitorLogIsFull;
+}
+
+void MachineData::setResourceMonitorLogEnable(bool value)
+{
+    if(m_resourceMonitorLogEnable == value)return;
+    m_resourceMonitorLogEnable = value;
+    emit resourceMonitorLogEnableChanged(value);
+}
+
+void MachineData::setResourceMonitorLogRunning(bool value)
+{
+    if(m_resourceMonitorLogRunning == value)return;
+    m_resourceMonitorLogRunning = value;
+    emit resourceMonitorLogRunningChanged(value);
+}
+
+void MachineData::setResourceMonitorLogCount(int value)
+{
+    if(m_resourceMonitorLogCount == value)return;
+    m_resourceMonitorLogCount = value;
+    emit resourceMonitorLogCountChanged(value);
+}
+
+void MachineData::setResourceMonitorLogPeriod(short value)
+{
+    if(m_resourceMonitorLogPeriod == value)return;
+    m_resourceMonitorLogPeriod = value;
+    emit resourceMonitorLogPeriodChanged(value);
+}
+
+void MachineData::setResourceMonitorLogIsFull(bool value)
+{
+    if(m_resourceMonitorLogIsFull == value)return;
+    m_resourceMonitorLogIsFull = value;
+    emit resourceMonitorLogIsFullChanged(value);
+}
+
 short MachineData::getOperationMode() const
 {
     return m_operationMode;
@@ -2332,6 +3060,20 @@ void MachineData::setBoardStatusCtpIoe(bool boardStatusCtpIoe)
 
     m_boardStatusCtpIoe = boardStatusCtpIoe;
     emit boardStatusCtpIoeChanged(m_boardStatusCtpIoe);
+}
+
+
+void MachineData::setBoardStatusParticleCounter(bool boardStatusParticleCounter)
+{
+    if(m_boardStatusParticleCounter == boardStatusParticleCounter)
+        return;
+    m_boardStatusParticleCounter = boardStatusParticleCounter;
+    emit boardStatusParticleCounterChanged(m_boardStatusParticleCounter);
+}
+
+bool MachineData::getBoardStatusParticleCounter() const
+{
+    return m_boardStatusParticleCounter;
 }
 
 bool MachineData::getBoardStatusPWMOutput() const
@@ -2513,6 +3255,11 @@ void MachineData::setBoardStatusHybridDigitalInput(bool boardStatusHybridDigital
 
     m_boardStatusHybridDigitalInput = boardStatusHybridDigitalInput;
     emit boardStatusHybridDigitalInputChanged(m_boardStatusHybridDigitalInput);
+}
+
+bool MachineData::getBoardStatusHybridAnalogInput() const
+{
+    return m_boardStatusHybridAnalogInput;
 }
 
 void MachineData::setBoardStatusHybridDigitalRelay(bool boardStatusHybridDigitalRelay)
@@ -3848,6 +4595,18 @@ void MachineData::setAlarmStandbyFanOff(short alarm)
 
     m_alarmStandbyFanOff = alarm;
     emit alarmStandbyFanOffChanged(m_alarmStandbyFanOff);
+}
+
+short MachineData::getAlarmExperimentTimerIsOver() const
+{
+    return m_alarmExperimentTimerIsOver;
+}
+
+void MachineData::setAlarmExperimentTimerIsOver(short value)
+{
+    if(m_alarmExperimentTimerIsOver == value)return;
+    m_alarmExperimentTimerIsOver = value;
+    emit alarmExperimentTimerIsOverChanged(value);
 }
 
 void MachineData::setTemperatureAdc(int temperatureAdc)

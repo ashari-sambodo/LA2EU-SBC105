@@ -108,7 +108,7 @@ ViewApp {
                                     Image {
                                         id: tourImage
                                         anchors.fill: parent
-                                        source: "qrc:/UI/Pictures/quick_tour.png"
+                                        source: "qrc:/UI/Pictures/menu/quick_tour.png"
                                         fillMode: Image.PreserveAspectFit
                                     }//
 
@@ -125,12 +125,42 @@ ViewApp {
                                 TextApp {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     text: "Quick Tour"
-//                                    font.pixelSize: 30
-//                                    font.bold: true
+                                    //                                    font.pixelSize: 30
+                                    //                                    font.bold: true
                                 }//
                             }//
+                            Column {
+                                spacing: 0
 
+                                Rectangle {
+                                    width: 150
+                                    height: 150
+                                    color: "transparent"
 
+                                    Image {
+                                        id: contactUsImage
+                                        anchors.fill: parent
+                                        source: "qrc:/UI/Pictures/menu/contact-us.png"
+                                        fillMode: Image.PreserveAspectFit
+                                    }//
+
+                                    MouseArea {
+                                        anchors.fill: parent
+
+                                        onClicked: {
+                                            const intent = IntentApp.create("qrc:/UI/Pages/ContactUsPage/ContactUsPage.qml", {})
+                                            startView(intent)
+                                        }
+                                    }//
+                                }//
+
+                                TextApp {
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    text: "Contact Us"
+                                    //                                    font.pixelSize: 30
+                                    //                                    font.bold: true
+                                }//
+                            }//
                         }//
                     }//
                 }//

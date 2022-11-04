@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS alarmlog_V1 \
 INSERT INTO alarmlog_V1 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
 #define DB_QUERY_DELETE                     "DELETE FROM alarmlog_V1"
+#define DB_QUERY_DELETE_OLDEST_ROWID        "DELETE FROM alarmlog_V1 WHERE ROWID = (SELECT ROWID FROM alarmlog_V1 ORDER BY ROWID LIMIT 1)"
 #define DB_QUERY_COUNT_ROWS                 "SELECT COUNT(*) FROM alarmlog_V1"
 
 //#define DB_QUERY_SELECT_WITH_OFFSET_LIMIT_ASC        "SELECT * FROM alarmlog_V1 ORDER BY ROWID ASC LIMIT :limit OFFSET :offset;"
@@ -154,6 +155,32 @@ bool AlarmLogSql::queryDelete(const QString &dbQueryConfig)
     //    else{
     //        qWarning() << __func__  << query.lastError();
     //    }
+    m_queryLastErrorStr = query.lastError().text();
+    return success;
+}
+
+bool AlarmLogSql::queryDeleteOldestRowId()
+{
+    qDebug () << __FUNCTION__ << thread();
+
+    bool success = false;
+
+    QSqlQuery query(QSqlDatabase::database(m_connectionName));
+
+    QString statement(DB_QUERY_DELETE_OLDEST_ROWID);
+
+    qDebug() << statement;
+
+    bool prepared = query.prepare(statement);
+    Q_UNUSED(prepared)
+
+    if(query.exec()){
+        success = true;
+    }
+    else{
+        qWarning() << __func__  << query.lastError();
+    }
+    qDebug() << success;
     m_queryLastErrorStr = query.lastError().text();
     return success;
 }

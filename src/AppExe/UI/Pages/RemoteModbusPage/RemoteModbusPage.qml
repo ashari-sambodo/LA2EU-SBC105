@@ -350,7 +350,7 @@ ViewApp {
                                 TextApp {
                                     width: leftContentItem.width - asterixText.width
                                     wrapMode: Text.WordWrap
-                                    text:qsTr("By default system only \naccepted for read operation.")
+                                    text:qsTr("by default the system will only \naccept read operations")
                                 }////
                             }////
                         }//

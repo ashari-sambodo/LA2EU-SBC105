@@ -3,7 +3,7 @@
 
 #define ALARM_LOG_TEXT_SASH_OK              QObject::tr("Alarm Sash | Normal | Safe height ")
 #define ALARM_LOG_TEXT_SASH_UNSAFE          QObject::tr("Alarm Sash | Fail | Unsafe height")
-#define ALARM_LOG_TEXT_SASH_FO              QObject::tr("Alarm Sash | Fail | Fully open")
+#define ALARM_LOG_TEXT_SASH_FO              QObject::tr("Alarm Sash | Fail | Fully opened")
 #define ALARM_LOG_TEXT_SASH_ERROR           QObject::tr("Alarm Sash | Fail | Sensor Error")
 
 #define ALARM_LOG_TEXT_INFLOW_ALARM_OK      QObject::tr("Alarm Inflow | Normal")
@@ -34,3 +34,6 @@
 
 #define ALARM_LOG_TEXT_SASH_MOTOR_DOWN_STUCK_OK        QObject::tr("Alarm Sash Down Stuck | Normal")
 #define ALARM_LOG_TEXT_SASH_MOTOR_DOWN_STUCK_ALARM     QObject::tr("Alarm Sash Down Stuck | Active")
+
+#define ALARM_LOG_TEXT_EXP_TIMER_OVER_OK      QObject::tr("Exp Timer Over Alarm | Normal")
+#define ALARM_LOG_TEXT_EXP_TIMER_OVER_ALARM   QObject::tr("Exp Timer Over Alarm | Active")

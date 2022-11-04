@@ -53,7 +53,7 @@ void Temperature::routineTask(int parameter)
         int newCelcius = voltageToTemperature(m_mVolt);
 
         if(m_celcius != newCelcius){
-            m_celcius   =   newCelcius;
+            m_celcius = newCelcius;
             emit celciusChanged(m_celcius);
         }
 

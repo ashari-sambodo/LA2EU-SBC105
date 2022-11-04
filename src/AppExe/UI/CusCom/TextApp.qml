@@ -8,4 +8,5 @@ Text {
     font.pixelSize: 20
     fontSizeMode: Text.Fit // Define the width to enable this feature
     minimumPixelSize: 14
+
 }//

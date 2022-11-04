@@ -36,9 +36,15 @@ class MachineProxy : public QObject
     Q_ENUM(MachineEnums::ExternalResourcePathCode)
     Q_ENUM(MachineEnums::GeneralPurposeEnums)
     Q_ENUM(MachineEnums::CabinetSideType)
+    //    Q_ENUM(MachineEnums::PreventiveMaintenance)
+    Q_ENUM(MachineEnums::PreventiveMaintenanceCode)
+    Q_ENUM(MachineEnums::ReplaceableTableHeaderEnums)
     Q_ENUM(MachineEnums::ScreenState)
-
+    Q_ENUM(MachineEnums::CalibrationStateField)
+    Q_ENUM(MachineEnums::ResourceMonitor)
     Q_ENUM(MachineEnums::EnumDigitalState)
+    Q_ENUM(MachineEnums::FilterLifeCalculationMode)
+
 
 public:
     explicit MachineProxy(QObject *parent = nullptr);
@@ -57,6 +63,7 @@ public slots:
     void setup(QObject *pData);
     void stop();
 
+    void setMachineProfileID(const QString value);
     /// API for general
     void setLcdTouched();
 
@@ -80,7 +87,9 @@ public slots:
     void setBuzzerState(bool value);
     void setBuzzerBeep();
 
-    void setSignedUser(const QString username, const QString fullname);
+    void setSignedUser(const QString username, const QString fullname, short userLevel);
+    void setUserLastLogin(const QString username, const QString fullname);
+    void deleteUserLastLogin(const QString username);
 
     /// API for Cabinet operational
     void setOperationModeSave(short value);
@@ -234,12 +243,23 @@ public slots:
                                     int ducy, int rpm);
     //
     void initAirflowCalibrationStatus(short value);
+    void initFanConfigurationStatus(short value);
+    void setAirflowFactoryCalibrationState(int index, bool state);
+    void setAirflowFactorySecondaryCalibrationState(int index, bool state);
+    void setAdcFactoryCalibrationState(int index, bool state);
+    void setAirflowFieldCalibrationState(int index, bool state);
 
     /// DATALOG
     void setDataLogEnable(bool dataLogEnable);
     void setDataLogRunning(bool dataLogRunning);
     void setDataLogPeriod(short dataLogPeriod);
     void setDataLogCount(int dataLogCount);
+
+    /// Resource Monitor Log
+    void setResourceMonitorLogEnable(bool value);
+    void setResourceMonitorLogRunning(bool value);
+    void setResourceMonitorLogPeriod(short value);
+    void setResourceMonitorLogCount(int value);
 
     ///MODBUS
     void setModbusSlaveID(short slaveId);
@@ -296,6 +316,11 @@ public slots:
 
     /// FILTER USAGE
     void setFilterUsageMeter(int minutes);
+    void setFilterLifeCalculationMode       (int value);
+    void setFilterLifeMinimumBlowerUsageMode (int value);
+    void setFilterLifeMaximumBlowerUsageMode (int value);
+    void setFilterLifeMinimumBlowerRpmMode   (int value);
+    void setFilterLifeMaximumBlowerRpmMode   (int value);
 
     /// SASH CYCLE METER
     void setSashCycleMeter(int sashCycleMeter);
@@ -319,14 +344,33 @@ public slots:
 
     void setFanClosedLoopControlEnable(bool value);
     void setFanClosedLoopControlEnablePrevState(bool value);// needed in Calibration page
-
     void setFanClosedLoopSamplingTime(int value);
     void setFanClosedLoopGainIntegralDfa(float value);
     void setFanClosedLoopGainProportionalDfa(float value);
     void setFanClosedLoopGainDerivativeDfa(float value);
     void setFanClosedLoopGainIntegralIfa(float value);
     void setFanClosedLoopGainProportionalIfa(float value);
+    void setFanClosedLoopGainDerivativeIfa(float value);
 
+    void setReadClosedLoopResponse(bool value);
+
+    /// FRONT PANEL SWITCH LA2EU
+    void setFrontPanelSwitchInstalled(bool value);
+    ///
+    void scanRbmComPortAvalaible(bool value);
+    void setRbmComPortIfa(QString value);
+    void setRbmComPortDfa(QString value);
+
+    void setSashMotorOffDelayMsec(int value);
+    void setDelayAlarmAirflowSec(int value);
+
+    void setScreenSaverSeconds(int value);
+    void setCabinetSideType(short value);
+
+void setAlarmPreventMaintStateEnable(ushort pmCode, bool value);
+    void setAlarmPreventMaintStateAck(ushort pmCode, bool value, bool snooze);
+
+    ///
     void setEth0ConName(const QString value);
     void setEth0Ipv4Address(const QString value);
     void setEth0ConEnabled(bool value);
@@ -337,29 +381,25 @@ public slots:
     void setSvnUpdateCheckEnable(bool value);
     void setSvnUpdateCheckPeriod(int value);
     void checkSoftwareVersionHistory();
-    void setFanClosedLoopGainDerivativeIfa(float value);
 
-    void setReadClosedLoopResponse(bool value);
+    void setAlarmExperimentTimerIsOver(short value);
 
-    /// FRONT PANEL SWITCH LA2EU
-    void setFrontPanelSwitchInstalled(bool value);
-    ///
-    //    void setFrontEndScreenState(short value);
-    void scanRbmComPortAvalaible(bool value);
+    //    void initReplaceablePartsSettings();
+    void setReplaceablePartsSettings(short index, const QString value);
+    void setReplaceablePartsSelected(short descRowId);
+    void setKeyboardStringOnAcceptedEvent(const QString value);
+    void resetReplaceablePartsSettings();
+
+    void insertReplaceableComponentsForm();
+
+    void requestEjectUsb(QString usbName);
+    void setFrontEndScreenState(short value);
+    void setInstallationWizardActive(bool value);
 
     void setSomeSettingsAfterExtConfigImported();
 
-    void setRbmComPortIfa(QString value);
-    void setRbmComPortDfa(QString value);
-
-    void setSashMotorOffDelayMsec(int value);
-
     void setAllOutputShutdown();
-    void setDelayAlarmAirflowSec(int value);
-
-    void setScreenSaverSeconds(int value);
-    void setCabinetSideType(short value);
-
+	
 private slots:
     void doStopping();
 

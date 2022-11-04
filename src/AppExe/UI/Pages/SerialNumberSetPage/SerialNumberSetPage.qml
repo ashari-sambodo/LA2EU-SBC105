@@ -70,6 +70,7 @@ ViewApp {
                         id: serialNumberText
                         text: props.serialNumber
                         font.pixelSize: 56
+
                     }//
 
                     TextApp{
@@ -86,21 +87,44 @@ ViewApp {
                 TextInput{
                     id: serialNumberBufferTextInput
                     visible: false
-                    validator: RegularExpressionValidator { regularExpression: /\d{4}(?:-\d{5,8})+$/}
+                    //validator: RegularExpressionValidator { regularExpression: /\d{4}(?:-\d{5,8})+$/}
 
                     Connections{
                         target: serialNumberMouseArea
                         function onClicked(){
                             serialNumberBufferTextInput.text = props.serialNumber
                             //serialNumberBufferTextInput.text = props.serialNumber
-                            KeyboardOnScreenCaller.openNumpad(serialNumberBufferTextInput, qsTr("Serial Number"))
+                            //                            KeyboardOnScreenCaller.openNumpad(serialNumberBufferTextInput, qsTr("Serial Number"))
+                            KeyboardOnScreenCaller.openKeyboard(serialNumberBufferTextInput, qsTr("Serial Number"))
                         }//
                     }//
 
                     onAccepted: {
                         let regex = /\d{4}(?:-\d{6})+$/
+                        let serialNumberValid = true;
+                        let serialStr = String(text)
+                        let textLength = serialStr.split("-").length
+                        console.debug(serialStr, textLength)
+                        if(textLength < 2 || textLength > 3) serialNumberValid = false
+                        else{
+                            let str1, str2
+                            let isStr1Valid, isStr2Valid = true
+                            str1 = String(serialStr.split("-")[0]) + "-" + String(serialStr.split("-")[1])
+                            isStr1Valid = str1.match(regex)
 
-                        if(serialNumberBufferTextInput.text.match(regex)){
+                            if(textLength === 3){
+                                str2 = String(serialStr.split("-")[2])
+                                if(str2.charAt(0) !== "R")
+                                    isStr2Valid = false
+                            }//
+                            if(!isStr1Valid || !isStr2Valid){
+                                serialNumberValid = false
+                            }
+                            //                            console.debug(str1, str2)
+                            //                            console.debug(isStr1Valid, isStr2Valid)
+                        }//
+
+                        if(serialNumberValid){
                             if(props.serialNumber !== text){
                                 props.serialNumber = text
                                 //console.debug("Serial Number: ", props.serialNumber)
@@ -109,7 +133,7 @@ ViewApp {
 
                                 viewApp.showBusyPage(qsTr("Setting Serial Number..."),
                                                      function onTriggered(cycle){
-                                                         if(cycle === MachineAPI.BUSY_CYCLE_1){
+                                                         if(cycle >= MachineAPI.BUSY_CYCLE_1){
                                                              viewApp.dialogObject.close()}
                                                      })
                             }
@@ -117,7 +141,7 @@ ViewApp {
                         else {
                             const autoClosed = false
                             viewApp.showDialogMessage(qsTr("Serial Number"),
-                                                      qsTr("Invalid Serial Number!. Make sure the format is YYYY-XXXXXX"),
+                                                      qsTr("Invalid Serial Number!. Make sure the format is YYYY-XXXXXX or YYYY-XXXXXX-R"),
                                                       viewApp.dialogAlert,
                                                       function onClosed(){},
                                                       autoClosed)
@@ -165,11 +189,45 @@ ViewApp {
         QtObject {
             id: props
             property string serialNumber : ""
-        }
+
+            function onNewQRCodeDataAccepted(value){
+                console.debug("Incoming QRCode data:", value)
+                const lengthData = String(value).split("#").length
+                let key1, key2
+                let val1, val2
+                if(lengthData == 2){
+                    // For Unit Model and Electrical FocusPanel
+                    // Use this format in QR Code
+                    // Model LA2-4S#SN 2022-002101
+                    // Panel EP-A-LA2-001#SN EP.11290/22
+                    key1 = String(value).split("#")[0].split(" ")[0]
+                    key2 = String(value).split("#")[1].split(" ")[0]
+                    val1 = String(value).split("#")[0].split(" ")[1]
+                    val2 = String(value).split("#")[1].split(" ")[1]
+
+                    const keyValid = (key1 === "Model") && (key2 === "SN")
+                    const val1Valid = true
+                    const val2Valid = (val2.split("-")[0].length === 4 && val2.split("-")[1].length === 6)
+                    if(keyValid && val1Valid && val2Valid){
+                        MachineAPI.setSerialNumber(val2)
+                    }//
+                    else{
+                        console.debug("invalid key or value!")
+                    }//
+
+                    console.debug("key1", key1, "key2", key2)
+                    console.debug("val1", String(value).split("#")[0].split(" ")[1], "val2", String(value).split("#")[1].split(" ")[1])
+                    return
+                }//
+                else{
+                    console.debug("Invalid Value")
+                }
+            }//
+        }//
 
         /// called Once but after onResume
         Component.onCompleted: {
-
+            MachineAPI.setFrontEndScreenState(MachineAPI.ScreenState_SerialNumber)
         }//
 
         /// Execute This Every This Screen Active/Visible
@@ -179,14 +237,17 @@ ViewApp {
 
                 /// onResume
                 Component.onCompleted: {
-                    //                    //console.debug("StackView.Active");
-
-                    props.serialNumber = MachineData.serialNumber
-                }
+                    ////console.debug("StackView.Active");
+                    props.serialNumber = Qt.binding(function(){return MachineData.serialNumber})
+                    MachineData.keyboardStringOnAcceptedEventSignal.connect(props.onNewQRCodeDataAccepted)
+                }//
 
                 /// onPause
                 Component.onDestruction: {
                     ////console.debug("StackView.DeActivating");
+                    MachineData.keyboardStringOnAcceptedEventSignal.disconnect(props.onNewQRCodeDataAccepted)
+
+                    MachineAPI.setFrontEndScreenState(MachineAPI.ScreenState_Other)
                 }
             }//
         }//
