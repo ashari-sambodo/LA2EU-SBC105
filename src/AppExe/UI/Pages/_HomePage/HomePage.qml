@@ -1685,6 +1685,193 @@ ViewApp {
                                         color: "gray"
                                     }///
 
+                                    //USB Icon
+                                    Item {
+                                        id: usbItem
+                                        Layout.fillHeight: true
+                                        Layout.minimumWidth: height
+                                        enabled: props.usbListStr !== ""
+                                                 && MachineData.frontEndScreenState === MachineAPI.ScreenState_Home
+                                        visible: enabled
+                                        Image {
+                                            anchors.fill: parent
+                                            source: "qrc:/UI/Pictures/usbvia.png"
+                                            opacity: usbMArea.pressed ? 0.5 : 1
+                                        }//
+
+                                        MouseArea{
+                                            id: usbMArea
+                                            enabled: UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin
+                                            anchors.fill: parent
+                                            onDoubleClicked: {
+                                                ejectUsbOptionLoader.active = !ejectUsbOptionLoader.active
+                                            }
+
+                                            onPressed: {
+                                                ejectUsbOptionLoader.active = false
+                                            }//
+                                        }//
+                                        Loader{
+                                            id: ejectUsbOptionLoader
+                                            active: false
+                                            height: 150
+                                            width: 200
+                                            y: usbItem.y + usbItem.height
+                                            sourceComponent: Item{
+                                                Rectangle{
+                                                    anchors.fill: parent
+                                                    color: "#ee404244"
+                                                    radius: 5
+                                                    border.width: 1
+                                                    border.color: "grey"
+                                                    ColumnLayout{
+                                                        anchors.fill: parent
+                                                        anchors.margins: 5
+                                                        Item {
+                                                            Layout.fillWidth: true
+                                                            Layout.minimumHeight: 24
+                                                            Row{
+                                                                spacing: 10
+                                                                Image {
+                                                                    id: ejectIcon
+                                                                    anchors.verticalCenter: parent.verticalCenter
+                                                                    source: "qrc:/UI/Pictures/usb-eject.png"
+                                                                }
+                                                                TextApp{
+                                                                    text: qsTr("Eject USB Drive")
+                                                                    font.pixelSize: 18
+                                                                }
+                                                            }
+                                                            MouseArea{
+                                                                anchors.fill: parent
+                                                                onClicked: {
+                                                                    ejectUsbOptionLoader.active = false
+                                                                }//
+                                                            }//
+                                                        }//
+                                                        Rectangle{
+                                                            Layout.minimumHeight: 1
+                                                            Layout.fillWidth: true
+                                                            color: "grey"
+                                                            MouseArea{
+                                                                anchors.fill: parent
+                                                                onClicked: {
+                                                                    ejectUsbOptionLoader.active = false
+                                                                }//
+                                                            }//
+                                                        }//
+                                                        Item{
+                                                            Layout.fillHeight: true
+                                                            Layout.fillWidth: true
+                                                            RowLayout {
+                                                                anchors.fill: parent
+                                                                spacing: 2
+                                                                Item{
+                                                                    Layout.fillHeight: true
+                                                                    Layout.fillWidth: true
+                                                                    ColumnLayout{
+                                                                        anchors.fill: parent
+                                                                        anchors.margins: 5
+                                                                        Flickable{
+                                                                            id: view2
+                                                                            Layout.fillHeight: true
+                                                                            Layout.fillWidth: true
+                                                                            contentWidth: col2.width
+                                                                            contentHeight: col2.height
+                                                                            clip: true
+                                                                            flickableDirection: Flickable.VerticalFlick
+                                                                            ScrollBar.vertical: verticalScrollBar2
+
+                                                                            property real span : contentY + height
+                                                                            Column{
+                                                                                id: col2
+                                                                                spacing: 5
+                                                                                Repeater{
+                                                                                    model: props.usbList/*[
+                                                                                        {"name":"SDA1"},
+                                                                                        {"name":"SDA2"},
+                                                                                        {"name":"SDA3"},
+                                                                                        {"name":"SDA4"}
+                                                                                    ]*/
+                                                                                    Row{
+                                                                                        Rectangle{
+                                                                                            color: "transparent"
+                                                                                            width: 30
+                                                                                            height: 30
+                                                                                            MouseArea{
+                                                                                                anchors.fill: parent
+                                                                                                onClicked: {
+                                                                                                    ejectUsbOptionLoader.active = false
+                                                                                                }//
+                                                                                            }//
+                                                                                        }//
+                                                                                        TextApp{
+                                                                                            width: view2.width
+                                                                                            height: 30
+                                                                                            text: "- %1".arg(String(modelData['name']).toUpperCase())
+                                                                                            verticalAlignment: Text.AlignVCenter
+                                                                                            elide: Text.ElideRight
+                                                                                            font.pixelSize: 18
+                                                                                            color: "#A7D7D7"
+                                                                                            opacity: optionRectMA.pressed ? 0.5 : 1
+                                                                                            MouseArea{
+                                                                                                id: optionRectMA
+                                                                                                anchors.fill: parent
+                                                                                                onClicked: {
+                                                                                                    let usbName = modelData['name']
+                                                                                                    MachineAPI.requestEjectUsb(usbName)
+                                                                                                    ejectUsbOptionLoader.active = false
+                                                                                                }//
+                                                                                            }//
+                                                                                        }//
+                                                                                    }//
+                                                                                }//
+                                                                            }//
+                                                                        }//
+                                                                    }//
+                                                                }//
+                                                                Rectangle{
+                                                                    id: verticalScrollRectangle2
+                                                                    Layout.fillHeight: true
+                                                                    Layout.minimumWidth: 6
+                                                                    color: "transparent"
+                                                                    border.color: "grey"
+                                                                    radius: 5
+                                                                    visible: view2.contentHeight > height
+                                                                    /// Vertical ScrollBar
+                                                                    ScrollBar {
+                                                                        id: verticalScrollBar2
+                                                                        anchors.fill: parent
+                                                                        orientation: Qt.Vertical
+                                                                        policy: ScrollBar.AsNeeded
+
+                                                                        contentItem: Rectangle {
+                                                                            implicitWidth: 0
+                                                                            implicitHeight: 5
+                                                                            radius: width / 2
+                                                                            color: "grey"
+                                                                        }//
+                                                                    }//
+                                                                }//
+                                                            }//
+                                                        }
+                                                    }
+                                                }//
+                                            }//
+                                        }//
+                                        onEnabledChanged: {
+                                            if(!enabled)
+                                                ejectUsbOptionLoader.active = false
+                                        }
+                                    }//
+
+                                    Rectangle {
+                                        Layout.minimumHeight: parent.height * 0.7
+                                        Layout.minimumWidth: 1
+                                        color: "gray"
+                                        visible: usbItem.visible
+                                    }///
+
                                     Item {
                                         Layout.fillHeight: true
                                         Layout.fillWidth: true
@@ -1793,6 +1980,65 @@ ViewApp {
                         }//
                     }//
                 }//
+
+                Loader{
+                    id: safelyShutdownLoader
+                    width: parent.width
+                    height: 60
+                    anchors.bottom: parent.bottom
+                    clip: true
+                    active: false
+                    sourceComponent: Rectangle{
+                        id: safelyShutdownRect
+                        y: safelyShutdownLoader.height
+                        width: safelyShutdownLoader.width
+                        height: safelyShutdownLoader.height
+                        color: "#BB0F2952"
+                        border.width: 1
+                        border.color: "#BB777777"
+                        radius: 5
+
+                        property bool showState: false
+
+                        TextApp {
+                            width: parent.width
+                            height: parent.height
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            text: qsTr("After operating this Cabinet, Shut down the Cabinet safely before unplugging the power supply!")
+                        }
+
+                        Timer{
+                            id: rectTimer
+                            interval: 50
+                            repeat: true
+                            running: true
+                            onTriggered: {
+                                //console.debug("onTriggered!!!")
+                                if(safelyShutdownRect.y > 0 && !safelyShutdownRect.showState){
+                                    safelyShutdownRect.y = safelyShutdownRect.y - 5
+                                }else if(safelyShutdownRect.y < safelyShutdownLoader.height && safelyShutdownRect.showState){
+                                    safelyShutdownRect.y = safelyShutdownRect.y + 5
+                                }
+                                else{
+                                    const temp = safelyShutdownRect.showState
+                                    safelyShutdownRect.showState = !safelyShutdownRect.showState;
+                                    running = false
+                                    if(temp) safelyShutdownLoader.active = false
+                                }
+                            }
+                        }
+
+                        MouseArea{
+                            anchors.fill: parent
+                            onClicked: {
+                                //safelyShutdownRect.y = safelyShutdownLoader.height
+                                rectTimer.running = true
+                            }
+                        }
+                    }
+                    //onActiveChanged: console.debug("Active:", active)
+                }
             }//
 
             /// FOOTER
@@ -2562,29 +2808,66 @@ ViewApp {
             property bool airflowMonitorEnable: true
             property bool alarmSashMotorDownStuck: false
 
+            property string usbListStr: ""
+            property var usbList: []
+
+            onExpTimerTimeoutChanged: {
+                if(expTimerTimeout){
+                    MachineAPI.setAlarmExperimentTimerIsOver(MachineAPI.ALARM_ACTIVE_STATE)
+                }//
+            }//
+
             function showFanProgressSwitchingState(swithTo){
                 //                //console.debug("swithTo: " + swithTo)
                 const message = swithTo ? qsTr("Switching on the fan") + "..."
                                         : qsTr("Switching off the fan") + "..."
+                showNotifToShutDownTheCabinet(false);
                 viewApp.showBusyPage(message, function(cycle){
-                    if(cycle === MachineAPI.BUSY_CYCLE_3){
+                    if(cycle >= MachineAPI.BUSY_CYCLE_2){
+                        if(!swithTo && !MachineData.postPurgingActive)
+                            showNotifToShutDownTheCabinet(true);
                         viewApp.closeDialog()
-                    }
-                })
+                    }//
+                })//
             }//
-            onExpTimerTimeoutChanged: {
-                if(expTimerTimeout){
-                    MachineAPI.setBuzzerBeep()
-                    MachineAPI.setBuzzerBeep()
+
+            function showNotifToShutDownTheCabinetPostPurge(postpurge){
+                showNotifToShutDownTheCabinet(!postpurge)
+            }
+            function showNotifToShutDownTheCabinet(show){
+                safelyShutdownLoader.active = show;
+            }//
+            function showWiredConConfigured(value){
+                if(value){
+                    const message = qsTr("Wired connection has been configured!") + "<br>" +
+                                  qsTr("Please restart the system to perform the configuration.")
+                    showDialogAsk(qsTr("Wired Connection"),
+                                  message,
+                                  dialogAlert,
+                                  function onAccepted(){
+                                      const exitCodeRestart = 5
+                                      MachineAPI.insertEventLog(qsTr("User: System Reset"));
+                                      //MachineAPI.setAllDoorShutdownState()
+                                      //MachineAPI.setAllValveChamberShutdownState()
+
+                                      MachineAPI.setWiredNetworkHasbeenConfigured(false);
+                                      showBusyPage(qsTr("Please wait"),
+                                                   function onCallback(secs){
+                                                       if(secs > MachineAPI.BUSY_CYCLE_1) {
+                                                           const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {'exitCode': exitCodeRestart})
+                                                           startRootView(intent)
+                                                       }
+                                                   })
+                                  },
+                                  undefined,
+                                  undefined,
+                                  false,
+                                  10,
+                                  qsTr("Restart"),
+                                  qsTr("Later")
+                                  )//
                 }//
             }//
-            //            onButtonSashMotorizedDownPressedChanged: {
-            //                if(!buttonSashMotorizedDownPressed){
-            //                    console.debug("On Release Press!")
-            //                    MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
-            //                MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
-            //                }
-            //            }//
         }//
 
         //        /// One time executed at startup
