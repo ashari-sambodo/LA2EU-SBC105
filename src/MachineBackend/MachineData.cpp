@@ -3511,6 +3511,32 @@ void MachineData::setFanInflowStandbyRpmField(int fanInflowStandbyRpmField)
     m_fanInflowStandbyRpmField = fanInflowStandbyRpmField;
 }
 
+void MachineData::setAirflowFactoryCalibrationState(int index, bool state)
+{
+   if(index < 0 || index >= MachineEnums::CalFactoryState_Total)return;
+   if(m_airflowFactoryCalibrationState[index] == state) return;
+   m_airflowFactoryCalibrationState[index] = state;
+}
+
+bool MachineData::getAirflowFactoryCalibrationState(int index)
+{
+   if(index < 0 || index >= MachineEnums::CalFactoryState_Total)return false;
+   return m_airflowFactoryCalibrationState[index];
+}
+
+void MachineData::setAirflowFieldCalibrationState(short index, bool value)
+{
+    if(index < 0 || index >= MachineEnums::CalFieldState_Total)return;
+    if(m_airflowFieldCalibrationState[index] == value) return;
+    m_airflowFieldCalibrationState[index] = value;
+}
+
+bool MachineData::getAirflowFieldCalibrationState(short index)
+{
+    if(index < 0 || index >= MachineEnums::CalFieldState_Total)return false;
+    return m_airflowFieldCalibrationState[index];
+}
+
 //
 void MachineData::setMagSWState(short index, bool value)
 {

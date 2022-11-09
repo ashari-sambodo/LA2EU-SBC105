@@ -92,7 +92,7 @@ ViewApp {
                                         horizontalAlignment: Text.AlignHCenter
                                         font.pixelSize: 12
                                         minimumPixelSize: 10
-                                        text: qsTr("Press here");
+                                        text: qsTr("Tap here");
                                         wrapMode: Text.WordWrap
                                         width: 70
                                     }//
@@ -281,7 +281,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
                 Rectangle {
                     anchors.fill: parent
@@ -331,13 +331,17 @@ ViewApp {
                                         UserSessionService.loggedIn = true
                                         UserSessionService.roleLevel = UserSessionService.roleLevelFactory
                                         UserSessionService.username = props.textUsername
-                                        UserSessionService.fullname = props.textFullname + " (" + props.textUsername + ")"
+                                        if(props.textFullname == "")
+                                            UserSessionService.fullname  = "Factory";
+                                        else
+                                            UserSessionService.fullname = props.textFullname
 
-                                        MachineAPI.setSignedUser(props.textUsername, UserSessionService.fullname)
-                                        const message = qsTr("Login success! username: ") + props.textUsername
+                                        MachineAPI.setSignedUser(props.textUsername, props.textFullname, UserSessionService.roleLevel)
+                                        const message = qsTr("Login succesful! username: ") + props.textUsername
                                         MachineAPI.insertEventLog(message)
 
                                         props.loginSuccessDialog()
+                                        MachineAPI.setUserLastLogin(UserSessionService.username, UserSessionService.fullname)
                                     }
                                     else {
                                         showDialogMessage(qsTr("Login"), qsTr("Login failed: Incorrect user ID or password!"), dialogAlert)
@@ -351,13 +355,17 @@ ViewApp {
                                         UserSessionService.loggedIn = true
                                         UserSessionService.roleLevel = UserSessionService.roleLevelService
                                         UserSessionService.username = props.textUsername
-                                        UserSessionService.fullname = props.textFullname + " (" + props.textUsername + ")"
+                                        if(props.textFullname == "")
+                                            UserSessionService.fullname  = "Service";
+                                        else
+                                            UserSessionService.fullname = props.textFullname
 
-                                        MachineAPI.setSignedUser(props.textUsername, UserSessionService.fullname)
-                                        const message = qsTr("Login success! username: ") + props.textUsername
+                                        MachineAPI.setSignedUser(props.textUsername, props.textFullname, UserSessionService.roleLevel)
+                                        const message = qsTr("Login succesful! username: ") + props.textUsername
                                         MachineAPI.insertEventLog(message)
 
                                         props.loginSuccessDialog()
+                                        MachineAPI.setUserLastLogin(UserSessionService.username, UserSessionService.fullname)
                                     }
                                     else {
                                         showDialogMessage(qsTr("Login"), qsTr("Login failed: Incorrect user ID or password!"), dialogAlert)
@@ -379,7 +387,7 @@ ViewApp {
                                 //                                else if ((props.textUsername == 'user')
                                 //                                         && (props.textPassword == '00000')){
                                 //                                    UserSessionService.loggedIn = true
-                                //                                    UserSessionService.roleLevel = UserSessionService.roleLevelRegular
+                                //                                    UserSessionService.roleLevel = UserSessionService.roleLevelOperator
                                 //                                    UserSessionService.username = props.textUsername
                                 //                                    UserSessionService.fullname = props.textUsername
 
@@ -479,11 +487,11 @@ ViewApp {
                     onUserSelectedByUsernameHasExecuted: {
                         if(!success){
                             //                            console.log("Not success!")
-                            showDialogMessage(qsTr("Login"), qsTr("Login failed: There is problem in database transaction!"), dialogAlert)
+                            showDialogMessage(qsTr("Login"), qsTr("Login failed: Failed database communication."), dialogAlert)
                         }
                         else if (!exist) {
                             //                            console.log("Not exist!")
-                            showDialogMessage(qsTr("Login"), qsTr("Login failed: Your user ID is not exist!"), dialogAlert)
+                            showDialogMessage(qsTr("Login"), qsTr("Login failed: User ID does not exist!"), dialogAlert)
 
                             const message = qsTr("Login failed! username: ") + props.textUsername
                             MachineAPI.insertEventLog(message)
@@ -499,9 +507,10 @@ ViewApp {
                                 UserSessionService.username  = user.username
                                 UserSessionService.fullname  = user.fullname
 
-                                MachineAPI.setSignedUser(user.username, user.fullname)
+                                MachineAPI.setSignedUser(user.username, user.fullname, user.role)
+                                MachineAPI.setUserLastLogin(user.username, user.fullname)
 
-                                const message = qsTr("Login success! username: ") + props.textUsername
+                                const message = qsTr("Login succesful! username: ") + props.textUsername
                                 MachineAPI.insertEventLog(message)
 
                                 props.loginSuccessDialog()
@@ -572,7 +581,7 @@ ViewApp {
 
                 if (props.elsIsEnabled) {
                     const serialNumberExtract = MachineData.serialNumber.split("-")    /// example: 2021-00000000 -> [2021, 00000000]
-                    if (serialNumberExtract.length === 2){
+                    if (serialNumberExtract.length === 2 || serialNumberExtract.length === 3){
                         let serialNum = serialNumberExtract[1]
                         if (serialNum.length !== props.serialLength) {
                             serialNum = utilsApp.fixStrLength(serialNum, props.serialLength, "0", 1)
@@ -604,6 +613,14 @@ ViewApp {
 
                         console.log(userSelect.fullname)
                         console.log(userSelect.username)
+
+                        if ((String(userSelect.username) == String("factory"))
+                                || (String(userSelect.username) == String("service"))) {
+                            nameRect.visible = true
+                        }
+                        else {
+                            nameRect.visible = false
+                        }
 
                         /// fill up username
                         usernameTextInput.text = userSelect.username

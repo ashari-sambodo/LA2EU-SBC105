@@ -92,8 +92,8 @@ ViewApp {
                                 TextApp {
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     text: "Diagnostic"
-//                                    font.pixelSize: 30
-//                                    font.bold: true
+                                    //                                    font.pixelSize: 30
+                                    //                                    font.bold: true
                                 }//
                             }//
 
@@ -170,7 +170,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
                 Rectangle {
                     anchors.fill: parent

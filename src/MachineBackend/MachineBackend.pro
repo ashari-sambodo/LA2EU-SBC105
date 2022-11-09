@@ -47,6 +47,7 @@ SOURCES +=  \
     Implementations/ReplaceableCompRecord/ReplaceableCompRecordSql.cpp \
     Implementations/ResourceMonitorLog/ResourceMonitorLog.cpp \
     Implementations/ResourceMonitorLog/ResourceMonitorLogSql.cpp \
+    Implementations/SashMotorizedTest/SashMotorizedTest.cpp \
     Implementations/SashWindow/SashWindow.cpp \
     Implementations/SchedulerDayOutput/SchedulerDayOutput.cpp \
     Implementations/Temperature/Temperature.cpp \
@@ -85,6 +86,7 @@ HEADERS +=  \
     Implementations/ReplaceableCompRecord/ReplaceableCompRecordSql.h \
     Implementations/ResourceMonitorLog/ResourceMonitorLog.h \
     Implementations/ResourceMonitorLog/ResourceMonitorLogSql.h \
+    Implementations/SashMotorizedTest/SashMotorizedTest.h \
     Implementations/SashWindow/SashWindow.h \
     Implementations/SchedulerDayOutput/SchedulerDayOutput.h \
     Implementations/Temperature/Temperature.h \
@@ -143,3 +145,5 @@ TRANSLATIONS =  i18n/translating-qml_de.ts \
 
 RESOURCES += \
     i18n/i18n.qrc
+
+DISTFILES +=

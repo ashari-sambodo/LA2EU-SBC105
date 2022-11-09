@@ -112,7 +112,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
                 Rectangle {
                     anchors.fill: parent
@@ -137,23 +137,37 @@ ViewApp {
                                 finishView(intent)
                             }//
                         }//
-
-                        ButtonBarApp {
-                            width: 194
+                        Row{
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.right: parent.right
+                            spacing: 5
+                            ButtonBarApp {
+                                width: 194
 
-                            imageSource: "qrc:/UI/Pictures/user-login.png"
-                            text: qsTr("Logout")
+                                imageSource: "qrc:/UI/Pictures/user-last-login.png"
+                                text: qsTr("Last Login")
 
-                            onClicked: {
-                                const message = qsTr("Logout! username: ") + UserSessionService.username
-                                MachineAPI.insertEventLog(message);
+                                onClicked: {
+                                    const intent = IntentApp.create("qrc:/UI/Pages/LoginPage/LoginUserListPage.qml", {})
+                                    startView(intent)
+                                }//
+                            }//
+                            ButtonBarApp {
+                                width: 194
 
-                                UserSessionService.logout()
+                                imageSource: "qrc:/UI/Pictures/user-login.png"
+                                text: qsTr("Logout")
 
-                                const intent = IntentApp.create("", {})
-                                startRootView(intent)
+                                onClicked: {
+                                    const message = qsTr("Logout! username: ") + UserSessionService.username
+                                    MachineAPI.insertEventLog(message);
+
+                                    UserSessionService.logout()
+                                    MachineAPI.setSignedUser("", "", UserSessionService.roleLevelGuest)
+
+                                    const intent = IntentApp.create("", {})
+                                    startRootView(intent)
+                                }//
                             }//
                         }//
                     }//

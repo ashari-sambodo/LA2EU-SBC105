@@ -12,7 +12,7 @@ import QtQuick.Controls 2.0
 import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
 
-import UserManageQmlApp 1.0
+//import UserManageQmlApp 1.0
 
 import ModulesCpp.Machine 1.0
 
@@ -60,6 +60,7 @@ ViewApp {
                     cellHeight: 100
                     clip: true
                     onModelChanged: currentIndex = -1
+                    model: props.userLastLogin
                     //                    model: [
                     //                        {name: "Heri",          username: "hericahyono", role: 1},
                     //                        {name: "Cahyono",       username: "cahyonoheri", role: 1},
@@ -122,6 +123,32 @@ ViewApp {
                                                     fiturtext.text = rstr
                                                 }//
                                             }//
+                                            MouseArea {
+                                                id: userDeleteList
+                                                enabled: UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin
+                                                anchors.fill: parent
+                                                onClicked: {
+                                                    deleteUserListItem.visible = !deleteUserListItem.visible
+                                                }//
+                                            }//
+                                        }//
+                                        Item{
+                                            id: deleteUserListItem
+                                            Layout.fillHeight: true
+                                            Layout.fillWidth: true
+                                            visible: false
+                                            Image{
+                                                anchors.centerIn: parent
+                                                source: "qrc:/UI/Pictures/user-del-favi-30px.png"
+                                                opacity: deleteUserListBtnMA.pressed ? 0.5 : 1
+                                                MouseArea{
+                                                    id: deleteUserListBtnMA
+                                                    anchors.fill: parent
+                                                    onClicked: {
+                                                        MachineAPI.deleteUserLastLogin(modelData.username)
+                                                    }
+                                                }//
+                                            }//
                                         }//
                                     }//
                                 }//
@@ -142,22 +169,45 @@ ViewApp {
                                             elide: Text.ElideRight
                                             text:  modelData.fullname
                                         }//
+                                        TextApp {
+                                            Layout.minimumHeight: 20
+                                            Layout.fillWidth: true
+                                            verticalAlignment: Text.AlignVCenter
+                                            elide: Text.ElideRight
+                                            text:  modelData.username
+                                            font.pixelSize: 16
+                                            //font.italic: true
+                                            //color: "grey"
+                                        }//
+                                        TextApp {
+                                            Layout.minimumHeight: 20
+                                            Layout.fillWidth: true
+                                            verticalAlignment: Text.AlignVCenter
+                                            elide: Text.ElideRight
+                                            text:  qsTr("Logged in: %1").arg(modelData.login)
+                                            font.pixelSize: 14
+                                            color: "grey"
+                                        }//
                                     }//
-                                }//
-                            }//
+                                    MouseArea {
+                                        id: userSelectRectMA
+                                        enabled: !UserSessionService.loggedIn
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            const intent = IntentApp.create(uri,
+                                                                            {"userSelect": {
+                                                                                    "username": modelData.username,
+                                                                                    //"role":     modelData.role,
+                                                                                    "fullname": modelData.fullname,
+                                                                                    //"email":    modelData.email,
+                                                                                }
+                                                                            })
+                                            finishView(intent)
+                                        }//
+                                        onDoubleClicked: {
 
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    const intent = IntentApp.create(uri,
-                                                                    {"userSelect": {
-                                                                            "username": modelData.username,
-                                                                            "role":     modelData.role,
-                                                                            "fullname": modelData.fullname,
-                                                                            "email":    modelData.email,
-                                                                        }
-                                                                    })
-                                    finishView(intent)
+                                        }
+                                    }//
                                 }//
                             }//
                         }//
@@ -165,7 +215,7 @@ ViewApp {
                 }
 
                 Loader {
-                    active: userGridView.count == 0 && userManageQml.initialized
+                    active: userGridView.count == 0 && props.initialized
                     anchors.centerIn: parent
                     sourceComponent: Item {
 
@@ -179,7 +229,7 @@ ViewApp {
                             }//
 
                             TextApp {
-                                text: qsTr("Seems like there's no users registered yet.")
+                                text: qsTr("Seems like there's no user have logged in yet.")
                             }//
                         }
 
@@ -206,7 +256,7 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
                 Rectangle {
                     anchors.fill: parent
@@ -234,55 +284,58 @@ ViewApp {
             }//
         }//
 
-        UserManageQmlApp {
-            id: userManageQml
+        //        UserManageQmlApp {
+        //            id: userManageQml
 
-            delayEmitSignal: 500 // ms
+        //            delayEmitSignal: 500 // ms
 
-            onInitializedChanged: {
-                delayEmitSignal = 1000 //ms
-                props.reloadUser()
-            }
+        //            onInitializedChanged: {
+        //                delayEmitSignal = 1000 //ms
+        //                props.reloadUser()
+        //            }//
 
-            onSelectHasDone: {
-                //                console.log(total)
-                userGridView.model = dataBuffer
-                closeDialog()
-            }
+        //            onSelectHasDone: {
+        //                // console.log(total)
+        //                userGridView.model = dataBuffer
+        //                closeDialog()
+        //            }//
 
-            Component.onCompleted: {
-                const connectionId = "LoginUserListPage"
-                init(connectionId);
+        //            Component.onCompleted: {
+        //                const connectionId = "LoginUserListPage"
+        //                init(connectionId);
 
-                showBusyPage(qsTr("Loading..."), function(cycle){
-                    if (cycle === MachineAPI.BUSY_CYCLE_4){
-                        closeDialog()
-                    }
-                })
-            }//
-        }//
+        //                showBusyPage(qsTr("Loading..."), function(cycle){
+        //                    if (cycle >= MachineAPI.BUSY_CYCLE_2){
+        //                        closeDialog()
+        //                    }//
+        //                })//
+        //            }//
+        //        }//
 
         //// Put all private property inside here
         //// if none, please comment this block to optimize the code
         QtObject {
             id: props
-
-            function reloadUser(){
-                showBusyPage(qsTr("Loading..."), function(cycle){
-                    if (cycle === MachineAPI.BUSY_CYCLE_4){
-                        closeDialog()
-                    }
-                })
-                /// get 100 users
-                /// as a page 1
-                userManageQml.selectDescendingWithPagination(100, 1);
-            }//
+            property bool initialized: false
+            property var userLastLogin: []
+            //            function reloadUser(){
+            //                showBusyPage(qsTr("Loading..."), function(cycle){
+            //                    if (cycle >= MachineAPI.BUSY_CYCLE_2){
+            //                        closeDialog()
+            //                    }
+            //                })
+            //                /// get 100 users
+            //                /// as a page 1
+            //                //                userManageQml.selectDescendingWithPagination(100, 1);
+            //            }//
         }//
 
         /// called Once but after onResume
         Component.onCompleted: {
             /// override right swipe action
             viewApp.fnSwipedFromRightEdge = function(){}
+            props.userLastLogin = Qt.binding(function(){return MachineData.userLastLogin})
+            props.initialized = true
         }//
 
         //        /// Execute This Every This Screen Active/Visible

@@ -313,7 +313,7 @@
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype        : "menu",
                                  mtitle    : qsTr("Certification Reminder"),
-                                 micon     : "qrc:/UI/Pictures/reminder_date.png",
+                                 micon     : "qrc:/UI/Pictures/menu/reminder_date.png",
                                  mlink     : "qrc:/UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml"
                                  //                                             mlink      : "FanInputPin"
                              })

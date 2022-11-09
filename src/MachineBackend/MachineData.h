@@ -1408,6 +1408,18 @@ public:
     void    setFanInflowStandbyDutyCycleField(short fanInflowStandbyDutyCycleField);
     void    setFanInflowStandbyRpmField(int fanInflowStandbyRpmField);
 
+    void setAirflowFactoryCalibrationState(int index, bool state);
+    Q_INVOKABLE bool getAirflowFactoryCalibrationState(int index);
+
+//    void setAirflowFactorySecondaryCalibrationState(int index, bool state);
+//    Q_INVOKABLE bool getAirflowFactorySecondaryCalibrationState(int index);
+
+//    void setAdcFactoryCalibrationState(int index, bool state);
+//    Q_INVOKABLE bool getAdcFactoryCalibrationState(int index);
+
+    void setAirflowFieldCalibrationState(short index, bool value);
+    Q_INVOKABLE bool getAirflowFieldCalibrationState(short index);
+
     // Magenetic Swtich for Sash Windows
     void setMagSWState(short index, bool value);
     bool getMagSW1State() const;
@@ -2967,22 +2979,8 @@ private:
     QString m_quinquenniallyPreventMaintLastAckDate;
     QString m_canopyPreventMaintLastAckDate;
 
-    bool m_meaIfNominalFactoryCalib = false;
-    bool m_meaIfMinimumFactoryCalib = false;
-    bool m_meaIfStandbyFactoryCalib = false;
-    bool m_meaDfNominalFactoryCalib = false;
-
-    bool m_meaIfNominalFactorySecCalib = false;
-    bool m_meaIfMinimumFactorySecCalib = false;
-    bool m_meaIfStandbyFactorySecCalib = false;
-    bool m_meaDfNominalFactorySecCalib = false;
-
-    bool m_sensorConstantFactoryCalib = false;
-    bool m_adcIfNominalFactoryCalib = false;
-    bool m_adcIfMinimumFactoryCalib = false;
-    bool m_adcDfNominalFactoryCalib = false;
-
-    bool m_airflowFieldCalibrationState[4] = {false};
+        bool m_airflowFieldCalibrationState[MachineEnums::CalFieldState_Total] = {false};
+    bool m_airflowFactoryCalibrationState[MachineEnums::CalFactoryState_Total] = {false};
 
     /// ETHERNET CONNECTION
     QString m_eth0ConName;

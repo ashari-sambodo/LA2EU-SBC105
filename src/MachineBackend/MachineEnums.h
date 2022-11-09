@@ -568,9 +568,21 @@ enum CalibrationStateField{
     CalFieldState_InflowDimNominal,
     CalFieldState_InflowSecNominal,
     CalFieldState_DownflowNominal,
-    CalFieldState_AdcNominal
+    CalFieldState_SensorConstant,
+    CalFieldState_AdcNominal,
+    CalFieldState_Total
 };
 Q_ENUMS(CalibrationStateField)
+
+enum CalibrationStateFactory{
+    CalFactoryState_InflowDimNominal,
+    CalFactoryState_InflowDimMinimum,
+    CalFactoryState_InflowDimStandby,
+    CalFactoryState_DownflowNominal,
+    CalFactoryState_SensorConstant,
+    CalFactoryState_Total
+};
+Q_ENUMS(CalibrationStateFactory)
 
 enum ResourceMonitor{
     ResMon_CPU_Usage,
@@ -585,6 +597,13 @@ enum FilterLifeCalculationMode{
 };
 Q_ENUMS(FilterLifeCalculationMode)
 
+enum PointCalib{
+    POINT_ZERO,
+    POINT_MINIMUM,
+    POINT_NOMINAL,
+    POINT_TOTAL
+};
+Q_ENUMS(PointCalib)
 
 }
 

@@ -6776,6 +6776,82 @@ void MachineBackend::initAirflowCalibrationStatus(short value)
 
     pData->setAirflowCalibrationStatus(value);
 }
+void MachineBackend::initFanConfigurationStatus(short value)
+{
+    switch (value) {
+    case MachineEnums::AF_CALIB_FIELD:
+    {
+        short fanNomDutyCycle   = pData->getFanPrimaryNominalDutyCycleField();
+        int   fanNomRpm         = pData->getFanPrimaryNominalRpmField();
+        short fanMinDutyCycle   = pData->getFanPrimaryMinimumDutyCycleField();
+        int   fanMinRpm         = pData->getFanPrimaryMinimumRpmField();
+        short fanStbDutyCycle   = pData->getFanPrimaryStandbyDutyCycleField(); // Just Follow Stb Factory//fanNomDutyCycle - deltaValue;
+        int   fanStbRpm         = pData->getFanPrimaryStandbyRpmField(); /// this not valid, still follow factory or just zero
+
+        pData->setFanPrimaryNominalDutyCycle(fanNomDutyCycle);
+        pData->setFanPrimaryNominalRpm(static_cast<short>(fanNomRpm));
+        pData->setFanPrimaryMinimumDutyCycle(fanMinDutyCycle);
+        pData->setFanPrimaryMinimumRpm(static_cast<short>(fanMinRpm));
+        pData->setFanPrimaryStandbyDutyCycle(fanStbDutyCycle);
+        pData->setFanPrimaryStandbyRpm(fanStbRpm);
+    }
+        break;
+    case MachineEnums::AF_CALIB_FACTORY:
+    default:
+    {
+        short fanNomDutyCycle   = pData->getFanPrimaryNominalDutyCycleFactory();
+        int   fanNomRpm         = pData->getFanPrimaryNominalRpmFactory();
+        short fanMinDutyCycle   = pData->getFanPrimaryMinimumDutyCycleFactory();
+        int   fanMinRpm         = pData->getFanPrimaryMinimumRpmFactory();
+        short fanStbDutyCycle   = pData->getFanPrimaryStandbyDutyCycleFactory();
+        int   fanStbRpm         = pData->getFanPrimaryStandbyRpmFactory();
+
+        pData->setFanPrimaryNominalDutyCycle(fanNomDutyCycle);
+        pData->setFanPrimaryNominalRpm(static_cast<short>(fanNomRpm));
+        pData->setFanPrimaryMinimumDutyCycle(fanMinDutyCycle);
+        pData->setFanPrimaryMinimumRpm(static_cast<short>(fanMinRpm));
+        pData->setFanPrimaryStandbyDutyCycle(fanStbDutyCycle);
+        pData->setFanPrimaryStandbyRpm(fanStbRpm);
+    }
+        break;
+    }
+}
+
+void MachineBackend::setAirflowFactoryCalibrationState(int index, bool state)
+{
+    qDebug() << __func__ << index << state;
+
+    const QString keyStrFact[MachineEnums::CalFactoryState_Total] = {
+        "IfaDimNom",
+        "IfaDimMin",
+        "IfaDimStb",
+        "DfaNom",
+        "Const"
+    };
+
+    QSettings settings;
+
+    pData->setAirflowFactoryCalibrationState(index, state);
+    settings.setValue(SKEY_AIRFLOW_FACTORY_CALIB_STATE + keyStrFact[index], state);
+}
+
+void MachineBackend::setAirflowFieldCalibrationState(int index, bool value)
+{
+    qDebug() << __func__ << index << value;
+
+    const QString keyStrField[MachineEnums::CalFieldState_Total] = {
+        "IfaDimNom",
+        "IfaSecNom",
+        "DfaNom",
+        "Const",
+        "AdcNom"
+    };
+
+    QSettings settings;
+
+    pData->setAirflowFieldCalibrationState(index, value);
+    settings.setValue(SKEY_AIRFLOW_FIELD_CALIB_STATE + keyStrField[index], value);
+}//
 
 void MachineBackend::_initAirflowCalibartionFactory()
 {

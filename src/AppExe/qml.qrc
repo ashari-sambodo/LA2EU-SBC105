@@ -189,7 +189,6 @@
         <file>UI/Pages/SystemInformationPage/ChooseConfigFilePage.qml</file>
         <file>UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml</file>
         <file>UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml</file>
-        <file>UI/Pages/AirflowOutTempPage/AirflowOutTempPage.qml</file>
         <file>UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml</file>
         <file>UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml</file>
         <file>UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml</file>
