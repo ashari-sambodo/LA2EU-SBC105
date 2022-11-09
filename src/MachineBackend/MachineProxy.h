@@ -18,8 +18,8 @@ class MachineProxy : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int count
-               READ getCount
-               NOTIFY countChanged)
+                   READ getCount
+                       NOTIFY countChanged)
 
     Q_ENUM(MachineEnums::EnumItemMachineState)
     Q_ENUM(MachineEnums::EnumItemSashState)
@@ -63,7 +63,7 @@ public slots:
     void setup(QObject *pData);
     void stop();
 
-    void setMachineProfileID(const QString value);
+    //    void setMachineProfileID(const QString value);
     /// API for general
     void setLcdTouched();
 
@@ -367,7 +367,7 @@ public slots:
     void setScreenSaverSeconds(int value);
     void setCabinetSideType(short value);
 
-void setAlarmPreventMaintStateEnable(ushort pmCode, bool value);
+    void setAlarmPreventMaintStateEnable(ushort pmCode, bool value);
     void setAlarmPreventMaintStateAck(ushort pmCode, bool value, bool snooze);
 
     ///
@@ -399,7 +399,7 @@ void setAlarmPreventMaintStateEnable(ushort pmCode, bool value);
     void setSomeSettingsAfterExtConfigImported();
 
     void setAllOutputShutdown();
-	
+
 private slots:
     void doStopping();
 

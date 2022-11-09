@@ -68,50 +68,58 @@
 #include "Implementations/CheckSWUpdate/CheckSWUpdate.h"
 #include "Implementations/USBAutoMount/USBAutoMount.h"
 
+// clang-format off
 /// MODBUS REGISTER
 struct modbusRegisterAddress
 {
-    struct OperationMode     {static const short addr = Addrs::OperationMode;   short rw = 0; /*uint16_t value;*/} OperationMode;
-    struct SashState         {static const short addr = Addrs::SashState;       short rw = 0; /*uint16_t value;*/} SashState;
-    struct FanState          {static const short addr = Addrs::FanState;        short rw = 0; /*uint16_t value;*/} FanState;
-    struct IfaFanState       {static const short addr = Addrs::IfaFanState;        short rw = 0; /*uint16_t value;*/} IfaFanState;
-    struct IfaFanDutyCycle   {static const short addr = Addrs::IfaFanDutyCycle;    short rw = 0; /*uint16_t value;*/} IfaFanDutyCycle;
-    struct IfaFanRpm         {static const short addr = Addrs::IfaFanRpm;          short rw = 0; /*uint16_t value;*/} IfaFanRpm;
-    struct IfaFanUsage       {static const short addr = Addrs::IfaFanUsage;        short rw = 0; /*uint16_t value;*/} IfaFanUsage;
-    struct LightState        {static const short addr = Addrs::LightState;      short rw = 0; /*uint16_t value;*/} LightState;
-    struct LightIntensity    {static const short addr = Addrs::LightIntensity;  short rw = 0; /*uint16_t value;*/} LightIntensity;
-    struct SocketState       {static const short addr = Addrs::SocketState;     short rw = 0; /*uint16_t value;*/} SocketState;
-    struct GasState          {static const short addr = Addrs::GasState;        short rw = 0; /*uint16_t value;*/} GasState;
-    struct UvState           {static const short addr = Addrs::UvState;         short rw = 0; /*uint16_t value;*/} UvState;
-    struct UvLifeLeft        {static const short addr = Addrs::UvLifeLeft;      short rw = 0; /*uint16_t value;*/} UvLifeLeft;
-    struct FilterLife        {static const short addr = Addrs::FilterLife;      short rw = 0; /*uint16_t value;*/} FilterLife;
+    struct OperationMode                {static const short addr = Addrs::OperationMode;                short rw = 0;} OperationMode;
+    struct SashState                    {static const short addr = Addrs::SashState;                    short rw = 0;} SashState;
+    struct FanState                     {static const short addr = Addrs::FanState;                     short rw = 0;} FanState;
+    struct DfaFanState                  {static const short addr = Addrs::DfaFanState;                  short rw = 0;} DfaFanState;
+    struct DfaFanDutyCycle              {static const short addr = Addrs::DfaFanDutyCycle;              short rw = 0;} DfaFanDutyCycle;
+    struct DfaFanRpm                    {static const short addr = Addrs::DfaFanRpm;                    short rw = 0;} DfaFanRpm;
+    struct DfaFanUsage                  {static const short addr = Addrs::DfaFanUsage;                  short rw = 0;} DfaFanUsage;
+    struct IfaFanState                  {static const short addr = Addrs::IfaFanState;                  short rw = 0;} IfaFanState;
+    struct IfaFanDutyCycle              {static const short addr = Addrs::IfaFanDutyCycle;              short rw = 0;} IfaFanDutyCycle;
+    struct IfaFanRpm                    {static const short addr = Addrs::IfaFanRpm;                    short rw = 0;} IfaFanRpm;
+    struct IfaFanUsage                  {static const short addr = Addrs::IfaFanUsage;                  short rw = 0;} IfaFanUsage;
+    struct LightState                   {static const short addr = Addrs::LightState;                   short rw = 0;} LightState;
+    struct LightIntensity               {static const short addr = Addrs::LightIntensity;               short rw = 0;} LightIntensity;
+    struct SocketState                  {static const short addr = Addrs::SocketState;                  short rw = 0;} SocketState;
+    struct GasState                     {static const short addr = Addrs::GasState;                     short rw = 0;} GasState;
+    struct UvState                      {static const short addr = Addrs::UvState;                      short rw = 0;} UvState;
+    struct UvLifeLeft                   {static const short addr = Addrs::UvLifeLeft;                   short rw = 0;} UvLifeLeft;
+    struct FilterLife                   {static const short addr = Addrs::FilterLife;                   short rw = 0;} FilterLife;
 
-    struct SashMotorizeState {static const short addr = Addrs::SashMotorizeState;  short rw = 0; /*uint16_t value;*/} SashMotorizeState;//Spare
-    struct SashCycle         {static const short addr = Addrs::SashCycle;       short rw = 0; /*uint16_t value;*/} SashCycle;//Spare
-    struct MeaUnit           {static const short addr = Addrs::MeaUnit;         short rw = 0; /*uint16_t value;*/} MeaUnit;
-    struct Temperature       {static const short addr = Addrs::Temperature;     short rw = 0; /*uint16_t value;*/} Temperature;
-    struct AirflowInflow     {static const short addr = Addrs::AirflowInflow;   short rw = 0; /*uint16_t value;*/} AirflowInflow;
-    struct AirflowDownflow   {static const short addr = Addrs::AirflowDownflow;  short rw = 0; /*uint16_t value;*/} AirflowDownflow;
-    struct PressureExhaust   {static const short addr = Addrs::PressureExhaust;  short rw = 0; /*uint16_t value;*/} PressureExhaust;//Spare
-    struct AlarmSash         {static const short addr = Addrs::AlarmSash;       short rw = 0; /*uint16_t value;*/} AlarmSash;
-    struct AlarmInflowLow    {static const short addr = Addrs::AlarmInflowLow;  short rw = 0; /*uint16_t value;*/} AlarmInflowLow;
-    struct AlarmInflowHigh   {static const short addr = Addrs::AlarmInflowHigh; short rw = 0; /*uint16_t value;*/} AlarmInflowHigh;//Spare
-    struct AlarmDownflowLow  {static const short addr = Addrs::AlarmDownflowLow;short rw = 0; /*uint16_t value;*/} AlarmDownflowLow;//Spare
-    struct AlarmDownflowHigh {static const short addr = Addrs::AlarmDownflowHigh;short rw = 0; /*uint16_t value;*/} AlarmDownflowHigh;//Spare
-    struct AlarmExhaustLow   {static const short addr = Addrs::AlarmExhaustLow;  short rw = 0; /*uint16_t value;*/} AlarmExhaustLow;//Spare
-    struct AlarmFlapExhaust  {static const short addr = Addrs::AlarmFlapExhaust; short rw = 0; /*uint16_t value;*/} AlarmFlapExhaust;//Spare
-    struct AlarmCom          {static const short addr = Addrs::AlarmCom;        short rw = 0; /*uint16_t value;*/} AlarmCom;
-    struct AlarmTempLow      {static const short addr = Addrs::AlarmTempLow;    short rw = 0; /*uint16_t value;*/} AlarmTempLow;
-    struct AlarmTempHigh     {static const short addr = Addrs::AlarmTempHigh;   short rw = 0; /*uint16_t value;*/} AlarmTempHigh;
-    struct AlarmSashCycleMotorLocked {static const short addr = Addrs::AlarmSashCycleMotorLocked;  short rw = 0; /*uint16_t value;*/} AlarmSashCycleMotorLocked;//Spare
-    struct AlarmStbFanOff     {static const short addr = Addrs::AlarmStbFanOff; short rw = 0; /*uint16_t value;*/} AlarmStbFanOff;
+    struct SashMotorizeState            {static const short addr = Addrs::SashMotorizeState;            short rw = 0;} SashMotorizeState;//Spare
+    struct SashCycle                    {static const short addr = Addrs::SashCycle;                    short rw = 0;} SashCycle;//Spare
+    struct MeaUnit                      {static const short addr = Addrs::MeaUnit;                      short rw = 0;} MeaUnit;
+    struct Temperature                  {static const short addr = Addrs::Temperature;                  short rw = 0;} Temperature;
+    struct AirflowInflow                {static const short addr = Addrs::AirflowInflow;                short rw = 0;} AirflowInflow;
+    struct AirflowDownflow              {static const short addr = Addrs::AirflowDownflow;              short rw = 0;} AirflowDownflow;
+    struct PressureExhaust              {static const short addr = Addrs::PressureExhaust;              short rw = 0;} PressureExhaust;//Spare
+    struct AlarmSash                    {static const short addr = Addrs::AlarmSash;                    short rw = 0;} AlarmSash;
+    struct AlarmInflowLow               {static const short addr = Addrs::AlarmInflowLow;               short rw = 0;} AlarmInflowLow;
+    struct AlarmInflowHigh              {static const short addr = Addrs::AlarmInflowHigh;              short rw = 0;} AlarmInflowHigh;//Spare
+    struct AlarmDownflowLow             {static const short addr = Addrs::AlarmDownflowLow;             short rw = 0;} AlarmDownflowLow;//Spare
+    struct AlarmDownflowHigh            {static const short addr = Addrs::AlarmDownflowHigh;            short rw = 0;} AlarmDownflowHigh;//Spare
+    struct AlarmExhaustLow              {static const short addr = Addrs::AlarmExhaustLow;              short rw = 0;} AlarmExhaustLow;//Spare
+    struct AlarmFlapExhaust             {static const short addr = Addrs::AlarmFlapExhaust;             short rw = 0;} AlarmFlapExhaust;//Spare
+    struct AlarmBoardCom                {static const short addr = Addrs::AlarmBoardCom;                short rw = 0;} AlarmBoardCom;
+    struct AlarmTempLow                 {static const short addr = Addrs::AlarmTempLow;                 short rw = 0;} AlarmTempLow;
+    struct AlarmTempHigh                {static const short addr = Addrs::AlarmTempHigh;                short rw = 0;} AlarmTempHigh;
+    struct AlarmSashCycleMotorLocked    {static const short addr = Addrs::AlarmSashCycleMotorLocked;    short rw = 0;} AlarmSashCycleMotorLocked;//Spare
+    struct AlarmStbFanOff               {static const short addr = Addrs::AlarmStbFanOff;               short rw = 0;} AlarmStbFanOff;
+    struct AlarmFrontPanel              {static const short addr = Addrs::AlarmFrontPanel;              short rw = 0;} AlarmFrontPanel;
+    struct AlarmSashDownStuck           {static const short addr = Addrs::AlarmSashDownStuck;           short rw = 0;} AlarmSashDownStuck;
     /// Not used
-    struct FanClosedLoopControl{static const short addr = Addrs::FanClosedLoopControl;  short rw = 0; /*uint16_t value;*/} FanClosedLoopControl;
+    struct FanClosedLoopControl         {static const short addr = Addrs::FanClosedLoopControl;         short rw = 0;} FanClosedLoopControl;
 } modbusRegisterAddress;
+// clang-format on
 
-#define MODBUS_REGISTER_COUNT   Addrs::Total
+#define MODBUS_REGISTER_COUNT Addrs::Total
 #define ALLOW_ANY_IP            "0.0.0.0"
-#define LOCALHOST_ONLY          "127.0.0.1"
+#define LOCALHOST_ONLY "127.0.0.1"
 
 //#define ON_TESTING
 
@@ -955,21 +963,21 @@ void MachineBackend::setup()
         pData->setModbusSlaveID(slaveID);
 
         enum {REG_RO, REG_RW};
-        modbusRegisterAddress.fanState.rw       = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_FAN, REG_RO).toInt());
-        //modbusRegisterAddress.ifaFanState.rw    = modbusRegisterAddress.fanState.rw;
-        //modbusRegisterAddress.dfaFanState.rw    = modbusRegisterAddress.fanState.rw;
-        modbusRegisterAddress.lightState.rw     = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_LAMP, REG_RO).toInt());
-        modbusRegisterAddress.lightIntensity.rw = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_LAMP_DIMM, REG_RO).toInt());
-        modbusRegisterAddress.socketState.rw    = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_SOCKET, REG_RO).toInt());
-        modbusRegisterAddress.gasState.rw       = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_GAS, REG_RO).toInt());
-        modbusRegisterAddress.uvState.rw        = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_UV, REG_RO).toInt());
+        modbusRegisterAddress.FanState.rw       = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_FAN, REG_RO).toInt());
+        //modbusRegisterAddress.IfaFanState.rw    = modbusRegisterAddress.FanState.rw;
+        //modbusRegisterAddress.DfaFanState.rw    = modbusRegisterAddress.FanState.rw;
+        modbusRegisterAddress.LightState.rw     = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_LAMP, REG_RO).toInt());
+        modbusRegisterAddress.LightIntensity.rw = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_LAMP_DIMM, REG_RO).toInt());
+        modbusRegisterAddress.SocketState.rw    = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_SOCKET, REG_RO).toInt());
+        modbusRegisterAddress.GasState.rw       = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_GAS, REG_RO).toInt());
+        modbusRegisterAddress.UvState.rw        = static_cast<short>(m_settings->value(SKEY_MODBUS_RW_UV, REG_RO).toInt());
 
-        pData->setModbusAllowSetFan(modbusRegisterAddress.fanState.rw);
-        pData->setModbusAllowSetLight(modbusRegisterAddress.lightState.rw);
-        pData->setModbusAllowSetLightIntensity(modbusRegisterAddress.lightIntensity.rw);
-        pData->setModbusAllowSetSocket(modbusRegisterAddress.socketState.rw);
-        pData->setModbusAllowSetGas(modbusRegisterAddress.gasState.rw);
-        pData->setModbusAllowSetUvLight(modbusRegisterAddress.uvState.rw);
+        pData->setModbusAllowSetFan(modbusRegisterAddress.FanState.rw);
+        pData->setModbusAllowSetLight(modbusRegisterAddress.LightState.rw);
+        pData->setModbusAllowSetLightIntensity(modbusRegisterAddress.LightIntensity.rw);
+        pData->setModbusAllowSetSocket(modbusRegisterAddress.SocketState.rw);
+        pData->setModbusAllowSetGas(modbusRegisterAddress.GasState.rw);
+        pData->setModbusAllowSetUvLight(modbusRegisterAddress.UvState.rw);
 
         /// Create main object for modbus
         m_pModbusServer = new QModbusTcpServer(this);
@@ -1456,7 +1464,7 @@ void MachineBackend::setup()
             pData->setSashWindowMotorizeState(static_cast<short>(newVal));
 
             /// MODBUS
-            _setModbusRegHoldingValue(modbusRegisterAddress.sashMotorizeState.addr, static_cast<ushort>(newVal));
+            _setModbusRegHoldingValue(modbusRegisterAddress.SashMotorizeState.addr, static_cast<ushort>(newVal));
         });
 
         connect(m_pSasWindowMotorize.data(), &MotorizeOnRelay::interlockUpChanged,
@@ -1481,7 +1489,7 @@ void MachineBackend::setup()
         pData->setSashWindowState(static_cast<short>(currentState));
 
         /// MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.sashState.addr, static_cast<ushort>(currentState));
+        _setModbusRegHoldingValue(modbusRegisterAddress.SashState.addr, static_cast<ushort>(currentState));
 
         QObject::connect(m_pSashWindow.data(), &SashWindow::mSwitchStateChanged,
                          pData, [&](int index, int newVal){
@@ -1532,7 +1540,7 @@ void MachineBackend::setup()
     //                this, [&](int newVal){
     //            pData->setLightIntensity(static_cast<short>(newVal));
     //            /// MODBUS
-    //            _setModbusRegHoldingValue(modbusRegisterAddress.lightIntensity.addr, static_cast<ushort>(newVal));
+    //            _setModbusRegHoldingValue(modbusRegisterAddress.LightIntensity.addr, static_cast<ushort>(newVal));
     //        });
     //    }//
     //    else
@@ -1567,7 +1575,7 @@ void MachineBackend::setup()
         pData->setLightIntensity(static_cast<short>(newVal));
 
         /// MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.lightIntensity.addr, static_cast<ushort>(newVal));
+        _setModbusRegHoldingValue(modbusRegisterAddress.LightIntensity.addr, static_cast<ushort>(newVal));
     });
     //    }//
 
@@ -1656,13 +1664,13 @@ void MachineBackend::setup()
             pData->setUvLifeMinutes(minutes);
             pData->setUvLifePercent(static_cast<short>(minutesPercentLeft));
             /// MODBUS
-            _setModbusRegHoldingValue(modbusRegisterAddress.uvLifeLeft.addr, static_cast<ushort>(minutesPercentLeft));
-        }
+            _setModbusRegHoldingValue(modbusRegisterAddress.UvLifeLeft.addr, static_cast<ushort>(minutesPercentLeft));
+        }//
 
         /// UV Timer
         {
             int minutes = m_settings->value(SKEY_UV_TIME, 30).toInt(); //30 minutes (as per Yandra)
-            //            minutes = 1;
+            //minutes = 1;
             pData->setUvTime(minutes);
             pData->setUvTimeCountdown(minutes * 60);
         }
@@ -1855,7 +1863,7 @@ void MachineBackend::setup()
         pData->setMeasurementUnit(static_cast<short>(meaUnit));
 
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.meaUnit.addr, static_cast<ushort>(meaUnit));
+        _setModbusRegHoldingValue(modbusRegisterAddress.MeaUnit.addr, static_cast<ushort>(meaUnit));
 
         //        qDebug() << "SKEY_MEASUREMENT_UNIT" << meaUnit;
     }
@@ -1903,7 +1911,7 @@ void MachineBackend::setup()
         pData->setFanClosedLoopGainDerivative(ifaGainD, Inflow);
 
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.fanClosedLoopControl.addr, static_cast<ushort>(enable));
+        _setModbusRegHoldingValue(modbusRegisterAddress.FanClosedLoopControl.addr, static_cast<ushort>(enable));
     }
 
     /// FAN DOWNFLOW DUTY CYCLE AUTO COMPENSATE
@@ -2148,7 +2156,7 @@ void MachineBackend::setup()
 
         //        qDebug() << "SKEY_OPERATION_MODE" << value;
         /// MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.operationMode.addr, static_cast<ushort>(value));
+        _setModbusRegHoldingValue(modbusRegisterAddress.OperationMode.addr, static_cast<ushort>(value));
     }
 
     /// SENSOR TEMPERATURE ENVIRONTMENTAL LIMITATION
@@ -2812,7 +2820,7 @@ void MachineBackend::setup()
         pData->setSashCycleMeter(cycle);
 
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.sashCycle.addr, static_cast<ushort>(cycle/10));
+        _setModbusRegHoldingValue(modbusRegisterAddress.SashCycle.addr, static_cast<ushort>(cycle/10));
     }
 
     /// FAN Primary Usage Meter
@@ -2823,7 +2831,7 @@ void MachineBackend::setup()
         //update to global observable variable
         pData->setFanPrimaryUsageMeter(minutes);
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.dfaFanUsage.addr, static_cast<ushort>(minutes));
+        _setModbusRegHoldingValue(modbusRegisterAddress.DfaFanUsage.addr, static_cast<ushort>(minutes));
     }
     /// FAN Inflow Usage Meter
     {
@@ -2833,7 +2841,7 @@ void MachineBackend::setup()
         //update to global observable variable
         pData->setFanInflowUsageMeter(minutes);
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.ifaFanUsage.addr, static_cast<ushort>(minutes));
+        _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanUsage.addr, static_cast<ushort>(minutes));
     }
 
     /// Mute Audible Alarm
@@ -3266,12 +3274,12 @@ void MachineBackend::setup()
     QObject::connect(pData, &MachineData::sashCycleMeterChanged,
                      this, [&](int cycle){
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.sashCycle.addr, static_cast<ushort>(cycle/10));
+        _setModbusRegHoldingValue(modbusRegisterAddress.SashCycle.addr, static_cast<ushort>(cycle/10));
     });
     QObject::connect(pData, &MachineData::frontPanelAlarmChanged,
                      this, [&](bool alarm){
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.alarmFrontPanel.addr, alarm);
+        _setModbusRegHoldingValue(modbusRegisterAddress.AlarmFrontPanel.addr, alarm);
     });
     QObject::connect(pData, &MachineData::sashMotorDownStuckSwitchChanged,
                      this, [&](bool alarm){
@@ -4606,9 +4614,9 @@ void MachineBackend::setModbusAllowSetFan(bool value)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << value;
 
-    modbusRegisterAddress.fanState.rw = value;
-    //    modbusRegisterAddress.ifaFanState.rw = value;
-    //    modbusRegisterAddress.dfaFanState.rw = value;
+    modbusRegisterAddress.FanState.rw = value;
+    //    modbusRegisterAddress.IfaFanState.rw = value;
+    //    modbusRegisterAddress.DfaFanState.rw = value;
     pData->setModbusAllowSetFan(value);
     QSettings settings;
     settings.setValue(SKEY_MODBUS_RW_FAN, value ? 1 : 0);
@@ -4619,7 +4627,7 @@ void MachineBackend::setModbusAllowSetLight(bool value)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << value;
 
-    modbusRegisterAddress.lightState.rw = value;
+    modbusRegisterAddress.LightState.rw = value;
     pData->setModbusAllowSetLight(value);
     QSettings settings;
     settings.setValue(SKEY_MODBUS_RW_LAMP, value ? 1 : 0);
@@ -4630,7 +4638,7 @@ void MachineBackend::setModbusAllowSetLightIntensity(bool value)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << value;
 
-    modbusRegisterAddress.lightIntensity.rw = value;
+    modbusRegisterAddress.LightIntensity.rw = value;
     pData->setModbusAllowSetLightIntensity(value);
     QSettings settings;
     settings.setValue(SKEY_MODBUS_RW_LAMP_DIMM, value ? 1 : 0);
@@ -4641,7 +4649,7 @@ void MachineBackend::setModbusAllowSetSocket(bool value)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << value;
 
-    modbusRegisterAddress.socketState.rw = value;
+    modbusRegisterAddress.SocketState.rw = value;
     pData->setModbusAllowSetSocket(value);
     QSettings settings;
     settings.setValue(SKEY_MODBUS_RW_SOCKET, value ? 1 : 0);
@@ -4652,7 +4660,7 @@ void MachineBackend::setModbusAllowSetGas(bool value)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << value;
 
-    modbusRegisterAddress.gasState.rw = value;
+    modbusRegisterAddress.GasState.rw = value;
     pData->setModbusAllowSetGas(value);
     QSettings settings;
     settings.setValue(SKEY_MODBUS_RW_GAS, value ? 1 : 0);
@@ -4663,7 +4671,7 @@ void MachineBackend::setModbusAllowSetUvLight(bool value)
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     qDebug() << value;
 
-    modbusRegisterAddress.uvState.rw = value;
+    modbusRegisterAddress.UvState.rw = value;
     pData->setModbusAllowSetUvLight(value);
     QSettings settings;
     settings.setValue(SKEY_MODBUS_RW_UV, value ? 1 : 0);
@@ -4698,7 +4706,7 @@ void MachineBackend::setOperationModeSave(short value)
     }
 
     ///MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.operationMode.addr, static_cast<ushort>(value));
+    _setModbusRegHoldingValue(modbusRegisterAddress.OperationMode.addr, static_cast<ushort>(value));
 }
 
 void MachineBackend::setOperationMaintenanceMode()
@@ -4709,7 +4717,7 @@ void MachineBackend::setOperationMaintenanceMode()
     pData->setOperationMode(MachineEnums::MODE_OPERATION_MAINTENANCE);
 
     ///MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.operationMode.addr, MachineEnums::MODE_OPERATION_MAINTENANCE);
+    _setModbusRegHoldingValue(modbusRegisterAddress.OperationMode.addr, MachineEnums::MODE_OPERATION_MAINTENANCE);
 }
 
 void MachineBackend::setOperationPreviousMode()
@@ -4736,7 +4744,7 @@ void MachineBackend::setOperationPreviousMode()
     }
 
     ///MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.operationMode.addr, static_cast<ushort>(m_operationPrevMode));
+    _setModbusRegHoldingValue(modbusRegisterAddress.OperationMode.addr, static_cast<ushort>(m_operationPrevMode));
 }
 
 void MachineBackend::setSecurityAccessModeSave(short value)
@@ -4755,7 +4763,7 @@ void MachineBackend::setDateCertificationReminder(const QString reminder)
     pData->setDateCertificationReminder(reminder);
 
     QScopedPointer<QSettings> m_settings(new QSettings);
-    m_settings->setValue(SKEY_CALENDER_REMAINDER_MODE,reminder);
+    m_settings->setValue(SKEY_CALENDER_REMINDER_MODE,reminder);
 
     qDebug() << "tanggal" << reminder;
 
@@ -7033,9 +7041,9 @@ void MachineBackend::_onFanPrimaryActualDucyChanged(short value)
     }
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.fanState.addr, static_cast<ushort>(pData->getFanState()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.dfaFanState.addr, static_cast<ushort>(pData->getFanPrimaryState()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.dfaFanDutyCycle.addr, static_cast<ushort>(value));
+    _setModbusRegHoldingValue(modbusRegisterAddress.FanState.addr, static_cast<ushort>(pData->getFanState()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.DfaFanState.addr, static_cast<ushort>(pData->getFanPrimaryState()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.DfaFanDutyCycle.addr, static_cast<ushort>(value));
 }
 
 void MachineBackend::_onFanPrimaryActualRpmChanged(int value)
@@ -7044,7 +7052,7 @@ void MachineBackend::_onFanPrimaryActualRpmChanged(int value)
     pData->setFanPrimaryRpm(value);
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.dfaFanRpm.addr, static_cast<ushort>(value));
+    _setModbusRegHoldingValue(modbusRegisterAddress.DfaFanRpm.addr, static_cast<ushort>(value));
 }
 
 void MachineBackend::_onFanInflowActualDucyChanged(short value)
@@ -7132,9 +7140,9 @@ void MachineBackend::_onFanInflowActualDucyChanged(short value)
     }
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.fanState.addr, static_cast<ushort>(pData->getFanState()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.ifaFanState.addr, static_cast<ushort>(pData->getFanInflowState()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.ifaFanDutyCycle.addr, static_cast<ushort>(value));
+    _setModbusRegHoldingValue(modbusRegisterAddress.FanState.addr, static_cast<ushort>(pData->getFanState()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanState.addr, static_cast<ushort>(pData->getFanInflowState()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanDutyCycle.addr, static_cast<ushort>(value));
 }
 
 void MachineBackend::_onFanInflowActualRpmChanged(int value)
@@ -7142,7 +7150,7 @@ void MachineBackend::_onFanInflowActualRpmChanged(int value)
     pData->setFanInflowRpm(value);
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.ifaFanRpm.addr, static_cast<ushort>(value));
+    _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanRpm.addr, static_cast<ushort>(value));
 }
 
 void MachineBackend::_onSashStateChanged(short state, short prevState)
@@ -7166,7 +7174,7 @@ void MachineBackend::_onSashStateChanged(short state, short prevState)
     }//
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.sashState.addr, static_cast<ushort>(state));
+    _setModbusRegHoldingValue(modbusRegisterAddress.SashState.addr, static_cast<ushort>(state));
 
     /// Event Log
     switch (state) {
@@ -7202,7 +7210,7 @@ void MachineBackend::_onLightStateChanged(short state)
     pData->setLightState(state);
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.lightState.addr, static_cast<ushort>(state));
+    _setModbusRegHoldingValue(modbusRegisterAddress.LightState.addr, static_cast<ushort>(state));
 
     //    /// EVENT LOG
     //    QString event = state ? EVENT_STR_LIGHT_ON : EVENT_STR_LIGHT_OFF;
@@ -7217,7 +7225,7 @@ void MachineBackend::_onSocketStateChanged(short state)
     pData->setSocketState(state);
 
     /// MEDIUM
-    _setModbusRegHoldingValue(modbusRegisterAddress.socketState.addr, static_cast<ushort>(state));
+    _setModbusRegHoldingValue(modbusRegisterAddress.SocketState.addr, static_cast<ushort>(state));
 
     //    /// EVENT LOG
     //    QString event = state ? EVENT_STR_SOCKET_ON : EVENT_STR_SOCKET_OFF;
@@ -7231,7 +7239,7 @@ void MachineBackend::_onGasStateChanged(short state)
     pData->setGasState(state);
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.gasState.addr, static_cast<ushort>(state));
+    _setModbusRegHoldingValue(modbusRegisterAddress.GasState.addr, static_cast<ushort>(state));
 
     //    /// EVENT LOG
     //    QString event = state ? EVENT_STR_GAS_ON : EVENT_STR_GAS_OFF;
@@ -7261,7 +7269,7 @@ void MachineBackend::_onUVStateChanged(short state)
     }
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.uvState.addr, static_cast<ushort>(state));
+    _setModbusRegHoldingValue(modbusRegisterAddress.UvState.addr, static_cast<ushort>(state));
 
     //    /// EVENT LOG
     //    QString event = state ? EVENT_STR_UV_ON : EVENT_STR_UV_OFF;
@@ -7355,7 +7363,7 @@ void MachineBackend::_onTemperatureActualChanged(double value)
     }
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.temperature.addr, static_cast<ushort>(pData->getTemperature()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.Temperature.addr, static_cast<ushort>(pData->getTemperature()));
 
     //    qDebug() << value << pData->getTempAmbientStatus();
 }
@@ -7393,7 +7401,7 @@ void MachineBackend::_onInflowVelocityActualChanged(int value)
         }
         pData->setInflowVelocity(value);
         /// MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.airflowInflow.addr, static_cast<ushort>(value));
+        _setModbusRegHoldingValue(modbusRegisterAddress.AirflowInflow.addr, static_cast<ushort>(value));
     }
 
     //    qDebug() << "Inflow" << pData->getInflowVelocityStr();
@@ -7445,7 +7453,7 @@ void MachineBackend::_onDownflowVelocityActualChanged(int value)
 
         pData->setDownflowVelocity(value);
         /// MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.airflowDownflow.addr, static_cast<ushort>(value));
+        _setModbusRegHoldingValue(modbusRegisterAddress.AirflowDownflow.addr, static_cast<ushort>(value));
     }
     //    qDebug() << "Inflow" << pData->getInflowVelocityStr();
 }
@@ -7472,7 +7480,7 @@ void MachineBackend::_onSeasPressureDiffPaChanged(int value)
     }
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.pressureExhaust.addr, static_cast<ushort>(value));
+    _setModbusRegHoldingValue(modbusRegisterAddress.PressureExhaust.addr, static_cast<ushort>(value));
 }
 
 void MachineBackend::_onParticleCounterPM1_0Changed(int pm1_0)
@@ -7776,7 +7784,7 @@ void MachineBackend::_onTimerEventUVLifeCalculate()
 
         //        qDebug() << __FUNCTION__  << minutes;
         /// MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.uvLifeLeft.addr, static_cast<ushort>(minutesPercentLeft));
+        _setModbusRegHoldingValue(modbusRegisterAddress.UvLifeLeft.addr, static_cast<ushort>(minutesPercentLeft));
     }
 }
 
@@ -7849,7 +7857,7 @@ void MachineBackend::_onTimerEventFanFilterUsageMeterCalculate()
 
         //        qDebug() << __func__ << "getFanPrimaryUsageMeter"  << count;
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.dfaFanUsage.addr, static_cast<ushort>(count));
+        _setModbusRegHoldingValue(modbusRegisterAddress.DfaFanUsage.addr, static_cast<ushort>(count));
 
         count = pData->getFanInflowUsageMeter();
         count = count + 1;
@@ -7859,7 +7867,7 @@ void MachineBackend::_onTimerEventFanFilterUsageMeterCalculate()
 
         //        qDebug() << __func__ << "getFanInflowUsageMeter"  << count;
         ///MODBUS
-        _setModbusRegHoldingValue(modbusRegisterAddress.ifaFanUsage.addr, static_cast<ushort>(count));
+        _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanUsage.addr, static_cast<ushort>(count));
     }
 }
 
@@ -8496,16 +8504,16 @@ void MachineBackend::_modbusCommandHandler(int address, uint16_t value)
     bool revertData = true;
     if(m_signedUserLevel > MachineEnums::USER_LEVEL_GUEST && m_signedUserLevel != MachineEnums::USER_LEVEL_ADMIN){
     switch (address) {
-    case modbusRegisterAddress.fanState.addr:
-        if (modbusRegisterAddress.fanState.rw){
+    case modbusRegisterAddress.FanState.addr:
+        if (modbusRegisterAddress.FanState.rw){
 if(!pData->getFanPrimaryInterlocked() && !pData->getFanInflowInterlocked()){
             setFanState(static_cast<short>(value));
             revertData = false;
         }
 		}
         break;
-    case modbusRegisterAddress.dfaFanState.addr:
-        if (modbusRegisterAddress.dfaFanState.rw){
+    case modbusRegisterAddress.DfaFanState.addr:
+        if (modbusRegisterAddress.DfaFanState.rw){
 		if(!pData->getFanPrimaryInterlocked())
                 {
             setFanPrimaryState(static_cast<short>(value));
@@ -8513,8 +8521,8 @@ if(!pData->getFanPrimaryInterlocked() && !pData->getFanInflowInterlocked()){
 			}
         }
         break;
-    case modbusRegisterAddress.ifaFanState.addr:
-        if (modbusRegisterAddress.ifaFanState.rw){
+    case modbusRegisterAddress.IfaFanState.addr:
+        if (modbusRegisterAddress.IfaFanState.rw){
 if(!pData->getFanInflowInterlocked())
                 {
             setFanInflowState(static_cast<short>(value));
@@ -8522,40 +8530,40 @@ if(!pData->getFanInflowInterlocked())
 			}
         }
         break;
-    case modbusRegisterAddress.lightState.addr:
-        if (modbusRegisterAddress.lightState.rw){
+    case modbusRegisterAddress.LightState.addr:
+        if (modbusRegisterAddress.LightState.rw){
 		if(!pData->getLightInterlocked()){
             setLightState(static_cast<short>(value));
             revertData = false;
         }
 		}
         break;
-    case modbusRegisterAddress.lightIntensity.addr:
-        if (modbusRegisterAddress.lightIntensity.rw){
+    case modbusRegisterAddress.LightIntensity.addr:
+        if (modbusRegisterAddress.LightIntensity.rw){
                 if(!pData->getLightInterlocked()){
                     setLightIntensity(static_cast<short>(value));
                     revertData = false;
                 }//
             }
         break;
-    case modbusRegisterAddress.socketState.addr:
-        if (modbusRegisterAddress.socketState.rw){
+    case modbusRegisterAddress.SocketState.addr:
+        if (modbusRegisterAddress.SocketState.rw){
                 if(!pData->getSocketInterlocked()){
                     setSocketState(static_cast<short>(value));
                     revertData = false;
                 }//
             }
         break;
-    case modbusRegisterAddress.gasState.addr:
-        if (modbusRegisterAddress.gasState.rw){
+    case modbusRegisterAddress.GasState.addr:
+        if (modbusRegisterAddress.GasState.rw){
                 if(!pData->getGasInterlocked()){
                     setGasState(static_cast<short>(value));
                     revertData = false;
                 }//
             }
         break;
-    case modbusRegisterAddress.uvState.addr:
-        if (modbusRegisterAddress.uvState.rw){
+    case modbusRegisterAddress.UvState.addr:
+        if (modbusRegisterAddress.UvState.rw){
                 if(!pData->getUvInterlocked()){
                     setUvState(static_cast<short>(value));
                     revertData = false;
@@ -9188,7 +9196,7 @@ void MachineBackend::setFanPrimaryUsageMeter(int minutes)
 
     //        qDebug() << __func__ << "getFanPrimaryUsageMeter"  << count;
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.dfaFanUsage.addr, static_cast<ushort>(minutes));
+    _setModbusRegHoldingValue(modbusRegisterAddress.DfaFanUsage.addr, static_cast<ushort>(minutes));
 }
 
 void MachineBackend::setFanInflowUsageMeter(int minutes)
@@ -9202,7 +9210,7 @@ void MachineBackend::setFanInflowUsageMeter(int minutes)
 
     //        qDebug() << __func__ << "getFanInflowUsageMeter"  << count;
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.ifaFanUsage.addr, static_cast<ushort>(minutes));
+    _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanUsage.addr, static_cast<ushort>(minutes));
 }
 
 void MachineBackend::setUvUsageMeter(int minutes)
@@ -9222,7 +9230,7 @@ void MachineBackend::setUvUsageMeter(int minutes)
     QSettings settings;
     settings.setValue(SKEY_UV_METER, minutes);
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.uvLifeLeft.addr, static_cast<ushort>(minutesPercentLeft));
+    _setModbusRegHoldingValue(modbusRegisterAddress.UvLifeLeft.addr, static_cast<ushort>(minutesPercentLeft));
 }
 
 void MachineBackend::setFilterUsageMeter(int percent)
@@ -9307,7 +9315,7 @@ void MachineBackend::setSashCycleMeter(int sashCycleMeter)
     QSettings settings;
     settings.setValue(SKEY_SASH_CYCLE_METER, sashCycleMeter);
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.sashCycle.addr, static_cast<ushort>(sashCycleMeter));
+    _setModbusRegHoldingValue(modbusRegisterAddress.SashCycle.addr, static_cast<ushort>(sashCycleMeter));
 }
 
 void MachineBackend::setEnvTempHighestLimit(int envTempHighestLimit)
@@ -9467,7 +9475,7 @@ void MachineBackend::setFanClosedLoopControlEnable(bool value)
     settings.setValue(SKEY_FAN_CLOSE_LOOP_ENABLE, value);
 
     /// MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.fanClosedLoopControl.addr, static_cast<ushort>(value));
+    _setModbusRegHoldingValue(modbusRegisterAddress.FanClosedLoopControl.addr, static_cast<ushort>(value));
 }
 
 void MachineBackend::setFanClosedLoopControlEnablePrevState(bool value)
@@ -10095,8 +10103,7 @@ void MachineBackend::setAllOutputShutdown()
     qprocess.waitForFinished();
     qDebug() << qprocess.readAllStandardOutput();
 #endif
-}
-}
+}//
 
 void MachineBackend::setFrontPanelSwitchInstalled(bool value)
 {
@@ -11433,23 +11440,23 @@ void MachineBackend::_machineState()
     }
 
     /// MODBUS ALARM STATUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmBoardComErr.addr, static_cast<ushort>(pData->getAlarmBoardComError()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmSash.addr, static_cast<ushort>(pData->getAlarmSash()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmInflowLow.addr, static_cast<ushort>(pData->getAlarmInflowLow()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmDownflowLow.addr, static_cast<ushort>(pData->getAlarmDownflowLow()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmDownflowHigh.addr, static_cast<ushort>(pData->getAlarmDownflowHigh()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmTempLow.addr, static_cast<ushort>(pData->getAlarmTempLow()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmTempHigh.addr, static_cast<ushort>(pData->getAlarmTempHigh()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmSashCycleMotorLock.addr, static_cast<ushort>(pData->getSashCycleMotorLockedAlarm()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmStbFanOff.addr, static_cast<ushort>(pData->getAlarmStandbyFanOff()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmFrontPanel.addr, static_cast<ushort>(pData->getFrontPanelAlarm()));
-    _setModbusRegHoldingValue(modbusRegisterAddress.alarmSashDownStucked.addr, static_cast<ushort>(pData->getAlarmSashMotorDownStuck()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.AlarmBoardCom.addr, static_cast<ushort>(pData->getAlarmBoardComError()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.AlarmSash.addr, static_cast<ushort>(pData->getAlarmSash()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.AlarmInflowLow.addr, static_cast<ushort>(pData->getAlarmInflowLow()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.AlarmDownflowLow.addr, static_cast<ushort>(pData->getAlarmDownflowLow()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.AlarmDownflowHigh.addr, static_cast<ushort>(pData->getAlarmDownflowHigh()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.AlarmTempLow.addr, static_cast<ushort>(pData->getAlarmTempLow()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.AlarmTempHigh.addr, static_cast<ushort>(pData->getAlarmTempHigh()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.AlarmSashCycleMotorLocked.addr, static_cast<ushort>(pData->getSashCycleMotorLockedAlarm()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.AlarmStbFanOff.addr, static_cast<ushort>(pData->getAlarmStandbyFanOff()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.AlarmFrontPanel.addr, static_cast<ushort>(pData->getFrontPanelAlarm()));
+    _setModbusRegHoldingValue(modbusRegisterAddress.AlarmSashDownStuck.addr, static_cast<ushort>(pData->getAlarmSashMotorDownStuck()));
 
     if(pData->getSeasInstalled()){
-        _setModbusRegHoldingValue(modbusRegisterAddress.alarmExhaustLow.addr, static_cast<ushort>(pData->getAlarmSeasPressureLow()));
+        _setModbusRegHoldingValue(modbusRegisterAddress.AlarmExhaustLow.addr, static_cast<ushort>(pData->getAlarmSeasPressureLow()));
     }
     if(pData->getSeasFlapInstalled()){
-        _setModbusRegHoldingValue(modbusRegisterAddress.alarmExhaustFlap.addr, static_cast<ushort>(pData->getSeasFlapAlarmPressure()));
+        _setModbusRegHoldingValue(modbusRegisterAddress.AlarmFlapExhaust.addr, static_cast<ushort>(pData->getSeasFlapAlarmPressure()));
     }
 
     //    /// CLEAR FLAG OF SASH STATE FLAG

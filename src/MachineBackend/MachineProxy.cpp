@@ -102,13 +102,13 @@ void MachineProxy::stop()
                               Qt::QueuedConnection);
 }
 
-void MachineProxy::setMachineProfileID(const QString value)
-{
-    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
-        m_machineBackend->setMachineProfileID(value);
-    },
-    Qt::QueuedConnection);
-}
+//void MachineProxy::setMachineProfileID(const QString value)
+//{
+//    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+//        m_machineBackend->setMachineProfileID(value);
+//    },
+//    Qt::QueuedConnection);
+//}
 
 void MachineProxy::setLcdTouched()
 {

@@ -355,7 +355,7 @@
 
 #define SKEY_ELS_ENABLE                 "elsEn"
 
-#define SKEY_CALENDER_REMAINDER_MODE    "crMod"
+#define SKEY_CALENDER_REMINDER_MODE    "crMod"
 
 #define SKEY_WARMUP_TIME                "wuTm"
 

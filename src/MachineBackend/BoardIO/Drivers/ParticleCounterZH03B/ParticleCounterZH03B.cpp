@@ -1,7 +1,7 @@
 #include "ParticleCounterZH03B.h"
 
 //RESPONSE_TIME
-#define ECM_TRANS_RESPONSE_TIME                     1000 //ms
+#define ECM_TRANS_RESPONSE_TIME                     1500 //ms
 #define ECM_TRANS_RESPONSE_TIME_EACH_BUFFER         200 //ms
 
 ParticleCounterZH03B::ParticleCounterZH03B(QObject *parent) : ClassDriver(parent)
@@ -33,6 +33,7 @@ int ParticleCounterZH03B::setCommunicationMode(int mode)
 int ParticleCounterZH03B::setQA()
 {
     qDebug() << metaObject()->className() << __func__;
+    if (!isPortValid()) return -1;
 
     uchar cmd[] = {0xFF, 0x01, 0x78, 0x41, 0x00, 0x00, 0x00, 0x00, 0x46};
 
@@ -53,6 +54,7 @@ int ParticleCounterZH03B::setQA()
 int ParticleCounterZH03B::setStream()
 {
     qDebug() << metaObject()->className() << __func__;
+    if (!isPortValid()) return -1;
 
     uchar cmd[] = {0xFF, 0x01, 0x78, 0x40, 0x00, 0x00, 0x00, 0x00, 0x47};
     serialComm->clear();
@@ -73,6 +75,7 @@ int ParticleCounterZH03B::setStream()
 int ParticleCounterZH03B::setDormantMode(int powerStatus)
 {
     qDebug() << metaObject()->className() << __func__ << powerStatus;
+    if (!isPortValid()) return -1;
 
     serialComm->flush();
 
@@ -176,7 +179,11 @@ int ParticleCounterZH03B::setDormantMode(int powerStatus)
  */
 int ParticleCounterZH03B::getQAReadSample(int *pm1, int *pm2_5, int *pm10)
 {
-    qDebug() << metaObject()->className() << __func__;
+    //qDebug() << metaObject()->className() << __func__;
+    if (!isPortValid()){
+        qDebug() << "port doesnt valid";
+        return -1;
+    }
 
     serialComm->clear();
 
@@ -193,17 +200,17 @@ int ParticleCounterZH03B::getQAReadSample(int *pm1, int *pm2_5, int *pm10)
             for (int i=0; i<9 ; i++) {
                 serialComm->waitForReadyRead(ECM_TRANS_RESPONSE_TIME_EACH_BUFFER);
                 response.push_back(serialComm->read(1));
-                //                    response.push_back(data[i]); // for testing
-                if(!response.isEmpty()) checksum |= (uint)response.back();
+                // response.push_back(data[i]); // for testing
+                // if(!response.isEmpty()) checksum |= (uint)response.back();
             }
 
-            //            qDebug() << metaObject()->className() << __func__ << "response" << response << response.length();
-            //            for (int i=0; i<response.length(); i++) {
-            //                printf("%02X ", static_cast<uchar>(response.at(i)));
-            //                fflush(stdout);
-            //            }
-            //            printf("\n");
-            //            fflush(stdout);
+            //qDebug() << metaObject()->className() << __func__ << "response" << response << response.length();
+            for (int i=0; i<response.length(); i++) {
+                printf("%02X ", static_cast<uchar>(response.at(i)));
+                fflush(stdout);
+            }
+            printf("\n");
+            fflush(stdout);
 
             enum qaResponseLength {COMMON_RESPONSE_BYTE_LENGTH = 9};
             enum frameSeq{starting, command, pm2_5h, pm2_5l, pm10h, pm10l, pm1h, pm1l, check};
@@ -211,14 +218,24 @@ int ParticleCounterZH03B::getQAReadSample(int *pm1, int *pm2_5, int *pm10)
             if(response.length() == COMMON_RESPONSE_BYTE_LENGTH){
                 if(((uchar)response.at(starting) == 0xFF) && ((uchar)response.at(command) == 0x86)){
 
-                    //                    qDebug() << metaObject()->className() << "checksum" << (uint16_t)checksum << (uint)response.back();
+                    //
+                    for (int i=1; i<(response.length()-1); i++) {
+                        checksum += (response.at(i) & 0xff);
+                        //printf("%02X ", static_cast<uchar>(response.at(i)));
+                        //qDebug() << i << ((uint16_t)response.at(i) & 0xff);
+                        //fflush(stdout);
+                    }
 
-                    checksum &= ~(uint)response.back();
-                    checksum &= 0xff;
-                    checksum = ~checksum;
-                    checksum &= 0xff;
+                    //qDebug() << metaObject()->className() << "checksum" << (uint16_t)checksum << (uint)response.back();
 
-                    //                    qDebug() << metaObject()->className() << "checksum" << checksum << (uint)response.back();
+                    //checksum &= ~(uint)response.back();
+                    checksum &= 0xff; //Keep low 8 bits only
+                    checksum = ~checksum; //Negation
+                    checksum += 1; //Plus 1
+                    checksum &= 0xff; //Keep low 8 bits only
+
+                    qDebug() << metaObject()->className() << "checksum" << checksum << (uint)response.back();
+
                     if(checksum == (uint)response.back()){
                         /// Process the data
                         *pm2_5  = (uint)((response[pm2_5h] << 8) | response[pm2_5l]);
@@ -332,4 +349,24 @@ int ParticleCounterZH03B::getReadSample(int *pm1, int *pm2_5, int *pm10)
 bool ParticleCounterZH03B::getFanStateBuffer() const
 {
     return m_dormanModeSleepRunBuffer;
+}
+
+bool ParticleCounterZH03B::openPort()
+{
+    serialComm->close();
+    serialComm->open(QIODevice::ReadWrite);
+    if(!serialComm->isOpen()){
+        return false;
+    }
+    return true;
+}
+
+bool ParticleCounterZH03B::isPortValid() const
+{
+    if (serialComm != nullptr) {
+        if(serialComm->isOpen()) {
+            return true;
+        }
+    }
+    return false;
 }

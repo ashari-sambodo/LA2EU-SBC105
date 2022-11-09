@@ -1554,6 +1554,8 @@ public:
     bool getBoardStatusCtpRtc() const;
     void setBoardStatusCtpRtc(bool boardStatusCtpRtc);
     //
+    bool getBoardStatusParticleCounter() const;
+    void setBoardStatusParticleCounter(bool boardStatusParticleCounter);
     bool getBoardStatusCtpIoe() const;
     void setBoardStatusCtpIoe(bool boardStatusCtpIoe);
     //
@@ -2516,6 +2518,13 @@ signals:
     void installationWizardActiveChanged(short value);
     void cabinetUpTimeChanged(int value);
 
+    ///Resource Monitor
+    //    void resourceMonitorParamsActiveChanged(bool value);
+    void resourceMonitorParamsChanged(QStringList value);
+
+    /// HYBRID ANALOG INPUT MVOLT
+    void haBoardInputCh1MVoltChanged(int value);
+    void haBoardInputCh2MVoltChanged(int value);
 private:
     ///
     QString m_machineProfileID;

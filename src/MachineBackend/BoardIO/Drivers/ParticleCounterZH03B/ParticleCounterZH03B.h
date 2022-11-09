@@ -29,6 +29,10 @@ public:
 
     bool getFanStateBuffer() const;
 
+    bool openPort();
+
+    bool isPortValid() const;
+
 private:
     QSerialPort * serialComm; //forwardPointer
 

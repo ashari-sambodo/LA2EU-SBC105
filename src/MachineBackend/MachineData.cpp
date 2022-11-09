@@ -3257,11 +3257,6 @@ void MachineData::setBoardStatusHybridDigitalInput(bool boardStatusHybridDigital
     emit boardStatusHybridDigitalInputChanged(m_boardStatusHybridDigitalInput);
 }
 
-bool MachineData::getBoardStatusHybridAnalogInput() const
-{
-    return m_boardStatusHybridAnalogInput;
-}
-
 void MachineData::setBoardStatusHybridDigitalRelay(bool boardStatusHybridDigitalRelay)
 {
     if (m_boardStatusHybridDigitalRelay == boardStatusHybridDigitalRelay)

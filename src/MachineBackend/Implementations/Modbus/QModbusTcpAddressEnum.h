@@ -41,12 +41,12 @@ enum Register{
     AlarmDownflowHigh,
     AlarmExhaustLow,
     AlarmFlapExhaust,
-    AlarmCom,
+    AlarmBoardCom,
     AlarmTempLow,
     AlarmTempHigh,
     AlarmSashCycleMotorLocked,
     AlarmStbFanOff,
-    AlarmPanel,
+    AlarmFrontPanel,
     AlarmSashDownStuck,
     ///
     Total
