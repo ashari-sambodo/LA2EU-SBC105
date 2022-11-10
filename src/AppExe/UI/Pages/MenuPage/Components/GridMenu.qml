@@ -75,6 +75,7 @@ GridView{
                         case "Mute Timer":          text = qsTr("Mute Timer"); break
                         case "Fan Scheduler":       text = qsTr("Fan Scheduler"); break
                         case "UV Scheduler":        text = qsTr("UV Scheduler"); break
+                        case "About":               text = qsTr("About"); break
                             /// ADMIN_MENU
                         case "Shut down":           text = qsTr("Shut down"); break
                         case "Users":               text = qsTr("Users"); break
@@ -90,35 +91,38 @@ GridView{
                         case "Remote Modbus":       text = qsTr("Remote Modbus"); break
                         case "Security Level":      text = qsTr("Security Level"); break
                             /// SERVICE_MENU
-                        case "Fan Speed":                   text = qsTr("Fan Speed"); break
-                        case "Measurement Unit":            text = qsTr("Measurement Unit"); break
-                        case "Field Sensor Calibration":    text = qsTr("Field Sensor Calibration"); break
-                        case "Full Sensor Calibration":     text = qsTr("Full Sensor Calibration"); break
-                        case "Built-in SEAS Alarm":         text = qsTr("Built-in SEAS Alarm"); break
-                        case "Certification Reminder":      text = qsTr("Certification Reminder"); break
-                        case "Certification Summary":       text = qsTr("Certification Summary"); break
-                        case "Manual Input Calibration Point": text = qsTr("Manual Input Calibration Point"); break
-                        case "Reset Parameters":            text = qsTr("Reset Parameters"); break
+                        case "Fan Speed":                       text = qsTr("Fan Speed"); break
+                        case "Measurement Unit":                text = qsTr("Measurement Unit"); break
+                        case "Field Sensor Calibration":        text = qsTr("Field Sensor Calibration"); break
+                        case "Full Sensor Calibration":         text = qsTr("Full Sensor Calibration"); break
+                        case "Built-in SEAS Alarm":             text = qsTr("Built-in SEAS Alarm"); break
+                        case "Certification Reminder":          text = qsTr("Certification Reminder"); break
+                        case "Certification Summary":           text = qsTr("Certification Summary"); break
+                        case "Manual Input Calibration":        text = qsTr("Manual Input Calibration"); break
+                        case "Reset Parameters":                text = qsTr("Reset Parameters"); break
                             //// SUB RESET MENU
-                        case "Reset Filter Life Meter":     text = qsTr("Reset Filter Life Meter"); break
-                        case "Reset Fan Usage Meter":       text = qsTr("Reset Fan Usage Meter"); break
-                        case "Reset UV Life Meter":         text = qsTr("Reset UV Life Meter"); break
-                        case "Reset Sash Cycle Meter":      text = qsTr("Reset Sash Cycle Meter"); break
+                        case "Reset Filter Life Meter":         text = qsTr("Reset Filter Life Meter"); break
+                        case "Reset Fan Usage Meter":           text = qsTr("Reset Fan Usage Meter"); break
+                        case "Reset UV Life Meter":             text = qsTr("Reset UV Life Meter"); break
+                        case "Reset Sash Cycle Meter":          text = qsTr("Reset Sash Cycle Meter"); break
                             ///
-                        case "RBM Com Port":                text = qsTr("RBM Com Port"); break
-                        case "Fan Closed Loop Control":     text = qsTr("Fan Closed Loop Control"); break
-                        case "Software Update":             text = qsTr("Software Update"); break
-                        case "Shipping Setup":              text = qsTr("Shipping Setup"); break
+                        case "RBM Com Port":                    text = qsTr("RBM Com Port"); break
+                        case "Fan Closed Loop Control":         text = qsTr("Fan Closed Loop Control"); break
+                        case "System Monitor":                  text = qsTr("System Monitor"); break
+                        case "Software Update":                 text = qsTr("Software Update"); break
+                        case "Shipping Setup":                  text = qsTr("Shipping Setup"); break
+                        case "Replaceable Components Record":   text = qsTr("Replaceable Components Record"); break
+                        case "Preventive Maintenance":          text = qsTr("Preventive Maintenance"); break
                             /// FACTORY_MENU
-                        case "Delay Airflow Alarm":        text = qsTr("Delay Airflow Alarm"); break
-                        case "Sash Motor Off Delay":        text = qsTr("Sash Motor Off Delay"); break
-                        case "Serial Number":               text = qsTr("Serial Number"); break
+                        case "Delay Airflow Alarm":             text = qsTr("Delay Airflow Alarm"); break
+                        case "Sash Motor Off Delay":            text = qsTr("Sash Motor Off Delay"); break
+                        case "Serial Number":                   text = qsTr("Serial Number"); break
                         case "Environmental Temperature Limit": text = qsTr("Environmental Temperature Limit"); break
-                        case "ESCO Lock Service":           text = qsTr("ESCO Lock Service"); break
-                        case "Auxiliary Functions":         text = qsTr("Auxiliary Functions"); break
-                        case "Cabinet Model":               text = qsTr("Cabinet Model"); break
-                        case "RTC Watchdog Test":           text = qsTr("RTC Watchdog Test"); break
-                        case "System Information":          text = qsTr("System Information"); break
+                        case "ESCO Lock Service":               text = qsTr("ESCO Lock Service"); break
+                        case "Auxiliary Functions":             text = qsTr("Auxiliary Functions"); break
+                        case "Cabinet Model":                   text = qsTr("Cabinet Model"); break
+                        case "RTC Watchdog Test":               text = qsTr("RTC Watchdog Test"); break
+                        case "System Information":              text = qsTr("System Information"); break
 
                         default: text = modelData.mtitle; break
                         }//

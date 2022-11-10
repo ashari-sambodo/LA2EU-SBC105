@@ -1646,44 +1646,44 @@ ViewApp {
                                     anchors.margins: 1
                                     spacing: 1
 
-                                    Item {
-                                        Layout.fillHeight: true
-                                        Layout.minimumWidth: height
+                                    //                                    Item {
+                                    //                                        Layout.fillHeight: true
+                                    //                                        Layout.minimumWidth: height
 
-                                        WifiSignalApp {
-                                            anchors.fill: parent
-                                            dissconnect: !NetworkService.connected
-                                            strength: 100 // dummy Value signal strength
+                                    //                                        WifiSignalApp {
+                                    //                                            anchors.fill: parent
+                                    //                                            dissconnect: !NetworkService.connected
+                                    //                                            strength: 100 // dummy Value signal strength
 
-                                            MouseArea {
-                                                anchors.fill: parent
-                                                onClicked: {
-                                                    if (!UserSessionService.loggedIn) {
-                                                        switch(props.securityAccessLevel) {
-                                                        case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
-                                                            const intent = IntentApp.create("qrc:/UI/Pages/NetworkConfigPage/NetworkConfigPage.qml", {})
-                                                            startView(intent)
-                                                            break;
-                                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
-                                                            UserSessionService.askedForLogin()
-                                                            break;
-                                                        }
-                                                    }
-                                                    else {
-                                                        const intent = IntentApp.create("qrc:/UI/Pages/NetworkConfigPage/NetworkConfigPage.qml", {})
-                                                        startView(intent)
-                                                    }//
-                                                }
-                                            }
-                                        }
-                                    }
+                                    //                                            MouseArea {
+                                    //                                                anchors.fill: parent
+                                    //                                                onClicked: {
+                                    //                                                    if (!UserSessionService.loggedIn) {
+                                    //                                                        switch(props.securityAccessLevel) {
+                                    //                                                        case MachineAPI.MODE_SECURITY_ACCESS_LOW:
+                                    //                                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                    //                                                            const intent = IntentApp.create("qrc:/UI/Pages/NetworkConfigPage/NetworkConfigPage.qml", {})
+                                    //                                                            startView(intent)
+                                    //                                                            break;
+                                    //                                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                    //                                                            UserSessionService.askedForLogin()
+                                    //                                                            break;
+                                    //                                                        }
+                                    //                                                    }
+                                    //                                                    else {
+                                    //                                                        const intent = IntentApp.create("qrc:/UI/Pages/NetworkConfigPage/NetworkConfigPage.qml", {})
+                                    //                                                        startView(intent)
+                                    //                                                    }//
+                                    //                                                }
+                                    //                                            }
+                                    //                                        }
+                                    //                                    }
 
-                                    Rectangle {
-                                        Layout.minimumHeight: parent.height * 0.7
-                                        Layout.minimumWidth: 1
-                                        color: "gray"
-                                    }///
+                                    //                                    Rectangle {
+                                    //                                        Layout.minimumHeight: parent.height * 0.7
+                                    //                                        Layout.minimumWidth: 1
+                                    //                                        color: "gray"
+                                    //                                    }///
 
                                     //USB Icon
                                     Item {

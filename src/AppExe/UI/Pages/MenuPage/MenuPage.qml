@@ -360,7 +360,10 @@ ViewApp {
                                              "uvInstalled": props.uvInstalled,
                                              "sashWindowMotorizeInstalled": props.sashWindowMotorizeInstalled,
                                              "seasInstalled": props.seasInstalled,
-                                             "dualRbmEnable": MachineData.getDualRbmMode()
+                                             "particleCounterInstalled": MachineData.particleCounterSensorInstalled,
+                                             "dualRbmEnable": MachineData.getDualRbmMode(),
+                                             "fieldCalibrated": MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD,
+                                             "sensorConstant": MachineData.getInflowSensorConstant()
                                          })
                 }
             }

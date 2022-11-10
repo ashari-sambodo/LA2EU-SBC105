@@ -38,7 +38,6 @@ private:
         SASH_WORK,
         SASH_FULLY_OPENED
     };
-    Q_ENUMS(EnumItemSashState)
 
     enum EnumMotorSashState{
         MOTOR_SASH_STATE_OFF,
@@ -46,7 +45,6 @@ private:
         MOTOR_SASH_STATE_DOWN,
         MOTOR_SASH_STATE_UP_DOWN
     };
-    Q_ENUMS(EnumMotorSashState)
 
     void _setSashMotorizedState(short value);
 

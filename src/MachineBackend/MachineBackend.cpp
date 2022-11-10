@@ -9870,7 +9870,7 @@ void MachineBackend::initWiredConnectionStaticIP()
 
     QString eth0ConName = m_settings->value(SKEY_ETH_CON_NAME + QString("0"), "ESCO_BSC").toString();
     QString eth0Ipv4Address = m_settings->value(SKEY_ETH_CON_IPv4 + QString("0"), "192.168.2.10").toString();
-    bool eth0ConEnabled = m_settings->value(SKEY_ETH_CON_ENABLE + QString("0"), false).toBool();
+    bool eth0ConEnabled = m_settings->value(SKEY_ETH_CON_ENABLE + QString("0"), true).toBool();
     //    QString gateway = QString("%1.%2.%3.1").arg(eth0Ipv4Address.split(".").at(0)).arg(eth0Ipv4Address.split(".").at(1)).arg(eth0Ipv4Address.split(".").at(2));
     //        qWarning() << "gateway:" << gateway;
 

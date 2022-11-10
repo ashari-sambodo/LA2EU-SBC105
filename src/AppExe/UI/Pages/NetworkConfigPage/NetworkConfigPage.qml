@@ -54,283 +54,283 @@ ViewApp {
                 StackView {
                     id: fragmentStackView
                     anchors.fill: parent
-                    initialItem: wlanNetworkConfig/*configureComponent*/
+                    initialItem: wiredNetworkConfigComp/*configureComponent*/
                 }//
-                Item{
-                    id: wlanNetworkConfig
-                    RowLayout {
-                        anchors.fill: parent
+                //                Item{
+                //                    id: wlanNetworkConfig
+                //                    RowLayout {
+                //                        anchors.fill: parent
 
-                        Item {
-                            id: leftItem
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
+                //                        Item {
+                //                            id: leftItem
+                //                            Layout.fillHeight: true
+                //                            Layout.fillWidth: true
 
 
-                            ColumnLayout {
-                                anchors.fill: parent
+                //                            ColumnLayout {
+                //                                anchors.fill: parent
 
-                                Item {
-                                    Layout.fillHeight: true
-                                    Layout.fillWidth: true
+                //                                Item {
+                //                                    Layout.fillHeight: true
+                //                                    Layout.fillWidth: true
 
-                                    Column {
-                                        anchors.centerIn: parent
+                //                                    Column {
+                //                                        anchors.centerIn: parent
 
-                                        Column{
-                                            visible: NetworkService.connected || NetworkService.connecting
-                                            spacing: 10
+                //                                        Column{
+                //                                            visible: NetworkService.connected || NetworkService.connecting
+                //                                            spacing: 10
 
-                                            TextApp{
-                                                id: labelText
-                                                text: qsTr("Connected to") + ":"
+                //                                            TextApp{
+                //                                                id: labelText
+                //                                                text: qsTr("Connected to") + ":"
 
-                                                states: [
-                                                    State {
-                                                        when: NetworkService.connecting
-                                                        PropertyChanges {
-                                                            target: labelText
-                                                            text: qsTr("Connecting to") + ":"
-                                                        }
-                                                    }
-                                                ]
-                                            }
+                //                                                states: [
+                //                                                    State {
+                //                                                        when: NetworkService.connecting
+                //                                                        PropertyChanges {
+                //                                                            target: labelText
+                //                                                            text: qsTr("Connecting to") + ":"
+                //                                                        }
+                //                                                    }
+                //                                                ]
+                //                                            }
 
-                                            Column {
-                                                spacing: 2
+                //                                            Column {
+                //                                                spacing: 2
 
-                                                TextApp {
-                                                    id: currentStatusText
-                                                    font.pixelSize: 36
-                                                    wrapMode: Text.WordWrap
-                                                    fontSizeMode: Text.Fit
-                                                    text: qsTr("None")
+                //                                                TextApp {
+                //                                                    id: currentStatusText
+                //                                                    font.pixelSize: 36
+                //                                                    wrapMode: Text.WordWrap
+                //                                                    fontSizeMode: Text.Fit
+                //                                                    text: qsTr("None")
 
-                                                    width: Math.min(controlMaxWidthText.width, leftItem.width)
+                //                                                    width: Math.min(controlMaxWidthText.width, leftItem.width)
 
-                                                    Text {
-                                                        visible: false
-                                                        id: controlMaxWidthText
-                                                        text: currentStatusText.text
-                                                        font.pixelSize: 36
-                                                    }//
+                //                                                    Text {
+                //                                                        visible: false
+                //                                                        id: controlMaxWidthText
+                //                                                        text: currentStatusText.text
+                //                                                        font.pixelSize: 36
+                //                                                    }//
 
-                                                    states: [
-                                                        State {
-                                                            when: NetworkService.connecting
-                                                            PropertyChanges {
-                                                                target: currentStatusText
-                                                                text: props.wifiSelectedAccessPoint
-                                                            }
-                                                        }
-                                                        ,
-                                                        State {
-                                                            when: NetworkService.connected
-                                                            PropertyChanges {
-                                                                target: currentStatusText
-                                                                text: NetworkService.connName
-                                                            }
-                                                        }
-                                                        ,
-                                                        State {
-                                                            when: !NetworkService.connected
-                                                            PropertyChanges {
-                                                                target: currentStatusText
-                                                                text: qsTr("None")
-                                                            }
-                                                        }
-                                                    ]
-                                                }//
+                //                                                    states: [
+                //                                                        State {
+                //                                                            when: NetworkService.connecting
+                //                                                            PropertyChanges {
+                //                                                                target: currentStatusText
+                //                                                                text: props.wifiSelectedAccessPoint
+                //                                                            }
+                //                                                        }
+                //                                                        ,
+                //                                                        State {
+                //                                                            when: NetworkService.connected
+                //                                                            PropertyChanges {
+                //                                                                target: currentStatusText
+                //                                                                text: NetworkService.connName
+                //                                                            }
+                //                                                        }
+                //                                                        ,
+                //                                                        State {
+                //                                                            when: !NetworkService.connected
+                //                                                            PropertyChanges {
+                //                                                                target: currentStatusText
+                //                                                                text: qsTr("None")
+                //                                                            }
+                //                                                        }
+                //                                                    ]
+                //                                                }//
 
-                                                TextApp {
-                                                    id: ipText
-                                                    text: ""
+                //                                                TextApp {
+                //                                                    id: ipText
+                //                                                    text: ""
 
-                                                    states: [
-                                                        State {
-                                                            when: NetworkService.connected
-                                                            PropertyChanges {
-                                                                target: ipText
-                                                                text: NetworkService.ipv4
-                                                            }
-                                                        }
-                                                    ]
-                                                }//
+                //                                                    states: [
+                //                                                        State {
+                //                                                            when: NetworkService.connected
+                //                                                            PropertyChanges {
+                //                                                                target: ipText
+                //                                                                text: NetworkService.ipv4
+                //                                                            }
+                //                                                        }
+                //                                                    ]
+                //                                                }//
 
-                                                TextApp {
-                                                    id: forgetText
-                                                    color: "gray"
-                                                    visible: NetworkService.connected
-                                                    text: qsTr("forget")
+                //                                                TextApp {
+                //                                                    id: forgetText
+                //                                                    color: "gray"
+                //                                                    visible: NetworkService.connected
+                //                                                    text: qsTr("forget")
 
-                                                    MouseArea {
-                                                        anchors.fill: parent
-                                                        onClicked: {
-                                                            //                                            NetworkService.forgetConnection(NetworkService.connName)
-                                                            props.forgetConnection(NetworkService.connName)
-                                                        }
-                                                    }//
-                                                }//
-                                            }//
+                //                                                    MouseArea {
+                //                                                        anchors.fill: parent
+                //                                                        onClicked: {
+                //                                                            //                                            NetworkService.forgetConnection(NetworkService.connName)
+                //                                                            props.forgetConnection(NetworkService.connName)
+                //                                                        }
+                //                                                    }//
+                //                                                }//
+                //                                            }//
 
-                                            TextApp{
-                                                id: macText
-                                                visible: NetworkService.connected
-                                                text: "MAC: %1".arg(NetworkService.wlanMacAddress)
-                                            }
-                                        }//
-                                        Image {
-                                            source: "qrc:/UI/Pictures/wifi-no-medium.png"
-                                            visible: !NetworkService.connected && !NetworkService.connecting
-                                        }
-                                    }
-                                }
-                            }//
-                        }//
+                //                                            TextApp{
+                //                                                id: macText
+                //                                                visible: NetworkService.connected
+                //                                                text: "MAC: %1".arg(NetworkService.wlanMacAddress)
+                //                                            }
+                //                                        }//
+                //                                        Image {
+                //                                            source: "qrc:/UI/Pictures/wifi-no-medium.png"
+                //                                            visible: !NetworkService.connected && !NetworkService.connecting
+                //                                        }
+                //                                    }
+                //                                }
+                //                            }//
+                //                        }//
 
-                        Rectangle{
-                            Layout.fillHeight: true
-                            Layout.minimumWidth: 1
-                            color:"#e3dac9"
-                        }
+                //                        Rectangle{
+                //                            Layout.fillHeight: true
+                //                            Layout.minimumWidth: 1
+                //                            color:"#e3dac9"
+                //                        }
 
-                        Item {
-                            Layout.fillHeight: true
-                            Layout.fillWidth: true
+                //                        Item {
+                //                            Layout.fillHeight: true
+                //                            Layout.fillWidth: true
 
-                            ColumnLayout {
-                                anchors.fill: parent
+                //                            ColumnLayout {
+                //                                anchors.fill: parent
 
-                                Rectangle{
-                                    Layout.minimumHeight: 50
-                                    Layout.fillWidth: true
-                                    color: "#1F95D7"
-                                    radius: 2
+                //                                Rectangle{
+                //                                    Layout.minimumHeight: 50
+                //                                    Layout.fillWidth: true
+                //                                    color: "#1F95D7"
+                //                                    radius: 2
 
-                                    TextApp {
-                                        anchors.fill: parent
-                                        anchors.margins: 2
-                                        verticalAlignment: Text.AlignVCenter
-                                        horizontalAlignment: Text.AlignHCenter
-                                        text: qsTr("Available Access Point")
-                                    }
-                                }
+                //                                    TextApp {
+                //                                        anchors.fill: parent
+                //                                        anchors.margins: 2
+                //                                        verticalAlignment: Text.AlignVCenter
+                //                                        horizontalAlignment: Text.AlignHCenter
+                //                                        text: qsTr("Available Access Point")
+                //                                    }
+                //                                }
 
-                                Item {
-                                    Layout.fillWidth: true
-                                    Layout.fillHeight: true
+                //                                Item {
+                //                                    Layout.fillWidth: true
+                //                                    Layout.fillHeight: true
 
-                                    ListView {
-                                        id: itemListView
-                                        anchors.fill: parent
-                                        model: NetworkService.accessPointAvailable
-                                        enabled: !NetworkService.connecting && !NetworkService.scanning && !NetworkService.forgettingConn
-                                        //                                    model: 5
-                                        spacing: 2
-                                        clip: true
+                //                                    ListView {
+                //                                        id: itemListView
+                //                                        anchors.fill: parent
+                //                                        model: NetworkService.accessPointAvailable
+                //                                        enabled: !NetworkService.connecting && !NetworkService.scanning && !NetworkService.forgettingConn
+                //                                        //                                    model: 5
+                //                                        spacing: 2
+                //                                        clip: true
 
-                                        delegate: Item{
-                                            id: listItem
+                //                                        delegate: Item{
+                //                                            id: listItem
 
-                                            width: itemListView.width
-                                            height: 50
+                //                                            width: itemListView.width
+                //                                            height: 50
 
-                                            Rectangle {anchors.fill: parent; color: "#0F2952"}
+                //                                            Rectangle {anchors.fill: parent; color: "#0F2952"}
 
-                                            MouseArea {
-                                                anchors.fill: parent
-                                                onClicked: {
-                                                    props.wifiSelectedAccessPoint = modelData.name
+                //                                            MouseArea {
+                //                                                anchors.fill: parent
+                //                                                onClicked: {
+                //                                                    props.wifiSelectedAccessPoint = modelData.name
 
-                                                    if (modelData.exist === "NEW"){
-                                                        if(modelData.security.length){
-                                                            KeyboardOnScreenCaller.openKeyboard(passwdBufferText, qsTr("Password"))
-                                                        }
-                                                        else {
-                                                            NetworkService.connectToNewAccessPoint(props.wifiSelectedAccessPoint)
-                                                        }
-                                                    }
-                                                    else{
-                                                        NetworkService.connectTo(props.wifiSelectedAccessPoint)
-                                                    }
-                                                }//
-                                            }//
+                //                                                    if (modelData.exist === "NEW"){
+                //                                                        if(modelData.security.length){
+                //                                                            KeyboardOnScreenCaller.openKeyboard(passwdBufferText, qsTr("Password"))
+                //                                                        }
+                //                                                        else {
+                //                                                            NetworkService.connectToNewAccessPoint(props.wifiSelectedAccessPoint)
+                //                                                        }
+                //                                                    }
+                //                                                    else{
+                //                                                        NetworkService.connectTo(props.wifiSelectedAccessPoint)
+                //                                                    }
+                //                                                }//
+                //                                            }//
 
-                                            RowLayout {
-                                                anchors.fill: parent
+                //                                            RowLayout {
+                //                                                anchors.fill: parent
 
-                                                WifiSignalApp {
-                                                    Layout.fillHeight: true
-                                                    Layout.minimumWidth: height
-                                                    security: modelData.security.length
-                                                    strength: modelData.signal
-                                                }//
+                //                                                WifiSignalApp {
+                //                                                    Layout.fillHeight: true
+                //                                                    Layout.minimumWidth: height
+                //                                                    security: modelData.security.length
+                //                                                    strength: modelData.signal
+                //                                                }//
 
-                                                Item {
-                                                    Layout.fillHeight: true
-                                                    Layout.fillWidth: true
+                //                                                Item {
+                //                                                    Layout.fillHeight: true
+                //                                                    Layout.fillWidth: true
 
-                                                    TextApp {
-                                                        anchors.fill: parent
-                                                        verticalAlignment: Text.AlignVCenter
-                                                        text: modelData.name
-                                                    }//
-                                                }//
+                //                                                    TextApp {
+                //                                                        anchors.fill: parent
+                //                                                        verticalAlignment: Text.AlignVCenter
+                //                                                        text: modelData.name
+                //                                                    }//
+                //                                                }//
 
-                                                TextApp {
-                                                    visible: modelData.exist === "EXIST"
-                                                    Layout.fillHeight: true
-                                                    Layout.minimumWidth: height
-                                                    text: "X"
-                                                    color: "gray"
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    verticalAlignment: Text.AlignVCenter
+                //                                                TextApp {
+                //                                                    visible: modelData.exist === "EXIST"
+                //                                                    Layout.fillHeight: true
+                //                                                    Layout.minimumWidth: height
+                //                                                    text: "X"
+                //                                                    color: "gray"
+                //                                                    horizontalAlignment: Text.AlignHCenter
+                //                                                    verticalAlignment: Text.AlignVCenter
 
-                                                    MouseArea {
-                                                        anchors.fill: parent
-                                                        onClicked: {
-                                                            props.forgetConnection(modelData.name)
-                                                        }//
-                                                    }//
-                                                }//
-                                            }//
-                                        }//
-                                    }//
+                //                                                    MouseArea {
+                //                                                        anchors.fill: parent
+                //                                                        onClicked: {
+                //                                                            props.forgetConnection(modelData.name)
+                //                                                        }//
+                //                                                    }//
+                //                                                }//
+                //                                            }//
+                //                                        }//
+                //                                    }//
 
-                                    Rectangle {
-                                        visible: NetworkService.scanning
-                                        anchors.fill: parent
-                                        color: "#AA000000"
-                                        radius: 2
+                //                                    Rectangle {
+                //                                        visible: NetworkService.scanning
+                //                                        anchors.fill: parent
+                //                                        color: "#AA000000"
+                //                                        radius: 2
 
-                                        TextApp {
-                                            anchors.centerIn: parent
-                                            text: qsTr("Scanning...")
-                                        }//
+                //                                        TextApp {
+                //                                            anchors.centerIn: parent
+                //                                            text: qsTr("Scanning...")
+                //                                        }//
 
-                                        MouseArea {
-                                            anchors.fill: parent
-                                        }
-                                    }//
-                                }//
-                            }//
-                        }//
-                    }//
+                //                                        MouseArea {
+                //                                            anchors.fill: parent
+                //                                        }
+                //                                    }//
+                //                                }//
+                //                            }//
+                //                        }//
+                //                    }//
 
-                    TextInput {
-                        id: passwdBufferText
-                        echoMode: TextInput.Password
-                        maximumLength: 20
-                        visible: false
+                //                    TextInput {
+                //                        id: passwdBufferText
+                //                        echoMode: TextInput.Password
+                //                        maximumLength: 20
+                //                        visible: false
 
-                        onAccepted: {
-                            //                        console.log(text)
-                            /// wifi standard password is minimum 8 characters
-                            if(text.length < 8) return
-                            NetworkService.connectToNewAccessPoint(props.wifiSelectedAccessPoint, text)
-                        }
-                    }
-                }//
+                //                        onAccepted: {
+                //                            //                        console.log(text)
+                //                            /// wifi standard password is minimum 8 characters
+                //                            if(text.length < 8) return
+                //                            NetworkService.connectToNewAccessPoint(props.wifiSelectedAccessPoint, text)
+                //                        }
+                //                    }
+                //                }//
                 Component{
                     id: wiredNetworkConfigComp
                     Item{
@@ -492,6 +492,7 @@ ViewApp {
                                     }//
                                 }//
                                 Column{
+                                    anchors.horizontalCenter: parent.horizontalCenter
                                     TextApp {
                                         property string ipv4eth: NetworkService.ipv4Eth
 
@@ -549,19 +550,19 @@ ViewApp {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.right: parent.right
                             spacing: 5
-                            ButtonBarApp {
-                                id: ethButton
-                                width: 194
-                                imageSource: fragmentStackView.depth === 1 ? "qrc:/UI/Pictures/wired-conn.png" : "qrc:/UI/Pictures/local-wifi-update.png"
-                                text: fragmentStackView.depth === 1 ? qsTr("Wired Conn") : qsTr("Wireless Conn")
+                            //                            ButtonBarApp {
+                            //                                id: ethButton
+                            //                                width: 194
+                            //                                imageSource: fragmentStackView.depth === 1 ? "qrc:/UI/Pictures/wired-conn.png" : "qrc:/UI/Pictures/local-wifi-update.png"
+                            //                                text: fragmentStackView.depth === 1 ? qsTr("Wired Conn") : qsTr("Wireless Conn")
 
-                                onClicked: {
-                                    if(fragmentStackView.depth === 1)
-                                        fragmentStackView.push(wiredNetworkConfigComp)
-                                    else
-                                        fragmentStackView.pop()
-                                }//
-                            }//
+                            //                                onClicked: {
+                            //                                    if(fragmentStackView.depth === 1)
+                            //                                        fragmentStackView.push(wiredNetworkConfigComp)
+                            //                                    else
+                            //                                        fragmentStackView.pop()
+                            //                                }//
+                            //                            }//
                             ButtonBarApp {
                                 id: setButton1
                                 width: 194
@@ -604,20 +605,20 @@ ViewApp {
                                     })//
                                 }//
                             }//
-                            ButtonBarApp {
-                                id: scanButton
-                                width: 194
-                                visible: fragmentStackView.depth === 1
-                                enabled: !NetworkService.scanning && !NetworkService.connecting
+                            //                            ButtonBarApp {
+                            //                                id: scanButton
+                            //                                width: 194
+                            //                                visible: fragmentStackView.depth === 1
+                            //                                enabled: !NetworkService.scanning && !NetworkService.connecting
 
-                                imageSource: "qrc:/UI/Pictures/local-wifi-update.png"
-                                text: qsTr("Scan")
+                            //                                imageSource: "qrc:/UI/Pictures/local-wifi-update.png"
+                            //                                text: qsTr("Scan")
 
-                                onClicked: {
-                                    NetworkService.readStatus()
-                                    NetworkService.scanAccessPoint()
-                                }//
-                            }//
+                            //                                onClicked: {
+                            //                                    NetworkService.readStatus()
+                            //                                    NetworkService.scanAccessPoint()
+                            //                                }//
+                            //                            }//
                             ButtonBarApp {
                                 id: setButton
                                 width: 194
@@ -666,12 +667,12 @@ ViewApp {
                 ethParamHasChanged = value
             }
 
-            function forgetConnection(connName){
-                showDialogAsk(qsTr("Network"), qsTr("Forget the connection?"), dialogAlert,
-                              function onAccepted(){
-                                  NetworkService.forgetConnection(connName)
-                              })
-            }
+            //            function forgetConnection(connName){
+            //                showDialogAsk(qsTr("Network"), qsTr("Forget the connection?"), dialogAlert,
+            //                              function onAccepted(){
+            //                                  NetworkService.forgetConnection(connName)
+            //                              })
+            //            }
         }//
 
         /// One time executed after onResume
@@ -686,9 +687,9 @@ ViewApp {
             Component.onCompleted: {
                 //                    //console.debug("StackView.Active");
                 NetworkService.readStatus()
-                NetworkService.scanAccessPoint()
+                //                NetworkService.scanAccessPoint()
 
-                NetworkService.readWlanMacAddress()
+                //                NetworkService.readWlanMacAddress()
                 NetworkService.readEth0MacAddress()
 
 
