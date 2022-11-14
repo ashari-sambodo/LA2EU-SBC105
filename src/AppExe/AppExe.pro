@@ -43,7 +43,7 @@ FULL_VERSION = $$VERSION"."$$BUILD
 ## - Fan decimal
 ## - Calendar page
 ## - Datalog export file naming
-## -
+## - 
 
 DEFINES += APP_NAME=\\\"$${NAME}\\\"
 DEFINES += APP_VERSION=\\\"$${VERSION}\\\"
