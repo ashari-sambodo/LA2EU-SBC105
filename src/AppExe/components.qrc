@@ -139,5 +139,10 @@
         <file>UI/CusCom/BiosafetyCabinet3D/pictures_sdglass/BSC3Dstatuswarning.png</file>
         <file>UI/CusCom/BusyIndicatorApp/esco_loading_100x100.gif</file>
         <file>UI/CusCom/BusyIndicatorApp/esco_loading_150x150.gif</file>
+        <file>UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml</file>
+        <file>UI/CusCom/MaintenanceChecklistApp.qml</file>
+        <file>UI/CusCom/TextBoxApp.qml</file>
+        <file>UI/CusCom/ReplaceablePartsDatabase/ReplaceablePartsDatabase.qml</file>
+        <file>UI/CusCom/ReplaceablePartsDatabaseApp.qml</file>
     </qresource>
 </RCC>
