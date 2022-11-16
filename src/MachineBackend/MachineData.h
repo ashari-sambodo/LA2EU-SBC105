@@ -2548,7 +2548,7 @@ private:
     // CONTROL STATES
 
     ///SASH-Magnetic Switch
-    bool  m_magSwitchState[6] = {false, false, false, false, false, false};
+    bool  m_magSwitchState[6] = {false};
     ///SASH
     short m_sashWindowState = 0;
     short m_sashWindowStateSample[5] = {0};
@@ -2620,10 +2620,10 @@ private:
     short   m_ifaConstant = 0;
     short   m_ifaTemperatureCalib = 0;
     short   m_ifaTemperatureCalibAdc = 0;
-    int     m_ifaAdcPointFactory[3] = {0,0,0};
-    int     m_ifaVelocityPointFactory[3] = {0,0,0};
-    int     m_ifaAdcPointField[3] = {0,0,0};
-    int     m_ifaVelocityPointField[3] = {0,0,0};
+    int     m_ifaAdcPointFactory[MachineEnums::POINT_TOTAL] = {0};
+    int     m_ifaVelocityPointFactory[MachineEnums::POINT_TOTAL] = {0};
+    int     m_ifaAdcPointField[MachineEnums::POINT_TOTAL] = {0};
+    int     m_ifaVelocityPointField[MachineEnums::POINT_TOTAL] = {0};
     //
     //AIRFLOW DOWNFLOW
     int     m_dfaVelocity = 0;
@@ -2636,10 +2636,10 @@ private:
     short   m_dfaConstant = 0;
     short   m_dfaTemperatureCalib = 0;
     short   m_dfaTemperatureCalibAdc = 0;
-    int     m_dfaAdcPointFactory[4] = {0,0,0,0};
-    int     m_dfaVelocityPointFactory[4] = {0,0,0,0};
-    int     m_dfaAdcPointField[4] = {0,0,0,0};
-    int     m_dfaVelocityPointField[4] = {0,0,0,0};
+    int     m_dfaAdcPointFactory[MachineEnums::POINT_TOTAL] = {0};
+    int     m_dfaVelocityPointFactory[MachineEnums::POINT_TOTAL] = {0};
+    int     m_dfaAdcPointField[MachineEnums::POINT_TOTAL] = {0};
+    int     m_dfaVelocityPointField[MachineEnums::POINT_TOTAL] = {0};
 
     //AIRFLOW CALIBRATION STATUS
     short m_inflowCalibrationStatus;

@@ -93,7 +93,7 @@ ViewApp {
 
                                             TextApp {
                                                 font.pixelSize: 14
-                                                text: qsTr("Press here to adjust")
+                                                text: qsTr("Tap here to adjust")
                                             }
 
                                             Item {
@@ -201,7 +201,7 @@ ViewApp {
 
                                                 viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                      function onTriggered(cycle){
-                                                                         if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
+                                                                         if(cycle === MachineAPI.BUSY_CYCLE_2){ viewApp.dialogObject.close() }
                                                                      })
                                             }//
                                         }
@@ -555,7 +555,7 @@ ViewApp {
                                             TextApp {
                                                 Layout.fillWidth: true
                                                 font.pixelSize: 14
-                                                text: qsTr("Press here to adjust")
+                                                text: qsTr("Tap here to adjust")
                                             }
 
                                             Item {
@@ -657,7 +657,7 @@ ViewApp {
 
                                                 viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                      function onTriggered(cycle){
-                                                                         if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
+                                                                         if(cycle === MachineAPI.BUSY_CYCLE_2){ viewApp.dialogObject.close() }
                                                                      })
                                             }//
                                         }
@@ -939,11 +939,6 @@ ViewApp {
                                 }//
                             }//
                         }//
-
-                        UtilsApp {
-                            id: utilsApp
-                        }//
-
                         Component.onCompleted: {
                             setButton.visible = false
                         }//
@@ -1244,6 +1239,10 @@ ViewApp {
             }//
         }//
 
+        UtilsApp {
+            id: utilsApp
+        }//
+
         QtObject {
             id: props
 
@@ -1387,7 +1386,7 @@ ViewApp {
 
                     viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                          function onTriggered(cycle){
-                                             if(cycle === MachineAPI.BUSY_CYCLE_3){
+                                             if(cycle === MachineAPI.BUSY_CYCLE_2){
                                                  // close this pop up dialog
                                                  viewApp.dialogObject.close()
                                              }

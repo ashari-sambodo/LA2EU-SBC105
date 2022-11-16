@@ -295,20 +295,37 @@ ViewApp {
                                                     }//
                                                 }//
                                             }
+                                            //                                            Column {
+                                            //                                                spacing: 5
+
+                                            //                                                TextApp {
+                                            //                                                    text: qsTr("ADC DF0")
+                                            //                                                }//
+
+                                            //                                                TextFieldApp {
+                                            //                                                    id: dfaAdcZeroTextField
+                                            //                                                    width: 110
+                                            //                                                    height: 40
+
+                                            //                                                    onPressed: {
+                                            //                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC DF0"))
+                                            //                                                    }//
+                                            //                                                }//
+                                            //                                            }//
                                             Column {
                                                 spacing: 5
 
                                                 TextApp {
-                                                    text: qsTr("ADC DF0")
+                                                    text: qsTr("ADC DF1")
                                                 }//
 
                                                 TextFieldApp {
-                                                    id: dfaAdcZeroTextField
+                                                    id: dfaAdcMinTextField
                                                     width: 110
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC DF0"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC DF1"))
                                                     }//
                                                 }//
                                             }//
@@ -518,20 +535,37 @@ ViewApp {
                                                     }//
                                                 }//
                                             }//
+                                            //                                            Column {
+                                            //                                                spacing: 5
+
+                                            //                                                TextApp {
+                                            //                                                    text: qsTr("ADC IF0")
+                                            //                                                }//
+
+                                            //                                                TextFieldApp {
+                                            //                                                    id: ifaAdcZeroTextField
+                                            //                                                    width: 110
+                                            //                                                    height: 40
+
+                                            //                                                    onPressed: {
+                                            //                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC IF0"))
+                                            //                                                    }//
+                                            //                                                }//
+                                            //                                            }//
                                             Column {
                                                 spacing: 5
 
                                                 TextApp {
-                                                    text: qsTr("ADC IF0")
+                                                    text: qsTr("ADC IF1")
                                                 }//
 
                                                 TextFieldApp {
-                                                    id: ifaAdcZeroTextField
+                                                    id: ifaAdcMinTextField
                                                     width: 110
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC IF0"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("ADC IF1"))
                                                     }//
                                                 }//
                                             }//
@@ -663,14 +697,14 @@ ViewApp {
                                 let dfaConstant     = Number(dfaSensorConstantTextField.text)
                                 let ifaConstant     = Number(ifaSensorConstantTextField.text)
 
-                                let dfaAdcZero      = Number(dfaAdcZeroTextField.text)
+                                //                                let dfaAdcZero      = Number(dfaAdcZeroTextField.text)
                                 let dfaAdcNom       = Number(dfaAdcNomTextField.text)
-                                //let dfaAdcMin     = Number(adcIfaMinTextField.text)
-                                let ifaAdcZero      = Number(ifaAdcZeroTextField.text)
+                                let dfaAdcMin     = Number(dfaAdcMinTextField.text)
+                                //                                let ifaAdcZero      = Number(ifaAdcZeroTextField.text)
                                 let ifaAdcNom       = Number(ifaAdcNomTextField.text)
-                                //let ifaAdcMin     = Number(adcIfaMinTextField.text)
+                                let ifaAdcMin     = Number(ifaAdcMinTextField.text)
 
-                                if (!((dfaAdcNom > (dfaAdcZero + 80)) && (ifaAdcNom > (ifaAdcZero + 80)))){
+                                if (!((dfaAdcMin >= (80)) && (ifaAdcNom >= (dfaAdcMin + 80)))){
                                     showDialogMessage(qsTr("Attention!"),
                                                       qsTr("ADC value is not valid!"),
                                                       dialogAlert)
@@ -713,9 +747,9 @@ ViewApp {
 
                                 console.debug("dfaConstant: "    + dfaConstant)
                                 console.debug("ifaConstant: "    + ifaConstant)
-                                console.debug("dfaAdcZero: "     + dfaAdcZero)
+                                //                                console.debug("dfaAdcZero: "     + dfaAdcZero)
                                 console.debug("dfaAdcNom: "      + dfaAdcNom)
-                                console.debug("ifaAdcZero: "     + ifaAdcZero)
+                                //                                console.debug("ifaAdcZero: "     + ifaAdcZero)
                                 console.debug("ifaAdcNom: "      + ifaAdcNom)
                                 console.debug("dfaVelLowAlarm: " + dfaVelLowAlarm)
                                 console.debug("dfaVelHighAlarm: "+ dfaVelHighAlarm)
@@ -734,20 +768,20 @@ ViewApp {
                                 console.debug("ifaFanStandby: "  + ifaFanStandby)
 
                                 /// clear field calibration
-                                MachineAPI.setInflowAdcPointField       (0, 0, 0)
-                                MachineAPI.setInflowVelocityPointField  (0, 0, 0)
+                                MachineAPI.setInflowAdcPointField       (0, 0, 0, 0)
+                                MachineAPI.setInflowVelocityPointField  (0, 0, 0, 0)
                                 MachineAPI.setDownflowAdcPointField     (0, 0, 0, 0)
                                 MachineAPI.setDownflowVelocityPointField(0, 0, 0, 0)
 
                                 /// set factory/full calibration
                                 MachineAPI.setInflowSensorConstant      (ifaConstant)
-                                MachineAPI.setInflowAdcPointFactory     (ifaAdcZero, 0, ifaAdcNom)
+                                MachineAPI.setInflowAdcPointFactory     (0, ifaAdcMin, ifaAdcNom, 0)
                                 MachineAPI.setInflowVelocityPointFactory(0, ifaVelLowAlarm, ifaVelNom)
                                 MachineAPI.setInflowLowLimitVelocity    (ifaVelLowAlarm)
                                 MachineAPI.setInflowTemperatureCalib    (calibTemp, calibTempAdc)
 
                                 MachineAPI.setDownflowSensorConstant    (dfaConstant)
-                                MachineAPI.setDownflowAdcPointFactory   (dfaAdcZero, 0, dfaAdcNom, 0)
+                                MachineAPI.setDownflowAdcPointFactory   (0, dfaAdcMin, dfaAdcNom, 0)
                                 MachineAPI.setDownflowVelocityPointFactory(0, dfaVelLowAlarm, dfaVelNom, dfaVelHighAlarm)
                                 MachineAPI.setDownflowLowLimitVelocity  (dfaVelLowAlarm)
                                 MachineAPI.setDownflowHighLimitVelocity (dfaVelHighAlarm)
@@ -787,7 +821,7 @@ ViewApp {
         }//
 
         UtilsApp{
-        id: utilsAPp
+            id: utilsAPp
         }
 
         //// Put all private property inside here
@@ -840,12 +874,12 @@ ViewApp {
                 dfaSensorConstantTextField.text = MachineData.getDownflowSensorConstant()
                 ifaSensorConstantTextField.text = MachineData.getInflowSensorConstant()
 
-                dfaAdcZeroTextField.text     = MachineData.getDownflowAdcPointFactory(0)
-                //adcIfaMinTextField.text      = MachineData.getInflowAdcPointFactory(1)
+                //                dfaAdcZeroTextField.text     = MachineData.getDownflowAdcPointFactory(0)
+                dfaAdcMinTextField.text      = MachineData.getDownflowAdcPointFactory(1)
                 dfaAdcNomTextField.text      = MachineData.getDownflowAdcPointFactory(2)
 
-                ifaAdcZeroTextField.text     = MachineData.getInflowAdcPointFactory(0)
-                //adcIfaMinTextField.text      = MachineData.getInflowAdcPointFactory(1)
+                //                ifaAdcZeroTextField.text     = MachineData.getInflowAdcPointFactory(0)
+                ifaAdcMinTextField.text      = MachineData.getInflowAdcPointFactory(1)
                 ifaAdcNomTextField.text      = MachineData.getInflowAdcPointFactory(2)
 
                 let fixedPoint = 2

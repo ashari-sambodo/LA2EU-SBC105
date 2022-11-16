@@ -10,7 +10,7 @@ import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
-    title: "Full Calibrate Sensor"
+    title: "Full Sensor Calibration"
 
     background.sourceComponent: Item {}
 
@@ -34,7 +34,7 @@ ViewApp {
                 HeaderApp {
                     id: headerApp
                     anchors.fill: parent
-                    title: qsTr("Full Calibrate Sensor")
+                    title: qsTr("Full Sensor Calibration")
                 }//
             }//
 
@@ -119,10 +119,9 @@ ViewApp {
                                 Layout.fillWidth: true
                                 ListView {
                                     id: menuItemView
-                                    anchors.fill: parent
-                                    //                            height: 250
-                                    //                            width: parent.width
-                                    //                            anchors.verticalCenter: parent.verticalCenter
+                                    anchors.centerIn: parent
+                                    width: count < 4 ? (count * (parent.width / 4)) : parent.width
+                                    height: parent.height
                                     clip: true
                                     snapMode: ListView.SnapToItem
                                     flickableDirection: Flickable.AutoFlickIfNeeded
@@ -401,10 +400,14 @@ ViewApp {
                                                   {
                                                       'pid': pid,
                                                       "measureUnit": props.measurementUnit,
-                                                      "sensorAdcZero": props.sensorAdcZero,
-                                                      "sensorVelMinimum": props.sensorVelMinimum / 100,
-                                                      "sensorVelLowAlarm": props.sensorVelLowAlarm / 100,
-                                                      'fanDutyCycle': props.fanDutyCycleMinimum
+                                                      "ifaSensorAdcZero": props.ifaSensorAdcZero,
+                                                      "ifaSensorVelMinimum": props.ifaSensorVelMinimum / 100,
+                                                      "ifaSensorVelLowAlarm": props.ifaSensorVelLowAlarm / 100,
+                                                      'ifaFanDutyCycle': props.ifaFanDutyCycleMinimum,
+                                                      "dfaSensorAdcZero": props.dfaSensorAdcZero,
+                                                      "dfaSensorVelMinimum": props.dfaSensorVelMinimum / 100,
+                                                      'dfaFanDutyCycle': props.dfaFanDutyCycleMinimum,
+                                                      'dfaSensorVelLowAlarm': props.dfaSensorVelLowAlarm
                                                   })
                     startView(intent)
                 }
@@ -533,7 +536,7 @@ ViewApp {
             property var menuModelCabinet: [
                 {
                     mtype      : "menu",
-                    mtitle     : qsTr("Measure Inflow Nominal"),
+                    mtitle     : qsTr("Nominal Inflow Measurement"),
                     micon      : "qrc:/UI/Pictures/menu/ifa_dim_nom_measure.png",
                     mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml",
                     badge      : 0,
@@ -542,7 +545,7 @@ ViewApp {
                 },
                 {
                     mtype      : "menu",
-                    mtitle     : qsTr("Measure Inflow Minimum"),
+                    mtitle     : qsTr("Minimum Inflow Measurement"),
                     micon      : "qrc:/UI/Pictures/menu/ifa_dim_min_measure.png",
                     mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml",
                     badge      : 0,
@@ -551,7 +554,7 @@ ViewApp {
                 },
                 {
                     mtype         : "menu",
-                    mtitle     : qsTr("Measure Inflow Standby"),
+                    mtitle     : qsTr("Standby Inflow Measurement"),
                     micon      : "qrc:/UI/Pictures/menu/ifa_dim_stb_measure.png",
                     mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml",
                     badge      : 0,
@@ -560,7 +563,7 @@ ViewApp {
                 },
                 {
                     mtype         : "menu",
-                    mtitle     : qsTr("Measure Downflow Nominal"),
+                    mtitle     : qsTr("Nominal Downflow Measurement"),
                     micon      : "qrc:/UI/Pictures/menu/dfa_nom_measure.png",
                     mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
                     badge      : 0,
@@ -569,7 +572,7 @@ ViewApp {
                 },
                 {
                     mtype         : "menu",
-                    mtitle     : qsTr("Measure Downflow Minimum"),
+                    mtitle     : qsTr("Minimum Downflow Measurement"),
                     micon      : "qrc:/UI/Pictures/menu/dfa_min_measure.png",
                     mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
                     badge      : 0,
@@ -578,7 +581,7 @@ ViewApp {
                 },
                 {
                     mtype         : "menu",
-                    mtitle     : qsTr("Measure Downflow Maximum"),
+                    mtitle     : qsTr("Maximum Downflow Measurement"),
                     micon      : "qrc:/UI/Pictures/menu/dfa_max_measure.png",
                     mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
                     badge      : 0,
@@ -605,24 +608,24 @@ ViewApp {
                     badgeText  : qsTr("Done"),
                     pid        : "senconst",
                 },
-                {
-                    mtype      : "menu",
-                    mtitle     : qsTr("ADC Zero"),
-                    micon      : "qrc:/UI/Pictures/menu/Zero-Sensor.png",
-                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml",
-                    badge      : 0,
-                    badgeText  : qsTr("Done"),
-                    pid        : "adcz",
-                },
                 //                {
                 //                    mtype      : "menu",
-                //                    mtitle     : qsTr("ADC Minimum (IF1)"),
-                //                    micon      : "qrc:/UI/Pictures/menu/Calibrate-Sensor.png",
-                //                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml",
+                //                    mtitle     : qsTr("ADC Zero"),
+                //                    micon      : "qrc:/UI/Pictures/menu/Zero-Sensor.png",
+                //                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml",
                 //                    badge      : 0,
                 //                    badgeText  : qsTr("Done"),
-                //                    pid        : "adcm",
+                //                    pid        : "adcz",
                 //                },
+                {
+                    mtype      : "menu",
+                    mtitle     : qsTr("ADC Minimum"),
+                    micon      : "qrc:/UI/Pictures/menu/Calibrate-Sensor.png",
+                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml",
+                    badge      : 0,
+                    badgeText  : qsTr("Done"),
+                    pid        : "adcm",
+                },
                 {
                     mtype      : "menu",
                     mtitle     : qsTr("ADC Nominal"),
@@ -860,11 +863,11 @@ ViewApp {
 
                 ///// INFLOW
                 /// clear field calibration
-                MachineAPI.setInflowAdcPointField       (0, 0, 0)
-                MachineAPI.setInflowVelocityPointField  (0, 0, 0)
+                MachineAPI.setInflowAdcPointField       (0, 0, 0, 0)
+                MachineAPI.setInflowVelocityPointField  (0, 0, 0, 0)
                 /// save new full calibration data
-                MachineAPI.setInflowAdcPointFactory         (props.ifaSensorAdcZero, props.ifaSensorAdcMinimum, props.ifaSensorAdcNominal)
-                MachineAPI.setInflowVelocityPointFactory    (0, props.ifaSensorVelMinimum, props.ifaSensorVelNominal)
+                MachineAPI.setInflowAdcPointFactory         (props.ifaSensorAdcZero, props.ifaSensorAdcMinimum, props.ifaSensorAdcNominal, 0)
+                MachineAPI.setInflowVelocityPointFactory    (0, props.ifaSensorVelMinimum, props.ifaSensorVelNominal, 0)
                 /// save alarm point
                 MachineAPI.setInflowLowLimitVelocity    (props.ifaSensorVelLowAlarm);
                 MachineAPI.setInflowTemperatureCalib    (props.temperatureCalib, props.temperatureAdcCalib)
@@ -969,12 +972,12 @@ ViewApp {
                 ///EVENT LOG
                 const message = qsTr("User: Full calibration sensor")
                               + "("
-                              + "ADC-DFZ: " + props.dfaSensorAdcZero + ", "
+                //                              + "ADC-DFZ: " + props.dfaSensorAdcZero + ", "
                               + "VEL-DF1: " + (props.dfaSensorVelMinimum / 100).toFixed(props.decimalPoint) + ", "
                               + "ADC-DF2: " + props.dfaSensorAdcNominal + ", "
                               + "VEL-DF2: " + (props.dfaSensorVelNominal / 100).toFixed(props.decimalPoint) + ", "
                               + "VEL-DF3: " + (props.dfaSensorVelMaximum / 100).toFixed(props.decimalPoint) + ", "
-                              + "ADC-IFZ: " + props.ifaSensorAdcZero + ", "
+                //                              + "ADC-IFZ: " + props.ifaSensorAdcZero + ", "
                               + "VEL-IF1: " + (props.ifaSensorVelMinimum / 100).toFixed(props.decimalPoint) + ", "
                               + "ADC-IF2: " + props.ifaSensorAdcNominal + ", "
                               + "VEL-IF2: " + (props.ifaSensorVelNominal / 100).toFixed(props.decimalPoint)
@@ -1338,49 +1341,58 @@ ViewApp {
                         console.debug("calibNewSensorConst:", props.calibNewSensorConst, props.dfaSensorConstant, props.ifaSensorConstant)
                     }//
 
-                    else if (extradata['pid'] === 'adcz'){
-                        props.dfaSensorAdcZero = extradata['dfaSensorAdcZero'] || 0
-                        props.ifaSensorAdcZero = extradata['ifaSensorAdcZero'] || 0
+                    //                    else if (extradata['pid'] === 'adcz'){
+                    //                        props.dfaSensorAdcZero = extradata['dfaSensorAdcZero'] || 0
+                    //                        props.ifaSensorAdcZero = extradata['ifaSensorAdcZero'] || 0
 
-                        if(props.calibNewAdcMin) {
-                            props.calibNewAdcMin = false
-                            /// set bagde value to main model
-                            props.menuModelMicroADC[props.lastSelectedMenuIndex+1]['badge'] = 0
-                        }//
+                    //                        if(props.calibNewAdcMin) {
+                    //                            props.calibNewAdcMin = false
+                    //                            /// set bagde value to main model
+                    //                            props.menuModelMicroADC[props.lastSelectedMenuIndex+1]['badge'] = 0
+                    //                        }//
 
-                        if(props.calibNewAdcNom) {
-                            props.calibNewAdcNom = false
-                            /// set bagde value to main model
-                            props.menuModelMicroADC[props.lastSelectedMenuIndex+2]['badge'] = 0
-                        }//
+                    //                        if(props.calibNewAdcNom) {
+                    //                            props.calibNewAdcNom = false
+                    //                            /// set bagde value to main model
+                    //                            props.menuModelMicroADC[props.lastSelectedMenuIndex+2]['badge'] = 0
+                    //                        }//
 
-                        let done  = props.menuModelMicroADC[props.lastSelectedMenuIndex]['badge']
-                        if (!done){
-                            /// set bagde value to main model
-                            props.menuModelMicroADC[props.lastSelectedMenuIndex]['badge'] = 1
-                            /// update to current menu
-                            menuStackView.currentItem.model = props.menuModelMicroADC
-                        }
+                    //                        let done  = props.menuModelMicroADC[props.lastSelectedMenuIndex]['badge']
+                    //                        if (!done){
+                    //                            /// set bagde value to main model
+                    //                            props.menuModelMicroADC[props.lastSelectedMenuIndex]['badge'] = 1
+                    //                            /// update to current menu
+                    //                            menuStackView.currentItem.model = props.menuModelMicroADC
+                    //                        }
 
-                        props.calibNewAdcZero = true
-                        console.debug("calibNewAdcZero:", props.calibNewAdcZero, props.dfaSensorAdcZero, props.ifaSensorAdcZero)
-                    }//
+                    //                        props.calibNewAdcZero = true
+                    //                        console.debug("calibNewAdcZero:", props.calibNewAdcZero, props.dfaSensorAdcZero, props.ifaSensorAdcZero)
+                    //                    }//
 
                     else if (extradata['pid'] === 'adcm'){
 
-                        props.sensorAdcMinimum = extradata['sensorAdcMinimum'] || 0
+                        props.ifaSensorAdcMinimum = extradata['ifaSensorAdcMinimum'] || 0
 
-                        let velocity = extradata['sensorVelMinimum']
+                        let velocity = extradata['ifaSensorVelMinimum']
                         if(props.measurementUnit) velocity = Math.round(velocity)
-                        props.sensorVelMinimum = Math.round(velocity * 100)
+                        props.ifaSensorVelMinimum = Math.round(velocity * 100)
 
-                        let velocityLowAlarm = extradata['sensorVelLowAlarm'] || 0
+                        velocity = extradata['dfaSensorVelMinimum']
+                        if(props.measurementUnit) velocity = Math.round(velocity)
+                        props.dfaSensorVelMinimum = Math.round(velocity * 100)
+
+                        let velocityLowAlarm = extradata['ifaSensorVelLowAlarm'] || 0
                         if(props.measurementUnit) velocityLowAlarm = Math.round(velocityLowAlarm)
-                        props.sensorVelLowAlarm = Math.round(velocityLowAlarm * 100)
-                        //                            console.debug("velocityLowAlarm: " + velocityLowAlarm)
+                        props.ifaSensorVelLowAlarm = Math.round(velocityLowAlarm * 100)
 
-                        props.fanDutyCycleMinimum = extradata['fanDutyCycleResult']
-                        props.fanRpmMinimum       = extradata['fanRpmResult']
+                        velocityLowAlarm = extradata['dfaSensorVelLowAlarm'] || 0
+                        if(props.measurementUnit) velocityLowAlarm = Math.round(velocityLowAlarm)
+                        props.dfaSensorVelLowAlarm = Math.round(velocityLowAlarm * 100)
+
+                        props.ifaFanDutyCycleMinimum = extradata['ifaFanDutyCycleResult']
+                        props.ifaFanRpmMinimum       = extradata['ifaFanRpmResult']
+                        props.dfaFanDutyCycleMinimum = extradata['dfaFanDutyCycleResult']
+                        props.dfaFanRpmMinimum       = extradata['dfaFanRpmResult']
 
                         if(props.calibNewAdcNom) {
                             props.calibNewAdcNom = false

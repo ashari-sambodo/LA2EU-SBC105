@@ -370,7 +370,7 @@ ViewApp {
 
             property var menuModel: [
                 {mtype         : "submenu",
-                    mtitle     : "1) " + qsTr("Measure Inflow"),
+                    mtitle     : "1) " + qsTr("Inflow Measurement"),
                     micon      : "qrc:/UI/Pictures/menu/ifa_dimsec_measure.png",
                     badge      : 0,
                     badgeText  : qsTr("Done"),
@@ -397,7 +397,7 @@ ViewApp {
                     ]
                 },
                 {mtype         : "menu",
-                    mtitle     : "2) " + qsTr("Measure Downflow"),
+                    mtitle     : "2) " + qsTr("Downflow Measurement"),
                     micon      : "qrc:/UI/Pictures/menu/dfa_measure.png",
                     mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
                     badge      : 0,

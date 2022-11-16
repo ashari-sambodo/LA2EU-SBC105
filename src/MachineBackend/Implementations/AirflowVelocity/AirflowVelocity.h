@@ -23,7 +23,7 @@ public:
     void setVelocityPoint(int point, double value);
     void setConstant(int value);
     void initScope();
-    void setScopeCount(unsigned char scopeCount);
+    //    void setScopeCount(unsigned char scopeCount);
     void setMeasurementUnit(uchar value);
 
     void emitVelocityChanged();
@@ -65,6 +65,15 @@ signals:
     void workerFinished();
 
 private:
+
+    enum PointCalib{
+        Pt_Zero,
+        Pt_Minimum,
+        Pt_Nominal,
+        Pt_Maximum,
+        Pt_Total
+    };
+
     AIManage * pAI;
     int m_channel;
 
@@ -79,10 +88,10 @@ private:
     bool m_sensorConstantChanged = false;
     bool m_scopeChanged = false;
     uchar m_meaUnit = 0;
-    unsigned char m_scopeCount = AIRFLOWNANAGER_MAX_ADC_POINT;
+    //    unsigned char m_scopeCount = Pt_Total;
 
-    int m_adcPoint[AIRFLOWNANAGER_MAX_ADC_POINT] = { 0 };  /// fill all element to zero
-    double m_velocityPoint[AIRFLOWNANAGER_MAX_ADC_POINT] = { 0 }; /// fill all element to zero
+    int m_adcPoint[Pt_Total] = { 0 };  /// fill all element to zero
+    double m_velocityPoint[Pt_Total] = { 0 }; /// fill all element to zero
 
     //scope cache
     //scope 1

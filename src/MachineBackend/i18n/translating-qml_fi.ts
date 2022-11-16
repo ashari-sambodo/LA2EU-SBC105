@@ -4,11 +4,6 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="4"/>
-        <source>System on</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="5"/>
         <source>System stopped</source>
         <translation type="unfinished"></translation>
@@ -29,18 +24,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="4"/>
+        <source>System ON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="11"/>
-        <source>Sash at safe height</source>
+        <source>Sash safe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="12"/>
-        <source>Sash at unsafe height</source>
+        <source>Sash unsafe height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="13"/>
+        <source>Sash fully closed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="14"/>
+        <source>Sash fully opened</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="15"/>
-        <source>Sash at standby</source>
+        <source>Sash standby</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -99,16 +109,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="13"/>
-        <source>Sash fully close</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="14"/>
-        <source>Sash fully open</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="16"/>
         <source>Sash unknown state</source>
         <translation type="unfinished"></translation>
@@ -140,7 +140,7 @@
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="6"/>
-        <source>Alarm Sash | Fail | Fully open</source>
+        <source>Alarm Sash | Fail | Fully opened</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -240,12 +240,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="38"/>
+        <source>Exp Timer Over Alarm | Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="39"/>
+        <source>Exp Timer Over Alarm | Active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="32"/>
         <source>Front Panel Alarm | Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../MachineBackend.cpp" line="172"/>
+        <location filename="../MachineBackend.cpp" line="246"/>
         <source>Software has been updated to</source>
         <translation type="unfinished"></translation>
     </message>

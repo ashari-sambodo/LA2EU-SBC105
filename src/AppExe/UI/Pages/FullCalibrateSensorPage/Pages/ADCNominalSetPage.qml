@@ -98,7 +98,7 @@ ViewApp {
                                                     width: parent.width
                                                     height: parent.height
                                                     font.pixelSize: 14
-                                                    text: qsTr("Press here to adjust")
+                                                    text: qsTr("Tap here to adjust")
                                                     wrapMode: Text.WordWrap
                                                 }
                                             }
@@ -208,7 +208,7 @@ ViewApp {
 
                                                 viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                      function onTriggered(cycle){
-                                                                         if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
+                                                                         if(cycle === MachineAPI.BUSY_CYCLE_2){ viewApp.dialogObject.close() }
                                                                      })
                                             }//
                                         }
@@ -231,7 +231,7 @@ ViewApp {
                                             TextApp {
                                                 width: colLeft.width
                                                 font.pixelSize: 18
-                                                text: qsTr("Set DF Nominal") + ":"
+                                                text: qsTr("Nominal Downflow") + ":"
                                             }//
 
                                             TextApp {
@@ -278,7 +278,7 @@ ViewApp {
                                                     ]//
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow Nominal"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Nominal Downflow"))
                                                     }//
 
                                                     onAccepted: {
@@ -310,93 +310,7 @@ ViewApp {
                                             TextApp {
                                                 width: colLeft.width
                                                 font.pixelSize: 18
-                                                text: qsTr("Set DF Low Alarm") + ":"
-                                            }//
-
-                                            TextApp {
-                                                width: colLeft.width
-                                                font.pixelSize: 18
-                                                text: props.measureUnitStr
-                                            }//
-
-                                            Item {
-                                                Layout.fillWidth: true
-                                                Layout.fillHeight: true
-
-                                                TextField {
-                                                    id: dfaMinText
-                                                    anchors.verticalCenter: parent.verticalCenter
-                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                    width: parent.width - 2
-                                                    font.pixelSize: 24
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    color: "#dddddd"
-                                                    text: props.dfaVelocityMinStrf
-
-                                                    background: Rectangle {
-                                                        height: parent.height
-                                                        width: parent.width
-                                                        color: "#55000000"
-
-                                                        Rectangle {
-                                                            height: 1
-                                                            width: parent.width
-                                                            anchors.bottom: parent.bottom
-                                                        }//
-                                                    }//
-
-                                                    states: [
-                                                        State {
-                                                            when: props.dfaVelocityMin >= props.dfaVelocityNom || props.dfaVelocityMin == 0
-                                                            PropertyChanges {
-                                                                target: dfaMinText
-                                                                color: "red"
-                                                            }
-                                                        }
-                                                    ]//
-
-                                                    onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow Low Alarm"))
-                                                    }//
-
-                                                    onAccepted: {
-                                                        const val = Number(text)
-                                                        if(isNaN(val)) return
-
-                                                        //                                                        //console.debug("val: " + val)
-
-                                                        props.dfaVelocityMin = val
-                                                        props.dfaVelocityMinStrf = text
-                                                    }//
-                                                }//
-                                            }//
-                                        }//
-
-                                        //                                MouseArea {
-                                        //                                    anchors.fill: parent
-                                        //                                    onClicked: {
-                                        //                                        //                                        witBusyPageBlockApp.open()
-                                        //                                    }//
-                                        //                                }//
-                                    }//
-
-                                    Rectangle {
-                                        //                                anchors.verticalCenter: parent.verticalCenter
-                                        width: rightContentItem.width
-                                        height: rightContentItem.height / 4 - 15
-                                        color: "#0F2952"
-                                        border.color: "#dddddd"
-                                        radius: 5
-
-                                        ColumnLayout {
-                                            anchors.fill: parent
-                                            anchors.margins: 3
-                                            spacing: 1
-
-                                            TextApp {
-                                                width: colLeft.width
-                                                font.pixelSize: 18
-                                                text: qsTr("Set DF High Alarm") + ":"
+                                                text: qsTr("High Downflow Alarm") + ":"
                                             }//
 
                                             TextApp {
@@ -440,7 +354,7 @@ ViewApp {
                                                         }
                                                     ]//
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow High Alarm"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("High Downflow Alarm"))
                                                     }//
                                                     onAccepted: {
                                                         const val = Number(text)
@@ -511,7 +425,7 @@ ViewApp {
                                                     width: 200
                                                     height: 50
                                                     wrapMode: Text.WordWrap
-                                                    text: "DF Sensor ADC:"
+                                                    text: qsTr("DF Sensor ADC:")
                                                     padding: 5
                                                 }
                                                 TextApp {
@@ -535,7 +449,7 @@ ViewApp {
                                                     width: 200
                                                     height: 50
                                                     wrapMode: Text.WordWrap
-                                                    text: "IF Sensor ADC:"
+                                                    text: qsTr("IF Sensor ADC:")
                                                     padding: 5
                                                 }
                                                 TextApp {
@@ -602,7 +516,7 @@ ViewApp {
                                                     width: parent.width
                                                     height: parent.height
                                                     font.pixelSize: 14
-                                                    text: qsTr("Press here to adjust")
+                                                    text: qsTr("Tap here to adjust")
                                                     wrapMode: Text.WordWrap
                                                 }
                                             }
@@ -706,7 +620,7 @@ ViewApp {
 
                                                 viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                      function onTriggered(cycle){
-                                                                         if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
+                                                                         if(cycle === MachineAPI.BUSY_CYCLE_2){ viewApp.dialogObject.close() }
                                                                      })
                                             }//
                                         }
@@ -729,7 +643,7 @@ ViewApp {
                                             TextApp {
                                                 width: colRight.width
                                                 font.pixelSize: 18
-                                                text: qsTr("Set IF Nominal") + ":"
+                                                text: qsTr("Nominal Inflow") + ":"
                                             }//
 
                                             TextApp {
@@ -773,7 +687,7 @@ ViewApp {
                                                         }
                                                     ]//
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Inflow Nominal"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Nominal Inflow"))
                                                     }//
 
                                                     onAccepted: {
@@ -788,92 +702,6 @@ ViewApp {
                                             }//
                                         }//
                                     }//
-
-                                    Rectangle {
-                                        //                                anchors.verticalCenter: parent.verticalCenter
-                                        width: rightContentItem2.width
-                                        height: rightContentItem2.height / 4 - 15
-                                        color: "#0F2952"
-                                        border.color: "#dddddd"
-                                        radius: 5
-
-                                        ColumnLayout {
-                                            anchors.fill: parent
-                                            anchors.margins: 3
-                                            spacing: 1
-
-                                            TextApp {
-                                                width: colRight.width
-                                                font.pixelSize: 18
-                                                text: qsTr("Set IF Low Alarm") + ":"
-                                            }//
-
-                                            TextApp {
-                                                width: colRight.width
-                                                font.pixelSize: 18
-                                                text: props.measureUnitStr
-                                            }//
-
-                                            Item {
-                                                Layout.fillWidth: true
-                                                Layout.fillHeight: true
-
-                                                TextField {
-                                                    id: ifaMinText
-                                                    anchors.verticalCenter: parent.verticalCenter
-                                                    anchors.horizontalCenter: parent.horizontalCenter
-                                                    width: parent.width - 2
-                                                    font.pixelSize: 24
-                                                    horizontalAlignment: Text.AlignHCenter
-                                                    color: "#dddddd"
-                                                    text: props.ifaVelocityMinStrf
-
-                                                    background: Rectangle {
-                                                        height: parent.height
-                                                        width: parent.width
-                                                        color: "#55000000"
-
-                                                        Rectangle {
-                                                            height: 1
-                                                            width: parent.width
-                                                            anchors.bottom: parent.bottom
-                                                        }//
-                                                    }//
-                                                    states: [
-                                                        State {
-                                                            when: props.ifaVelocityMin >= props.ifaVelocityNom || props.ifaVelocityMin == 0
-                                                            PropertyChanges {
-                                                                target: ifaMinText
-                                                                color: "red"
-                                                            }
-                                                        }
-                                                    ]//
-                                                    onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Set Downflow Low Alarm"))
-                                                    }//
-
-                                                    onAccepted: {
-                                                        const val = Number(text)
-                                                        if(isNaN(val)) return
-
-                                                        //                                                        //console.debug("val: " + val)
-
-                                                        props.ifaVelocityMin = val
-                                                        props.ifaVelocityMinStrf = text
-                                                    }//
-                                                }//
-                                            }//
-                                        }//
-
-                                        //                                MouseArea {
-                                        //                                    anchors.fill: parent
-                                        //                                    onClicked: {
-                                        //                                        //                                        witBusyPageBlockApp.open()
-                                        //                                    }//
-                                        //                                }//
-                                    }//
-
-
                                 }//
                             }//
                         }//
@@ -938,15 +766,15 @@ ViewApp {
                                             let temperatureCalibAdc = props.temperatureAdcActual
                                             let temperatureCalibStrf = props.temperatureActualStr
 
-                                            //                                            ////demo
-                                            //                                            adc = 2000
-                                            //                                            fanDutyCycle = 50
-                                            //                                            fanRpm = 700
-                                            //                                            velocityValid = true
-                                            //                                            adcNominalValid = true
-                                            //                                            adcMinimumValid = true
-                                            //                                            temperatureCalib = props.measureUnit ? 20 : 67
-                                            //                                            temperatureCalibStrf = props.measureUnit ? "20°C" : "20°F"
+                                            //////demo
+                                            //adc = 2000
+                                            //fanDutyCycle = 50
+                                            //fanRpm = 700
+                                            //velocityValid = true
+                                            //adcNominalValid = true
+                                            //adcMinimumValid = true
+                                            //temperatureCalib = props.measureUnit ? 20 : 67
+                                            //temperatureCalibStrf = props.measureUnit ? "20°C" : "20°F"
 
                                             if (dfaAdcNominalValid && dfaVelocityValid && dfaFanDutyCycle && dfaFanRpm &&
                                                     ifaAdcNominalValid && ifaVelocityValid && ifaFanDutyCycle && (ifaFanRpm || !MachineData.getDualRbmMode())) {
@@ -1099,37 +927,21 @@ ViewApp {
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Downflow low alarm")
+                                                text: qsTr("Nominal Downflow (DF | IF)")
                                                 font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: ":" + props.dfaVelocityMinStrf + " " + props.measureUnitStr
+                                                text: ": (%1 %2 | %3 %2)".arg(props.dfaVelocityNomStrf).arg(props.measureUnitStr).arg(props.ifaVelocityNomStrf)
                                                 font.pixelSize: 18
                                             }
                                         }
-
                                         Rectangle {height: 1; width: parent.width; color: "#cccccc"}
 
                                         Row{
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Downflow nominal")
-                                                font.pixelSize: 18
-                                            }//
-
-                                            TextApp {
-                                                text: ":" + props.dfaVelocityNomStrf + " " + props.measureUnitStr
-                                                font.pixelSize: 18
-                                            }
-                                        }
-
-                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-
-                                        Row{
-                                            TextApp{
-                                                width: 300
-                                                text: qsTr("Downflow high alarm")
+                                                text: qsTr("High Downflow velocity alarm")
                                                 font.pixelSize: 18
                                             }//
 
@@ -1142,161 +954,31 @@ ViewApp {
                                         Rectangle {height: 1; width: parent.width; color: "#cccccc"}
 
                                         Row {
-                                            id: zeroAdcRow
-
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Downflow ADC zero") + " (DF0)"
+                                                text: qsTr("ADC Nominal (DF | IF)")
                                                 font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: ":" + props.dfaSensorAdcZero
+                                                text: ": (%1 | %2)".arg(props.dfaAdcResult).arg(props.ifaAdcResult)
                                                 font.pixelSize: 18
                                             }
                                         }
 
                                         Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-                                        //                                        Row {
-                                        //                                            TextApp{
-                                        //                                                width: 300
-                                        //                                                text: qsTr("ADC minimum") + " (IF1)"
-                                        //                                            }//
-
-                                        //                                            TextApp {
-                                        //                                                text: props.dfaSensorAdcMinimum
-                                        //                                            }
-                                        //                                        }
-
-                                        //                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-                                        Row {
-                                            TextApp{
-                                                width: 300
-                                                text: qsTr("Downflow ADC nominal") + " (DF2)"
-                                                font.pixelSize: 18
-                                            }//
-
-                                            TextApp {
-                                                text: ":" + props.dfaAdcResult
-                                                font.pixelSize: 18
-                                            }
-                                        }
-
-                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-                                        ////////////////////////////
-                                        Row{
-                                            TextApp{
-                                                width: 300
-                                                text: qsTr("Inflow low alarm")
-                                                font.pixelSize: 18
-                                            }//
-
-                                            TextApp {
-                                                text: ":" + props.ifaVelocityMinStrf + " " + props.measureUnitStr
-                                                font.pixelSize: 18
-                                            }
-                                        }
-
-                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-
-                                        Row{
-                                            TextApp{
-                                                width: 300
-                                                text: qsTr("Inflow nominal")
-                                                font.pixelSize: 18
-                                            }//
-
-                                            TextApp {
-                                                text: ":" + props.ifaVelocityNomStrf + " " + props.measureUnitStr
-                                                font.pixelSize: 18
-                                            }
-                                        }
-
-                                        //                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-
-                                        //                                        Row{
-                                        //                                            TextApp{
-                                        //                                                width: 300
-                                        //                                                text: qsTr("Inflow vel. maximum")
-                                        //                                            }//
-
-                                        //                                            TextApp {
-                                        //                                                text: props.ifaVelocityMaxStrf + " " + props.measureUnitStr
-                                        //                                            }
-                                        //                                        }
-
-                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-
-                                        Row {
-                                            id: zeroAdcRowIfa
-
-                                            TextApp{
-                                                width: 300
-                                                text: qsTr("Inflow ADC zero") + " (IF0)"
-                                                font.pixelSize: 18
-                                            }//
-
-                                            TextApp {
-                                                text: ":" + props.ifaSensorAdcZero
-                                                font.pixelSize: 18
-                                            }
-                                        }
-
-                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-                                        //                                        Row {
-                                        //                                            TextApp{
-                                        //                                                width: 300
-                                        //                                                text: qsTr("ADC minimum") + " (IF1)"
-                                        //                                            }//
-
-                                        //                                            TextApp {
-                                        //                                                text: props.dfaSensorAdcMinimum
-                                        //                                            }
-                                        //                                        }
-
-                                        //                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-                                        Row {
-                                            TextApp{
-                                                width: 300
-                                                text: qsTr("Inflow ADC nominal") + " (IF2)"
-                                                font.pixelSize: 18
-                                            }//
-
-                                            TextApp {
-                                                text: ":" + props.ifaAdcResult
-                                                font.pixelSize: 18
-                                            }
-                                        }
-
-                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-                                        ///////////////////////////
 
                                         Row {
                                             id: fanNomCalibRow
 
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Downflow Fan nominal")
+                                                text: qsTr("Nominal Fan Duty cycle (DF | IF)")
                                                 font.pixelSize: 18
                                             }//
 
                                             TextApp {
-                                                text: ":" + props.dfaFanDutyCycleResult + "% / " + props.dfaFanRpmResult + " RPM"
-                                                font.pixelSize: 18
-                                            }//
-                                        }//
-                                        Rectangle {height: 1; width: parent.width; color: "#cccccc"}
-                                        Row {
-                                            id: fanNomCalibRowIfa
-
-                                            TextApp{
-                                                width: 300
-                                                text: qsTr("Inflow Fan nominal")
-                                                font.pixelSize: 18
-                                            }//
-
-                                            TextApp {
-                                                text: ":" + props.ifaFanDutyCycleResult + "%" + props.ifaFanRpmResult + " RPM"
+                                                text: ": (%1% | %2%)".arg(props.dfaFanDutyCycleResult).arg(props.ifaFanDutyCycleResult)
                                                 font.pixelSize: 18
                                             }//
                                         }//
@@ -1582,14 +1264,15 @@ ViewApp {
 
                 /// Automatically adjust the fan duty cycle
                 //                    //console.debug(props.fanDutyCycleActual + " vs " + props.fanDutyCycleInitial)
-                if (props.dfaFanDutyCycleActual != props.dfaFanDutyCycleInitial || props.ifaFanDutyCycleActual != props.ifaFanDutyCycleInitial) {
+                if (props.dfaFanDutyCycleActual != props.dfaFanDutyCycleInitial
+                        || props.ifaFanDutyCycleActual != props.ifaFanDutyCycleInitial) {
 
                     MachineAPI.setFanPrimaryDutyCycle(props.dfaFanDutyCycleInitial);
                     MachineAPI.setFanInflowDutyCycle(props.ifaFanDutyCycleInitial);
 
                     viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                          function onTriggered(cycle){
-                                             if(cycle === MachineAPI.BUSY_CYCLE_3){
+                                             if(cycle === MachineAPI.BUSY_CYCLE_2){
                                                  // close this pop up dialog
                                                  viewApp.dialogObject.close()
                                              }

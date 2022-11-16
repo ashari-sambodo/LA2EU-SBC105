@@ -16,7 +16,7 @@ import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
-    title: "Full Calibrate Sensor"
+    title: "Full Sensor Calibration"
 
     background.sourceComponent: Item {}
 
@@ -39,7 +39,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr("Full Calibrate Sensor")
+                    title: qsTr("Full Sensor Calibration")
                 }//
             }//
 

@@ -23,7 +23,7 @@ import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
-    title: "Field Calibrate Sensor"
+    title: "Field Sensor Calibration"
 
     background.sourceComponent: Item {}
 
@@ -46,7 +46,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr("Field Calibrate Sensor")
+                    title: qsTr("Field Sensor Calibration")
                 }//
             }//
 

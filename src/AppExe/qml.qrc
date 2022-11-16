@@ -150,7 +150,6 @@
         <file>UI/Pages/FanClosedLoopControlPage/FanClosedLoopControlPage.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningHelp.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopTuningParameters.qml</file>
-        <file>UI/Pages/CertificationReportPage/Fragments/InflowGridFieldFragment.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Components/CurveTuningApp.qml</file>
         <file>UI/Pages/FanClosedLoopControlPage/Pages/ClosedLoopResponse.qml</file>
         <file>UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml</file>

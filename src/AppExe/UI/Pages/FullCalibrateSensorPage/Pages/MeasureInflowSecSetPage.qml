@@ -309,7 +309,7 @@ ViewApp {
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
                                                 minimumPixelSize: 10
-                                                text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Downflow"))
+                                                text: qsTr("Tap here to adjust <b>%1</b> fan").arg(qsTr("Downflow"))
                                             }
                                         }
 
@@ -374,7 +374,7 @@ ViewApp {
 
                                             viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                  function onTriggered(cycle){
-                                                                     if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
+                                                                     if(cycle === MachineAPI.BUSY_CYCLE_2){ viewApp.dialogObject.close() }
                                                                  })
                                         }//
                                     }//
@@ -401,7 +401,7 @@ ViewApp {
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
                                                 minimumPixelSize: 10
-                                                text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Inflow"))
+                                                text: qsTr("Tap here to adjust <b>%1</b> fan").arg(qsTr("Inflow"))
                                             }
                                         }
 
@@ -467,7 +467,7 @@ ViewApp {
 
                                             viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                  function onTriggered(cycle){
-                                                                     if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
+                                                                     if(cycle === MachineAPI.BUSY_CYCLE_2){ viewApp.dialogObject.close() }
                                                                  })
                                         }//
                                     }//
@@ -1082,7 +1082,7 @@ ViewApp {
 
                     viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                          function onTriggered(cycle){
-                                             if(cycle === MachineAPI.BUSY_CYCLE_3){
+                                             if(cycle === MachineAPI.BUSY_CYCLE_2){
                                                  // generate grid
                                                  props.initialGrid()
                                                  // close this pop up dialog

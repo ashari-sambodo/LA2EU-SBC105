@@ -710,7 +710,7 @@ The Fan will start at nominal fan duty cycle, and it will be adjusted by loop co
                                             }
 
                                             viewApp.showBusyPage(msg, function onTriggered(cycle){
-                                                if(cycle >= MachineAPI.BUSY_CYCLE_3){
+                                                if(cycle >= MachineAPI.BUSY_CYCLE_2){
                                                     warmupTime.running =  true
                                                     viewApp.dialogObject.close()
                                                     if(isTurnOn)

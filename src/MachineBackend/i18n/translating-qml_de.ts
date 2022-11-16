@@ -4,9 +4,8 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="4"/>
         <source>System on</source>
-        <translation>System an</translation>
+        <translation type="vanished">System an</translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="5"/>
@@ -29,18 +28,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="11"/>
-        <source>Sash at safe height</source>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="4"/>
+        <source>System ON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="12"/>
-        <source>Sash at unsafe height</source>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="13"/>
+        <source>Sash fully closed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="14"/>
+        <source>Sash fully opened</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/EventLog/EventLogText.h" line="15"/>
-        <source>Sash at standby</source>
+        <source>Sash standby</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -107,22 +111,22 @@
         <translation type="vanished">Strom wiederhergestellt! UV wieder einschalten</translation>
     </message>
     <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="11"/>
         <source>Sash safe height</source>
-        <translation type="vanished">Flügelsichere Höhe</translation>
+        <translation>Flügelsichere Höhe</translation>
     </message>
     <message>
+        <location filename="../Implementations/EventLog/EventLogText.h" line="12"/>
         <source>Sash unsafe height</source>
-        <translation type="vanished">Flügel unsichere Höhe</translation>
+        <translation>Flügel unsichere Höhe</translation>
     </message>
     <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="13"/>
         <source>Sash fully close</source>
-        <translation>Scheibenposition geschlossen</translation>
+        <translation type="vanished">Scheibenposition geschlossen</translation>
     </message>
     <message>
-        <location filename="../Implementations/EventLog/EventLogText.h" line="14"/>
         <source>Sash fully open</source>
-        <translation>Flügel ganz geöffnet</translation>
+        <translation type="vanished">Flügel ganz geöffnet</translation>
     </message>
     <message>
         <source>Sash fully standby</source>
@@ -203,9 +207,13 @@
         <translation>Alarmschärpe | Fehler | Unsichere Höhe</translation>
     </message>
     <message>
-        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="6"/>
         <source>Alarm Sash | Fail | Fully open</source>
-        <translation>Alarmschärpe | Fehler | Vollständig offen</translation>
+        <translation type="vanished">Alarmschärpe | Fehler | Vollständig offen</translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="6"/>
+        <source>Alarm Sash | Fail | Fully opened</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="7"/>
@@ -289,6 +297,16 @@
         <translation>Alarm Fenstermotor blockiert | Aktiv</translation>
     </message>
     <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="38"/>
+        <source>Exp Timer Over Alarm | Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../Implementations/AlarmLog/AlarmLogText.h" line="39"/>
+        <source>Exp Timer Over Alarm | Active</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Alarm Fan Standby | Normal</source>
         <translation type="vanished">Alarm Lüfter Standby | Normal</translation>
     </message>
@@ -317,7 +335,7 @@
         <translation>Frontplattenalarm | Normal</translation>
     </message>
     <message>
-        <location filename="../MachineBackend.cpp" line="172"/>
+        <location filename="../MachineBackend.cpp" line="246"/>
         <source>Software has been updated to</source>
         <translation type="unfinished"></translation>
     </message>

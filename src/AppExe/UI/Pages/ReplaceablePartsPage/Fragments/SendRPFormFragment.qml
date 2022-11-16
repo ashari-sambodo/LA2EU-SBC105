@@ -84,7 +84,7 @@ Item {
                                     //console.log(reponseText)
 
                                     let model = JSON.parse(reponseText)
-                                    model.unshift({"id":0, "name": "Press here to select"});
+                                    model.unshift({"id":0, "name": "Tap here to select"});
                                     props.printerDevices = model
 
                                     sectionStackView.replace(printeToServerComponent)

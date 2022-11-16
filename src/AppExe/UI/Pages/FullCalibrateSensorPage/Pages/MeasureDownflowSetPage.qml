@@ -10,7 +10,7 @@ import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
-    title: "Measure Downflow"
+    title: "Downflow Measurement"
 
     background.sourceComponent: Item {}
 
@@ -34,7 +34,7 @@ ViewApp {
                 HeaderApp {
                     id: headerApp
                     anchors.fill: parent
-                    title: qsTr("Measure Downflow")
+                    title: qsTr("Downflow Measurement")
                 }
             }
 
@@ -324,7 +324,7 @@ ViewApp {
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
                                                 minimumPixelSize: 10
-                                                text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Downflow"))
+                                                text: qsTr("Tap here to adjust <b>%1</b> fan").arg(qsTr("Downflow"))
                                             }
                                         }
                                         Item {
@@ -389,7 +389,7 @@ ViewApp {
 
                                             viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                  function onTriggered(cycle){
-                                                                     if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
+                                                                     if(cycle === MachineAPI.BUSY_CYCLE_2){ viewApp.dialogObject.close() }
                                                                  })
                                         }//
                                     }//
@@ -416,7 +416,7 @@ ViewApp {
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
                                                 minimumPixelSize: 10
-                                                text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Inflow"))
+                                                text: qsTr("Tap here to adjust <b>%1</b> fan").arg(qsTr("Inflow"))
                                             }
                                         }
 
@@ -482,7 +482,7 @@ ViewApp {
 
                                             viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                  function onTriggered(cycle){
-                                                                     if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
+                                                                     if(cycle === MachineAPI.BUSY_CYCLE_2){ viewApp.dialogObject.close() }
                                                                  })
                                         }//
                                     }//
@@ -732,7 +732,7 @@ ViewApp {
                                                   + "<br><br>"
                                                   + qsTr("Current values will be lost.")
 
-                                    viewApp.showDialogAsk(qsTr("Measure Downflow"),
+                                    viewApp.showDialogAsk(qsTr("Downflow Measurement"),
                                                           message,
                                                           viewApp.dialogInfo,
                                                           function onAccepted(){
@@ -756,7 +756,7 @@ ViewApp {
                                                   + "<br><br>"
                                                   + qsTr("Current values and drafted values will be removed.")
 
-                                    viewApp.showDialogAsk(qsTr("Measure Downflow"),
+                                    viewApp.showDialogAsk(qsTr("Downflow Measurement"),
                                                           message,
                                                           viewApp.dialogAlert,
                                                           function onAccepted(){
@@ -780,7 +780,7 @@ ViewApp {
                                 //let data = JSON.stringify(props.airflowGridItems)
                                 ////console.debug(data)
                                 if (!props.gridAcceptedAll) {
-                                    viewApp.showDialogMessage(qsTr("Measure Downflow"),
+                                    viewApp.showDialogMessage(qsTr("Downflow Measurement"),
                                                               qsTr("Please fill up all the fields!"),
                                                               viewApp.dialogAlert)
                                     return;
@@ -796,7 +796,7 @@ ViewApp {
 
                                 if (velFromLowIsValid || velFromHighIsValid || devIsValid) {
                                     var message = devIsValid ? qsTr("The deviation is out of specs") : qsTr("The velocity is out of specs")
-                                    viewApp.showDialogMessage(qsTr("Measure Downflow"),
+                                    viewApp.showDialogMessage(qsTr("Downflow Measurement"),
                                                               message,
                                                               viewApp.dialogAlert)
                                     return;
@@ -919,7 +919,7 @@ ViewApp {
                                              })
 
                         ///show message
-                        //                        viewApp.showDialogMessage(qsTr("Measure Downflow"),
+                        //                        viewApp.showDialogMessage(qsTr("Downflow Measurement"),
                         //                                                  qsTr("Value from temporary storage has been loaded!"),
                         //                                                  viewApp.dialogInfo)
 
@@ -1119,7 +1119,7 @@ ViewApp {
 
                     viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                          function onTriggered(cycle){
-                                             if(cycle === MachineAPI.BUSY_CYCLE_3){
+                                             if(cycle === MachineAPI.BUSY_CYCLE_2){
                                                  // generate grid
                                                  props.initialGrid()
                                                  // close this pop up dialog

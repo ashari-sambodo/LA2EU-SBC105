@@ -276,7 +276,7 @@ ViewApp {
                 const message = swithTo ? qsTr("Switching on the fan") + "..."
                                         : qsTr("Switching off the fan") + "..."
                 viewApp.showBusyPage(message, function(cycle){
-                    if(cycle >= MachineAPI.BUSY_CYCLE_3){
+                    if(cycle >= MachineAPI.BUSY_CYCLE_2){
                         viewApp.closeDialog()
                         const intent = IntentApp.create(uri,[])
                         finishView(intent)

@@ -96,7 +96,7 @@ ViewApp {
                                                     width: parent.width
                                                     height: parent.height
                                                     font.pixelSize: 14
-                                                    text: qsTr("Press here to turn off the Fan")
+                                                    text: qsTr("Tap here to turn off the Fan")
                                                     wrapMode: Text.WordWrap
                                                 }
                                             }
@@ -142,7 +142,7 @@ ViewApp {
 
                                                 viewApp.showBusyPage(qsTr("Switching off DF fan..."),
                                                                      function onTriggered(cycle){
-                                                                         if(cycle === MachineAPI.BUSY_CYCLE_3){
+                                                                         if(cycle === MachineAPI.BUSY_CYCLE_2){
                                                                              viewApp.dialogObject.close()
                                                                          }
                                                                      })
@@ -295,7 +295,7 @@ ViewApp {
                                                     width: parent.width
                                                     height: parent.height
                                                     font.pixelSize: 14
-                                                    text: qsTr("Press here to turn off the Fan")
+                                                    text: qsTr("Tap here to turn off the Fan")
                                                     wrapMode: Text.WordWrap
                                                 }
                                             }
@@ -341,7 +341,7 @@ ViewApp {
 
                                                 viewApp.showBusyPage(qsTr("Switching off IF fan..."),
                                                                      function onTriggered(cycle){
-                                                                         if(cycle === MachineAPI.BUSY_CYCLE_3){
+                                                                         if(cycle === MachineAPI.BUSY_CYCLE_2){
                                                                              viewApp.dialogObject.close()
                                                                          }
                                                                      })
@@ -729,7 +729,7 @@ ViewApp {
 
                 viewApp.showBusyPage(qsTr("Turning off the fan..."),
                                      function onTriggered(cycle){
-                                         if(cycle === MachineAPI.BUSY_CYCLE_3){
+                                         if(cycle === MachineAPI.BUSY_CYCLE_2){
                                              viewApp.dialogObject.close()
                                          }
                                      })

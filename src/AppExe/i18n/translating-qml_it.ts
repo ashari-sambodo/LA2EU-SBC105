@@ -2,6 +2,193 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="it_IT">
 <context>
+    <name>ADCDirectCalibrationPage</name>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="451"/>
+        <source>ADC Actual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="456"/>
+        <source>Fan State</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="471"/>
+        <source>Stable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="471"/>
+        <source>Unstable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="497"/>
+        <source>Stabilizing the ADC value of Airflow Sensor%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="497"/>
+        <source>(ESCO High End)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="498"/>
+        <source>Please wait until progress bar is completed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="564"/>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="584"/>
+        <source>ADC Nominal Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="605"/>
+        <source>ADC Minimum Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="669"/>
+        <source>Time Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="856"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1183"/>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="884"/>
+        <source>Fan Minimum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="899"/>
+        <source>Fan Nominal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="912"/>
+        <source>Minimum Inflow Velocity </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="925"/>
+        <source>Inflow Fail Alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="938"/>
+        <source>Nominal Inflow Velocity </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="951"/>
+        <source>Nominal Downflow Velocity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="964"/>
+        <source>ADC Minimum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="977"/>
+        <source>ADC Nominal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="992"/>
+        <source>Temperature Calibration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1017"/>
+        <source>Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1020"/>
+        <source>The ADC minimum value is unstable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1022"/>
+        <source>The ADC nominal value is unstable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1024"/>
+        <source>The required ADC range (IF2 - IF1) is </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1026"/>
+        <source>The Sash height is not at working height position!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1083"/>
+        <source>User: Full sensor calibration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1094"/>
+        <source>Setting up...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1101"/>
+        <source>Re-Do</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1131"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1135"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1153"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1393"/>
+        <source>ADC Calibration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1136"/>
+        <source>Cancel this process?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1140"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1158"/>
+        <source>Loading...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1154"/>
+        <source>Are you sure to re-do the ADC calibration?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1313"/>
+        <source>Adjusting fan duty cycle...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCDirectCalibrationPage.qml" line="1394"/>
+        <source>There is an invalid value!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ADCFragment</name>
     <message>
         <location filename="../UI/Pages/CertificationReportPage/Fragments/ADCFragment.qml" line="18"/>
@@ -149,120 +336,172 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="71"/>
-        <source>Temperature calib</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="101"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="529"/>
+        <source>Tap here to adjust</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="76"/>
-        <source>Airflow sensor ADC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="81"/>
-        <source>Please wait until the value stabilizes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="120"/>
-        <source>Press here to adjust</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="170"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="199"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="621"/>
         <source>Fan Duty Cycle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="180"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="714"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="209"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="631"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1298"/>
         <source>Adjusting fan duty cycle...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="202"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="237"/>
-        <source>Set velocity</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="268"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="303"/>
-        <source>Set low alarm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="338"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="820"/>
         <source>Stabilizing the ADC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="342"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="824"/>
         <source>Please wait for %1, time left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="402"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="912"/>
         <source>Actual ADC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="445"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="973"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="470"/>
-        <source>Velocity low alarm</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="75"/>
+        <source>Downflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="483"/>
-        <source>Velocity minimum</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="123"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="551"/>
+        <source>Dcy: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="496"/>
-        <source>ADC minimum</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="136"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="564"/>
+        <source>RPM: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="512"/>
-        <source>ADC zero</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="234"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="280"/>
+        <source>Minimum Downflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="526"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="312"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="358"/>
+        <source>Low Downflow Alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="396"/>
+        <source>Downflow and Inflow fan must be at Minimum speed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="403"/>
+        <source>Sensors Constant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="416"/>
+        <source>Temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="438"/>
+        <source>DF Sensor ADC:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="462"/>
+        <source>IF Sensor ADC:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="480"/>
+        <source>Please wait until the values are stable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="503"/>
+        <source>Inflow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="656"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="700"/>
+        <source>Minimum Inflow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="732"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="776"/>
+        <source>Low Inflow Alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="999"/>
+        <source>Minimum Velocity (DF | IF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1014"/>
+        <source>Low Velocity alarm (DF | IF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1029"/>
+        <source>ADC Minimum (DF | IF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1044"/>
+        <source>Minimum Fan Duty Cycle (DF | IF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1071"/>
         <source>Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="529"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1074"/>
         <source>Required at least 80 points ADC greater than ADC zero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="532"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1077"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="562"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1107"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="567"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1112"/>
         <source>Notification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="568"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1113"/>
         <source>Cancel this process?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="607"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1157"/>
         <source>Set</source>
         <translation type="unfinished"></translation>
     </message>
@@ -272,7 +511,7 @@
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="35"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="35"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1388"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1070"/>
         <source>ADC Nominal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -286,15 +525,15 @@
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="96"/>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="558"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="101"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="605"/>
-        <source>Press here to adjust</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="519"/>
+        <source>Tap here to adjust</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="192"/>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="648"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="199"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="697"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="611"/>
         <source>Fan Duty Cycle</source>
         <translation type="unfinished"></translation>
     </message>
@@ -303,20 +542,18 @@
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="658"/>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1388"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="209"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="707"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1590"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="621"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1273"/>
         <source>Adjusting fan duty cycle...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="225"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="234"/>
         <source>Set DF Nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="271"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="281"/>
         <source>Set Downflow Nominal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -332,37 +569,35 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="429"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="472"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="386"/>
         <source>Downflow and Inflow fan must be at Nominal speed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="449"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="492"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="406"/>
         <source>Temperature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="513"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="556"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="470"/>
         <source>Please wait until the values are stable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="536"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="579"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="493"/>
         <source>Inflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="681"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="732"/>
         <source>Set IF Nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="726"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="776"/>
         <source>Set Inflow Nominal</source>
         <translation type="unfinished"></translation>
     </message>
@@ -373,79 +608,73 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="824"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="896"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="724"/>
         <source>Stabilizing the ADC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="828"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="900"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="728"/>
         <source>Please wait for %1, time left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="916"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1000"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="828"/>
         <source>Actual ADC (DF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="930"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1014"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="842"/>
         <source>Actual ADC (IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="996"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1076"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="904"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1022"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1117"/>
         <source>Downflow nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1036"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1175"/>
         <source>Downflow ADC nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1052"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1205"/>
         <source>Inflow nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1067"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1261"/>
         <source>Inflow ADC nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1085"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1279"/>
         <source>Downflow Fan nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1100"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1294"/>
         <source>Inflow Fan nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1117"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1311"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="993"/>
         <source>Temperature calib</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1144"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1338"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1020"/>
         <source>Failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -481,19 +710,19 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1153"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1349"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1031"/>
         <source>There may be invalid values!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1157"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1353"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1035"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1187"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1383"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1065"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
@@ -504,121 +733,118 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1193"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1389"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1071"/>
         <source>Cancel this process?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1236"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1438"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1120"/>
         <source>Set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="123"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="627"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="541"/>
         <source>Dcy: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="136"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="640"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="554"/>
         <source>RPM: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="313"/>
-        <source>Set DF Low Alarm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="359"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="852"/>
-        <source>Set Downflow Low Alarm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="399"/>
-        <source>Set DF High Alarm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="443"/>
-        <source>Set Downflow High Alarm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="479"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="393"/>
         <source>Sensors Constant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="808"/>
-        <source>Set IF Low Alarm</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="234"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="281"/>
+        <source>Nominal Downflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1102"/>
-        <source>Downflow low alarm</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="313"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="357"/>
+        <source>High Downflow Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1132"/>
-        <source>Downflow high alarm</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="428"/>
+        <source>DF Sensor ADC:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1149"/>
-        <source>Downflow ADC zero</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="452"/>
+        <source>IF Sensor ADC:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1190"/>
-        <source>Inflow low alarm</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="646"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="690"/>
+        <source>Nominal Inflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1235"/>
-        <source>Inflow ADC zero</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="930"/>
+        <source>Nominal Downflow (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1341"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="944"/>
+        <source>High Downflow velocity alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="959"/>
+        <source>ADC Nominal (DF | IF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="976"/>
+        <source>Nominal Fan Duty cycle (DF | IF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1023"/>
         <source>ADC DF2 ≥ (ADC DF0 + 100) not met!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1342"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1024"/>
         <source>Vel DF1 &lt; DF2 &lt; DF3 not met!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1343"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1025"/>
         <source>Duty cycle DF2 not valid!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1344"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1026"/>
         <source>ADC IF2 ≥ (ADC IF0 + 100) not met!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1345"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1027"/>
         <source>Vel IF1 &lt; DF2 not met!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1346"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1028"/>
         <source>Duty cycle IF2 not valid!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1347"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1029"/>
         <source>DF Fan RPM not valid!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1348"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1030"/>
         <source>IF Fan RPM not valid!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -638,7 +864,7 @@
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="99"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="298"/>
-        <source>Press here to turn off the Fan</source>
+        <source>Tap here to turn off the Fan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1109,6 +1335,61 @@
     <message>
         <location filename="../UI/Pages/BlankPage/BlankPage.qml" line="98"/>
         <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BlowerMotorFragments</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml" line="28"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml" line="193"/>
+        <source>Invalid Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml" line="336"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml" line="483"/>
+        <source>Item Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml" line="347"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml" line="482"/>
+        <source>Part Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml" line="484"/>
+        <source>QTY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml" line="485"/>
+        <source>SN Motor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml" line="486"/>
+        <source>SN Blower</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml" line="487"/>
+        <source>Software</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml" line="488"/>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/BlowerMotorFragments.qml" line="492"/>
+        <source>Please wait</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1689,6 +1970,51 @@
     </message>
 </context>
 <context>
+    <name>CapInductorFragments</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CapInductorFragments.qml" line="28"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CapInductorFragments.qml" line="189"/>
+        <source>Invalid Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CapInductorFragments.qml" line="318"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CapInductorFragments.qml" line="464"/>
+        <source>Item Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CapInductorFragments.qml" line="329"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CapInductorFragments.qml" line="463"/>
+        <source>Part Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CapInductorFragments.qml" line="465"/>
+        <source>QTY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CapInductorFragments.qml" line="466"/>
+        <source>Serial Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CapInductorFragments.qml" line="467"/>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CapInductorFragments.qml" line="471"/>
+        <source>Please wait</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CertificationReminderDatePage</name>
     <message>
         <location filename="../UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml" line="47"/>
@@ -1927,7 +2253,7 @@
     </message>
     <message>
         <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="62"/>
-        <source>Press here to start</source>
+        <source>Tap here to start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2256,6 +2582,79 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
 </context>
 <context>
+    <name>ContactSwitchesFragments</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ContactSwitchesFragments.qml" line="28"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ContactSwitchesFragments.qml" line="189"/>
+        <source>Invalid Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ContactSwitchesFragments.qml" line="318"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ContactSwitchesFragments.qml" line="464"/>
+        <source>Item Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ContactSwitchesFragments.qml" line="329"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ContactSwitchesFragments.qml" line="463"/>
+        <source>Part Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ContactSwitchesFragments.qml" line="465"/>
+        <source>QTY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ContactSwitchesFragments.qml" line="466"/>
+        <source>Serial Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ContactSwitchesFragments.qml" line="467"/>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ContactSwitchesFragments.qml" line="471"/>
+        <source>Please wait</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ContactUsPage</name>
+    <message>
+        <location filename="../UI/Pages/ContactUsPage/ContactUsPage.qml" line="47"/>
+        <source>Contact Us</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ContactUsPage/ContactUsPage.qml" line="70"/>
+        <source>We&apos;d love to hear from you!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ContactUsPage/ContactUsPage.qml" line="78"/>
+        <source>Should you have any questions about products, features, services,</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ContactUsPage/ContactUsPage.qml" line="79"/>
+        <source>or technical support, please feel free to reach us.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ContactUsPage/ContactUsPage.qml" line="316"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CurveTuningApp</name>
     <message>
         <location filename="../UI/Pages/FanClosedLoopControlPage/Components/CurveTuningApp.qml" line="73"/>
@@ -2285,6 +2684,51 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     <message>
         <location filename="../UI/Pages/FanClosedLoopControlPage/Components/CurveTuningApp.qml" line="93"/>
         <source>Cursor Velocity</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CustomizeFragments</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CustomizeFragments.qml" line="28"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CustomizeFragments.qml" line="189"/>
+        <source>Invalid Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CustomizeFragments.qml" line="318"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CustomizeFragments.qml" line="464"/>
+        <source>Item Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CustomizeFragments.qml" line="329"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CustomizeFragments.qml" line="463"/>
+        <source>Part Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CustomizeFragments.qml" line="465"/>
+        <source>QTY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CustomizeFragments.qml" line="466"/>
+        <source>Serial Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CustomizeFragments.qml" line="467"/>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/CustomizeFragments.qml" line="471"/>
+        <source>Please wait</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3827,7 +4271,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/FieldCalibratePage.qml" line="120"/>
         <location filename="../UI/Pages/FieldCalibratePage/FieldCalibratePage.qml" line="171"/>
-        <source>Close from calibration sensor?</source>
+        <source>Exit from sensor calibration?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3841,7 +4285,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     <name>FileManagerUsbCopierPage</name>
     <message>
         <location filename="../UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml" line="38"/>
-        <location filename="../UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml" line="326"/>
+        <location filename="../UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml" line="325"/>
         <source>USB Export</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3871,13 +4315,138 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml" line="322"/>
+        <location filename="../UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml" line="321"/>
         <source>Put here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml" line="326"/>
+        <location filename="../UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml" line="325"/>
         <source>Please select valid destination!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml" line="369"/>
+        <source>To safely remove your USB drive:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml" line="370"/>
+        <source>Double click on USB drive icon at Homescreen,</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml" line="371"/>
+        <source>Select your USB drive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml" line="372"/>
+        <source>Remove USB Drive</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FilterFragments</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/FilterFragments.qml" line="28"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/FilterFragments.qml" line="193"/>
+        <source>Invalid Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/FilterFragments.qml" line="329"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/FilterFragments.qml" line="475"/>
+        <source>Item Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/FilterFragments.qml" line="340"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/FilterFragments.qml" line="474"/>
+        <source>Part Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/FilterFragments.qml" line="476"/>
+        <source>QTY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/FilterFragments.qml" line="477"/>
+        <source>Serial Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/FilterFragments.qml" line="478"/>
+        <source>Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/FilterFragments.qml" line="479"/>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/FilterFragments.qml" line="483"/>
+        <source>Please wait</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FilterLifeSettingPage</name>
+    <message>
+        <location filename="../UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml" line="39"/>
+        <source>Filter Life Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml" line="57"/>
+        <source>Filter Life calculated by</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml" line="72"/>
+        <source>Fan usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml" line="73"/>
+        <source>Fan RPM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml" line="87"/>
+        <source>Set filter life calculation mode to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml" line="109"/>
+        <source>Value when filter life 100%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml" line="138"/>
+        <location filename="../UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml" line="177"/>
+        <source>RPM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml" line="138"/>
+        <location filename="../UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml" line="177"/>
+        <source>hours left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml" line="148"/>
+        <source>Value when filter life 0%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml" line="206"/>
+        <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3904,7 +4473,7 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/FullCalibrateSensorPage.qml" line="106"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/FullCalibrateSensorPage.qml" line="151"/>
-        <source>Close from calibration sensor?</source>
+        <source>Exit from sensor calibration?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4040,197 +4609,217 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="79"/>
-        <source>Shut down</source>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="78"/>
+        <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="80"/>
-        <source>Users</source>
+        <source>Shut down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="81"/>
-        <source>Cabinet Name</source>
+        <source>Users</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="82"/>
-        <source>Time Zone</source>
+        <source>Cabinet Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="83"/>
-        <source>Date</source>
+        <source>Time Zone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="84"/>
-        <source>Time</source>
+        <source>Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="85"/>
-        <source>Fan PIN</source>
+        <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="86"/>
-        <source>Operation Mode</source>
+        <source>Fan PIN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="87"/>
-        <source>Airflow Monitor</source>
+        <source>Operation Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="88"/>
-        <source>Warmup Time</source>
+        <source>Airflow Monitor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="89"/>
-        <source>Post Purge Time</source>
+        <source>Warmup Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="90"/>
-        <source>Remote Modbus</source>
+        <source>Post Purge Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="91"/>
+        <source>Remote Modbus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="92"/>
         <source>Security Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="93"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="94"/>
         <source>Fan Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="94"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="95"/>
         <source>Measurement Unit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="95"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="96"/>
         <source>Field Sensor Calibration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="96"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="97"/>
         <source>Full Sensor Calibration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="97"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="98"/>
         <source>Built-in SEAS Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="98"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="99"/>
         <source>Certification Reminder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="99"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="100"/>
         <source>Certification Summary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="100"/>
-        <source>Manual Input Calibration Point</source>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="101"/>
+        <source>Manual Input Calibration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="101"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="102"/>
         <source>Reset Parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="103"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="104"/>
         <source>Reset Filter Life Meter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="104"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="105"/>
         <source>Reset Fan Usage Meter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="105"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="106"/>
         <source>Reset UV Life Meter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="106"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="107"/>
         <source>Reset Sash Cycle Meter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="108"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="109"/>
         <source>RBM Com Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="109"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="110"/>
         <source>Fan Closed Loop Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="110"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="111"/>
+        <source>System Monitor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="112"/>
         <source>Software Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="111"/>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="113"/>
         <source>Shipping Setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="113"/>
-        <source>Delay Airflow Alarm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="114"/>
-        <source>Sash Motor Off Delay</source>
+        <source>Replaceable Components Record</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="115"/>
-        <source>Serial Number</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="116"/>
-        <source>Environmental Temperature Limit</source>
+        <source>Preventive Maintenance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="117"/>
-        <source>ESCO Lock Service</source>
+        <source>Delay Airflow Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="118"/>
-        <source>Auxiliary Functions</source>
+        <source>Sash Motor Off Delay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="119"/>
-        <source>Cabinet Model</source>
+        <source>Serial Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="120"/>
-        <source>RTC Watchdog Test</source>
+        <source>Environmental Temperature Limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="121"/>
+        <source>ESCO Lock Service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="122"/>
+        <source>Auxiliary Functions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="123"/>
+        <source>Cabinet Model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="124"/>
+        <source>RTC Watchdog Test</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/MenuPage/Components/GridMenu.qml" line="125"/>
         <source>System Information</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4547,22 +5136,22 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1081"/>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1142"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1931"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2038"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2120"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2185"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2260"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2177"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2284"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2366"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2431"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2506"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1081"/>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1142"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1931"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2038"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2120"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2185"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2260"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2177"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2284"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2366"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2431"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2506"/>
         <source>Interlocked!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4717,143 +5306,188 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1699"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1706"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1717"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1741"/>
+        <source>Eject USB Drive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1886"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1893"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1904"/>
         <source>Temp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1706"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1893"/>
         <source>(Too low)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1717"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1904"/>
         <source>(Too high)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1907"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2008"/>
+        <source>After operating this Cabinet, Shut down the Cabinet safely before unplugging the power supply!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2153"/>
         <source>Attention!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1907"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2153"/>
         <source>Turn off the Fan?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1913"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2159"/>
         <source>User: Set Fan off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="1923"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2169"/>
         <source>User: Set Fan on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2045"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2291"/>
         <source>User: Set LED light on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2045"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2291"/>
         <source>User: Set LED light off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2127"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2373"/>
         <source>User: Set Socket on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2127"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2373"/>
         <source>User: Set Socket off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2192"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2438"/>
         <source>User: Set Gas on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2192"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2438"/>
         <source>User: Set Gas off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2267"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2513"/>
         <source>User: Set UV light on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2267"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2513"/>
         <source>User: Set UV light off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2339"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2356"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2585"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2602"/>
         <source>Audible Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2339"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2585"/>
         <source>There&apos;s no audible alarm.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2357"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2603"/>
         <source>This audible alarm can not be muted!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2567"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2822"/>
         <source>Switching on the fan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2568"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2823"/>
         <source>Switching off the fan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2747"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2842"/>
+        <source>Wired connection has been configured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2843"/>
+        <source>Please restart the system to perform the configuration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2844"/>
+        <source>Wired Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2849"/>
+        <source>User: System Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2854"/>
+        <source>Please wait</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2866"/>
+        <source>Restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2867"/>
+        <source>Later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="3030"/>
         <source>Power failure has been detected while previous fan state is on!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2748"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="3031"/>
         <source>Potential release contamination into the room.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2749"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2753"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="3032"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="3036"/>
         <source>Failure at</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2750"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2754"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="3033"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="3037"/>
         <source>Recover at</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2752"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="3035"/>
         <source>Power failure has been detected while previous UV decontamination is in progress!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2761"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="3044"/>
         <source>Be Careful!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2774"/>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="2775"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="3057"/>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="3058"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5048,17 +5682,17 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
     </message>
     <message>
         <location filename="../UI/Pages/LeavePage/LeavePage.qml" line="102"/>
-        <source>This action only needed if you want to take out the electricity to the unit.</source>
+        <source>This action only be needed if you want to take out the electricity to the unit.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/LeavePage/LeavePage.qml" line="114"/>
-        <source>This to ensure all the tasks will be stopped properly and not caused disk error.</source>
+        <source>This is to ensure all the tasks will be stopped properly and not caused disk error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/LeavePage/LeavePage.qml" line="126"/>
-        <source>System will automatically turn off all the output, then go to black screen.</source>
+        <source>The system will automatically turns off all the output, then go to black screen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5118,12 +5752,17 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LoginPage/LoggedInPage.qml" line="147"/>
+        <location filename="../UI/Pages/LoginPage/LoggedInPage.qml" line="148"/>
+        <source>Last Login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LoginPage/LoggedInPage.qml" line="159"/>
         <source>Logout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LoginPage/LoggedInPage.qml" line="150"/>
+        <location filename="../UI/Pages/LoginPage/LoggedInPage.qml" line="162"/>
         <source>Logout! username: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -5134,11 +5773,11 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
         <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="46"/>
         <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="195"/>
         <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="316"/>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="343"/>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="363"/>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="482"/>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="486"/>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="510"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="347"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="371"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="490"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="494"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="519"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5149,7 +5788,7 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
     </message>
     <message>
         <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="95"/>
-        <source>Press here</source>
+        <source>Tap here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5200,44 +5839,44 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="337"/>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="357"/>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="504"/>
-        <source>Login success! username: </source>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="340"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="364"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="513"/>
+        <source>Login succesful! username: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="343"/>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="363"/>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="510"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="490"/>
+        <source>Login failed: Failed database communication.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="494"/>
+        <source>Login failed: User ID does not exist!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="347"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="371"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="519"/>
         <source>Login failed: Incorrect user ID or password!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="345"/>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="365"/>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="488"/>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="512"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="349"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="373"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="496"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="521"/>
         <source>Login failed! username: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="482"/>
-        <source>Login failed: There is problem in database transaction!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="486"/>
-        <source>Login failed: Your user ID is not exist!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="548"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="557"/>
         <source>Notification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="549"/>
+        <location filename="../UI/Pages/LoginPage/LoginPage.qml" line="558"/>
         <source>You are successfully logged in!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5250,24 +5889,186 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LoginPage/LoginUserListPage.qml" line="177"/>
+        <location filename="../UI/Pages/LoginPage/LoginUserListPage.qml" line="187"/>
+        <source>Logged in: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LoginPage/LoginUserListPage.qml" line="227"/>
         <source>Oops!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LoginPage/LoginUserListPage.qml" line="182"/>
-        <source>Seems like there&apos;s no users registered yet.</source>
+        <location filename="../UI/Pages/LoginPage/LoginUserListPage.qml" line="232"/>
+        <source>Seems like there&apos;s no user have logged in yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/LoginPage/LoginUserListPage.qml" line="225"/>
+        <location filename="../UI/Pages/LoginPage/LoginUserListPage.qml" line="275"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>MCBEMIFragments</name>
     <message>
-        <location filename="../UI/Pages/LoginPage/LoginUserListPage.qml" line="257"/>
-        <location filename="../UI/Pages/LoginPage/LoginUserListPage.qml" line="271"/>
-        <source>Loading...</source>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/MCBEMIFragments.qml" line="28"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/MCBEMIFragments.qml" line="189"/>
+        <source>Invalid Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/MCBEMIFragments.qml" line="318"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/MCBEMIFragments.qml" line="464"/>
+        <source>Item Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/MCBEMIFragments.qml" line="329"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/MCBEMIFragments.qml" line="463"/>
+        <source>Part Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/MCBEMIFragments.qml" line="465"/>
+        <source>QTY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/MCBEMIFragments.qml" line="466"/>
+        <source>Serial Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/MCBEMIFragments.qml" line="467"/>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/MCBEMIFragments.qml" line="471"/>
+        <source>Please wait</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MaintenanceChecklist</name>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="16"/>
+        <source>Surface decontaminate the work zone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="17"/>
+        <source>LCD Cleaning and decontamination</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="18"/>
+        <source>BSC power-up alarm verification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="21"/>
+        <source>Perform through surface decontamination on the drain pan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="22"/>
+        <source>Check the paper catch for retained materials</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="23"/>
+        <source>Clean UV lamp (where present) of any dust and dirt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="26"/>
+        <source>Clean the exterior surface the BSC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="27"/>
+        <source>Clean the sash window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="28"/>
+        <source>Check all service fixtures (where present) for proper operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="31"/>
+        <source>Inspect the BSC for any physical abnormalities or malfunction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="32"/>
+        <source>Clean stubborn stains on stainless steel surfaces with MEK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="35"/>
+        <source>Recertification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="36"/>
+        <source>Check the cabinet functionality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="37"/>
+        <source>Change UV Lamp (where present)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="38"/>
+        <source>LED lamp(s) functionality annual inspection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="39"/>
+        <source>Check the sash window (parts, nuts, screws, rope/belt, smooth movement)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="43"/>
+        <source>Replace sash motor (for motorized sash window)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="46"/>
+        <source>Battery voltage in good condition (nominal = 9V)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="47"/>
+        <source>The switch is working properly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="48"/>
+        <source>The proximity sensor can detect an object with a distance of 2-5 mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="49"/>
+        <source>The LED and buzzer work properly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="50"/>
+        <source>The sensor distance to the flap surface is correct</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="51"/>
+        <source>Visual and audible alarms enabled when the flap is closed or the exhaust is low</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5504,7 +6305,7 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="759"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="783"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="799"/>
-        <source>Measure Downflow</source>
+        <source>Downflow Measurement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5542,7 +6343,7 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="327"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="419"/>
-        <source>Press here to adjust &lt;b&gt;%1&lt;/b&gt; fan</source>
+        <source>Tap here to adjust &lt;b&gt;%1&lt;/b&gt; fan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5643,7 +6444,7 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="808"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="830"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="839"/>
-        <source>Measure Inflow</source>
+        <source>Inflow Measurement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5693,7 +6494,7 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="346"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="452"/>
-        <source>Press here to adjust &lt;b&gt;%1&lt;/b&gt; fan</source>
+        <source>Tap here to adjust &lt;b&gt;%1&lt;/b&gt; fan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5836,7 +6637,7 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="312"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="404"/>
-        <source>Press here to adjust &lt;b&gt;%1&lt;/b&gt; fan</source>
+        <source>Tap here to adjust &lt;b&gt;%1&lt;/b&gt; fan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6173,44 +6974,7 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
     <name>NetworkConfigPage</name>
     <message>
         <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="44"/>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="670"/>
         <source>Network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="86"/>
-        <source>Connected to</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="93"/>
-        <source>Connecting to</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="107"/>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="139"/>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="164"/>
-        <source>forget</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="215"/>
-        <source>Available Access Point</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="247"/>
-        <source>Password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="308"/>
-        <source>Scanning...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6241,68 +7005,48 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="541"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="542"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="556"/>
-        <source>Wired Conn</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="556"/>
-        <source>Wireless Conn</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="571"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="572"/>
         <source>Set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="575"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="576"/>
         <source>Setting up...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="581"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="582"/>
         <source>Restart Now</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="582"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="583"/>
         <source>You may need to restart the system to apply these changes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="585"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="586"/>
         <source>Restart...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="600"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="601"/>
         <source>Restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="601"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="602"/>
         <source>Restart Later</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="614"/>
-        <source>Scan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="627"/>
+        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="628"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/NetworkConfigPage/NetworkConfigPage.qml" line="670"/>
-        <source>Forget the connection?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6353,6 +7097,84 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
     <message>
         <location filename="../UI/Pages/OperationModePage/OperationModePage.qml" line="223"/>
         <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PMChecklistPage</name>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/Pages/PMChecklistPage.qml" line="132"/>
+        <source>By making this acknowledgment, you agree that you have completed the preventive maintenance according to the checklist provided.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/Pages/PMChecklistPage.qml" line="134"/>
+        <source>You can&apos;t reset the acknowledgment date after it is set.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/Pages/PMChecklistPage.qml" line="139"/>
+        <source>Acknowledge...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/Pages/PMChecklistPage.qml" line="155"/>
+        <source>Acknowledge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/Pages/PMChecklistPage.qml" line="202"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/Pages/PMChecklistPage.qml" line="218"/>
+        <source>Snooze</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PSUFragments</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/PSUFragments.qml" line="28"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/PSUFragments.qml" line="189"/>
+        <source>Invalid Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/PSUFragments.qml" line="318"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/PSUFragments.qml" line="464"/>
+        <source>Item Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/PSUFragments.qml" line="329"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/PSUFragments.qml" line="463"/>
+        <source>Part Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/PSUFragments.qml" line="465"/>
+        <source>QTY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/PSUFragments.qml" line="466"/>
+        <source>Serial Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/PSUFragments.qml" line="467"/>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/PSUFragments.qml" line="471"/>
+        <source>Please wait</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6563,6 +7385,85 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
     </message>
 </context>
 <context>
+    <name>PreventiveMaintenancePage</name>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="48"/>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="410"/>
+        <source>Preventive Maintenance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="70"/>
+        <source>Maintenance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="79"/>
+        <source>Ack Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="88"/>
+        <source>Due Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="97"/>
+        <source>Reminder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="141"/>
+        <source>BSC Preventive Maintenance Daily</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="165"/>
+        <source>BSC Preventive Maintenance Weekly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="190"/>
+        <source>BSC Preventive Maintenance Monthly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="213"/>
+        <source>BSC Preventive Maintenance Quarterly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="239"/>
+        <source>BSC Preventive Maintenance Annually</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="263"/>
+        <source>BSC Preventive Maintenance Biennially</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="287"/>
+        <source>BSC Preventive Maintenance Quinquennially</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="311"/>
+        <source>Canopy Preventive Maintenance Monthly</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="363"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml" line="411"/>
+        <source>Select preventive maintenance to view the checklists, and make an acknowledgment or snooze the reminder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ProfileFragment</name>
     <message>
         <location filename="../UI/Pages/CertificationReportPage/Fragments/ProfileFragment.qml" line="23"/>
@@ -6577,6 +7478,8 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
     <message>
         <location filename="../UI/Pages/CertificationReportPage/Fragments/ProfileFragment.qml" line="72"/>
         <location filename="../UI/Pages/CertificationReportPage/Fragments/ProfileFragment.qml" line="82"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="67"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="269"/>
         <source>Serial Number</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6632,6 +7535,61 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
         <source>IF Particle Penetration</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="37"/>
+        <source>Unit Model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="99"/>
+        <source>Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="142"/>
+        <source>User Manual Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="173"/>
+        <source>Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="204"/>
+        <source>Electrical Tester</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="239"/>
+        <source>Electrical Panel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="318"/>
+        <source>Reset to default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="375"/>
+        <source>The form contents will be reset to default!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="376"/>
+        <source>Are you sure want to reset?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="377"/>
+        <source>RP Record - Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/ProfileFragment.qml" line="382"/>
+        <source>Please wait</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QuickTourPage</name>
@@ -6641,177 +7599,193 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="73"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="76"/>
         <source>Home</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="74"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="77"/>
         <source>Informative, and Intuitive Control Centre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="75"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="78"/>
         <source>Uncompromising safety by displaying secured cabinet operating indicators and alarms. Quick control of all the main functions such as fan, brightness, sockets, service/gas fixtures, UV, and mute feature.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="78"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="81"/>
         <source>Navigation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="79"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="82"/>
         <source>A Smart Touch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="80"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="83"/>
         <source>Allows users to move pages using some gestures for the fastest way! Swipe Up, Down, Right, and Left to know its functions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="84"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="87"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="85"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="88"/>
         <source>Manage Your Cabinet Access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="86"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="89"/>
         <source>Give limited access to your cabinet by applying a username and password. Save username and password for easy login next time.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="90"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="93"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="91"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="94"/>
         <source>Connect and Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="92"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="95"/>
         <source>Connect your cabinet to your Workgroup Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="96"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="99"/>
         <source>Remote ModBus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="97"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="100"/>
         <source>Link to other Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="98"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="101"/>
         <source>Enable user to access the cabinet remotely from other devices such as PC to control the main function with a condition. Allows transferring data log to a PC.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="102"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="105"/>
         <source>Logging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="103"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="106"/>
         <source>Data Record and Collection Made Easy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="104"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="107"/>
         <source>Check, delete, or export the data log, alarm log, or event log. Transferring data through Bluetooth or USB.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="108"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="111"/>
         <source>Booking Scheduler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="109"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="112"/>
         <source>Organize Users Timetable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="110"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="113"/>
         <source>Define and schedule cabinet usage for multiple users. Register, edit, cancel, delete or export the cabinet usage booking schedule through Bluetooth or USB.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="114"/>
-        <source>Fan &amp; UV Scheduler</source>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="117"/>
+        <source>UV Scheduler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="115"/>
-        <source>Your Regular Assistant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="116"/>
-        <source>Help to schedule the daily or weekly UV sterilization, turn off and turn on the fan prior and after use automatically</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="120"/>
-        <source>Sash Standby</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="121"/>
-        <source>Save Energy Up to 70%</source>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="119"/>
+        <source>Help to schedule the daily or weekly UV sterilization, turn off and turn on the UV lamp prior to and after use automatically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="122"/>
-        <source>Move the sash window lower to the stand-by height point and save energy without compromising the product and your safety!</source>
+        <source>Fan Scheduler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="126"/>
-        <source>Airflow Fail</source>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="124"/>
+        <source>Help to schedule the daily or weekly Fan operation, turn on the Fan automatically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="127"/>
-        <source>Ultimate Protection Alarm</source>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="136"/>
+        <source>Audible and visual alarms in any failure of air flows </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="142"/>
+        <source>Audible and visual alarms in a false sash window position </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="118"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="123"/>
+        <source>Your Regular Assistant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="128"/>
-        <source>Acoustic and visual alarms in any failure of air flows </source>
+        <source>Sash Standby</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="132"/>
-        <source>Sash Unsafe</source>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="129"/>
+        <source>Save Energy Up to 70%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="133"/>
-        <source>Uncompromising Safety</source>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="130"/>
+        <source>Move the sash window lower to the stand-by height point and save energy without compromising the product and your safety!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="134"/>
-        <source>Acoustic and visual alarms in a false sash window position </source>
+        <source>Airflow Fail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="335"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="135"/>
+        <source>Ultimate Protection Alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="140"/>
+        <source>Sash Unsafe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="141"/>
+        <source>Uncompromising Safety</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="421"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="352"/>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="435"/>
+        <source>Skip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/QuickTourPage/QuickTourPage.qml" line="452"/>
         <source>Auto play</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6966,8 +7940,8 @@ Ensure that exhaust fan is in nominal speed and damper is opened.</source>
     </message>
     <message>
         <location filename="../UI/Pages/RemoteModbusPage/RemoteModbusPage.qml" line="353"/>
-        <source>By default system only 
-accepted for read operation.</source>
+        <source>by default the system will only 
+accept read operations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6991,15 +7965,420 @@ accepted for read operation.</source>
     </message>
 </context>
 <context>
-    <name>ReplaceablePartsPage</name>
+    <name>ReplaceablePartsAddPage</name>
     <message>
-        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="35"/>
-        <source>Replaceable Components</source>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="48"/>
+        <source>Replaceable Components Record - Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="95"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="95"/>
         <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="132"/>
+        <source>Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="133"/>
+        <source>SBC Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="134"/>
+        <source>Sensors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="135"/>
+        <source>UV &amp; LED</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="136"/>
+        <source>PSU</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="137"/>
+        <source>MCB &amp; EMI Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="138"/>
+        <source>Contact &amp; Switches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="139"/>
+        <source>Blower &amp; Motor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="140"/>
+        <source>Capacitor &amp; Inductor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="141"/>
+        <source>Customize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="142"/>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="143"/>
+        <source>Print</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="176"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="220"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="580"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="595"/>
+        <source>RP Record - Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="177"/>
+        <source>Press &lt;b&gt;%1&lt;/b&gt; button to record the Replaceable Components form.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="193"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="214"/>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="217"/>
+        <source>Ensure all data are correct!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="219"/>
+        <source>Are you sure to add new Replaceable Components form?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="234"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="584"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="599"/>
+        <source>Please wait</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="579"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsAddPage.qml" line="594"/>
+        <source>Are you sure want to close?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ReplaceablePartsOptions</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="45"/>
+        <source>Replaceable Components Record - Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="72"/>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="97"/>
+        <source>Page to Export (ex. 1 or 1-10, max. 10 pages/export)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="99"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="132"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="240"/>
+        <source>Access denied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="100"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="133"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="241"/>
+        <source>You do not have permission to perform this action!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="122"/>
+        <source>Have you inserted usb drive?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="124"/>
+        <source>USB port can be found on top of the cabinet, near by power inlet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="126"/>
+        <source>Replaceable Components Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="128"/>
+        <source>Page to Export (ex. 1 or 1-10, max. 10 pages per export)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="156"/>
+        <source>Delete older record start from</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="180"/>
+        <source>Today (Clear All)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="181"/>
+        <source>Yesterday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="182"/>
+        <source>1 week ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="183"/>
+        <source>1 month ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="184"/>
+        <source>1 year ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="228"/>
+        <source>Delete the log?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="230"/>
+        <source>This process can not be undone and not recoverable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="262"/>
+        <source>Storage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="290"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="309"/>
+        <source>Deleting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="320"/>
+        <source>The log has been deleted!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="322"/>
+        <source>Please wait..</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="357"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="361"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="365"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="379"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="383"/>
+        <source>Invalid input!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="406"/>
+        <source>Generating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="423"/>
+        <source>The document has been generated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsOptions.qml" line="440"/>
+        <source>Please wait</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ReplaceablePartsPage</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="46"/>
+        <source>Replaceable Components Record</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="146"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="165"/>
+        <source>Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="184"/>
+        <source>Time (24h)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="203"/>
+        <source>Unit Model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="222"/>
+        <source>Electrical Tester</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="242"/>
+        <source>User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="374"/>
+        <source>Please wait...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="383"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="539"/>
+        <source>Access denied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="384"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="540"/>
+        <source>You do not have permission to perform this action!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="413"/>
+        <source>Oops!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="423"/>
+        <source>Seems like there&apos;s nothing in this record yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="475"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="531"/>
+        <source>Add Record</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="551"/>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml" line="640"/>
+        <source>Loading</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ReplaceablePartsViewPage</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="48"/>
+        <source>Replaceable Components Record - View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="95"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="132"/>
+        <source>Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="133"/>
+        <source>SBC Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="134"/>
+        <source>Sensors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="135"/>
+        <source>UV &amp; LED</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="136"/>
+        <source>PSU</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="137"/>
+        <source>MCB &amp; EMI Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="138"/>
+        <source>Contact &amp; Switches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="139"/>
+        <source>Blower &amp; Motor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="140"/>
+        <source>Capacitor &amp; Inductor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="141"/>
+        <source>Customize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="142"/>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/ReplaceablePartsViewPage.qml" line="193"/>
+        <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7042,6 +8421,50 @@ accepted for read operation.</source>
     </message>
 </context>
 <context>
+    <name>ResetFieldCalibrationPage</name>
+    <message>
+        <location filename="../UI/Pages/ResetFieldCalibrationPage/ResetFieldCalibrationPage.qml" line="44"/>
+        <location filename="../UI/Pages/ResetFieldCalibrationPage/ResetFieldCalibrationPage.qml" line="114"/>
+        <source>Reset Field Calibration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFieldCalibrationPage/ResetFieldCalibrationPage.qml" line="66"/>
+        <source>By resetting the Field Calibration, all field calibration data will be lost and the cabinet will use the full calibration data instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFieldCalibrationPage/ResetFieldCalibrationPage.qml" line="67"/>
+        <source>Press the &apos;%1&apos; button to perform the reset.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFieldCalibrationPage/ResetFieldCalibrationPage.qml" line="93"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFieldCalibrationPage/ResetFieldCalibrationPage.qml" line="108"/>
+        <source>Reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFieldCalibrationPage/ResetFieldCalibrationPage.qml" line="111"/>
+        <source>You will reset Field Calibration data, and use Full Calibration data instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFieldCalibrationPage/ResetFieldCalibrationPage.qml" line="112"/>
+        <source>Are you sure to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFieldCalibrationPage/ResetFieldCalibrationPage.qml" line="140"/>
+        <source>Resetting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ResetFilterLifePage</name>
     <message>
         <location filename="../UI/Pages/ResetFilterLifePage/ResetFilterLifePage.qml" line="42"/>
@@ -7070,7 +8493,12 @@ accepted for read operation.</source>
     </message>
     <message>
         <location filename="../UI/Pages/ResetFilterLifePage/ResetFilterLifePage.qml" line="91"/>
-        <source>Reset Filter Life (minutes)</source>
+        <source>Reset Filter Life (0 - 100%)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResetFilterLifePage/ResetFilterLifePage.qml" line="148"/>
+        <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7261,10 +8689,351 @@ every time the sash hits a safe height</source>
     </message>
 </context>
 <context>
+    <name>ResourceMonitorLogPage</name>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="48"/>
+        <source>System Monitor Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="147"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="165"/>
+        <source>Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="183"/>
+        <source>Time (24h)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="201"/>
+        <source>CPU Usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="219"/>
+        <source>Memory Usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="237"/>
+        <source>CPU Temp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="367"/>
+        <source>Oops!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="377"/>
+        <source>Seems like there&apos;s nothing in this log yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="428"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="440"/>
+        <source>Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="440"/>
+        <source> of </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="445"/>
+        <source>Page number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="453"/>
+        <source>Total log is </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="453"/>
+        <source>items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="480"/>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogPage.qml" line="575"/>
+        <source>Loading</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ResourceMonitorLogQmlApp</name>
     <message>
         <location filename="../Modules/ResourceMonitorLog/ResourceMonitorLogQmlApp.cpp" line="342"/>
         <source>Failed to initiate file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ResourceMonitorLogSettingPage</name>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="44"/>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="225"/>
+        <source>System Monitor Log Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="71"/>
+        <source>Enable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="108"/>
+        <source>Record every</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="126"/>
+        <source>1 minute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="127"/>
+        <source>5 minutes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="128"/>
+        <source>10 minutes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="129"/>
+        <source>1 hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="167"/>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="193"/>
+        <source>Page to Export (ex. 1 or 1-10, max. 10 pages/export)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="196"/>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="231"/>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="340"/>
+        <source>Access denied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="197"/>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="232"/>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="341"/>
+        <source>You do not have permission to perform this action!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="221"/>
+        <source>Have you inserted usb drive?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="223"/>
+        <source>USB port can be found on top of the cabinet, near by power inlet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="227"/>
+        <source>Page to Export (ex. 1 or 1-10, max. 10 pages per export)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="256"/>
+        <source>Delete older log start from</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="280"/>
+        <source>Today (Clear All)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="281"/>
+        <source>Yesterday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="282"/>
+        <source>1 week ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="283"/>
+        <source>1 month ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="284"/>
+        <source>1 year ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="328"/>
+        <source>Delete the log?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="330"/>
+        <source>This process can not be undone and not recoverable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="362"/>
+        <source>Storage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="390"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="411"/>
+        <source>Deleting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="423"/>
+        <source>The log has been deleted!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="425"/>
+        <source>Please wait..</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="460"/>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="464"/>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="468"/>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="482"/>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="486"/>
+        <source>Invalid input!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="509"/>
+        <source>Generating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="526"/>
+        <source>The document has been generated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/Pages/ResourceMonitorLogSettingPage.qml" line="543"/>
+        <source>Please wait</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ResourceMonitorPage</name>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/ResourceMonitorPage.qml" line="39"/>
+        <source>System Monitor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/ResourceMonitorPage.qml" line="61"/>
+        <source>CPU Usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/ResourceMonitorPage.qml" line="81"/>
+        <source>Memory Usage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/ResourceMonitorPage.qml" line="101"/>
+        <source>CPU Temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/ResourceMonitorPage.qml" line="142"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ResourceMonitorPage/ResourceMonitorPage.qml" line="156"/>
+        <source>Logger</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RowItemApp</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Components/RowItemApp.qml" line="45"/>
+        <source>Part Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Components/RowItemApp.qml" line="46"/>
+        <source>Item Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Components/RowItemApp.qml" line="47"/>
+        <source>Quantity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Components/RowItemApp.qml" line="48"/>
+        <source>Serial Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Components/RowItemApp.qml" line="49"/>
+        <source>Software</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Components/RowItemApp.qml" line="50"/>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Components/RowItemApp.qml" line="382"/>
+        <source>Shift Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Components/RowItemApp.qml" line="396"/>
+        <source>Shift Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Components/RowItemApp.qml" line="410"/>
+        <source>Clear All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Components/RowItemApp.qml" line="424"/>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7347,6 +9116,56 @@ every time the sash hits a safe height</source>
     <message>
         <location filename="../UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml" line="159"/>
         <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SbcSetFragments</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SbcSetFragments.qml" line="28"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SbcSetFragments.qml" line="194"/>
+        <source>Invalid Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SbcSetFragments.qml" line="330"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SbcSetFragments.qml" line="477"/>
+        <source>Item Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SbcSetFragments.qml" line="341"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SbcSetFragments.qml" line="476"/>
+        <source>Part Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SbcSetFragments.qml" line="478"/>
+        <source>QTY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SbcSetFragments.qml" line="479"/>
+        <source>Serial Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SbcSetFragments.qml" line="480"/>
+        <source>Software</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SbcSetFragments.qml" line="481"/>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SbcSetFragments.qml" line="485"/>
+        <source>Please wait</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7442,7 +9261,24 @@ every time the sash hits a safe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ScreenShootShowPage/ScreenShootShowPage.qml" line="122"/>
+        <location filename="../UI/Pages/ScreenShootShowPage/ScreenShootShowPage.qml" line="104"/>
+        <source>Share via Bluetooth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ScreenShootShowPage/ScreenShootShowPage.qml" line="116"/>
+        <location filename="../UI/Pages/ScreenShootShowPage/ScreenShootShowPage.qml" line="146"/>
+        <source>Access denied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ScreenShootShowPage/ScreenShootShowPage.qml" line="116"/>
+        <location filename="../UI/Pages/ScreenShootShowPage/ScreenShootShowPage.qml" line="146"/>
+        <source>You do not have permission to perform this action!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ScreenShootShowPage/ScreenShootShowPage.qml" line="127"/>
         <source>Share via USB</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7505,7 +9341,7 @@ every time the sash hits a safe height</source>
     <message>
         <location filename="../UI/Pages/SeasAlarmSetPointPage/SeasAlarmSetPointPage.qml" line="102"/>
         <location filename="../UI/Pages/SeasAlarmSetPointPage/SeasAlarmSetPointPage.qml" line="142"/>
-        <source>Close from calibration sensor?</source>
+        <source>Exit from sensor calibration?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7607,6 +9443,91 @@ every time the sash hits a safe height</source>
     </message>
 </context>
 <context>
+    <name>SendRPFormFragment</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="37"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="46"/>
+        <source>Server Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="57"/>
+        <source>Connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="62"/>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="158"/>
+        <source>Printer for Replaceable Components</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="202"/>
+        <source>Send</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="208"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="431"/>
+        <source>Attention!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="209"/>
+        <source>Please select the valid option for all the forms!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="214"/>
+        <source>Sending...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="252"/>
+        <source>Failed! Because</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="306"/>
+        <source>Server Response</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="338"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="394"/>
+        <source>Replaceable Components form data has been sent to server!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="399"/>
+        <source>It will take a moment before the document actually printed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="400"/>
+        <source>Please check on the printer&apos;s queue if necessary.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="407"/>
+        <source>Got problem? Send again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SendRPFormFragment.qml" line="432"/>
+        <source>Failed to communicate with server!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SendTestReportFragment</name>
     <message>
         <location filename="../UI/Pages/CertificationReportPage/Fragments/SendTestReportFragment.qml" line="36"/>
@@ -7696,6 +9617,109 @@ every time the sash hits a safe height</source>
     </message>
 </context>
 <context>
+    <name>SensorConstantCorrectionPage</name>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="39"/>
+        <source>Sensor Constant Correction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="64"/>
+        <source>The default value of the current sensor constant is &lt;b&gt;%1&lt;/b&gt;,</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="65"/>
+        <source>this value is a constant when the sensor operates at a calibrated temperature of &lt;b&gt;%1&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="66"/>
+        <source>The constant of the air flow sensor may be different for different ambient temperatures.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="68"/>
+        <source>Adjust sensor constant &lt;i&gt;%1&lt;/i&gt; if ambient temperature is greater than calibration temperature.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="70"/>
+        <source>Adjust sensor constant &lt;i&gt;%1&lt;/i&gt; if ambient temperature is less than calibration temperature.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="72"/>
+        <source>Adjust the constant value until the displayed airflow velocity value matches or is close to the actual value.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="92"/>
+        <source>Inflow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="117"/>
+        <source>Downflow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="143"/>
+        <source>Temperature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="177"/>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="185"/>
+        <source>High Temperature Zone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="193"/>
+        <source>Low Temperature Zone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="210"/>
+        <source>Disable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="211"/>
+        <source>Enable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="280"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="294"/>
+        <source>Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="301"/>
+        <source>Set sensor const correction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="302"/>
+        <source>(En:%1, Hi:%2, Lo:%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/SensorConstantCorrectionPage/SensorConstantCorrectionPage.qml" line="306"/>
+        <source>Setting up...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SensorConstantSetPage</name>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/SensorConstantSetPage.qml" line="36"/>
@@ -7751,11 +9775,61 @@ every time the sash hits a safe height</source>
     </message>
 </context>
 <context>
+    <name>SensorsFragments</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SensorsFragments.qml" line="28"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SensorsFragments.qml" line="191"/>
+        <source>Invalid Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SensorsFragments.qml" line="327"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SensorsFragments.qml" line="473"/>
+        <source>Item Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SensorsFragments.qml" line="338"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SensorsFragments.qml" line="472"/>
+        <source>Part Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SensorsFragments.qml" line="474"/>
+        <source>QTY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SensorsFragments.qml" line="475"/>
+        <source>Serial Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SensorsFragments.qml" line="476"/>
+        <source>Constant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SensorsFragments.qml" line="477"/>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/SensorsFragments.qml" line="481"/>
+        <source>Please wait</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SerialNumberSetPage</name>
     <message>
         <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="43"/>
-        <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="96"/>
-        <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="119"/>
+        <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="98"/>
+        <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="143"/>
         <source>Serial Number</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7765,22 +9839,22 @@ every time the sash hits a safe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="76"/>
+        <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="77"/>
         <source>Tap to change</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="110"/>
+        <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="134"/>
         <source>Setting Serial Number...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="120"/>
-        <source>Invalid Serial Number!. Make sure the format is YYYY-XXXXXX</source>
+        <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="144"/>
+        <source>Invalid Serial Number!. Make sure the format is YYYY-XXXXXX or YYYY-XXXXXX-R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="151"/>
+        <location filename="../UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml" line="175"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7842,7 +9916,7 @@ every time the sash hits a safe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ShortCutMenuPage/ShortCutMenuPage.qml" line="161"/>
+        <location filename="../UI/Pages/ShortCutMenuPage/ShortCutMenuPage.qml" line="191"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8320,58 +10394,68 @@ every time the sash hits a safe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="64"/>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="52"/>
+        <source>Ensure you have removed the plastic (insulator) of the RTC Module battery!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="78"/>
         <source>Current time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="125"/>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="139"/>
         <source>Tap to change</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="137"/>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="151"/>
         <source>This system has Network Time Protocol feature, pointing to time.google.com.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="138"/>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="152"/>
         <source>It will prioritize to make synchronization the time with server based on Time Zone.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="228"/>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="242"/>
         <source>HH:MM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="432"/>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="446"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="455"/>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="473"/>
         <source>Set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="462"/>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="480"/>
         <source>User: Set the time to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="478"/>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="496"/>
         <source>User: Set the time to 24h</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="478"/>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="496"/>
         <source>User: Set the time to 12h</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="482"/>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="500"/>
         <source>Setting up...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/TimeSetPage/TimeSetPage.qml" line="515"/>
+        <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8413,6 +10497,51 @@ every time the sash hits a safe height</source>
     <message>
         <location filename="../UI/CusCom/TimerTumblerApp.qml" line="84"/>
         <source>HH:MM:SS</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UVLEDFragments</name>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/UVLEDFragments.qml" line="28"/>
+        <source>No.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/UVLEDFragments.qml" line="189"/>
+        <source>Invalid Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/UVLEDFragments.qml" line="318"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/UVLEDFragments.qml" line="464"/>
+        <source>Item Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/UVLEDFragments.qml" line="329"/>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/UVLEDFragments.qml" line="463"/>
+        <source>Part Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/UVLEDFragments.qml" line="465"/>
+        <source>QTY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/UVLEDFragments.qml" line="466"/>
+        <source>Serial Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/UVLEDFragments.qml" line="467"/>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/UVLEDFragments.qml" line="471"/>
+        <source>Please wait</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8565,37 +10694,47 @@ every time the sash hits a safe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="99"/>
+        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="96"/>
+        <source>Access denied</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="97"/>
+        <source>You do not have permission to perform this action!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="105"/>
         <source>Tap to change</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="117"/>
+        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="123"/>
         <source>The timer will limit the time of UV Lamp on when it is turned on by a user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="119"/>
+        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="125"/>
         <source>The UV lamp will turn off automatically after the timer has finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="194"/>
+        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="200"/>
         <source>HH:MM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="287"/>
+        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="293"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="310"/>
+        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="316"/>
         <source>Set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="322"/>
+        <location filename="../UI/Pages/UVTimerSetPage/UVTimerSetPage.qml" line="328"/>
         <source>Setting up...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9089,7 +11228,7 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/VivariumMuteSetPage/VivariumMuteSetPage.qml" line="77"/>
-        <source>Vivarium mute allows you to pre-mute an audio alarm and remain silent when the user move the sash to unsafe height.</source>
+        <source>Vivarium mute allows you to pre-mute an audio alarm and remain silent when the you moves the sash to a certain height.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9111,41 +11250,54 @@ every time the sash hits a safe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="86"/>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="87"/>
         <source>Setting Warmup timer...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="109"/>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="110"/>
         <source>There will be a warmup period before the BSC is fully functioning upon activation of the unit. This is to ensure that the sensors, the blower, and the control system are stabilized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="141"/>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="142"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="160"/>
-        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="166"/>
-        <source>3 Minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="161"/>
         <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="167"/>
-        <source>5 Minutes</source>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="173"/>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="180"/>
+        <source>3 Minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="162"/>
         <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="168"/>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="174"/>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="181"/>
+        <source>5 Minutes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="163"/>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="169"/>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="175"/>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="182"/>
         <source>15 Minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="165"/>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="166"/>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="179"/>
         <source>1 Minute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="172"/>
+        <location filename="../UI/Pages/WarmupSetPage/WarmupSetPage.qml" line="178"/>
+        <source>Disable</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9153,7 +11305,7 @@ every time the sash hits a safe height</source>
     <name>_FinishCalibratePage</name>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_FinishCalibratePage.qml" line="49"/>
-        <source>Field Calibrate Sensor</source>
+        <source>Field Sensor Calibration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9170,7 +11322,7 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_FinishCalibratePage.qml" line="42"/>
-        <source>Full Calibrate Sensor</source>
+        <source>Full Sensor Calibration</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9277,13 +11429,8 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="213"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="270"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="269"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="373"/>
-        <source>Measure Inflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9292,15 +11439,15 @@ every time the sash hits a safe height</source>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="394"/>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="404"/>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="412"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="540"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="549"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="558"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="567"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="576"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="585"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="605"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="614"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="632"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="543"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="552"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="561"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="570"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="579"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="588"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="608"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="626"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="635"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9315,8 +11462,13 @@ every time the sash hits a safe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="373"/>
+        <source>Inflow Measurement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="400"/>
-        <source>Measure Downflow</source>
+        <source>Downflow Measurement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9326,7 +11478,7 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="560"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="840"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="843"/>
         <source>Setting up...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9337,13 +11489,13 @@ every time the sash hits a safe height</source>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/_NavigationCalibratePage.qml" line="714"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="996"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="999"/>
         <source>Please wait!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="37"/>
-        <source>Full Calibrate Sensor</source>
+        <source>Full Sensor Calibration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9357,78 +11509,78 @@ every time the sash hits a safe height</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="414"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="417"/>
         <source>You have changed the sensor constant.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="415"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="418"/>
         <source>It&apos;s mandatory to re-calibrate ADC Zero and Minimum before going to ADC Nominal!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="416"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="422"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="419"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="425"/>
         <source>Notification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="420"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="423"/>
         <source>ADC Minimum not calibrated yet!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="421"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="424"/>
         <source>It&apos;s mandatory to calibrate ADC Minimum before going to ADC Nominal!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="536"/>
-        <source>Measure Inflow Nominal</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="539"/>
+        <source>Nominal Inflow Measurement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="545"/>
-        <source>Measure Inflow Minimum</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="548"/>
+        <source>Minimum Inflow Measurement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="554"/>
-        <source>Measure Inflow Standby</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="557"/>
+        <source>Standby Inflow Measurement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="563"/>
-        <source>Measure Downflow Nominal</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="566"/>
+        <source>Nominal Downflow Measurement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="572"/>
-        <source>Measure Downflow Minimum</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="575"/>
+        <source>Minimum Downflow Measurement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="581"/>
-        <source>Measure Downflow Maximum</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="584"/>
+        <source>Maximum Downflow Measurement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="601"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="604"/>
         <source>Sensor Constant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="610"/>
-        <source>ADC Zero</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="622"/>
+        <source>ADC Minimum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="628"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="631"/>
         <source>ADC Nominal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="970"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="973"/>
         <source>User: Full calibration sensor</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9449,8 +11601,48 @@ every time the sash hits a safe height</source>
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.qml" line="617"/>
+        <location filename="../main.qml" line="621"/>
         <source>Slide up to unlock!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="734"/>
+        <source>New Software update is available on SVN server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="735"/>
+        <source>To update, please Login as factory, then go to Software Update!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="736"/>
+        <source>To update, please go to Software Update page!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="799"/>
+        <source>The experiment timer has been completed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="800"/>
+        <source>Login and Press this notification to acknowledge.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="801"/>
+        <source>Press this notification to acknowledge.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="1010"/>
+        <source>USB drive &quot;%1&quot; has been detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="1018"/>
+        <source>The &quot;%1&quot; can now be safely remove from the cabinet</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

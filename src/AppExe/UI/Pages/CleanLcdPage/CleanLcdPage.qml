@@ -59,7 +59,7 @@ ViewApp {
                             }//
 
                             TextApp {
-                                text: qsTr("Press here to start")
+                                text: qsTr("Tap here to start")
                             }//
                         }//
 

@@ -18,7 +18,7 @@ AirflowVelocity::AirflowVelocity(QObject *parent)
     m_b2                = 0;
     m_temperature       = 0;
     m_maxAdcResBits     = 12; // Default ADC Resolution 12 bits
-    m_scopeCount        = AIRFLOWNANAGER_MAX_ADC_POINT;
+    //    m_scopeCount        = AIRFLOWNANAGER_MAX_ADC_POINT;
     m_meaUnit           = 0;
 
     adcDummy            = 0;
@@ -88,7 +88,6 @@ void AirflowVelocity::routineTask(int parameter)
 
     //ADC CONPENSATION
     if(recalculateAdcConpensation || m_sensorConstantChanged){
-
         //ADC TEMPERATURE CONVESATION
         int adcC = m_adc;
         double adcCompTemp = 0.0;
@@ -125,31 +124,28 @@ void AirflowVelocity::routineTask(int parameter)
 
         double velocity = 0;
 
-        if(m_adcConpensation <= m_adcPoint[0]){
+        if(m_adcConpensation <= m_adcPoint[Pt_Zero]){
             velocity = 0;
 
-            qDebug() << metaObject()->className() << __func__ << "m_adcPoint[0]" << m_adcPoint[0] << m_adcConpensation << "velocity" << velocity;
-        }else if(m_adcConpensation <= m_adcPoint[1] && m_scopeCount > 2){
+        }else if(m_adcConpensation <= m_adcPoint[Pt_Minimum]){
             velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b1) / m_m1/*)*/;
 
-            qDebug() << metaObject()->className() << __func__ << "m_adcPoint[1]"  << m_adcPoint[1] << m_adcConpensation << m_b1 << m_m1 << "velocity" << velocity;
-        }else if(m_adcConpensation <= m_adcPoint[2] && (m_scopeCount >= 2)){
+        }else{
             velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b2) / m_m2/*)*/;
-            qDebug() << metaObject()->className() << __func__ << "m_adcPoint[2]" << m_adcPoint[2] << m_adcConpensation << m_b2 << m_m2 << "velocity" << velocity;
         }
-        else{
-            if(m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT){
-                velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b3) / m_m3/*)*/;
-                qDebug() << metaObject()->className() << __func__ << "m_adcPoint[3]" << m_adcPoint[3] << m_adcConpensation << m_b3 << m_m3 << "velocity" << velocity;
-            }else {
-                velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b2) / m_m2/*)*/;
-                qDebug() << metaObject()->className() << __func__ << "m_adcPoint[2]" << m_adcPoint[2] << m_adcConpensation << m_b2 << m_m2 << "velocity" << velocity;
-            }//
-        }//
+        //        else{
+        //            if(m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT){
+        //                velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b3) / m_m3/*)*/;
+        //                qDebug() << metaObject()->className() << __func__ << "m_adcPoint[3]" << m_adcPoint[3] << m_adcConpensation << m_b3 << m_m3 << "velocity" << velocity;
+        //            }else {
+        //                velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b2) / m_m2/*)*/;
+        //                qDebug() << metaObject()->className() << __func__ << "m_adcPoint[2]" << m_adcPoint[2] << m_adcConpensation << m_b2 << m_m2 << "velocity" << velocity;
+        //            }//
+        //        }//
 
-        double velHigh      = m_velocityPoint[3];
-        double velNominal   = m_velocityPoint[2];
-        double velLow       = m_velocityPoint[1];
+        double velHigh      = m_velocityPoint[Pt_Maximum];
+        double velNominal   = m_velocityPoint[Pt_Nominal];
+        double velLow       = m_velocityPoint[Pt_Minimum];
         double velActual    = velocity;
         double valueVel     = 0;
         double velocityForClosedLoop = 0;
@@ -288,55 +284,55 @@ void AirflowVelocity::setConstant(int value)
  */
 void AirflowVelocity::initScope()
 {
-    qDebug() << metaObject()->className() << __func__ << m_adcPoint[2] << m_adcPoint[1] << m_adcPoint[0];
-    qDebug() << metaObject()->className() << __func__ << m_velocityPoint[2] << m_velocityPoint[1];
+    qDebug() << metaObject()->className() << __func__ << m_adcPoint[Pt_Nominal] << m_adcPoint[Pt_Minimum] << m_adcPoint[Pt_Zero];
+    qDebug() << metaObject()->className() << __func__ << m_velocityPoint[Pt_Nominal] << m_velocityPoint[Pt_Minimum];
 
     double m1 = (static_cast<double>(m_adcPoint[1] - m_adcPoint[0])) / (m_velocityPoint[1] - m_velocityPoint[0]);
     double b1 = (static_cast<double>(m_adcPoint[0])) - (m1 * m_velocityPoint[0]);
 
     double m2, b2;
 
-    if(m_scopeCount != 2){
-        m2 = (static_cast<double>(m_adcPoint[2] - m_adcPoint[1])) / (m_velocityPoint[2] - m_velocityPoint[1]);
-        b2 = (static_cast<double>(m_adcPoint[1])) - (m2 * m_velocityPoint[1]);
-    }else{
-        m2 = (static_cast<double>(m_adcPoint[2] - m_adcPoint[0])) / (m_velocityPoint[2] - m_velocityPoint[0]);
-        b2 = (static_cast<double>(m_adcPoint[0])) - (m2 * m_velocityPoint[0]);
-    }
+    //    if(m_scopeCount != 2){
+    m2 = (static_cast<double>(m_adcPoint[2] - m_adcPoint[1])) / (m_velocityPoint[2] - m_velocityPoint[1]);
+    b2 = (static_cast<double>(m_adcPoint[1])) - (m2 * m_velocityPoint[1]);
+    //    }else{
+    //        m2 = (static_cast<double>(m_adcPoint[2] - m_adcPoint[0])) / (m_velocityPoint[2] - m_velocityPoint[0]);
+    //        b2 = (static_cast<double>(m_adcPoint[0])) - (m2 * m_velocityPoint[0]);
+    //    }
 
-    double m3=0.0, b3=0.0;
-    if(m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT){
-        m3 = (static_cast<double>(m_adcPoint[3] - m_adcPoint[2])) / (m_velocityPoint[3] - m_velocityPoint[2]);
-        b3 = (static_cast<double>(m_adcPoint[2])) - (m3 * m_velocityPoint[2]);
-    }
+    //    double m3=0.0, b3=0.0;
+    //    if(m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT){
+    //        m3 = (static_cast<double>(m_adcPoint[3] - m_adcPoint[2])) / (m_velocityPoint[3] - m_velocityPoint[2]);
+    //        b3 = (static_cast<double>(m_adcPoint[2])) - (m3 * m_velocityPoint[2]);
+    //    }
 
-    if((m_m1 != m1) || (m_b1 != b1) || (m_m2 != m2) || (m_b2 != b2) || (((m_m3 != m3) || (m_b3 != b3)) && (m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT))){
+    if((m_m1 != m1) || (m_b1 != b1) || (m_m2 != m2) || (m_b2 != b2)/* || (((m_m3 != m3) || (m_b3 != b3)) && (m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT))*/){
         m_m1 = m1;
         m_b1 = b1;
         m_m2 = m2;
         m_b2 = b2;
-        if(m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT){
-            m_m3 = m3;
-            m_b3 = b3;
-        }
+        //        if(m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT){
+        //            m_m3 = m3;
+        //            m_b3 = b3;
+        //        }
 
         m_scopeChanged = true;
 
         qDebug() << metaObject()->className() << __func__ << "Scope changed!";
         qDebug() << metaObject()->className() << __func__ << m1 << b1;
         qDebug() << metaObject()->className() << __func__ << m2 << b2;
-        if(m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT)
-            qDebug() << metaObject()->className() << __func__ << m3 << b3;
+        //        if(m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT)
+        //            qDebug() << metaObject()->className() << __func__ << m3 << b3;
     }
 
     //    qDebug() << "ADC2: "<< m_adcPoint[2] <<" ADC1: " << m_adcPoint[1];
     //    qDebug() << "VEL2: " << m_velocityPoint[2] << " VEL1: " << m_velocityPoint[1];
 }
 
-void AirflowVelocity::setScopeCount(unsigned char scopeCount)
-{
-    m_scopeCount = scopeCount;
-}
+//void AirflowVelocity::setScopeCount(unsigned char scopeCount)
+//{
+//    m_scopeCount = scopeCount;
+//}
 
 void AirflowVelocity::setMeasurementUnit(uchar value)
 {

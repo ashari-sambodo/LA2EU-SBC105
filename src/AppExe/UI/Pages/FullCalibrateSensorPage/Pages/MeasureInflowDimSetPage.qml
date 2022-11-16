@@ -10,7 +10,7 @@ import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
-    title: "Measure Inflow"
+    title: "Inflow Measurement"
 
     background.sourceComponent: Item {}
 
@@ -34,7 +34,7 @@ ViewApp {
                 HeaderApp {
                     id: headerApp
                     anchors.fill: parent
-                    title: qsTr("Measure Inflow")
+                    title: qsTr("Inflow Measurement")
                 }
             }
 
@@ -343,7 +343,7 @@ ViewApp {
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
                                                 minimumPixelSize: 10
-                                                text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Downflow"))
+                                                text: qsTr("Tap here to adjust <b>%1</b> fan").arg(qsTr("Downflow"))
                                             }
                                         }
 
@@ -416,7 +416,7 @@ ViewApp {
 
                                             viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                  function onTriggered(cycle){
-                                                                     if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
+                                                                     if(cycle === MachineAPI.BUSY_CYCLE_2){ viewApp.dialogObject.close() }
                                                                  })
                                             //                                        let index = bufferTextInput.lastIndexAccessed
                                             //                                        props.airflowGridItems[index]["value"] = Number(bufferTextInput.text)
@@ -449,7 +449,7 @@ ViewApp {
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
                                                 minimumPixelSize: 10
-                                                text: qsTr("Press here to adjust <b>%1</b> fan").arg(qsTr("Inflow"))
+                                                text: qsTr("Tap here to adjust <b>%1</b> fan").arg(qsTr("Inflow"))
                                             }
                                         }
 
@@ -521,7 +521,7 @@ ViewApp {
 
                                             viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                                                  function onTriggered(cycle){
-                                                                     if(cycle === MachineAPI.BUSY_CYCLE_3){ viewApp.dialogObject.close() }
+                                                                     if(cycle === MachineAPI.BUSY_CYCLE_2){ viewApp.dialogObject.close() }
                                                                  })
                                             //                                        let index = bufferTextInput.lastIndexAccessed
                                             //                                        props.airflowGridItems[index]["value"] = Number(bufferTextInput.text)
@@ -781,7 +781,7 @@ ViewApp {
                                                   + "<br><br>"
                                                   + qsTr("Current values will be lost.")
 
-                                    viewApp.showDialogAsk(qsTr("Measure Inflow"),
+                                    viewApp.showDialogAsk(qsTr("Inflow Measurement"),
                                                           message,
                                                           viewApp.dialogInfo,
                                                           function onAccepted(){
@@ -805,7 +805,7 @@ ViewApp {
                                                   + "<br><br>"
                                                   + qsTr("Current values and drafted values will be removed.")
 
-                                    viewApp.showDialogAsk(qsTr("Measure Inflow"),
+                                    viewApp.showDialogAsk(qsTr("Inflow Measurement"),
                                                           message,
                                                           viewApp.dialogAlert,
                                                           function onAccepted(){
@@ -827,7 +827,7 @@ ViewApp {
 
                             onClicked: {
                                 if (!props.gridAcceptedAll) {
-                                    viewApp.showDialogMessage(qsTr("Measure Inflow"),
+                                    viewApp.showDialogMessage(qsTr("Inflow Measurement"),
                                                               qsTr("Please fill up all the fields!"),
                                                               viewApp.dialogAlert)
                                     return;
@@ -836,7 +836,7 @@ ViewApp {
                                 if ((props.velocity > props.velocityHighestLimit) ||
                                         (props.velocity < props.velocityLowestLimit)) {
 
-                                    viewApp.showDialogMessage(qsTr("Measure Inflow"),
+                                    viewApp.showDialogMessage(qsTr("Inflow Measurement"),
                                                               qsTr("Velocity result is out of specs"),
                                                               viewApp.dialogAlert)
                                     return;
@@ -951,7 +951,7 @@ ViewApp {
                                              })
 
                         ///show message
-                        //                        viewApp.showDialogMessage(qsTr("Measure Inflow"),
+                        //                        viewApp.showDialogMessage(qsTr("Inflow Measurement"),
                         //                                                  qsTr("Value from temporary storage has been loaded!"),
                         //                                                  viewApp.dialogInfo)
 
@@ -1140,7 +1140,7 @@ ViewApp {
 
                     viewApp.showBusyPage(qsTr("Adjusting fan duty cycle..."),
                                          function onTriggered(cycle){
-                                             if(cycle === MachineAPI.BUSY_CYCLE_3){
+                                             if(cycle === MachineAPI.BUSY_CYCLE_2){
                                                  // generate grid
                                                  props.initialGrid()
                                                  // close this pop up dialog

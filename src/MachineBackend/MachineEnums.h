@@ -601,6 +601,7 @@ enum PointCalib{
     POINT_ZERO,
     POINT_MINIMUM,
     POINT_NOMINAL,
+    POINT_MAXIMUM,
     POINT_TOTAL
 };
 Q_ENUMS(PointCalib)

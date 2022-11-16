@@ -103,7 +103,7 @@ ViewApp {
                     finishView(intent)
                 }
                 else {
-                    const message = qsTr("Close from calibration sensor?")
+                    const message = qsTr("Exit from sensor calibration?")
                     let executed = false
                     showDialogAsk(qsTr(title),
                                   message,
@@ -148,7 +148,7 @@ ViewApp {
                     finishView(intent)
                 }
                 else {
-                    const message = qsTr("Close from calibration sensor?")
+                    const message = qsTr("Exit from sensor calibration?")
                     let executed = false
                     showDialogAsk(qsTr(title),
                                   message,
