@@ -1284,11 +1284,11 @@ ViewApp {
                                     if (!UserSessionService.loggedIn) {
                                         switch(props.securityAccessLevel) {
                                         case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                             const intent = IntentApp.create("qrc:/UI/Pages/ShortCutMenuPage/ShortCutMenuPage.qml", {})
                                             startView(intent)
                                             break;
-                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                             UserSessionService.askedForLogin()
                                             break;
                                         }
@@ -1661,11 +1661,11 @@ ViewApp {
                                     //                                                    if (!UserSessionService.loggedIn) {
                                     //                                                        switch(props.securityAccessLevel) {
                                     //                                                        case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                    //                                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                    //                                                        case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                     //                                                            const intent = IntentApp.create("qrc:/UI/Pages/NetworkConfigPage/NetworkConfigPage.qml", {})
                                     //                                                            startView(intent)
                                     //                                                            break;
-                                    //                                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                    //                                                        case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                     //                                                            UserSessionService.askedForLogin()
                                     //                                                            break;
                                     //                                                        }
@@ -1959,11 +1959,11 @@ ViewApp {
                                                 if (!UserSessionService.loggedIn) {
                                                     switch(props.securityAccessLevel) {
                                                     case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                                    case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                                    case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                                         const intent = IntentApp.create("qrc:/UI/Pages/CalendarPage/CalendarPage.qml", {})
                                                         startView(intent)
                                                         break;
-                                                    case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                                    case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                                         UserSessionService.askedForLogin()
                                                         break;
                                                     }
@@ -2005,7 +2005,7 @@ ViewApp {
                             height: parent.height
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            text: qsTr("After operating this Cabinet, Shut down the Cabinet safely before unplugging the power supply!")
+                            text: qsTr("After operating this cabinet, shut down the unit safely before unplugging the power supply!")
                         }
 
                         Timer{
@@ -2087,7 +2087,7 @@ ViewApp {
                                         return
                                     }
 
-                                    const intent = IntentApp.create("qrc:/UI/Pages/MenuPage/MenuPage.qml")
+                                    const intent = IntentApp.create("qrc:/UI/Pages/MenuPage/MenuPage.qml", {})
                                     //                                    const intent = IntentApp.create("qrc:/UI/Pages/TimePickerPage/TimePickerPage.qml", {"periodMode": 12})
                                     startView(intent)
                                 }//
@@ -2099,17 +2099,17 @@ ViewApp {
                                     //                                    }
                                     //                                    else {
 
-                                    if (!UserSessionService.loggedIn) {
+                                    if (!UserSessionService.loggedIn && !MachineData.installationWizardActive) {
                                         //                                        console.log(props.securityAccessLevel )
-                                        switch (props.securityAccessLevel) {
-                                        case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                            callMenuControlButton()
-                                            break;
-                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
-                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
-                                            UserSessionService.askedForLogin()
-                                            break;
-                                        }//
+                                        //                                        switch (props.securityAccessLevel) {
+                                        //                                        case MachineAPI.MODE_SECURITY_ACCESS_LOW:
+                                        //                                            callMenuControlButton()
+                                        //                                            break;
+                                        //                                        //case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
+                                        //                                        case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
+                                        UserSessionService.askedForLogin()
+                                        //                                            break;
+                                        //                                        }//
                                     }//
 
                                     else {
@@ -2142,32 +2142,44 @@ ViewApp {
                                 }//
 
                                 function callFanButton() {
-                                    ///Check the PIN
-                                    if(props.fanPIN != "dcddb75469b4b4875094e14561e573d8") {
-                                        const intent = IntentApp.create("qrc:/UI/Pages/FanPinPage/FanPinPage.qml", {})
-                                        startView(intent);
-                                        return
-                                    }
+                                    if(!MachineData.postPurgingActive || !MachineData.postPurgingTime){
+                                        ///Check the PIN
+                                        if(props.fanPIN != "dcddb75469b4b4875094e14561e573d8") {
+                                            const intent = IntentApp.create("qrc:/UI/Pages/FanPinPage/FanPinPage.qml", {})
+                                            startView(intent);
+                                            return
+                                        }
 
-                                    if (props.fanState) {
-                                        showDialogAsk(qsTr("Attention!"), qsTr("Turn off the Fan?"),
-                                                      dialogAlert,
-                                                      function onAccepted(){
-                                                          MachineAPI.setFanState(MachineAPI.FAN_STATE_OFF);
-                                                          props.showFanProgressSwitchingState(!props.fanState)
+                                        if (props.fanState) {
+                                            showDialogAsk(qsTr("Attention!"), qsTr("Turn off the Fan?"),
+                                                          dialogAlert,
+                                                          function onAccepted(){
+                                                              MachineAPI.setFanState(MachineAPI.FAN_STATE_OFF);
+                                                              props.showFanProgressSwitchingState(!props.fanState)
 
-                                                          MachineAPI.insertEventLog(qsTr("User: Set Fan off"))
-                                                      });
-                                    }
-                                    else {
-                                        if((props.sashWindowState === MachineAPI.SASH_STATE_STANDBY_SSV) && (MachineData.operationMode !== MachineAPI.MODE_OPERATION_MAINTENANCE))
-                                            MachineAPI.setFanState(MachineAPI.FAN_STATE_STANDBY);
-                                        else
-                                            MachineAPI.setFanState(MachineAPI.FAN_STATE_ON);
-                                        props.showFanProgressSwitchingState(!props.fanState)
+                                                              MachineAPI.insertEventLog(qsTr("User: Set Fan off"))
+                                                          });
+                                        }//
+                                        else {
+                                            if((props.sashWindowState === MachineAPI.SASH_STATE_STANDBY_SSV)
+                                                    && (MachineData.operationMode !== MachineAPI.MODE_OPERATION_MAINTENANCE))
+                                                MachineAPI.setFanState(MachineAPI.FAN_STATE_STANDBY);
+                                            else{
+                                                //                                            if(MachineData.fanPowerSaveMode)
+                                                //                                                MachineAPI.setFanState(MachineAPI.FAN_STATE_ON_SAVE);
+                                                //                                            else
+                                                MachineAPI.setFanState(MachineAPI.FAN_STATE_ON);
+                                            }
+                                            props.showFanProgressSwitchingState(!props.fanState)
 
-                                        MachineAPI.insertEventLog(qsTr("User: Set Fan on"))
+                                            MachineAPI.insertEventLog(qsTr("User: Set Fan on"))
+                                        }
                                     }
+                                    else{
+                                        showDialogMessage(qsTr("Attention!"),
+                                                          qsTr("Post purge timer is running!"),
+                                                          dialogAlert)
+                                    }//
                                 }//
 
                                 onClicked: {
@@ -2182,10 +2194,10 @@ ViewApp {
                                         switch(props.securityAccessLevel) {
 
                                         case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                             callFanButton()
                                             break;
-                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                             UserSessionService.askedForLogin()
                                             break;
                                         }
@@ -2202,7 +2214,7 @@ ViewApp {
                                         switch(props.securityAccessLevel) {
 
                                         case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                             let intent1;
                                             if(props.modeIsMaintenance)
                                                 intent1 = IntentApp.create("qrc:/UI/Pages/FanSpeedPage/FanSpeedPage.qml", {})
@@ -2211,7 +2223,7 @@ ViewApp {
                                             const intent = intent1
                                             startView(intent)
                                             break;
-                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                             UserSessionService.askedForLogin()
                                             break;
                                         }
@@ -2298,10 +2310,10 @@ ViewApp {
                                         switch(props.securityAccessLevel) {
 
                                         case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                             callLightButtonOnHold()
                                             break;
-                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                             UserSessionService.askedForLogin()
                                             break;
                                         }
@@ -2317,10 +2329,10 @@ ViewApp {
                                         switch(props.securityAccessLevel) {
 
                                         case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                             callLightButton()
                                             break;
-                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                             UserSessionService.askedForLogin()
                                             break;
                                         }
@@ -2381,10 +2393,10 @@ ViewApp {
                                             switch(props.securityAccessLevel) {
 
                                             case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                            case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                            case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                                 callSocketButton()
                                                 break;
-                                            case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                            case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                                 UserSessionService.askedForLogin()
                                                 break;
                                             }
@@ -2444,10 +2456,10 @@ ViewApp {
                                             switch(props.securityAccessLevel) {
 
                                             case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                            case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                            case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                                 callGasButton()
                                                 break;
-                                            case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                            case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                                 UserSessionService.askedForLogin()
                                                 break;
                                             }
@@ -2519,10 +2531,10 @@ ViewApp {
                                             switch(props.securityAccessLevel) {
 
                                             case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                            case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                            case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                                 callUVbutton()
                                                 break;
-                                            case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                            case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                                 UserSessionService.askedForLogin()
                                                 break;
                                             }
@@ -2539,11 +2551,11 @@ ViewApp {
                                             switch(props.securityAccessLevel) {
 
                                             case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                            case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                            case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                                 const intent = IntentApp.create("qrc:/UI/Pages/UVSchedulerPage/UVSchedulerPage.qml", {})
                                                 startView(intent)
                                                 break;
-                                            case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                            case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                                 UserSessionService.askedForLogin()
                                                 break;
                                             }
@@ -2582,7 +2594,7 @@ ViewApp {
 
                                 function callMuteAlarmButton () {
                                     if (!props.alarmsState) {
-                                        showDialogMessage(qsTr("Audible Alarm"), qsTr("There's no audible alarm."), dialogAlert)
+                                        showDialogMessage(qsTr("Audible Alarm"), qsTr("No audible alarm."), dialogAlert)
                                         return
                                     }
                                     else if (props.alarmSashFullyOpen
@@ -2608,11 +2620,11 @@ ViewApp {
                                 //                                    if (!UserSessionService.loggedIn) {
                                 //                                        switch(props.securityAccessLevel) {
                                 //                                        case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                //                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                //                                        case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                 //                                            const intent = IntentApp.create("qrc:/UI/Pages/VivariumMuteSetPage/VivariumMuteSetPage.qml", {})
                                 //                                            startView(intent)
                                 //                                            break;
-                                //                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                //                                        case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                 //                                            UserSessionService.askedForLogin()
                                 //                                            break;
                                 //                                        }
@@ -2630,10 +2642,10 @@ ViewApp {
                                         switch(props.securityAccessLevel) {
 
                                         case MachineAPI.MODE_SECURITY_ACCESS_LOW:
-                                        case MachineAPI.MODE_SECURITY_ACCESS_MODERATE:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_MEDIUM:
                                             callMuteAlarmButton()
                                             break;
-                                        case MachineAPI.MODE_SECURITY_ACCESS_SECURE:
+                                        case MachineAPI.MODE_SECURITY_ACCESS_HIGH:
                                             UserSessionService.askedForLogin()
                                             break;
                                         }
@@ -2684,8 +2696,18 @@ ViewApp {
             id: utils
         }//
 
+        MaintenanceChecklistApp{
+            id: prevMaint
+            property var checklist:[]
+
+            Component.onCompleted: {
+                checklist = profiles[0]['checklist']
+            }
+        }
+
         QtObject {
             id: props
+
             property bool currentPageIsForground: false
 
             property int    expTimerCount: 0
@@ -2753,6 +2775,8 @@ ViewApp {
             property bool datalogIsFull: false
             property bool eventlogIsFull: false
             property bool alarmlogIsFull: false
+            property bool replaceableCompRecordIsFull: false
+            property bool resmonlogIsFull: false
 
             property string certfRemExpiredDate: ""
             property bool certfRemExpiredValid: false
@@ -2808,6 +2832,9 @@ ViewApp {
             property bool airflowMonitorEnable: true
             property bool alarmSashMotorDownStuck: false
 
+            property bool alarmPrevMaintActive: false
+            property string alarmPrevMaintenanceReminderStr: ""
+
             property string usbListStr: ""
             property var usbList: []
 
@@ -2851,13 +2878,13 @@ ViewApp {
                                       //MachineAPI.setAllValveChamberShutdownState()
 
                                       MachineAPI.setWiredNetworkHasbeenConfigured(false);
-                                      showBusyPage(qsTr("Please wait"),
-                                                   function onCallback(secs){
-                                                       if(secs > MachineAPI.BUSY_CYCLE_1) {
-                                                           const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {'exitCode': exitCodeRestart})
-                                                           startRootView(intent)
-                                                       }
-                                                   })
+                                      //                                      showBusyPage(qsTr("Please wait..."),
+                                      //                                                   function onCallback(secs){
+                                      //                                                       if(secs >= MachineAPI.BUSY_CYCLE_1) {
+                                      const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {'exitCode': exitCodeRestart})
+                                      startRootView(intent)
+                                      //                                                       }
+                                      //                                                   })
                                   },
                                   undefined,
                                   undefined,
@@ -2870,10 +2897,10 @@ ViewApp {
             }//
         }//
 
-        //        /// One time executed at startup
-        //        Component.onCompleted: {
-
-        //        }//
+        /// One time executed at startup
+        Component.onCompleted: {
+            props.showWiredConConfigured(MachineData.wiredNetworkHasbeenConfigured);
+        }//
 
         //// Execute This Every This Screen Active/Visible/Foreground
         executeOnPageVisible: QtObject {
@@ -2881,6 +2908,19 @@ ViewApp {
             Component.onCompleted: {
                 //                console.debug("StackView.Active");
                 //                    //console.debug("stackViewDepth: " + stackViewDepth)
+                props.usbListStr = Qt.binding(function(){return MachineData.usbDetectedList})
+                props.usbList = Qt.binding(function(){
+                    let usbList = []
+                    let usbListArr = []
+                    usbListArr = props.usbListStr.split(',')
+
+                    //console.debug("USB List: " + usbListArr)
+
+                    for(let i = 0; i < usbListArr.length; i++){
+                        usbList.push({"name": usbListArr[i]})
+                    }//
+                    return usbList;
+                })//
 
                 props.securityAccessLevel = Qt.binding(function() {return MachineData.securityAccessMode })
 
@@ -2890,7 +2930,9 @@ ViewApp {
                 props.expTimerIsRunning = Qt.binding( function() { return ExperimentTimerService.isRunning})
                 props.expTimerIsPaused = Qt.binding( function() { return ExperimentTimerService.isPaused})
                 props.expTimerTimeout = Qt.binding( function() { return ExperimentTimerService.timeout})
-                props.expTimerActive = props.expTimerIsRunning || props.expTimerIsPaused
+                props.expTimerActive = (props.expTimerIsRunning || props.expTimerIsPaused) && !props.expTimerTimeout
+
+                //console.debug("@@@@@@@@@expTimerActive", props.expTimerActive, props.expTimerIsRunning, props.expTimerIsPaused, props.expTimerTimeout)
 
                 props.downflowStr = Qt.binding(function(){ return MachineData.dfaVelocityStr })
                 props.inflowStr = Qt.binding(function(){ return MachineData.ifaVelocityStr })
@@ -2948,8 +2990,8 @@ ViewApp {
                 props.sensorCalibrated = MachineData.airflowCalibrationStatus
 
                 props.sashMotorizeInstalled = Qt.binding(function(){return MachineData.sashWindowMotorizeInstalled})
-                props.sashMotorizeDownInterlocked = Qt.binding(function(){return MachineData.sashWindowMotorizeDownInterlocked})
-                props.sashMotorizeUpInterlocked = Qt.binding(function(){return MachineData.sashWindowMotorizeUpInterlocked})
+                props.sashMotorizeDownInterlocked = Qt.binding(function(){return MachineData.sashWindowMotorizeDownInterlocked || props.sashCycleLockedAlarm})
+                props.sashMotorizeUpInterlocked = Qt.binding(function(){return MachineData.sashWindowMotorizeUpInterlocked || props.sashCycleLockedAlarm})
                 props.sashMotorizeState = Qt.binding(function(){return MachineData.sashWindowMotorizeState})
                 if(props.sashMotorizeInstalled){
                     props.sashCycle = Qt.binding(function(){ return MachineData.sashCycleMeter/10})
@@ -2990,8 +3032,10 @@ ViewApp {
                 props.modeIsMaintenance = Qt.binding(function(){ return MachineData.operationMode === MachineAPI.MODE_OPERATION_MAINTENANCE })
 
                 props.datalogIsFull = Qt.binding(function() { return MachineData.dataLogIsFull })
-                //                    props.eventlogIsFull = Qt.binding(function() { return MachineData.dataLogIsFull })
-                //                    props.alarmlogIsFull = Qt.binding(function() { return MachineData.dataLogIsFull })
+                props.eventlogIsFull = Qt.binding(function() { return MachineData.eventLogIsFull })
+                props.alarmlogIsFull = Qt.binding(function() { return MachineData.alarmLogIsFull })
+                props.replaceableCompRecordIsFull = Qt.binding(function() { return MachineData.replaceableCompRecordIsFull })
+                props.resmonlogIsFull = Qt.binding(function() { return MachineData.resourceMonitorLogIsFull })
 
                 /// certificatio reminder
                 props.certfRemExpiredDate = Qt.binding(function() { return MachineData.dateCertificationReminder })
@@ -3008,6 +3052,45 @@ ViewApp {
 
                 props.airflowMonitorEnable = Qt.binding(function(){return MachineData.airflowMonitorEnable})
 
+                props.alarmPrevMaintActive = Qt.binding(function(){
+                    let alarmStatus = false
+                    let stateEn = MachineData.alarmPreventMaintStateEnable
+                    let stateAck = MachineData.alarmPreventMaintStateAck
+                    let notEmpty = [
+                            (prevMaint.checklist['daily'].length > 0),
+                            (prevMaint.checklist['weekly'].length > 0),
+                            (prevMaint.checklist['monthly'].length > 0),
+                            (prevMaint.checklist['quarterly'].length > 0),
+                            (prevMaint.checklist['annually'].length > 0),
+                            (prevMaint.checklist['biennially'].length > 0),
+                            (prevMaint.checklist['quinquennially'].length > 0),
+                            (prevMaint.checklist['canopy'].length > 0)
+                        ]//
+                    let state = MachineData.alarmPreventMaintState
+                    let pmCode = [MachineAPI.PM_DAILY_CODE,
+                                  MachineAPI.PM_WEEKLY_CODE,
+                                  MachineAPI.PM_MONTHLY_CODE,
+                                  MachineAPI.PM_QUARTERLY_CODE,
+                                  MachineAPI.PM_ANNUALLY_CODE,
+                                  MachineAPI.PM_BIENNIALLY_CODE,
+                                  MachineAPI.PM_QUINQUENNIALLY_CODE,
+                                  MachineAPI.PM_CANOPY_CODE]
+                    for(let i=0; i<pmCode.length; i++){
+                        if((stateEn & pmCode[i]) && (state & pmCode[i]) && !(stateAck & pmCode[i]) && (notEmpty[i])){
+                            console.debug(i)
+                            alarmStatus = true
+                            break
+                        }
+                    }
+                    console.debug("alarmStatus:", alarmStatus)
+                    return alarmStatus
+                })
+
+                props.alarmPrevMaintenanceReminderStr = Qt.binding(function(){
+                    let reminderStr = qsTr("Preventive Maintenance Reminder")
+                    return reminderStr
+                })
+
                 props.alarmSashMotorDownStuck = Qt.binding(function(){ return MachineData.alarmSashMotorDownStuck === MachineAPI.ALARM_ACTIVE_STATE })
 
                 props.tempAmbientHighStrf =  Qt.binding(function(){ return "%1°%2".arg(MachineData.envTempHighestLimit).arg(MachineData.measurementUnit ? "F" : "C")})
@@ -3015,6 +3098,8 @@ ViewApp {
 
                 /// show dialog progress when fan state will be switching
                 MachineData.fanSwithingStateTriggered.connect(props.showFanProgressSwitchingState)
+                MachineData.postPurgingActiveChanged.connect(props.showNotifToShutDownTheCabinetPostPurge)
+                MachineData.wiredNetworkHasbeenConfiguredChanged.connect(props.showWiredConConfigured)
 
                 /// Power outage
                 props.powerOutage = MachineData.powerOutage
@@ -3028,13 +3113,13 @@ ViewApp {
 
                     /// SHOW DIALOG POWER OUTAGE NOTIFICATION
                     var messageFan = "<b>" +  qsTr("Power failure has been detected while previous fan state is on!") + "</b>" + "<br>"
-                            +  qsTr("Potential release contamination into the room.") + "<br>"
+                            +  qsTr("Potential release of contaminants into the room.") + "<br>"
                             +  qsTr("Failure at") + " " + powerOutageTime + "<br>"
-                            +  qsTr("Recover at") + " " + powerOutageRecoverTime + "<br>"
+                            +  qsTr("Recovered at") + " " + powerOutageRecoverTime + "<br>"
 
                     var messageUV = "<b>" +  qsTr("Power failure has been detected while previous UV decontamination is in progress!") + "</b>" + "<br>"
                             +  qsTr("Failure at") + " " + powerOutageTime + "<br>"
-                            +  qsTr("Recover at") + " " + powerOutageRecoverTime + "<br>"
+                            +  qsTr("Recovered at") + " " + powerOutageRecoverTime + "<br>"
 
                     const powerOutageFanOrUV = MachineData.powerOutageUvState
                     //                        //console.debug("powerOutageFanOrUV:" + powerOutageFanOrUV)
@@ -3058,6 +3143,8 @@ ViewApp {
                     props.loginFullname = qsTr("Login")
                 }
 
+                MachineAPI.setFrontEndScreenState(MachineAPI.ScreenState_Home)
+
                 timeDateTimer.restart()
             }//
 
@@ -3068,7 +3155,10 @@ ViewApp {
                 /// THIS PAGE IS INVISIBLE,
                 /// TO PREVENT UNWANTED BEHAVIOUR, DISCONNECT THE SIGNAL
                 MachineData.fanSwithingStateTriggered.disconnect(props.showFanProgressSwitchingState)
+                MachineData.postPurgingActiveChanged.disconnect(props.showNotifToShutDownTheCabinetPostPurge)
+                MachineData.wiredNetworkHasbeenConfiguredChanged.disconnect(props.showWiredConConfigured)
 
+                MachineAPI.setFrontEndScreenState(MachineAPI.ScreenState_Other)
                 //                    props.currentPageIsForground = false
             }
 

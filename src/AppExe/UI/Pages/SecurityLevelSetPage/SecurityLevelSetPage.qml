@@ -130,7 +130,7 @@ ViewApp {
 
                             Loader {
                                 //                                active: props.securityAccessLevel == 1
-                                active: props.securityAccessLevel === MachineAPI.MODE_SECURITY_ACCESS_MODERATE
+                                active: props.securityAccessLevel === MachineAPI.MODE_SECURITY_ACCESS_MEDIUM
                                 anchors.centerIn: parent
                                 sourceComponent:Image {
                                     source: "qrc:/UI/Pictures/done-green-white.png"
@@ -140,10 +140,10 @@ ViewApp {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    //                                    props.securityAccessLevel = MachineAPI.MODE_SECURITY_ACCESS_MODERATE
+                                    //                                    props.securityAccessLevel = MachineAPI.MODE_SECURITY_ACCESS_MEDIUM
 
-                                    if(props.securityAccessLevel !== MachineAPI.MODE_SECURITY_ACCESS_MODERATE){
-                                        //                                        props.securityAccessLevel = MachineAPI.MODE_SECURITY_ACCESS_MODERATE
+                                    if(props.securityAccessLevel !== MachineAPI.MODE_SECURITY_ACCESS_MEDIUM){
+                                        //                                        props.securityAccessLevel = MachineAPI.MODE_SECURITY_ACCESS_MEDIUM
                                         const textSecureLevel = "<b>" + qsTr("Set security level to moderate?") + "</b>"
                                                               + "<br><br>"
                                                               + qsTr("Control button is accessible without login, but required login to open user menu")
@@ -152,7 +152,7 @@ ViewApp {
                                                               textSecureLevel,
                                                               viewApp.dialogAlert,
                                                               function onAccepted(){
-                                                                  MachineAPI.setSecurityAccessModeSave(MachineAPI.MODE_SECURITY_ACCESS_MODERATE)
+                                                                  MachineAPI.setSecurityAccessModeSave(MachineAPI.MODE_SECURITY_ACCESS_MEDIUM)
                                                                   MachineAPI.insertEventLog(qsTr("User: Set security level to moderate"))
 
                                                                   viewApp.showBusyPage(qsTr("Setting up..."),
@@ -190,7 +190,7 @@ ViewApp {
                             }
 
                             Loader {
-                                active: props.securityAccessLevel === MachineAPI.MODE_SECURITY_ACCESS_SECURE
+                                active: props.securityAccessLevel === MachineAPI.MODE_SECURITY_ACCESS_HIGH
                                 anchors.centerIn: parent
                                 sourceComponent: Image {
                                     source: "qrc:/UI/Pictures/done-green-white.png"
@@ -200,7 +200,7 @@ ViewApp {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    if(props.securityAccessLevel !== MachineAPI.MODE_SECURITY_ACCESS_SECURE ){
+                                    if(props.securityAccessLevel !== MachineAPI.MODE_SECURITY_ACCESS_HIGH ){
 
                                         const textSecureLevel = "<b>" + qsTr("Set security level to secure?") + "</b>"
                                                               + "<br><br>"
@@ -210,7 +210,7 @@ ViewApp {
                                                               textSecureLevel,
                                                               viewApp.dialogAlert,
                                                               function onAccepted() {
-                                                                  MachineAPI.setSecurityAccessModeSave(MachineAPI.MODE_SECURITY_ACCESS_SECURE)
+                                                                  MachineAPI.setSecurityAccessModeSave(MachineAPI.MODE_SECURITY_ACCESS_HIGH)
                                                                   MachineAPI.insertEventLog(qsTr("User: Set security level to secure"))
 
                                                                   viewApp.showBusyPage(qsTr("Setting up"),

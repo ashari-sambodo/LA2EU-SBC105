@@ -332,9 +332,9 @@ ViewApp {
                                         UserSessionService.roleLevel = UserSessionService.roleLevelFactory
                                         UserSessionService.username = props.textUsername
                                         if(props.textFullname == "")
-                                            UserSessionService.fullname  = "Factory";
-                                        else
-                                            UserSessionService.fullname = props.textFullname
+                                            props.textFullname  = "Factory";
+
+                                        UserSessionService.fullname = props.textFullname
 
                                         MachineAPI.setSignedUser(props.textUsername, props.textFullname, UserSessionService.roleLevel)
                                         const message = qsTr("Login succesful! username: ") + props.textUsername
@@ -356,9 +356,8 @@ ViewApp {
                                         UserSessionService.roleLevel = UserSessionService.roleLevelService
                                         UserSessionService.username = props.textUsername
                                         if(props.textFullname == "")
-                                            UserSessionService.fullname  = "Service";
-                                        else
-                                            UserSessionService.fullname = props.textFullname
+                                            props.textFullname  = "Service";
+                                        UserSessionService.fullname = props.textFullname
 
                                         MachineAPI.setSignedUser(props.textUsername, props.textFullname, UserSessionService.roleLevel)
                                         const message = qsTr("Login succesful! username: ") + props.textUsername

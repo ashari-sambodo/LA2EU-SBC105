@@ -7,7 +7,7 @@
 
 import QtQuick 2.0
 import QtQuick.Controls 2.0
-import Qt.labs.settings 1.0
+//import Qt.labs.settings 1.0
 
 import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
@@ -16,6 +16,7 @@ import UserManageQmlApp 1.0
 
 import ModulesCpp.Connectify 1.0
 import ModulesCpp.Machine 1.0
+import ModulesCpp.Settings 1.0
 
 ViewApp {
     id: viewApp
@@ -68,11 +69,14 @@ ViewApp {
         startRootView(intent)
     }
 
-    Settings {
-        id: settings
+    //        Settings {
+    //            id: settings
 
-        property string machProfId: "NONE"
-    }//
+    //            property string machProfId: "NONE"
+    //            Component.onCompleted: {
+    //                console.debug("machProfId:", machProfId)
+    //            }
+    //        }//
 
     background.sourceComponent: Item {}
 
@@ -161,8 +165,9 @@ ViewApp {
         CabinetProfilesApp {
             id: cabinetProfiles
         }//
-
-
+        ReplaceablePartsDatabaseApp{
+            id: rpDatabase
+        }
 
         /// Ensure super admin has created
         UserManageQmlApp {
@@ -192,14 +197,17 @@ ViewApp {
                 if(loopCycle == 1){
                     MachineData.initSingleton()
                     MachineAPI.initSingleton()
+                    SettingsData.initSingleton()
+
+                    MachineData.machineProfileID = String(SettingsData.valueToString("machProfId", "NONE"))
+                    console.debug("Machine profile ID", MachineData.machineProfileID)
 
                     startupProgressBar.value = 0.3
                 }//
 
                 if(loopCycle == 2){
-
                     //// Query current active machine profile
-                    let profileIdActive = settings.machProfId
+                    let profileIdActive = MachineData.machineProfileID
                     if(profileIdActive !== "NONE") {
                         for (const profileObj of cabinetProfiles.profiles) {
                             if (profileIdActive === profileObj['profilelId']){
@@ -217,7 +225,7 @@ ViewApp {
                         eventTimer.stop()
 
                         /// Decide next page decision
-                        var intent = IntentApp.create("qrc:/UI/Pages/CabinetProfilePage/CabinetProfilePage.qml", {"startup": 1})
+                        var intent = IntentApp.create("qrc:/UI/Pages/CabinetProfilePage/CabinetProfilePage.qml", {'startup':1})
                         startRootView(intent)
                     }
                     else {
@@ -225,6 +233,7 @@ ViewApp {
                         MachineData.machineProfile = props.profileObjectActive
                         MachineData.machineClassName = props.profileObjectActive['classStr']
                         MachineData.machineModelName = props.profileObjectActive['modelStr']
+                        MachineData.rpListDefault = rpDatabase.databaseDefaultLA2EU[0]
 
                         MachineAPI.setup(MachineData)
                         HeaderAppService.sideGlass = /*(props.profileObjectActive['sideGlass']|| 0) > 0*/MachineData.cabinetSideType === MachineAPI.CABINET_TYPE_E
@@ -233,7 +242,7 @@ ViewApp {
                         userManageQml.init(connectionId);
 
                         startupProgressBar.value = 0.5
-                    }
+                    }//
                 }//
 
                 if (loopCycle >= 3) {

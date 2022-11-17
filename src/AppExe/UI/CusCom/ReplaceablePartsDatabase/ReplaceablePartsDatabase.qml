@@ -203,5 +203,71 @@ QtObject {
             ]//
         }//
     ]//
+    readonly property var databaseDefaultLA2EU: [
+        {
+            "sbcSet": [
+                {"id": "1081370", "qty": "1", "desc": "ESCO SBC WIFI"},
+                {"id": "1081593", "qty": "1", "desc": "MICRO SDHC 8GB"},
+                {"id": "1081445", "qty": "1", "desc": "CTP/DISPLAY INTERFACE"},
+                {"id": "1081458", "qty": "1", "desc": "CAPACITIVE TOUCH LCD 7.0\""},
+                {"id": "1081321", "qty": "1", "desc": "SUB PDB 12V"},
+                {"id": "1081367", "qty": "1", "desc": "SUB HYBRID ANALOG 2 AI 2 AO"},
+                {"id": "1081368", "qty": "1", "desc": "SUB HYBRID DIGITAL 5 LNE 3 COM 6 DI"},
+                {"id": "1081439", "qty": "1", "desc": "RBM COM DSI BOARD"},
+                {"id": "1081369", "qty": "1", "desc": "USB OTG 2.0 MICRO-A FEMALE"},
+                {"id": "1081434", "qty": "1", "desc": "USB CM-2E EXTENSION CABLE (2 Meter)"},
+                {"id": "1080038", "qty": "1", "desc": "BUZZER,400MM LEAD"},
+                //                {"id": "1081461", "qty": "", "desc": "PRESSURE SENSOR BOARD"},
+                //                {"id": "1081315", "qty": "", "desc": "SUB ANALOG INPUT 4CH"},
+                //                {"id": "1081316", "qty": "", "desc": "SUB DIGITAL INPUT 4CH"},
+                //                {"id": "1081320", "qty": "", "desc": "SUB PWM SSR 4CH"},
+            ],
+            "sensors": [
+                {"id": "",        "qty": "1", "desc": "EXHAUST SENSOR"},
+                {"id": "",        "qty": "", "desc": "DOWNFLOW SENSOR"},
+                {"id": "1081662", "qty": "1", "desc": "TEMPERATURE SENSOR"},
+            ],
+            "uvLed": [
+                {"id": "", "qty": "1", "desc": "UV BALLAST"},
+                {"id": "", "qty": "1", "desc": "UV LAMP"},
+                {"id": "", "qty": "1", "desc": "LED DRIVER"},
+                {"id": "", "qty": "1", "desc": "LED LAMP"},
+            ],
+            "psu": [
+                {"id": "1080945", "qty": "1", "desc": "SMPS 12V"},
+                {"id": "",        "qty": "", "desc": "SMPS 48V"},
+                {"id": "",        "qty": "", "desc": "DC/DC CONVERTER"},
+            ],
+            "mcbEmi": [
+                {"id": "", "qty": "", "desc": "MAIN EMI FILTER"},
+                {"id": "", "qty": "", "desc": "BLOWER EMI FILTER"},
+                {"id": "", "qty": "", "desc": "MAIN CIRCUIT BREAKER"},
+                {"id": "", "qty": "", "desc": "AUX CIRCUIT BREAKER"}
+            ],
+            "contactSw": [
+                {"id": "", "qty": "", "desc": "MICRO SWITCH"},
+                {"id": "", "qty": "5", "desc": "MAGNETIC SWITCH"},
+                {"id": "", "qty": "2", "desc": "MAGNET"},
+                {"id": "", "qty": "1", "desc": "SOLENOID"}
+            ],
+            "bMotor": [
+                {"id": "", "qty": "1", "desc": "MAIN BLOWER"},
+                {"id": "", "qty": "", "desc": "EXHAUST BLOWER"},
+                {"id": "", "qty": "", "desc": "MOTORIZED"},
+            ],
+            "capInd": [
+                {"id": "", "qty": "", "desc": "MAIN BLOWER CAPACITOR"},
+                {"id": "", "qty": "", "desc": "EXHAUST BLOWER CAPACITOR"},
+                {"id": "", "qty": "", "desc": "INDUCTOR"},
+            ],
+            "custom":{},
+            "filter": [
+                {"id": "", "qty": "1", "desc": "MAIN"},
+                {"id": "", "qty": "", "desc": "EXHAUST"},
+                {"id": "", "qty": "", "desc": "SECOND EXHAUST"},
+                {"id": "", "qty": "", "desc": "PRE-FILTER"},
+            ]//
+        }//
+    ]//
 }//
 

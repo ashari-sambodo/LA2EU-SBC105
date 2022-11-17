@@ -2189,7 +2189,7 @@ void MachineBackend::setup()
     /// Security Access Mode
     {
         int value = m_settings->value(SKEY_SECURITY_ACCESS_MODE,
-                                      MachineEnums::MODE_SECURITY_ACCESS_SECURE).toInt();
+                                      MachineEnums::MODE_SECURITY_ACCESS_HIGH).toInt();
         pData->setSecurityAccessMode(static_cast<short>(value));
 
         //        qDebug() << "SKEY_SECURITY_ACCESS_MODE" << value;
@@ -7675,7 +7675,7 @@ void MachineBackend::_cancelLogoutTime()
 
 void MachineBackend::_onTimerEventLogout()
 {
-    qDebug() << metaObject()->className() << __FUNCTION__ << m_logoutTimeCountdown << thread();
+    //    qDebug() << metaObject()->className() << __FUNCTION__ << m_logoutTimeCountdown << thread();
     if(m_logoutTimeCountdown <= 0){
         disconnect(m_timerEventEverySecond.data(), &QTimer::timeout,
                    this, &MachineBackend::_onTimerEventLogout);

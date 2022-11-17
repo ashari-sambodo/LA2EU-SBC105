@@ -92,8 +92,8 @@ ViewApp {
 
                 props.alarmsState = Qt.binding(function(){ return MachineData.alarmsState })
 
-                UserSessionService.logout();
-                MachineAPI.setSignedUser("", "");
+                //                UserSessionService.logout();
+                //                MachineAPI.setSignedUser("", "", 0);
             }//
 
             /// onPause

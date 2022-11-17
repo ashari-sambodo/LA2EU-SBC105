@@ -103,8 +103,7 @@ public slots:
   void setBuzzerState(bool value);
   void setBuzzerBeep();
 
-  void setSignedUser(const QString username, const QString fullname,
-                     short userLevel);
+  void setSignedUser(const QString username, const QString fullname, short userLevel);
   void setUserLastLogin(const QString username, const QString fullname);
   void deleteUserLastLogin(const QString username);
 

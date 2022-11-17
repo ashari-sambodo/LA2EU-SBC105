@@ -14,7 +14,7 @@
         let userRole = msg.userlevel
         //DUAL RBM
         let dualRbmMode = msg.dualRbmEnable
-	let cfr21Enable = msg.cfr21Enable
+        let cfr21Enable = msg.cfr21Enable
 
         //MENU_MODEL
         let menuGroupModel = []
@@ -66,13 +66,6 @@
                              })
 
 
-            if(menu[index].length > itemPerPage) {index++; menu.push([])}
-            menu[index].push({mtype        : "menu",
-                                 mtitle    : qsTr("Screen Saver"),
-                                 micon     : "qrc:/UI/Pictures/menu/screensaver.png",
-                                 mlink     : "qrc:/UI/Pages/ScreenSaverSettingPage/ScreenSaverSettingPage.qml"
-                             })
-
             if(userRole > userRole_GUEST){
                 if(menu[index].length > itemPerPage) {index++; menu.push([])}
                 menu[index].push({mtype         :   "menu",
@@ -95,12 +88,14 @@
                                      mlink     : "qrc:/UI/Pages/AlarmLogPage/AlarmLogPage.qml"
                                  })
 
-                if(menu[index].length > itemPerPage) {index++; menu.push([])}
-                menu[index].push({mtype        : "menu",
-                                     mtitle    : qsTr("Event Log"),
-                                     micon     : "qrc:/UI/Pictures/menu/log-button_2.png",
-                                     mlink     : "qrc:/UI/Pages/EventLogPage/EventLogPage.qml"
-                                 })
+                if(cfr21Enable){
+                    if(menu[index].length > itemPerPage) {index++; menu.push([])}
+                    menu[index].push({mtype        : "menu",
+                                         mtitle    : qsTr("Event Log"),
+                                         micon     : "qrc:/UI/Pictures/menu/log-button_2.png",
+                                         mlink     : "qrc:/UI/Pages/EventLogPage/EventLogPage.qml"
+                                     })
+                }//
             }//
 
             if(userRole >= userRole_OPERATOR && userRole !== userRole_ADMIN)
@@ -262,6 +257,13 @@
                                      mtitle     :   qsTr("Remote Modbus"),
                                      micon      :   "qrc:/UI/Pictures/menu/Remote ModBus.png",
                                      mlink      :   "qrc:/UI/Pages/RemoteModbusPage/RemoteModbusPage.qml"
+                                 })
+
+                if(menu[index].length > itemPerPage) {index++; menu.push([])}
+                menu[index].push({mtype        : "menu",
+                                     mtitle    : qsTr("Screen Saver"),
+                                     micon     : "qrc:/UI/Pictures/menu/screensaver.png",
+                                     mlink     : "qrc:/UI/Pages/ScreenSaverSettingPage/ScreenSaverSettingPage.qml"
                                  })
             }//
 
@@ -427,6 +429,16 @@
                              })
 
             if(userRole >= userRole_SERVICE){
+                if (msg["sashWindowMotorizeInstalled"] !== undefined){
+                    if(menu[index].length > itemPerPage) {index++; menu.push([])}
+                    menu[index].push({mtype        :   "menu",
+                                         mtitle    :   qsTr("Sash Motor Off Delay"),
+                                         micon     :   "qrc:/UI/Pictures/menu/sash_close-delay.png",
+                                         //mlink     :   "CabinetSelectOptionPage"
+                                         mlink       : "qrc:/UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml"
+                                     })
+                }
+
                 if(menu[index].length > itemPerPage) {index++; menu.push([])}
                 menu[index].push({mtype         :   "menu",
                                      mtitle     :   qsTr("Fan Closed Loop Control"),
@@ -441,21 +453,21 @@
                                          micon     :   "qrc:/UI/Pictures/menu/RBM_Com_Port.png",
                                          mlink     :   "qrc:/UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml"
                                      })
-                }
+                }//
+
+                //                if(menu[index].length > itemPerPage) {index++; menu.push([])}
+                //                menu[index].push({mtype        : "menu",
+                //                                     mtitle    : qsTr("Security Level"),
+                //                                     micon     : "qrc:/UI/Pictures/security_level.png",
+                //                                     mlink     : "qrc:/UI/Pages/SecurityLevelSetPage/SecurityLevelSetPage.qml"
+                //                                     //                                 mlink     : "qrc:/UI/Pages/FtpFileSharePage/FtpFileSharePage.qml"
+                //                                 })
 
                 if(menu[index].length > itemPerPage) {index++; menu.push([])}
                 menu[index].push({mtype         :   "menu",
                                      mtitle     :   qsTr("System Monitor"),
                                      micon      :   "qrc:/UI/Pictures/menu/resource-mon.png",
                                      mlink      :   "qrc:/UI/Pages/ResourceMonitorPage/ResourceMonitorPage.qml"
-                                 })
-
-                if(menu[index].length > itemPerPage) {index++; menu.push([])}
-                menu[index].push({mtype        : "menu",
-                                     mtitle    : qsTr("Security Level"),
-                                     micon     : "qrc:/UI/Pictures/security_level.png",
-                                     mlink     : "qrc:/UI/Pages/SecurityLevelSetPage/SecurityLevelSetPage.qml"
-                                     //                                 mlink     : "qrc:/UI/Pages/FtpFileSharePage/FtpFileSharePage.qml"
                                  })
 
                 if(menu[index].length > itemPerPage) {index++; menu.push([])}
@@ -495,15 +507,7 @@
             //                                 mlink       : "qrc:/UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml"
             //                             })
 
-            if (msg["sashWindowMotorizeInstalled"] !== undefined){
-                if(menu[index].length > itemPerPage) {index++; menu.push([])}
-                menu[index].push({mtype        :   "menu",
-                                     mtitle    :   qsTr("Sash Motor Off Delay"),
-                                     micon     :   "qrc:/UI/Pictures/menu/sash_close-delay.png",
-                                     //mlink     :   "CabinetSelectOptionPage"
-                                     mlink       : "qrc:/UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml"
-                                 })
-            }
+
             //
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}

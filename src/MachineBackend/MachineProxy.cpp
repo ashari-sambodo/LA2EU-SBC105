@@ -260,8 +260,7 @@ void MachineProxy::setBuzzerBeep() {
       Qt::QueuedConnection);
 }
 
-void MachineProxy::setSignedUser(const QString username, const QString fullname,
-                                 short userLevel) {
+void MachineProxy::setSignedUser(const QString username, const QString fullname, short userLevel) {
   QMetaObject::invokeMethod(
       m_machineBackend.data(),
       [&, username, fullname, userLevel]() {

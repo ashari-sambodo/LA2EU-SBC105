@@ -38,7 +38,7 @@ using namespace std;
 RTCpcf8523::RTCpcf8523(QObject *parent)
     : ClassDriver(parent)
 {
-    memset(m_registerDataBuffer, 0x00, 255);
+    memset(m_registerDataBuffer, 0x00, 256);
     m_address       = PCF8523_m_address;
 }
 

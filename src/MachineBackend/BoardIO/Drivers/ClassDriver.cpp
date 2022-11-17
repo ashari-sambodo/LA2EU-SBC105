@@ -2,7 +2,7 @@
 
 ClassDriver::ClassDriver(QObject *parent) : QObject(parent)
 {
-    memset(m_registerDataBuffer, 0x00, 255);
+    memset(m_registerDataBuffer, 0x00, 256);
     m_commStatusActual            = I2C_COMM_STATUS_NONE;
     pI2C                    = nullptr;
     m_address               = 0x00;

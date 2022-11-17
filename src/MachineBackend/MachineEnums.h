@@ -83,8 +83,8 @@ enum EnumUserRoleLevel {
 Q_ENUMS(EnumUserRoleLevel)
 enum EnumSecurityAccessState{
     MODE_SECURITY_ACCESS_LOW,
-    MODE_SECURITY_ACCESS_MODERATE,
-    MODE_SECURITY_ACCESS_SECURE,
+    MODE_SECURITY_ACCESS_MEDIUM,
+    MODE_SECURITY_ACCESS_HIGH,
 
 };
 Q_ENUMS(EnumSecurityAccessState)

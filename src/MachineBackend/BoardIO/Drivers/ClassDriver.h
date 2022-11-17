@@ -45,7 +45,7 @@ protected:
     I2CPort*        pI2C;
     uchar           m_address;
     int             m_commStatusActual;
-    unsigned char   m_registerDataBuffer[255];
+    unsigned char   m_registerDataBuffer[256];
 
     short           m_errorComToleranceCount;
     short           m_errorComToleranceCountMax;

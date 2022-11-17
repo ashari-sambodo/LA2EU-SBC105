@@ -16,7 +16,7 @@ import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
-    title: "Manual Input Calibration Point"
+    title: "Manual Input Calibration"
 
     background.sourceComponent: Item {}
 
@@ -41,7 +41,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr("Manual Input Calibration Point")
+                    title: qsTr("Manual Input Calibration")
                 }
             }
 
@@ -899,7 +899,7 @@ ViewApp {
                                 //                                                 }
 
                                 //                                                 if (seconds >= 3){
-                                //                                                     showDialogMessage(qsTr("Manual Input Calibration Point"),
+                                //                                                     showDialogMessage(qsTr("Manual Input Calibration"),
                                 //                                                                       qsTr("Manual calibration data has been configured!"),
                                 //                                                                       dialogInfo,
                                 //                                                                       function onClosed(){

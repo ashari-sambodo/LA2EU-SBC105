@@ -131,9 +131,10 @@ ViewApp {
 
                                 MachineAPI.setSerialNumber(text)
 
-                                viewApp.showBusyPage(qsTr("Setting Serial Number..."),
+                                viewApp.showBusyPage(qsTr("Setting up..."),
                                                      function onTriggered(cycle){
-                                                         if(cycle >= MachineAPI.BUSY_CYCLE_1){
+                                                         if(cycle >= MachineAPI.BUSY_CYCLE_1
+                                                                 || MachineData.serialNumber === text){
                                                              viewApp.dialogObject.close()}
                                                      })
                             }
