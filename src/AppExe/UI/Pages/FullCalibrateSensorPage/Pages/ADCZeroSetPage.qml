@@ -66,17 +66,24 @@ ViewApp {
                                     spacing: 5
                                     anchors.centerIn: parent
                                     Rectangle{
-                                        height: 40
-                                        width: leftContentItem.width
                                         color: "transparent"
-                                        TextApp{
-                                            height: parent.height
-                                            width: parent.width
-                                            text: qsTr("Downflow")
-                                            font.underline: true
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignVCenter
-                                        }
+                                        border.width: 0
+                                        height: 40
+                                        width: 200
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        Rectangle {
+                                            color: "#80000000"
+                                            anchors.centerIn: parent
+                                            radius: 2
+                                            TextApp {
+                                                //id: msgInfoTextApp
+                                                text: qsTr("Downflow")
+                                                verticalAlignment: Text.AlignVCenter
+                                                padding: 2
+                                            }
+                                            width: childrenRect.width
+                                            height: childrenRect.height
+                                        }//
                                     }
                                     Rectangle {
                                         width: 220
@@ -135,6 +142,7 @@ ViewApp {
                                         }//
 
                                         MouseArea {
+                                            enabled: false
                                             anchors.fill: parent
                                             onClicked: {
 
@@ -164,7 +172,7 @@ ViewApp {
                                         horizontalAlignment: Text.AlignHCenter
                                         //verticalAlignment: Text.AlignBottom
                                         wrapMode: Text.WordWrap
-                                        text: qsTr("Downflow and Inflow fan must be Off!")
+                                        text: qsTr("Downflow and Exhaust fan should be OFF!")
                                     }
                                     Row{
                                         anchors.horizontalCenter: parent.horizontalCenter
@@ -264,17 +272,24 @@ ViewApp {
                                     spacing: 5
                                     anchors.centerIn: parent
                                     Rectangle{
-                                        height: 40
-                                        width: rightContentItem.width
                                         color: "transparent"
-                                        TextApp{
-                                            height: parent.height
-                                            width: parent.width
-                                            text: qsTr("Inflow")
-                                            font.underline: true
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignVCenter
-                                        }
+                                        border.width: 0
+                                        height: 40
+                                        width: 200
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        Rectangle {
+                                            color: "#80000000"
+                                            anchors.centerIn: parent
+                                            radius: 2
+                                            TextApp {
+                                                //id: msgInfoTextApp
+                                                text: qsTr("Inflow")
+                                                verticalAlignment: Text.AlignVCenter
+                                                padding: 2
+                                            }
+                                            width: childrenRect.width
+                                            height: childrenRect.height
+                                        }//
                                     }
                                     Rectangle {
                                         width: 220
@@ -334,6 +349,7 @@ ViewApp {
                                         }//
 
                                         MouseArea {
+                                            enabled: false
                                             anchors.fill: parent
                                             onClicked: {
 
@@ -371,7 +387,7 @@ ViewApp {
                             }//
 
                             TextApp {
-                                text: qsTr("Please wait for %1, time left").arg(utilsApp.strfSecsToHumanReadable(props.stabilizingTimer)) + ":"
+                                text: qsTr("Please wait for %1").arg(utilsApp.strfSecsToHumanReadable(props.stabilizingTimer)) + ":"
                             }//
 
                             TextApp {
@@ -417,7 +433,7 @@ ViewApp {
                                     //                                    property int count: 2
                                     property int count: props.stabilizingTimer
 
-                                    Component.onCompleted: {count = Qt.binding(function(){return props.stabilizingTimer})}
+                                    //Component.onCompleted: {count = Qt.binding(function(){return props.stabilizingTimer})}
                                 }//
                             }//
                             Column{

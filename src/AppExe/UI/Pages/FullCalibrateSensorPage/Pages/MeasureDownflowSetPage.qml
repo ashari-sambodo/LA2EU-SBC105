@@ -416,7 +416,7 @@ ViewApp {
                                                 wrapMode: Text.WordWrap
                                                 font.pixelSize: 12
                                                 minimumPixelSize: 10
-                                                text: qsTr("Tap here to adjust <b>%1</b> fan").arg(qsTr("Inflow"))
+                                                text: qsTr("Tap here to adjust <b>%1</b> fan").arg(qsTr("Exhaust"))
                                             }
                                         }
 

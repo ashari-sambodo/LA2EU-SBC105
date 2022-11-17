@@ -599,7 +599,7 @@ void MachineBackend::setup()
                 //DEFINE_CHANNEL_FOR_AIRFLOW_INFLOW
                 m_boardAnalogInput1->setChannelDoPoll(1, true);
                 m_boardAnalogInput1->setChannelDoAverage(1, true);
-                m_boardAnalogInput1->setChannelSamples(1, 20);
+                m_boardAnalogInput1->setChannelSamples(1, 50);
 
                 ////MONITORING COMMUNICATION STATUS
                 QObject::connect(m_boardAnalogInput1.data(), &AIManage::errorComToleranceReached,
@@ -635,7 +635,7 @@ void MachineBackend::setup()
                 //DEFINE_CHANNEL_FOR_AIRFLOW_DOWNFLOW
                 m_boardAnalogInput2->setChannelDoPoll(0, true);
                 m_boardAnalogInput2->setChannelDoAverage(0, true);
-                m_boardAnalogInput2->setChannelSamples(0, 20);
+                m_boardAnalogInput2->setChannelSamples(0, 30);
 
                 //DEFINE_CHANNEL_FOR_SASH_MOTORIZED_INTERLOCKED_SWITCH
                 m_boardAnalogInput2->setChannelDoPoll(1, true);
@@ -741,7 +741,7 @@ void MachineBackend::setup()
                                  });
             }//
             else{
-                /// Analog Output Board - INFLOW FAN
+                /// Analog Output Board - Exhaust fan
                 {
                     m_boardAnalogOutput2.reset(new AOmcp4725);
                     m_boardAnalogOutput2->setI2C(m_i2cPort.data());
@@ -1445,7 +1445,7 @@ void MachineBackend::setup()
 
     /// Sash Window Motorize
     {
-        bool installed = m_settings->value(SKEY_SASH_MOTOR_INSTALLED, MachineEnums::DIG_STATE_ZERO).toInt();
+        bool installed = m_settings->value(SKEY_SASH_MOTOR_INSTALLED, MachineEnums::DIG_STATE_ONE).toInt();
         //        installed = true;
         pData->setSashWindowMotorizeInstalled(installed);
 
@@ -1568,7 +1568,9 @@ void MachineBackend::setup()
     //        qDebug() << "m_lightIntensity" << inputCode;
     //        m_boardAnalogOutput1->setDAC(inputCode);
 
-    m_pLightIntensity->setState(light);
+    //m_pLightIntensity->setState(light);
+
+    pData->setLightIntensity(light);
 
     connect(m_pLightIntensity.data(), &DeviceAnalogCom::stateChanged,
             pData, [&](int newVal){
@@ -2482,780 +2484,780 @@ void MachineBackend::setup()
         _onDownflowVelocityActualChanged(0);
     }
 
-    /// Output Auto Set
+
+    /// UV SCHEDULER ON
     {
-        /// UV SCHEDULER ON
-        {
-            m_uvSchedulerAutoSet.reset(new SchedulerDayOutput);
+        m_uvSchedulerAutoSet.reset(new SchedulerDayOutput);
 
-    bool enable    = m_settings->value(SKEY_SCHED_UV_ENABLE, false).toInt();
-    int  time      = m_settings->value(SKEY_SCHED_UV_TIME, 480/*8:00 AM*/).toInt();
-    int  repeat    = m_settings->value(SKEY_SCHED_UV_REPEAT, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
-    int  repeatDay = m_settings->value(SKEY_SCHED_UV_REPEAT_DAY, SchedulerDayOutput::DAY_MONDAY).toInt();
+        bool enable    = m_settings->value(SKEY_SCHED_UV_ENABLE, false).toInt();
+        int  time      = m_settings->value(SKEY_SCHED_UV_TIME, 480/*8:00 AM*/).toInt();
+        int  repeat    = m_settings->value(SKEY_SCHED_UV_REPEAT, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
+        int  repeatDay = m_settings->value(SKEY_SCHED_UV_REPEAT_DAY, SchedulerDayOutput::DAY_MONDAY).toInt();
 
-    pData->setUVAutoEnabled(enable);
-    pData->setUVAutoTime(time);
-    pData->setUVAutoDayRepeat(repeat);
-    pData->setUVAutoWeeklyDay(repeatDay);
+        pData->setUVAutoEnabled(enable);
+        pData->setUVAutoTime(time);
+        pData->setUVAutoDayRepeat(repeat);
+        pData->setUVAutoWeeklyDay(repeatDay);
 
-    m_uvSchedulerAutoSet->setEnabled(enable);
-    m_uvSchedulerAutoSet->setTime(time);
-    m_uvSchedulerAutoSet->setDayRepeat(repeat);
-    m_uvSchedulerAutoSet->setWeeklyDay(repeatDay);
+        m_uvSchedulerAutoSet->setEnabled(enable);
+        m_uvSchedulerAutoSet->setTime(time);
+        m_uvSchedulerAutoSet->setDayRepeat(repeat);
+        m_uvSchedulerAutoSet->setWeeklyDay(repeatDay);
 
-    /// call this when schedulling spec is same
-    QObject::connect(m_uvSchedulerAutoSet.data(), &SchedulerDayOutput::activated,
-                     this, &MachineBackend::_onTriggeredUvSchedulerAutoSet);
-}//
-/// UV SCHEDULER OFF
-{
-    m_uvSchedulerAutoSetOff.reset(new SchedulerDayOutput);
+        /// call this when schedulling spec is same
+        QObject::connect(m_uvSchedulerAutoSet.data(), &SchedulerDayOutput::activated,
+                         this, &MachineBackend::_onTriggeredUvSchedulerAutoSet);
+    }//
+    /// UV SCHEDULER OFF
+    {
+        m_uvSchedulerAutoSetOff.reset(new SchedulerDayOutput);
 
-    bool enable    = m_settings->value(SKEY_SCHED_UV_ENABLE_OFF, false).toInt();
-    int  time      = m_settings->value(SKEY_SCHED_UV_TIME_OFF, 490/*8:10 AM*/).toInt();
-    int  repeat    = m_settings->value(SKEY_SCHED_UV_REPEAT_OFF, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
-    int  repeatDay = m_settings->value(SKEY_SCHED_UV_REPEAT_DAY_OFF, SchedulerDayOutput::DAY_MONDAY).toInt();
+        bool enable    = m_settings->value(SKEY_SCHED_UV_ENABLE_OFF, false).toInt();
+        int  time      = m_settings->value(SKEY_SCHED_UV_TIME_OFF, 490/*8:10 AM*/).toInt();
+        int  repeat    = m_settings->value(SKEY_SCHED_UV_REPEAT_OFF, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
+        int  repeatDay = m_settings->value(SKEY_SCHED_UV_REPEAT_DAY_OFF, SchedulerDayOutput::DAY_MONDAY).toInt();
 
-    pData->setUVAutoEnabledOff(enable);
-    pData->setUVAutoTimeOff(time);
-    pData->setUVAutoDayRepeatOff(repeat);
-    pData->setUVAutoWeeklyDayOff(repeatDay);
+        pData->setUVAutoEnabledOff(enable);
+        pData->setUVAutoTimeOff(time);
+        pData->setUVAutoDayRepeatOff(repeat);
+        pData->setUVAutoWeeklyDayOff(repeatDay);
 
-    m_uvSchedulerAutoSetOff->setEnabled(enable);
-    m_uvSchedulerAutoSetOff->setTime(time);
-    m_uvSchedulerAutoSetOff->setDayRepeat(repeat);
-    m_uvSchedulerAutoSetOff->setWeeklyDay(repeatDay);
+        m_uvSchedulerAutoSetOff->setEnabled(enable);
+        m_uvSchedulerAutoSetOff->setTime(time);
+        m_uvSchedulerAutoSetOff->setDayRepeat(repeat);
+        m_uvSchedulerAutoSetOff->setWeeklyDay(repeatDay);
 
-    /// call this when schedulling spec is same
-    QObject::connect(m_uvSchedulerAutoSetOff.data(), &SchedulerDayOutput::activated,
-                     this, &MachineBackend::_onTriggeredUvSchedulerAutoSetOff);
-}//
+        /// call this when schedulling spec is same
+        QObject::connect(m_uvSchedulerAutoSetOff.data(), &SchedulerDayOutput::activated,
+                         this, &MachineBackend::_onTriggeredUvSchedulerAutoSetOff);
+    }//
 
-/// FAN SCHEDULER ON
-{
-    m_fanSchedulerAutoSet.reset(new SchedulerDayOutput);
+    /// FAN SCHEDULER ON
+    {
+        m_fanSchedulerAutoSet.reset(new SchedulerDayOutput);
 
-    bool enable    = m_settings->value(SKEY_SCHED_FAN_ENABLE, false).toInt();
-    int  time      = m_settings->value(SKEY_SCHED_FAN_TIME, 480/*8:00 AM*/).toInt();
-    int  repeat    = m_settings->value(SKEY_SCHED_FAN_REPEAT, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
-    int  repeatDay = m_settings->value(SKEY_SCHED_FAN_REPEAT_DAY, SchedulerDayOutput::DAY_MONDAY).toInt();
+        bool enable    = m_settings->value(SKEY_SCHED_FAN_ENABLE, false).toInt();
+        int  time      = m_settings->value(SKEY_SCHED_FAN_TIME, 480/*8:00 AM*/).toInt();
+        int  repeat    = m_settings->value(SKEY_SCHED_FAN_REPEAT, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
+        int  repeatDay = m_settings->value(SKEY_SCHED_FAN_REPEAT_DAY, SchedulerDayOutput::DAY_MONDAY).toInt();
 
-    pData->setFanAutoEnabled(enable);
-    pData->setFanAutoTime(time);
-    pData->setFanAutoDayRepeat(repeat);
-    pData->setFanAutoWeeklyDay(repeatDay);
+        pData->setFanAutoEnabled(enable);
+        pData->setFanAutoTime(time);
+        pData->setFanAutoDayRepeat(repeat);
+        pData->setFanAutoWeeklyDay(repeatDay);
 
-    m_fanSchedulerAutoSet->setEnabled(enable);
-    m_fanSchedulerAutoSet->setTime(time);
-    m_fanSchedulerAutoSet->setDayRepeat(repeat);
-    m_fanSchedulerAutoSet->setWeeklyDay(repeatDay);
+        m_fanSchedulerAutoSet->setEnabled(enable);
+        m_fanSchedulerAutoSet->setTime(time);
+        m_fanSchedulerAutoSet->setDayRepeat(repeat);
+        m_fanSchedulerAutoSet->setWeeklyDay(repeatDay);
 
-    /// call this when schedulling spec is the same
-    QObject::connect(m_fanSchedulerAutoSet.data(), &SchedulerDayOutput::activated,
-                     this, &MachineBackend::_onTriggeredFanSchedulerAutoSet);
-}//
-/// FAN SCHEDULER OFF
-{
-    m_fanSchedulerAutoSetOff.reset(new SchedulerDayOutput);
+        /// call this when schedulling spec is the same
+        QObject::connect(m_fanSchedulerAutoSet.data(), &SchedulerDayOutput::activated,
+                         this, &MachineBackend::_onTriggeredFanSchedulerAutoSet);
+    }//
+    /// FAN SCHEDULER OFF
+    {
+        m_fanSchedulerAutoSetOff.reset(new SchedulerDayOutput);
 
-    bool enable    = m_settings->value(SKEY_SCHED_FAN_ENABLE_OFF, false).toInt();
-    int  time      = m_settings->value(SKEY_SCHED_FAN_TIME_OFF, 490/*8:10 AM*/).toInt();
-    int  repeat    = m_settings->value(SKEY_SCHED_FAN_REPEAT_OFF, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
-    int  repeatDay = m_settings->value(SKEY_SCHED_FAN_REPEAT_DAY_OFF, SchedulerDayOutput::DAY_MONDAY).toInt();
+        bool enable    = m_settings->value(SKEY_SCHED_FAN_ENABLE_OFF, false).toInt();
+        int  time      = m_settings->value(SKEY_SCHED_FAN_TIME_OFF, 490/*8:10 AM*/).toInt();
+        int  repeat    = m_settings->value(SKEY_SCHED_FAN_REPEAT_OFF, SchedulerDayOutput::DAYS_REPEAT_ONCE).toInt();
+        int  repeatDay = m_settings->value(SKEY_SCHED_FAN_REPEAT_DAY_OFF, SchedulerDayOutput::DAY_MONDAY).toInt();
 
-    pData->setFanAutoEnabledOff(enable);
-    pData->setFanAutoTimeOff(time);
-    pData->setFanAutoDayRepeatOff(repeat);
-    pData->setFanAutoWeeklyDayOff(repeatDay);
+        pData->setFanAutoEnabledOff(enable);
+        pData->setFanAutoTimeOff(time);
+        pData->setFanAutoDayRepeatOff(repeat);
+        pData->setFanAutoWeeklyDayOff(repeatDay);
 
-    m_fanSchedulerAutoSetOff->setEnabled(enable);
-    m_fanSchedulerAutoSetOff->setTime(time);
-    m_fanSchedulerAutoSetOff->setDayRepeat(repeat);
-    m_fanSchedulerAutoSetOff->setWeeklyDay(repeatDay);
+        m_fanSchedulerAutoSetOff->setEnabled(enable);
+        m_fanSchedulerAutoSetOff->setTime(time);
+        m_fanSchedulerAutoSetOff->setDayRepeat(repeat);
+        m_fanSchedulerAutoSetOff->setWeeklyDay(repeatDay);
 
-    /// call this when schedulling spec is the same
-    QObject::connect(m_fanSchedulerAutoSetOff.data(), &SchedulerDayOutput::activated,
-                     this, &MachineBackend::_onTriggeredFanSchedulerAutoSetOff);
-}//
-}//
+        /// call this when schedulling spec is the same
+        QObject::connect(m_fanSchedulerAutoSetOff.data(), &SchedulerDayOutput::activated,
+                         this, &MachineBackend::_onTriggeredFanSchedulerAutoSetOff);
+    }//
 
-/// DATA LOG
-{
-    int enable = m_settings->value(SKEY_DATALOG_ENABLE, 1).toInt();
-    int period = m_settings->value(SKEY_DATALOG_PERIOD, 10).toInt(); /// default every 10 minutes
+    /// DATA LOG
+    {
+        int enable = m_settings->value(SKEY_DATALOG_ENABLE, 1).toInt();
+        int period = m_settings->value(SKEY_DATALOG_PERIOD, 10).toInt(); /// default every 10 minutes
 
-    pData->setDataLogEnable(enable);
-    pData->setDataLogPeriod(static_cast<short>(period));
-    pData->setDataLogSpaceMaximum(DATALOG_MAX_ROW);
+        pData->setDataLogEnable(enable);
+        pData->setDataLogPeriod(static_cast<short>(period));
+        pData->setDataLogSpaceMaximum(DATALOG_MAX_ROW);
 
-    m_timerEventForDataLog.reset(new QTimer);
-    m_timerEventForDataLog->setInterval(period * 60 * 1000);
-    ///
-    QObject::connect(m_timerEventForDataLog.data(), &QTimer::timeout,
-                     this, &MachineBackend::_insertDataLog);
-    ///
-    if(enable) {
+        m_timerEventForDataLog.reset(new QTimer);
+        m_timerEventForDataLog->setInterval(period * 60 * 1000);
+        ///
+        QObject::connect(m_timerEventForDataLog.data(), &QTimer::timeout,
+                         this, &MachineBackend::_insertDataLog);
+        ///
+        if(enable) {
+            QObject::connect(this, &MachineBackend::loopStarted,
+                             [&](){
+                                 pData->setDataLogRunning(true);
+                                 m_timerEventForDataLog->start();
+                             });
+        }
+
+        m_pDataLogSql.reset(new DataLogSql);
+        m_pDataLog.reset(new DataLog);
+        m_pDataLog->setPSqlInterface(m_pDataLogSql.data());
+
+        m_threadForDatalog.reset(new QThread);
+        /// move the object to extra thread, so every query will execute in the separated thread
+        m_pDataLog->moveToThread(m_threadForDatalog.data());
+        m_pDataLogSql->moveToThread(m_threadForDatalog.data());
+
+        QObject::connect(m_threadForDatalog.data(), &QThread::started,
+                         m_pDataLog.data(), [&](){
+                             m_pDataLog->routineTask();
+                         });
         QObject::connect(this, &MachineBackend::loopStarted,
                          [&](){
-                             pData->setDataLogRunning(true);
-                             m_timerEventForDataLog->start();
+                             m_threadForDatalog->start();
                          });
     }
 
-    m_pDataLogSql.reset(new DataLogSql);
-    m_pDataLog.reset(new DataLog);
-    m_pDataLog->setPSqlInterface(m_pDataLogSql.data());
+    /// ALARM LOG
+    {
+        m_pAlarmLogSql.reset(new AlarmLogSql);
+        m_pAlarmLog.reset(new AlarmLog);
+        m_pAlarmLog->setPSqlInterface(m_pAlarmLogSql.data());
 
-    m_threadForDatalog.reset(new QThread);
-    /// move the object to extra thread, so every query will execute in the separated thread
-    m_pDataLog->moveToThread(m_threadForDatalog.data());
-    m_pDataLogSql->moveToThread(m_threadForDatalog.data());
+        pData->setAlarmLogSpaceMaximum(ALARMEVENTLOG_MAX_ROW);
 
-    QObject::connect(m_threadForDatalog.data(), &QThread::started,
-                     m_pDataLog.data(), [&](){
-                         m_pDataLog->routineTask();
-                     });
-    QObject::connect(this, &MachineBackend::loopStarted,
-                     [&](){
-                         m_threadForDatalog->start();
-                     });
-}
+        m_threadForAlarmLog.reset(new QThread);
+        /// move the object to extra thread, so every query will execute in the separated thread
+        m_pAlarmLog->moveToThread(m_threadForAlarmLog.data());
+        m_pAlarmLogSql->moveToThread(m_threadForAlarmLog.data());
 
-/// ALARM LOG
-{
-    m_pAlarmLogSql.reset(new AlarmLogSql);
-    m_pAlarmLog.reset(new AlarmLog);
-    m_pAlarmLog->setPSqlInterface(m_pAlarmLogSql.data());
-
-    pData->setAlarmLogSpaceMaximum(ALARMEVENTLOG_MAX_ROW);
-
-    m_threadForAlarmLog.reset(new QThread);
-    /// move the object to extra thread, so every query will execute in the separated thread
-    m_pAlarmLog->moveToThread(m_threadForAlarmLog.data());
-    m_pAlarmLogSql->moveToThread(m_threadForAlarmLog.data());
-
-    QObject::connect(m_threadForAlarmLog.data(), &QThread::started,
-                     m_pAlarmLog.data(), [&](){
-                         m_pAlarmLog->routineTask();
-                     });
-    QObject::connect(this, &MachineBackend::loopStarted,
-                     [&](){
-                         m_threadForAlarmLog->start();
-                     });
-}
-
-/// EVENT LOG
-{
-    m_pEventLogSql.reset(new EventLogSql);
-    m_pEventLog.reset(new EventLog);
-    m_pEventLog->setPSqlInterface(m_pEventLogSql.data());
-
-    pData->setEventLogSpaceMaximum(ALARMEVENTLOG_MAX_ROW);
-
-    m_threadForEventLog.reset(new QThread);
-    /// move the object to extra thread, so every query will execute in the separated thread
-    m_pEventLog->moveToThread(m_threadForEventLog.data());
-    m_pEventLogSql->moveToThread(m_threadForEventLog.data());
-
-    QObject::connect(m_threadForEventLog.data(), &QThread::started,
-                     m_pEventLog.data(), [&](){
-                         m_pEventLog->routineTask();
-                     });
-    QObject::connect(this, &MachineBackend::loopStarted,
-                     [&](){
-                         m_threadForEventLog->start();
-                     });
-}
-
-/// REPLACEABLECOMPONENT LOG
-{
-    m_pReplaceableCompRecordSql.reset(new ReplaceableCompRecordSql);
-    m_pReplaceableCompRecord.reset(new ReplaceableCompRecord);
-    m_pReplaceableCompRecord->setPSqlInterface(m_pReplaceableCompRecordSql.data());
-
-    pData->setReplaceableCompRecordSpaceMaximum(ALARMREPLACEABLECOMPRECORD_MAX_ROW);
-
-    m_threadForReplaceableCompRecord.reset(new QThread);
-    /// move the object to extra thread, so every query will execute in the separated thread
-    m_pReplaceableCompRecord->moveToThread(m_threadForReplaceableCompRecord.data());
-    m_pReplaceableCompRecordSql->moveToThread(m_threadForReplaceableCompRecord.data());
-
-    QObject::connect(m_threadForReplaceableCompRecord.data(), &QThread::started,
-                     m_pReplaceableCompRecord.data(), [&](){
-                         m_pReplaceableCompRecord->routineTask();
-                     });
-    QObject::connect(this, &MachineBackend::loopStarted,
-                     [&](){
-                         m_threadForReplaceableCompRecord->start();
-                     });
-
-    for(short i=0; i<MachineEnums::RPList_Total; i++)
-        m_rpListSettings[i] =  m_pReplaceableCompRecordSql->getParameterStringFromIndex(i);
-
-    m_settings->beginGroup("rplist");
-    for(short i=1; i < MachineEnums::RPList_Total; i++){
-        QString defaultValue = _getRpListDefaultValue(i);
-        pData->setRpListLast(i, m_settings->value(m_rpListSettings[i], defaultValue).toString());
-        pData->setRpListSelected(i, "");
-        //            qDebug() << i << pData->getRpListLastAtIndex(i);
-    }//
-    m_settings->endGroup();
-
-    //initReplaceablePartsSettings();
-}//
-
-/// RESOURCE MONITOR LOG
-{
-    bool enable = m_settings->value(SKEY_RESMONLOG_ENABLE, false).toBool();
-    int period = m_settings->value(SKEY_RESMONLOG_PERIOD, 10).toInt(); /// default every 10 minutes
-
-    pData->setResourceMonitorLogEnable(enable);
-    pData->setResourceMonitorLogPeriod(static_cast<short>(period));
-    pData->setResourceMonitorLogSpaceMaximum(RESMONLOG_MAX_ROW);
-
-    m_timerEventForResourceMonitorLog.reset(new QTimer);
-    m_timerEventForResourceMonitorLog->setInterval(period * 60 * 1000);
-    ///
-    QObject::connect(m_timerEventForResourceMonitorLog.data(), &QTimer::timeout,
-                     this, &MachineBackend::_insertResourceMonitorLog);
-    ///
-    if(enable) {
+        QObject::connect(m_threadForAlarmLog.data(), &QThread::started,
+                         m_pAlarmLog.data(), [&](){
+                             m_pAlarmLog->routineTask();
+                         });
         QObject::connect(this, &MachineBackend::loopStarted,
                          [&](){
-                             pData->setResourceMonitorLogRunning(true);
-                             m_timerEventForResourceMonitorLog->start();
+                             m_threadForAlarmLog->start();
                          });
+    }
+
+    /// EVENT LOG
+    {
+        m_pEventLogSql.reset(new EventLogSql);
+        m_pEventLog.reset(new EventLog);
+        m_pEventLog->setPSqlInterface(m_pEventLogSql.data());
+
+        pData->setEventLogSpaceMaximum(ALARMEVENTLOG_MAX_ROW);
+
+        m_threadForEventLog.reset(new QThread);
+        /// move the object to extra thread, so every query will execute in the separated thread
+        m_pEventLog->moveToThread(m_threadForEventLog.data());
+        m_pEventLogSql->moveToThread(m_threadForEventLog.data());
+
+        QObject::connect(m_threadForEventLog.data(), &QThread::started,
+                         m_pEventLog.data(), [&](){
+                             m_pEventLog->routineTask();
+                         });
+        QObject::connect(this, &MachineBackend::loopStarted,
+                         [&](){
+                             m_threadForEventLog->start();
+                         });
+    }
+
+    /// REPLACEABLECOMPONENT LOG
+    {
+        m_pReplaceableCompRecordSql.reset(new ReplaceableCompRecordSql);
+        m_pReplaceableCompRecord.reset(new ReplaceableCompRecord);
+        m_pReplaceableCompRecord->setPSqlInterface(m_pReplaceableCompRecordSql.data());
+
+        pData->setReplaceableCompRecordSpaceMaximum(ALARMREPLACEABLECOMPRECORD_MAX_ROW);
+
+        m_threadForReplaceableCompRecord.reset(new QThread);
+        /// move the object to extra thread, so every query will execute in the separated thread
+        m_pReplaceableCompRecord->moveToThread(m_threadForReplaceableCompRecord.data());
+        m_pReplaceableCompRecordSql->moveToThread(m_threadForReplaceableCompRecord.data());
+
+        QObject::connect(m_threadForReplaceableCompRecord.data(), &QThread::started,
+                         m_pReplaceableCompRecord.data(), [&](){
+                             m_pReplaceableCompRecord->routineTask();
+                         });
+        QObject::connect(this, &MachineBackend::loopStarted,
+                         [&](){
+                             m_threadForReplaceableCompRecord->start();
+                         });
+
+        for(short i=0; i<MachineEnums::RPList_Total; i++)
+            m_rpListSettings[i] =  m_pReplaceableCompRecordSql->getParameterStringFromIndex(i);
+
+        m_settings->beginGroup("rplist");
+        for(short i=1; i < MachineEnums::RPList_Total; i++){
+            QString defaultValue = _getRpListDefaultValue(i);
+            pData->setRpListLast(i, m_settings->value(m_rpListSettings[i], defaultValue).toString());
+            pData->setRpListSelected(i, "");
+            //            qDebug() << i << pData->getRpListLastAtIndex(i);
+        }//
+        m_settings->endGroup();
+
+        //initReplaceablePartsSettings();
     }//
 
-    m_pResourceMonitorLogSql.reset(new ResourceMonitorLogSql);
-    m_pResourceMonitorLog.reset(new ResourceMonitorLog);
-    m_pResourceMonitorLog->setPSqlInterface(m_pResourceMonitorLogSql.data());
-
-    m_threadForResourceMonitorLog.reset(new QThread);
-    /// move the object to extra thread, so every query will execute in the separated thread
-    m_pResourceMonitorLog->moveToThread(m_threadForResourceMonitorLog.data());
-    m_pResourceMonitorLogSql->moveToThread(m_threadForResourceMonitorLog.data());
-
-    QObject::connect(m_threadForResourceMonitorLog.data(), &QThread::started,
-                     m_pResourceMonitorLog.data(), [&](){
-                         m_pResourceMonitorLog->routineTask();
-                     });
-    QObject::connect(this, &MachineBackend::loopStarted,
-                     [&](){
-                         m_threadForResourceMonitorLog->start();
-                     });
-}
-
-/// Sensor Warming up
-{
-    int seconds = m_settings->value(SKEY_WARMUP_TIME, 180).toInt(); //3 minutes
-    pData->setWarmingUpTime(seconds);
-    pData->setWarmingUpCountdown(seconds);
-}
-
-/// Post purging
-{
-    int seconds = m_settings->value(SKEY_POSTPURGE_TIME, 0).toInt(); //0 minutes, disabled
-    pData->setPostPurgingTime(seconds);
-    pData->setPostPurgingCountdown(seconds);
-}
-
-/// Filter Meter
-{
-    int mode    = m_settings->value(SKEY_FILTER_METER_MODE,     MachineEnums::FilterLifeCalc_BlowerUsage).toInt();
-    int minTime = m_settings->value(SKEY_FILTER_METER_MIN_TIME, SDEF_FILTER_MINIMUM_TIME_LIFE).toInt();
-    int maxTime = m_settings->value(SKEY_FILTER_METER_MAX_TIME, SDEF_FILTER_MAXIMUM_TIME_LIFE).toInt();
-    int minRpm  = m_settings->value(SKEY_FILTER_METER_MIN_RPM,  SDEF_FILTER_MINIMUM_RPM_LIFE).toInt();
-    int maxRpm  = m_settings->value(SKEY_FILTER_METER_MAX_RPM,  SDEF_FILTER_MAXIMUM_RPM_LIFE).toInt();
-
-    int lifeMinutes = m_settings->value(SKEY_FILTER_METER_MIN, SDEF_FILTER_MAXIMUM_TIME_LIFE).toInt();
-    int lifeRpm = m_settings->value(SKEY_FILTER_METER_RPM, SDEF_FILTER_MINIMUM_RPM_LIFE).toInt(); ///Current Nominal RPM
-
-    int percentLeft = 100;
-    if(mode == MachineEnums::FilterLifeCalc_BlowerRpm){
-        int value = lifeRpm - minRpm;
-        value = value > 0 ? value : 0;
-        int rangeValue = maxRpm - minRpm;
-        rangeValue = rangeValue > 0 ? rangeValue : 0;
-
-        percentLeft = __getPercentFrom((rangeValue - value), rangeValue);
-    }
-    else{
-        percentLeft = __getPercentFrom(lifeMinutes, maxTime);
-    }
-
-    /// event if in % value is zero but the minutes more then 0 minutes, then set % to 1
-    if (percentLeft == 0 && lifeMinutes > 0) percentLeft = 1;
-
-    //update to global observable variable
-    pData->setFilterLifeMinutes(lifeMinutes);
-    pData->setFilterLifeRpm(lifeRpm);
-    pData->setFilterLifePercent(static_cast<short>(percentLeft));
-
-    pData->setFilterLifeCalculationMode(mode);
-    pData->setFilterLifeMinimumBlowerUsageMode(minTime);
-    pData->setFilterLifeMaximumBlowerUsageMode(maxTime);
-    pData->setFilterLifeMinimumBlowerRpmMode(minRpm);
-    pData->setFilterLifeMaximumBlowerRpmMode(maxRpm);
-
-    ///MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.FilterLife.addr, static_cast<ushort>(percentLeft));
-
-    /// Setup variable buffer for fan rpm (moving average)
+    /// RESOURCE MONITOR LOG
     {
-        m_fanPrimaryRpmActualBuffer.reset(new QVector<uint16_t>);
-        /// reset the buffer value
-        m_fanPrimaryRpmActualBuffer->clear();
+        bool enable = m_settings->value(SKEY_RESMONLOG_ENABLE, false).toBool();
+        int period = m_settings->value(SKEY_RESMONLOG_PERIOD, 10).toInt(); /// default every 10 minutes
+
+        pData->setResourceMonitorLogEnable(enable);
+        pData->setResourceMonitorLogPeriod(static_cast<short>(period));
+        pData->setResourceMonitorLogSpaceMaximum(RESMONLOG_MAX_ROW);
+
+        m_timerEventForResourceMonitorLog.reset(new QTimer);
+        m_timerEventForResourceMonitorLog->setInterval(period * 60 * 1000);
+        ///
+        QObject::connect(m_timerEventForResourceMonitorLog.data(), &QTimer::timeout,
+                         this, &MachineBackend::_insertResourceMonitorLog);
+        ///
+        if(enable) {
+            QObject::connect(this, &MachineBackend::loopStarted,
+                             [&](){
+                                 pData->setResourceMonitorLogRunning(true);
+                                 m_timerEventForResourceMonitorLog->start();
+                             });
+        }//
+
+        m_pResourceMonitorLogSql.reset(new ResourceMonitorLogSql);
+        m_pResourceMonitorLog.reset(new ResourceMonitorLog);
+        m_pResourceMonitorLog->setPSqlInterface(m_pResourceMonitorLogSql.data());
+
+        m_threadForResourceMonitorLog.reset(new QThread);
+        /// move the object to extra thread, so every query will execute in the separated thread
+        m_pResourceMonitorLog->moveToThread(m_threadForResourceMonitorLog.data());
+        m_pResourceMonitorLogSql->moveToThread(m_threadForResourceMonitorLog.data());
+
+        QObject::connect(m_threadForResourceMonitorLog.data(), &QThread::started,
+                         m_pResourceMonitorLog.data(), [&](){
+                             m_pResourceMonitorLog->routineTask();
+                         });
+        QObject::connect(this, &MachineBackend::loopStarted,
+                         [&](){
+                             m_threadForResourceMonitorLog->start();
+                         });
     }
-}
 
-/// Sash Cycle Meter
-{
-    /// the formula for the sash cycle value for tubular motor is
-    /// Every attached break point if the previous sash state is safe height, will be increase 0.5 step
-    /// in the program value will counting
-    int cycle = m_settings->value(SKEY_SASH_CYCLE_METER, MachineEnums::DIG_STATE_ZERO).toInt();
-
-    //update to global observable variable
-    pData->setSashCycleMeter(cycle);
-
-    ///MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.SashCycle.addr, static_cast<ushort>(cycle/10));
-}
-
-/// FAN Primary Usage Meter
-{
-    int minutes = m_settings->value(SKEY_FAN_PRI_METER, MachineEnums::DIG_STATE_ZERO).toInt();
-    //        minutes = 1000;
-
-    //update to global observable variable
-    pData->setFanPrimaryUsageMeter(minutes);
-    ///MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.DfaFanUsage.addr, static_cast<ushort>(minutes));
-}
-/// FAN Inflow Usage Meter
-{
-    int minutes = m_settings->value(SKEY_FAN_INF_METER, MachineEnums::DIG_STATE_ZERO).toInt();
-    //minutes = 1000;
-
-    //update to global observable variable
-    pData->setFanInflowUsageMeter(minutes);
-    ///MODBUS
-    _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanUsage.addr, static_cast<ushort>(minutes));
-}
-
-/// Mute Audible Alarm
-{
-    int seconds = m_settings->value(SKEY_MUTE_ALARM_TIME, 180).toInt(); //3 minutes
-    //        minutes = 1;
-    pData->setMuteAlarmTime(seconds);
-    pData->setMuteAlarmCountdown(seconds);
-}
-
-/// Serial Number
-{
-    QString year_sn = QDate::currentDate().toString("yyyy-000000");
-    QString sn = m_settings->value(SKEY_SERIAL_NUMMBER, year_sn).toString();
-    pData->setSerialNumber(sn);
-}
-
-/// JUST TIMER for triggering action by time
-{
-    m_timerEventEvery50MSecond.reset(new QTimer);
-    m_timerEventEvery50MSecond->setInterval(std::chrono::milliseconds(50));
-
-    QObject::connect(m_timerEventEvery50MSecond.data(), &QTimer::timeout,
-                     this, &MachineBackend::_onTriggeredEventEvery50MSecond);
-    QObject::connect(this, &MachineBackend::loopStarted, [&](){
-        m_timerEventEvery50MSecond->start();
-    });
-
-    m_timerEventEverySecond.reset(new QTimer);
-    m_timerEventEverySecond->setInterval(std::chrono::seconds(1));
-
-    QObject::connect(m_timerEventEverySecond.data(), &QTimer::timeout,
-                     this, &MachineBackend::_onTriggeredEventEverySecond);
-    QObject::connect(this, &MachineBackend::loopStarted, [&]{
-        m_timerEventEverySecond->start();
-    });
-
-    m_timerEventEveryMinute.reset(new QTimer);
-    m_timerEventEveryMinute->setInterval(std::chrono::minutes(1));
-
-    QObject::connect(m_timerEventEveryMinute.data(), &QTimer::timeout,
-                     this, &MachineBackend::_onTriggeredEventEveryMinute);
-    //        QObject::connect(this, &MachineBackend::loopStarted, [&]{
-    //            m_timerEventEveryMinute->start();
-    //        });
-
-    m_timerEventEveryHalfHour.reset(new QTimer);
-    m_timerEventEveryHalfHour->setInterval(std::chrono::minutes(30));
-
-    QObject::connect(m_timerEventEveryHalfHour.data(), &QTimer::timeout,
-                     this, &MachineBackend::_onTriggeredEventEveryHalfHour);
-    QObject::connect(this, &MachineBackend::loopStarted, [&]{
-        m_timerEventEveryHalfHour->start();
-    });
-
-    m_timerEventEveryMinute2.reset(new QTimer);
-    m_timerEventEveryMinute2->setInterval(std::chrono::minutes(1));
-
-    QObject::connect(m_timerEventEveryMinute2.data(), &QTimer::timeout,
-                     this, &MachineBackend::_onTriggeredEventEveryMinute2);
-    QObject::connect(this, &MachineBackend::loopStarted, [&]{
-        m_timerEventEveryMinute2->start();
-    });
-
-    m_timerEventEveryHour.reset(new QTimer);
-    m_timerEventEveryHour->setInterval(std::chrono::hours(1));
-
-    QObject::connect(m_timerEventEveryHour.data(), &QTimer::timeout,
-                     this, &MachineBackend::_onTriggeredEventEveryHour);
-    QObject::connect(this, &MachineBackend::loopStarted, [&]{
-        m_timerEventEveryHour->start();
-    });
-}
-
-///Shipping Mode
-{
-    bool shippingMode = m_settings->value(SKEY_SHIPPING_MOD_ENABLE, MachineEnums::DIG_STATE_ZERO).toInt();
-    pData->setShippingModeEnable(shippingMode);
-    if(shippingMode){
-        pData->setOperationMode(MachineEnums::MODE_OPERATION_MAINTENANCE);
-    }
-}
-
-//// Don't care power outage while shipping mode active
-if(!pData->getShippingModeEnable()){
-    /// Power outage
+    /// Sensor Warming up
     {
-        int poweroutage = m_settings->value(SKEY_POWER_OUTAGE, MachineEnums::DIG_STATE_ZERO).toInt();
-        m_settings->setValue(SKEY_POWER_OUTAGE, MachineEnums::DIG_STATE_ZERO);
-        //        qDebug() << __func__ << "poweroutage" << poweroutage;
+        int seconds = m_settings->value(SKEY_WARMUP_TIME, 180).toInt(); //3 minutes
+        pData->setWarmingUpTime(seconds);
+        pData->setWarmingUpCountdown(seconds);
+    }
 
-        int uvState    = m_settings->value(SKEY_POWER_OUTAGE_UV, MachineEnums::DIG_STATE_ZERO).toInt();
-        //        qDebug() << SKEY_POWER_OUTAGE_UV << uvState;
-        /// clear the flag
-        m_settings->setValue(SKEY_POWER_OUTAGE_UV, MachineEnums::DIG_STATE_ZERO);
-        pData->setPowerOutageUvState(static_cast<short>(uvState));
+    /// Post purging
+    {
+        int seconds = m_settings->value(SKEY_POSTPURGE_TIME, 0).toInt(); //0 minutes, disabled
+        pData->setPostPurgingTime(seconds);
+        pData->setPostPurgingCountdown(seconds);
+    }
 
-        int fanState   = m_settings->value(SKEY_POWER_OUTAGE_FAN, MachineEnums::DIG_STATE_ZERO).toInt();
-        //        qDebug() << SKEY_POWER_OUTAGE_FAN << uvState;
-        /// clear the flag
-        m_settings->setValue(SKEY_POWER_OUTAGE_FAN, MachineEnums::DIG_STATE_ZERO);
-        pData->setPowerOutageFanState(static_cast<short>(fanState));
+    /// Filter Meter
+    {
+        int mode    = m_settings->value(SKEY_FILTER_METER_MODE,     MachineEnums::FilterLifeCalc_BlowerUsage).toInt();
+        int minTime = m_settings->value(SKEY_FILTER_METER_MIN_TIME, SDEF_FILTER_MINIMUM_TIME_LIFE).toInt();
+        int maxTime = m_settings->value(SKEY_FILTER_METER_MAX_TIME, SDEF_FILTER_MAXIMUM_TIME_LIFE).toInt();
+        int minRpm  = m_settings->value(SKEY_FILTER_METER_MIN_RPM,  SDEF_FILTER_MINIMUM_RPM_LIFE).toInt();
+        int maxRpm  = m_settings->value(SKEY_FILTER_METER_MAX_RPM,  SDEF_FILTER_MAXIMUM_RPM_LIFE).toInt();
 
-        //            /// Sash Interlocked
-        //            {
-        //                if(pData->getSashWindowMotorizeInstalled()){
-        //                    switch (pData->getSashWindowState()) {
-        //                    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV:
-        //                        pData->setSashWindowMotorizeUpInterlocked(false);
-        //                        pData->setSashWindowMotorizeDownInterlocked(true);
-        //                        break;
-        //                    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV:
-        //                        pData->setSashWindowMotorizeUpInterlocked(true);
-        //                        pData->setSashWindowMotorizeDownInterlocked(false);
-        //                        break;
-        //                    default: break;
-        //                    }
-        //                }//
-        //            }//
+        int lifeMinutes = m_settings->value(SKEY_FILTER_METER_MIN, SDEF_FILTER_MAXIMUM_TIME_LIFE).toInt();
+        int lifeRpm = m_settings->value(SKEY_FILTER_METER_RPM, SDEF_FILTER_MINIMUM_RPM_LIFE).toInt(); ///Current Nominal RPM
+
+        int percentLeft = 100;
+        if(mode == MachineEnums::FilterLifeCalc_BlowerRpm){
+            int value = lifeRpm - minRpm;
+            value = value > 0 ? value : 0;
+            int rangeValue = maxRpm - minRpm;
+            rangeValue = rangeValue > 0 ? rangeValue : 0;
+
+            percentLeft = __getPercentFrom((rangeValue - value), rangeValue);
+        }
+        else{
+            percentLeft = __getPercentFrom(lifeMinutes, maxTime);
+        }
+
+        /// event if in % value is zero but the minutes more then 0 minutes, then set % to 1
+        if (percentLeft == 0 && lifeMinutes > 0) percentLeft = 1;
 
         //update to global observable variable
-        if(poweroutage) {
-            QString poweroutageTime = m_settings->value(SKEY_POWER_OUTAGE_TIME, "").toString();
-            QString poweroutageRecoverTime = QDateTime().currentDateTime().toString("dd-MMM-yyyy hh:mm");
-            //            qDebug() << "poweroutageTime:" << poweroutageTime << "poweroutageRecoverTime: " << poweroutageRecoverTime;
+        pData->setFilterLifeMinutes(lifeMinutes);
+        pData->setFilterLifeRpm(lifeRpm);
+        pData->setFilterLifePercent(static_cast<short>(percentLeft));
 
-            ///event log
-            QString failureMsg = EVENT_STR_POWER_FAILURE + " " + poweroutageTime;
-            _insertEventLog(failureMsg);
+        pData->setFilterLifeCalculationMode(mode);
+        pData->setFilterLifeMinimumBlowerUsageMode(minTime);
+        pData->setFilterLifeMaximumBlowerUsageMode(maxTime);
+        pData->setFilterLifeMinimumBlowerRpmMode(minRpm);
+        pData->setFilterLifeMaximumBlowerRpmMode(maxRpm);
 
-            pData->setPowerOutage(poweroutage);
-            pData->setPowerOutageTime(poweroutageTime);
-            pData->setPowerOutageRecoverTime(poweroutageRecoverTime);
+        ///MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.FilterLife.addr, static_cast<ushort>(percentLeft));
 
-            if(pData->getSashWindowMotorizeUpInterlocked()){
-                m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
-            }
+        /// Setup variable buffer for fan rpm (moving average)
+        {
+            m_fanPrimaryRpmActualBuffer.reset(new QVector<uint16_t>);
+            /// reset the buffer value
+            m_fanPrimaryRpmActualBuffer->clear();
+        }
+    }
 
-            if(pData->getSashWindowMotorizeDownInterlocked()){
-                m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
-            }
+    /// Sash Cycle Meter
+    {
+        /// the formula for the sash cycle value for tubular motor is
+        /// Every attached break point if the previous sash state is safe height, will be increase 0.5 step
+        /// in the program value will counting
+        int cycle = m_settings->value(SKEY_SASH_CYCLE_METER, MachineEnums::DIG_STATE_ZERO).toInt();
 
-            switch (pData->getSashWindowState()) {
-            case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV:
-                /// NOTHING TODO
+        //update to global observable variable
+        pData->setSashCycleMeter(cycle);
+
+        ///MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.SashCycle.addr, static_cast<ushort>(cycle/10));
+    }
+
+    /// FAN Primary Usage Meter
+    {
+        int minutes = m_settings->value(SKEY_FAN_PRI_METER, MachineEnums::DIG_STATE_ZERO).toInt();
+        //        minutes = 1000;
+
+        //update to global observable variable
+        pData->setFanPrimaryUsageMeter(minutes);
+        ///MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.DfaFanUsage.addr, static_cast<ushort>(minutes));
+    }
+    /// FAN Inflow Usage Meter
+    {
+        int minutes = m_settings->value(SKEY_FAN_INF_METER, MachineEnums::DIG_STATE_ZERO).toInt();
+        //minutes = 1000;
+
+        //update to global observable variable
+        pData->setFanInflowUsageMeter(minutes);
+        ///MODBUS
+        _setModbusRegHoldingValue(modbusRegisterAddress.IfaFanUsage.addr, static_cast<ushort>(minutes));
+    }
+
+    /// Mute Audible Alarm
+    {
+        int seconds = m_settings->value(SKEY_MUTE_ALARM_TIME, 180).toInt(); //3 minutes
+        //        minutes = 1;
+        pData->setMuteAlarmTime(seconds);
+        pData->setMuteAlarmCountdown(seconds);
+    }
+
+    /// Serial Number
+    {
+        QString year_sn = QDate::currentDate().toString("yyyy-000000");
+        QString sn = m_settings->value(SKEY_SERIAL_NUMMBER, year_sn).toString();
+        pData->setSerialNumber(sn);
+    }
+
+    /// JUST TIMER for triggering action by time
+    {
+        m_timerEventEvery50MSecond.reset(new QTimer);
+        m_timerEventEvery50MSecond->setInterval(std::chrono::milliseconds(50));
+
+        QObject::connect(m_timerEventEvery50MSecond.data(), &QTimer::timeout,
+                         this, &MachineBackend::_onTriggeredEventEvery50MSecond);
+        QObject::connect(this, &MachineBackend::loopStarted, [&](){
+            m_timerEventEvery50MSecond->start();
+        });
+
+        m_timerEventEverySecond.reset(new QTimer);
+        m_timerEventEverySecond->setInterval(std::chrono::seconds(1));
+
+        QObject::connect(m_timerEventEverySecond.data(), &QTimer::timeout,
+                         this, &MachineBackend::_onTriggeredEventEverySecond);
+        QObject::connect(this, &MachineBackend::loopStarted, [&]{
+            m_timerEventEverySecond->start();
+        });
+
+        m_timerEventEveryMinute.reset(new QTimer);
+        m_timerEventEveryMinute->setInterval(std::chrono::minutes(1));
+
+        QObject::connect(m_timerEventEveryMinute.data(), &QTimer::timeout,
+                         this, &MachineBackend::_onTriggeredEventEveryMinute);
+        //        QObject::connect(this, &MachineBackend::loopStarted, [&]{
+        //            m_timerEventEveryMinute->start();
+        //        });
+
+        m_timerEventEveryHalfHour.reset(new QTimer);
+        m_timerEventEveryHalfHour->setInterval(std::chrono::minutes(30));
+
+        QObject::connect(m_timerEventEveryHalfHour.data(), &QTimer::timeout,
+                         this, &MachineBackend::_onTriggeredEventEveryHalfHour);
+        QObject::connect(this, &MachineBackend::loopStarted, [&]{
+            m_timerEventEveryHalfHour->start();
+        });
+
+        m_timerEventEveryMinute2.reset(new QTimer);
+        m_timerEventEveryMinute2->setInterval(std::chrono::minutes(1));
+
+        QObject::connect(m_timerEventEveryMinute2.data(), &QTimer::timeout,
+                         this, &MachineBackend::_onTriggeredEventEveryMinute2);
+        QObject::connect(this, &MachineBackend::loopStarted, [&]{
+            m_timerEventEveryMinute2->start();
+        });
+
+        m_timerEventEveryHour.reset(new QTimer);
+        m_timerEventEveryHour->setInterval(std::chrono::hours(1));
+
+        QObject::connect(m_timerEventEveryHour.data(), &QTimer::timeout,
+                         this, &MachineBackend::_onTriggeredEventEveryHour);
+        QObject::connect(this, &MachineBackend::loopStarted, [&]{
+            m_timerEventEveryHour->start();
+        });
+    }
+
+    ///Shipping Mode
+    {
+        bool shippingMode = m_settings->value(SKEY_SHIPPING_MOD_ENABLE, MachineEnums::DIG_STATE_ZERO).toInt();
+        pData->setShippingModeEnable(shippingMode);
+        if(shippingMode){
+            pData->setOperationMode(MachineEnums::MODE_OPERATION_MAINTENANCE);
+        }
+    }
+
+    //// Don't care power outage while shipping mode active
+    if(!pData->getShippingModeEnable()){
+        /// Power outage
+        {
+            int poweroutage = m_settings->value(SKEY_POWER_OUTAGE, MachineEnums::DIG_STATE_ZERO).toInt();
+            m_settings->setValue(SKEY_POWER_OUTAGE, MachineEnums::DIG_STATE_ZERO);
+            //        qDebug() << __func__ << "poweroutage" << poweroutage;
+
+            int uvState    = m_settings->value(SKEY_POWER_OUTAGE_UV, MachineEnums::DIG_STATE_ZERO).toInt();
+            //        qDebug() << SKEY_POWER_OUTAGE_UV << uvState;
+            /// clear the flag
+            m_settings->setValue(SKEY_POWER_OUTAGE_UV, MachineEnums::DIG_STATE_ZERO);
+            pData->setPowerOutageUvState(static_cast<short>(uvState));
+
+            int fanState   = m_settings->value(SKEY_POWER_OUTAGE_FAN, MachineEnums::DIG_STATE_ZERO).toInt();
+            //        qDebug() << SKEY_POWER_OUTAGE_FAN << uvState;
+            /// clear the flag
+            m_settings->setValue(SKEY_POWER_OUTAGE_FAN, MachineEnums::DIG_STATE_ZERO);
+            pData->setPowerOutageFanState(static_cast<short>(fanState));
+
+            //            /// Sash Interlocked
+            //            {
+            //                if(pData->getSashWindowMotorizeInstalled()){
+            //                    switch (pData->getSashWindowState()) {
+            //                    case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV:
+            //                        pData->setSashWindowMotorizeUpInterlocked(false);
+            //                        pData->setSashWindowMotorizeDownInterlocked(true);
+            //                        break;
+            //                    case MachineEnums::SASH_STATE_FULLY_OPEN_SSV:
+            //                        pData->setSashWindowMotorizeUpInterlocked(true);
+            //                        pData->setSashWindowMotorizeDownInterlocked(false);
+            //                        break;
+            //                    default: break;
+            //                    }
+            //                }//
+            //            }//
+
+            //update to global observable variable
+            if(poweroutage) {
+                QString poweroutageTime = m_settings->value(SKEY_POWER_OUTAGE_TIME, "").toString();
+                QString poweroutageRecoverTime = QDateTime().currentDateTime().toString("dd-MMM-yyyy hh:mm");
+                //            qDebug() << "poweroutageTime:" << poweroutageTime << "poweroutageRecoverTime: " << poweroutageRecoverTime;
+
+                ///event log
+                QString failureMsg = EVENT_STR_POWER_FAILURE + " " + poweroutageTime;
+                _insertEventLog(failureMsg);
+
+                pData->setPowerOutage(poweroutage);
+                pData->setPowerOutageTime(poweroutageTime);
+                pData->setPowerOutageRecoverTime(poweroutageRecoverTime);
+
+                if(pData->getSashWindowMotorizeUpInterlocked()){
+                    m_pSasWindowMotorize->setInterlockUp(MachineEnums::DIG_STATE_ZERO);
+                }
+
+                if(pData->getSashWindowMotorizeDownInterlocked()){
+                    m_pSasWindowMotorize->setInterlockDown(MachineEnums::DIG_STATE_ZERO);
+                }
+
+                qDebug() << "###-> pData->getSashWindowState()" << pData->getSashWindowState();
+
+                switch (pData->getSashWindowState()) {
+                case MachineEnums::SASH_STATE_ERROR_SENSOR_SSV:
+                    /// NOTHING TODO
+                    break;
+                case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV:
+                {
+                    m_pUV->setState(uvState);
+                }
                 break;
-            case MachineEnums::SASH_STATE_FULLY_CLOSE_SSV:
-            {
-                m_pUV->setState(uvState);
-            }
-            break;
-            default:
-            {
-                if(fanState) {
-                    short dfaDutyCycle = pData->getFanPrimaryNominalDutyCycle();
-                    short ifaDutyCycle = pData->getFanInflowNominalDutyCycle();
-                    if(pData->getSashWindowState() == MachineEnums::SASH_STATE_WORK_SSV){
-                        ///Force turned on light if the blower is nominal
-                        m_pLight->setInterlock(MachineEnums::DIG_STATE_ZERO);
-                        m_pLight->setState(MachineEnums::DIG_STATE_ONE);
-                        m_pLight->routineTask();
-                        m_i2cPort->sendOutQueue();
-                    }else if(pData->getSashWindowState() == MachineEnums::SASH_STATE_STANDBY_SSV){
-                        dfaDutyCycle = pData->getFanPrimaryStandbyDutyCycle();
-                        ifaDutyCycle = pData->getFanInflowStandbyDutyCycle();
-                    }else{
-                        dfaDutyCycle = pData->getFanPrimaryStandbyDutyCycle();
-                        ifaDutyCycle = pData->getFanInflowStandbyDutyCycle();
-                    }
-
-                    //                        switch (fanState) {
-                    //                        case MachineEnums::FAN_STATE_ON:
-                    //                            ///Force turned on light if the blower is nominal
-                    //                            m_pLight->setInterlock(MachineEnums::DIG_STATE_ZERO);
-                    //                            m_pLight->setState(MachineEnums::DIG_STATE_ONE);
-                    //                            m_pLight->routineTask();
-                    //                            m_i2cPort->sendOutQueue();
-                    //                            break;
-                    //                        case MachineEnums::FAN_STATE_STANDBY:
-                    //                            dfaDutyCycle = pData->getFanPrimaryStandbyDutyCycle();
-                    //                            ifaDutyCycle = pData->getFanInflowStandbyDutyCycle();
-                    //                            break;
-                    //                        case MachineEnums::FAN_STATE_DIFFERENT:
-                    //                            dfaDutyCycle = pData->getFanPrimaryStandbyDutyCycle();
-                    //                            ifaDutyCycle = pData->getFanInflowStandbyDutyCycle();
-                    //                            break;
-                    //                        }
-                    if(pData->getCabinetWidth3Feet()){
-                        if(pData->getUsePwmOutSignal()){
-                            m_pFanPrimaryPWM->setState(/*pData->getFanPrimaryNominalDutyCycle()*/dfaDutyCycle);
-                            m_pFanPrimaryPWM->routineTask();
-                        }
-                        else{
-                            m_pFanPrimaryAO->setState(/*pData->getFanPrimaryNominalDutyCycle()*/dfaDutyCycle);
-                            m_pFanPrimaryAO->routineTask();
-                        }
-                    }
-                    else
-                    {
-                        m_pFanPrimary->setDutyCycle(/*pData->getFanPrimaryNominalDutyCycle()*/dfaDutyCycle);
-                        m_pFanPrimary->routineTask();
-                    }
-                    if(pData->getDualRbmMode()){
-                        m_pFanInflow->setDutyCycle(/*pData->getFanInflowNominalDutyCycle()*/ifaDutyCycle);
-                        m_pFanInflow->routineTask();
-                    }
-                    else {
-                        if(pData->getUsePwmOutSignal()){
-                            m_pFanInflowPWM->setState(/*pData->getFanInflowNominalDutyCycle()*/ifaDutyCycle);
-                            m_pFanInflowPWM->routineTask();
-                        }
-                        else{
-                            m_pFanInflowAO->setState(/*pData->getFanInflowNominalDutyCycle()*/ifaDutyCycle);
-                            m_pFanInflowAO->routineTask();
-                        }
-                    }
-
-                    bool dfaUpdated = false;
-                    bool ifaUpdated = false;
-                    /// wait until fan actually turned on or exceed the time out (10 seconds)
-                    for (int var = 0; var < 10; ++var) {
-                        if(pData->getCabinetWidth3Feet()){
-                            if(pData->getUsePwmOutSignal())
-                                m_pFanPrimaryPWM->routineTask();
-                            else
-                                m_pFanPrimaryAO->routineTask();
-                        }
-                        else m_pFanPrimary->routineTask();
-                        if(pData->getDualRbmMode())
-                            m_pFanInflow->routineTask();
-                        else {
-                            if(pData->getUsePwmOutSignal())
-                                m_pFanInflowPWM->routineTask();
-                            else
-                                m_pFanInflowAO->routineTask();
-                        }
-
-                        if(pData->getCabinetWidth3Feet()){
-                            int fanPrimaryState =  pData->getUsePwmOutSignal() ? m_pFanPrimaryPWM->state() : m_pFanPrimaryAO->getState();
-                            if(fanPrimaryState == dfaDutyCycle && !dfaUpdated){
-                                //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
-                                _onFanPrimaryActualDucyChanged(dfaDutyCycle);
-                                dfaUpdated = true;
-                            }
+                default:
+                {
+                    if(fanState) {
+                        short dfaDutyCycle = pData->getFanPrimaryNominalDutyCycle();
+                        short ifaDutyCycle = pData->getFanInflowNominalDutyCycle();
+                        if(pData->getSashWindowState() == MachineEnums::SASH_STATE_WORK_SSV){
+                            ///Force turned on light if the blower is nominal
+                            //                            m_pLight->setInterlock(MachineEnums::DIG_STATE_ZERO);
+                            //                            m_pLight->setState(MachineEnums::DIG_STATE_ONE);
+                            //                            m_pLight->routineTask();
+                            //                            m_i2cPort->sendOutQueue();
+                        }else if(pData->getSashWindowState() == MachineEnums::SASH_STATE_STANDBY_SSV){
+                            dfaDutyCycle = pData->getFanPrimaryStandbyDutyCycle();
+                            ifaDutyCycle = pData->getFanInflowStandbyDutyCycle();
                         }else{
-                            if(m_pFanPrimary->dutyCycle() == dfaDutyCycle && !dfaUpdated){
-                                //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
-                                _onFanPrimaryActualDucyChanged(dfaDutyCycle);
-                                dfaUpdated = true;
+                            dfaDutyCycle = pData->getFanPrimaryStandbyDutyCycle();
+                            ifaDutyCycle = pData->getFanInflowStandbyDutyCycle();
+                        }
+
+                        //                        switch (fanState) {
+                        //                        case MachineEnums::FAN_STATE_ON:
+                        //                            ///Force turned on light if the blower is nominal
+                        //                            m_pLight->setInterlock(MachineEnums::DIG_STATE_ZERO);
+                        //                            m_pLight->setState(MachineEnums::DIG_STATE_ONE);
+                        //                            m_pLight->routineTask();
+                        //                            m_i2cPort->sendOutQueue();
+                        //                            break;
+                        //                        case MachineEnums::FAN_STATE_STANDBY:
+                        //                            dfaDutyCycle = pData->getFanPrimaryStandbyDutyCycle();
+                        //                            ifaDutyCycle = pData->getFanInflowStandbyDutyCycle();
+                        //                            break;
+                        //                        case MachineEnums::FAN_STATE_DIFFERENT:
+                        //                            dfaDutyCycle = pData->getFanPrimaryStandbyDutyCycle();
+                        //                            ifaDutyCycle = pData->getFanInflowStandbyDutyCycle();
+                        //                            break;
+                        //                        }
+                        if(pData->getCabinetWidth3Feet()){
+                            if(pData->getUsePwmOutSignal()){
+                                m_pFanPrimaryPWM->setState(/*pData->getFanPrimaryNominalDutyCycle()*/dfaDutyCycle);
+                                m_pFanPrimaryPWM->routineTask();
                             }
+                            else{
+                                m_pFanPrimaryAO->setState(/*pData->getFanPrimaryNominalDutyCycle()*/dfaDutyCycle);
+                                m_pFanPrimaryAO->routineTask();
+                            }
+                        }
+                        else
+                        {
+                            m_pFanPrimary->setDutyCycle(/*pData->getFanPrimaryNominalDutyCycle()*/dfaDutyCycle);
+                            m_pFanPrimary->routineTask();
                         }
                         if(pData->getDualRbmMode()){
-                            if((m_pFanInflow->dutyCycle() == ifaDutyCycle) && !ifaUpdated){
-                                //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
-                                _onFanInflowActualDucyChanged(ifaDutyCycle);
-                                ifaUpdated = true;
+                            m_pFanInflow->setDutyCycle(/*pData->getFanInflowNominalDutyCycle()*/ifaDutyCycle);
+                            m_pFanInflow->routineTask();
+                        }
+                        else {
+                            if(pData->getUsePwmOutSignal()){
+                                m_pFanInflowPWM->setState(/*pData->getFanInflowNominalDutyCycle()*/ifaDutyCycle);
+                                m_pFanInflowPWM->routineTask();
                             }
-                        }else{
-                            int fanInflowState =  pData->getUsePwmOutSignal() ? m_pFanInflowPWM->state() : m_pFanInflowAO->getState();
-                            if((fanInflowState == ifaDutyCycle) && !ifaUpdated){
-                                //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
-                                _onFanInflowActualDucyChanged(ifaDutyCycle);
-                                ifaUpdated = true;
+                            else{
+                                m_pFanInflowAO->setState(/*pData->getFanInflowNominalDutyCycle()*/ifaDutyCycle);
+                                m_pFanInflowAO->routineTask();
                             }
                         }
-                        if(dfaUpdated && ifaUpdated) break;
-                        QThread::sleep(1);
+
+                        bool dfaUpdated = false;
+                        bool ifaUpdated = false;
+                        /// wait until fan actually turned on or exceed the time out (10 seconds)
+                        for (int var = 0; var < 10; ++var) {
+                            if(pData->getCabinetWidth3Feet()){
+                                if(pData->getUsePwmOutSignal())
+                                    m_pFanPrimaryPWM->routineTask();
+                                else
+                                    m_pFanPrimaryAO->routineTask();
+                            }
+                            else m_pFanPrimary->routineTask();
+                            if(pData->getDualRbmMode())
+                                m_pFanInflow->routineTask();
+                            else {
+                                if(pData->getUsePwmOutSignal())
+                                    m_pFanInflowPWM->routineTask();
+                                else
+                                    m_pFanInflowAO->routineTask();
+                            }
+
+                            if(pData->getCabinetWidth3Feet()){
+                                int fanPrimaryState =  pData->getUsePwmOutSignal() ? m_pFanPrimaryPWM->state() : m_pFanPrimaryAO->getState();
+                                if(fanPrimaryState == dfaDutyCycle && !dfaUpdated){
+                                    //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
+                                    _onFanPrimaryActualDucyChanged(dfaDutyCycle);
+                                    dfaUpdated = true;
+                                }
+                            }else{
+                                if(m_pFanPrimary->dutyCycle() == dfaDutyCycle && !dfaUpdated){
+                                    //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
+                                    _onFanPrimaryActualDucyChanged(dfaDutyCycle);
+                                    dfaUpdated = true;
+                                }
+                            }
+                            if(pData->getDualRbmMode()){
+                                if((m_pFanInflow->dutyCycle() == ifaDutyCycle) && !ifaUpdated){
+                                    //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
+                                    _onFanInflowActualDucyChanged(ifaDutyCycle);
+                                    ifaUpdated = true;
+                                }
+                            }else{
+                                int fanInflowState =  pData->getUsePwmOutSignal() ? m_pFanInflowPWM->state() : m_pFanInflowAO->getState();
+                                if((fanInflowState == ifaDutyCycle) && !ifaUpdated){
+                                    //qDebug() << __func__ << "Power outage - Fan State Changed" << var;
+                                    _onFanInflowActualDucyChanged(ifaDutyCycle);
+                                    ifaUpdated = true;
+                                }
+                            }
+                            if(dfaUpdated && ifaUpdated) break;
+                            QThread::sleep(1);
+                        }//
                     }//
                 }//
-            }//
-            break;
+                break;
+                }//
             }//
         }//
     }//
-}//
-//    _initPreventMaintReminder();
-{
-    QDateTime nowDateTime = QDateTime().currentDateTime();
-    //        QString curDateTimeStr = nowDateTime.toString("dd-MM-yyyy hh:mm:ss");
-    QString curDateTimeStr = "01-01-2000 00:00:00";
+    //    _initPreventMaintReminder();
+    {
+        QDateTime nowDateTime = QDateTime().currentDateTime();
+        //        QString curDateTimeStr = nowDateTime.toString("dd-MM-yyyy hh:mm:ss");
+        QString curDateTimeStr = "01-01-2000 00:00:00";
 
-    QString daily       = m_settings->value(SKEY_PM_LAST_ACK_DAILY, curDateTimeStr).toString();
-    QString weekly      = m_settings->value(SKEY_PM_LAST_ACK_WEEKLY, curDateTimeStr).toString();
-    QString monthly     = m_settings->value(SKEY_PM_LAST_ACK_MONTHLY, curDateTimeStr).toString();
-    QString quarterly   = m_settings->value(SKEY_PM_LAST_ACK_QUARTERLY, curDateTimeStr).toString();
-    QString annually    = m_settings->value(SKEY_PM_LAST_ACK_ANNUALLY, curDateTimeStr).toString();
-    QString biennially  = m_settings->value(SKEY_PM_LAST_ACK_BIENNIALLY, curDateTimeStr).toString();
-    QString quinquennially = m_settings->value(SKEY_PM_LAST_ACK_QUINQUENNIALLY, curDateTimeStr).toString();
-    QString canopy      = m_settings->value(SKEY_PM_LAST_ACK_CANOPY, curDateTimeStr).toString();
+        QString daily       = m_settings->value(SKEY_PM_LAST_ACK_DAILY, curDateTimeStr).toString();
+        QString weekly      = m_settings->value(SKEY_PM_LAST_ACK_WEEKLY, curDateTimeStr).toString();
+        QString monthly     = m_settings->value(SKEY_PM_LAST_ACK_MONTHLY, curDateTimeStr).toString();
+        QString quarterly   = m_settings->value(SKEY_PM_LAST_ACK_QUARTERLY, curDateTimeStr).toString();
+        QString annually    = m_settings->value(SKEY_PM_LAST_ACK_ANNUALLY, curDateTimeStr).toString();
+        QString biennially  = m_settings->value(SKEY_PM_LAST_ACK_BIENNIALLY, curDateTimeStr).toString();
+        QString quinquennially = m_settings->value(SKEY_PM_LAST_ACK_QUINQUENNIALLY, curDateTimeStr).toString();
+        QString canopy      = m_settings->value(SKEY_PM_LAST_ACK_CANOPY, curDateTimeStr).toString();
 
-    //        qDebug() << "Current Date:";
-    //        qDebug() << curDateTimeStr;
-    //        qDebug() << "Last PM Acknowledge:";
-    //        qDebug() << daily;
-    //        qDebug() << weekly;
-    //        qDebug() << monthly;
-    //        qDebug() << quarterly;
-    //        qDebug() << annually;
-    //        qDebug() << biennially;
-    //        qDebug() << quinquennially;
-    //        qDebug() << canopy;
+        //        qDebug() << "Current Date:";
+        //        qDebug() << curDateTimeStr;
+        //        qDebug() << "Last PM Acknowledge:";
+        //        qDebug() << daily;
+        //        qDebug() << weekly;
+        //        qDebug() << monthly;
+        //        qDebug() << quarterly;
+        //        qDebug() << annually;
+        //        qDebug() << biennially;
+        //        qDebug() << quinquennially;
+        //        qDebug() << canopy;
 
 
-    ushort dfault = (MachineEnums::PM_QUARTERLY_CODE |
-                     MachineEnums::PM_ANNUALLY_CODE |
-                     MachineEnums::PM_BIENNIALLY_CODE |
-                     MachineEnums::PM_QUINQUENNIALLY_CODE /*|
+        ushort dfault = (MachineEnums::PM_QUARTERLY_CODE |
+                         MachineEnums::PM_ANNUALLY_CODE |
+                         MachineEnums::PM_BIENNIALLY_CODE |
+                         MachineEnums::PM_QUINQUENNIALLY_CODE /*|
                                                                                                                                                                                                                                                                                                                                                                                                        MachineEnums::PM_CANOPY_CODE*/);
 
-    ushort alarmEn = static_cast<ushort>(m_settings->value(SKEY_PM_ALARM_EN, dfault).toInt());
+        ushort alarmEn = static_cast<ushort>(m_settings->value(SKEY_PM_ALARM_EN, dfault).toInt());
 
-    //        qDebug() << "Default & AlarmEnable:";
-    //        qDebug() << dfault << alarmEn;
+        //        qDebug() << "Default & AlarmEnable:";
+        //        qDebug() << dfault << alarmEn;
 
-    pData->setAlarmPreventMaintStateEnable(alarmEn);
+        pData->setAlarmPreventMaintStateEnable(alarmEn);
 
-    pData->setDailyPreventMaintLastAckDate(daily);
-    pData->setWeeklyPreventMaintLastAckDate(weekly);
-    pData->setMonthlyPreventMaintLastAckDate(monthly);
-    pData->setQuarterlyPreventMaintLastAckDate(quarterly);
-    pData->setAnnuallyPreventMaintLastAckDate(annually);
-    pData->setBienniallyPreventMaintLastAckDate(biennially);
-    pData->setQuinquenniallyPreventMaintLastAckDate(quinquennially);
-    pData->setCanopyPreventMaintLastAckDate(canopy);
+        pData->setDailyPreventMaintLastAckDate(daily);
+        pData->setWeeklyPreventMaintLastAckDate(weekly);
+        pData->setMonthlyPreventMaintLastAckDate(monthly);
+        pData->setQuarterlyPreventMaintLastAckDate(quarterly);
+        pData->setAnnuallyPreventMaintLastAckDate(annually);
+        pData->setBienniallyPreventMaintLastAckDate(biennially);
+        pData->setQuinquenniallyPreventMaintLastAckDate(quinquennially);
+        pData->setCanopyPreventMaintLastAckDate(canopy);
 
-    QDateTime lastAckDailyDateTime = QDateTime().fromString(daily, "dd-MM-yyyy hh:mm:ss");
-    QDateTime lastAckWeeklyDateTime = QDateTime().fromString(weekly, "dd-MM-yyyy hh:mm:ss");
-    QDateTime lastAckMonthlyDateTime = QDateTime().fromString(monthly, "dd-MM-yyyy hh:mm:ss");
-    QDateTime lastAckQuarterlyDateTime = QDateTime().fromString(quarterly, "dd-MM-yyyy hh:mm:ss");
-    QDateTime lastAckAnnuallyDateTime = QDateTime().fromString(annually, "dd-MM-yyyy hh:mm:ss");
-    QDateTime lastAckBienniallyDateTime = QDateTime().fromString(biennially, "dd-MM-yyyy hh:mm:ss");
-    QDateTime lastAckQuinquenniallyDateTime = QDateTime().fromString(quinquennially, "dd-MM-yyyy hh:mm:ss");
-    QDateTime lastAckCanopyDateTime = QDateTime().fromString(canopy, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckDailyDateTime = QDateTime().fromString(daily, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckWeeklyDateTime = QDateTime().fromString(weekly, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckMonthlyDateTime = QDateTime().fromString(monthly, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckQuarterlyDateTime = QDateTime().fromString(quarterly, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckAnnuallyDateTime = QDateTime().fromString(annually, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckBienniallyDateTime = QDateTime().fromString(biennially, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckQuinquenniallyDateTime = QDateTime().fromString(quinquennially, "dd-MM-yyyy hh:mm:ss");
+        QDateTime lastAckCanopyDateTime = QDateTime().fromString(canopy, "dd-MM-yyyy hh:mm:ss");
 
-    QDateTime dueDateTimeDaily = lastAckDailyDateTime.addDays(1);
-    QDateTime dueDateTimeWeekly = lastAckWeeklyDateTime.addDays(7);
-    QDateTime dueDateTimeMonthly = lastAckMonthlyDateTime.addMonths(1);
-    QDateTime dueDateTimeQuarterly = lastAckQuarterlyDateTime.addMonths(3);
-    QDateTime dueDateTimeAnnually = lastAckAnnuallyDateTime.addYears(1);
-    QDateTime dueDateTimeBiennially = lastAckBienniallyDateTime.addYears(2);
-    QDateTime dueDateTimeQuinquennially = lastAckQuinquenniallyDateTime.addYears(5);
-    QDateTime dueDateTimeCanopy = lastAckCanopyDateTime.addMonths(1);
+        QDateTime dueDateTimeDaily = lastAckDailyDateTime.addDays(1);
+        QDateTime dueDateTimeWeekly = lastAckWeeklyDateTime.addDays(7);
+        QDateTime dueDateTimeMonthly = lastAckMonthlyDateTime.addMonths(1);
+        QDateTime dueDateTimeQuarterly = lastAckQuarterlyDateTime.addMonths(3);
+        QDateTime dueDateTimeAnnually = lastAckAnnuallyDateTime.addYears(1);
+        QDateTime dueDateTimeBiennially = lastAckBienniallyDateTime.addYears(2);
+        QDateTime dueDateTimeQuinquennially = lastAckQuinquenniallyDateTime.addYears(5);
+        QDateTime dueDateTimeCanopy = lastAckCanopyDateTime.addMonths(1);
 
-    //        qDebug() << "Due date for acknowledging:";
-    //        qDebug() << dueDateTimeDaily.toString("dd-MM-yyyy hh:mm:ss");
-    //        qDebug() << dueDateTimeWeekly.toString("dd-MM-yyyy hh:mm:ss");
-    //        qDebug() << dueDateTimeMonthly.toString("dd-MM-yyyy hh:mm:ss");
-    //        qDebug() << dueDateTimeQuarterly.toString("dd-MM-yyyy hh:mm:ss");
-    //        qDebug() << dueDateTimeAnnually.toString("dd-MM-yyyy hh:mm:ss");
-    //        qDebug() << dueDateTimeBiennially.toString("dd-MM-yyyy hh:mm:ss");
-    //        qDebug() << dueDateTimeQuinquennially.toString("dd-MM-yyyy hh:mm:ss");
-    //        qDebug() << dueDateTimeCanopy.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << "Due date for acknowledging:";
+        //        qDebug() << dueDateTimeDaily.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeWeekly.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeMonthly.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeQuarterly.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeAnnually.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeBiennially.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeQuinquennially.toString("dd-MM-yyyy hh:mm:ss");
+        //        qDebug() << dueDateTimeCanopy.toString("dd-MM-yyyy hh:mm:ss");
 
-    pData->setDailyPreventMaintAckDueDate(dueDateTimeDaily.toString("dd-MM-yyyy hh:mm:ss"));
-    pData->setWeeklyPreventMaintAckDueDate(dueDateTimeWeekly.toString("dd-MM-yyyy hh:mm:ss"));
-    pData->setMonthlyPreventMaintAckDueDate(dueDateTimeMonthly.toString("dd-MM-yyyy hh:mm:ss"));
-    pData->setQuarterlyPreventMaintAckDueDate(dueDateTimeQuarterly.toString("dd-MM-yyyy hh:mm:ss"));
-    pData->setAnnuallyPreventMaintAckDueDate(dueDateTimeAnnually.toString("dd-MM-yyyy hh:mm:ss"));
-    pData->setBienniallyPreventMaintAckDueDate(dueDateTimeBiennially.toString("dd-MM-yyyy hh:mm:ss"));
-    pData->setQuinquenniallyPreventMaintAckDueDate(dueDateTimeQuinquennially.toString("dd-MM-yyyy hh:mm:ss"));
-    pData->setCanopyPreventMaintAckDueDate(dueDateTimeCanopy.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setDailyPreventMaintAckDueDate(dueDateTimeDaily.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setWeeklyPreventMaintAckDueDate(dueDateTimeWeekly.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setMonthlyPreventMaintAckDueDate(dueDateTimeMonthly.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setQuarterlyPreventMaintAckDueDate(dueDateTimeQuarterly.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setAnnuallyPreventMaintAckDueDate(dueDateTimeAnnually.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setBienniallyPreventMaintAckDueDate(dueDateTimeBiennially.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setQuinquenniallyPreventMaintAckDueDate(dueDateTimeQuinquennially.toString("dd-MM-yyyy hh:mm:ss"));
+        pData->setCanopyPreventMaintAckDueDate(dueDateTimeCanopy.toString("dd-MM-yyyy hh:mm:ss"));
 
-    ushort alarmPm = 0;
-    qint64 dayLeft = 0;
-    if(alarmEn & MachineEnums::PM_DAILY_CODE){
-        dayLeft = nowDateTime.secsTo(dueDateTimeDaily);
-        if(dayLeft <= 82800) alarmPm |= MachineEnums::PM_DAILY_CODE; /// Activate the alarm when time left less than 6 hours
-        //            qDebug() << "secsLeft:" << dayLeft;
+        ushort alarmPm = 0;
+        qint64 dayLeft = 0;
+        if(alarmEn & MachineEnums::PM_DAILY_CODE){
+            dayLeft = nowDateTime.secsTo(dueDateTimeDaily);
+            if(dayLeft <= 82800) alarmPm |= MachineEnums::PM_DAILY_CODE; /// Activate the alarm when time left less than 6 hours
+            //            qDebug() << "secsLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_WEEKLY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeWeekly);
+            if(dayLeft <= 2) alarmPm |= MachineEnums::PM_WEEKLY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_MONTHLY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeMonthly);
+            if(dayLeft < 7) alarmPm |= MachineEnums::PM_MONTHLY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_QUARTERLY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeQuarterly);
+            if(dayLeft < 14) alarmPm |= MachineEnums::PM_QUARTERLY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_ANNUALLY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeAnnually);
+            if(dayLeft < 30) alarmPm |= MachineEnums::PM_ANNUALLY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_BIENNIALLY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeBiennially);
+            if(dayLeft < 30) alarmPm |= MachineEnums::PM_BIENNIALLY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_QUINQUENNIALLY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeQuinquennially);
+            if(dayLeft < 30) alarmPm |= MachineEnums::PM_QUINQUENNIALLY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+        if(alarmEn & MachineEnums::PM_CANOPY_CODE){
+            dayLeft = nowDateTime.daysTo(dueDateTimeCanopy);
+            if(dayLeft < 7) alarmPm |= MachineEnums::PM_CANOPY_CODE;
+            //            qDebug() << "dayLeft:" << dayLeft;
+        }
+
+        //        qDebug() << "Alarm PM:" << alarmPm;
+        pData->setAlarmPreventMaintState(alarmPm);
     }
-    if(alarmEn & MachineEnums::PM_WEEKLY_CODE){
-        dayLeft = nowDateTime.daysTo(dueDateTimeWeekly);
-        if(dayLeft <= 2) alarmPm |= MachineEnums::PM_WEEKLY_CODE;
-        //            qDebug() << "dayLeft:" << dayLeft;
-    }
-    if(alarmEn & MachineEnums::PM_MONTHLY_CODE){
-        dayLeft = nowDateTime.daysTo(dueDateTimeMonthly);
-        if(dayLeft < 7) alarmPm |= MachineEnums::PM_MONTHLY_CODE;
-        //            qDebug() << "dayLeft:" << dayLeft;
-    }
-    if(alarmEn & MachineEnums::PM_QUARTERLY_CODE){
-        dayLeft = nowDateTime.daysTo(dueDateTimeQuarterly);
-        if(dayLeft < 14) alarmPm |= MachineEnums::PM_QUARTERLY_CODE;
-        //            qDebug() << "dayLeft:" << dayLeft;
-    }
-    if(alarmEn & MachineEnums::PM_ANNUALLY_CODE){
-        dayLeft = nowDateTime.daysTo(dueDateTimeAnnually);
-        if(dayLeft < 30) alarmPm |= MachineEnums::PM_ANNUALLY_CODE;
-        //            qDebug() << "dayLeft:" << dayLeft;
-    }
-    if(alarmEn & MachineEnums::PM_BIENNIALLY_CODE){
-        dayLeft = nowDateTime.daysTo(dueDateTimeBiennially);
-        if(dayLeft < 30) alarmPm |= MachineEnums::PM_BIENNIALLY_CODE;
-        //            qDebug() << "dayLeft:" << dayLeft;
-    }
-    if(alarmEn & MachineEnums::PM_QUINQUENNIALLY_CODE){
-        dayLeft = nowDateTime.daysTo(dueDateTimeQuinquennially);
-        if(dayLeft < 30) alarmPm |= MachineEnums::PM_QUINQUENNIALLY_CODE;
-        //            qDebug() << "dayLeft:" << dayLeft;
-    }
-    if(alarmEn & MachineEnums::PM_CANOPY_CODE){
-        dayLeft = nowDateTime.daysTo(dueDateTimeCanopy);
-        if(dayLeft < 7) alarmPm |= MachineEnums::PM_CANOPY_CODE;
-        //            qDebug() << "dayLeft:" << dayLeft;
-    }
 
-    //        qDebug() << "Alarm PM:" << alarmPm;
-    pData->setAlarmPreventMaintState(alarmPm);
-}
-
-/// User Last Login
-{
-    QJsonArray userLastLoginArr = m_settings->value(SKEY_USER_LAST_LOGIN, QJsonArray()).toJsonArray();
-    pData->setUserLasLogin(userLastLoginArr);
-}//
+    /// User Last Login
+    {
+        QJsonArray userLastLoginArr = m_settings->value(SKEY_USER_LAST_LOGIN, QJsonArray()).toJsonArray();
+        pData->setUserLasLogin(userLastLoginArr);
+    }//
 
     {
         int logoutTime = m_settings->value(SKEY_LOGOUT_TIME, 30*60).toInt();
@@ -3266,109 +3268,109 @@ if(!pData->getShippingModeEnable()){
         bool enable = m_settings->value(SKEY_21_CFR_11_EN, false).toBool();
         pData->setCfr21Part11Enable(enable);
     }
-{
-    /// Execute later
-    QTimer::singleShot(30000, this, [&](){
-        initWiredConnectionStaticIP();
-    });
-}
-/// General connection for Debugging
-QObject::connect(pData, &MachineData::fanStateChanged,
-                 this, [&](short value){
-                     if(value == MachineEnums::FAN_STATE_OFF) qDebug() << "***** FAN OFF *****";
-                     else if(value == MachineEnums::FAN_STATE_ON) qDebug() << "***** FAN ON *****";
-                     else if(value == MachineEnums::FAN_STATE_STANDBY) qDebug() << "***** FAN STANDBY *****";
-                     else if(value == MachineEnums::FAN_STATE_DIFFERENT) qDebug() << "***** FAN DIFFERENT *****";
-                 });
-QObject::connect(pData, &MachineData::sashCycleMeterChanged,
-                 this, [&](int cycle){
-                     ///MODBUS
-                     _setModbusRegHoldingValue(modbusRegisterAddress.SashCycle.addr, static_cast<ushort>(cycle/10));
-                 });
-QObject::connect(pData, &MachineData::frontPanelAlarmChanged,
-                 this, [&](bool alarm){
-                     ///MODBUS
-                     _setModbusRegHoldingValue(modbusRegisterAddress.AlarmFrontPanel.addr, alarm);
-                 });
-QObject::connect(pData, &MachineData::sashMotorDownStuckSwitchChanged,
-                 this, [&](bool alarm){
-                     if(alarm) {
-                         if((pData->getSashWindowState() != MachineEnums::SASH_STATE_FULLY_CLOSE_SSV) && m_sashMovedDown)
-                         {
-                             m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
-                             m_pSasWindowMotorize->routineTask();
-                             m_sashMovedDown = false;
-                             pData->setAlarmSashMotorDownStuck(MachineEnums::ALARM_ACTIVE_STATE);
-                             setBuzzerState(MachineEnums::DIG_STATE_ONE);
-                             _insertAlarmLog(ALARM_LOG_CODE::ALC_SASH_MOTOR_DOWN_STUCK_ALARM, ALARM_LOG_TEXT_SASH_MOTOR_DOWN_STUCK_ALARM);
-                             m_pSashWindow->setSafeSwitcher(SashWindow::SWITCHER_UP);
-                             m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_UP);
-                             m_pSasWindowMotorize->routineTask();
-                             qDebug() << "Start timer to turn off sash motor after move up";
-                             QTimer::singleShot(m_delaySashMotorUpAfterStucked, this, [&](){
-                                 qDebug() << "Turn off sash motorized!";
+    {
+        /// Execute later
+        QTimer::singleShot(30000, this, [&](){
+            initWiredConnectionStaticIP();
+        });
+    }
+    /// General connection for Debugging
+    QObject::connect(pData, &MachineData::fanStateChanged,
+                     this, [&](short value){
+                         if(value == MachineEnums::FAN_STATE_OFF) qDebug() << "***** FAN OFF *****";
+                         else if(value == MachineEnums::FAN_STATE_ON) qDebug() << "***** FAN ON *****";
+                         else if(value == MachineEnums::FAN_STATE_STANDBY) qDebug() << "***** FAN STANDBY *****";
+                         else if(value == MachineEnums::FAN_STATE_DIFFERENT) qDebug() << "***** FAN DIFFERENT *****";
+                     });
+    QObject::connect(pData, &MachineData::sashCycleMeterChanged,
+                     this, [&](int cycle){
+                         ///MODBUS
+                         _setModbusRegHoldingValue(modbusRegisterAddress.SashCycle.addr, static_cast<ushort>(cycle/10));
+                     });
+    QObject::connect(pData, &MachineData::frontPanelAlarmChanged,
+                     this, [&](bool alarm){
+                         ///MODBUS
+                         _setModbusRegHoldingValue(modbusRegisterAddress.AlarmFrontPanel.addr, alarm);
+                     });
+    QObject::connect(pData, &MachineData::sashMotorDownStuckSwitchChanged,
+                     this, [&](bool alarm){
+                         if(alarm) {
+                             if((pData->getSashWindowState() != MachineEnums::SASH_STATE_FULLY_CLOSE_SSV) && m_sashMovedDown)
+                             {
                                  m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
                                  m_pSasWindowMotorize->routineTask();
-                                 setBuzzerState(MachineEnums::DIG_STATE_ZERO);
-                                 pData->setAlarmSashMotorDownStuck(MachineEnums::ALARM_NORMAL_STATE);
-                                 _insertAlarmLog(ALARM_LOG_CODE::ALC_SASH_MOTOR_DOWN_STUCK_OK, ALARM_LOG_TEXT_SASH_MOTOR_DOWN_STUCK_OK);
-                             });
+                                 m_sashMovedDown = false;
+                                 pData->setAlarmSashMotorDownStuck(MachineEnums::ALARM_ACTIVE_STATE);
+                                 setBuzzerState(MachineEnums::DIG_STATE_ONE);
+                                 _insertAlarmLog(ALARM_LOG_CODE::ALC_SASH_MOTOR_DOWN_STUCK_ALARM, ALARM_LOG_TEXT_SASH_MOTOR_DOWN_STUCK_ALARM);
+                                 m_pSashWindow->setSafeSwitcher(SashWindow::SWITCHER_UP);
+                                 m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_UP);
+                                 m_pSasWindowMotorize->routineTask();
+                                 qDebug() << "Start timer to turn off sash motor after move up";
+                                 QTimer::singleShot(m_delaySashMotorUpAfterStucked, this, [&](){
+                                     qDebug() << "Turn off sash motorized!";
+                                     m_pSasWindowMotorize->setState(MachineEnums::MOTOR_SASH_STATE_OFF);
+                                     m_pSasWindowMotorize->routineTask();
+                                     setBuzzerState(MachineEnums::DIG_STATE_ZERO);
+                                     pData->setAlarmSashMotorDownStuck(MachineEnums::ALARM_NORMAL_STATE);
+                                     _insertAlarmLog(ALARM_LOG_CODE::ALC_SASH_MOTOR_DOWN_STUCK_OK, ALARM_LOG_TEXT_SASH_MOTOR_DOWN_STUCK_OK);
+                                 });
+                             }//
                          }//
-                     }//
-                 });
+                     });
 
-{
-    ///SKEY_SASH_MOTOR_OFF_DELAY
-    if(pData->getSashWindowMotorizeInstalled()){
-        int sashDelay = m_settings->value(SKEY_SASH_MOTOR_OFF_DELAY, 700).toInt();
-        pData->setSashMotorOffDelayMsec(sashDelay);
+    {
+        ///SKEY_SASH_MOTOR_OFF_DELAY
+        if(pData->getSashWindowMotorizeInstalled()){
+            int sashDelay = m_settings->value(SKEY_SASH_MOTOR_OFF_DELAY, 700).toInt();
+            pData->setSashMotorOffDelayMsec(sashDelay);
+        }
     }
-}
-{
-    ///SKEY_DELAY_ALARM_AIRFLOW
-    int alarmDelay = m_settings->value(SKEY_DELAY_ALARM_AIRFLOW, 2).toInt();
-    pData->setDelayAlarmAirflowSec(alarmDelay);
-}
+    {
+        ///SKEY_DELAY_ALARM_AIRFLOW
+        int alarmDelay = m_settings->value(SKEY_DELAY_ALARM_AIRFLOW, 2).toInt();
+        pData->setDelayAlarmAirflowSec(alarmDelay);
+    }
 
-/// Buzzer indication
-{
-    /// give finished machine backend setup
-    m_pBuzzer->setState(MachineEnums::DIG_STATE_ONE);
-    sleep(1);
-    m_pBuzzer->setState(MachineEnums::DIG_STATE_ZERO);
-}
+    /// Buzzer indication
+    {
+        /// give finished machine backend setup
+        m_pBuzzer->setState(MachineEnums::DIG_STATE_ONE);
+        sleep(1);
+        m_pBuzzer->setState(MachineEnums::DIG_STATE_ZERO);
+    }
 
-/// Initialize ResourceMonitorParams value
-{
-    pData->setResourceMonitorParams(QStringList() << "00" << "00" << "00");
-}
+    /// Initialize ResourceMonitorParams value
+    {
+        pData->setResourceMonitorParams(QStringList() << "00" << "00" << "00");
+    }
 
-///event log
-_insertEventLog(EVENT_STR_POWER_ON);
+    ///event log
+    _insertEventLog(EVENT_STR_POWER_ON);
 
-/// WATCHDOG
-/// connect watchdog brigde, now watchdog event from RTC can reset the SBC if counter timeout
-m_boardCtpIO->setOutputAsDigital(LEDpca9633_CHANNEL_WDG, MachineEnums::DIG_STATE_ZERO,
-                                 I2CPort::I2C_SEND_MODE_DIRECT);
-/// restart counter number
-m_boardCtpRTC->setTimerACount(SDEF_WATCHDOG_PERIOD, I2CPort::I2C_SEND_MODE_DIRECT);
-/// enable event to restart countdown wtachdog
-m_timerEventForRTCWatchdogReset->start();
+    /// WATCHDOG
+    /// connect watchdog brigde, now watchdog event from RTC can reset the SBC if counter timeout
+    m_boardCtpIO->setOutputAsDigital(LEDpca9633_CHANNEL_WDG, MachineEnums::DIG_STATE_ZERO,
+                                     I2CPort::I2C_SEND_MODE_DIRECT);
+    /// restart counter number
+    m_boardCtpRTC->setTimerACount(SDEF_WATCHDOG_PERIOD, I2CPort::I2C_SEND_MODE_DIRECT);
+    /// enable event to restart countdown wtachdog
+    m_timerEventForRTCWatchdogReset->start();
 
-/// Change value to loop, routine task
-pData->setMachineBackendState(MachineEnums::MACHINE_STATE_LOOP);
-/// GIVE A SIGNAL
-emit loopStarted();
+    /// Change value to loop, routine task
+    pData->setMachineBackendState(MachineEnums::MACHINE_STATE_LOOP);
+    /// GIVE A SIGNAL
+    emit loopStarted();
 
 #ifdef QT_DEBUG
-m_pWebSocketServerDummyState.reset(new QWebSocketServer(qAppName(), QWebSocketServer::NonSecureMode));
-bool ok = m_pWebSocketServerDummyState->listen(QHostAddress::Any, 8789);
-if (ok){
-    connect(m_pWebSocketServerDummyState.data(), &QWebSocketServer::newConnection,
-            this, &MachineBackend::onDummyStateNewConnection);
-}
+    m_pWebSocketServerDummyState.reset(new QWebSocketServer(qAppName(), QWebSocketServer::NonSecureMode));
+    bool ok = m_pWebSocketServerDummyState->listen(QHostAddress::Any, 8789);
+    if (ok){
+        connect(m_pWebSocketServerDummyState.data(), &QWebSocketServer::newConnection,
+                this, &MachineBackend::onDummyStateNewConnection);
+    }
 #endif
-}
+}//
 
 void MachineBackend::loop()
 {
@@ -4067,7 +4069,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
                                          /// ONLY IF BLOWER IS'NT AT WARMING UP CONDITION
                                          /// AND NO EXHAUST ALARM
                                          qDebug() << "Turn on the lamp if no warming up at safe height";
-                                         m_pLight->setState(MachineEnums::DIG_STATE_ONE);
+                                         setLightState(MachineEnums::DIG_STATE_ONE);
                                          ///
                                          _insertEventLog(EVENT_STR_LIGHT_ON);
                                      }
@@ -4342,7 +4344,7 @@ void MachineBackend::deleteFileOnSystem(const QString path)
 #ifdef WIN32
     pathFilter.replace("file:///C", "c");
 #elif __linux__
-    pathFilter.replace("file://", "");
+        pathFilter.replace("file://", "");
 #endif
 
     if(QFile::exists(pathFilter)) {
@@ -5165,7 +5167,7 @@ QString MachineBackend::_readMacAddress()
         text += interface.hardwareAddress()+"#";
     }
 #else
-    text = SDEF_FULL_MAC_ADDRESS;
+        text = SDEF_FULL_MAC_ADDRESS;
 #endif
 
     qDebug() << "MAC:" << text;
@@ -5197,7 +5199,7 @@ QStringList MachineBackend::_readSbcSystemInformation()
 
     //qDebug() << sysInfo;
 #else
-    sysInfo = QStringList() << "Unknown";
+        sysInfo = QStringList() << "Unknown";
 #endif
     return sysInfo;
 }
@@ -5222,7 +5224,7 @@ QString MachineBackend::_readSbcSerialNumber()
     QString err(process.readAllStandardError());
     qDebug()<<err;
 #else
-    serialNumber = SDEF_SBC_SERIAL_NUMBER;
+        serialNumber = SDEF_SBC_SERIAL_NUMBER;
 #endif
     qDebug() << "Serial Number:" << serialNumber;
     return serialNumber;
@@ -5689,6 +5691,9 @@ void MachineBackend::setLightState(short lightState)
     bool val = lightState;
 
     m_pLight->setState(val);
+    if(val){
+        m_pLightIntensity->setState(pData->getLightIntensity());
+    }
 }
 
 void MachineBackend::setSocketInstalled(short value)
@@ -7711,7 +7716,7 @@ void MachineBackend::_startWarmingUpTime()
     bool quickMode = pData->getOperationMode() == MachineEnums::MODE_OPERATION_QUICKSTART;
 
     if(normalMode || quickMode) {
-        m_pLight->setState(MachineEnums::DIG_STATE_ZERO);
+        setLightState(MachineEnums::DIG_STATE_ZERO);
     }
 }
 
@@ -7746,7 +7751,7 @@ void MachineBackend::_onTimerEventWarmingUp()
         bool quickMode = pData->getOperationMode() == MachineEnums::MODE_OPERATION_QUICKSTART;
 
         if(normalMode || quickMode) {
-            m_pLight->setState(MachineEnums::DIG_STATE_ONE);
+            setLightState(MachineEnums::DIG_STATE_ONE);
         }
 
         /// Turned bright LED

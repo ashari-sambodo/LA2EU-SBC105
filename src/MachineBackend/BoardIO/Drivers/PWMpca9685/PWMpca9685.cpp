@@ -91,7 +91,7 @@ enum PCA9685_PWM_REG{
 PWMpca9685::PWMpca9685(QObject *parent)
     : ClassDriver(parent)
 {
-    memset(m_registerDataBuffer, 0x00, 256);
+    memset(m_registerDataBuffer, 0x00, 255);
     m_address           = PCA9685_PWM_ADDRESS;
     m_oscillatorValue   = PCA9685_PWM_VAL_IN_OSCILATOR;
     m_oscilatorType     = TYPE_OSC_INTERNAL;
@@ -417,7 +417,7 @@ int PWMpca9685::getRegBufferPWM(int channel)
 
 void PWMpca9685::clearRegBuffer()
 {
-    memset(m_registerDataBuffer, 0, 256);
+    memset(m_registerDataBuffer, 0, 255);
 }
 
 /**

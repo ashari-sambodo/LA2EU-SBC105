@@ -90,9 +90,9 @@ void AirflowVelocity::routineTask(int parameter)
     if(recalculateAdcConpensation || m_sensorConstantChanged){
         //ADC TEMPERATURE CONVESATION
         int adcC = m_adc;
-        double adcCompTemp = 0.0;
 
         if((m_constant != 0) && (m_temperature <= 50.0)){
+            double adcCompTemp = 0.0;
             adcCompTemp = (m_temperature - 25.0) + static_cast<double>(m_constant);
             adcCompTemp *= static_cast<double>(m_adc);
             adcCompTemp /= static_cast<double>(m_constant);
@@ -118,96 +118,96 @@ void AirflowVelocity::routineTask(int parameter)
         if(m_sensorConstantChanged) m_sensorConstantChanged = false;
     }
 
+    double velocity = 0;
+
     //VELOCITY
     if(recalculateVelocity || m_scopeChanged){
-        if(m_scopeChanged) m_scopeChanged = false;
-
-        double velocity = 0;
+        if(m_scopeChanged) m_scopeChanged = false;       
 
         if(m_adcConpensation <= m_adcPoint[Pt_Zero]){
             velocity = 0;
 
-        }else if(m_adcConpensation <= m_adcPoint[Pt_Minimum]){
-            velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b1) / m_m1/*)*/;
+        }/*else if(m_adcConpensation <= m_adcPoint[Pt_Minimum]){
+            velocity = (static_cast<double>(m_adcConpensation) - m_b1) / m_m1;
 
-        }else{
-            velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b2) / m_m2/*)*/;
-        }
-        //        else{
-        //            if(m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT){
-        //                velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b3) / m_m3/*)*/;
-        //                qDebug() << metaObject()->className() << __func__ << "m_adcPoint[3]" << m_adcPoint[3] << m_adcConpensation << m_b3 << m_m3 << "velocity" << velocity;
-        //            }else {
-        //                velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b2) / m_m2/*)*/;
-        //                qDebug() << metaObject()->className() << __func__ << "m_adcPoint[2]" << m_adcPoint[2] << m_adcConpensation << m_b2 << m_m2 << "velocity" << velocity;
-        //            }//
-        //        }//
+    }*/else{
+        velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b2) / m_m2/*)*/;
+    }
+    //        else{
+    //            if(m_scopeCount == AIRFLOWNANAGER_MAX_ADC_POINT){
+    //                velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b3) / m_m3/*)*/;
+    //                qDebug() << metaObject()->className() << __func__ << "m_adcPoint[3]" << m_adcPoint[3] << m_adcConpensation << m_b3 << m_m3 << "velocity" << velocity;
+    //            }else {
+    //                velocity = /*qRound(*/(static_cast<double>(m_adcConpensation) - m_b2) / m_m2/*)*/;
+    //                qDebug() << metaObject()->className() << __func__ << "m_adcPoint[2]" << m_adcPoint[2] << m_adcConpensation << m_b2 << m_m2 << "velocity" << velocity;
+    //            }//
+    //        }//
 
-        double velHigh      = m_velocityPoint[Pt_Maximum];
-        double velNominal   = m_velocityPoint[Pt_Nominal];
-        double velLow       = m_velocityPoint[Pt_Minimum];
-        double velActual    = velocity;
-        double valueVel     = 0;
-        double velocityForClosedLoop = 0;
+    double velHigh      = m_velocityPoint[Pt_Maximum];
+    double velNominal   = m_velocityPoint[Pt_Nominal];
+    double velLow       = m_velocityPoint[Pt_Minimum];
+    double velActual    = velocity;
+    double valueVel     = 0;
+    double velocityForClosedLoop = 0;
 
-        if(m_meaUnit) {
-            if(velHigh > 0)     velHigh /= 100.0;
-            if(velNominal > 0)  velNominal /= 100.0;
-            if(velLow > 0)      velLow /= 100.0;
-            if(velActual > 0)   velActual /= 100.0;
-        }//
-
-        /// generate an offset in order to decide what rounding method need to implement
-        /// use 40% of the deviation between Nominal and one of the alarm velocity
-        int offsetBeforeAlarm = qRound(0.4 * (velNominal - velLow));
-        /// Remove decimal point if actual velocity is greater than Nominal
-        /// Round it if less than Nominal
-        if(velActual > velNominal){
-            if((velActual >= (velHigh - offsetBeforeAlarm)) && (velHigh > velNominal))
-                valueVel = qRound(velActual);
-            else{
-                valueVel = static_cast<int>(velActual);
-            }
-        }//
-        else{
-            if(velActual <= (velLow + offsetBeforeAlarm))
-                valueVel = static_cast<int>(velActual);
-            else
-                valueVel = qRound(velActual);
-        }//
-        /// make a different emit signal value for Closed loop Control
-        velocityForClosedLoop = qRound(velActual);
-
-        if(m_meaUnit) {
-            if(velHigh > 0)     velHigh *= 100.0;
-            if(velNominal > 0)  velNominal *= 100.0;
-            if(velLow > 0)      velLow *= 100.0;
-            if(velActual > 0)   velActual *= 100.0;
-            if(valueVel > 0)    valueVel *= 100.0;
-            if(velocityForClosedLoop > 0)velocityForClosedLoop *= 100.0;
-        }//
-
-        qDebug() << velLow << velHigh << offsetBeforeAlarm;
-        qDebug() << velNominal << velActual << "final:" << valueVel;
-        qDebug() << "velocityForClosedLoop:" << velocityForClosedLoop;
-
-        //nomalization, airflow value dont have negative
-        if(valueVel < 0) valueVel = 0;
-        if(velocityForClosedLoop < 0) velocityForClosedLoop = 0;
-
-        if(fabs(valueVel - m_velocity) >= 1){
-            m_velocity = valueVel;
-
-            if(!m_velocityChanged) m_velocityChanged = true;
-            emit velocityChanged(m_velocity);
-        }//
-        if(fabs(velocityForClosedLoop - m_velocityForClosedLoop) >= 1){
-            m_velocityForClosedLoop = velocityForClosedLoop;
-            emit velocityForClosedLoopChanged(m_velocityForClosedLoop);
-        }
+    if(m_meaUnit) {
+        if(velHigh > 0)     velHigh /= 100.0;
+        if(velNominal > 0)  velNominal /= 100.0;
+        if(velLow > 0)      velLow /= 100.0;
+        if(velActual > 0)   velActual /= 100.0;
     }//
 
-    emit workerFinished();
+    /// generate an offset in order to decide what rounding method need to implement
+    /// use 40% of the deviation between Nominal and one of the alarm velocity
+    int offsetBeforeAlarm = qRound(0.4 * (velNominal - velLow));
+    /// Remove decimal point if actual velocity is greater than Nominal
+    /// Round it if less than Nominal
+    if(velActual > velNominal){
+        if((velActual >= (velHigh - offsetBeforeAlarm)) && (velHigh > velNominal))
+            valueVel = qRound(velActual);
+        else{
+            valueVel = static_cast<int>(velActual);
+        }
+    }//
+    else{
+        if(velActual <= (velLow + offsetBeforeAlarm))
+            valueVel = static_cast<int>(velActual);
+        else
+            valueVel = qRound(velActual);
+    }//
+    /// make a different emit signal value for Closed loop Control
+    velocityForClosedLoop = qRound(velActual);
+
+    if(m_meaUnit) {
+        if(velHigh > 0)     velHigh *= 100.0;
+        if(velNominal > 0)  velNominal *= 100.0;
+        if(velLow > 0)      velLow *= 100.0;
+        if(velActual > 0)   velActual *= 100.0;
+        if(valueVel > 0)    valueVel *= 100.0;
+        if(velocityForClosedLoop > 0)velocityForClosedLoop *= 100.0;
+    }//
+
+    qDebug() << velLow << velHigh << offsetBeforeAlarm;
+    qDebug() << velNominal << velActual << "final:" << valueVel;
+    qDebug() << "velocityForClosedLoop:" << velocityForClosedLoop;
+
+    //nomalization, airflow value dont have negative
+    if(valueVel < 0) valueVel = 0;
+    if(velocityForClosedLoop < 0) velocityForClosedLoop = 0;
+
+    if(fabs(valueVel - m_velocity) >= 1){
+        m_velocity = valueVel;
+
+        if(!m_velocityChanged) m_velocityChanged = true;
+        emit velocityChanged(m_velocity);
+    }//
+    if(fabs(velocityForClosedLoop - m_velocityForClosedLoop) >= 1){
+        m_velocityForClosedLoop = velocityForClosedLoop;
+        emit velocityForClosedLoopChanged(m_velocityForClosedLoop);
+    }
+}//
+
+emit workerFinished();
 }//
 
 ///**
@@ -287,17 +287,17 @@ void AirflowVelocity::initScope()
     qDebug() << metaObject()->className() << __func__ << m_adcPoint[Pt_Nominal] << m_adcPoint[Pt_Minimum] << m_adcPoint[Pt_Zero];
     qDebug() << metaObject()->className() << __func__ << m_velocityPoint[Pt_Nominal] << m_velocityPoint[Pt_Minimum];
 
-    double m1 = (static_cast<double>(m_adcPoint[1] - m_adcPoint[0])) / (m_velocityPoint[1] - m_velocityPoint[0]);
-    double b1 = (static_cast<double>(m_adcPoint[0])) - (m1 * m_velocityPoint[0]);
+    double m1 = (static_cast<double>(m_adcPoint[Pt_Minimum] - m_adcPoint[Pt_Zero])) / (m_velocityPoint[Pt_Minimum] - m_velocityPoint[Pt_Zero]);
+    double b1 = (static_cast<double>(m_adcPoint[Pt_Zero])) - (m1 * m_velocityPoint[Pt_Zero]);
 
     double m2, b2;
 
     //    if(m_scopeCount != 2){
-    m2 = (static_cast<double>(m_adcPoint[2] - m_adcPoint[1])) / (m_velocityPoint[2] - m_velocityPoint[1]);
-    b2 = (static_cast<double>(m_adcPoint[1])) - (m2 * m_velocityPoint[1]);
+    //m2 = (static_cast<double>(m_adcPoint[2] - m_adcPoint[1])) / (m_velocityPoint[2] - m_velocityPoint[1]);
+    //b2 = (static_cast<double>(m_adcPoint[1])) - (m2 * m_velocityPoint[1]);
     //    }else{
-    //        m2 = (static_cast<double>(m_adcPoint[2] - m_adcPoint[0])) / (m_velocityPoint[2] - m_velocityPoint[0]);
-    //        b2 = (static_cast<double>(m_adcPoint[0])) - (m2 * m_velocityPoint[0]);
+    m2 = (static_cast<double>(m_adcPoint[Pt_Nominal] - m_adcPoint[Pt_Zero])) / (m_velocityPoint[Pt_Nominal] - m_velocityPoint[Pt_Zero]);
+    b2 = (static_cast<double>(m_adcPoint[Pt_Zero])) - (m2 * m_velocityPoint[Pt_Zero]);
     //    }
 
     //    double m3=0.0, b3=0.0;

@@ -68,16 +68,21 @@ ViewApp {
                                     Rectangle{
                                         color: "transparent"
                                         border.width: 0
-                                        height: 60
+                                        height: 40
                                         width: 200
                                         anchors.horizontalCenter: parent.horizontalCenter
-                                        TextApp {
-                                            text: qsTr("Downflow")
-                                            height: parent.height
-                                            width: parent.width
-                                            font.underline: true
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignBottom
+                                        Rectangle {
+                                            color: "#80000000"
+                                            anchors.centerIn: parent
+                                            radius: 2
+                                            TextApp {
+                                                //id: msgInfoTextApp
+                                                text: qsTr("Downflow")
+                                                verticalAlignment: Text.AlignVCenter
+                                                padding: 2
+                                            }
+                                            width: childrenRect.width
+                                            height: childrenRect.height
                                         }//
                                     }
                                     Row{
@@ -413,16 +418,21 @@ ViewApp {
                                     Rectangle{
                                         color: "transparent"
                                         border.width: 0
-                                        height: 60
+                                        height: 40
                                         width: 200
                                         anchors.horizontalCenter: parent.horizontalCenter
-                                        TextApp {
-                                            text: qsTr("Inflow")
-                                            height: parent.height
-                                            width: parent.width
-                                            font.underline: true
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignBottom
+                                        Rectangle {
+                                            color: "#80000000"
+                                            anchors.centerIn: parent
+                                            radius: 2
+                                            TextApp {
+                                                //id: msgInfoTextApp
+                                                text: qsTr("Inflow")
+                                                verticalAlignment: Text.AlignVCenter
+                                                padding: 2
+                                            }
+                                            width: childrenRect.width
+                                            height: childrenRect.height
                                         }//
                                     }
                                     Row{
@@ -443,7 +453,7 @@ ViewApp {
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan Standby (%)"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Exhaust fan Standby (%)"))
                                                     }//
 
                                                     TextApp {
@@ -469,7 +479,7 @@ ViewApp {
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan Minimum (%)"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Exhaust fan Minimum (%)"))
                                                     }//
 
                                                     TextApp {
@@ -495,7 +505,7 @@ ViewApp {
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan Nominal (%)"))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Exhaust fan Nominal (%)"))
                                                     }//
 
                                                     TextApp {
@@ -793,9 +803,12 @@ ViewApp {
                                 let dfaVelLowAlarm      = Number(dfaVelLowAlarmTextField.text) * 100
                                 let dfaVelHighAlarm     = Number(dfaVelHighAlarmTextField.text) * 100
                                 let dfaVelNom           = Number(dfaVelNomTextField.text) * 100
+                                let dfaVelMin           = Number(dfaVelMinTextField.text) * 100
+                                let dfaVelMax           = Number(dfaVelMaxTextField.text) * 100
 
                                 let ifaVelLowAlarm      = Number(ifaVelLowAlarmTextField.text) * 100
                                 let ifaVelNom           = Number(ifaVelNomTextField.text) * 100
+                                let ifaVelMin           = Number(ifaVelMinTextField.text) * 100
 
                                 if (!((dfaVelLowAlarm < dfaVelNom && dfaVelNom < dfaVelHighAlarm)
                                       && (ifaVelLowAlarm < ifaVelNom))){
@@ -828,11 +841,14 @@ ViewApp {
                                 console.debug("ifaConstant: "    + ifaConstant)
                                 //                                console.debug("dfaAdcZero: "     + dfaAdcZero)
                                 console.debug("dfaAdcNom: "      + dfaAdcNom)
+                                console.debug("dfaAdcMin: "      + dfaAdcMin)
+                                console.debug("dfaAdcMax: "      + dfaAdcMax)
                                 //                                console.debug("ifaAdcZero: "     + ifaAdcZero)
                                 console.debug("ifaAdcNom: "      + ifaAdcNom)
                                 console.debug("dfaVelLowAlarm: " + dfaVelLowAlarm)
                                 console.debug("dfaVelHighAlarm: "+ dfaVelHighAlarm)
                                 console.debug("dfaVelNom: "      + dfaVelNom)
+                                console.debug("dfaVelMin: "      + dfaVelMin)
                                 console.debug("ifaVelLowAlarm: " + ifaVelLowAlarm)
                                 console.debug("ifaVelNom: "      + ifaVelNom)
                                 console.debug("calibTempAdc: "   + calibTempAdc)
@@ -855,13 +871,13 @@ ViewApp {
                                 /// set factory/full calibration
                                 MachineAPI.setInflowSensorConstant      (ifaConstant)
                                 MachineAPI.setInflowAdcPointFactory     (0, ifaAdcMin, ifaAdcNom, 0)
-                                MachineAPI.setInflowVelocityPointFactory(0, ifaVelLowAlarm, ifaVelNom)
+                                MachineAPI.setInflowVelocityPointFactory(0, ifaVelMin, ifaVelNom)
                                 MachineAPI.setInflowLowLimitVelocity    (ifaVelLowAlarm)
                                 MachineAPI.setInflowTemperatureCalib    (calibTemp, calibTempAdc)
 
                                 MachineAPI.setDownflowSensorConstant    (dfaConstant)
                                 MachineAPI.setDownflowAdcPointFactory   (0, dfaAdcMin, dfaAdcNom, 0)
-                                MachineAPI.setDownflowVelocityPointFactory(0, dfaVelLowAlarm, dfaVelNom, dfaVelHighAlarm)
+                                MachineAPI.setDownflowVelocityPointFactory(0, dfaVelMin, dfaVelNom, dfaVelMax)
                                 MachineAPI.setDownflowLowLimitVelocity  (dfaVelLowAlarm)
                                 MachineAPI.setDownflowHighLimitVelocity (dfaVelHighAlarm)
 

@@ -108,7 +108,7 @@ ViewApp {
                             anchors.centerIn: parent
                             spacing: 10
                             TextApp{
-                                text: qsTr("Inflow Fan Port:")
+                                text: qsTr("Exhaust fan Port:")
                             }
                             Rectangle{
                                 width: 190

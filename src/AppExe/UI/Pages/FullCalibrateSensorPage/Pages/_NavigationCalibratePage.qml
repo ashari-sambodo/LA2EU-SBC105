@@ -608,24 +608,24 @@ ViewApp {
                     badgeText  : qsTr("Done"),
                     pid        : "senconst",
                 },
-                //                {
-                //                    mtype      : "menu",
-                //                    mtitle     : qsTr("ADC Zero"),
-                //                    micon      : "qrc:/UI/Pictures/menu/Zero-Sensor.png",
-                //                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml",
-                //                    badge      : 0,
-                //                    badgeText  : qsTr("Done"),
-                //                    pid        : "adcz",
-                //                },
                 {
                     mtype      : "menu",
-                    mtitle     : qsTr("ADC Minimum"),
-                    micon      : "qrc:/UI/Pictures/menu/Calibrate-Sensor.png",
-                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml",
+                    mtitle     : qsTr("ADC Zero"),
+                    micon      : "qrc:/UI/Pictures/menu/Zero-Sensor.png",
+                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml",
                     badge      : 0,
                     badgeText  : qsTr("Done"),
-                    pid        : "adcm",
+                    pid        : "adcz",
                 },
+                //                {
+                //                    mtype      : "menu",
+                //                    mtitle     : qsTr("ADC Minimum"),
+                //                    micon      : "qrc:/UI/Pictures/menu/Calibrate-Sensor.png",
+                //                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml",
+                //                    badge      : 0,
+                //                    badgeText  : qsTr("Done"),
+                //                    pid        : "adcm",
+                //                },
                 {
                     mtype      : "menu",
                     mtitle     : qsTr("ADC Nominal"),
@@ -972,13 +972,13 @@ ViewApp {
                 ///EVENT LOG
                 const message = qsTr("User: Full calibration sensor")
                               + "("
-                //                              + "ADC-DFZ: " + props.dfaSensorAdcZero + ", "
-                              + "VEL-DF1: " + (props.dfaSensorVelMinimum / 100).toFixed(props.decimalPoint) + ", "
+                              + "ADC-DFZ: " + props.dfaSensorAdcZero + ", "
+                //                              + "VEL-DF1: " + (props.dfaSensorVelMinimum / 100).toFixed(props.decimalPoint) + ", "
                               + "ADC-DF2: " + props.dfaSensorAdcNominal + ", "
                               + "VEL-DF2: " + (props.dfaSensorVelNominal / 100).toFixed(props.decimalPoint) + ", "
                               + "VEL-DF3: " + (props.dfaSensorVelMaximum / 100).toFixed(props.decimalPoint) + ", "
-                //                              + "ADC-IFZ: " + props.ifaSensorAdcZero + ", "
-                              + "VEL-IF1: " + (props.ifaSensorVelMinimum / 100).toFixed(props.decimalPoint) + ", "
+                              + "ADC-IFZ: " + props.ifaSensorAdcZero + ", "
+                //                              + "VEL-IF1: " + (props.ifaSensorVelMinimum / 100).toFixed(props.decimalPoint) + ", "
                               + "ADC-IF2: " + props.ifaSensorAdcNominal + ", "
                               + "VEL-IF2: " + (props.ifaSensorVelNominal / 100).toFixed(props.decimalPoint)
                               + ")"
@@ -1341,64 +1341,21 @@ ViewApp {
                         console.debug("calibNewSensorConst:", props.calibNewSensorConst, props.dfaSensorConstant, props.ifaSensorConstant)
                     }//
 
-                    //                    else if (extradata['pid'] === 'adcz'){
-                    //                        props.dfaSensorAdcZero = extradata['dfaSensorAdcZero'] || 0
-                    //                        props.ifaSensorAdcZero = extradata['ifaSensorAdcZero'] || 0
+                    else if (extradata['pid'] === 'adcz'){
+                        props.dfaSensorAdcZero = extradata['dfaSensorAdcZero'] || 0
+                        props.ifaSensorAdcZero = extradata['ifaSensorAdcZero'] || 0
 
-                    //                        if(props.calibNewAdcMin) {
-                    //                            props.calibNewAdcMin = false
-                    //                            /// set bagde value to main model
-                    //                            props.menuModelMicroADC[props.lastSelectedMenuIndex+1]['badge'] = 0
-                    //                        }//
-
-                    //                        if(props.calibNewAdcNom) {
-                    //                            props.calibNewAdcNom = false
-                    //                            /// set bagde value to main model
-                    //                            props.menuModelMicroADC[props.lastSelectedMenuIndex+2]['badge'] = 0
-                    //                        }//
-
-                    //                        let done  = props.menuModelMicroADC[props.lastSelectedMenuIndex]['badge']
-                    //                        if (!done){
-                    //                            /// set bagde value to main model
-                    //                            props.menuModelMicroADC[props.lastSelectedMenuIndex]['badge'] = 1
-                    //                            /// update to current menu
-                    //                            menuStackView.currentItem.model = props.menuModelMicroADC
-                    //                        }
-
-                    //                        props.calibNewAdcZero = true
-                    //                        console.debug("calibNewAdcZero:", props.calibNewAdcZero, props.dfaSensorAdcZero, props.ifaSensorAdcZero)
-                    //                    }//
-
-                    else if (extradata['pid'] === 'adcm'){
-
-                        props.ifaSensorAdcMinimum = extradata['ifaSensorAdcMinimum'] || 0
-
-                        let velocity = extradata['ifaSensorVelMinimum']
-                        if(props.measurementUnit) velocity = Math.round(velocity)
-                        props.ifaSensorVelMinimum = Math.round(velocity * 100)
-
-                        velocity = extradata['dfaSensorVelMinimum']
-                        if(props.measurementUnit) velocity = Math.round(velocity)
-                        props.dfaSensorVelMinimum = Math.round(velocity * 100)
-
-                        let velocityLowAlarm = extradata['ifaSensorVelLowAlarm'] || 0
-                        if(props.measurementUnit) velocityLowAlarm = Math.round(velocityLowAlarm)
-                        props.ifaSensorVelLowAlarm = Math.round(velocityLowAlarm * 100)
-
-                        velocityLowAlarm = extradata['dfaSensorVelLowAlarm'] || 0
-                        if(props.measurementUnit) velocityLowAlarm = Math.round(velocityLowAlarm)
-                        props.dfaSensorVelLowAlarm = Math.round(velocityLowAlarm * 100)
-
-                        props.ifaFanDutyCycleMinimum = extradata['ifaFanDutyCycleResult']
-                        props.ifaFanRpmMinimum       = extradata['ifaFanRpmResult']
-                        props.dfaFanDutyCycleMinimum = extradata['dfaFanDutyCycleResult']
-                        props.dfaFanRpmMinimum       = extradata['dfaFanRpmResult']
+                        if(props.calibNewAdcMin) {
+                            props.calibNewAdcMin = false
+                            /// set bagde value to main model
+                            props.menuModelMicroADC[props.lastSelectedMenuIndex+1]['badge'] = 0
+                        }//
 
                         if(props.calibNewAdcNom) {
                             props.calibNewAdcNom = false
-                            /// clear bagde value to main model
-                            props.menuModelMicroADC[props.lastSelectedMenuIndex+1]['badge'] = 0
-                        }
+                            /// set bagde value to main model
+                            props.menuModelMicroADC[props.lastSelectedMenuIndex+2]['badge'] = 0
+                        }//
 
                         let done  = props.menuModelMicroADC[props.lastSelectedMenuIndex]['badge']
                         if (!done){
@@ -1408,8 +1365,51 @@ ViewApp {
                             menuStackView.currentItem.model = props.menuModelMicroADC
                         }
 
-                        props.calibNewAdcMin = true
+                        props.calibNewAdcZero = true
+                        console.debug("calibNewAdcZero:", props.calibNewAdcZero, props.dfaSensorAdcZero, props.ifaSensorAdcZero)
                     }//
+
+                    //                    else if (extradata['pid'] === 'adcm'){
+
+                    //                        props.ifaSensorAdcMinimum = extradata['ifaSensorAdcMinimum'] || 0
+
+                    //                        let velocity = extradata['ifaSensorVelMinimum']
+                    //                        if(props.measurementUnit) velocity = Math.round(velocity)
+                    //                        props.ifaSensorVelMinimum = Math.round(velocity * 100)
+
+                    //                        velocity = extradata['dfaSensorVelMinimum']
+                    //                        if(props.measurementUnit) velocity = Math.round(velocity)
+                    //                        props.dfaSensorVelMinimum = Math.round(velocity * 100)
+
+                    //                        let velocityLowAlarm = extradata['ifaSensorVelLowAlarm'] || 0
+                    //                        if(props.measurementUnit) velocityLowAlarm = Math.round(velocityLowAlarm)
+                    //                        props.ifaSensorVelLowAlarm = Math.round(velocityLowAlarm * 100)
+
+                    //                        velocityLowAlarm = extradata['dfaSensorVelLowAlarm'] || 0
+                    //                        if(props.measurementUnit) velocityLowAlarm = Math.round(velocityLowAlarm)
+                    //                        props.dfaSensorVelLowAlarm = Math.round(velocityLowAlarm * 100)
+
+                    //                        props.ifaFanDutyCycleMinimum = extradata['ifaFanDutyCycleResult']
+                    //                        props.ifaFanRpmMinimum       = extradata['ifaFanRpmResult']
+                    //                        props.dfaFanDutyCycleMinimum = extradata['dfaFanDutyCycleResult']
+                    //                        props.dfaFanRpmMinimum       = extradata['dfaFanRpmResult']
+
+                    //                        if(props.calibNewAdcNom) {
+                    //                            props.calibNewAdcNom = false
+                    //                            /// clear bagde value to main model
+                    //                            props.menuModelMicroADC[props.lastSelectedMenuIndex+1]['badge'] = 0
+                    //                        }
+
+                    //                        let done  = props.menuModelMicroADC[props.lastSelectedMenuIndex]['badge']
+                    //                        if (!done){
+                    //                            /// set bagde value to main model
+                    //                            props.menuModelMicroADC[props.lastSelectedMenuIndex]['badge'] = 1
+                    //                            /// update to current menu
+                    //                            menuStackView.currentItem.model = props.menuModelMicroADC
+                    //                        }
+
+                    //                        props.calibNewAdcMin = true
+                    //                    }//
 
                     else if (extradata['pid'] === 'adcn'){
                         props.dfaSensorAdcMinimum = extradata['dfaSensorAdcMinimum'] || 0
@@ -1423,6 +1423,12 @@ ViewApp {
                         props.ifaFanDutyCycleNominal  = extradata['ifaFanDutyCycleResult']
                         props.ifaFanRpmNominal    = extradata['ifaFanRpmResult']
 
+                        if(Math.abs(props.dfaFanDutyCycleStandby - (props.dfaFanDutyCycleNominal/2)) >= 5){
+                            props.dfaFanDutyCycleStandby = props.dfaFanDutyCycleNominal/2;
+                        }
+                        if(Math.abs(props.ifaFanDutyCycleStandby - (props.ifaFanDutyCycleNominal/2)) >= 10){
+                            props.ifaFanDutyCycleStandby = props.ifaFanDutyCycleNominal/2;
+                        }
 
                         let dfaVelocityMin = extradata['dfaSensorVelMinimum']
                         let dfaVelocityNom = extradata['dfaSensorVelNominal']

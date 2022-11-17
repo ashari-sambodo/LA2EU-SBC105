@@ -348,21 +348,21 @@
         <translation type="vanished">Bitte warten Sie, bis sich der Wert stabilisiert hat</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="101"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="529"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="108"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="543"/>
         <source>Tap here to adjust</source>
         <translation>Zum Anpassen hier drücken</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="199"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="621"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="206"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="635"/>
         <source>Fan Duty Cycle</source>
         <translation>Lüfterbetriebszyklus</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="209"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="631"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1298"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="216"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="645"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1328"/>
         <source>Adjusting fan duty cycle...</source>
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
@@ -375,22 +375,20 @@
         <translation type="vanished">Tiefalarm einstellen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="820"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="834"/>
         <source>Stabilizing the ADC</source>
         <translation>Stabilisierung des ADC</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="824"/>
         <source>Please wait for %1, time left</source>
-        <translation>Bitte warte auf %1, noch Zeit</translation>
+        <translation type="vanished">Bitte warte auf %1, noch Zeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="912"/>
         <source>Actual ADC</source>
-        <translation>tatsächlicher ADC</translation>
+        <translation type="vanished">tatsächlicher ADC</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="973"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1003"/>
         <source>Done</source>
         <translation>getan</translation>
     </message>
@@ -411,133 +409,148 @@
         <translation type="vanished">ADC Null</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="75"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="80"/>
         <source>Downflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="123"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="551"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="130"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="565"/>
         <source>Dcy: </source>
         <translation type="unfinished">Arzkls: </translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="136"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="564"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="143"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="578"/>
         <source>RPM: </source>
         <translation type="unfinished">UPM: </translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="234"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="280"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="241"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="287"/>
         <source>Minimum Downflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="312"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="358"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="319"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="365"/>
         <source>Low Downflow Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="396"/>
-        <source>Downflow and Inflow fan must be at Minimum speed!</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="403"/>
+        <source>Downflow and Exhaust fan must be at Minimum speed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="403"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="410"/>
         <source>Sensors Constant</source>
         <translation type="unfinished">Sensorkonstante</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="416"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="423"/>
         <source>Temperature</source>
         <translation type="unfinished">Temperatur</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="438"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="445"/>
         <source>DF Sensor ADC:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="462"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="469"/>
         <source>IF Sensor ADC:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="480"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="487"/>
         <source>Please wait until the values are stable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="503"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="515"/>
         <source>Inflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="656"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="700"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="670"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="714"/>
         <source>Minimum Inflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="732"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="776"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="746"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="790"/>
         <source>Low Inflow Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="999"/>
-        <source>Minimum Velocity (DF | IF)</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="838"/>
+        <source>Please wait for %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1014"/>
-        <source>Low Velocity alarm (DF | IF)</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="927"/>
+        <source>Actual ADC (DF)</source>
+        <translation type="unfinished">tatsächlicher ADC (DF)</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="941"/>
+        <source>Actual ADC (IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1029"/>
-        <source>ADC Minimum (DF | IF)</source>
+        <source>Minimum Velocity (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1044"/>
+        <source>Low Velocity alarm (DF | IF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1059"/>
+        <source>ADC Minimum (DF | IF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1074"/>
         <source>Minimum Fan Duty Cycle (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1071"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1101"/>
         <source>Failed</source>
         <translation>Gescheitert</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1074"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1104"/>
         <source>Required at least 80 points ADC greater than ADC zero</source>
         <translation>Erforderlich mindestens 80 Punkte ADC größer als ADC Null</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1077"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1107"/>
         <source>Close</source>
         <translation>nah dran</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1107"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1137"/>
         <source>Back</source>
         <translation>zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1112"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1142"/>
         <source>Notification</source>
         <translation>Benachrichtigungen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1113"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1143"/>
         <source>Cancel this process?</source>
         <translation>diesen Vorgang abbrechen?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1157"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCMinimumSetPage.qml" line="1187"/>
         <source>Set</source>
         <translation>setzen</translation>
     </message>
@@ -547,39 +560,39 @@
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="35"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="35"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1070"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1246"/>
         <source>ADC Nominal</source>
         <translation>ADC-Nominal</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="75"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="75"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="80"/>
         <source>Downflow</source>
         <translation>Abfluss</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="96"/>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="558"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="101"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="519"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="108"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="606"/>
         <source>Tap here to adjust</source>
         <translation>drücke hier zum Anpassen</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="192"/>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="648"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="199"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="611"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="206"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="698"/>
         <source>Fan Duty Cycle</source>
         <translation>Lüfterbetriebszyklus</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="202"/>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="658"/>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1388"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="209"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="621"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1273"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1387"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="216"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="708"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1449"/>
         <source>Adjusting fan duty cycle...</source>
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
@@ -605,25 +618,24 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="429"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="386"/>
-        <source>Downflow and Inflow fan must be at Nominal speed!</source>
+        <source>Downflow and Exhaust fan must be at Nominal speed!</source>
         <translation>Abwärts- und Zulaufventilator müssen auf Nenndrehzahl stehen!</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="449"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="406"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="486"/>
         <source>Temperature</source>
         <translation>Temperatur</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="513"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="470"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="550"/>
         <source>Please wait until the values are stable</source>
         <translation>Bitte warten Sie, bis sich der Wert stabilisiert hat</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="536"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="493"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="578"/>
         <source>Inflow</source>
         <translation>Zufluss</translation>
     </message>
@@ -644,98 +656,97 @@
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="824"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="724"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="886"/>
         <source>Stabilizing the ADC</source>
         <translation>Stabilisierung des ADC</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="828"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="728"/>
         <source>Please wait for %1, time left</source>
         <translation>Bitte warte auf %1, noch Zeit</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="916"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="828"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="990"/>
         <source>Actual ADC (DF)</source>
         <translation>tatsächlicher ADC (DF)</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="930"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="842"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1004"/>
         <source>Actual ADC (IF)</source>
         <translation>tatsächlicher ADC (iF)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="996"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="904"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="991"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1066"/>
         <source>Done</source>
         <translation>getan</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1022"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1017"/>
         <source>Downflow nominal</source>
         <translation>Downflow nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1036"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1031"/>
         <source>Downflow ADC nominal</source>
         <translation>Downflow ADC Nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1052"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1047"/>
         <source>Inflow nominal</source>
         <translation>Zufluss nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1067"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1062"/>
         <source>Inflow ADC nominal</source>
         <translation>Zufluss ADC nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1085"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1080"/>
         <source>Downflow Fan nominal</source>
         <translation>Downflow-Ventilator nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1100"/>
-        <source>Inflow Fan nominal</source>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1095"/>
+        <source>Exhaust fan nominal</source>
         <translation>Zulaufventilator Nennwert</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1117"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="993"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1112"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1169"/>
         <source>Temperature calib</source>
         <translation>Temperaturkalibrierung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1144"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1020"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1139"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1196"/>
         <source>Failed</source>
         <translation>gescheitert</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1147"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1142"/>
         <source>IF ADC Nominal ≥ (ADC IF0 + 100) not met!</source>
         <translation>IF ADC Nominal ≥ (ADC IF0 + 100) nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1148"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1143"/>
         <source>DF ADC Nominal ≥ (ADC DF0 + 100) not met!</source>
         <translation>DF ADC Nominal ≥ (ADC DF0 + 100) nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1149"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1144"/>
         <source>IF Vel Nominal &gt; Vel IF1 not met!</source>
         <translation>IF Vel Nominal &gt; Vel IF1 nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1150"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1145"/>
         <source>Vel DF1 &lt; DF Vel Nominal &lt; Vel DF3 not met!</source>
         <translation>Vel DF1 &lt; DF Vel Nominal &lt; Vel DF3 nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1151"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1146"/>
         <source>IF Fan Duty cycle or RPM not valid!</source>
         <translation>IF-Lüfter-Arbeitszyklus oder RPM ungültig!</translation>
     </message>
@@ -744,54 +755,54 @@
         <translation type="vanished">IF Lüfterbetriebszyklus nicht gültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1152"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1147"/>
         <source>DF Fan Duty cycle or RPM not valid!</source>
         <translation>DF Lüfterbetriebszyklus oder RPM ungültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1153"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1031"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1148"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1207"/>
         <source>There may be invalid values!</source>
         <translation>möglicherweise gibt es einen ungültigen Wert!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1157"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1035"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1152"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1211"/>
         <source>Save</source>
         <translation>speichern</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1187"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1065"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1182"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1241"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1192"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1187"/>
         <source>Notification</source>
         <translation>Benachrichtigung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1193"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1071"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1188"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1247"/>
         <source>Cancel this process?</source>
         <translation>Diesen Vorgang abbrechen?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1236"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1120"/>
+        <location filename="../UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml" line="1231"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1296"/>
         <source>Set</source>
         <translation>Legen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="123"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="541"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="130"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="628"/>
         <source>Dcy: </source>
         <translation>Arzkls: </translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="136"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="554"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="143"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="641"/>
         <source>RPM: </source>
         <translation>UPM: </translation>
     </message>
@@ -812,7 +823,7 @@
         <translation type="vanished">DF-Niedrigalarm legen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="393"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="473"/>
         <source>Sensors Constant</source>
         <translation>Sensorkonstante</translation>
     </message>
@@ -841,90 +852,125 @@
         <translation type="vanished">Zufluss ADC Null</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="234"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="281"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="241"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="288"/>
         <source>Nominal Downflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="313"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="357"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="319"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="363"/>
+        <source>Low Downflow Alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="393"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="437"/>
         <source>High Downflow Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="428"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="466"/>
+        <source>Downflow and Exhaust fan should be at Nominal speed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="508"/>
         <source>DF Sensor ADC:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="452"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="532"/>
         <source>IF Sensor ADC:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="646"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="690"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="733"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="777"/>
         <source>Nominal Inflow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="930"/>
-        <source>Nominal Downflow (DF | IF)</source>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="809"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="853"/>
+        <source>Low Inflow Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="944"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="890"/>
+        <source>Please wait for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1092"/>
+        <source>Nominal Velocity (DF | IF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1106"/>
+        <source>Low Velocity alarm (DF | IF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1199"/>
+        <source>ADC DF2 ≥ (ADC DF0 + 250) not met!</source>
+        <translation type="unfinished">ADC DF2 ≥ (ADC DF0 + 100) nicht angetroffen! {2 ?} {0 ?} {250)?}</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1202"/>
+        <source>ADC IF2 ≥ (ADC IF0 + 250) not met!</source>
+        <translation type="unfinished">ADC IF2 ≥ (ADC IF0 + 100) nicht angetroffen! {2 ?} {0 ?} {250)?}</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1120"/>
         <source>High Downflow velocity alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="959"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1135"/>
         <source>ADC Nominal (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="976"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1152"/>
         <source>Nominal Fan Duty cycle (DF | IF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1023"/>
         <source>ADC DF2 ≥ (ADC DF0 + 100) not met!</source>
-        <translation>ADC DF2 ≥ (ADC DF0 + 100) nicht angetroffen!</translation>
+        <translation type="vanished">ADC DF2 ≥ (ADC DF0 + 100) nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1024"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1200"/>
         <source>Vel DF1 &lt; DF2 &lt; DF3 not met!</source>
         <translation>Vel DF1 &lt; DF2 &lt; DF3 nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1025"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1201"/>
         <source>Duty cycle DF2 not valid!</source>
         <translation>Auslastungsgrad DF2 ungültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1026"/>
         <source>ADC IF2 ≥ (ADC IF0 + 100) not met!</source>
-        <translation>ADC IF2 ≥ (ADC IF0 + 100) nicht angetroffen!</translation>
+        <translation type="vanished">ADC IF2 ≥ (ADC IF0 + 100) nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1027"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1203"/>
         <source>Vel IF1 &lt; DF2 not met!</source>
         <translation>Vel IF1 &lt; DF2 nicht angetroffen!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1028"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1204"/>
         <source>Duty cycle IF2 not valid!</source>
         <translation>Einschaltdauer IF2 nicht gültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1029"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1205"/>
         <source>DF Fan RPM not valid!</source>
         <translation>DF-UPM nicht gültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1030"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCNominalSetPage.qml" line="1206"/>
         <source>IF Fan RPM not valid!</source>
         <translation>IF-UPM nicht gültig!</translation>
     </message>
@@ -937,134 +983,142 @@
         <translation>ADC Null</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="75"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="80"/>
         <source>Downflow</source>
         <translation>Downflow</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="99"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="298"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="106"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="313"/>
         <source>Tap here to turn off the Fan</source>
         <translation>Drücken Sie hier, um den Lüfter auszuschalten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="143"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="151"/>
         <source>Switching off DF fan...</source>
         <translation>Ausschalten des DF-Lüfters...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="167"/>
-        <source>Downflow and Inflow fan must be Off!</source>
-        <translation>Downflow and Inflow Lüfter muss aus sein!</translation>
+        <source>Downflow and Exhaust fan must be Off!</source>
+        <translation type="vanished">Downflow and Inflow Lüfter muss aus sein!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="174"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="182"/>
         <source>Sensors Constant</source>
         <translation>Sensorkonstante</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="187"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="195"/>
         <source>Temperature</source>
         <translation>Temperatur</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="251"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="259"/>
         <source>Please wait until the values are stable</source>
         <translation>Bitte warten bis der Wert stabil ist</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="273"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="286"/>
         <source>Inflow</source>
         <translation>Inflow</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="342"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="358"/>
         <source>Switching off IF fan...</source>
         <translation>IF-Lüfter ausschalten...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="370"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="386"/>
         <source>Stabilizing the ADC</source>
         <translation>Stabilisierung des ADC</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="374"/>
         <source>Please wait for %1, time left</source>
-        <translation>Bitte warte auf %1, noch Zeit</translation>
+        <translation type="vanished">Bitte warte auf %1, noch Zeit</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="428"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="175"/>
+        <source>Downflow and Exhaust fan should be OFF!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="390"/>
+        <source>Please wait for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="444"/>
         <source>Actual ADC (DF)</source>
         <translation>tatsächlicher ADC (DF)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="442"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="458"/>
         <source>Actual ADC (IF)</source>
         <translation>tatsächlicher ADC (IF)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="486"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="502"/>
         <source>Done</source>
         <translation>Getan</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="513"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="529"/>
         <source>DF ADC Zero</source>
         <translation>DF ADC Null</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="529"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="545"/>
         <source>IF ADC Zero</source>
         <translation>IF ADC Null</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="565"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="581"/>
         <source>Failed</source>
         <translation>Gescheitert</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="567"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="583"/>
         <source>The minimum required ADC is 1</source>
         <translation>der minimal erforderliche ADC ist 1</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="569"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="585"/>
         <source>Please check the sensor input port!</source>
         <translation>Bitte überprüfen Sie den Sensoreingang!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="572"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="588"/>
         <source>Close</source>
         <translation>abschließen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="602"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="618"/>
         <source>Back</source>
         <translation>zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="608"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="649"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="624"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="665"/>
         <source>Notification</source>
         <translation>Benachrichtigung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="609"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="625"/>
         <source>Cancel this process?</source>
         <translation>Brechen Sie diesen Vorgang ab?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="644"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="660"/>
         <source>Set</source>
         <translation>set</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="650"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="666"/>
         <source>Please turned off the fan and wait until ADC has stable!</source>
         <translation>Bitte schalte den Lüfter aus und warte bis ADC stabil ist!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="730"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/ADCZeroSetPage.qml" line="746"/>
         <source>Turning off the fan...</source>
         <translation>Lüfter ausschalten...</translation>
     </message>
@@ -1821,6 +1875,55 @@
     </message>
 </context>
 <context>
+    <name>CFR21Part11Page</name>
+    <message>
+        <location filename="../UI/Pages/CFR21Part11Page/CFR21Part11Page.qml" line="39"/>
+        <location filename="../UI/Pages/CFR21Part11Page/CFR21Part11Page.qml" line="55"/>
+        <source>21 CFR Part 11</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CFR21Part11Page/CFR21Part11Page.qml" line="58"/>
+        <source>(Electronics Records and Signatures)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CFR21Part11Page/CFR21Part11Page.qml" line="73"/>
+        <source>Disable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CFR21Part11Page/CFR21Part11Page.qml" line="74"/>
+        <source>Enable</source>
+        <translation type="unfinished">Aktivieren</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CFR21Part11Page/CFR21Part11Page.qml" line="86"/>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CFR21Part11Page/CFR21Part11Page.qml" line="86"/>
+        <source>Disabled</source>
+        <translation type="unfinished">Behinderte</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CFR21Part11Page/CFR21Part11Page.qml" line="87"/>
+        <source>User: 21 CRF part 11 is %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CFR21Part11Page/CFR21Part11Page.qml" line="90"/>
+        <source>Setting up...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CFR21Part11Page/CFR21Part11Page.qml" line="130"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CabinetNameSetPage</name>
     <message>
         <location filename="../UI/Pages/CabinetNameSetPage/CabinetNameSetPage.qml" line="43"/>
@@ -2356,42 +2459,59 @@
         <translation>LCD reinigen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="62"/>
         <source>Tap here to start</source>
-        <translation>Drücken Sie hier, um zu starten</translation>
+        <translation type="vanished">Drücken Sie hier, um zu starten</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="95"/>
+        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="62"/>
+        <source>Tap here to start.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="78"/>
+        <source>User: Start LCD cleaning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="97"/>
         <source>Attention!</source>
         <translation>Beachtung!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="96"/>
+        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="98"/>
         <source>Recommended to wipe the surface with a lint-free microfiber cloth</source>
         <translation>Es wird empfohlen, die Oberfläche mit einem fusselfreien Mikrofasertuch abzuwischen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="97"/>
+        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="99"/>
         <source>Never directly apply cleaning solution to the screen</source>
         <translation>Tragen Sie niemals Reinigungslösung direkt auf den Bildschirm auf</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="98"/>
+        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="100"/>
         <source>Do not use the moist section of the cloth to clean the corners of the screen</source>
         <translation>Verwenden Sie nicht den feuchten Teil des Tuchs, um die Ecken des Bildschirms zu reinigen</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="99"/>
+        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="101"/>
+        <source>Start from the center and gently wipe the screen in a circular motion.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="102"/>
+        <source>Upon starting, the screen will go blank and then back to normal after 15 seconds.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Start in the center and gently wipe the screen in circular motion</source>
-        <translation>Beginnen Sie in der Mitte und wischen Sie den Bildschirm in kreisenden Bewegungen sanft ab</translation>
+        <translation type="vanished">Beginnen Sie in der Mitte und wischen Sie den Bildschirm in kreisenden Bewegungen sanft ab</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="100"/>
         <source>After started, screen will goes blank then back to normal after 15 seconds</source>
-        <translation>Nach dem Start wird der Bildschirm leer und nach 15 Sekunden wieder normal</translation>
+        <translation type="vanished">Nach dem Start wird der Bildschirm leer und nach 15 Sekunden wieder normal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="130"/>
+        <location filename="../UI/Pages/CleanLcdPage/CleanLcdPage.qml" line="132"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
@@ -4382,12 +4502,12 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
     </message>
     <message>
         <location filename="../UI/Pages/FanSpeedPage/FanSpeedPage.qml" line="59"/>
-        <source>Inflow Fan</source>
+        <source>Exhaust fan</source>
         <translation>Zulaufventilator</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FanSpeedPage/FanSpeedPage.qml" line="79"/>
-        <source>Inflow Fan (%)</source>
+        <source>Exhaust fan (%)</source>
         <translation>Zulaufventilator (%)</translation>
     </message>
     <message>
@@ -5080,9 +5200,13 @@ I controller cannot be implemented independently, must be coupled with P.</sourc
         <translation>ALARM: AUSPUFFFEHLER</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="314"/>
         <source>WARMING-UP</source>
-        <translation>AUFWÄRMEN</translation>
+        <translation type="vanished">AUFWÄRMEN</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/_HomePage/HomePage.qml" line="314"/>
+        <source>WARMING UP</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../UI/Pages/_HomePage/HomePage.qml" line="327"/>
@@ -6158,6 +6282,70 @@ The ideal environmental temperature is between </translation>
     </message>
 </context>
 <context>
+    <name>LogoutTimePage</name>
+    <message>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="39"/>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="312"/>
+        <source>Logout Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="67"/>
+        <source>Current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="81"/>
+        <source>Disable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="101"/>
+        <source>Tap to change</source>
+        <translation type="unfinished">Zum Ändern tippen</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="119"/>
+        <source>You will be automatically logged out if there is no activity on the screen for a logout time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="192"/>
+        <source>MM:SS</source>
+        <translation type="unfinished">MM:SS</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="285"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="308"/>
+        <source>Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="313"/>
+        <source>Logout time is invalid!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="314"/>
+        <source>The minimum setting is 1 minute or set to 0 to disable the logout time.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="329"/>
+        <source>User: Set logout time to &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/LogoutTimePage/LogoutTimePage.qml" line="331"/>
+        <source>Setting up...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MCBEMIFragments</name>
     <message>
         <location filename="../UI/Pages/ReplaceablePartsPage/Fragments/MCBEMIFragments.qml" line="28"/>
@@ -6291,7 +6479,7 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/CusCom/MaintenanceChecklist/MaintenanceChecklist.qml" line="46"/>
-        <source>Battery voltage in good condition (nominal = 9V)</source>
+        <source>Battery voltage is in good condition (nominal = 9V).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6328,55 +6516,114 @@ The ideal environmental temperature is between </translation>
         <translation>Kalibrierungspunkt für manuelle Eingabe</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="75"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="80"/>
         <source>Downflow</source>
         <translation>Abwärtsströmung</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="101"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="106"/>
         <source>Downflow Fan Standby (%)</source>
         <translation>Downflow-Lüfter-Standby (%)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="118"/>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="394"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="123"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="473"/>
         <source>Fan Min</source>
         <translation>Lüfter min</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="127"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="132"/>
         <source>Downflow Fan Minimum (%)</source>
         <translation>Downflow-Lüfter-Minimum (%)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="153"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="158"/>
         <source>Downflow Fan Nominal (%)</source>
         <translation>Downflow-Ventilatornennwert (%)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="170"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="175"/>
         <source>Fan Max</source>
         <translation>Lüfter max</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="179"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="184"/>
         <source>Downflow Fan Maximum (%)</source>
         <translation>Max. Abwärtsströmungsventilator (%)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="284"/>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="507"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="206"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="530"/>
+        <source>Minimum</source>
+        <translation type="unfinished">Minimum</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="215"/>
+        <source>Minimum Downflow Velocity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="241"/>
+        <source>Nominal Downflow Velocity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="259"/>
+        <source>Maximum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="268"/>
+        <source>Maximum Downflow Velocity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="285"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="584"/>
+        <source>Low Alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="294"/>
+        <source>Low Downflow Alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="311"/>
+        <source>High Alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="320"/>
+        <source>High Downflow Alarm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="341"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="613"/>
         <source>Constant</source>
         <translation>Konstante</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="294"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="351"/>
         <source>Constant Downflow Sensor</source>
         <translation>Konstanter Downflow-Sensor</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="92"/>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="368"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="376"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="385"/>
+        <source>ADC DF1</source>
+        <translation type="unfinished">ADC DF1</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="648"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="657"/>
+        <source>ADC IF1</source>
+        <translation type="unfinished">ADC IF1</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="97"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="447"/>
         <source>Fan Stby</source>
         <translation>Fan Stby</translation>
     </message>
@@ -6385,8 +6632,8 @@ The ideal environmental temperature is between </translation>
         <translation type="vanished">Downflow-Lüfter Standby</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="144"/>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="420"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="149"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="499"/>
         <source>Fan Nom</source>
         <translation>Fan-Nom</translation>
     </message>
@@ -6395,168 +6642,163 @@ The ideal environmental temperature is between </translation>
         <translation type="vanished">Downflow-Ventilator Nennwert</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="201"/>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="451"/>
         <source>Alarm Low</source>
-        <translation>Alarm niedrig</translation>
+        <translation type="vanished">Alarm niedrig</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="210"/>
         <source>Downflow Low Alarm</source>
-        <translation>Niedriger Abflussalarm</translation>
+        <translation type="vanished">Niedriger Abflussalarm</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="227"/>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="478"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="232"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="557"/>
         <source>Nominal</source>
         <translation>Nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="236"/>
         <source>Downflow Nominal</source>
-        <translation>Abwärtsströmung nominal</translation>
+        <translation type="vanished">Abwärtsströmung nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="254"/>
         <source>Alarm High</source>
-        <translation>Alarm hoch</translation>
+        <translation type="vanished">Alarm hoch</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="263"/>
         <source>Downflow High Alarm</source>
-        <translation>Abwärtsstrom hoher Alarm</translation>
+        <translation type="vanished">Abwärtsstrom hoher Alarm</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="302"/>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="311"/>
         <source>ADC DF0</source>
-        <translation>ADC DF0</translation>
+        <translation type="vanished">ADC DF0</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="319"/>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="328"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="393"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="402"/>
         <source>ADC DF2</source>
         <translation>ADC DF2</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="351"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="430"/>
         <source>Inflow</source>
         <translation>Zufluss</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="377"/>
-        <source>Inflow Fan Standby (%)</source>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="456"/>
+        <source>Exhaust fan Standby (%)</source>
         <translation>Zulauflüfter Standby (%)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="403"/>
-        <source>Inflow Fan Minimum (%)</source>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="482"/>
+        <source>Exhaust fan Minimum (%)</source>
         <translation>Zulaufventilator Minimum (%)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="429"/>
-        <source>Inflow Fan Nominal (%)</source>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="508"/>
+        <source>Exhaust fan Nominal (%)</source>
         <translation>Zulaufventilator Nennwert (%)</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="517"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="539"/>
+        <source>Minimum Inflow Velocity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="623"/>
         <source>Constant Inflow Sensor</source>
         <translation>Konstanter Zuflusssensor</translation>
     </message>
     <message>
-        <source>Inflow Fan Standby</source>
+        <source>Exhaust fan Standby</source>
         <translation type="vanished">Zulauflüfter Standby</translation>
     </message>
     <message>
-        <source>Inflow Fan Nominal</source>
+        <source>Exhaust fan Nominal</source>
         <translation type="vanished">Zulaufventilator Nennwert</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="460"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="593"/>
         <source>Inflow Low Alarm</source>
         <translation>Niedriger Zuflussalarm</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="487"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="566"/>
         <source>Inflow Nominal</source>
         <translation>Zufluss nominal</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="525"/>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="534"/>
         <source>ADC IF0</source>
-        <translation>ADC IF0</translation>
+        <translation type="vanished">ADC IF0</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="543"/>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="552"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="666"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="675"/>
         <source>ADC IF2</source>
         <translation>ADC IF2</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="574"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="697"/>
         <source>Calib Temp</source>
         <translation>Kalibriertemperatur</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="583"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="706"/>
         <source>Calib Temperature</source>
         <translation>Kalibriertemperatur</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="600"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="723"/>
         <source>ADC Temp</source>
         <translation>ADC-Temperatur</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="609"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="732"/>
         <source>ADC Temperature</source>
         <translation>ADC-Temperatur</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="639"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="762"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="652"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="775"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="655"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="778"/>
         <source>Setting up...</source>
         <translation>Einrichten...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="674"/>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="689"/>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="708"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="797"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="815"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="834"/>
         <source>Attention!</source>
         <translation>Beachtung!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="675"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="798"/>
         <source>ADC value is not valid!</source>
         <translation>ADC-Wert ist ungültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="690"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="816"/>
         <source>Velocity value is not valid!</source>
         <translation>Geschwindigkeitswert ist ungültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="709"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="835"/>
         <source>Fan duty cycle value is not valid!</source>
         <translation>Der Wert für das Lüfter-Tastverhältnis ist nicht gültig!</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="802"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="931"/>
         <source>Close from manual input data?</source>
         <translation>Schließen von manuellen Eingabedaten?</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="809"/>
+        <location filename="../UI/Pages/ManualInputDataPage/ManualInputDataPage.qml" line="938"/>
         <source>Please wait</source>
         <translation>Warten Sie mal</translation>
     </message>
@@ -6633,9 +6875,13 @@ The ideal environmental temperature is between </translation>
         <translation>Einstellen des Lüfterbetriebszyklus...</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="419"/>
         <source>Inflow</source>
-        <translation>Zufluss</translation>
+        <translation type="vanished">Zufluss</translation>
+    </message>
+    <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="419"/>
+        <source>Exhaust</source>
+        <translation type="unfinished">Auspuff</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="507"/>
@@ -6789,8 +7035,12 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="452"/>
+        <source>Exhaust</source>
+        <translation type="unfinished">Auspuff</translation>
+    </message>
+    <message>
         <source>Inflow</source>
-        <translation>Zufluss</translation>
+        <translation type="vanished">Zufluss</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="617"/>
@@ -6932,8 +7182,12 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="404"/>
+        <source>Exhaust</source>
+        <translation type="unfinished">Auspuff</translation>
+    </message>
+    <message>
         <source>Inflow</source>
-        <translation>Zufluss</translation>
+        <translation type="vanished">Zufluss</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="492"/>
@@ -8163,7 +8417,7 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/RbmComPortConfigPage/RbmComPortConfigPage.qml" line="111"/>
-        <source>Inflow Fan Port:</source>
+        <source>Exhaust fan Port:</source>
         <translation>Zufluss-Lüfteranschluss:</translation>
     </message>
     <message>
@@ -11915,7 +12169,7 @@ every time the sash hits a safe height</source>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="579"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="588"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="608"/>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="626"/>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="617"/>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="635"/>
         <source>Done</source>
         <translation>Fertig</translation>
@@ -12043,13 +12297,13 @@ every time the sash hits a safe height</source>
         <translation>Sensorkonstante</translation>
     </message>
     <message>
-        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="622"/>
         <source>ADC Minimum</source>
-        <translation type="unfinished">ADC-Minimum</translation>
+        <translation type="obsolete">ADC-Minimum</translation>
     </message>
     <message>
+        <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="613"/>
         <source>ADC Zero</source>
-        <translation type="vanished">ADC Null</translation>
+        <translation>ADC Null</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/_NavigationCalibratePage.qml" line="631"/>
@@ -12086,47 +12340,52 @@ every time the sash hits a safe height</source>
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.qml" line="621"/>
+        <location filename="../main.qml" line="623"/>
         <source>Slide up to unlock!</source>
         <translation>Zum Entsperren nach oben schieben!</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="734"/>
+        <location filename="../main.qml" line="736"/>
         <source>New Software update is available on SVN server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="735"/>
+        <location filename="../main.qml" line="737"/>
         <source>To update, please Login as factory, then go to Software Update!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="736"/>
+        <location filename="../main.qml" line="738"/>
         <source>To update, please go to Software Update page!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="799"/>
+        <location filename="../main.qml" line="801"/>
         <source>The experiment timer has been completed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="800"/>
+        <location filename="../main.qml" line="802"/>
         <source>Login and Press this notification to acknowledge.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="801"/>
+        <location filename="../main.qml" line="803"/>
         <source>Press this notification to acknowledge.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="1010"/>
+        <location filename="../main.qml" line="1001"/>
+        <source>Logout! username: </source>
+        <translation type="unfinished">Ausloggen! Nutzername: </translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="1024"/>
         <source>USB drive &quot;%1&quot; has been detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="1018"/>
+        <location filename="../main.qml" line="1032"/>
         <source>The &quot;%1&quot; can now be safely remove from the cabinet</source>
         <translation type="unfinished"></translation>
     </message>

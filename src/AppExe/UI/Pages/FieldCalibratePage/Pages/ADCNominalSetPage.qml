@@ -426,7 +426,7 @@ ViewApp {
                                         horizontalAlignment: Text.AlignHCenter
                                         //verticalAlignment: Text.AlignBottom
                                         wrapMode: Text.WordWrap
-                                        text: qsTr("Downflow and Inflow fan must be at Nominal speed!")
+                                        text: qsTr("Downflow and Exhaust fan must be at Nominal speed!")
                                     }
                                     //                                    Row{
                                     //                                        anchors.horizontalCenter: parent.horizontalCenter
@@ -1092,7 +1092,7 @@ ViewApp {
 
                                             TextApp{
                                                 width: 300
-                                                text: qsTr("Inflow Fan nominal")
+                                                text: qsTr("Exhaust fan nominal")
                                                 font.pixelSize: 18
                                             }//
 

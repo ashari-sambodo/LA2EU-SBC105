@@ -311,7 +311,7 @@ ViewApp {
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
-                                    text: qsTr("WARMING-UP")
+                                    text: qsTr("WARMING UP")
                                           + " (" + utils.strfSecsToAdaptiveHHMMSS(props.warmingUpCountdown) + ")"
                                 }//
                             }//

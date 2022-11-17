@@ -56,7 +56,7 @@ ViewApp {
                         spacing: 10
                         TextApp {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: qsTr("Inflow Fan")
+                            text: qsTr("Exhaust fan")
                         }
                         Row{
                             spacing: 20
@@ -76,7 +76,7 @@ ViewApp {
                                 }//
 
                                 onPressed: {
-                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Fan (%)"))
+                                    KeyboardOnScreenCaller.openNumpad(this, qsTr("Exhaust fan (%)"))
                                 }//
                                 onAccepted: {
                                     let val = Number(text)*10

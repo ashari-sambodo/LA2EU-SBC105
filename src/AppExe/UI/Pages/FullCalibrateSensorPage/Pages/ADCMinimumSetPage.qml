@@ -66,17 +66,24 @@ ViewApp {
                                     //anchors.verticalCenter: parent.verticalCenter
                                     spacing: 5
                                     Rectangle{
-                                        height: 40
-                                        width: rightContentItem.width
                                         color: "transparent"
-                                        TextApp{
-                                            height: parent.height
-                                            width: parent.width
-                                            text: qsTr("Downflow")
-                                            font.underline: true
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignVCenter
-                                        }
+                                        border.width: 0
+                                        height: 40
+                                        width: 200
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        Rectangle {
+                                            color: "#80000000"
+                                            anchors.centerIn: parent
+                                            radius: 2
+                                            TextApp {
+                                                //id: msgInfoTextApp
+                                                text: qsTr("Downflow")
+                                                verticalAlignment: Text.AlignVCenter
+                                                padding: 2
+                                            }
+                                            width: childrenRect.width
+                                            height: childrenRect.height
+                                        }//
                                     }
                                     Rectangle {
                                         //anchors.verticalCenter: parent.verticalCenter
@@ -393,7 +400,7 @@ ViewApp {
                                         horizontalAlignment: Text.AlignHCenter
                                         //verticalAlignment: Text.AlignBottom
                                         wrapMode: Text.WordWrap
-                                        text: qsTr("Downflow and Inflow fan must be at Minimum speed!")
+                                        text: qsTr("Downflow and Exhaust fan must be at Minimum speed!")
                                     }
                                     Row{
                                         anchors.horizontalCenter: parent.horizontalCenter
@@ -494,17 +501,24 @@ ViewApp {
                                     //anchors.verticalCenter: parent.verticalCenter
                                     spacing: 5
                                     Rectangle{
-                                        height: 40
-                                        width: rightContentItem2.width
                                         color: "transparent"
-                                        TextApp{
-                                            height: parent.height
-                                            width: parent.width
-                                            text: qsTr("Inflow")
-                                            font.underline: true
-                                            horizontalAlignment: Text.AlignHCenter
-                                            verticalAlignment: Text.AlignVCenter
-                                        }
+                                        border.width: 0
+                                        height: 40
+                                        width: 200
+                                        anchors.horizontalCenter: parent.horizontalCenter
+                                        Rectangle {
+                                            color: "#80000000"
+                                            anchors.centerIn: parent
+                                            radius: 2
+                                            TextApp {
+                                                //id: msgInfoTextApp
+                                                text: qsTr("Inflow")
+                                                verticalAlignment: Text.AlignVCenter
+                                                padding: 2
+                                            }
+                                            width: childrenRect.width
+                                            height: childrenRect.height
+                                        }//
                                     }
                                     Rectangle {
                                         //                                anchors.verticalCenter: parent.verticalCenter
@@ -821,7 +835,7 @@ ViewApp {
                             }//
 
                             TextApp {
-                                text: qsTr("Please wait for %1, time left").arg(utilsApp.strfSecsToHumanReadable(props.stabilizingTimer)) + ":"
+                                text: qsTr("Please wait for %1").arg(utilsApp.strfSecsToHumanReadable(props.stabilizingTimer)) + ":"
                             }//
 
                             TextApp {
@@ -899,24 +913,40 @@ ViewApp {
                                         }
                                     }//
 
-                                    //                                    property int count: 2
-                                    property int count: 180
-                                    Component.onCompleted: {count = Qt.binding(function(){return props.stabilizingTimer})}
+                                    //property int count: 2
+                                    property int count: props.stabilizingTimer
+                                    //Component.onCompleted: {count = Qt.binding(function(){return props.stabilizingTimer})}
                                 }//
                             }//
 
-                            Row {
-                                spacing: 10
-                                TextApp{
-                                    font.pixelSize: 18
-                                    text: qsTr("Actual ADC") + ":"
-                                    color: "#cccccc"
-                                }//
+                            Column{
+                                Row {
+                                    spacing: 10
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text: qsTr("Actual ADC (DF)") + ":"
+                                        color: "#cccccc"
+                                    }//
 
-                                TextApp{
-                                    font.pixelSize: 18
-                                    text: props.adcActual
-                                    color: "#cccccc"
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text: props.dfaAdcActual
+                                        color: "#cccccc"
+                                    }//
+                                }//
+                                Row {
+                                    spacing: 10
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text: qsTr("Actual ADC (IF)") + ":"
+                                        color: "#cccccc"
+                                    }//
+
+                                    TextApp{
+                                        font.pixelSize: 18
+                                        text: props.ifaAdcActual
+                                        color: "#cccccc"
+                                    }//
                                 }//
                             }//
                         }//
@@ -1283,7 +1313,7 @@ ViewApp {
                     props.ifaFanDutyCycleActual = Qt.binding(function(){ return MachineData.fanInflowDutyCycle })
                     props.ifaFanRpmActual = Qt.binding(function(){ return MachineData.fanInflowRpm })
 
-                    props.ifaAdcActual = Qt.binding(function(){ return MachineData.dfaAdcConpensation })
+                    props.ifaAdcActual = Qt.binding(function(){ return MachineData.ifaAdcConpensation })
 
                     props.temperatureActual = Qt.binding(function(){ return MachineData.temperature })
                     props.temperatureActualStr = Qt.binding(function(){ return MachineData.temperatureValueStr })

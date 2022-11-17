@@ -308,6 +308,13 @@ ViewApp {
                             text: qsTr("Set")
 
                             onClicked: {
+                                if(props.requestTime < 60 && props.requestTime != 0){
+                                    showDialogMessage(qsTr("Logout Time"),
+                                                      qsTr("Logout time is invalid!") + "<br>"
+                                                      + qsTr("The minimum setting is 1 minute or set to 0 to disable the logout time."),
+                                                      dialogAlert)
+                                    return
+                                }
                                 console.debug("Logout Time", props.logoutTime)
                                 console.debug("Request Time", props.requestTime)
 
