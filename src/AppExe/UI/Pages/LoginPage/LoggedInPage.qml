@@ -155,7 +155,7 @@ ViewApp {
                             ButtonBarApp {
                                 width: 194
 
-                                imageSource: "qrc:/UI/Pictures/user-login.png"
+                                imageSource: "qrc:/UI/Pictures/user-logout.png"
                                 text: qsTr("Logout")
 
                                 onClicked: {

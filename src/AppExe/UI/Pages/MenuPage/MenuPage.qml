@@ -363,7 +363,8 @@ ViewApp {
                                              "particleCounterInstalled": MachineData.particleCounterSensorInstalled,
                                              "dualRbmEnable": MachineData.getDualRbmMode(),
                                              "fieldCalibrated": MachineData.airflowCalibrationStatus === MachineAPI.AF_CALIB_FIELD,
-                                             "sensorConstant": MachineData.getInflowSensorConstant()
+                                             "sensorConstant": MachineData.getInflowSensorConstant(),
+                                             "cfr21Enable": MachineData.cfr21Part11Enable
                                          })
                 }
             }

@@ -1185,6 +1185,23 @@ void MachineProxy::setCabinetSideType(short value) {
 //     Qt::QueuedConnection);
 // }
 
+void MachineProxy::setLogoutTime(int value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+            m_machineBackend->setLogoutTime(value);
+        },
+        Qt::QueuedConnection);
+}
+
+void MachineProxy::setCFR21Part11Enable(bool value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+            m_machineBackend->setCFR21Part11Enable(value);
+        },
+        Qt::QueuedConnection);
+}
+
+
 void MachineProxy::setAlarmExperimentTimerIsOver(short value) {
   QMetaObject::invokeMethod(
       m_machineBackend.data(),

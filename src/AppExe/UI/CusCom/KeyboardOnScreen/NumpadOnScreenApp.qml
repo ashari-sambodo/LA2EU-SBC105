@@ -11,6 +11,10 @@ Item {
     property alias text: textField.text
     property alias validator: textField.validator
     property alias inputMask: textField.inputMask
+    property alias echoMode: textField.echoMode
+
+    property int widthButton: rootItem.width / 10
+    property bool visibilityButton: false
 
     signal hideClicked();
     signal enterClicked(string textValue);
@@ -47,7 +51,7 @@ Item {
                 id: titleText
                 anchors.centerIn: parent
                 text: "Title Text"
-                font.pixelSize: 20
+                font.pixelSize: 24
                 color: rootItem.darkMode ? "#dddddd" : "#666666"
             }
 
@@ -63,48 +67,89 @@ Item {
             Layout.fillWidth: true
             Layout.minimumHeight: 100
 
-            TextField{
-                id: textField
+            RowLayout{
                 anchors.fill: parent
-                focus: true
-                font.pixelSize: 32
+                spacing: 0
+                Item{
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
 
-                selectByMouse: true
+                    TextField{
+                        id: textField
+                        anchors.fill: parent
+                        focus: true
+                        font.pixelSize: 32
 
-                MouseArea {
-                    anchors.fill: parent
-                    cursorShape: Qt.IBeamCursor
-                    acceptedButtons: Qt.NoButton
-                }
+                        selectByMouse: true
 
-                background: Rectangle {
-                    anchors.fill: parent
-                    radius: 5
-                    color: "#e3dac9"
-                }
+                        MouseArea {
+                            anchors.fill: parent
+                            cursorShape: Qt.IBeamCursor
+                            acceptedButtons: Qt.NoButton
+                        }
 
-                onAccepted: {
-                    enterClicked(text)
-                }
+                        background: Rectangle {
+                            anchors.fill: parent
+                            radius: 5
+                            color: "#e3dac9"
+                        }
 
-                onPressAndHold: {
-                    selectWord()
-                }
+                        onAccepted: {
+                            enterClicked(text)
+                        }
 
-                onVisibleChanged: {
-                    //                            //console.debug("onVisibleChanged")
-                    if (visible) {
-                        textField.forceActiveFocus()
-                        delaySetFocusTimer.start()
+                        onPressAndHold: {
+                            selectWord()
+                        }
+
+                        onVisibleChanged: {
+                            //                            //console.debug("onVisibleChanged")
+                            if (visible) {
+                                textField.forceActiveFocus()
+                                delaySetFocusTimer.start()
+                            }
+                        }
+
+                        Timer {
+                            id: delaySetFocusTimer
+                            interval: 200
+                            onTriggered: {
+                                textField.forceActiveFocus()
+                                textField.selectAll()
+                            }
+                        }
                     }
                 }
 
-                Timer {
-                    id: delaySetFocusTimer
-                    interval: 200
-                    onTriggered: {
-                        textField.forceActiveFocus()
-                        textField.selectAll()
+                Item {
+                    id: tooglePassword_Item
+                    visible: visibilityButton
+                    Layout.fillHeight: true
+                    Layout.minimumWidth: rootItem.widthButton
+
+                    ButtonKeyApp{
+                        text: ""
+                        onClicked: {
+                            if(textField.echoMode != TextInput.Password){
+                                textField.echoMode = TextInput.Password
+                            }else{
+                                textField.echoMode =  TextInput.Normal
+                            }
+                        }
+
+                        Image{
+                            anchors.centerIn: parent
+                            source: textField.echoMode == TextInput.Password ?
+                                        (darkMode ?
+                                             "Pictures/round_visibility_off_white_48dp.png":
+                                             "Pictures/round_visibility_off_black_48dp.png") :
+                                        (darkMode ?
+                                             "Pictures/round_visibility_white_48dp.png":
+                                             "Pictures/round_visibility_black_48dp.png")
+
+                        }
+
+                        darkMode: rootItem.darkMode
                     }
                 }
             }
@@ -237,5 +282,8 @@ Item {
 
     KeyboardOnScreenAdapter{
         id: keyboardOnScreenAdapter
+    }
+    Component.onCompleted: {
+        visibilityButton = textField.echoMode == TextInput.Password
     }
 }

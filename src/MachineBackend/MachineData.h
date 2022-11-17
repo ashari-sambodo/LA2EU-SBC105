@@ -1103,6 +1103,11 @@ Q_PROPERTY(QString machineProfileID READ getMachineProfileID WRITE setMachinePro
     Q_PROPERTY(int haBoardInputCh2MVolt READ getHaBoardInputCh2MVolt NOTIFY haBoardInputCh2MVoltChanged)
 	
 	
+    /// LOGOUT TIME
+    Q_PROPERTY(int logoutTime READ getLogoutTime NOTIFY logoutTimeChanged)
+
+    /// 21 CFR PART 11
+    Q_PROPERTY(bool cfr21Part11Enable READ getCfr21Part11Enable NOTIFY cfr21Part11EnableChanged)
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
     static void singletonDelete();
@@ -2129,7 +2134,13 @@ public:
     int getHaBoardInputCh1MVolt()const;
     int getHaBoardInputCh2MVolt()const;
 	
+    /// LOGOUT TIME
+    void setLogoutTime(int value);
+    int getLogoutTime()const;
 
+    /// 21 CFR PART 11
+    void setCfr21Part11Enable(bool value);
+    bool getCfr21Part11Enable()const;
 public slots:
     void initSingleton();
 
@@ -2537,6 +2548,12 @@ signals:
     /// HYBRID ANALOG INPUT MVOLT
     void haBoardInputCh1MVoltChanged(int value);
     void haBoardInputCh2MVoltChanged(int value);
+    /// LOGOUT TIME
+    void logoutTimeChanged(int value);
+    void timerEventLogout();
+
+    /// 21 CFR PART 11
+    bool cfr21Part11EnableChanged(bool value);
 private:
     ///
     QString m_machineProfileID;
@@ -3019,6 +3036,13 @@ private:
 	    /// HYBRID ANALOG INPUT MVOLT
     int m_haBoardInputCh1MVolt = 0;
     int m_haBoardInputCh2MVolt = 0;
+
+    /// LOGOUT TIME
+    int m_logoutTime = 0;
+
+    /// 21 CFR PART 11
+    bool m_cfr21Part11Enable = false;
+
 };
 
 

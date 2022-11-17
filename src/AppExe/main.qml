@@ -242,6 +242,7 @@ ApplicationWindow {
                                             "visible":      false,
                                             "title":        KeyboardOnScreenCaller.title(),
                                             "text":         KeyboardOnScreenCaller.targetTextInput().text,
+                                            "echoMode":     KeyboardOnScreenCaller.targetTextInput().echoMode,
                                             "validator":    KeyboardOnScreenCaller.targetTextInput().validator,
                                         })
                     kosLoader.active = true
@@ -249,6 +250,7 @@ ApplicationWindow {
                 else {
                     kosLoader.item.title     = KeyboardOnScreenCaller.title()
                     kosLoader.item.text      = KeyboardOnScreenCaller.targetTextInput().text
+                    kosLoader.item.echoMode  = KeyboardOnScreenCaller.targetTextInput().echoMode
                     kosLoader.item.validator = KeyboardOnScreenCaller.targetTextInput().validator
                     kosLoader.item.inputMask = KeyboardOnScreenCaller.targetTextInput().inputMask
                 }
@@ -995,6 +997,18 @@ ApplicationWindow {
 
         property bool lcdBacklightDimmed: MachineData.lcdBrightnessLevelDimmed
 
+        function userLogout(){
+            const message = qsTr("Logout! username: ") + UserSessionService.username
+            MachineAPI.insertEventLog(message);
+
+            UserSessionService.logout()
+            MachineAPI.setSignedUser("", "", UserSessionService.roleLevelGuest)
+
+            mainStackView.clear()
+            const intent = IntentApp.create(mainStackView.homeURL, {})
+            mainStackView.push(intent.uri, {"uri": intent.uri,  "intent": intent})
+        }
+
         function showSvnUpdateAvailable(newAvailable){
             if(!newAvailable || (MachineData.machineState != MachineAPI.MACHINE_STATE_LOOP))return
             svnUpdateLoader.active = true;
@@ -1036,6 +1050,8 @@ ApplicationWindow {
         }
 
         Component.onCompleted: {
+            MachineData.timerEventLogout.connect(props.userLogout)
+
             MachineData.svnUpdateAvailableChanged.connect(props.showSvnUpdateAvailable)
             MachineData.alarmExperimentTimerIsOverChanged.connect(props.showExpTimeoutLoader)
             MachineData.usbHasMounted.connect(props.usbHasMounted)

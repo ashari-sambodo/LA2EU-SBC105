@@ -14,6 +14,7 @@
         let userRole = msg.userlevel
         //DUAL RBM
         let dualRbmMode = msg.dualRbmEnable
+	let cfr21Enable = msg.cfr21Enable
 
         //MENU_MODEL
         let menuGroupModel = []
@@ -193,6 +194,13 @@
 
             if(userRole >= userRole_ADMIN)
             {
+                if(menu[index].length > itemPerPage) {index++; menu.push([])}
+                menu[index].push({mtype         :   "menu",
+                                     mtitle     :   qsTr("Logout Time"),
+                                     micon      :   "qrc:/UI/Pictures/menu/logout-time.png",
+                                     mlink      :   "qrc:/UI/Pages/LogoutTimePage/LogoutTimePage.qml"
+                                 })
+
                 if(menu[index].length > itemPerPage) {index++; menu.push([])}
                 menu[index].push({mtype        : "menu",
                                      mtitle    : qsTr("Languages"),
@@ -521,6 +529,14 @@
                                  micon      :   "qrc:/UI/Pictures/menu/Esco_Lock.png",
                                  mlink      :   "qrc:/UI/Pages/EscoLockServicePage/EscoLockServicePage.qml"
                              })
+
+            if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype         :   "menu",
+                                 mtitle     :   qsTr("21 CFR Part 11"),
+                                 micon      :   "qrc:/UI/Pictures/menu/21-cfr-p11.png",
+                                 mlink      :   "qrc:/UI/Pages/CFR21Part11Page/CFR21Part11Page.qml"
+                             })
+
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype         :   "menu",
                                  mtitle     :   qsTr("Auxiliary Functions"),

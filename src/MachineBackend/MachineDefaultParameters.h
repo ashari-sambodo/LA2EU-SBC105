@@ -444,3 +444,5 @@
 #define SKEY_USER_LAST_LOGIN    "usrLastLogin"
 #define SKEY_SASH_MOTOR_OFF_DELAY "sMotorOffDly"
 #define SKEY_DELAY_ALARM_AIRFLOW "sDlyAlmAf"
+#define SKEY_LOGOUT_TIME "logOutTm"
+#define SKEY_21_CFR_11_EN "cfr21P11En"

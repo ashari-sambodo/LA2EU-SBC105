@@ -398,6 +398,8 @@ public slots:
 
   void setAllOutputShutdown();
 
+    void setLogoutTime(int value);
+    void setCFR21Part11Enable(bool value);
 private slots:
   void doStopping();
 

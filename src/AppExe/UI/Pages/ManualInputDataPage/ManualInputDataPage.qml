@@ -94,7 +94,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: dfaFanStandbyTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
@@ -120,7 +120,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: dfaFanMinTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
@@ -146,7 +146,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: dfaFanNominalTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
@@ -172,7 +172,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: dfaFanMaxTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
@@ -198,16 +198,16 @@ ViewApp {
                                                 spacing: 5
 
                                                 TextApp {
-                                                    text: qsTr("Alarm Low")
+                                                    text: qsTr("Minimum")
                                                 }//
 
                                                 TextFieldApp {
-                                                    id: dfaVelLowAlarmTextField
-                                                    width: 110
+                                                    id: dfaVelMinTextField
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Low Alarm") + " (%1)".arg(props.meaUnitStr))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Minimum Downflow Velocity") + " (%1)".arg(props.meaUnitStr))
                                                     }//
 
                                                     TextApp {
@@ -229,11 +229,11 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: dfaVelNomTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow Nominal") + " (%1)".arg(props.meaUnitStr))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Nominal Downflow Velocity") + " (%1)".arg(props.meaUnitStr))
                                                     }//
 
                                                     TextApp {
@@ -251,16 +251,68 @@ ViewApp {
                                                 spacing: 5
 
                                                 TextApp {
-                                                    text: qsTr("Alarm High")
+                                                    text: qsTr("Maximum")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: dfaVelMaxTextField
+                                                    width: 100
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Maximum Downflow Velocity") + " (%1)".arg(props.meaUnitStr))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: props.meaUnitStr
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Low Alarm")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: dfaVelLowAlarmTextField
+                                                    width: 100
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Low Downflow Alarm") + " (%1)".arg(props.meaUnitStr))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: props.meaUnitStr
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("High Alarm")
                                                 }//
 
                                                 TextFieldApp {
                                                     id: dfaVelHighAlarmTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Downflow High Alarm") + " (%1)".arg(props.meaUnitStr))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("High Downflow Alarm") + " (%1)".arg(props.meaUnitStr))
                                                     }//
 
                                                     TextApp {
@@ -286,7 +338,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: dfaSensorConstantTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
                                                     validator: IntValidator{bottom: 0; top: 99;}
 
@@ -304,7 +356,7 @@ ViewApp {
 
                                             //                                                TextFieldApp {
                                             //                                                    id: dfaAdcZeroTextField
-                                            //                                                    width: 110
+                                            //                                                    width: 100
                                             //                                                    height: 40
 
                                             //                                                    onPressed: {
@@ -321,7 +373,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: dfaAdcMinTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
@@ -338,7 +390,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: dfaAdcNomTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
@@ -387,7 +439,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: ifaFanStandbyTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
@@ -413,7 +465,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: ifaFanMinTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
@@ -439,7 +491,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: ifaFanNominalTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
@@ -465,16 +517,16 @@ ViewApp {
                                                 spacing: 5
 
                                                 TextApp {
-                                                    text: qsTr("Alarm Low")
+                                                    text: qsTr("Minimum")
                                                 }//
 
                                                 TextFieldApp {
-                                                    id: ifaVelLowAlarmTextField
-                                                    width: 110
+                                                    id: ifaVelMinTextField
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
-                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Low Alarm") + " (%1)".arg(props.meaUnitStr))
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Minimum Inflow Velocity") + " (%1)".arg(props.meaUnitStr))
                                                     }//
 
                                                     TextApp {
@@ -497,11 +549,38 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: ifaVelNomTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
                                                         KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Nominal") + " (%1)".arg(props.meaUnitStr))
+                                                    }//
+
+                                                    TextApp {
+                                                        anchors.right: parent.right
+                                                        anchors.rightMargin: 5
+                                                        verticalAlignment: Text.AlignVCenter
+                                                        height: parent.height
+                                                        text: props.meaUnitStr
+                                                        color: "gray"
+                                                    }//
+                                                }//
+                                            }//
+
+                                            Column {
+                                                spacing: 5
+
+                                                TextApp {
+                                                    text: qsTr("Low Alarm")
+                                                }//
+
+                                                TextFieldApp {
+                                                    id: ifaVelLowAlarmTextField
+                                                    width: 100
+                                                    height: 40
+
+                                                    onPressed: {
+                                                        KeyboardOnScreenCaller.openNumpad(this, qsTr("Inflow Low Alarm") + " (%1)".arg(props.meaUnitStr))
                                                     }//
 
                                                     TextApp {
@@ -526,7 +605,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: ifaSensorConstantTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
                                                     validator: IntValidator{bottom: 0; top: 99;}
 
@@ -544,7 +623,7 @@ ViewApp {
 
                                             //                                                TextFieldApp {
                                             //                                                    id: ifaAdcZeroTextField
-                                            //                                                    width: 110
+                                            //                                                    width: 100
                                             //                                                    height: 40
 
                                             //                                                    onPressed: {
@@ -561,7 +640,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: ifaAdcMinTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
@@ -579,7 +658,7 @@ ViewApp {
 
                                                 TextFieldApp {
                                                     id: ifaAdcNomTextField
-                                                    width: 110
+                                                    width: 100
                                                     height: 40
 
                                                     onPressed: {
@@ -610,7 +689,7 @@ ViewApp {
 
                                 TextFieldApp {
                                     id: calibTempTextField
-                                    width: 110
+                                    width: 100
                                     height: 40
 
                                     onPressed: {
@@ -636,7 +715,7 @@ ViewApp {
 
                                 TextFieldApp {
                                     id: calibTempAdcTextField
-                                    width: 110
+                                    width: 100
                                     height: 40
 
                                     onPressed: {
@@ -890,12 +969,15 @@ ViewApp {
                     props.tempUnitStr = "°F"
                 }
 
-                dfaVelLowAlarmTextField.text     = (MachineData.getDownflowLowLimitVelocity() / 100).toFixed(fixedPoint)
+                dfaVelMinTextField.text          = (MachineData.getDownflowVelocityPointFactory(1) / 100).toFixed(fixedPoint)
                 dfaVelNomTextField.text          = (MachineData.getDownflowVelocityPointFactory(2) / 100).toFixed(fixedPoint)
+                dfaVelMaxTextField.text          = (MachineData.getDownflowVelocityPointFactory(3) / 100).toFixed(fixedPoint)
+                dfaVelLowAlarmTextField.text     = (MachineData.getDownflowLowLimitVelocity() / 100).toFixed(fixedPoint)
                 dfaVelHighAlarmTextField.text    = (MachineData.getDownflowHighLimitVelocity() / 100).toFixed(fixedPoint)
 
-                ifaVelLowAlarmTextField.text     = (MachineData.getInflowLowLimitVelocity() / 100).toFixed(fixedPoint)
+                ifaVelMinTextField.text          = (MachineData.getInflowVelocityPointFactory(1) / 100).toFixed(fixedPoint)
                 ifaVelNomTextField.text          = (MachineData.getInflowVelocityPointFactory(2) / 100).toFixed(fixedPoint)
+                ifaVelLowAlarmTextField.text     = (MachineData.getInflowLowLimitVelocity() / 100).toFixed(fixedPoint)
 
                 calibTempAdcTextField.text = MachineData.getInflowTempCalibAdc()
                 calibTempTextField.text = MachineData.getInflowTempCalib()

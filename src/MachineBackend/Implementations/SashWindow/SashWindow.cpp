@@ -17,9 +17,9 @@ SashWindow::SashWindow(QObject *parent)
     : ClassManager(parent)
 {
     pSubModule              = nullptr;
-    m_sashState             = SASH_STATE_FULLY_CLOSE_SSV;
-    m_previousState         = SASH_STATE_FULLY_CLOSE_SSV;
-    m_previousPreviousState = SASH_STATE_FULLY_CLOSE_SSV;
+    m_sashState             = SASH_STATE_ERROR_SENSOR_SSV;
+    m_previousState         = SASH_STATE_ERROR_SENSOR_SSV;
+    m_previousPreviousState = SASH_STATE_ERROR_SENSOR_SSV;
     m_sashStateChanged  = 0;
     m_safeSwitcher = SWITCHER_UP;
     //    for (int i = 0;i < 5; i++) {

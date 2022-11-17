@@ -1094,6 +1094,29 @@ short MachineData::getCabinetSideType() const
     return m_cabinetSideType;
 }
 
+void MachineData::setLogoutTime(int value)
+{
+    if(m_logoutTime == value)return;
+    m_logoutTime = value;
+    emit logoutTimeChanged(value);
+}
+
+int MachineData::getLogoutTime() const
+{
+    return m_logoutTime;
+}
+
+void MachineData::setCfr21Part11Enable(bool value)
+{
+    if(m_cfr21Part11Enable == value)return;
+    m_cfr21Part11Enable = value;
+    emit cfr21Part11EnableChanged(value);
+}
+
+bool MachineData::getCfr21Part11Enable() const
+{
+    return m_cfr21Part11Enable;
+}
 //void MachineData::setWifiDisabled(bool value)
 //{
 //    if(m_wifiDisabled == value)return;

@@ -65,7 +65,7 @@ Item {
                 id: titleText
                 anchors.centerIn: parent
                 text: "Title Text"
-                font.pixelSize: 20
+                font.pixelSize: 24
                 color: rootItem.darkMode ? "#dddddd" : "#666666"
             }
 

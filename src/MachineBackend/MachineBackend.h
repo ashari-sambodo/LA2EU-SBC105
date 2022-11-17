@@ -427,6 +427,9 @@ public slots:
   void setScreenSaverSeconds(int value);
 
   void setCabinetSideType(short value);
+  
+      void setLogoutTime(int value);
+    void setCFR21Part11Enable(bool value);
 
 signals:
   void hasStopped();
@@ -676,6 +679,12 @@ private:
   void _onParticleCounterSensorFanStateChanged(int state);
 
   void _onTimerEventLcdDimm();
+
+    int m_logoutTimeCountdown = 0;
+    void _startLogoutTime();
+    void _resetLogoutTime();
+    void _cancelLogoutTime();
+    void _onTimerEventLogout();
 
   void _startWarmingUpTime();
   void _cancelWarmingUpTime();

@@ -43,7 +43,7 @@ QtObject {
                     qsTr("Replace sash motor (for motorized sash window)"),
                 ],
                 "canopy":[
-                    qsTr("Battery voltage in good condition (nominal = 9V)"),
+                    qsTr("Battery voltage is in good condition (nominal = 9V)."),
                     qsTr("The switch is working properly"),
                     qsTr("The proximity sensor can detect an object with a distance of 2-5 mm"),
                     qsTr("The LED and buzzer work properly"),

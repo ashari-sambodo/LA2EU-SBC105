@@ -239,7 +239,6 @@
         <file>UI/Pictures/menu/preventive-maintenance.png</file>
         <file>UI/Pictures/wired-conn.png</file>
         <file>UI/Pictures/menu/about-us.png</file>
-        <file>UI/Pictures/tuning.png</file>
         <file>UI/Pictures/button-icon-select.png</file>
         <file>UI/Pictures/start_small.png</file>
         <file>UI/Pictures/stop_small.png</file>
@@ -272,5 +271,9 @@
         <file>UI/Pictures/memory-usage.png</file>
         <file>UI/Pictures/airflow-out-temp-set.png</file>
         <file>UI/Pictures/menu/sensor-constant-corr.png</file>
+        <file>UI/Pictures/menu/none.png</file>
+        <file>UI/Pictures/menu/21-cfr-p11.png</file>
+        <file>UI/Pictures/user-logout.png</file>
+        <file>UI/Pictures/menu/logout-time.png</file>
     </qresource>
 </RCC>

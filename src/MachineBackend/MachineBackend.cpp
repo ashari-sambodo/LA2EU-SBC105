@@ -3257,6 +3257,15 @@ if(!pData->getShippingModeEnable()){
     pData->setUserLasLogin(userLastLoginArr);
 }//
 
+    {
+        int logoutTime = m_settings->value(SKEY_LOGOUT_TIME, 30*60).toInt();
+        pData->setLogoutTime(logoutTime);
+    }
+
+    {
+        bool enable = m_settings->value(SKEY_21_CFR_11_EN, false).toBool();
+        pData->setCfr21Part11Enable(enable);
+    }
 {
     /// Execute later
     QTimer::singleShot(30000, this, [&](){
@@ -4198,6 +4207,10 @@ void MachineBackend::setLcdTouched()
 
     /// Wake up LCD Brightness Level
     _wakeupLcdBrightnessLevel();
+
+    if(m_signedUsername != ""){
+        _resetLogoutTime();
+    }
 }
 
 void MachineBackend::setLcdBrightnessLevel(short value)
@@ -4414,6 +4427,12 @@ void MachineBackend::setSignedUser(const QString username, const QString fullnam
     m_signedUsername = username;
     m_signedFullname = fullname;
     m_signedUserLevel = userLevel;
+
+    if(m_signedUsername != ""){
+        _startLogoutTime();
+    }else{
+        _cancelLogoutTime();
+    }
 }
 
 void MachineBackend::setUserLastLogin(const QString username, const QString fullname)
@@ -7607,6 +7626,67 @@ void MachineBackend::_onTimerEventLcdDimm()
     pData->setLcdBrightnessLevelDimmed(true);
 }
 
+void MachineBackend::_startLogoutTime()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    int seconds = pData->getLogoutTime();
+    if(!seconds) return;
+    m_logoutTimeCountdown = seconds;
+
+    /// double ensure this slot not connected to this warming up event
+    disconnect(m_timerEventEverySecond.data(), &QTimer::timeout,
+               this, &MachineBackend::_onTimerEventLogout);
+    /// connect uniqly timer event for warming up count down
+    connect(m_timerEventEverySecond.data(), &QTimer::timeout,
+            this, &MachineBackend::_onTimerEventLogout,
+            Qt::UniqueConnection);
+}
+
+void MachineBackend::_resetLogoutTime()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    int seconds = pData->getLogoutTime();
+    if(!seconds) return;
+    m_logoutTimeCountdown = seconds;
+
+    /// double ensure this slot not connected to this warming up event
+    disconnect(m_timerEventEverySecond.data(), &QTimer::timeout,
+               this, &MachineBackend::_onTimerEventLogout);
+    /// connect uniqly timer event for warming up count down
+    connect(m_timerEventEverySecond.data(), &QTimer::timeout,
+            this, &MachineBackend::_onTimerEventLogout,
+            Qt::UniqueConnection);
+}
+
+void MachineBackend::_cancelLogoutTime()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    disconnect(m_timerEventEverySecond.data(), &QTimer::timeout,
+               this, &MachineBackend::_onTimerEventLogout);
+
+    int seconds = pData->getLogoutTime();
+    m_logoutTimeCountdown = seconds;
+}
+
+void MachineBackend::_onTimerEventLogout()
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << m_logoutTimeCountdown << thread();
+    if(m_logoutTimeCountdown <= 0){
+        disconnect(m_timerEventEverySecond.data(), &QTimer::timeout,
+                   this, &MachineBackend::_onTimerEventLogout);
+
+        int seconds = pData->getLogoutTime();
+        m_logoutTimeCountdown = seconds;
+
+        /// Turned bright LED
+        _wakeupLcdBrightnessLevel();
+
+        emit pData->timerEventLogout();
+    }
+    else {
+        m_logoutTimeCountdown--;
+    }
+}
 void MachineBackend::_startWarmingUpTime()
 {
     qDebug() << __FUNCTION__ ;
@@ -10259,6 +10339,28 @@ void MachineBackend::setCabinetSideType(short value)
     settings.setValue(SKEY_CABINET_SIDE_TYPE, value);
 }
 
+void MachineBackend::setLogoutTime(int value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << value << thread();
+
+    QSettings settings;
+    settings.setValue(SKEY_LOGOUT_TIME, value);
+    pData->setLogoutTime(value);
+
+    if(!value){
+        _cancelLogoutTime();
+    }else{
+        _resetLogoutTime();
+    }
+}
+
+void MachineBackend::setCFR21Part11Enable(bool value)
+{
+    qDebug() << metaObject()->className() << __FUNCTION__ << value << thread();
+    QSettings settings;
+    settings.setValue(SKEY_21_CFR_11_EN, value);
+    pData->setCfr21Part11Enable(value);
+}//
 //void MachineBackend::setWifiDisabled(bool value)
 //{
 //    qDebug() << metaObject()->className() << __func__ << value << thread() ;
