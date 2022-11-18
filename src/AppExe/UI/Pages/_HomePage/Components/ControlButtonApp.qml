@@ -6,6 +6,7 @@ Item {
 
     property int stateIO
     property bool stateInterlock
+    property int pressedAndHoldInterval: 1000
 
     property alias background: backgroundLoader
 
@@ -15,6 +16,7 @@ Item {
     signal clicked()
     signal pressAndHold()
     signal releasedPress()
+    property bool buttonPressed: false
 
     Loader {
         id: backgroundLoader
@@ -35,6 +37,7 @@ Item {
     MouseArea {
         id: controlMouseArea
         anchors.fill: parent
+        pressAndHoldInterval: button.pressedAndHoldInterval
         //        onLongPressed: {
         //             //console.debug("onLongPressed")
         //        }//
@@ -52,6 +55,7 @@ Item {
             controlMouseArea.clicked.connect(button.clicked)
             controlMouseArea.pressAndHold.connect(button.pressAndHold)
             //controlMouseArea.released.connect(button.releasedPress)
+            buttonPressed = Qt.binding(function(){return pressed})
         }//
     }//
 }//
