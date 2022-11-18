@@ -65,6 +65,7 @@ ViewApp {
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
                                 text: qsTr("FAN OFF")
+                                font.capitalization: Font.AllUppercase
                                 font.pixelSize: 32
                                 font.bold: true
                                 fontSizeMode: Text.Fit
@@ -116,7 +117,7 @@ ViewApp {
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
-                                    text: qsTr("ALARM: SASH MOTOR LOCKED")
+                                    text: qsTr("ALARM: LOCKED SASH MOTOR")
                                 }//
                             }//
                             ,
@@ -128,7 +129,7 @@ ViewApp {
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
-                                    text: qsTr("STOP USING SASH MOTOR")
+                                    text: qsTr("STOP USING MOTORIZED SASH!")
                                 }//
                             }//
                             ,
@@ -152,7 +153,7 @@ ViewApp {
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
-                                    text: qsTr("ALARM: SASH DOWN STUCK")
+                                    text: qsTr("ALARM: STUCKED SASH")
                                 }//
                             }//
                             ,
@@ -224,7 +225,7 @@ ViewApp {
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
-                                    text: qsTr("ALARM: TURN ON FAN")
+                                    text: qsTr("ALARM: STANDBY FAN")
                                 }//
                             }//
                             ,
@@ -436,9 +437,9 @@ ViewApp {
                                             //                                            color: "#d35400" /// orange / unheatly for sensityv
                                             //                                            color: "#c0392b" /// red / unhelty
 
-                                            textLabel: qsTr("Particle (μg/m3)") + ":"
+                                            textLabel: qsTr("Particle (μg/m3)")
                                             //                                            textValue: props.seasPressureStr /*"-20 Pa"*/
-                                            textValue: "PM2.5: " + props.particleCounterPM2_5 +
+                                            textValue: ":" + "PM2.5: " + props.particleCounterPM2_5 +
                                                        " | PM1.0: " + props.particleCounterPM1_0 +
                                                        " | PM10: " + props.particleCounterPM10
 
@@ -474,8 +475,8 @@ ViewApp {
                                             contentItem.x : 150
                                             contentItem.width: centerContentItem.width - 5
 
-                                            textLabel: qsTr("Timer") + ":"
-                                            textValue: utils.strfSecsToHumanReadable(props.expTimerCount)
+                                            textLabel: qsTr("Timer")
+                                            textValue: ": " + utils.strfSecsToHumanReadable(props.expTimerCount)
 
                                             states: [
                                                 State {
@@ -498,7 +499,7 @@ ViewApp {
                                             MouseArea {
                                                 anchors.fill: parent
                                                 onClicked: {
-                                                    var intent = IntentApp.create("qrc:/UI/Pages/ExperimentTimerPage/ExperimentTimerPage.qml")
+                                                    var intent = IntentApp.create("qrc:/UI/Pages/ExperimentTimerPage/ExperimentTimerPage.qml", {})
                                                     startView(intent)
                                                 }
                                             }
@@ -525,8 +526,8 @@ ViewApp {
                                             contentItem.width: centerContentItem.width
                                             hightlighted: true
 
-                                            textLabel: props.vivariumMuteState ? qsTr("Vivarium mute:") : qsTr("Alarm muted:")
-                                            textValue: utils.strfSecsToHumanReadableShort(props.muteAlarmTimeCountdown) /*+ " (Vivarium)"*/
+                                            textLabel: props.vivariumMuteState ? qsTr("Vivarium mute") : qsTr("Alarm muted")
+                                            textValue: ": " + utils.strfSecsToHumanReadableShort(props.muteAlarmTimeCountdown) /*+ " (Vivarium)"*/
                                         }//
                                         visible: active
                                         active: {
@@ -549,8 +550,8 @@ ViewApp {
                                             contentItem.x : 150
                                             contentItem.width: centerContentItem.width - 5
 
-                                            textLabel: qsTr("Exhaust") + ":"
-                                            textValue: props.seasPressureStr /*"-20 Pa"*/
+                                            textLabel: qsTr("Pressure")
+                                            textValue: ": " + props.seasPressureStr /*"-20 Pa"*/
 
                                             states: [
                                                 State {
@@ -589,8 +590,8 @@ ViewApp {
                                             contentItem.x : 150
                                             contentItem.width: centerContentItem.width - 5
 
-                                            textLabel: qsTr("Sash") + ":"
-                                            textValue: "---"
+                                            textLabel: qsTr("Sash")
+                                            textValue: ": " + "---"
 
                                             states: [
                                                 State {
@@ -598,7 +599,7 @@ ViewApp {
                                                           && props.alarmSashUnsafe
                                                     PropertyChanges {
                                                         target: sashStatus
-                                                        textValue: qsTr("Unsafe height")
+                                                        textValue: ": " + qsTr("Unsafe height")
                                                     }
                                                     PropertyChanges {
                                                         target: sashStatus
@@ -610,7 +611,7 @@ ViewApp {
                                                           && props.alarmSashFullyOpen
                                                     PropertyChanges {
                                                         target: sashStatus
-                                                        textValue: qsTr("Fully open")
+                                                        textValue: ": " + qsTr("Fully opened")
                                                     }
                                                     PropertyChanges {
                                                         target: sashStatus
@@ -622,7 +623,7 @@ ViewApp {
                                                           && props.alarmSashUnknown
                                                     PropertyChanges {
                                                         target: sashStatus
-                                                        textValue: qsTr("Unknown")
+                                                        textValue: ": " + qsTr("Unknown")
                                                     }
                                                     PropertyChanges {
                                                         target: sashStatus
@@ -633,42 +634,42 @@ ViewApp {
                                                     when: props.sashWindowState === MachineAPI.SASH_STATE_WORK_SSV
                                                     PropertyChanges {
                                                         target: sashStatus
-                                                        textValue: qsTr("Safe height")
+                                                        textValue: ": " + qsTr("Safe height")
                                                     }
                                                 },
                                                 State {
                                                     when: props.sashWindowState === MachineAPI.SASH_STATE_UNSAFE_SSV
                                                     PropertyChanges {
                                                         target: sashStatus
-                                                        textValue: qsTr("Unsafe height")
+                                                        textValue: ": " + qsTr("Unsafe height")
                                                     }
                                                 },
                                                 State {
                                                     when: props.sashWindowState === MachineAPI.SASH_STATE_FULLY_CLOSE_SSV
                                                     PropertyChanges {
                                                         target: sashStatus
-                                                        textValue: qsTr("Fully close")
+                                                        textValue: ": " + qsTr("Fully closed")
                                                     }
                                                 },
                                                 State {
                                                     when: props.sashWindowState === MachineAPI.SASH_STATE_STANDBY_SSV
                                                     PropertyChanges {
                                                         target: sashStatus
-                                                        textValue: qsTr("Standby height")
+                                                        textValue: ": " + qsTr("Standby height")
                                                     }
                                                 },
                                                 State {
                                                     when: props.sashWindowState === MachineAPI.SASH_STATE_FULLY_OPEN_SSV
                                                     PropertyChanges {
                                                         target: sashStatus
-                                                        textValue: qsTr("Fully open")
+                                                        textValue: ": " + qsTr("Fully opened")
                                                     }
                                                 },
                                                 State {
                                                     when: props.sashWindowState === MachineAPI.SASH_STATE_ERROR_SENSOR_SSV
                                                     PropertyChanges {
                                                         target: sashStatus
-                                                        textValue: qsTr("Unknown")
+                                                        textValue: ": " + qsTr("Unknown")
                                                     }
                                                 }
                                             ]//
@@ -693,8 +694,8 @@ ViewApp {
                                             contentItem.x : 150
                                             contentItem.width: centerContentItem.width - 5
 
-                                            textLabel: qsTr("Filter Life") + ":"
-                                            textValue: props.filterLifePercent + "%"
+                                            textLabel: qsTr("Filter Life")
+                                            textValue: ": " + props.filterLifePercent + "%"
                                         }//
                                         visible: active
                                         active: {
@@ -717,15 +718,15 @@ ViewApp {
                                             contentItem.x : 150
                                             contentItem.width: centerContentItem.width - 5
 
-                                            textLabel: qsTr("Downflow") + ":"
-                                            textValue: props.downflowStr
+                                            textLabel: qsTr("Downflow")
+                                            textValue: ": " + props.downflowStr
 
                                             states: [
                                                 State {
                                                     when: !props.sensorCalibrated
                                                     PropertyChanges {
                                                         target: downflowStatus
-                                                        textValue: qsTr("Uncalibrated")
+                                                        textValue: ": " + qsTr("Uncalibrated")
                                                     }//
                                                 }//
                                                 ,
@@ -733,7 +734,7 @@ ViewApp {
                                                     when: props.warmingUpActive
                                                     PropertyChanges {
                                                         target: downflowStatus
-                                                        textValue: qsTr("Warming up")
+                                                        textValue: ": " + qsTr("Warming up")
                                                     }//
                                                     PropertyChanges {
                                                         target: downflowStatus
@@ -745,7 +746,7 @@ ViewApp {
                                                     when: props.alarmDownflowLow == MachineAPI.ALARM_ACTIVE_STATE
                                                     PropertyChanges {
                                                         target: downflowStatus
-                                                        textValue: props.downflowStr + " (" + qsTr("Too Low") + ")"
+                                                        textValue: ": " + props.downflowStr + " (" + qsTr("Too Low") + ")"
                                                     }//
                                                     PropertyChanges {
                                                         target: downflowStatus
@@ -758,7 +759,7 @@ ViewApp {
                                                     when: props.alarmDownflowHigh == MachineAPI.ALARM_ACTIVE_STATE
                                                     PropertyChanges {
                                                         target: downflowStatus
-                                                        textValue: props.downflowStr + " (" + qsTr("Too High") + ")"
+                                                        textValue: ": " + props.downflowStr + " (" + qsTr("Too High") + ")"
                                                     }//
                                                     PropertyChanges {
                                                         target: downflowStatus
@@ -805,15 +806,15 @@ ViewApp {
                                             contentItem.x : 150
                                             contentItem.width: centerContentItem.width - 5
 
-                                            textLabel: qsTr("Inflow") + ":"
-                                            textValue: props.inflowStr
+                                            textLabel: qsTr("Inflow")
+                                            textValue: ": " + props.inflowStr
 
                                             states: [
                                                 State {
                                                     when: !props.sensorCalibrated
                                                     PropertyChanges {
                                                         target: inflowStatus
-                                                        textValue: qsTr("Uncalibrated")
+                                                        textValue: ": " + qsTr("Uncalibrated")
                                                     }//
                                                 }//
                                                 ,
@@ -821,7 +822,7 @@ ViewApp {
                                                     when: props.warmingUpActive
                                                     PropertyChanges {
                                                         target: inflowStatus
-                                                        textValue: qsTr("Warming up")
+                                                        textValue: ": " + qsTr("Warming up")
                                                     }
                                                     PropertyChanges {
                                                         target: inflowStatus
@@ -833,7 +834,7 @@ ViewApp {
                                                     when: props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE
                                                     PropertyChanges {
                                                         target: inflowStatus
-                                                        textValue: props.inflowStr + " (" + qsTr("Too Low") + ")"
+                                                        textValue: ": " + props.inflowStr + " (" + qsTr("Too low") + ")"
                                                     }//
                                                     PropertyChanges {
                                                         target: inflowStatus
@@ -878,8 +879,8 @@ ViewApp {
                                             contentItem.x : 150
                                             contentItem.width: centerContentItem.width - 5
 
-                                            textLabel: qsTr("A/F Monitor") + ":"
-                                            textValue:  qsTr("Disabled")
+                                            textLabel: qsTr("A/F Monitor")
+                                            textValue: ": " + qsTr("Disabled")
                                         }//
                                         visible: active
                                         active: {
@@ -907,8 +908,8 @@ ViewApp {
                                             contentItem.x : 150
                                             contentItem.width: centerContentItem.width
 
-                                            textLabel: qsTr("UV Life") + ":"
-                                            textValue: props.uvLifePercent + "%"
+                                            textLabel: qsTr("UV Life")
+                                            textValue: ": " + props.uvLifePercent + "%"
                                         }//
                                         visible: active
                                         active: {
@@ -931,8 +932,8 @@ ViewApp {
                                             contentItem.x : 150
                                             contentItem.width: centerContentItem.width - 5
 
-                                            textLabel: qsTr("UV Time") + ":"
-                                            textValue: MachineData.uvTime ? utils.strfSecsToHHMMSS(props.uvTimeCountDown) : qsTr("Infinite")
+                                            textLabel: qsTr("UV Time")
+                                            textValue: ": " + (MachineData.uvTime ? utils.strfSecsToHHMMSS(props.uvTimeCountDown) : qsTr("Infinite"))
 
                                             states: [
                                                 State {
@@ -993,7 +994,7 @@ ViewApp {
                                                     wrapMode: Text.WordWrap
                                                     minimumPixelSize: 20
                                                     font.pixelSize: 24
-                                                    text: qsTr("System was detecting a communication problem between main-board and module-board.") + "<br><br>" +
+                                                    text: qsTr("System has detected a communication problem between main-board and module-board.") + "<br><br>" +
                                                           qsTr("Call your authorized field service technician!")
                                                 }//
                                             }//
@@ -1136,42 +1137,48 @@ ViewApp {
 
                                             stateInterlock: props.sashMotorizeDownInterlocked
                                             stateIO: props.sashMotorizeState == MachineAPI.MOTOR_SASH_STATE_DOWN
+                                            pressedAndHoldInterval: 250
 
-                                            onClicked: {
+                                            Timer{
+                                                id: timerForTurnOffMotorDown
+                                                running: false
+                                                interval: 100
+                                                repeat: true
+                                                readonly property int maxCount: 15
+                                                property int count: 0
+                                                onRunningChanged: {
+                                                    if(running)
+                                                        count = 0
+                                                }
+                                                onTriggered: {
+                                                    console.debug("Down Button Pressed:", sashMotorDownButton.buttonPressed)
+                                                    if(!sashMotorDownButton.buttonPressed && props.sashMotorizeState){
+                                                        MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
+                                                        MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
+                                                        running = false
+                                                    }//
+                                                    if(!sashMotorDownButton.buttonPressed){
+                                                        if(++count >= maxCount) running = false
+                                                    }//
+                                                }//
+                                            }//
+
+                                            onPressAndHold: {
+                                                console.debug("onClicked")
                                                 if (stateInterlock) {
                                                     showDialogMessage(qsTr("Warning"), qsTr("Interlocked!"), dialogAlert)
                                                     return
                                                 }//
-                                                //console.debug("On DOWN Pressed!")
-                                                //props.buttonSashMotorizedDownPressed = true;
+
+                                                timerForTurnOffMotorDown.running = true
+
                                                 if(props.sashMotorizeState) {
                                                     MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
                                                     MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
                                                     return
                                                 }
-                                                //MachineAPI.setButtonSashMotorizedPressed(true)
-                                                //MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_DOWN)
-                                                //MachineAPI.insertEventLog(qsTr("User: Set sash motorize down"))
-                                            }//
-
-                                            onPressAndHold: {
-                                                if (stateInterlock) return
-                                                //console.debug("On DOWN Pressed!")
-                                                //props.buttonSashMotorizedDownPressed = true;
-                                                //MachineAPI.setButtonSashMotorizedPressed(true)
                                                 MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_DOWN)
-
                                                 MachineAPI.insertEventLog(qsTr("User: Set sash motorize down"))
-                                            }//
-
-                                            onReleasedPress: {
-                                                if (stateInterlock) return
-                                                //console.debug("On DOWN Released!")
-                                                //props. = false;
-                                                //MachineAPI.setButtonSashMotorizedPressed(false)
-                                                MachineAPI.setSashWindowMotorizeState(MachineAPI.MOTOR_SASH_STATE_OFF)
-
-                                                MachineAPI.insertEventLog(qsTr("User: Set sash motorize stop"))
                                             }//
 
                                             states: [
@@ -1305,28 +1312,32 @@ ViewApp {
                                 spacing: 2
 
                                 Loader {
-                                    active: props.certfRemExpiredValid && (props.certfRemExpiredCount < 30)
+                                    active: props.alarmPrevMaintActive && props.sensorCalibrated
                                     sourceComponent: CusComPage.BadgeNotificationApp{
                                         height: 40
                                         width: cabinet3D.width
-                                        text: {
-                                            if (props.certfRemExpiredCount < 1){
-                                                return qsTr("Cert. due date has passed!")
-                                            }
-                                            else {
-                                                let dayText = props.certfRemExpiredCount > 1 ? qsTr("days") : qsTr("day")
-                                                return qsTr("Cert. due date in") + " " + props.certfRemExpiredCount + " " + dayText
-                                            }
-                                        }
+                                        text: props.alarmPrevMaintenanceReminderStr
+                                        opacity: prevMainBtnMA.pressed ? 0.5 : 1
 
                                         MouseArea {
+                                            id: prevMainBtnMA
                                             anchors.fill: parent
-                                            enabled:props.certfRemExpiredCount < 1
+                                            //enabled: props.certfRemExpiredCount < 1
                                             onClicked: {
-                                                showDialogMessage(qsTr("Certification Reminder"),
-                                                                  qsTr("Certification due date has passed on ") + props.certfRemExpiredDate + "<br><br>"+
-                                                                  qsTr("Please contact your cabinet service representative!"),
-                                                                  dialogAlert)
+                                                if (!UserSessionService.loggedIn) {
+                                                    UserSessionService.askedForLogin()
+                                                }
+                                                else {
+                                                    if(UserSessionService.roleLevel < UserSessionService.roleLevelSupervisor){
+                                                        showDialogMessage(qsTr("Preventive Maintenance Reminder"),
+                                                                          qsTr("Please login as Supervisor account or higher to acknowledge this reminder!"),
+                                                                          dialogAlert)
+                                                        return;
+                                                    }//
+                                                    intent = IntentApp.create("qrc:/UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml", {})
+                                                    startView(intent)
+                                                }//
+
                                             }//
                                         }//
                                     }//
@@ -1344,7 +1355,7 @@ ViewApp {
                                 }//
 
                                 Loader {
-                                    active: false
+                                    active: props.eventlogIsFull
                                     sourceComponent: CusComPage.BadgeNotificationApp{
                                         height: 40
                                         width: cabinet3D.width
@@ -1354,12 +1365,32 @@ ViewApp {
                                 }//
 
                                 Loader {
-                                    active: false
+                                    active: props.alarmlogIsFull
                                     sourceComponent: CusComPage.BadgeNotificationApp{
                                         height: 40
                                         width: cabinet3D.width
 
                                         text: qsTr("Alarm log is full!")
+                                    }//
+                                }//
+
+                                Loader {
+                                    active: props.replaceableCompRecordIsFull
+                                    sourceComponent: CusComPage.BadgeNotificationApp{
+                                        height: 40
+                                        width: cabinet3D.width
+
+                                        text: qsTr("Replaceable comp. record is full!")
+                                    }//
+                                }//
+
+                                Loader {
+                                    active: props.resmonlogIsFull
+                                    sourceComponent: CusComPage.BadgeNotificationApp{
+                                        height: 40
+                                        width: cabinet3D.width
+
+                                        text: qsTr("System monitor log is full!")
                                     }//
                                 }//
                             }//
@@ -1474,7 +1505,7 @@ ViewApp {
                                                 when: props.sashCycleLockedAlarm
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The sash motor cycle has exceeded the maximum operating limit!.\nSash motor has been locked.\nPlease contact your service engineer to do maintenance.")
+                                                    text: qsTr("The sash motor cycle has exceeded the maximum operating limit!\nSash motor has been locked.\nPlease contact your service engineer to do maintenance.")
                                                 }
                                             }//
                                             ,
@@ -1482,7 +1513,7 @@ ViewApp {
                                                 when: props.sashCycleStopCaution
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The use of the sash motor is almost at maximum use!.\nStop using sash motor!.\nPlease contact your service engineer to do maintenance.")
+                                                    text: qsTr("The use of the sash motor is almost at maximum use!\nStop using the sash motor!\nPlease contact your service engineer to do maintenance.")
                                                 }
                                             }//
                                             ,
@@ -1490,7 +1521,7 @@ ViewApp {
                                                 when: props.sashCycleReplaceCaution
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The use of the sash motor is almost at maximum use!.\nReplace the sash motor!.\nPlease contact your service engineer to do maintenance.")
+                                                    text: qsTr("The use of the sash motor is almost at maximum use!\nReplace the sash motor!\nPlease contact your service engineer to do maintenance.")
                                                 }//
                                             }//
                                             ,
@@ -1498,7 +1529,7 @@ ViewApp {
                                                 when: props.alarmSash >= MachineAPI.ALARM_SASH_ACTIVE_UNSAFE_STATE
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The sash height is not in the normal working height (Safe height).\nSet it back to normal working height!")
+                                                    text: qsTr("The sash height is at unsafe position. Set back to normal working height!")
                                                 }
                                             },
                                             State {
@@ -1506,7 +1537,7 @@ ViewApp {
                                                       (props.alarmInflowLow == MachineAPI.ALARM_ACTIVE_STATE)
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The Airflow velocity is too low!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, grill and ventilation paths are not obstructed.")
+                                                    text: qsTr("The airflow value is too low!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that sensors, airflow grill, and ventilation paths are not obstructed.")
                                                 }
                                             },
                                             State {
@@ -1543,14 +1574,14 @@ ViewApp {
                                                 when: props.alarmSeasTooPositive
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The exhaust pressure is too high!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that exhaust fan is in nominal speed and damper is opened.")
+                                                    text: qsTr("The pressure is too high!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that the fan is in nominal speed and the damper is open.")
                                                 }
                                             },
                                             State {
                                                 when: props.alarmSeasFlapTooPositive
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The exhaust pressure is too high!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that exhaust fan is in nominal speed and damper is opened.")
+                                                    text: qsTr("The pressure is too high!\nPotentially reducing the protective capabilities of the cabinet.\nEnsure that the fan is in nominal speed and the damper is open.")
                                                 }
                                             },
                                             State {
@@ -1558,15 +1589,14 @@ ViewApp {
                                                       || (props.alarmTempLow == MachineAPI.ALARM_ACTIVE_STATE)
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The environmental temperature was out off range!%1\n The ideal environmental temperature is between ").arg((MachineData.getDownflowSensorConstant() === 0 || MachineData.getDownflowSensorConstant() === 0) ? "" : "\nPottentially reduce the reading accuration of the airflow sensor(s).")
-                                                          + props.tempAmbientLowStrf + " - " + props.tempAmbientHighStrf + "."
+                                                    text: qsTr("The environmental temperature is out off range!\nPotentially reducing the reading accuracy of the airflow sensor.\n The ideal environmental temperature is between ") + props.tempAmbientLowStrf + " - " + props.tempAmbientHighStrf + "."
                                                 }
                                             },
                                             State {
                                                 when: props.alarmStandbyFanOff
                                                 PropertyChanges {
                                                     target: textTeleprompter
-                                                    text: qsTr("The Fan should be operating at standby speed during in sash standby height!\n Please switch on the Fan by pressing the Fan button")
+                                                    text: qsTr("The Fan should be operating at standby speed while the sash is at standby height!\nPlease switch on the Fan by tapping the Fan button.")
                                                 }
                                             }//
                                         ]//
