@@ -185,7 +185,7 @@ ViewApp {
                 cabinetNameBufferTextInput.text = props.cabinetName
 
                 const extraData = IntentApp.getExtraData(intent)
-                const thisOpenedFromWelcomePage = extraData["walcomesetup"] || false
+                const thisOpenedFromWelcomePage = extraData["welcomesetup"] || false
                 if(thisOpenedFromWelcomePage) {
                     setButton.visible = true
                 }

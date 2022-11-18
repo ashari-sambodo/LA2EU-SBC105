@@ -102,7 +102,7 @@ ViewApp {
 
                             TextApp {
                                 Layout.alignment: Qt.AlignHCenter
-                                text: qsTr("Let's together make this world a better place!")
+                                text: qsTr("Together, let us make this world a better place!")
                             }//
 
                             ButtonBarApp {

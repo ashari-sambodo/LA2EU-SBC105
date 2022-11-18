@@ -203,12 +203,12 @@ ViewApp {
                 //                    //console.debug("StackView.Active");
 
                 const extraData = IntentApp.getExtraData(intent)
-                props.calledFromWalcomeSetup = extraData["walcomesetup"] || false
+                props.calledFromWalcomeSetup = extraData["welcomesetup"] || false
 
                 if(props.calledFromWalcomeSetup){
                     MachineAPI.setLightState(true);
                     stackView.clear()
-                    let intent1 = IntentApp.create("qrc:/UI/Pages/FieldCalibratePage/Pages/_GettingStartedPage.qml", {"walcomesetup": true})
+                    let intent1 = IntentApp.create("qrc:/UI/Pages/FieldCalibratePage/Pages/_GettingStartedPage.qml", {"welcomesetup": true})
                     stackView.push(intent1.uri, {"uri": intent1.uri, "intent": intent1})
                 }
 

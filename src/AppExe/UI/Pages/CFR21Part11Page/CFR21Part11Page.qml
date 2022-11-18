@@ -84,7 +84,7 @@ ViewApp {
                                 MachineAPI.setCFR21Part11Enable(newValue)
 
                                 let stringEn = newValue ? qsTr("Enabled") : qsTr("Disabled")
-                                const eventStr = qsTr("User: 21 CRF part 11 is %1").arg(stringEn)
+                                const eventStr = qsTr("User: 21 CFR part 11 is %1").arg(stringEn)
                                 MachineAPI.insertEventLog("%1".arg(eventStr))
 
                                 viewApp.showBusyPage(qsTr("Setting up..."),

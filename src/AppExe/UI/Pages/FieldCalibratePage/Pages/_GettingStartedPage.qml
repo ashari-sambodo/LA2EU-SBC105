@@ -154,7 +154,7 @@ ViewApp {
                 //                    //console.debug("StackView.Active");
                 props.airflowCalibPhase = MachineData.airflowCalibrationStatus
                 const extraData = IntentApp.getExtraData(intent)
-                props.calledFromWalcomeSetup = extraData["walcomesetup"] || false
+                props.calledFromWalcomeSetup = extraData["welcomesetup"] || false
             }
 
             /// onPause

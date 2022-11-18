@@ -914,14 +914,14 @@ ViewApp {
                                             let dfaFanDutyCycle = props.dfaFanDutyCycleActual
                                             let dfaFanRpm = props.dfaFanRpmActual || MachineData.cabinetWidth3Feet
                                             let dfaVelocityValid = (props.dfaVelocityMin < props.dfaVelocityNom && props.dfaVelocityNom < props.dfaVelocityMax) ? true : false
-                                            let dfaAdcNominalValid = (dfaAdc - props.dfaSensorAdcZero) >= 250 ? true : false
+                                            let dfaAdcNominalValid = (dfaAdc - props.dfaSensorAdcZero) >= props.adcDiffTolerance ? true : false
                                             //let dfaAdcMinimumValid = (dfaAdc - props.sensorAdcMinimum) >= 100 ? true : false
 
                                             let ifaAdc = props.ifaAdcActual
                                             let ifaFanDutyCycle = props.ifaFanDutyCycleActual
                                             let ifaFanRpm = props.ifaFanRpmActual
                                             let ifaVelocityValid = (props.ifaVelocityNom > props.ifaVelocityMin) ? true : false
-                                            let ifaAdcNominalValid = (ifaAdc - props.ifaSensorAdcZero) >= 250 ? true : false
+                                            let ifaAdcNominalValid = (ifaAdc - props.ifaSensorAdcZero) >= props.adcDiffTolerance ? true : false
                                             //let ifaAdcMinimumValid = (ifaAdc - props.sensorAdcMinimum) >= 100 ? true : false
 
                                             let temperatureCalib = props.temperatureActual
@@ -1196,10 +1196,10 @@ ViewApp {
                                 resultStattusText.text = qsTr("Failed")
                                 resultiInfoText.visible = true
                                 switch(props.calibrationFailCode){
-                                case 0x0001: resultiInfoText.text = qsTr("ADC DF2 ≥ (ADC DF0 + 250) not met!"); break
+                                case 0x0001: resultiInfoText.text = qsTr("ADC DF2 ≥ (ADC DF0 + %1) not met!").arg(props.adcDiffTolerance); break
                                 case 0x0002: resultiInfoText.text = qsTr("Vel DF1 < DF2 < DF3 not met!");   break
                                 case 0x0004: resultiInfoText.text = qsTr("Duty cycle DF2 not valid!");      break
-                                case 0x0008: resultiInfoText.text = qsTr("ADC IF2 ≥ (ADC IF0 + 250) not met!"); break
+                                case 0x0008: resultiInfoText.text = qsTr("ADC IF2 ≥ (ADC IF0 + %1) not met!").arg(props.adcDiffTolerance); break
                                 case 0x0010: resultiInfoText.text = qsTr("Vel IF1 < DF2 not met!");         break
                                 case 0x0020: resultiInfoText.text = qsTr("Duty cycle IF2 not valid!");      break
                                 case 0x0040: resultiInfoText.text = qsTr("DF Fan RPM not valid!");          break
@@ -1312,6 +1312,8 @@ ViewApp {
             id: props
 
             property string pid: ""
+
+            readonly property int adcDiffTolerance: 160
 
             property int dfaFanDutyCycleActual: 0
             property int dfaFanRpmActual: 0

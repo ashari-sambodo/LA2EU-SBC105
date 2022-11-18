@@ -30,6 +30,7 @@ ViewApp {
         /// Header
         /// Cabinet model name
         HeaderAppService.modelName = MachineData.machineClassName + "<br>" + MachineData.machineModelName
+        HeaderAppService.sideGlass = MachineData.cabinetSideType === MachineAPI.CABINET_TYPE_E
         //        HeaderAppService.modelName = "CLASS II C1" + "<br>" + "LC1"
         //        HeaderAppService.modelName = "CLASS II A2" + "<br>" + "AC2"
         /// Set time format, 12h or 24h
@@ -236,7 +237,6 @@ ViewApp {
                         MachineData.rpListDefault = rpDatabase.databaseDefaultLA2EU[0]
 
                         MachineAPI.setup(MachineData)
-                        HeaderAppService.sideGlass = /*(props.profileObjectActive['sideGlass']|| 0) > 0*/MachineData.cabinetSideType === MachineAPI.CABINET_TYPE_E
 
                         const connectionId = "StartupPage"
                         userManageQml.init(connectionId);

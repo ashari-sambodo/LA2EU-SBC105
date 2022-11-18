@@ -2894,42 +2894,11 @@ ViewApp {
             function showNotifToShutDownTheCabinet(show){
                 safelyShutdownLoader.active = show;
             }//
-            function showWiredConConfigured(value){
-                if(value){
-                    const message = qsTr("Wired connection has been configured!") + "<br>" +
-                                  qsTr("Please restart the system to perform the configuration.")
-                    showDialogAsk(qsTr("Wired Connection"),
-                                  message,
-                                  dialogAlert,
-                                  function onAccepted(){
-                                      const exitCodeRestart = 5
-                                      MachineAPI.insertEventLog(qsTr("User: System Reset"));
-                                      //MachineAPI.setAllDoorShutdownState()
-                                      //MachineAPI.setAllValveChamberShutdownState()
 
-                                      MachineAPI.setWiredNetworkHasbeenConfigured(false);
-                                      //                                      showBusyPage(qsTr("Please wait..."),
-                                      //                                                   function onCallback(secs){
-                                      //                                                       if(secs >= MachineAPI.BUSY_CYCLE_1) {
-                                      const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {'exitCode': exitCodeRestart})
-                                      startRootView(intent)
-                                      //                                                       }
-                                      //                                                   })
-                                  },
-                                  undefined,
-                                  undefined,
-                                  false,
-                                  10,
-                                  qsTr("Restart"),
-                                  qsTr("Later")
-                                  )//
-                }//
-            }//
         }//
 
         /// One time executed at startup
         Component.onCompleted: {
-            props.showWiredConConfigured(MachineData.wiredNetworkHasbeenConfigured);
         }//
 
         //// Execute This Every This Screen Active/Visible/Foreground
@@ -3129,7 +3098,6 @@ ViewApp {
                 /// show dialog progress when fan state will be switching
                 MachineData.fanSwithingStateTriggered.connect(props.showFanProgressSwitchingState)
                 MachineData.postPurgingActiveChanged.connect(props.showNotifToShutDownTheCabinetPostPurge)
-                MachineData.wiredNetworkHasbeenConfiguredChanged.connect(props.showWiredConConfigured)
 
                 /// Power outage
                 props.powerOutage = MachineData.powerOutage
@@ -3186,7 +3154,6 @@ ViewApp {
                 /// TO PREVENT UNWANTED BEHAVIOUR, DISCONNECT THE SIGNAL
                 MachineData.fanSwithingStateTriggered.disconnect(props.showFanProgressSwitchingState)
                 MachineData.postPurgingActiveChanged.disconnect(props.showNotifToShutDownTheCabinetPostPurge)
-                MachineData.wiredNetworkHasbeenConfiguredChanged.disconnect(props.showWiredConConfigured)
 
                 MachineAPI.setFrontEndScreenState(MachineAPI.ScreenState_Other)
                 //                    props.currentPageIsForground = false

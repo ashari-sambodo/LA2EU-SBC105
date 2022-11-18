@@ -408,6 +408,14 @@
                                      mlink      :   "",
                                      sub        :   resetMenu
                                  })
+
+                if(menu[index].length > itemPerPage) {index++; menu.push([])}
+                menu[index].push({mtype         :   "menu",
+                                     mtitle     :   qsTr("Environmental Temperature Limit"),
+                                     micon      :   "qrc:/UI/Pictures/menu/Env-Temp-Limit.png",
+                                     mlink      :   "qrc:/UI/Pages/TemperatureAmbOperationSetPage/TemperatureAmbOperationSetPage.qml"
+                                     //                                 mlink      :   "qrc:/UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml"
+                                 })
             }//
             ///
             if(userRole >= userRole_ADMIN){
@@ -518,14 +526,6 @@
                                  mlink       : "qrc:/UI/Pages/SerialNumberSetPage/SerialNumberSetPage.qml"
                              })
             //
-
-            if(menu[index].length > itemPerPage) {index++; menu.push([])}
-            menu[index].push({mtype         :   "menu",
-                                 mtitle     :   qsTr("Environmental Temperature Limit"),
-                                 micon      :   "qrc:/UI/Pictures/menu/Env-Temp-Limit.png",
-                                 mlink      :   "qrc:/UI/Pages/TemperatureAmbOperationSetPage/TemperatureAmbOperationSetPage.qml"
-                                 //                                 mlink      :   "qrc:/UI/Pages/ReplaceablePartsPage/ReplaceablePartsPage.qml"
-                             })
 
             if(menu[index].length > itemPerPage) {index++; menu.push([])}
             menu[index].push({mtype         :   "menu",

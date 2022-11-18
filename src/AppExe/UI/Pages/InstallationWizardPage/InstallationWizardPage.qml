@@ -92,7 +92,7 @@ ViewApp {
                             viewApp.finishViewReturned.connect(props.onReturnFromChildPage);
                             if (props.indexSetupPage == 0) props.indexSetupPage = props.indexSetupPage + 1
                             const url = props.setupPageCollections[props.indexSetupPage]["url"]
-                            const intent = IntentApp.create(url, {"walcomesetup": 1})
+                            const intent = IntentApp.create(url, {"welcomesetup": 1})
                             startView(intent);
                         }//
                     }//
@@ -145,9 +145,12 @@ ViewApp {
             readonly property var setupPageCollections: [
                 {"url": "none"},
                 {"url": "qrc:/UI/Pages/LanguagePage/LanguagePage.qml"},
+                {"url": "qrc:/UI/Pages/DateSetPage/DateSetPage.qml"},
+                {"url": "qrc:/UI/Pages/TimeSetPage/TimeSetPage.qml"},
                 {"url": "qrc:/UI/Pages/TimeZonePage/TimeZonePage.qml"},
                 {"url": "qrc:/UI/Pages/CabinetNameSetPage/CabinetNameSetPage.qml"},
                 {"url": "qrc:/UI/Pages/FieldCalibratePage/FieldCalibratePage.qml"},
+                {"url": "qrc:/UI/Pages/QuickTourPage/QuickTourPage.qml"},
             ]
 
             function onReturnFromChildPage(returnIntent){
@@ -158,7 +161,7 @@ ViewApp {
                 //                console.log(JSON.stringify(extraData))
                 const skipped = extraData['skip'] || false
                 const wcNext = extraData['welcomesetupdone'] || false
-                console.log("wcNext: " + wcNext + " skip: " + skipped)
+                //                console.log("wcNext: " + wcNext)
                 if (wcNext || skipped) {
                     if(indexSetupPage == (props.setupPageCollections.length - 1) || skipped) {
                         const url = "qrc:/UI/Pages/InstallationWizardPage/InstallationWizardDonePage.qml"
@@ -174,7 +177,7 @@ ViewApp {
                     else if(indexSetupPage < props.setupPageCollections.length) {
                         viewApp.finishViewReturned.connect(props.onReturnFromChildPage);
                         const url = props.setupPageCollections[props.indexSetupPage]["url"]
-                        const intent = IntentApp.create(url, {"walcomesetup": 1})
+                        const intent = IntentApp.create(url, {"welcomesetup": 1})
                         startView(intent);
                     }
                 }
@@ -184,7 +187,7 @@ ViewApp {
                     if (indexSetupPage != 0){
                         viewApp.finishViewReturned.connect(props.onReturnFromChildPage);
                         const url = props.setupPageCollections[props.indexSetupPage]["url"]
-                        const intent = IntentApp.create(url, {"walcomesetup": 1})
+                        const intent = IntentApp.create(url, {"welcomesetup": 1})
                         startView(intent);
                     }
                 }

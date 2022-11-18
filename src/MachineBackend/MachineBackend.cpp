@@ -816,7 +816,7 @@ void MachineBackend::setup()
 
             /// FRONT PANEL SWITCH
             {
-                bool installed = m_settings->value(SKEY_FRONT_PANEL_INSTALLED, MachineEnums::DIG_STATE_ZERO).toBool();
+                bool installed = m_settings->value(SKEY_FRONT_PANEL_INSTALLED, MachineEnums::DIG_STATE_ONE).toBool();
                 //installed = 1;
                 pData->setFrontPanelSwitchInstalled(installed);
             }
@@ -2323,7 +2323,7 @@ void MachineBackend::setup()
         //        qDebug() << dfaAdcZeroFactory << dfaAdcMinFactory << dfaAdcNomFactory;
         //        qDebug() << dfaVelMinFactory << dfaVelNomFactory;
         //        qDebug() << fanNominalDutyCycleFactory;
-        bool dfaCalibPhaseFactory = ((dfaAdcZeroFactory + 100) <= dfaAdcNomFactory)
+        bool dfaCalibPhaseFactory = ((dfaAdcNomFactory - 160) >= dfaAdcZeroFactory)
                                     //                && (dfaAdcMinFactory < dfaAdcNomFactory)
                                     && (dfaVelMinFactory < dfaVelNomFactory)
                                     && (dfaVelNomFactory < dfaVelMaxFactory)
@@ -2332,7 +2332,7 @@ void MachineBackend::setup()
         //        qDebug() << dfaAdcZeroField << dfaAdcMinField << dfaAdcNomField;
         //        qDebug() << dfaVelMinField << dfaVelNomField;
         //        qDebug() << fanStandbyDutyCycleField;
-        bool dfaCalibPhaseField = ((dfaAdcZeroField + 100) <= dfaAdcNomField)
+        bool dfaCalibPhaseField = ((dfaAdcNomField - 160) >= dfaAdcZeroField)
                                   //                && (dfaAdcMinField< dfaAdcNomField)
                                   && (dfaVelMinField < dfaVelNomField)
                                   && (dfaVelNomField < dfaVelMaxField)
@@ -2352,7 +2352,7 @@ void MachineBackend::setup()
         //        qDebug() << ifaAdcZeroFactory << ifaAdcMinFactory << ifaAdcNomFactory;
         //        qDebug() << ifaVelMinFactory << ifaVelNomFactory;
         //        qDebug() << fanNominalDutyCycleFactory;
-        bool ifaCalibPhaseFactory = ((ifaAdcZeroFactory + 100) <= ifaAdcNomFactory)
+        bool ifaCalibPhaseFactory = ((ifaAdcNomFactory - 160) >= ifaAdcZeroFactory)
                                     //                && (ifaAdcMinFactory < ifaAdcNomFactory)
                                     && (ifaVelMinFactory < ifaVelNomFactory)
                                     && fanIfaNominalDutyCycleFactory;
@@ -2360,7 +2360,7 @@ void MachineBackend::setup()
         //        qDebug() << ifaAdcZeroField << ifaAdcMinField << ifaAdcNomField;
         //        qDebug() << ifaVelMinField << ifaVelNomField;
         //        qDebug() << fanStandbyDutyCycleField;
-        bool ifaCalibPhaseField = ((ifaAdcZeroField + 100) < ifaAdcNomField)
+        bool ifaCalibPhaseField = ((ifaAdcNomField - 160) >= ifaAdcZeroField)
                                   //                && (ifaAdcMinField< ifaAdcNomField)
                                   && (ifaVelMinField < ifaVelNomField)
                                   && fanIfaNominalDutyCycleField;
@@ -4344,7 +4344,7 @@ void MachineBackend::deleteFileOnSystem(const QString path)
 #ifdef WIN32
     pathFilter.replace("file:///C", "c");
 #elif __linux__
-        pathFilter.replace("file://", "");
+    pathFilter.replace("file://", "");
 #endif
 
     if(QFile::exists(pathFilter)) {
@@ -5167,7 +5167,7 @@ QString MachineBackend::_readMacAddress()
         text += interface.hardwareAddress()+"#";
     }
 #else
-        text = SDEF_FULL_MAC_ADDRESS;
+    text = SDEF_FULL_MAC_ADDRESS;
 #endif
 
     qDebug() << "MAC:" << text;
@@ -5199,7 +5199,7 @@ QStringList MachineBackend::_readSbcSystemInformation()
 
     //qDebug() << sysInfo;
 #else
-        sysInfo = QStringList() << "Unknown";
+    sysInfo = QStringList() << "Unknown";
 #endif
     return sysInfo;
 }
@@ -5224,7 +5224,7 @@ QString MachineBackend::_readSbcSerialNumber()
     QString err(process.readAllStandardError());
     qDebug()<<err;
 #else
-        serialNumber = SDEF_SBC_SERIAL_NUMBER;
+    serialNumber = SDEF_SBC_SERIAL_NUMBER;
 #endif
     qDebug() << "Serial Number:" << serialNumber;
     return serialNumber;
@@ -10887,6 +10887,8 @@ void MachineBackend::_machineState()
                 }
 
                 //LOCK LAMP
+                if(pData->getLightState())
+                    setLightState(MachineEnums::DIG_STATE_ZERO);
                 if(!pData->getLightInterlocked()){
                     m_pLight->setInterlock(MachineEnums::DIG_STATE_ONE);
                 }

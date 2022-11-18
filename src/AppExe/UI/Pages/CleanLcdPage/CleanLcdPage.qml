@@ -95,9 +95,9 @@ ViewApp {
                                     Layout.maximumWidth: rightColumn.parent.width - 5
 
                                     text: qsTr("Attention!") + "<br>" +
-                                          "# " + qsTr("Recommended to wipe the surface with a lint-free microfiber cloth") + "<br>" +
-                                          "# " + qsTr("Never directly apply cleaning solution to the screen") + "<br>" +
-                                          "# " + qsTr("Do not use the moist section of the cloth to clean the corners of the screen") + "<br>" +
+                                          "# " + qsTr("Recommended to wipe the surface with a lint-free microfiber cloth.") + "<br>" +
+                                          "# " + qsTr("Never directly apply cleaning solution to the screen.") + "<br>" +
+                                          "# " + qsTr("Do not use the moist section of the cloth to clean the corners of the screen.") + "<br>" +
                                           "# " + qsTr("Start from the center and gently wipe the screen in a circular motion.") + "<br>" +
                                           "# " + qsTr("Upon starting, the screen will go blank and then back to normal after 15 seconds.") + "<br>"
                                 }//

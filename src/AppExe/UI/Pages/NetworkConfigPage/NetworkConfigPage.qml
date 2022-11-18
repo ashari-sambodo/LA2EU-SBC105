@@ -673,11 +673,36 @@ ViewApp {
             //                                  NetworkService.forgetConnection(connName)
             //                              })
             //            }
+            function showWiredConConfigured(value){
+                if(value){
+                    const message = qsTr("Wired connection has been configured!") + "<br>" +
+                                  qsTr("Please restart the system to perform the configuration.")
+                    showDialogAsk(qsTr("Wired Connection"),
+                                  message,
+                                  dialogAlert,
+                                  function onAccepted(){
+                                      const exitCodeRestart = 5
+                                      MachineAPI.insertEventLog(qsTr("User: System Restart"));
+
+                                      MachineAPI.setWiredNetworkHasbeenConfigured(false);
+                                      const intent = IntentApp.create("qrc:/UI/Pages/ClosingPage/ClosingPage.qml", {'exitCode': exitCodeRestart})
+                                      startRootView(intent)
+                                  },
+                                  undefined,
+                                  undefined,
+                                  false,
+                                  10,
+                                  qsTr("Restart"),
+                                  qsTr("Later")
+                                  )//
+                }//
+            }//
         }//
 
         /// One time executed after onResume
         Component.onCompleted: {
             //            NetworkService.init()
+            props.showWiredConConfigured(MachineData.wiredNetworkHasbeenConfigured);
         }//
 
         /// Execute This Every This Screen Active/Visible
@@ -710,11 +735,15 @@ ViewApp {
                 props.ipv4Address = MachineData.getEth0Ipv4Address()
                 props.ethConName = MachineData.getEth0ConName()
                 props.ethEn = MachineData.getEth0ConEnabled()
+
+
+                MachineData.wiredNetworkHasbeenConfiguredChanged.connect(props.showWiredConConfigured)
             }//
 
             /// onPause
             Component.onDestruction: {
-                ////console.debug("StackView.DeActivating");
+                ////console.debug("StackView.DeActivating");                
+                MachineData.wiredNetworkHasbeenConfiguredChanged.disconnect(props.showWiredConConfigured)
             }
         }//
     }//
