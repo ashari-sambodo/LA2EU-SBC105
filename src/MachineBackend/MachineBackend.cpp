@@ -4744,7 +4744,8 @@ void MachineBackend::setOperationMaintenanceMode()
 {
     qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
-    m_operationPrevMode = pData->getOperationMode();
+    if(pData->getOperationMode() != MachineEnums::MODE_OPERATION_MAINTENANCE)
+        m_operationPrevMode = pData->getOperationMode();
     pData->setOperationMode(MachineEnums::MODE_OPERATION_MAINTENANCE);
 
     ///MODBUS
