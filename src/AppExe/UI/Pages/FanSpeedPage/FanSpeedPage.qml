@@ -198,8 +198,18 @@ ViewApp {
 
         /// called Once but after onResume
         Component.onCompleted: {
-
+            console.debug("StackView.Active");
+            MachineAPI.setFanClosedLoopControlEnablePrevState(MachineData.fanClosedLoopControlEnable)
+            if(MachineData.fanClosedLoopControlEnable)
+                MachineAPI.setFanClosedLoopControlEnable(false)
         }//
+
+        Component.onDestruction: {
+            console.debug("StackView.DeActivating");
+            MachineAPI.setFanClosedLoopControlEnable(MachineData.fanClosedLoopControlEnablePrevState)
+            if(MachineData.fanClosedLoopControlEnablePrevState)
+                MachineAPI.setFanClosedLoopControlEnablePrevState(false)
+        }
 
         /// Execute This Every This Screen Active/Visible
         executeOnPageVisible: QtObject {
@@ -216,7 +226,10 @@ ViewApp {
 
             /// onPause
             Component.onDestruction: {
-                ////console.debug("StackView.DeActivating");
+                //                console.debug("StackView.DeActivating");
+                //                MachineAPI.setFanClosedLoopControlEnable(MachineData.fanClosedLoopControlEnablePrevState)
+                //                if(MachineData.fanClosedLoopControlEnablePrevState)
+                //                    MachineAPI.setFanClosedLoopControlEnablePrevState(false)
             }
         }//
     }//

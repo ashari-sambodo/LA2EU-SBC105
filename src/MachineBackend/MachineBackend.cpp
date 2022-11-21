@@ -1072,6 +1072,12 @@ void MachineBackend::setup()
         pData->setDualRbmMode(false);
     }//
 
+    bool initFanOff = true;
+    {
+        int _poweroutage = m_settings->value(SKEY_POWER_OUTAGE, MachineEnums::DIG_STATE_ZERO).toInt();
+        int _fanState   = m_settings->value(SKEY_POWER_OUTAGE_FAN, MachineEnums::DIG_STATE_ZERO).toInt();
+        initFanOff = !(_poweroutage && _fanState);
+    }//
 
     /// Fan Exhaust
     {
@@ -1082,6 +1088,8 @@ void MachineBackend::setup()
                 m_pFanInflowPWM->setSubModule(m_boardPWMOut.data());
                 m_pFanInflowPWM->setChannelIO(1);
                 m_pFanInflowPWM->setDutyCycleMinimum(0);
+                if(initFanOff)
+                    m_pFanInflowPWM->setState(0);
 
                 connect(m_pFanInflowPWM.data(), &DevicePWMOut::stateChanged,
                         this, [&](int newVal){
@@ -1092,6 +1100,8 @@ void MachineBackend::setup()
                 m_pFanInflowAO.reset(new DeviceAnalogCom);
                 m_pFanInflowAO->setSubBoard(m_boardAnalogOutput2.data());
                 m_pFanInflowAO->setStateMax(1000);
+                if(initFanOff)
+                    m_pFanInflowAO->setState(0);
 
                 connect(m_pFanInflowAO.data(), &DeviceAnalogCom::stateChanged,
                         this, [&](int newVal){
@@ -1106,6 +1116,8 @@ void MachineBackend::setup()
             m_pFanPrimaryPWM->setSubModule(m_boardPWMOut.data());
             m_pFanPrimaryPWM->setChannelIO(0);
             m_pFanPrimaryPWM->setDutyCycleMinimum(0);
+            if(initFanOff)
+                m_pFanPrimaryPWM->setState(0);
 
             connect(m_pFanPrimaryPWM.data(), &DevicePWMOut::stateChanged,
                     this, [&](int newVal){
@@ -1115,6 +1127,8 @@ void MachineBackend::setup()
         else{
             m_pFanPrimaryAO.reset(new DeviceAnalogCom);
             m_pFanPrimaryAO->setSubBoard(m_boardAnalogOutput4.data());
+            if(initFanOff)
+                m_pFanPrimaryAO->setState(0);
 
             connect(m_pFanPrimaryAO.data(), &DeviceAnalogCom::stateChanged,
                     this, [&](int newVal){
@@ -1164,7 +1178,8 @@ void MachineBackend::setup()
             /// we expect the first value of the the fan from not running
             /// now, we assume the response from the fan is always OK,
             ///// so we dont care the return value of following API
-            m_boardRegalECM->stop();
+            if(initFanOff)
+                m_boardRegalECM->stop();
 
             int maxAirVolume = 1800;
 
@@ -1338,7 +1353,8 @@ void MachineBackend::setup()
                 /// we expect the first value of the the fan from not running
                 /// now, we assume the response from the fan is always OK,
                 ///// so we dont care the return value of following API
-                m_boardRegalECM2->stop();
+                if(initFanOff)
+                    m_boardRegalECM2->stop();
 
                 /// setup blower ecm by torque demand
                 /// in torque mode, we just need to define the direction of rotation
@@ -1889,13 +1905,13 @@ void MachineBackend::setup()
 
     {///Read Parameter for Closed Loop Control
         bool enablePrev    = m_settings->value(SKEY_FAN_CLOSE_LOOP_ENABLE_PREV, false).toBool();
-        bool enable    = m_settings->value(SKEY_FAN_CLOSE_LOOP_ENABLE, false).toBool();
+        bool enable    = m_settings->value(SKEY_FAN_CLOSE_LOOP_ENABLE, true).toBool();
         int samplingTime = m_settings->value(SKEY_FAN_CLOSE_LOOP_STIME, TEI_FOR_CLOSE_LOOP_CONTROL).toInt();
         float dfaGainP = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_P + QString::number(Downflow), 1.5).toFloat();
         float dfaGainI = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_I + QString::number(Downflow), 0).toFloat();
         float dfaGainD = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_D + QString::number(Downflow), 0).toFloat();
-        float ifaGainP = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_P + QString::number(Inflow), 1.0).toFloat();
-        float ifaGainI = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_I + QString::number(Inflow), 0).toFloat();
+        float ifaGainP = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_P + QString::number(Inflow), 1.5).toFloat();
+        float ifaGainI = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_I + QString::number(Inflow), 0.01).toFloat();
         float ifaGainD = m_settings->value(SKEY_FAN_CLOSE_LOOP_GAIN_D + QString::number(Inflow), 0).toFloat();
 
         pData->setFanFanClosedLoopControlEnablePrevState(enablePrev);
@@ -4159,7 +4175,7 @@ void MachineBackend::_onTriggeredEventSashWindowRoutine()
 
 void MachineBackend::_onTriggeredEventClosedLoopControl()
 {
-    //qDebug() << metaObject()->className() << __FUNCTION__ << thread();
+    //    qDebug() << metaObject()->className() << __FUNCTION__ << thread();
     m_pIfaFanClosedLoopControl->routineTask();
     m_pDfaFanClosedLoopControl->routineTask();
 
@@ -7763,9 +7779,9 @@ void MachineBackend::_onTimerEventWarmingUp()
             /// Set Initial Actual Fan Duty Cycle before m_timerEventForClosedLoopControl is activated
             m_pDfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanPrimaryDutyCycle());
             m_pIfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanInflowDutyCycle());
-            m_timerEventForClosedLoopControl->start();
-        }
-
+            if(!m_timerEventForClosedLoopControl->isActive())
+                m_timerEventForClosedLoopControl->start();
+        }//
         /// Ensure The Data Log timer is Active Data Log Once WarmingUp Time finished
         if(pData->getDataLogEnable()){
             if(!m_timerEventForDataLog->isActive()){
@@ -7779,19 +7795,32 @@ void MachineBackend::_onTimerEventWarmingUp()
     else {
         count--;
         pData->setWarmingUpCountdown(count);
-        if(pData->getReadClosedLoopResponse() && !m_timerEventForClosedLoopControl->isActive()){
-            m_pDfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanPrimaryDutyCycle());
-            m_pIfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanInflowDutyCycle());
-            m_timerEventForClosedLoopControl->start();
-        }
-    }
-}
+        if(pData->getReadClosedLoopResponse()){
+            if(!m_timerEventForClosedLoopControl->isActive()){
+                m_pDfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanPrimaryDutyCycle());
+                m_pIfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanInflowDutyCycle());
+                m_timerEventForClosedLoopControl->start();
+            }
+        }//
+        else{
+            /// Activate the Closed Loop Timer When warming up timer is 30 seconds left
+            if(count <= 30 && !m_timerEventForClosedLoopControl->isActive()){
+                m_pDfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanPrimaryDutyCycle());
+                m_pIfaFanClosedLoopControl->setActualFanDutyCycle(pData->getFanInflowDutyCycle());
+                m_timerEventForClosedLoopControl->start();
+            }//
+        }//
+    }//
+}//
 
 void MachineBackend::_startPostPurgingTime()
 {
     qDebug() << __FUNCTION__ ;
 
     int seconds = pData->getPostPurgingTime();
+#ifndef __arm__
+    seconds = seconds/2;
+#endif
     pData->setPostPurgingCountdown(seconds);
     pData->setPostPurgingActive(MachineEnums::DIG_STATE_ONE);
 
@@ -8398,17 +8427,17 @@ void MachineBackend::_insertResourceMonitorLog()
 void MachineBackend::_setFanInflowStateNominal()
 {
     short dutyCycle = pData->getFanInflowNominalDutyCycle();
-    short divide = dutyCycle/4;
-    if(divide == pData->getFanInflowStandbyDutyCycle()) divide -= 1;
-    qDebug() << "1st time dutycycle set" << divide;
-    _setFanInflowDutyCycle(divide);
-    /// divide into two time for setting up the Nominal duty cycle
-    /// this is for reducing the irush current of the motor blower
-    /// Implement this method if the nominal duty cylcle is relative high
-    QTimer::singleShot(5000, this, [&, dutyCycle](){
-        qDebug() << "2nd time dutycycle set" << dutyCycle;
-        _setFanInflowDutyCycle(dutyCycle);
-    });
+    //    short divide = dutyCycle/4;
+    //    if(divide == pData->getFanInflowStandbyDutyCycle()) divide -= 1;
+    //    qDebug() << "1st time dutycycle set" << divide;
+    //    _setFanInflowDutyCycle(divide);
+    //    /// divide into two time for setting up the Nominal duty cycle
+    //    /// this is for reducing the irush current of the motor blower
+    //    /// Implement this method if the nominal duty cylcle is relative high
+    //    QTimer::singleShot(5000, this, [&, dutyCycle](){
+    //        qDebug() << "2nd time dutycycle set" << dutyCycle;
+    _setFanInflowDutyCycle(dutyCycle);
+    //    });
 }//
 
 void MachineBackend::_setFanInflowStateMinimum()
@@ -8433,17 +8462,17 @@ void MachineBackend::_setFanInflowStateOFF()
 void MachineBackend::_setFanPrimaryStateNominal()
 {
     short dutyCycle = pData->getFanPrimaryNominalDutyCycle();
-    short divide = dutyCycle/4;
-    if(divide == pData->getFanPrimaryStandbyDutyCycle()) divide -= 1;
-    qDebug() << "1st time dutycycle set" << divide;
-    _setFanPrimaryDutyCycle(divide);
-    /// divide into two time for setting up the Nominal duty cycle
-    /// this is for reducing the irush current of the motor blower
-    /// Implement this method if the nominal duty cylcle is relative high
-    QTimer::singleShot(5000, this, [&, dutyCycle](){
-        qDebug() << "2nd time dutycycle set" << dutyCycle;
-        _setFanPrimaryDutyCycle(dutyCycle);
-    });
+    //    short divide = dutyCycle/4;
+    //    if(divide == pData->getFanPrimaryStandbyDutyCycle()) divide -= 1;
+    //    qDebug() << "1st time dutycycle set" << divide;
+    //    _setFanPrimaryDutyCycle(divide);
+    //    /// divide into two time for setting up the Nominal duty cycle
+    //    /// this is for reducing the irush current of the motor blower
+    //    /// Implement this method if the nominal duty cylcle is relative high
+    //    QTimer::singleShot(5000, this, [&, dutyCycle](){
+    //        qDebug() << "2nd time dutycycle set" << dutyCycle;
+    _setFanPrimaryDutyCycle(dutyCycle);
+    //    });
 }
 
 void MachineBackend::_setFanPrimaryStateMinimum()
@@ -11633,7 +11662,11 @@ void MachineBackend::_machineState()
     else {
         if(pData->getAlarmContactState())
             setAlarmContactState(MachineEnums::DIG_STATE_ZERO);
-    }
+        //Real Time Monitoring of Buzzer State, Turn Off when there is no alarm
+        if(m_pBuzzer->getStateActual() || m_pBuzzer->getState()){
+            m_pBuzzer->setState(MachineEnums::DIG_STATE_ZERO);
+        }//
+    }//
 
     /// MODBUS ALARM STATUS
     _setModbusRegHoldingValue(modbusRegisterAddress.AlarmBoardCom.addr, static_cast<ushort>(pData->getAlarmBoardComError()));
