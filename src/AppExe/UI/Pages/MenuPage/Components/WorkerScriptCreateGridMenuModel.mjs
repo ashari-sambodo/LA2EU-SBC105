@@ -265,6 +265,14 @@
                                      micon     : "qrc:/UI/Pictures/menu/screensaver.png",
                                      mlink     : "qrc:/UI/Pages/ScreenSaverSettingPage/ScreenSaverSettingPage.qml"
                                  })
+				 
+				             if(menu[index].length > itemPerPage) {index++; menu.push([])}
+            menu[index].push({mtype        : "menu",
+                                 mtitle    : qsTr("Display Themes"),
+                                 micon     : "qrc:/UI/Pictures/menu/display-theme.png",
+                                 mlink     : "qrc:/UI/Pages/DisplayThemesPage/DisplayThemesPage.qml"
+                                 //                                 mlink     : "qrc:/UI/Pages/FtpFileSharePage/FtpFileSharePage.qml"
+                             })
             }//
 
             //MENU_INDICATOR

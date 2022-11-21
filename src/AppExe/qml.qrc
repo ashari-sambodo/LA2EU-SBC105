@@ -193,5 +193,6 @@
         <file>UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml</file>
         <file>UI/Pages/CFR21Part11Page/CFR21Part11Page.qml</file>
         <file>UI/Pages/LogoutTimePage/LogoutTimePage.qml</file>
+	        <file>UI/Pages/DisplayThemesPage/DisplayThemesPage.qml</file>
     </qresource>
 </RCC>

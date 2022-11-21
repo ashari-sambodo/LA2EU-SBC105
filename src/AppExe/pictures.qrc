@@ -275,5 +275,14 @@
         <file>UI/Pictures/menu/21-cfr-p11.png</file>
         <file>UI/Pictures/user-logout.png</file>
         <file>UI/Pictures/menu/logout-time.png</file>
+	<file>UI/Pictures/logo/esco_lifesciences_group_dark.png</file>
+        <file>UI/Pictures/header-black-red-bg.png</file>
+        <file>UI/Pictures/header-black-grey-bg.png</file>
+        <file>UI/Pictures/dark/HomeButton.png</file>
+        <file>UI/Pictures/dark/LoginButton.png</file>
+        <file>UI/Pictures/dark/LoginButtonGreen.png</file>
+        <file>UI/Pictures/dark/theme-dark.png</file>
+        <file>UI/Pictures/dark/theme-normal.png</file>
+        <file>UI/Pictures/menu/display-theme.png</file>
     </qresource>
 </RCC>

@@ -12,12 +12,23 @@ Item {
 
     property alias imageSource: controlImage.source
     property alias text: controlText.text
+    property bool darkMode: MachineData.displayTheme === MachineAPI.THEME_DARK
 
     signal clicked()
 
     Image {
+        enabled: !control.darkMode
+        visible: enabled
         anchors.fill: parent
         source: "ButtonBarApp/buttonBarBackground.png"
+    }
+    Rectangle{
+        enabled: control.darkMode
+        visible: enabled
+        anchors.fill: parent
+        color: "black"
+        border.width: 1
+        border.color: (MachineData.alarmsState && MachineData.alarmFrontEndBackground) ? "red" : "#B2A18D"
     }
 
     Row {
@@ -27,6 +38,12 @@ Item {
             source: "ButtonBarApp/button-icon.png"
             width: MachineAPI.FOOTER_HEIGHT-10
             height: MachineAPI.FOOTER_HEIGHT-10
+            Rectangle{
+                visible: control.darkMode
+                color: "#44000000"
+                anchors.fill: parent
+                anchors.margins: 1
+            }
         }
 
         Text {
@@ -37,7 +54,7 @@ Item {
             padding: 2
             text: qsTr("text")
             verticalAlignment: Text.AlignVCenter
-            color: "#dddddd"
+            color: control.darkMode ? "#B2A18D" : "#dddddd"
             font.pixelSize: 20
             wrapMode: Text.WordWrap
             elide: Text.ElideRight

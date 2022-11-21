@@ -1108,6 +1108,10 @@ Q_PROPERTY(QString machineProfileID READ getMachineProfileID WRITE setMachinePro
 
     /// 21 CFR PART 11
     Q_PROPERTY(bool cfr21Part11Enable READ getCfr21Part11Enable NOTIFY cfr21Part11EnableChanged)
+	
+	    Q_PROPERTY(short displayTheme READ getDisplayTheme NOTIFY displayThemeChanged)
+
+    Q_PROPERTY(bool alarmFrontEndBackground READ getAlarmFrontEndBackground NOTIFY alarmFrontEndBackgroundChanged)
 public:
     static QObject *singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
     static void singletonDelete();
@@ -2141,6 +2145,12 @@ public:
     /// 21 CFR PART 11
     void setCfr21Part11Enable(bool value);
     bool getCfr21Part11Enable()const;
+	
+	    void setDisplayTheme(short value);
+    short getDisplayTheme()const;
+
+    void setAlarmFrontEndBackground(bool value);
+	    bool getAlarmFrontEndBackground();
 public slots:
     void initSingleton();
 
@@ -2554,6 +2564,9 @@ signals:
 
     /// 21 CFR PART 11
     bool cfr21Part11EnableChanged(bool value);
+	
+	    void displayThemeChanged(short value);
+    void alarmFrontEndBackgroundChanged(short value);
 private:
     ///
     QString m_machineProfileID;
@@ -3043,6 +3056,8 @@ private:
     /// 21 CFR PART 11
     bool m_cfr21Part11Enable = false;
 
+    short m_displayTheme = 0;
+    bool m_alarmFrontEndBackground = false;
 };
 
 

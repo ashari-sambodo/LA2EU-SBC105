@@ -33,6 +33,7 @@ WifiSignalApp           1.0 WifiSignalApp.qml
 ScrollDownNotifApp      1.0 ScrollDownNotifApp.qml
 ContentItemApp          1.0 ContentItemApp.qml
 CheckBoxApp             1.0 CheckBoxApp.qml
+BackgroundButtonBarApp  1.0 BackgroundButtonBarApp.qml
 TextBoxApp              1.0 TextBoxApp.qml
 MaintenanceChecklistApp 1.0 MaintenanceChecklistApp.qml
 ReplaceablePartsDatabaseApp 1.0 ReplaceablePartsDatabaseApp.qml

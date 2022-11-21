@@ -429,6 +429,9 @@ public slots:
   
       void setLogoutTime(int value);
     void setCFR21Part11Enable(bool value);
+	
+	void setDisplayTheme(short value);
+    void setAlarmFrontEndBackground(bool value);
 
 signals:
   void hasStopped();

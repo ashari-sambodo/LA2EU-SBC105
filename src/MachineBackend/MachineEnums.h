@@ -605,6 +605,11 @@ enum PointCalib{
     POINT_TOTAL
 };
 Q_ENUMS(PointCalib)
+enum DisplayTheme{
+    THEME_NORMAL,
+    THEME_DARK
+};
+Q_ENUMS(DisplayTheme)
 
 }
 

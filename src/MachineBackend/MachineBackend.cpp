@@ -326,6 +326,10 @@ void MachineBackend::setup()
         int cabSideType = m_settings->value(SKEY_CABINET_SIDE_TYPE, 0).toInt();
         pData->setCabinetSideType(cabSideType);
     }
+    {
+        int theme = m_settings->value(SKEY_THEME_DISPLAY, MachineEnums::THEME_NORMAL).toInt();
+        pData->setDisplayTheme(theme);
+    }
 
     /// READ SERIAL NUMBER
     {
@@ -2196,9 +2200,9 @@ void MachineBackend::setup()
 
     /// Fan PIN
     {
-        /// 00000-md5
+        /// 00001-md5
         QString value = m_settings->value(SKEY_FAN_PIN,
-                                          "dcddb75469b4b4875094e14561e573d8").toString();
+                                          "4c68cea7e58591b579fd074bcdaff740").toString();
         pData->setFanPIN(value);
     }
 
@@ -10396,6 +10400,20 @@ void MachineBackend::setCFR21Part11Enable(bool value)
     settings.setValue(SKEY_21_CFR_11_EN, value);
     pData->setCfr21Part11Enable(value);
 }//
+
+void MachineBackend::setDisplayTheme(short value)
+{
+    qDebug() << metaObject()->className() << __func__ << value << thread() ;
+
+    pData->setDisplayTheme(value);
+    QSettings settings;
+    settings.setValue(SKEY_THEME_DISPLAY, value);
+}
+
+void MachineBackend::setAlarmFrontEndBackground(bool value)
+{
+    pData->setAlarmFrontEndBackground(value);
+}
 //void MachineBackend::setWifiDisabled(bool value)
 //{
 //    qDebug() << metaObject()->className() << __func__ << value << thread() ;

@@ -41,6 +41,7 @@ class MachineProxy : public QObject {
   Q_ENUM(MachineEnums::ResourceMonitor)
   Q_ENUM(MachineEnums::EnumDigitalState)
   Q_ENUM(MachineEnums::FilterLifeCalculationMode)
+  Q_ENUM(MachineEnums::DisplayTheme)
 
 public:
   explicit MachineProxy(QObject *parent = nullptr);
@@ -399,6 +400,10 @@ public slots:
 
     void setLogoutTime(int value);
     void setCFR21Part11Enable(bool value);
+	
+	    void setDisplayTheme(short value);
+    void setAlarmFrontEndBackground(bool value);
+	
 private slots:
   void doStopping();
 

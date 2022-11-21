@@ -8,16 +8,18 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 
+import ModulesCpp.Machine 1.0
 import UI.CusCom 1.1
 
 Rectangle {
     //    height: parent.height
     //    width: parent.width + 150
     //    x: -150
-    color: hightlighted ? "#DA0000" : "#0F2952"
+    property bool darkMode: MachineData.displayTheme === MachineAPI.THEME_DARK
+    color: darkMode ? "black" : (hightlighted ? "#DA0000" : "#0F2952")
     radius: 5
     border.width: 2
-    border.color: "#777777"
+    border.color: hightlighted && darkMode ? "#DA0000" : "#777777"
 
     property bool hightlighted: false
 
@@ -33,7 +35,10 @@ Rectangle {
 
         RowLayout {
             anchors.fill: parent
-            anchors.margins: 1
+            anchors.leftMargin: 20
+            anchors.topMargin: 1
+            anchors.rightMargin: 1
+            anchors.bottomMargin: 1
 
             Item {
                 id: statusLabelItem

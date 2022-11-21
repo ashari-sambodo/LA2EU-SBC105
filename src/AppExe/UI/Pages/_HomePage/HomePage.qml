@@ -46,16 +46,32 @@ ViewApp {
                         Rectangle {
                             id: headerBackgroundRectangle
                             anchors.fill: parent
-                            color: "#db6400"
+                            color: props.darkMode ? "black" : "#db6400"
                             radius: 5
                             border.width: 3
-                            border.color: "#dddddd"
+                            border.color: props.darkMode ? /*"#B2A18D"*/"#db6400" : "#dddddd"
 
                             Image {
                                 id: headerBgImage
                                 anchors.fill: parent
                                 source: "qrc:/UI/Pictures/header-red-bg.png"
                                 visible: false
+                                states: [
+                                    State {
+                                        when: props.darkMode && MachineData.alarmFrontEndBackground
+                                        PropertyChanges {
+                                            target: headerBgImage
+                                            source: "qrc:/UI/Pictures/header-black-red-bg.png"
+                                        }
+                                    },
+                                    State {
+                                        when: props.darkMode && !MachineData.alarmFrontEndBackground
+                                        PropertyChanges {
+                                            target: headerBgImage
+                                            source: "qrc:/UI/Pictures/header-black-grey-bg.png"
+                                        }
+                                    }
+                                ]
                             }
 
                             TextApp {
@@ -308,7 +324,8 @@ ViewApp {
                                 when: props.warmingUpActive
                                 PropertyChanges {
                                     target: headerBackgroundRectangle
-                                    color: "#db6400"
+                                    color: props.darkMode ? "black" : "#db6400"
+                                    border.color: props.darkMode ? "#db6400" : "#dddddd"
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
@@ -321,7 +338,8 @@ ViewApp {
                                 when: props.postPurgeActive
                                 PropertyChanges {
                                     target: headerBackgroundRectangle
-                                    color: "#db6400"
+                                    color: props.darkMode ? "black" : "#db6400"
+                                    border.color: props.darkMode ? "#db6400" : "#dddddd"
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
@@ -334,7 +352,8 @@ ViewApp {
                                 when: (props.sashWindowState == MachineAPI.SASH_STATE_FULLY_CLOSE_SSV) && !props.uvState
                                 PropertyChanges {
                                     target: headerBackgroundRectangle
-                                    color: props.uvInstalled ? "#4b1263" : "#0F2952"
+                                    color: props.uvInstalled ? (props.darkMode ? "black" : "#4b1263" ) : (props.darkMode ? "black" : "#0F2952")
+                                    border.color: props.darkMode ? "#4b1263" : "#dddddd"
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
@@ -346,7 +365,8 @@ ViewApp {
                                 when: (props.sashWindowState == MachineAPI.SASH_STATE_FULLY_CLOSE_SSV) && props.uvState
                                 PropertyChanges {
                                     target: headerBackgroundRectangle
-                                    color: "#8E44AD"
+                                    color: props.darkMode ? "black" : "#8E44AD"
+                                    border.color: props.darkMode ? "#8E44AD" : "#dddddd"
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
@@ -358,7 +378,8 @@ ViewApp {
                                 when: props.fanState == MachineAPI.FAN_STATE_STANDBY
                                 PropertyChanges {
                                     target: headerBackgroundRectangle
-                                    color: "#2980b9"
+                                    color: props.darkMode ? "black" : "#2980b9"
+                                    border.color: props.darkMode ? "#2980b9" : "#dddddd"
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
@@ -370,7 +391,8 @@ ViewApp {
                                 when: props.fanState == MachineAPI.FAN_STATE_ON
                                 PropertyChanges {
                                     target: headerBackgroundRectangle
-                                    color: "#18AA00"
+                                    color: props.darkMode ? "black" : "#18AA00"
+                                    border.color: props.darkMode ? "#18AA00" : "#dddddd"
                                 }//
                                 PropertyChanges {
                                     target: headerStatusText
@@ -410,7 +432,7 @@ ViewApp {
                                 id: bsc3DItem
                                 Layout.minimumWidth: 300
                                 Layout.fillHeight: true
-
+                                //visible: false
                                 /// give the space
                             }
 
@@ -483,15 +505,17 @@ ViewApp {
                                                     when: props.expTimerTimeout
                                                     PropertyChanges {
                                                         target: timerStatus
-                                                        color: "#c0392b"
-                                                        textValue: qsTr("Time is up!")
+                                                        color: props.darkMode ? "black" :"#c0392b"
+                                                        border.color: props.darkMode ? "#c0392b" : "#777777"
+                                                        textValue: ":" + qsTr("Time is up!")
                                                     }
                                                 },
                                                 State {
                                                     when: props.expTimerIsPaused
                                                     PropertyChanges {
                                                         target: timerStatus
-                                                        color: "#db6400"
+                                                        color: props.darkMode ? "black" :"#db6400"
+                                                        border.color: props.darkMode ? "#db6400" : "#777777"
                                                     }
                                                 }
                                             ]
@@ -738,7 +762,8 @@ ViewApp {
                                                     }//
                                                     PropertyChanges {
                                                         target: downflowStatus
-                                                        color: "#db6400"
+                                                        color: props.darkMode ? "black" :"#db6400"
+                                                        border.color: props.darkMode ? "#db6400" : "#777777"
                                                     }
                                                 }//
                                                 ,
@@ -774,7 +799,8 @@ ViewApp {
                                                               && (props.alarmTempLow == MachineAPI.ALARM_NORMAL_STATE))
                                                     PropertyChanges {
                                                         target: downflowStatus
-                                                        color: "#4ECC44"
+                                                        color: props.darkMode ? "black" :"#4ECC44"
+                                                        border.color: props.darkMode ? "#4ECC44" : "#777777"
                                                     }//
                                                 }//
                                             ]//
@@ -826,7 +852,8 @@ ViewApp {
                                                     }
                                                     PropertyChanges {
                                                         target: inflowStatus
-                                                        color: "#db6400"
+                                                        color: props.darkMode ? "black" :"#db6400"
+                                                        border.color: props.darkMode ? "#db6400" : "#777777"
                                                     }
                                                 }
                                                 ,
@@ -848,7 +875,8 @@ ViewApp {
                                                              && (props.alarmTempLow == MachineAPI.ALARM_NORMAL_STATE))
                                                     PropertyChanges {
                                                         target: inflowStatus
-                                                        color: "#279F40"
+                                                        color: props.darkMode ? "black" :"#279F40"
+                                                        border.color: props.darkMode ? "#279F40" : "#777777"
                                                     }//
                                                 }//
                                             ]//
@@ -940,7 +968,8 @@ ViewApp {
                                                     when: props.uvState
                                                     PropertyChanges {
                                                         target: uvTimeStatus
-                                                        color: "#8E44AD"
+                                                        color: props.darkMode ? "black" :"#8E44AD"
+                                                        border.color: props.darkMode ? "#8E44AD" : "#777777"
                                                     }//
                                                 }//
                                             ]//
@@ -1414,10 +1443,10 @@ ViewApp {
 
                         Rectangle {
                             anchors.fill: parent
-                            color: "#0F2952"
+                            color: props.darkMode ? "black" : "#0F2952"
                             radius: 5
                             border.width: 1
-                            border.color: "#dddddd"
+                            border.color: props.darkMode ? "#B2A18D" : "#dddddd"
 
                             RowLayout {
                                 anchors.fill: parent
@@ -1497,6 +1526,10 @@ ViewApp {
                                         id: textTeleprompter
                                         height: textHeightArea
                                         width: textTeleprompterLoader.width
+                                        color: props.darkMode ? "black" : "#0F2952"
+                                        radius: 5
+                                        border.width: 2
+                                        border.color: /*props.darkMode ? "#B2A18D" : "#dddddd"*/"#880000"
                                         //                                            text: qsTr("The sash height is not in the normal working height (Safe height).\nSet it back to normal working height!")
                                         //                                            text: qsTr("The inflow value is too low!\nPotentially reducing the protecttive capabilities of the cabinet.\nEnsure that sensors and ventilation paths are not obstructed.")
 
@@ -1666,10 +1699,10 @@ ViewApp {
                                 id: tempClockDate
                                 Layout.fillHeight: true
                                 Layout.fillWidth: true
-                                color: "#0F2952"
+                                color: props.darkMode ? "black" : "#0F2952"
                                 radius: 5
                                 border.width: 1
-                                border.color: "#dddddd"
+                                border.color: props.darkMode ? "#B2A18D" : "#dddddd"
 
                                 RowLayout {
                                     anchors.fill: parent
@@ -2077,11 +2110,7 @@ ViewApp {
                 Layout.fillWidth: true
                 Layout.minimumHeight: 110
 
-                Rectangle {
-                    anchors.fill: parent
-                    color: "#0F2952"
-                    radius: 5
-
+                BackgroundButtonBarApp {
                     RowLayout {
                         id: footerRowLayout
                         anchors.fill: parent
@@ -2095,7 +2124,7 @@ ViewApp {
                             CusComPage.ControlButtonApp {
                                 id: menuControlButton
                                 anchors.fill: parent
-
+                                darkMode: MachineData.displayTheme === MachineAPI.THEME_DARK
                                 sourceImage: "qrc:/UI/Pictures/controll/Menu_W.png"
 
                                 states: [
@@ -2156,7 +2185,7 @@ ViewApp {
                             CusComPage.ControlButtonApp {
                                 id: fanButton
                                 anchors.fill: parent
-
+                                darkMode: MachineData.displayTheme === MachineAPI.THEME_DARK
                                 sourceImage: "qrc:/UI/Pictures/controll/Fan_W.png"
 
                                 Loader {
@@ -2297,7 +2326,7 @@ ViewApp {
                             CusComPage.ControlButtonApp {
                                 id: lightButton
                                 anchors.fill: parent
-
+                                darkMode: MachineData.displayTheme === MachineAPI.THEME_DARK
                                 sourceImage: "qrc:/UI/Pictures/controll/Light_W.png"
 
                                 TextApp {
@@ -2398,6 +2427,7 @@ ViewApp {
                                 sourceComponent: CusComPage.ControlButtonApp {
                                     id: socketButton
                                     anchors.fill: parent
+                                    darkMode: MachineData.displayTheme === MachineAPI.THEME_DARK
 
                                     sourceImage: "qrc:/UI/Pictures/controll/Socket_W.png"
 
@@ -2463,6 +2493,7 @@ ViewApp {
                                 sourceComponent: CusComPage.ControlButtonApp {
                                     id: gasButton
                                     anchors.fill: parent
+                                    darkMode: MachineData.displayTheme === MachineAPI.THEME_DARK
 
                                     sourceImage: "qrc:/UI/Pictures/controll/Gas_W.png"
 
@@ -2526,6 +2557,7 @@ ViewApp {
                                 sourceComponent: CusComPage.ControlButtonApp {
                                     id: uvButton
                                     anchors.fill: parent
+                                    darkMode: MachineData.displayTheme === MachineAPI.THEME_DARK
 
                                     sourceImage: "qrc:/UI/Pictures/controll/UV_W.png"
 
@@ -2619,6 +2651,7 @@ ViewApp {
                                 id: muteAlarmButton
                                 anchors.fill: parent
                                 //stateInterlock: !props.alarmsState
+                                darkMode: MachineData.displayTheme === MachineAPI.THEME_DARK
 
                                 sourceImage: "qrc:/UI/Pictures/controll/Mute_W.png"
 
@@ -2864,6 +2897,8 @@ ViewApp {
 
             property bool alarmPrevMaintActive: false
             property string alarmPrevMaintenanceReminderStr: ""
+	    
+            property bool darkMode: false
 
             property string usbListStr: ""
             property var usbList: []
@@ -3094,6 +3129,8 @@ ViewApp {
 
                 props.tempAmbientHighStrf =  Qt.binding(function(){ return "%1°%2".arg(MachineData.envTempHighestLimit).arg(MachineData.measurementUnit ? "F" : "C")})
                 props.tempAmbientLowStrf =  Qt.binding(function(){ return "%1°%2".arg(MachineData.envTempLowestLimit).arg(MachineData.measurementUnit ? "F" : "C")})
+
+                props.darkMode = Qt.binding(function(){return MachineData.displayTheme === MachineAPI.THEME_DARK})
 
                 /// show dialog progress when fan state will be switching
                 MachineData.fanSwithingStateTriggered.connect(props.showFanProgressSwitchingState)

@@ -1200,6 +1200,22 @@ void MachineProxy::setCFR21Part11Enable(bool value)
         Qt::QueuedConnection);
 }
 
+void MachineProxy::setDisplayTheme(short value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setDisplayTheme(value);
+    },
+    Qt::QueuedConnection);
+}
+
+void MachineProxy::setAlarmFrontEndBackground(bool value)
+{
+    QMetaObject::invokeMethod(m_machineBackend.data(), [&, value](){
+        m_machineBackend->setAlarmFrontEndBackground(value);
+    },
+    Qt::QueuedConnection);
+}
+
 
 void MachineProxy::setAlarmExperimentTimerIsOver(short value) {
   QMetaObject::invokeMethod(
