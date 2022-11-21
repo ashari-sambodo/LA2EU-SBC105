@@ -1378,6 +1378,7 @@ ViewApp {
 
         /// Called once but after onResume
         Component.onCompleted: {
+
         }//
 
         /// Execute This Every This Screen Active/Visible
@@ -1385,12 +1386,12 @@ ViewApp {
 
             /// onResume
             Component.onCompleted: {
-                //                    //console.debug("StackView.Active");
+                //// console.debug("StackView.Active")
 
                 let extradata = IntentApp.getExtraData(intent)
-                //                    //console.debug(JSON.stringify(extradata))
+                //// console.debug(JSON.stringify(extradata))
                 if (extradata['pid'] !== undefined) {
-                    //                        //console.debug(extradata['pid'])
+                    //// console.debug(extradata['pid'])
                     props.pid = extradata['pid']
 
                     props.measureUnit = extradata['measureUnit']

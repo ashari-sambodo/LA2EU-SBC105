@@ -903,8 +903,8 @@ ViewApp {
                                     }//
 
                                     //property int count: 2
-                                    property int count: 180
-                                    Component.onCompleted: {count = Qt.binding(function(){return props.stabilizingTimer})}
+                                    property int count: props.stabilizingTimer
+                                    //Component.onCompleted: {count = Qt.binding(function(){return props.stabilizingTimer})}
                                 }//
                             }//
 
@@ -1308,6 +1308,9 @@ ViewApp {
 
             property bool calibrateDone: false
             property int calibrationFailCode: 0
+
+            property int dfaSensorConstant: 0
+            property int ifaSensorConstant: 0
         }//
 
         /// Called once but after onResume
@@ -1393,10 +1396,18 @@ ViewApp {
                                          })//
                 }//
 
-                if(!MachineData.getDownflowSensorConstant() && !MachineData.getInflowSensorConstant())
-                    props.stabilizingTimer = MachineData.warmingUpTime <= 180 ? MachineData.warmingUpTime : 180
+                props.dfaSensorConstant = MachineData.getDownflowSensorConstant()
+                props.ifaSensorConstant = MachineData.getInflowSensorConstant()
+
+                if(!props.dfaSensorConstant && !props.ifaSensorConstant)
+                    props.stabilizingTimer = 60 // Degree C Sensor
                 else
                     props.stabilizingTimer = 180
+
+                //                if(!MachineData.getDownflowSensorConstant() && !MachineData.getInflowSensorConstant())
+                //                    props.stabilizingTimer = MachineData.warmingUpTime <= 180 ? MachineData.warmingUpTime : 180
+                //                else
+                //                    props.stabilizingTimer = 180
             }//
 
             /// onPause
