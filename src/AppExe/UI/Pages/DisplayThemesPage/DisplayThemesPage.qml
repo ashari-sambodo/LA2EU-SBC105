@@ -60,6 +60,7 @@ ViewApp {
 
                         Column {
                             Image {
+                                anchors.horizontalCenter: parent.horizontalCenter
                                 opacity: mouseArea.pressed ? 0.7 : 1
                                 source: modelData.imgSrc
                                 //                                opacity:
@@ -82,6 +83,7 @@ ViewApp {
                             }//
 
                             TextApp {
+                                anchors.horizontalCenter: parent.horizontalCenter
                                 text: modelData.text
                             }//
                         }//

@@ -152,7 +152,8 @@ ViewApp {
                     Image {
                         Layout.fillHeight: true
                         Layout.minimumWidth: 120
-                        source: "qrc:/UI/Pictures/HomeButton.png"
+                        source: HeaderAppService.darkMode ? "qrc:/UI/Pictures/dark/HomeButton.png"
+                                                          : "qrc:/UI/Pictures/HomeButton.png"
                         opacity: homeMouseArea.pressed ? 0.5 : 1
 
                         MouseArea {
@@ -209,7 +210,8 @@ ViewApp {
                                 Rectangle {
                                     height: 70
                                     width: pageIndicatorItem.width / pageIndicatorRepeater.count - 2
-                                    color: props.currentIndexMenuGroup === index ? "#0F2952" : "transparent"
+                                    color: props.currentIndexMenuGroup === index ? (HeaderAppService.darkMode ? "transparent" : "#0F2952")
+                                                                                 : "transparent"
                                     radius: 5
                                     border.width: 1
                                     border.color: "#dddddd"
@@ -270,7 +272,8 @@ ViewApp {
                     Image {
                         Layout.fillHeight: true
                         Layout.minimumWidth: 120
-                        source: "qrc:/UI/Pictures/LoginButton.png"
+                        source: HeaderAppService.darkMode ? "qrc:/UI/Pictures/dark/LoginButton.png"
+                                                          : "qrc:/UI/Pictures/LoginButton.png"
 
                         MouseArea {
                             anchors.fill: parent

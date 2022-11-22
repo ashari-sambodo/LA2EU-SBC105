@@ -25,7 +25,8 @@ Item {
         active: !darkMode
         anchors.fill: parent
         sourceComponent:  Image {
-            source: !button.stateInterlock ? "../../../Pictures/button_bg.png" : "../../../Pictures/button_gray_bg.png"
+            source: !button.stateInterlock ? "../../../Pictures/button_bg.png"
+                                           : "../../../Pictures/button_gray_bg.png"
         }//
     }//
 

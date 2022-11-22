@@ -432,7 +432,7 @@ ViewApp {
                                 id: bsc3DItem
                                 Layout.minimumWidth: 300
                                 Layout.fillHeight: true
-                                //visible: false
+                                visible: MachineData.displayTheme === MachineAPI.THEME_NORMAL
                                 /// give the space
                             }
 
@@ -1098,13 +1098,16 @@ ViewApp {
                                             height: 100
                                             width: 150
 
-                                            sourceImage: "qrc:/UI/Pictures/controll/Button_Up.png"
+                                            sourceImage: "qrc:/UI/%1controll/Button_Up.png".arg(folderIcon)
                                             imageFeature.anchors.margins: 1
 
                                             background.sourceComponent: Item{}
 
                                             stateInterlock: props.sashMotorizeUpInterlocked
                                             stateIO: props.sashMotorizeState == MachineAPI.MOTOR_SASH_STATE_UP
+
+                                            property string folderIcon: HeaderAppService.darkMode ? "Pictures/dark/"
+                                                                                                  : "Pictures/"
 
                                             onClicked: {
                                                 if (stateInterlock) {
@@ -1140,7 +1143,7 @@ ViewApp {
                                                     when: sashMotorUpButton.stateInterlock
                                                     PropertyChanges {
                                                         target: sashMotorUpButton
-                                                        sourceImage: "qrc:/UI/Pictures/controll/Button_Up_Gray.png"
+                                                        sourceImage: "qrc:/UI/%1controll/Button_Up_Gray.png".arg(folderIcon)
                                                     }
                                                 }
                                                 ,
@@ -1148,7 +1151,7 @@ ViewApp {
                                                     when: sashMotorUpButton.stateIO
                                                     PropertyChanges {
                                                         target: sashMotorUpButton
-                                                        sourceImage: "qrc:/UI/Pictures/controll/Button_Up_Run.png"
+                                                        sourceImage: "qrc:/UI/%1controll/Button_Up_Run.png".arg(folderIcon)
                                                     }
                                                 }
                                             ]
@@ -1159,7 +1162,7 @@ ViewApp {
                                             height: 100
                                             width: 150
 
-                                            sourceImage: "qrc:/UI/Pictures/controll/Button_Down.png"
+                                            sourceImage: "qrc:/UI/%1controll/Button_Down.png".arg(folderIcon)
                                             imageFeature.anchors.margins: 1
 
                                             background.sourceComponent: Item{}
@@ -1167,6 +1170,9 @@ ViewApp {
                                             stateInterlock: props.sashMotorizeDownInterlocked
                                             stateIO: props.sashMotorizeState == MachineAPI.MOTOR_SASH_STATE_DOWN
                                             pressedAndHoldInterval: 250
+
+                                            property string folderIcon: HeaderAppService.darkMode ? "Pictures/dark/"
+                                                                                                  : "Pictures/"
 
                                             Timer{
                                                 id: timerForTurnOffMotorDown
@@ -1215,7 +1221,7 @@ ViewApp {
                                                     when: sashMotorDownButton.stateInterlock
                                                     PropertyChanges {
                                                         target: sashMotorDownButton
-                                                        sourceImage: "qrc:/UI/Pictures/controll/Button_Down_Gray.png"
+                                                        sourceImage: "qrc:/UI/%1controll/Button_Down_Gray.png".arg(folderIcon)
                                                     }
                                                 }
                                                 ,
@@ -1223,7 +1229,7 @@ ViewApp {
                                                     when: sashMotorDownButton.stateIO
                                                     PropertyChanges {
                                                         target: sashMotorDownButton
-                                                        sourceImage: "qrc:/UI/Pictures/controll/Button_Down_Run.png"
+                                                        sourceImage: "qrc:/UI/%1controll/Button_Down_Run.png".arg(folderIcon)
                                                     }
                                                 }
                                             ]
@@ -1245,6 +1251,7 @@ ViewApp {
                         /// including status bar
                         BiosafetyCabinet3D {
                             id: cabinet3D
+                            visible: MachineData.displayTheme === MachineAPI.THEME_NORMAL
                             x : bsc3DItem.x
                             y : bsc3DItem.y
                             height: bsc3DItem.height

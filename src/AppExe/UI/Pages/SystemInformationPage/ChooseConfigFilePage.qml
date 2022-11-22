@@ -323,13 +323,7 @@ ViewApp {
                 Layout.fillWidth: true
                 Layout.minimumHeight: 70
 
-                Rectangle {
-                    anchors.fill: parent
-                    color: "#0F2952"
-                    //                    border.color: "#effffd"
-                    //                    border.width: 1
-                    radius: 5
-
+               BackgroundButtonBarApp {
                     Item {
                         anchors.fill: parent
                         anchors.margins: 5

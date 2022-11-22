@@ -129,9 +129,6 @@
         <file>UI/Pages/CertificationReportPage/Fragments/DownflowGridFieldFragment.qml</file>
         <file>UI/Pages/CertificationReportPage/Fragments/ExportFieldFragment.qml</file>
         <file>UI/Pages/ManualInputDataPage/FinishManualInputDataPage.qml</file>
-        <file>UI/Pages/ResetParametersPage/ResetParametersPage.qml</file>
-        <file>UI/Pages/ResetParametersPage/Components/EnumIndex.qml</file>
-        <file>UI/Pages/ResetParametersPage/ResetParametersPage_copy.qml</file>
         <file>UI/Pages/ResetSashCycleMeterPage/ResetSashCycleMeterPage.qml</file>
         <file>UI/Pages/TemperatureAmbOperationSetPage/TemperatureAmbOperationSetPage.qml</file>
         <file>UI/Pages/ParticleCounterInfoPage/ParticleCounterInfoPage.qml</file>
@@ -156,7 +153,7 @@
         <file>UI/Pages/SashMotorOffFullyClosedDelay/SashMotorOffFullyClosedDelay.qml</file>
         <file>UI/Pages/DelayAlarmAirflowPage/DelayAlarmAirflowPage.qml</file>
         <file>UI/Pages/ScreenSaverSettingPage/ScreenSaverSettingPage.qml</file>
-	<file>UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml</file>
+        <file>UI/Pages/PreventiveMaintenancePage/PreventiveMaintenancePage.qml</file>
         <file>UI/Pages/PreventiveMaintenancePage/Pages/PMChecklistPage.qml</file>
         <file>UI/Pages/PreventiveMaintenancePage/Pages/Components/RowItemApp.qml</file>
         <file>UI/Pages/CertificationReminderDatePage/CertificationReminderDatePage.qml</file>
@@ -193,6 +190,6 @@
         <file>UI/Pages/ResetFilterLifePage/FilterLifeSettingPage.qml</file>
         <file>UI/Pages/CFR21Part11Page/CFR21Part11Page.qml</file>
         <file>UI/Pages/LogoutTimePage/LogoutTimePage.qml</file>
-	        <file>UI/Pages/DisplayThemesPage/DisplayThemesPage.qml</file>
+        <file>UI/Pages/DisplayThemesPage/DisplayThemesPage.qml</file>
     </qresource>
 </RCC>
