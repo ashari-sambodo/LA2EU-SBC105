@@ -1341,6 +1341,10 @@ ViewApp {
                                         startView(intent)
                                     }//
                                 }//
+                                onPressAndHold: {
+                                    intent = IntentApp.create("qrc:/UI/Pages/LeavePage/LeavePage.qml", {})
+                                    startView(intent)
+                                }
                             }//
 
                             /// Badge Notification

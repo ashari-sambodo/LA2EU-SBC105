@@ -12284,6 +12284,12 @@ void MachineBackend::onDummyStateNewConnection()
             }
         }
 
+        if(message == QLatin1String("#alarmPanel#state#1")){
+            pData->setFrontPanelAlarm(MachineEnums::ALARM_ACTIVE_STATE);
+        }else if(message == QLatin1String("#alarmPanel#state#0")){
+            pData->setFrontPanelAlarm(MachineEnums::ALARM_NORMAL_STATE);
+        }//
+
         if(message == QLatin1String("#temp#dummy#1")){
             m_pTemperature->setDummyStateEnable(1);
         }
