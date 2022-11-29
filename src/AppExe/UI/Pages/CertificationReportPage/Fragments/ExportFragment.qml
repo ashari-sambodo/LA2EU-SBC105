@@ -272,9 +272,11 @@ Item {
         property int    tempRoomImp:        utils.celciusToFahrenheit(MachineData.temperatureCelcius)
         property string pressRoom:          "1.0005"
         property string paoCons:            "0.0005"
+        property string paoConsExh:            "0.0005"
         property string dfParPenet:         "0.0000"
         property string ifParPenet:         "0.0000"
         property int    noLaskin:           2
+        property int    noLaskinExh:           2
         property string    damperOpen:         "10"
         property string    damperOpenImp:         "2/5"
 
@@ -356,10 +358,13 @@ Item {
             "room_press":           settingsCert.pressRoom,
 
             "pao_con":              settingsCert.paoCons,
+            "pao_con_exh":              settingsCert.paoConsExh,
+            "pao_con":              settingsCert.paoCons,
             "df_par_penet":         settingsCert.dfParPenet,
             "if_par_penet":         settingsCert.ifParPenet,
 
             "noz_laskin":           settingsCert.noLaskin,
+            "noz_laskin_exh":           settingsCert.noLaskinExh,
             "damper_opening":       MachineData.measurementUnit ? settingsCert.damperOpenImp : settingsCert.damperOpen,
 
             "grid_ifa_nom":         settingsGeneral.ifaCalGridNom,
@@ -395,15 +400,15 @@ Item {
             "ducy_nom_dfa":         settingsGeneral.dfaCalGridNomDcy,
             "rpm_nom_dfa":          settingsGeneral.dfaCalGridNomRpm,
 
-            "grid_dfa_min":         settingsGeneral.dfaCalGridMin,
-            "grid_dfa_min_avg":     MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelImp : settingsGeneral.dfaCalGridMinVel,
-            "grid_dfa_min_total":   MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelTotImp : settingsGeneral.dfaCalGridMinVelTot,
-            "grid_dfa_min_dev":     MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelDevImp : settingsGeneral.dfaCalGridMinVelDev,
-            "grid_dfa_min_devp":    settingsGeneral.dfaCalGridMinVelDevp,
-            "grid_dfa_min_lowest":  MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelLowImp : settingsGeneral.dfaCalGridMinVelLow,
-            "grid_dfa_min_highest": MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelHighImp : settingsGeneral.dfaCalGridMinVelHigh,
-            "grid_dfa_min_count":   MachineData.machineProfile['airflow']['dfa']['minimum']['grid']['count'],
-            "grid_dfa_min_columns": MachineData.machineProfile['airflow']['dfa']['minimum']['grid']['columns'],
+            "grid_dfa_fail":         settingsGeneral.dfaCalGridMin,
+            "grid_dfa_fail_avg":     MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelImp : settingsGeneral.dfaCalGridMinVel,
+            "grid_dfa_fail_total":   MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelTotImp : settingsGeneral.dfaCalGridMinVelTot,
+            "grid_dfa_fail_dev":     MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelDevImp : settingsGeneral.dfaCalGridMinVelDev,
+            "grid_dfa_fail_devp":    settingsGeneral.dfaCalGridMinVelDevp,
+            "grid_dfa_fail_lowest":  MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelLowImp : settingsGeneral.dfaCalGridMinVelLow,
+            "grid_dfa_fail_highest": MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelHighImp : settingsGeneral.dfaCalGridMinVelHigh,
+            "grid_dfa_fail_count":   MachineData.machineProfile['airflow']['dfa']['minimum']['grid']['count'],
+            "grid_dfa_fail_columns": MachineData.machineProfile['airflow']['dfa']['minimum']['grid']['columns'],
             "ducy_min_dfa":         settingsGeneral.dfaCalGridMinDcy,
             "rpm_min_dfa":          settingsGeneral.dfaCalGridMinRpm,
 

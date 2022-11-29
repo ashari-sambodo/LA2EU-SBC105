@@ -204,7 +204,7 @@ Item {
             spacing: 5
 
             TextApp {
-                text: qsTr("PAO concentration")
+                text: qsTr("PAO concentration (D/F | EXH)")
             }//
 
             Row {
@@ -212,16 +212,30 @@ Item {
 
                 TextFieldApp {
                     id: paoConTextField
-                    width: 200
+                    width: 150
                     height: 40
                     text: "0.0005"
 
                     onPressed: {
-                        KeyboardOnScreenCaller.openNumpad(this, qsTr("PAO concentration"))
+                        KeyboardOnScreenCaller.openNumpad(this, qsTr("PAO concentration (Downflow)"))
                     }//
 
                     onAccepted: {
                         settings.paoCons = text
+                    }//
+                }//
+                TextFieldApp {
+                    id: paoConExhTextField
+                    width: 150
+                    height: 40
+                    text: "0.0005"
+
+                    onPressed: {
+                        KeyboardOnScreenCaller.openNumpad(this, qsTr("PAO concentration (Exhaust)"))
+                    }//
+
+                    onAccepted: {
+                        settings.paoConsExh = text
                     }//
                 }//
 
@@ -237,21 +251,37 @@ Item {
             spacing: 5
 
             TextApp {
-                text: qsTr("No Laskin Nozzles")
+                text: qsTr("No Laskin Nozzles (D/F | EXH)")
             }//
+            Row{
+                spacing: 2
+                TextFieldApp {
+                    id: noLaskinTextField
+                    width: 100
+                    height: 40
+                    //                text: "2"
 
-            TextFieldApp {
-                id: noLaskinTextField
-                width: 100
-                height: 40
-                //                text: "2"
+                    onPressed: {
+                        KeyboardOnScreenCaller.openNumpad(this, qsTr("No Laskin Nozzles (Downflow)"))
+                    }//
 
-                onPressed: {
-                    KeyboardOnScreenCaller.openNumpad(this, qsTr("No Laskin Nozzles"))
+                    onAccepted: {
+                        settings.noLaskin = text
+                    }//
                 }//
+                TextFieldApp {
+                    id: noLaskinExhTextField
+                    width: 100
+                    height: 40
+                    //                text: "2"
 
-                onAccepted: {
-                    settings.noLaskin = text
+                    onPressed: {
+                        KeyboardOnScreenCaller.openNumpad(this, qsTr("No Laskin Nozzles (Exhaust)"))
+                    }//
+
+                    onAccepted: {
+                        settings.noLaskinExh = text
+                    }//
                 }//
             }//
         }//
@@ -387,9 +417,11 @@ Item {
         property int tempRoomImp:       utils.celciusToFahrenheit(MachineData.temperatureCelcius)
         property string pressRoom:      "1.0005"
         property string paoCons:        "0.0005"
+        property string paoConsExh:        "0.0005"
         property string dfParPenet:     "0.0000"
         property string ifParPenet:     "0.0000"
         property int    noLaskin:       2
+        property int    noLaskinExh:       2
         property string damperOpen:     "10"
         property string damperOpenImp:  "2/5"
 
@@ -405,7 +437,9 @@ Item {
                 roomTempTextField.text = tempRoom
             roomPressTextField.text = pressRoom
             paoConTextField.text = paoCons
+            paoConExhTextField.text = paoConsExh
             noLaskinTextField.text = noLaskin
+            noLaskinExhTextField.text = noLaskin
             damOpTextField.text = MachineData.measurementUnit ? damperOpenImp : damperOpen
             dfParticlePenetration.text = dfParPenet
             ifParticlePenetration.text = ifParPenet
