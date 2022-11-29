@@ -452,22 +452,23 @@ Item {
 
                 let meaUnitStr = MachineData.measurementUnit ? 'imp' : 'metric'
                 let precision = MachineData.measurementUnit ? 0 : 2
+                let precisionTol = MachineData.measurementUnit ? 0 : 3
 
                 let ifnpc = Number(MachineData.machineProfile['airflow']['ifa']['dim']["nominal"][meaUnitStr]['velocity']).toFixed(precision)
                     + " ± "
-                    + Number(MachineData.machineProfile['airflow']['ifa']['dim']["nominal"][meaUnitStr]['velocityTol']).toFixed(precision)
+                    + Number(MachineData.machineProfile['airflow']['ifa']['dim']["nominal"][meaUnitStr]['velocityTol']).toFixed(precisionTol)
                     + " "
                     + (MachineData.measurementUnit ? "fpm" : "m/s")
 
                 let ifmpc = Number(MachineData.machineProfile['airflow']['ifa']['dim']["minimum"][meaUnitStr]['velocity']).toFixed(precision)
                     + " ± "
-                    + Number(MachineData.machineProfile['airflow']['ifa']['dim']["minimum"][meaUnitStr]['velocityTol']).toFixed(precision)
+                    + Number(MachineData.machineProfile['airflow']['ifa']['dim']["minimum"][meaUnitStr]['velocityTol']).toFixed(precisionTol)
                     + " "
                     + (MachineData.measurementUnit ? "fpm" : "m/s")
 
                 let ifspc = Number(MachineData.machineProfile['airflow']['ifa']['dim']["stb"][meaUnitStr]['velocity']).toFixed(precision)
                     + " ± "
-                    + Number(MachineData.machineProfile['airflow']['ifa']['dim']["stb"][meaUnitStr]['velocityTol']).toFixed(precision)
+                    + Number(MachineData.machineProfile['airflow']['ifa']['dim']["stb"][meaUnitStr]['velocityTol']).toFixed(precisionTol)
                     + " "
                     + (MachineData.measurementUnit ? "fpm" : "m/s")
 

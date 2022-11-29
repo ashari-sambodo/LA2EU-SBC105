@@ -732,7 +732,7 @@ Item {
             dfaAdcNomFactoryTextField.text  = MachineData.getDownflowAdcPointFactory(2)
             dfaAdcRangeTextField.text       = MachineData.getDownflowAdcPointFactory(2) - MachineData.getDownflowAdcPointFactory(0)
             /// INFLOW
-            ifaSensorVoltageTextField.text  = dfaSensorVdc
+            ifaSensorVoltageTextField.text  = ifaSensorVdc
             ifaAdcActual                    = MachineData.ifaAdcConpensation
             ifaAdcActualTextField.text      = ifaAdcActual
             ifaAdcNomTextField.text         = MachineData.getInflowAdcPointFactory(2)
