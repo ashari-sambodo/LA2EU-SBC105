@@ -409,8 +409,8 @@ Item {
             "grid_dfa_fail_highest": MachineData.measurementUnit ? settingsGeneral.dfaCalGridMinVelHighImp : settingsGeneral.dfaCalGridMinVelHigh,
             "grid_dfa_fail_count":   MachineData.machineProfile['airflow']['dfa']['minimum']['grid']['count'],
             "grid_dfa_fail_columns": MachineData.machineProfile['airflow']['dfa']['minimum']['grid']['columns'],
-            "ducy_min_dfa":         settingsGeneral.dfaCalGridMinDcy,
-            "rpm_min_dfa":          settingsGeneral.dfaCalGridMinRpm,
+            "ducy_fail_dfa":         settingsGeneral.dfaCalGridMinDcy,
+            "rpm_fail_dfa":          settingsGeneral.dfaCalGridMinRpm,
 
             "grid_dfa_max":         settingsGeneral.dfaCalGridMax,
             "grid_dfa_max_avg":     MachineData.measurementUnit ? settingsGeneral.dfaCalGridMaxVelImp : settingsGeneral.dfaCalGridMaxVel,
