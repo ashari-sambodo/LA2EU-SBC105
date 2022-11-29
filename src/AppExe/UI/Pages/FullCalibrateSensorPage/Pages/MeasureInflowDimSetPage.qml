@@ -133,6 +133,26 @@ ViewApp {
                                         border.color: "#dddddd"
                                         radius: 5
 
+                                        Row{
+                                            spacing: 5
+                                            CheckBox {
+                                                id: policyCheckBox
+                                                height: 60
+                                                width: 60
+                                                font.pixelSize: 32
+                                                onCheckedChanged: {
+                                                    props.autoNextFillGrid = checked
+                                                }
+                                            }
+                                            TextApp{
+                                                height: 60
+                                                //width: 40
+                                                text: qsTr("Auto-next")
+                                                verticalAlignment: Text.AlignVCenter
+                                                font.pixelSize: 32
+                                            }
+                                        }//
+
                                         Flickable {
                                             id: girdFlick
                                             anchors.centerIn: parent
@@ -163,6 +183,7 @@ ViewApp {
                                                 }
 
                                                 function onClickedItem(index, value, valueStrf) {
+                                                    props.indexForAutoNextFillGrid = index
                                                     //                                            //console.debug(index)
                                                     bufferTextInput.text = valueStrf
                                                     bufferTextInput.lastIndexAccessed = index
@@ -201,7 +222,7 @@ ViewApp {
                                             //                                        }//
 
                                             onAccepted: {
-                                                //                                                //console.debug(text)
+                                                ////console.debug(text)
                                                 let valid = Number(text)
                                                 if(isNaN(valid)){
                                                     showDialogMessage(qsTr("Warning"), qsTr("Value is not valid!"), dialogAlert)
@@ -222,6 +243,31 @@ ViewApp {
                                                 props.autoSaveToDraftAfterCalculated = true
                                                 helperWorkerScript.calculateGrid(props.airflowGridItems,
                                                                                  props.measureUnit, props.openingArea)
+
+                                                ////////////////////////////////////////////////////////////
+                                                console.debug("Auto-next:", props.autoNextFillGrid)
+
+                                                if(props.autoNextFillGrid){
+
+                                                    if(++props.indexForAutoNextFillGrid < props.airflowGridCount)
+                                                    {
+                                                        console.debug("index", props.indexForAutoNextFillGrid)
+
+                                                        //                                                        bufferTextInput.text = props.strfForAutoNextFillGrid
+                                                        bufferTextInput.lastIndexAccessed = props.indexForAutoNextFillGrid
+
+                                                        timerToOpenKeyBoard.start()
+
+                                                        // remembering teh last scrollview position
+                                                        props.gridLastPositionX = girdFlick.contentX
+                                                        //                                                        props.gridLastPositionY = girdFlick.contentY
+
+                                                        //                                                        props.strfForAutoNextFillGrid = ""
+                                                    }else{
+                                                        console.debug("Reached maximum index!")
+                                                    }
+                                                }
+                                                ////////////////////////////////////////////////////////////
                                             }//
                                         }//
                                     }//
@@ -272,6 +318,14 @@ ViewApp {
                                         }//
                                     }//
                                 }//
+                                TextApp{
+                                    anchors.fill: parent
+                                    verticalAlignment: Text.AlignVCenter
+                                    horizontalAlignment: Text.AlignRight
+                                    rightPadding: 95
+                                    font.pixelSize: 32
+                                    text: props.measureUnit ? "cfm" : "l/s"
+                                }
                             }//
 
                             Item{
@@ -286,7 +340,8 @@ ViewApp {
                                         model: [
                                             {color: "#e67e22", text: qsTr("Lowest")},
                                             {color: "#e74c3c", text: qsTr("Highest")},
-                                            {color: "#8e44ad", text: qsTr("Entered")},
+                                            {color: "#27AE60", text: qsTr("Intermediate")},
+                                            {color: "#8e44ad", text: qsTr("Done")},
                                         ]
 
                                         Row {
@@ -325,8 +380,9 @@ ViewApp {
                                     //                                anchors.verticalCenter: parent.verticalCenter
                                     width: rightContentItem.width/2
                                     height: rightContentItem.height / 3 - 5
-                                    color: "#0F2952"
-                                    border.color: "#dddddd"
+                                    color: enabled ? "#0F2952" : "transparent"
+                                    border.color: "#e3dac9"
+                                    border.width: enabled ? 2 : 1
                                     radius: 5
 
                                     ColumnLayout {
@@ -336,14 +392,14 @@ ViewApp {
 
                                         Item{
                                             Layout.fillWidth: true
-                                            Layout.minimumHeight: 40
+                                            Layout.minimumHeight: 30
                                             TextApp {
                                                 width: parent.width
                                                 height: parent.height
                                                 wrapMode: Text.WordWrap
-                                                font.pixelSize: 12
-                                                minimumPixelSize: 10
-                                                text: qsTr("Tap here to adjust <b>%1</b> fan").arg(qsTr("Downflow"))
+                                                minimumPixelSize: 16
+                                                horizontalAlignment: Text.AlignHCenter
+                                                text: qsTr("Downflow Fan")
                                             }
                                         }
 
@@ -431,8 +487,9 @@ ViewApp {
                                     //                                anchors.verticalCenter: parent.verticalCenter
                                     width: rightContentItem.width/2
                                     height: rightContentItem.height / 3 - 5
-                                    color: "#0F2952"
-                                    border.color: "#05c46b"
+                                    color: enabled ? "#0F2952" : "transparent"
+                                    border.color: "#e3dac9"
+                                    border.width: enabled ? 2 : 1
                                     radius: 5
 
                                     ColumnLayout {
@@ -442,14 +499,14 @@ ViewApp {
 
                                         Item{
                                             Layout.fillWidth: true
-                                            Layout.minimumHeight: 40
+                                            Layout.minimumHeight: 30
                                             TextApp {
                                                 width: parent.width
                                                 height: parent.height
                                                 wrapMode: Text.WordWrap
-                                                font.pixelSize: 12
-                                                minimumPixelSize: 10
-                                                text: qsTr("Tap here to adjust <b>%1</b> fan").arg(qsTr("Exhaust"))
+                                                minimumPixelSize: 16
+                                                horizontalAlignment: Text.AlignHCenter
+                                                text: qsTr("Exhaust Fan")
                                             }
                                         }
 
@@ -537,7 +594,7 @@ ViewApp {
                                 //                                anchors.verticalCenter: parent.verticalCenter
                                 width: rightContentItem.width
                                 height: rightContentItem.height / 3 - 5
-                                color: "#0F2952"
+                                color: "transparent"
                                 border.color: "#dddddd"
                                 radius: 5
 
@@ -548,7 +605,7 @@ ViewApp {
 
                                     TextApp {
                                         Layout.fillWidth: true
-                                        text: "Volumetric"
+                                        text: qsTr("Average Volumetric")
                                     }//
 
                                     TextApp {
@@ -562,21 +619,25 @@ ViewApp {
 
                                         TextField {
                                             id: avgTextField
-                                            //enabled: false
+                                            enabled: (props.fieldCalibration || !__osplatform__) ? true : false
                                             anchors.verticalCenter: parent.verticalCenter
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             width: parent.width - 2
                                             font.pixelSize: 24
                                             horizontalAlignment: Text.AlignHCenter
-                                            color: "#dddddd"
+                                            color: "#e3dac9"
 
                                             background: Rectangle {
                                                 id: averageBackgroundTextField
                                                 height: parent.height
                                                 width: parent.width
-                                                color: avgTextField.enabled ? "#55000000" : "transparent"
+                                                radius: 5
+                                                color: avgTextField.enabled ? "#0F2952" : "transparent"
+                                                border.color: "#E3DAC9"
+                                                border.width: avgTextField.enabled ? 2 : 0
 
                                                 Rectangle {
+                                                    visible: !avgTextField.enabled
                                                     height: 1
                                                     width: parent.width
                                                     anchors.bottom: parent.bottom
@@ -587,34 +648,34 @@ ViewApp {
                                                 }
                                             }//
 
-                                            states: [
-                                                State {
-                                                    when: props.volumetric == 0
-                                                    PropertyChanges {
-                                                        target: averageBackgroundTextField
-                                                        color:  avgTextField.enabled ? "#55000000" : "transparent"
-                                                    }//
-                                                },//
-                                                State {
-                                                    when: props.volumetric < props.volumeReq
-                                                    PropertyChanges {
-                                                        target: averageBackgroundTextField
-                                                        color:  "#e67e22"
-                                                    }//
-                                                },//
-                                                State {
-                                                    when: props.volumetric > props.volumeReq
-                                                    PropertyChanges {
-                                                        target: averageBackgroundTextField
-                                                        color:  "#e74c3c"
-                                                    }//
-                                                }//
-                                            ]//
+                                            //                                            states: [
+                                            //                                                State {
+                                            //                                                    when: props.volumetric == 0
+                                            //                                                    PropertyChanges {
+                                            //                                                        target: averageBackgroundTextField
+                                            //                                                        color:  avgTextField.enabled ? "#55000000" : "transparent"
+                                            //                                                    }//
+                                            //                                                },//
+                                            //                                                State {
+                                            //                                                    when: props.volumetric < props.volumeReq
+                                            //                                                    PropertyChanges {
+                                            //                                                        target: averageBackgroundTextField
+                                            //                                                        color:  "#e67e22"
+                                            //                                                    }//
+                                            //                                                },//
+                                            //                                                State {
+                                            //                                                    when: props.volumetric > props.volumeReq
+                                            //                                                    PropertyChanges {
+                                            //                                                        target: averageBackgroundTextField
+                                            //                                                        color:  "#e74c3c"
+                                            //                                                    }//
+                                            //                                                }//
+                                            //                                            ]//
                                             Connections {
                                                 target: avgTextFieldMouseArea
 
                                                 function onClicked() {
-                                                    KeyboardOnScreenCaller.openNumpad(avgTextField, qsTr("Volumetric") + " (%1)".arg(props.measureUnit ? "cfm" : "l/s"))
+                                                    KeyboardOnScreenCaller.openNumpad(avgTextField, qsTr("Average Volumetric") + " (%1)".arg(props.measureUnit ? "cfm" : "l/s"))
                                                 }//
                                             }//
                                             onAccepted: {
@@ -656,7 +717,7 @@ ViewApp {
                                 //                                anchors.verticalCenter: parent.verticalCenter
                                 width: rightContentItem.width
                                 height: rightContentItem.height / 3 - 5
-                                color: "#0F2952"
+                                color: "transparent"
                                 border.color: "#dddddd"
                                 radius: 5
 
@@ -694,7 +755,7 @@ ViewApp {
                                                 id: velocityBackgroundTextField
                                                 height: parent.height
                                                 width: parent.width
-                                                color: velocityTextField.enabled ? "#55000000" : "transparent"
+                                                color: velocityTextField.enabled ? "#0F2952" : "transparent"
 
                                                 Rectangle {
                                                     height: 1
@@ -707,7 +768,7 @@ ViewApp {
                                                         when: props.velocity == 0
                                                         PropertyChanges {
                                                             target: velocityBackgroundTextField
-                                                            color:  velocityTextField.enabled ? "#55000000" : "transparent"
+                                                            color:  velocityTextField.enabled ? "#0F2952" : "transparent"
                                                         }//
                                                     },//
                                                     State {
@@ -722,6 +783,14 @@ ViewApp {
                                                         PropertyChanges {
                                                             target: velocityBackgroundTextField
                                                             color:  "#e74c3c"
+                                                        }//
+                                                    },
+                                                    State {
+                                                        when: (props.velocity < props.velocityHighestLimit) && (props.velocity > props.velocityLowestLimit)
+                                                        PropertyChanges {
+                                                            target: velocityTextField
+                                                            color:  "#27AE60"
+                                                            font.bold: true
                                                         }//
                                                     }//
                                                 ]//
@@ -768,10 +837,10 @@ ViewApp {
                                 anchors.verticalCenter: parent.verticalCenter
 
                                 imageSource: "qrc:/UI/Pictures/draft-w-icon.png"
-                                text: qsTr("Load from Draft")
+                                text: qsTr("Load Previous Data")
 
                                 onClicked: {
-                                    const message = "<b>" + qsTr("Load grid values from draft?") + "</b>"
+                                    const message = "<b>" + qsTr("Load previous data?") + "</b>"
                                                   + "<br><br>"
                                                   + qsTr("Current values will be lost.")
 
@@ -797,7 +866,7 @@ ViewApp {
                                 onClicked: {
                                     const message = "<b>" + qsTr("Clear all values?") + "</b>"
                                                   + "<br><br>"
-                                                  + qsTr("Current values and drafted values will be removed.")
+                                                  + qsTr("Current values and drafted values will be lost.")
 
                                     viewApp.showDialogAsk(qsTr("Inflow Measurement"),
                                                           message,
@@ -831,7 +900,7 @@ ViewApp {
                                         (props.velocity < props.velocityLowestLimit)) {
 
                                     viewApp.showDialogMessage(qsTr("Inflow Measurement"),
-                                                              qsTr("Velocity result is out of specs"),
+                                                              qsTr("Velocity result is out of range"),
                                                               viewApp.dialogAlert)
                                     return;
                                 }
@@ -971,6 +1040,25 @@ ViewApp {
             }//
         }//
 
+        Timer{
+            id: timerToOpenKeyBoard
+            interval: 1000
+            running: false
+            repeat: false
+            onTriggered: {
+                console.debug("Open Keyboard")
+
+                if(props.measureUnit){
+                    bufferTextInput.text = props.airflowGridItems[props.indexForAutoNextFillGrid]["valImp"]
+                }
+                else{
+                    bufferTextInput.text = props.airflowGridItems[props.indexForAutoNextFillGrid]["val"]
+                }
+
+                KeyboardOnScreenCaller.openNumpad(bufferTextInput, "P-" + (props.indexForAutoNextFillGrid + 1))
+            }//
+        }//
+
         Settings {
             id: draftSettings
             category: props.draftName
@@ -989,6 +1077,9 @@ ViewApp {
 
         QtObject {
             id: props
+
+            property bool autoNextFillGrid: true
+            property int indexForAutoNextFillGrid: 0
 
             property string pid: "pid"
 
@@ -1037,6 +1128,8 @@ ViewApp {
             property int    velocityDecimalPoint: measureUnit ? 0 : 2
 
             property real   gridLastPositionX: 0
+
+            property bool fieldCalibration: false
 
             function getMeasureResult() {
                 let result = {
@@ -1115,6 +1208,8 @@ ViewApp {
                     props.openingArea =             req['openingArea']
                     props.airflowGridCount =        req['gridCount']
 
+                    props.fieldCalibration = extradata['fieldCalib'] || false
+
                     //                props.autoSaveToDraftAfterCalculated = false
                     //                helperWorkerScript.initGrid(props.airflowGridItems,
                     //                                            props.airflowGridCount,
@@ -1127,7 +1222,8 @@ ViewApp {
                 props.dfaFanRpmActual = Qt.binding(function(){ return MachineData.fanPrimaryRpm })
 
                 /// Automatically adjust the fan duty cycle to common initial duty cycle
-                if ((props.ifaFanDutyCycleActual != props.ifaFanDutyCycleInitial) || (props.dfaFanDutyCycleActual != props.dfaFanDutyCycleInitial)) {
+                if ((props.ifaFanDutyCycleActual != props.ifaFanDutyCycleInitial)
+                        || (props.dfaFanDutyCycleActual != props.dfaFanDutyCycleInitial)) {
 
                     MachineAPI.setFanInflowDutyCycle(props.ifaFanDutyCycleInitial);
                     MachineAPI.setFanPrimaryDutyCycle(props.dfaFanDutyCycleInitial);

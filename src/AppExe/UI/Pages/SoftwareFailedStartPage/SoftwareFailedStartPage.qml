@@ -246,16 +246,16 @@ ViewApp {
 
                                 if(!strPassword.localeCompare(strService)){
                                     //console.debug("Password service")
-                                    props.passwordElsEntered = props.service
+                                    props.passwordElsDone = props.service
                                     props.showLoginState = 2
                                 }else if(!strPassword.localeCompare(strFactory)){
                                     //console.debug("Password factory")
-                                    props.passwordElsEntered = props.factory
+                                    props.passwordElsDone = props.factory
                                     props.showLoginState = 2
                                 }
                                 else{
                                     //console.debug("Password wrong")
-                                    props.passwordElsEntered = 0
+                                    props.passwordElsDone = 0
                                     props.passwordElsFalseCounter++
                                 }
                             }//
@@ -360,7 +360,7 @@ ViewApp {
 
                             onClicked: {
                                 console.debug("login pressed")
-                                if(props.passwordElsEntered == 0)
+                                if(props.passwordElsDone == 0)
                                 {
                                     if(props.showLoginState == 0) {
                                         columnPassword.visible = true
@@ -371,7 +371,7 @@ ViewApp {
                                         props.showLoginState = 0
                                     }
                                 }else{
-                                    if(props.passwordElsEntered == props.service){
+                                    if(props.passwordElsDone == props.service){
                                         UserSessionService.loggedIn = true
                                         UserSessionService.roleLevel = UserSessionService.roleLevelService
                                         UserSessionService.username = "service"
@@ -382,7 +382,7 @@ ViewApp {
                                         MachineAPI.insertEventLog(message)
 
                                         props.loginSuccessDialog()
-                                    }else if(props.passwordElsEntered == props.factory){
+                                    }else if(props.passwordElsDone == props.factory){
                                         UserSessionService.loggedIn = true
                                         UserSessionService.roleLevel = UserSessionService.roleLevelFactory
                                         UserSessionService.username = "factory"
@@ -434,7 +434,7 @@ ViewApp {
             id: props
             property int shutDownCountDownTimer: 90
             property int showLoginState:        0
-            property int passwordElsEntered:    0 //1 = service | 2 = factory
+            property int passwordElsDone:    0 //1 = service | 2 = factory
             property int passwordElsFalseCounter: 0
             property string textPasswordService: "00009"
             property string textPasswordFactory: "00019"

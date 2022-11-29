@@ -4,15 +4,15 @@
 #define DEFAULT_DB_FILENAME                 "resourcemonitorlog.db"
 
 #define DB_QUERY_INIT                       "\
-CREATE TABLE IF NOT EXISTS resourcemonitorlog_V1 \
-(date TEXT, time TEXT, cpuUsage TXT, memUsage TXT, cpuTemp TXT)"
+CREATE TABLE IF NOT EXISTS resourcemonitorlog_V2 \
+(date TEXT, time TEXT, cpuUsage TXT, memUsage TXT, cpuTemp TXT, sdCardLife)"
 
-#define DB_QUERY_ADD                        "INSERT INTO resourcemonitorlog_V1 VALUES (?, ?, ?, ?, ?)"
+#define DB_QUERY_ADD                        "INSERT INTO resourcemonitorlog_V2 VALUES (?, ?, ?, ?, ?, ?)"
 
-#define DB_QUERY_DELETE                     "DELETE FROM resourcemonitorlog_V1"
-#define DB_QUERY_COUNT_ROWS                 "SELECT COUNT(*) FROM resourcemonitorlog_V1"
+#define DB_QUERY_DELETE                     "DELETE FROM resourcemonitorlog_V2"
+#define DB_QUERY_COUNT_ROWS                 "SELECT COUNT(*) FROM resourcemonitorlog_V2"
 
-#define DB_QUERY_SELECT                     "SELECT rowid,* FROM resourcemonitorlog_V1"
+#define DB_QUERY_SELECT                     "SELECT rowid,* FROM resourcemonitorlog_V2"
 
 ResourceMonitorLogSqlGet::ResourceMonitorLogSqlGet()
 {
@@ -65,6 +65,7 @@ bool ResourceMonitorLogSqlGet::queryInsert(const QVariantMap data)
     query.addBindValue(data["cpuUsage"].toString());
     query.addBindValue(data["memUsage"].toString());
     query.addBindValue(data["cpuTemp"].toString());
+    query.addBindValue(data["sdCardLife"].toString());
 
     //    qDebug() << query.lastQuery();
 
@@ -103,6 +104,7 @@ bool ResourceMonitorLogSqlGet::querySelect(QVariantList *data, const QString &db
             dataItem.push_back(query.value(TableHeaderEnum::TH_CPU_USAGE));
             dataItem.push_back(query.value(TableHeaderEnum::TH_MEM_USAGE));
             dataItem.push_back(query.value(TableHeaderEnum::TH_CPU_TEMP));
+            dataItem.push_back(query.value(TableHeaderEnum::TH_SD_CARD_LIFE));
 
             data->push_back(dataItem);
         }

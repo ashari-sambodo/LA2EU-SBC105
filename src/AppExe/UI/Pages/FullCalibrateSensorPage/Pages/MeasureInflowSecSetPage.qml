@@ -66,7 +66,7 @@ ViewApp {
 
                                     TextApp {
                                         anchors.verticalCenter: parent.verticalCenter
-                                        text: qsTr("Required (conv.) velocity is")
+                                        text: qsTr("Required (converted) velocity is")
                                     }//
 
                                     TextApp {
@@ -86,15 +86,24 @@ ViewApp {
                                             }
                                         ]
                                     }//
-
-                                    TextApp {
-                                        id: velPerPointText
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        text:  "(" + qsTr("Approx.") + " " + props.velPerPointStrf + " " + qsTr("for each point") + ")"
-                                    }//
                                 }//
                             }//
 
+                            Item{
+                                Layout.minimumHeight: 30
+                                Layout.fillWidth: true
+                                Row{
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    TextApp {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        text: "(" + qsTr("Approx.") + " " + props.velPerPointStrf + " " + qsTr("for each point") + ") - "
+                                    }//
+                                    TextApp {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        text: qsTr("Adjust sash to a 76mm (3”) opening!")
+                                    }//
+                                }
+                            }//
                             Item{
                                 id: gridItem
                                 Layout.fillHeight: true
@@ -111,6 +120,26 @@ ViewApp {
                                         color: "transparent"
                                         border.color: "#dddddd"
                                         radius: 5
+
+                                        Row{
+                                            spacing: 5
+                                            CheckBox {
+                                                id: policyCheckBox
+                                                height: 60
+                                                width: 60
+                                                font.pixelSize: 32
+                                                onCheckedChanged: {
+                                                    props.autoNextFillGrid = checked
+                                                }
+                                            }
+                                            TextApp{
+                                                height: 60
+                                                //width: 40
+                                                text: qsTr("Auto-next")
+                                                verticalAlignment: Text.AlignVCenter
+                                                font.pixelSize: 32
+                                            }
+                                        }//
 
                                         Flickable {
                                             id: girdFlick
@@ -142,6 +171,7 @@ ViewApp {
                                                 }
 
                                                 function onClickedItem(index, value, valueStrf) {
+                                                    props.indexForAutoNextFillGrid = index
                                                     //                                            //console.debug(index)
                                                     bufferTextInput.text = valueStrf
                                                     bufferTextInput.lastIndexAccessed = index
@@ -188,6 +218,31 @@ ViewApp {
 
                                                 props.autoSaveToDraftAfterCalculated = true
                                                 helperWorkerScript.calculateGrid(props.airflowGridItems, props.velocityDecimalPoint, props.correctionFactor)
+
+                                                ////////////////////////////////////////////////////////////
+                                                console.debug("Auto-next:", props.autoNextFillGrid)
+
+                                                if(props.autoNextFillGrid){
+
+                                                    if(++props.indexForAutoNextFillGrid < props.airflowGridCount)
+                                                    {
+                                                        console.debug("index", props.indexForAutoNextFillGrid)
+
+                                                        //                                                        bufferTextInput.text = props.strfForAutoNextFillGrid
+                                                        bufferTextInput.lastIndexAccessed = props.indexForAutoNextFillGrid
+
+                                                        timerToOpenKeyBoard.start()
+
+                                                        // remembering teh last scrollview position
+                                                        props.gridLastPositionX = girdFlick.contentX
+                                                        //                                                        props.gridLastPositionY = girdFlick.contentY
+
+                                                        //                                                        props.strfForAutoNextFillGrid = ""
+                                                    }else{
+                                                        console.debug("Reached maximum index!")
+                                                    }
+                                                }
+                                                ////////////////////////////////////////////////////////////
                                             }//
                                         }//
                                     }//
@@ -252,7 +307,8 @@ ViewApp {
                                         model: [
                                             {color: "#e67e22", text: qsTr("Lowest")},
                                             {color: "#e74c3c", text: qsTr("Highest")},
-                                            {color: "#8e44ad", text: qsTr("Entered")},
+                                            {color: "#27AE60", text: qsTr("Intermediate")},
+                                            {color: "#8e44ad", text: qsTr("Done")},
                                         ]
 
                                         Row {
@@ -291,8 +347,9 @@ ViewApp {
                                     //                                anchors.verticalCenter: parent.verticalCenter
                                     width: rightContentItem.width/2
                                     height: rightContentItem.height / 3 - 5
-                                    color: "#0F2952"
-                                    border.color: "#dddddd"
+                                    color: enabled ? "#0F2952" : "transparent"
+                                    border.color: "#e3dac9"
+                                    border.width: enabled ? 2 : 1
                                     radius: 5
 
                                     ColumnLayout {
@@ -302,14 +359,14 @@ ViewApp {
 
                                         Item{
                                             Layout.fillWidth: true
-                                            Layout.minimumHeight: 40
+                                            Layout.minimumHeight: 30
                                             TextApp {
                                                 width: parent.width
                                                 height: parent.height
                                                 wrapMode: Text.WordWrap
-                                                font.pixelSize: 12
-                                                minimumPixelSize: 10
-                                                text: qsTr("Tap here to adjust <b>%1</b> fan").arg(qsTr("Downflow"))
+                                                minimumPixelSize: 16
+                                                horizontalAlignment: Text.AlignHCenter
+                                                text: qsTr("Downflow Fan")
                                             }
                                         }
 
@@ -383,8 +440,9 @@ ViewApp {
                                     //                                anchors.verticalCenter: parent.verticalCenter
                                     width: rightContentItem.width/2
                                     height: rightContentItem.height / 3 - 5
-                                    color: "#0F2952"
-                                    border.color: "#05c46b"
+                                    color: enabled ? "#0F2952" : "transparent"
+                                    border.color: "#e3dac9"
+                                    border.width: enabled ? 2 : 1
                                     radius: 5
 
                                     ColumnLayout {
@@ -394,14 +452,14 @@ ViewApp {
 
                                         Item{
                                             Layout.fillWidth: true
-                                            Layout.minimumHeight: 40
+                                            Layout.minimumHeight: 30
                                             TextApp {
                                                 width: parent.width
                                                 height: parent.height
                                                 wrapMode: Text.WordWrap
-                                                font.pixelSize: 12
-                                                minimumPixelSize: 10
-                                                text: qsTr("Tap here to adjust <b>%1</b> fan").arg(qsTr("Exhaust"))
+                                                minimumPixelSize: 16
+                                                horizontalAlignment: Text.AlignHCenter
+                                                text: qsTr("Exhaust Fan")
                                             }
                                         }
 
@@ -478,7 +536,7 @@ ViewApp {
                                 //                                anchors.verticalCenter: parent.verticalCenter
                                 width: rightContentItem.width
                                 height: rightContentItem.height / 3 - 5
-                                color: "#0F2952"
+                                color: "transparent"
                                 border.color: "#dddddd"
                                 radius: 5
 
@@ -489,7 +547,7 @@ ViewApp {
 
                                     TextApp {
                                         Layout.fillWidth: true
-                                        text: qsTr("Avg. Velocity") + ":"
+                                        text: qsTr("Average Velocity") + ":"
                                     }//
 
                                     TextApp {
@@ -509,15 +567,19 @@ ViewApp {
                                             width: parent.width - 2
                                             font.pixelSize: 24
                                             horizontalAlignment: Text.AlignHCenter
-                                            color: "#dddddd"
+                                            color: "#e3dac9"
 
                                             background: Rectangle {
                                                 id: averageBackgroundTextField
                                                 height: parent.height
                                                 width: parent.width
-                                                color: averageTextField.enabled ? "#55000000" : "transparent"
+                                                radius: 5
+                                                color: averageTextField.enabled ? "#0F2952" : "transparent"
+                                                border.color: "#E3DAC9"
+                                                border.width: averageTextField.enabled ? 2 : 0
 
                                                 Rectangle {
+                                                    visible: !averageTextField.enabled
                                                     height: 1
                                                     width: parent.width
                                                     anchors.bottom: parent.bottom
@@ -531,7 +593,7 @@ ViewApp {
                                                 target: averageTextFieldMouseArea
 
                                                 function onClicked() {
-                                                    KeyboardOnScreenCaller.openNumpad(averageTextField, qsTr("Avg. Velocity") + " (%1)".arg(props.measureUnit ? "fpm" : "m/s"))
+                                                    KeyboardOnScreenCaller.openNumpad(averageTextField, qsTr("Average Velocity") + " (%1)".arg(props.measureUnit ? "fpm" : "m/s"))
                                                 }//
                                             }//
                                             onAccepted: {
@@ -573,7 +635,7 @@ ViewApp {
                                 //                                anchors.verticalCenter: parent.verticalCenter
                                 width: rightContentItem.width
                                 height: rightContentItem.height / 3 - 5
-                                color: "#0F2952"
+                                color: "transparent"
                                 border.color: "#dddddd"
                                 radius: 5
 
@@ -584,7 +646,7 @@ ViewApp {
 
                                     TextApp {
                                         Layout.fillWidth: true
-                                        text: qsTr("Conv. Velocity") + ":"
+                                        text: qsTr("Converted Velocity") + ":"
                                     }//
 
                                     TextApp {
@@ -611,7 +673,7 @@ ViewApp {
                                                 id: velocityBackgroundTextField
                                                 height: parent.height
                                                 width: parent.width
-                                                color: velocityTextField.enabled ? "#55000000" : "transparent"
+                                                color: velocityTextField.enabled ? "#0F2952" : "transparent"
 
                                                 Rectangle {
                                                     height: 1
@@ -624,7 +686,7 @@ ViewApp {
                                                         when: props.velocityConpensate == 0
                                                         PropertyChanges {
                                                             target: velocityBackgroundTextField
-                                                            color:  velocityTextField.enabled ? "#55000000" : "transparent"
+                                                            color:  velocityTextField.enabled ? "#0F2952" : "transparent"
                                                         }//
                                                     },//
                                                     State {
@@ -693,10 +755,10 @@ ViewApp {
                                 anchors.verticalCenter: parent.verticalCenter
 
                                 imageSource: "qrc:/UI/Pictures/draft-w-icon.png"
-                                text: qsTr("Load from Draft")
+                                text: qsTr("Load Previous Data")
 
                                 onClicked: {
-                                    const message = "<b>" + qsTr("Load grid values from draft?") + "</b>"
+                                    const message = "<b>" + qsTr("Load previous data?") + "</b>"
                                                   + "<br><br>"
                                                   + qsTr("Current values will be lost.")
 
@@ -722,7 +784,7 @@ ViewApp {
                                 onClicked: {
                                     const message = "<b>" + qsTr("Clear all values?") + "</b>"
                                                   + "<br><br>"
-                                                  + qsTr("Current values and drafted values will be removed.")
+                                                  + qsTr("Current values and drafted values will be lost.")
 
                                     viewApp.showDialogAsk(qsTr("Inflow Secondary Method"),
                                                           message,
@@ -759,7 +821,7 @@ ViewApp {
                                            && (props.velocityConpensate < props.velocityHighestLimit)
                                 if (!pass) {
                                     viewApp.showDialogMessage(qsTr("Inflow Secondary Method"),
-                                                              qsTr("The velocity is out of specs"),
+                                                              qsTr("The velocity is out of range."),
                                                               viewApp.dialogAlert)
                                     return;
                                 }
@@ -905,6 +967,25 @@ ViewApp {
             }//
         }//
 
+        Timer{
+            id: timerToOpenKeyBoard
+            interval: 1000
+            running: false
+            repeat: false
+            onTriggered: {
+                console.debug("Open Keyboard")
+
+                if(props.measureUnit){
+                    bufferTextInput.text = props.airflowGridItems[props.indexForAutoNextFillGrid]["valImp"]
+                }
+                else{
+                    bufferTextInput.text = props.airflowGridItems[props.indexForAutoNextFillGrid]["val"]
+                }
+
+                KeyboardOnScreenCaller.openNumpad(bufferTextInput, "P-" + (props.indexForAutoNextFillGrid + 1))
+            }//
+        }//
+
         Settings {
             id: draftSettings
             category: props.draftName
@@ -923,6 +1004,9 @@ ViewApp {
 
         QtObject {
             id: props
+
+            property bool autoNextFillGrid: true
+            property int indexForAutoNextFillGrid: 0
 
             property string pid: "pid"
 
@@ -963,6 +1047,8 @@ ViewApp {
             property int    dfaFanDutyCycleInitial: 0
 
             property real   gridLastPositionX: 0
+
+            property bool fieldCalibration: false
 
             /// 0: metric, m/s
             /// 1: imperial, fpm
@@ -1052,6 +1138,8 @@ ViewApp {
                     props.airflowGridCount =        req['gridCount']
                     props.airflowGridColumns =      req['gridCount']
                     props.correctionFactor =        req['correctionFactor']
+
+                    props.fieldCalibration = extradata['fieldCalib'] || false
 
                     props.velPerPoint = (props.velocityReq / props.correctionFactor)
                     //                        //console.debug(props.velPerPoint)

@@ -970,6 +970,18 @@ QStringList MachineData::getResourceMonitorParams() const
     return m_resourceMonitorParams;
 }
 
+void MachineData::setUSdCardIndustrial(bool value)
+{
+    if(m_uSdCardIndustrial == value)return;
+    m_uSdCardIndustrial = value;
+    emit uSdCardIndustrialChanged(value);
+}
+
+bool MachineData::getUSdCardIndustrial() const
+{
+    return m_uSdCardIndustrial;
+}
+
 void MachineData::setHaBoardInputCh1MVolt(int value)
 {
     if(m_haBoardInputCh1MVolt == value)return;
@@ -3560,15 +3572,15 @@ void MachineData::setFanInflowStandbyRpmField(int fanInflowStandbyRpmField)
 
 void MachineData::setAirflowFactoryCalibrationState(int index, bool state)
 {
-   if(index < 0 || index >= MachineEnums::CalFactoryState_Total)return;
-   if(m_airflowFactoryCalibrationState[index] == state) return;
-   m_airflowFactoryCalibrationState[index] = state;
+    if(index < 0 || index >= MachineEnums::CalFactoryState_Total)return;
+    if(m_airflowFactoryCalibrationState[index] == state) return;
+    m_airflowFactoryCalibrationState[index] = state;
 }
 
 bool MachineData::getAirflowFactoryCalibrationState(int index)
 {
-   if(index < 0 || index >= MachineEnums::CalFactoryState_Total)return false;
-   return m_airflowFactoryCalibrationState[index];
+    if(index < 0 || index >= MachineEnums::CalFactoryState_Total)return false;
+    return m_airflowFactoryCalibrationState[index];
 }
 
 void MachineData::setAirflowFieldCalibrationState(short index, bool value)

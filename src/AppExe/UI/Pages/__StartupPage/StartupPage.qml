@@ -113,7 +113,7 @@ ViewApp {
                     implicitHeight: 10
                     radius: 5
                     clip: true
-                    color: "#B2A18D"
+                    color: viewApp.displayTheme ? "#B2A18D" : "#e3dac9"
                 }//
 
                 contentItem: Item {

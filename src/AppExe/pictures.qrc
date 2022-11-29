@@ -290,5 +290,8 @@
         <file>UI/Pictures/dark/controll/Button_Up_Gray.png</file>
         <file>UI/Pictures/dark/controll/Button_Down_Run.png</file>
         <file>UI/Pictures/dark/controll/Button_Up_Run.png</file>
+	<file>UI/Pictures/menu/field-calib-advanced.png</file>
+        <file>UI/Pictures/menu/field-calib-basic.png</file>
+        <file>UI/Pictures/sdcard-health.png</file>
     </qresource>
 </RCC>

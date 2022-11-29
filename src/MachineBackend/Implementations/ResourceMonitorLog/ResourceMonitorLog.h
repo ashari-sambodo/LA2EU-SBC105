@@ -14,8 +14,11 @@ public:
     ResourceMonitorLogSql *getPSqlInterface() const;
     void setPSqlInterface(ResourceMonitorLogSql *value);
 
+    void checkUSdCardIndustrialType();
+
 signals:
     void rowCountChanged(int count);
+    void uSdCardIndustrialTypeChanged(bool value);
 
 private:
     ResourceMonitorLogSql *pSqlInterface = nullptr;

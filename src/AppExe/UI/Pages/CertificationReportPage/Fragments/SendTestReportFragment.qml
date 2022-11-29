@@ -490,10 +490,10 @@ Item {
                     + " "
                     + (MachineData.measurementUnit ? "fpm" : "m/s")
 
-                //                console.log(ifnpc)
-                //                console.log(ifmpc)
-                //                console.log(ifspc)
-                //                console.log(dfnpc)
+                //console.log(ifnpc)
+                //console.log(ifmpc)
+                //console.log(ifspc)
+                //console.log(dfnpc)
 
                 const dataTestReport = {
                     "cabinet_model":        settingsCert.cabinetModel,

@@ -119,6 +119,7 @@ void ResourceMonitorLogQmlApp::selectDescendingWithPagination(int pageNumber)
                 item.insert("cpuUsage", itemTemp.at(TH_CPU_USAGE));
                 item.insert("memUsage",  itemTemp.at(TH_MEM_USAGE));
                 item.insert("cpuTemp",  itemTemp.at(TH_CPU_TEMP));
+                item.insert("sdCardLife",  itemTemp.at(TH_SD_CARD_LIFE));
 
                 logReady.append(item);
             }
@@ -318,6 +319,7 @@ void ResourceMonitorLogQmlApp::exportLogs(int pageNumber,
                     item.insert("cpuUsage", itemTemp.at(TH_CPU_USAGE));
                     item.insert("memUsage", itemTemp.at(TH_MEM_USAGE));
                     item.insert("cpuTemp",  itemTemp.at(TH_CPU_TEMP));
+                    item.insert("sdCardLife",  itemTemp.at(TH_SD_CARD_LIFE));
 
                     logReady.append(item);
                 }
@@ -333,13 +335,13 @@ void ResourceMonitorLogQmlApp::exportLogs(int pageNumber,
         QString targetDir = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
         qDebug() << targetDir;
         QString dateTime = QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss");
-        QString fileName = targetDir + QString("/ResourceMonitorLog_P%1-%2of%3_%4.pdf").arg(pageNumber).arg(pageNumber + pagesCount - 1).arg(totalPages).arg(dateTime);
+        QString fileName = targetDir + QString("/SystemMonitorLog_P%1-%2of%3_%4.pdf").arg(pageNumber).arg(pageNumber + pagesCount - 1).arg(totalPages).arg(dateTime);
         //QString fileName = targetDir + QString("/datalog_p%1-%2of%3.pdf").arg(pageNumber).arg(pageNumber + pagesCount - 1).arg(totalPages);
         QFile pdfFile(fileName);
         bool fileIsOK = pdfFile.open(QIODevice::WriteOnly);
         qDebug() << fileIsOK;
         if(!fileIsOK){
-            emit logHasExported(false, tr("Failed to initiate file"));
+            emit logHasExported(false, tr("Failed to open the file."));
             return ;
         }
 
@@ -370,7 +372,7 @@ void ResourceMonitorLogQmlApp::exportLogs(int pageNumber,
 
             /// Title
             rect.setRect(0, textMarginTop, pPdfWriter->width(), textHeightRect + 100);
-            pPdfPainter->drawText(rect, QString("Resource Monitor Log"), textOption);
+            pPdfPainter->drawText(rect, QString("System Monitor Log"), textOption);
             textMarginTop = textMarginTop + textHeightRect + 100;
 
             font.setPointSize(8);
@@ -400,7 +402,7 @@ void ResourceMonitorLogQmlApp::exportLogs(int pageNumber,
                                   textOption);
             textMarginTop = textMarginTop + textHeightRect + 10;
 
-            short numberOfParameters = 3;
+            short numberOfParameters = 4;
 
             /// TABLE HEADER
             int textWidthRectColumn1 = 150;
@@ -411,7 +413,7 @@ void ResourceMonitorLogQmlApp::exportLogs(int pageNumber,
             int textWidthRectColumn4 = textWidthForParam;
             int textWidthRectColumn5 = textWidthForParam + 1;
             int textWidthRectColumn6 = textWidthForParam + 1;
-            //            int textWidthRectColumn7 = textWidthForParam + 1;
+            int textWidthRectColumn7 = textWidthForParam + 1;
             //            int textWidthRectColumn8 = textWidthForParam + 1;
             //            int textWidthRectColumn9 = textWidthForParam + 1;
 
@@ -421,7 +423,7 @@ void ResourceMonitorLogQmlApp::exportLogs(int pageNumber,
             int colBegin4 = colBegin3 + textWidthRectColumn3;
             int colBegin5 = colBegin4 + textWidthRectColumn4;
             int colBegin6 = colBegin5 + textWidthRectColumn5;
-            //            int colBegin7 = colBegin6 + textWidthRectColumn6;
+            int colBegin7 = colBegin6 + textWidthRectColumn6;
             //            int colBegin8 = colBegin7 + textWidthRectColumn7;
             //            int colBegin9 = colBegin8 + textWidthRectColumn8;
 
@@ -449,15 +451,15 @@ void ResourceMonitorLogQmlApp::exportLogs(int pageNumber,
 
             rect.setRect(colBegin5, textMarginTop, textWidthRectColumn5, textHeightRect);
             pPdfPainter->drawRect(rect);
-            pPdfPainter->drawText(rect, QString::fromLocal8Bit("Memory usage (%)"), textOption);
+            pPdfPainter->drawText(rect, QString::fromLocal8Bit("Memory Usage (%)"), textOption);
 
             rect.setRect(colBegin6, textMarginTop, textWidthRectColumn6, textHeightRect);
             pPdfPainter->drawRect(rect);
-            pPdfPainter->drawText(rect, QString::fromLocal8Bit("CPU Temperature (%)"), textOption);
+            pPdfPainter->drawText(rect, QString::fromLocal8Bit("CPU Temperature (°C)"), textOption);
 
-            //            rect.setRect(colBegin7, textMarginTop, textWidthRectColumn7, textHeightRect);
-            //            pPdfPainter->drawRect(rect);
-            //            pPdfPainter->drawText(rect, QString::fromLocal8Bit("A/F ADC"), textOption);
+            rect.setRect(colBegin7, textMarginTop, textWidthRectColumn7, textHeightRect);
+            pPdfPainter->drawRect(rect);
+            pPdfPainter->drawText(rect, QString::fromLocal8Bit("SD Card Life (%)"), textOption);
 
             //            if(m_seasPressureInstalled){
             //                rect.setRect(colBegin8, textMarginTop, textWidthRectColumn8, textHeightRect);
@@ -526,10 +528,10 @@ void ResourceMonitorLogQmlApp::exportLogs(int pageNumber,
                 textContent = dataHolderMap.value("cpuTemp").toString();
                 pPdfPainter->drawText(rect, textContent, textOption);
 
-                //                rect.setRect(colBegin7, textMarginTop, textWidthRectColumn7, textHeightRect);
-                //                pPdfPainter->drawRect(rect);
-                //                textContent = dataHolderMap.value("adcIfa").toString();
-                //                pPdfPainter->drawText(rect, textContent, textOption);
+                rect.setRect(colBegin7, textMarginTop, textWidthRectColumn7, textHeightRect);
+                pPdfPainter->drawRect(rect);
+                textContent = dataHolderMap.value("sdCardLife").toString();
+                pPdfPainter->drawText(rect, textContent, textOption);
 
                 //                if(m_seasPressureInstalled){
                 //                    rect.setRect(colBegin8, textMarginTop, textWidthRectColumn8, textHeightRect);

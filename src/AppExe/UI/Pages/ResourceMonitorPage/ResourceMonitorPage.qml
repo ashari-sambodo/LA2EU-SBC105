@@ -50,14 +50,20 @@ ViewApp {
                 //                    id: contentLoader
                 //                    anchors.fill: parent
                 //                    sourceComponent: Item{
-                Row{
+                Grid{
                     anchors.centerIn: parent
+                    columns: 4
                     spacing: 50
                     Column{
                         id: col1
                         spacing: 10
                         TextApp{
-                            anchors.horizontalCenter: parent.horizontalCenter
+                            width: 150
+                            height: 50
+                            minimumPixelSize: 18
+                            wrapMode: Text.WordWrap
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
                             text: qsTr("CPU Usage")
                         }
                         Image{
@@ -71,13 +77,18 @@ ViewApp {
                             text: props.resourceMonitorParams[MachineAPI.ResMon_CPU_Usage] + " %"
                             horizontalAlignment: Text.AlignHCenter
                         }
-                    }
+                    }//
                     Column{
                         id: col2
                         spacing: 10
                         //anchors.centerIn: parent
                         TextApp{
-                            anchors.horizontalCenter: parent.horizontalCenter
+                            width: 150
+                            height: 50
+                            minimumPixelSize: 18
+                            wrapMode: Text.WordWrap
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
                             text: qsTr("Memory Usage")
                         }
                         Image{
@@ -90,14 +101,19 @@ ViewApp {
                             width: col2.width
                             text: props.resourceMonitorParams[MachineAPI.ResMon_Memory_Usage] + " %"
                             horizontalAlignment: Text.AlignHCenter
-                        }
-                    }
+                        }//
+                    }//
                     Column{
                         id: col3
                         spacing: 10
                         //anchors.centerIn: parent
                         TextApp{
-                            anchors.horizontalCenter: parent.horizontalCenter
+                            width: 150
+                            height: 50
+                            minimumPixelSize: 18
+                            wrapMode: Text.WordWrap
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
                             text: qsTr("CPU Temperature")
                         }
                         Image{
@@ -109,6 +125,32 @@ ViewApp {
                         TextApp{
                             width: col3.width
                             text: props.getTemp(props.resourceMonitorParams[MachineAPI.ResMon_CPU_Temp]) + " %1".arg(props.degreeSymbol)
+                            horizontalAlignment: Text.AlignHCenter
+                        }//
+                    }//
+                    Column{
+                        id: col4
+                        visible: MachineData.uSdCardIndustrial
+                        spacing: 10
+                        //anchors.centerIn: parent
+                        TextApp{
+                            width: 150
+                            height: 50
+                            minimumPixelSize: 18
+                            wrapMode: Text.WordWrap
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            text: qsTr("Micro SD Card Life")
+                        }
+                        Image{
+                            width: 110
+                            height: 110
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            source: "qrc:/UI/Pictures/sdcard-health.png"
+                        }//
+                        TextApp{
+                            width: col4.width
+                            text: props.resourceMonitorParams[MachineAPI.ResMon_SD_Card_Life] + " %"
                             horizontalAlignment: Text.AlignHCenter
                         }
                     }//
@@ -123,7 +165,13 @@ ViewApp {
                 Layout.fillWidth: true
                 Layout.minimumHeight: 70
 
-                BackgroundButtonBarApp {
+                Rectangle {
+                    anchors.fill: parent
+                    color: "#0F2952"
+                    //                    border.color: "#e3dac9"
+                    //                    border.width: 1
+                    radius: 5
+
                     Item {
                         anchors.fill: parent
                         anchors.margins: 5
@@ -180,7 +228,7 @@ ViewApp {
         ///// if none, please comment this block to optimize the code
         QtObject {
             id: props
-            property var resourceMonitorParams: ["00", "00", "00"]
+            property var resourceMonitorParams: ["00", "00", "00", "00"]
 
             property string degreeSymbol: MachineData.measurementUnit ? "°F" : "°C"
 

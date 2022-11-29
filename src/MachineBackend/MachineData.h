@@ -1097,6 +1097,7 @@ Q_PROPERTY(QString machineProfileID READ getMachineProfileID WRITE setMachinePro
 	///Resource Monitor
     //    Q_PROPERTY(bool resourceMonitorParamsActive READ getResourceMonitorParamsActive NOTIFY resourceMonitorParamsActiveChanged)
     Q_PROPERTY(QStringList resourceMonitorParams READ getResourceMonitorParams NOTIFY resourceMonitorParamsChanged)
+    Q_PROPERTY(bool uSdCardIndustrial READ getUSdCardIndustrial NOTIFY uSdCardIndustrialChanged)
 
 	/// HYBRID ANALOG INPUT MVOLT
     Q_PROPERTY(int haBoardInputCh1MVolt READ getHaBoardInputCh1MVolt NOTIFY haBoardInputCh1MVoltChanged)
@@ -2131,6 +2132,8 @@ public:
     //    bool getResourceMonitorParamsActive()const;
     void setResourceMonitorParams(QStringList value);
     QStringList getResourceMonitorParams()const;
+    void setUSdCardIndustrial(bool value);
+    bool getUSdCardIndustrial()const;
 	
 	/// HYBRID ANALOG INPUT MVOLT
     void setHaBoardInputCh1MVolt(int value);
@@ -2554,6 +2557,7 @@ signals:
     ///Resource Monitor
     //    void resourceMonitorParamsActiveChanged(bool value);
     void resourceMonitorParamsChanged(QStringList value);
+    void uSdCardIndustrialChanged(bool value);
 
     /// HYBRID ANALOG INPUT MVOLT
     void haBoardInputCh1MVoltChanged(int value);
@@ -3045,6 +3049,7 @@ private:
 	
 //    bool m_resourceMonitorParamsActive = false;
     QStringList m_resourceMonitorParams;
+    bool m_uSdCardIndustrial = false;
 	
 	    /// HYBRID ANALOG INPUT MVOLT
     int m_haBoardInputCh1MVolt = 0;

@@ -2726,6 +2726,7 @@ void MachineBackend::setup()
 
     /// RESOURCE MONITOR LOG
     {
+        qDebug() << "@@@ RESOURCE MONITOR LOG!";
         bool enable = m_settings->value(SKEY_RESMONLOG_ENABLE, false).toBool();
         int period = m_settings->value(SKEY_RESMONLOG_PERIOD, 10).toInt(); /// default every 10 minutes
 
@@ -2758,13 +2759,19 @@ void MachineBackend::setup()
 
         QObject::connect(m_threadForResourceMonitorLog.data(), &QThread::started,
                          m_pResourceMonitorLog.data(), [&](){
+                             qDebug() << "@@@ m_threadForResourceMonitorLog is started!";
+                             m_pResourceMonitorLog->checkUSdCardIndustrialType();
                              m_pResourceMonitorLog->routineTask();
                          });
+        QObject::connect(m_pResourceMonitorLog.data(), &ResourceMonitorLog::uSdCardIndustrialTypeChanged,
+                         pData, &MachineData::setUSdCardIndustrial);
+
         QObject::connect(this, &MachineBackend::loopStarted,
                          [&](){
+                             qDebug() << "@@@ m_threadForResourceMonitorLog->start()";
                              m_threadForResourceMonitorLog->start();
                          });
-    }
+    }//
 
     /// Sensor Warming up
     {
@@ -8407,6 +8414,7 @@ void MachineBackend::_insertResourceMonitorLog()
             dataMap.insert("cpuUsage", pData->getResourceMonitorParams().at(MachineEnums::ResMon_CPU_Usage));
             dataMap.insert("memUsage", pData->getResourceMonitorParams().at(MachineEnums::ResMon_Memory_Usage));
             dataMap.insert("cpuTemp",  pData->getResourceMonitorParams().at(MachineEnums::ResMon_CPU_Temp));
+            dataMap.insert("sdCardLife", pData->getResourceMonitorParams().at(MachineEnums::ResMon_SD_Card_Life));
 
             ResourceMonitorLogSql *sql = m_pResourceMonitorLog->getPSqlInterface();
             bool success = sql->queryInsert(dataMap);
@@ -11746,7 +11754,7 @@ void MachineBackend::_setSoftwareUpdateAvailableReset()
 void MachineBackend::_readResourceMonitorParams()
 {
     ///$CPUUSAGE $CPUTEMP $MEMUSAGE
-    QString resMonOut = "00 00 00";
+    QString resMonOut = "00#00#00#{\"healthStatusPercentUsed\":2}";
     QStringList resMonParams;
 
 #ifdef __linux__
@@ -11758,9 +11766,31 @@ void MachineBackend::_readResourceMonitorParams()
     }
 #endif
     resMonOut.replace("\n", "");
-    for(short i=0; i<resMonOut.split(" ").length(); i++){
-        resMonParams.append(resMonOut.split(" ")[i]);
-    }
+    for(short i=0; i<resMonOut.split("#").length(); i++){
+        if(i == MachineEnums::ResMon_SD_Card_Life){
+            QString healtStr = "";
+            QByteArray jsonData = resMonOut.split("#")[i].toLocal8Bit();
+            if(jsonData.isEmpty() == true) qDebug() << "Need to fill JSON data";
+            QJsonDocument sdCardInfoJsDoc = QJsonDocument::fromJson(jsonData);
+            if(sdCardInfoJsDoc.isObject() == false){
+                qDebug() << "It is not a JSON Object";
+                qDebug() << jsonData;
+                healtStr = "99";
+            }//
+            else{
+                QJsonObject jsonDataObject = sdCardInfoJsDoc.toVariant().toJsonObject();
+                short health = 100;
+                if(jsonDataObject["healthStatusPercentUsed"].isUndefined())
+                    health -= 1;
+                else
+                    health -= (jsonDataObject["healthStatusPercentUsed"].toInt());
+                healtStr = QString::number(health);
+            }
+            resMonParams.append(healtStr);
+        }
+        else
+            resMonParams.append(resMonOut.split("#")[i]);
+    }//
 
     qDebug() << resMonParams;
     pData->setResourceMonitorParams(resMonParams);

@@ -237,6 +237,25 @@ ViewApp {
                                         text: qsTr("CPU Temp") + " (%1)".arg(props.degreeSymbol)
                                     }//
                                 }//
+                                Rectangle{
+                                    visible: MachineData.uSdCardIndustrial
+                                    Layout.minimumHeight: 0.8*parent.height
+                                    Layout.minimumWidth: 1
+                                    color: "#e3dac9"
+                                }
+
+                                Item {
+                                    visible: MachineData.uSdCardIndustrial
+                                    Layout.fillHeight: true
+                                    Layout.fillWidth: true
+
+                                    TextApp {
+                                        anchors.fill: parent
+                                        verticalAlignment: Text.AlignVCenter
+                                        horizontalAlignment: Text.AlignHCenter
+                                        text: qsTr("SD Card Life") + " (%)"
+                                    }//
+                                }//
                             }//
                         }//
 
@@ -322,6 +341,18 @@ ViewApp {
                                         text: props.getTemp(Number(modelData.cpuTemp))
                                     }
                                 }
+                                Item {
+                                    visible: MachineData.uSdCardIndustrial
+                                    Layout.fillHeight: true
+                                    Layout.fillWidth: true
+
+                                    TextApp {
+                                        anchors.fill: parent
+                                        verticalAlignment: Text.AlignVCenter
+                                        horizontalAlignment: Text.AlignHCenter
+                                        text: modelData.sdCardLife
+                                    }
+                                }
                             }
                             //                            MouseArea{
                             //                                id: rowDatalogMA
@@ -329,7 +360,7 @@ ViewApp {
                             //                                propagateComposedEvents : false
                             //                                onClicked: {
                             //                                    const details = qsTr("Date Time:") + " %1 %2".arg(modelData.date).arg(modelData.time) + "<br>" +
-                            //                                                  qsTr("Airflow :") + " IF:%1, DF:%2".arg(modelData.ifa).arg(modelData.dfa) + "<br>" +
+                            //                                                  qsTr("Airflow:") + " IF:%1, DF:%2".arg(modelData.ifa).arg(modelData.dfa) + "<br>" +
                             //                                                  qsTr("A/F ADC :") + " %1".arg(modelData.adcIfa) + "<br>" +
                             //                                                  (MachineData.seasInstalled ? (qsTr("Pressure:") + " %1".arg(modelData.pressure) + "<br>") : "") +
                             //                                                  qsTr("Fan RPM :") + " %1".arg(modelData.fanRPM)
@@ -450,7 +481,7 @@ ViewApp {
                             TextApp {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 font.pixelSize: 14
-                                text: " (" + qsTr("Total log is ") + logApp.totalItem + " " + qsTr("items") + ")"
+                                text: " (" + qsTr("Total log is ") + logApp.totalItem + " " + qsTr("Items") + ")"
                             }//
 
                             TextField {
@@ -543,6 +574,8 @@ ViewApp {
                         scrollDownNotifApp.visible = true
                     }
                 }
+                MachineAPI.refreshLogRowsCount("resourcemonitorlog")
+                viewApp.closeDialog();
             }
 
             Component.onCompleted: {
@@ -572,7 +605,7 @@ ViewApp {
             }
 
             function showLoading(timeout){
-                showBusyPage(qsTr("Loading"), function(cycle){
+                showBusyPage(qsTr("Loading..."), function(cycle){
                     //                    //console.debug(cycle + " : " + timeout)
                     if(cycle >= timeout){
                         //                        //console.debug("timeout")

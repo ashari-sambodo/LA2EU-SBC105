@@ -6966,7 +6966,7 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="271"/>
-        <source>Entered</source>
+        <source>Done</source>
         <translation>Trat ein</translation>
     </message>
     <message>
@@ -7020,12 +7020,12 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="728"/>
-        <source>Load from Draft</source>
+        <source>Load Previous Data</source>
         <translation>Aus Entwurf laden</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="731"/>
-        <source>Load grid values from draft?</source>
+        <source>Load previous data?</source>
         <translation>Rasterwerte aus Entwurf laden?</translation>
     </message>
     <message>
@@ -7045,7 +7045,7 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="757"/>
-        <source>Current values and drafted values will be removed.</source>
+        <source>Current values and drafted values will be lost.</source>
         <translation>Aktuelle Werte und Entwurfswerte werden entfernt.</translation>
     </message>
     <message>
@@ -7060,12 +7060,12 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="798"/>
-        <source>The deviation is out of specs</source>
+        <source>The deviation is out of range.</source>
         <translation>Die Abweichung liegt außerhalb der Spezifikationen</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml" line="798"/>
-        <source>The velocity is out of specs</source>
+        <source>The velocity is out of range.</source>
         <translation>Die Geschwindigkeit ist außerhalb der Spezifikationen</translation>
     </message>
 </context>
@@ -7125,7 +7125,7 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="289"/>
-        <source>Entered</source>
+        <source>Done</source>
         <translation>Trat ein</translation>
     </message>
     <message>
@@ -7178,12 +7178,12 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="777"/>
-        <source>Load from Draft</source>
+        <source>Load Previous Data</source>
         <translation>Aus Entwurf laden</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="780"/>
-        <source>Load grid values from draft?</source>
+        <source>Load previous data?</source>
         <translation>Rasterwerte aus Entwurf laden?</translation>
     </message>
     <message>
@@ -7203,7 +7203,7 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="806"/>
-        <source>Current values and drafted values will be removed.</source>
+        <source>Current values and drafted values will be lost.</source>
         <translation>Aktuelle Werte und Entwurfswerte werden entfernt.</translation>
     </message>
     <message>
@@ -7218,7 +7218,7 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowDimSetPage.qml" line="840"/>
-        <source>Velocity result is out of specs</source>
+        <source>Velocity result is out of range</source>
         <translation>Geschwindigkeitsergebnis liegt außerhalb der Spezifikationen</translation>
     </message>
 </context>
@@ -7272,7 +7272,7 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="255"/>
-        <source>Entered</source>
+        <source>Done</source>
         <translation>Trat ein</translation>
     </message>
     <message>
@@ -7326,12 +7326,12 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="701"/>
-        <source>Load from Draft</source>
+        <source>Load Previous Data</source>
         <translation>Aus Entwurf laden</translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="704"/>
-        <source>Load grid values from draft?</source>
+        <source>Load previous data?</source>
         <translation>Rasterwerte aus Entwurf laden?</translation>
     </message>
     <message>
@@ -7351,7 +7351,7 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="730"/>
-        <source>Current values and drafted values will be removed.</source>
+        <source>Current values and drafted values will be lost.</source>
         <translation>Aktuelle Werte und Entwurfswerte werden entfernt.</translation>
     </message>
     <message>
@@ -7366,7 +7366,7 @@ The ideal environmental temperature is between </translation>
     </message>
     <message>
         <location filename="../UI/Pages/FullCalibrateSensorPage/Pages/MeasureInflowSecSetPage.qml" line="767"/>
-        <source>The velocity is out of specs</source>
+        <source>The velocity is out of range.</source>
         <translation>Die Geschwindigkeit ist außerhalb der Spezifikationen</translation>
     </message>
 </context>

@@ -144,7 +144,7 @@ ViewApp {
                             //                                    Layout.margins: 2
                             //                                    font.pixelSize: 14
                             //                                    minimumPixelSize: 10
-                            //                                    text: "*" + qsTr("Only if Fan state is on")
+                            //                                    text: "*" + qsTr("Only if the Fan State is ON")
                             //                                    wrapMode: Text.WordWrap
                             //                                }//
                             //                            }//
@@ -190,10 +190,10 @@ ViewApp {
                                                         /*&& UserSessionService.roleLevel != UserSessionService.roleLevelService*/)
                                                 {
                                                     props.exportToWhat = props.exportToPdfBluetooth
-                                                    KeyboardOnScreenCaller.openNumpad(exportNumberPageTextEdit, qsTr("Page to Export (ex. 1 or 1-10, max. 10 pages/export)"))
+                                                    KeyboardOnScreenCaller.openNumpad(exportNumberPageTextEdit, qsTr("Page to Export (ex. 1 or 1-10, max. 10 pages per export)"))
 
                                                 }else{
-                                                    showDialogMessage(qsTr("Access denied"),
+                                                    showDialogMessage(qsTr("Access Denied"),
                                                                       qsTr("You do not have permission to perform this action!"),
                                                                       dialogAlert)
                                                 }
@@ -218,9 +218,9 @@ ViewApp {
                                                 {
                                                     props.exportToWhat = props.exportToPdfUSB
 
-                                                    const message = "<b>" + qsTr("Have you inserted usb drive?") + "</b>"
+                                                    const message = "<b>" + qsTr("Have you inserted USB drive?") + "</b>"
                                                                   + "<br><br>"
-                                                                  + qsTr("USB port can be found on top of the cabinet, near by power inlet.")
+                                                                  + qsTr("USB port can be found on top of the cabinet, nearby power inlet.")
                                                     const autoclosed = false
                                                     showDialogAsk(qsTr("System Monitor Log Options"), message, dialogAlert,
                                                                   function onAccepted(){
@@ -228,7 +228,7 @@ ViewApp {
                                                                   },
                                                                   function(){}, function(){}, autoclosed)
                                                 }else{
-                                                    showDialogMessage(qsTr("Access denied"),
+                                                    showDialogMessage(qsTr("Access Denied"),
                                                                       qsTr("You do not have permission to perform this action!"),
                                                                       dialogAlert)
                                                 }
@@ -253,7 +253,7 @@ ViewApp {
 
                             TextApp {
                                 Layout.margins: 5
-                                text: qsTr("Delete older log start from")
+                                text: qsTr("Delete logs starting from")
                             }//
 
                             Item {
@@ -327,7 +327,7 @@ ViewApp {
                                                         /*&& UserSessionService.roleLevel != UserSessionService.roleLevelService*/){
                                                     const message = "<b>" + qsTr("Delete the log?") + "</b>"
                                                                   + "<br><br>"
-                                                                  + qsTr("This process can not be undone and not recoverable.")
+                                                                  + qsTr("This process is irreversible.") + "<br>" + qsTr("Delete permanently?")
 
                                                     showDialogAsk(qsTr(title),
                                                                   message,
@@ -337,7 +337,7 @@ ViewApp {
                                                                       dbConnectForDelete.active = true
                                                                   });
                                                 }else
-                                                    showDialogMessage(qsTr("Access denied"),
+                                                    showDialogMessage(qsTr("Access Denied"),
                                                                       qsTr("You do not have permission to perform this action!"),
                                                                       dialogAlert)
                                             }//
@@ -422,11 +422,11 @@ ViewApp {
 
                     showDialogMessage(qsTr(title), qsTr("The log has been deleted!"), dialogInfo,
                                       function onClosed(){
-                                          showBusyPage(qsTr("Please wait.."), function onCallback(cycle){
-                                              if(cycle >= MachineAPI.BUSY_CYCLE_1) {
-                                                  closeDialog()
-                                              }
-                                          })
+                                          //                                          showBusyPage(qsTr("Please wait..."), function onCallback(cycle){
+                                          //                                              if(cycle >= MachineAPI.BUSY_CYCLE_1) {
+                                          //                                                  closeDialog()
+                                          //                                              }
+                                          //                                          })
                                       })
                 }
 
@@ -540,7 +540,7 @@ ViewApp {
                 }
 
                 Component.onCompleted: {
-                    showBusyPage(qsTr("Please wait"))
+                    showBusyPage(qsTr("Please wait..."))
                     const uniqConnectionName = "resourceMonitorLogUIforExport"
                     init(uniqConnectionName);
                 }//

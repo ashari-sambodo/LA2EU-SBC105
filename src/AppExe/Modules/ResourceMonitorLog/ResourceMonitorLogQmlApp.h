@@ -134,7 +134,8 @@ private:
         TH_TIMELOG,
         TH_CPU_USAGE,
         TH_MEM_USAGE,
-        TH_CPU_TEMP
+        TH_CPU_TEMP,
+        TH_SD_CARD_LIFE
     };
 };
 

@@ -59,7 +59,7 @@ ViewApp {
                             count: 2
                             //                            currentIndex: menuItemView.currentIndex > 3 ? 1 : 0
 
-                            property var title: [qsTr("Cabinet"), qsTr("Microprocessor ADC")]
+                            property var title: [qsTr("Airflow Balancing"), qsTr("Microprocessor ADC")]
 
                             delegate: Rectangle {
                                 implicitWidth: 250
@@ -564,33 +564,33 @@ ViewApp {
                     badgeText  : qsTr("Done"),
                     pid         : "meadfanom",
                 },
-                //                {
-                //                    mtype         : "menu",
-                //                    mtitle     : qsTr("Minimum Downflow Measurement"),
-                //                    micon      : "qrc:/UI/Pictures/menu/dfa_min_measure.png",
-                //                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
-                //                    badge      : 0,
-                //                    badgeText  : qsTr("Done"),
-                //                    pid         : "meadfamin",
-                //                },
-                //                {
-                //                    mtype         : "menu",
-                //                    mtitle     : qsTr("Maximum Downflow Measurement"),
-                //                    micon      : "qrc:/UI/Pictures/menu/dfa_max_measure.png",
-                //                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
-                //                    badge      : 0,
-                //                    badgeText  : qsTr("Done"),
-                //                    pid         : "meadfamax",
-                //                },
-                //                {
-                //                    mtype         : "menu",
-                //                    mtitle     : qsTr("Measure Downflow Standby"),
-                //                    micon      : "qrc:/UI/Pictures/menu/dfa_stb_measure.png",
-                //                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
-                //                    badge      : 0,
-                //                    badgeText  : qsTr("Done"),
-                //                    pid         : "meadfastb",
-                //                },
+                {
+                    mtype         : "menu",
+                    mtitle     : qsTr("Minimum Downflow Measurement"),
+                    micon      : "qrc:/UI/Pictures/menu/dfa_min_measure.png",
+                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
+                    badge      : 0,
+                    badgeText  : qsTr("Done"),
+                    pid         : "meadfamin",
+                },
+                {
+                    mtype         : "menu",
+                    mtitle     : qsTr("Maximum Downflow Measurement"),
+                    micon      : "qrc:/UI/Pictures/menu/dfa_max_measure.png",
+                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
+                    badge      : 0,
+                    badgeText  : qsTr("Done"),
+                    pid         : "meadfamax",
+                }/*,
+                {
+                    mtype         : "menu",
+                    mtitle     : qsTr("Measure Downflow Standby"),
+                    micon      : "qrc:/UI/Pictures/menu/dfa_stb_measure.png",
+                    mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
+                    badge      : 0,
+                    badgeText  : qsTr("Done"),
+                    pid         : "meadfastb",
+                },*/
             ]//
             property var menuModelMicroADC: [
                 {
@@ -967,12 +967,12 @@ ViewApp {
                 const message = qsTr("User: Full calibration sensor")
                               + "("
                               + "ADC-DFZ: " + props.dfaSensorAdcZero + ", "
-                //                              + "VEL-DF1: " + (props.dfaSensorVelMinimum / 100).toFixed(props.decimalPoint) + ", "
+                              + "VEL-DF1: " + (props.dfaSensorVelMinimum / 100).toFixed(props.decimalPoint) + ", "
                               + "ADC-DF2: " + props.dfaSensorAdcNominal + ", "
                               + "VEL-DF2: " + (props.dfaSensorVelNominal / 100).toFixed(props.decimalPoint) + ", "
                               + "VEL-DF3: " + (props.dfaSensorVelMaximum / 100).toFixed(props.decimalPoint) + ", "
                               + "ADC-IFZ: " + props.ifaSensorAdcZero + ", "
-                //                              + "VEL-IF1: " + (props.ifaSensorVelMinimum / 100).toFixed(props.decimalPoint) + ", "
+                              + "VEL-IF1: " + (props.ifaSensorVelMinimum / 100).toFixed(props.decimalPoint) + ", "
                               + "ADC-IF2: " + props.ifaSensorAdcNominal + ", "
                               + "VEL-IF2: " + (props.ifaSensorVelNominal / 100).toFixed(props.decimalPoint)
                               + ")"

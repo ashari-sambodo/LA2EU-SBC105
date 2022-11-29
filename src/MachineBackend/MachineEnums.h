@@ -78,6 +78,7 @@ enum EnumUserRoleLevel {
     USER_LEVEL_SUPERVISOR,
     USER_LEVEL_ADMIN,
     USER_LEVEL_SERVICE,
+    USER_LEVEL_SERVICE_ESCO,
     USER_LEVEL_FACTORY,
 };
 Q_ENUMS(EnumUserRoleLevel)
@@ -140,7 +141,7 @@ enum GeneralPurposeEnums{
     BUSY_CYCLE_4,
     BUSY_CYCLE_5,
     BUSY_CYCLE_10 = 10,
-    BUSY_CYCLE_FAN = 1,
+    BUSY_CYCLE_FAN = 2,
     FOOTER_HEIGHT = 70
 };
 Q_ENUMS(GeneralPurposeEnums)
@@ -587,7 +588,8 @@ Q_ENUMS(CalibrationStateFactory)
 enum ResourceMonitor{
     ResMon_CPU_Usage,
     ResMon_CPU_Temp,
-    ResMon_Memory_Usage
+    ResMon_Memory_Usage,
+    ResMon_SD_Card_Life
 };
 Q_ENUMS(ResourceMonitor)
 
