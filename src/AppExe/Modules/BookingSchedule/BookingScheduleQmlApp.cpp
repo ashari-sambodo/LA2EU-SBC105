@@ -108,6 +108,37 @@ void BookingScheduleQmlApp::insert(const QVariantMap data)
     });
 }
 
+void BookingScheduleQmlApp::insertFromList(const QVariantList dataList)
+{
+    qDebug() << __func__ << thread();
+
+    QMetaObject::invokeMethod(m_pSql.data(), [&, dataList](){
+        qDebug() << __func__ << thread();
+
+        short totalItem = dataList.length();
+        qDebug() << "totalItems:" << totalItem;
+
+        bool done = true;
+
+        for(short i=0; i < totalItem; i++){
+            QVariantMap data = dataList.at(i).toMap();
+            done = m_pSql->queryInsert(data);
+            setLastQueryError(!done);
+            if(!done) {
+                qWarning() << i << m_pSql->lastQueryErrorStr();
+            }
+        }//
+
+        /// get the total rows after delete
+        int count = 0;
+        m_pSql->queryCount(&count);
+        setTotalRows(count);
+
+        if(m_delayEmitSignal>0) QThread::msleep(m_delayEmitSignal);
+        emit insertedHasDone(done, dataList);
+    });
+}//
+
 void BookingScheduleQmlApp::selectByDate(const QString dateStr)
 {
     qDebug() << __func__ << dateStr << thread();
@@ -228,7 +259,7 @@ void BookingScheduleQmlApp::deleteAll()
         m_pSql->queryCount(&count);
         setTotalRows(count);
 
-                if(m_delayEmitSignal>0) QThread::msleep(m_delayEmitSignal);
+        if(m_delayEmitSignal>0) QThread::msleep(m_delayEmitSignal);
         emit deleteHasDone(done, count);
     });
 }
@@ -254,7 +285,7 @@ void BookingScheduleQmlApp::deleteWhereOlderThanDays(int days)
         m_pSql->queryCount(&count);
         setTotalRows(count);
 
-                if(m_delayEmitSignal>0) QThread::msleep(m_delayEmitSignal);
+        if(m_delayEmitSignal>0) QThread::msleep(m_delayEmitSignal);
         emit deleteHasDone(done, count);
     });
 }
@@ -292,11 +323,11 @@ void BookingScheduleQmlApp::exportData(const QString targetDate,
                                        const QString cabinetModel)
 {
     QMetaObject::invokeMethod(m_pSql.data(), [
-                              &,
-                              targetDate,
-                              exportedDateTime,
-                              serialNumber,
-                              cabinetModel](){
+                                                     &,
+                                                     targetDate,
+                                                     exportedDateTime,
+                                                     serialNumber,
+                                                     cabinetModel](){
 
         qDebug() << __func__ << targetDate << thread();
 
@@ -413,7 +444,7 @@ void BookingScheduleQmlApp::exportData(const QString targetDate,
         bool fileIsOK = pdfFile.open(QIODevice::WriteOnly);
         //        qDebug() << fileIsOK;
         if(!fileIsOK){
-            emit dataHasExported(false, tr("Failed to initiate file"));
+            emit dataHasExported(false, tr("Failed to open the file."));
             return ;
         }
 
@@ -482,11 +513,11 @@ void BookingScheduleQmlApp::exportData(const QString targetDate,
             int textWidthRectColumn4 = 350;
             int textWidthRectColumn6 = 250;
             int textWidthRectColumn5 = pPdfWriter->width() -
-                    (textWidthRectColumn6
-                     + textWidthRectColumn4
-                     + textWidthRectColumn3
-                     + textWidthRectColumn2
-                     + textWidthRectColumn1);
+                                       (textWidthRectColumn6
+                                        + textWidthRectColumn4
+                                        + textWidthRectColumn3
+                                        + textWidthRectColumn2
+                                        + textWidthRectColumn1);
 
             int colBegin1 = 0;
             int colBegin2 = textWidthRectColumn1;

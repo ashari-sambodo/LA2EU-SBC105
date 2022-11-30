@@ -45,6 +45,7 @@ public:
 public slots:
     void init(const QString &uniqConnectionName = QString(), const QString &fileName = QString());
     void insert(const QVariantMap data);
+    void insertFromList(const QVariantList dataList);
     void selectByDate(const QString dateStr);
     void deleteByDateTime(const QString dateStr, const QString timeStr);
     void deleteAll();
@@ -66,6 +67,7 @@ signals:
     void selectHasDone(bool success, QVariantList logBuffer, int total);
     void deleteHasDone(bool success, int totalAfterDelete);
     void insertedHasDone(bool success, QVariantMap data);
+    void insertedHasDone(bool success, QVariantList data);
 
     void lastQueryErrorChanged(bool lastQueryError);
 

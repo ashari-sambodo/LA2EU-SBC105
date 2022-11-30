@@ -12,6 +12,7 @@ ComboBox {
 
     property color colorArrow: "#e3dac9"
 
+    property alias backgroundRadius: backgroundControl.radius
     property alias backgroundColor: backgroundControl.color
     property alias backgroundBorderColor: backgroundControl.border.color
     property alias backgroundBorderWidth: backgroundControl.border.width
@@ -98,6 +99,7 @@ ComboBox {
             ScrollIndicator.vertical: ScrollIndicator {}
 
             delegate: ItemDelegate {
+                height: control.height
                 width: control.width
                 contentItem: Text {
                     text: control.textRole ? (Array.isArray(control.model) ? modelData[control.textRole] : model[control.textRole]) : modelData
@@ -105,6 +107,7 @@ ComboBox {
                     color: control.popupTextColor
                     elide: Text.ElideRight
                     opacity: pressed ? 0.5 : 1
+                    verticalAlignment: Text.AlignVCenter
                 }
 
                 onClicked: {

@@ -94,8 +94,16 @@ ViewApp {
                                         MouseArea {
                                             anchors.fill: parent
                                             onClicked: {
-                                                props.exportToWhat = props.exportToPdfBluetooth
-                                                bookingScheduleQmlApp.exportAsDocument()
+                                                if(UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin
+                                                        && UserSessionService.roleLevel != UserSessionService.roleLevelService)
+                                                {
+                                                    props.exportToWhat = props.exportToPdfBluetooth
+                                                    bookingScheduleQmlApp.exportAsDocument()
+                                                }else{
+                                                    showDialogMessage(qsTr("Access Denied"),
+                                                                      qsTr("You do not have permission to perform this action!"),
+                                                                      dialogAlert)
+                                                }
                                             }//
                                         }//
                                     }//
@@ -112,17 +120,25 @@ ViewApp {
                                         MouseArea {
                                             anchors.fill: parent
                                             onClicked: {
-                                                props.exportToWhat = props.exportToPdfUSB
+                                                if(UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin
+                                                        && UserSessionService.roleLevel != UserSessionService.roleLevelService){
+                                                    props.exportToWhat = props.exportToPdfUSB
 
-                                                const message = "<b>" + qsTr("Have you insert usb drive?") + "</b>"
-                                                              + "<br><br>"
-                                                              + qsTr("USB port can be found on top of the cabinet, near by power inlet.")
-                                                const autoclosed = false
-                                                showDialogAsk(qsTr("Booking Options"), message, dialogAlert,
-                                                              function onAccepted(){
-                                                                  bookingScheduleQmlApp.exportAsDocument()
-                                                              },
-                                                              function(){}, function(){}, autoclosed)
+                                                    const message = "<b>" + qsTr("Have you inserted USB drive?") + "</b>"
+                                                                  + "<br><br>"
+                                                                  + qsTr("USB port can be found on top of the cabinet, nearby power inlet.")
+                                                    const autoclosed = false
+                                                    showDialogAsk(qsTr("Booking Options"), message, dialogAlert,
+                                                                  function onAccepted(){
+                                                                      bookingScheduleQmlApp.exportAsDocument()
+                                                                      MachineAPI.insertEventLog(qsTr("User: Generate booking schedule file export %1").arg(qsTr("(Week: ") + props.exportTargetWeek + ")"))
+                                                                  },
+                                                                  function(){}, function(){}, autoclosed)
+                                                }else{
+                                                    showDialogMessage(qsTr("Access Denied"),
+                                                                      qsTr("You do not have permission to perform this action!"),
+                                                                      dialogAlert)
+                                                }//
                                             }//
                                         }//
                                     }//
@@ -144,7 +160,7 @@ ViewApp {
 
                             TextApp {
                                 Layout.margins: 5
-                                text: qsTr("Delete older log start from")
+                                text: qsTr("Delete logs starting from")
                             }//
 
                             Item {
@@ -159,6 +175,8 @@ ViewApp {
                                         Layout.fillWidth: true
 
                                         ComboBoxApp {
+                                            enabled: (UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin
+                                                      && UserSessionService.roleLevel != UserSessionService.roleLevelService)
                                             anchors.fill: parent
                                             anchors.margins: 5
                                             font.pixelSize: 20
@@ -175,6 +193,7 @@ ViewApp {
 
                                             onActivated: {
                                                 props.deleteWhereOlderThanDays = model[index].value
+                                                props.deleteWhereOlderThanDaysStrf = model[index].text
                                                 notifAnima.start()
                                             }//
                                         }//
@@ -220,17 +239,26 @@ ViewApp {
                                         MouseArea {
                                             anchors.fill: parent
                                             onClicked: {
-                                                const message = "<b>" + qsTr("Delete the log?") + "</b>"
-                                                              + "<br><br>"
-                                                              + qsTr("This process can not be undone and not recoverable.")
+                                                if(UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin
+                                                        && UserSessionService.roleLevel != UserSessionService.roleLevelService){
+                                                    const message = "<b>" + qsTr("Delete the log?") + "</b>"
+                                                                  + "<br><br>"
+                                                                  + qsTr("This process is irreversible.") + "<br>" + qsTr("Delete permanently?")
 
-                                                showDialogAsk(qsTr(title),
-                                                              message,
-                                                              dialogAlert,
-                                                              function onAccepted(){
-                                                                  //console.debug("yes Delete")
-                                                                  bookingScheduleQmlApp.deleteData()
-                                                              });
+                                                    showDialogAsk(qsTr(title),
+                                                                  message,
+                                                                  dialogAlert,
+                                                                  function onAccepted(){
+                                                                      //console.debug("yes Delete")
+                                                                      bookingScheduleQmlApp.deleteData()
+
+                                                                      MachineAPI.insertEventLog(qsTr("User: Delete booking schedule logs starting from %1").arg(props.deleteWhereOlderThanDaysStrf))
+                                                                  });
+                                                }else{
+                                                    showDialogMessage(qsTr("Access Denied"),
+                                                                      qsTr("You do not have permission to perform this action!"),
+                                                                      dialogAlert)
+                                                }
                                             }//
                                         }//
                                     }//
@@ -260,9 +288,14 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
-                BackgroundButtonBarApp {
+                Rectangle {
+                    anchors.fill: parent
+                    color: "#0F2952"
+                    //                    border.color: "#e3dac9"
+                    //                    border.width: 1
+                    radius: 5
 
                     Item {
                         anchors.fill: parent
@@ -294,7 +327,7 @@ ViewApp {
             }//
 
             Component.onCompleted: {
-                viewApp.showBusyPage(qsTr("Please wait"))
+                viewApp.showBusyPage(qsTr("Please wait..."))
                 const uniqConnectionName = "UiBookingForOptions"
                 init(uniqConnectionName);
             }//
@@ -313,17 +346,17 @@ ViewApp {
 
             onDataHasExported: {
                 viewApp.showDialogMessage(qsTr(title),
-                                  qsTr("The document has been generated"),
-                                  dialogInfo,
-                                  function onClosed(){
-                                      let urlContext = "qrc:/UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml";
-                                      if(props.exportToWhat == props.exportToPdfBluetooth){
-                                          urlContext = "qrc:/UI/Pages/BluetoothFileTransfer/BluetoothFileTransfer.qml"
-                                      }
+                                          qsTr("The document has been generated"),
+                                          dialogInfo,
+                                          function onClosed(){
+                                              let urlContext = "qrc:/UI/Pages/FileManagerUsbCopyPage/FileManagerUsbCopierPage.qml";
+                                              if(props.exportToWhat == props.exportToPdfBluetooth){
+                                                  urlContext = "qrc:/UI/Pages/BluetoothFileTransfer/BluetoothFileTransfer.qml"
+                                              }
 
-                                      const intent = IntentApp.create(urlContext, {"sourceFilePath": desc})
-                                      startView(intent);
-                                  })
+                                              const intent = IntentApp.create(urlContext, {"sourceFilePath": desc})
+                                              startView(intent);
+                                          })
             }//
 
             function deleteData() {
@@ -344,6 +377,7 @@ ViewApp {
             id: props
 
             property int deleteWhereOlderThanDays: 0
+            property string deleteWhereOlderThanDaysStrf: ""
 
             property string exportTargetDate: ""
             property int    exportTargetWeek: 0

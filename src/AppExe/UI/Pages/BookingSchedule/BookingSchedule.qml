@@ -113,6 +113,7 @@ ViewApp {
 
                                     spacing: 3
                                     orientation: ListView.Horizontal
+
                                     flickableDirection: Flickable.HorizontalFlick
                                     ScrollBar.horizontal: horizontalScrollBar
 
@@ -178,7 +179,13 @@ ViewApp {
                                                             MouseArea {
                                                                 anchors.fill: parent
                                                                 onClicked: {
-                                                                    props.bookingAdd(modelData.time)
+                                                                    if(UserSessionService.roleLevel >= UserSessionService.roleLevelAdmin
+                                                                            && UserSessionService.roleLevel != UserSessionService.roleLevelService)
+                                                                        props.bookingAdd(modelData.time)
+                                                                    else
+                                                                        showDialogMessage(qsTr("Access Denied"),
+                                                                                          qsTr("You do not have permission to perform this action!"),
+                                                                                          dialogAlert)
                                                                 }//
                                                             }//
                                                         }//
@@ -229,60 +236,123 @@ ViewApp {
                                                                 Layout.fillHeight: true
                                                                 Layout.fillWidth: true
 
-                                                                //                                                    Rectangle {anchors.fill: parent; color: "#2c3e50"}
-                                                                //                                                    visible: false
-
-                                                                Column {
-                                                                    width: parent.width - 10
-                                                                    anchors.horizontalCenter: parent.horizontalCenter
-
-                                                                    TextApp {
-                                                                        id: note1Text
-                                                                        width: parent.width
-                                                                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                                                                        text: modelData.note1
-                                                                        font.pixelSize: 18
-                                                                        color: "gray"
+                                                                ColumnLayout {
+                                                                    anchors.fill: parent
+                                                                    spacing: 2
+                                                                    Item{
+                                                                        Layout.fillHeight: true
+                                                                        Layout.fillWidth: true
+                                                                        Row{
+                                                                            height: parent.height
+                                                                            width: parent.width
+                                                                            spacing: 5
+                                                                            TextApp{
+                                                                                id: noNote1
+                                                                                text: "1)"
+                                                                                font.pixelSize: 18
+                                                                                color: "#69CCCC"
+                                                                            }
+                                                                            TextApp {
+                                                                                id: note1Text
+                                                                                width: parent.width - (noNote1.width + 5)
+                                                                                height: parent.height
+                                                                                wrapMode: Text.WordWrap
+                                                                                text: modelData.note1
+                                                                                font.pixelSize: 18
+                                                                                color: "#69CCCC"
+                                                                                horizontalAlignment: Text.AlignJustify
+                                                                                padding: 2
+                                                                                minimumPixelSize: 16
+                                                                            }//
+                                                                        }//
+                                                                        Rectangle{
+                                                                            anchors.bottom: parent.bottom
+                                                                            height: 1
+                                                                            width: parent.width
+                                                                            color: "#34495e"
+                                                                        }
                                                                     }//
-
-                                                                    Rectangle {
-                                                                        height: 1
-                                                                        width: parent.width - 10
-                                                                        color: "#34495e"
-                                                                        anchors.horizontalCenter: parent.horizontalCenter
+                                                                    //                                                                    Rectangle {
+                                                                    //                                                                        Layout.minimumHeight: 1
+                                                                    //                                                                        Layout.fillWidth: true
+                                                                    //                                                                        color: "#34495e"
+                                                                    //                                                                    }//
+                                                                    Item{
+                                                                        Layout.fillHeight: true
+                                                                        Layout.fillWidth: true
+                                                                        Row{
+                                                                            height: parent.height
+                                                                            width: parent.width
+                                                                            spacing: 5
+                                                                            TextApp{
+                                                                                id: noNote2
+                                                                                text: "2)"
+                                                                                font.pixelSize: 18
+                                                                                color: "#69CCCC"
+                                                                            }
+                                                                            TextApp {
+                                                                                id: note2Text
+                                                                                height: parent.height
+                                                                                width: parent.width - (noNote2.width + 5)
+                                                                                wrapMode: Text.WordWrap
+                                                                                text: modelData.note2
+                                                                                font.pixelSize: 18
+                                                                                color: "#69CCCC"
+                                                                                horizontalAlignment: Text.AlignJustify
+                                                                                padding: 2
+                                                                                minimumPixelSize: 16
+                                                                            }//
+                                                                        }
+                                                                        Rectangle{
+                                                                            anchors.bottom: parent.bottom
+                                                                            height: 1
+                                                                            width: parent.width
+                                                                            color: "#34495e"
+                                                                        }
+                                                                    }
+                                                                    //                                                                    Rectangle {
+                                                                    //                                                                        Layout.minimumHeight: 1
+                                                                    //                                                                        Layout.fillWidth: true
+                                                                    //                                                                        color: "#34495e"
+                                                                    //                                                                    }//
+                                                                    Item{
+                                                                        Layout.fillHeight: true
+                                                                        Layout.fillWidth: true
+                                                                        Row{
+                                                                            height: parent.height
+                                                                            width: parent.width
+                                                                            spacing: 5
+                                                                            TextApp{
+                                                                                id: noNote3
+                                                                                text: "3)"
+                                                                                font.pixelSize: 18
+                                                                                color: "#69CCCC"
+                                                                            }
+                                                                            TextApp {
+                                                                                id: note3Text
+                                                                                height: parent.height
+                                                                                width: parent.width - (noNote3.width + 5)
+                                                                                wrapMode: Text.WordWrap
+                                                                                text: modelData.note3
+                                                                                font.pixelSize: 18
+                                                                                color: "#69CCCC"
+                                                                                horizontalAlignment: Text.AlignJustify
+                                                                                padding: 2
+                                                                                minimumPixelSize: 16
+                                                                            }//
+                                                                        }//
+                                                                        Rectangle{
+                                                                            anchors.bottom: parent.bottom
+                                                                            height: 1
+                                                                            width: parent.width
+                                                                            color: "#34495e"
+                                                                        }
                                                                     }//
-
-                                                                    TextApp {
-                                                                        id: note2Text
-                                                                        width: parent.width
-                                                                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                                                                        text: modelData.note2
-                                                                        font.pixelSize: 18
-                                                                        color: "gray"
-                                                                    }//
-
-                                                                    Rectangle {
-                                                                        height: 1
-                                                                        width: parent.width - 10
-                                                                        color: "#34495e"
-                                                                        anchors.horizontalCenter: parent.horizontalCenter
-                                                                    }//
-
-                                                                    TextApp {
-                                                                        id: note3Text
-                                                                        width: parent.width
-                                                                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                                                                        text: modelData.note3
-                                                                        font.pixelSize: 18
-                                                                        color: "gray"
-                                                                    }//
-
-                                                                    Rectangle {
-                                                                        height: 1
-                                                                        width: parent.width - 10
-                                                                        color: "#34495e"
-                                                                        anchors.horizontalCenter: parent.horizontalCenter
-                                                                    }//
+                                                                    //                                                                    Rectangle {
+                                                                    //                                                                        Layout.minimumHeight: 1
+                                                                    //                                                                        Layout.fillWidth: true
+                                                                    //                                                                        color: "#34495e"
+                                                                    //                                                                    }//
                                                                 }//
                                                             }//
 
@@ -298,13 +368,15 @@ ViewApp {
                                                                     horizontalAlignment: Text.AlignHCenter
                                                                     verticalAlignment: Text.AlignVCenter
                                                                     text: qsTr("Cancel")
-                                                                    color: "gray"
+                                                                    //color: "gray"
                                                                 }//
 
                                                                 MouseArea {
                                                                     anchors.fill: parent
                                                                     onClicked: {
                                                                         props.bookingCancel(modelData.time)
+
+                                                                        MachineAPI.insertEventLog(qsTr("User: Cancel booking schedule '%1' at '%2'").arg(modelData.bookTitle).arg(modelData.time + " " + props.targetDate))
                                                                     }//
                                                                 }//
                                                             }//
@@ -349,9 +421,13 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
-                BackgroundButtonBarApp {
+                Rectangle {
+                    anchors.fill: parent
+                    color: "#0F2952"
+                    radius: 5
+
                     Item {
                         anchors.fill: parent
                         anchors.margins: 5
@@ -398,14 +474,14 @@ ViewApp {
 
             onInitializedChanged: {
                 if (bookingScheduleQmlApp.isRowsHasMaximum()) {
-                    const message = qsTr("Booking storage has full. Please delete some booking history!")
+                    const message = qsTr("Booking storage is full. Please delete some booking history.")
                     showDialogMessage(qsTr(title), message, dialogAlert, function onClosed(){
-                        showBusyPage(qsTr("Loading"), function(){})
+                        showBusyPage(qsTr("Loading..."), function(){})
                         selectByDate(props.targetDate)
                     })
                     return
                 }
-                showBusyPage(qsTr("Loading"), function(){})
+                showBusyPage(qsTr("Loading..."), function(){})
                 selectByDate(props.targetDate)
             }//
 
@@ -418,7 +494,7 @@ ViewApp {
             }//
 
             onDeleteHasDone: {
-                showBusyPage(qsTr("Loading"), function(){})
+                showBusyPage(qsTr("Loading..."), function(){})
                 selectByDate(props.targetDate)
             }//
         }//
@@ -439,7 +515,7 @@ ViewApp {
             function bookingAdd(time){
                 /// don't conitnue to book if the booking row capacity reach to 365 * 17
                 if (bookingScheduleQmlApp.isRowsHasMaximum()) {
-                    const message = qsTr("Booking storage has full. Please delete some booking history!")
+                    const message = qsTr("Booking storage is full. Please delete some booking history.")
                     showDialogMessage(qsTr(title), message, dialogAlert)
                     return
                 }
@@ -458,8 +534,8 @@ ViewApp {
             }//
 
             function bookingCancel(time) {
-                showDialogAsk("Booking Schedule", qsTr("Are you sure to cancel?"), dialogAlert, function onAccepted(){
-                    showBusyPage(qsTr("Loading"), function(){})
+                showDialogAsk(qsTr("Booking Schedule"), qsTr("Are you sure you want to cancel?"), dialogAlert, function onAccepted(){
+                    showBusyPage(qsTr("Loading..."), function(){})
                     bookingScheduleQmlApp.deleteByDateTime(targetDate, time)
                 })
             }
@@ -470,7 +546,7 @@ ViewApp {
                 const extraData = IntentApp.getExtraData(returnIntent)
                 const calendar = extraData['calendar'] || false
                 if (calendar) {
-                    showBusyPage(qsTr("Loading"), function(){})
+                    showBusyPage(qsTr("Loading..."), function(){})
                     props.targetDate = calendar['date']
                     bookingScheduleQmlApp.selectByDate(props.targetDate)
                 }
@@ -488,7 +564,7 @@ ViewApp {
                     props.bufferBoNote2 = bookingAdd['note2']
                     props.bufferBoNote3 = bookingAdd['note3']
 
-                    showBusyPage(qsTr("Loading"), function(){})
+                    showBusyPage(qsTr("Loading..."), function(){})
                     bookingScheduleQmlApp.selectByDate(props.targetDate)
                 }
             }//
@@ -496,7 +572,7 @@ ViewApp {
             function onReturnFromBookingOptionPage(returnIntent){
                 viewApp.finishViewReturned.disconnect(props.onReturnFromBookingOptionPage)
 
-                showBusyPage(qsTr("Loading"), function(){})
+                showBusyPage(qsTr("Loading..."), function(){})
                 bookingScheduleQmlApp.selectByDate(props.targetDate)
             }//
         }//
@@ -506,7 +582,7 @@ ViewApp {
             const today = Qt.formatDate(new Date, "yyyy-MM-dd")
             props.targetDate = today
 
-            showBusyPage(qsTr("Loading"), function(){})
+            showBusyPage(qsTr("Loading..."), function(){})
             bookingScheduleQmlApp.init("uiBookingSchedule");
         }//
 

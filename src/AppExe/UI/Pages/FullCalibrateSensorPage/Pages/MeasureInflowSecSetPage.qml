@@ -127,7 +127,8 @@ ViewApp {
                                                 id: policyCheckBox
                                                 height: 60
                                                 width: 60
-                                                font.pixelSize: 32
+                                                font.pixelSize: 32                                                
+                                                checked: props.autoNextFillGrid
                                                 onCheckedChanged: {
                                                     props.autoNextFillGrid = checked
                                                 }

@@ -4,8 +4,9 @@ import QtQuick.Controls 2.0
 
 import UI.CusCom 1.1
 import "../../CusCom/JS/IntentApp.js" as IntentApp
-import ModulesCpp.Machine 1.0
+
 import BookingScheduleQmlApp 1.0
+import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
@@ -19,7 +20,7 @@ ViewApp {
         height: viewApp.height
         width: viewApp.width
 
-//        visible: true
+        //        visible: true
 
         ColumnLayout {
             anchors.fill: parent
@@ -52,23 +53,77 @@ ViewApp {
 
                     Row {
                         width: mainColumn.width
-                        spacing: 10
+                        spacing: 15
 
                         Column {
+                            spacing: 2
                             TextApp {
-                                text: "Time: " +  props.bookingTime + " " + props.bookingDate
+                                height: 30
+                                text: "Date" //+ ":" +  props.bookingTime + " " + props.bookingDate
+                                verticalAlignment: Text.AlignVCenter
                             }//
-
-                            Rectangle {
-                                id: rectangleDate
-                                width: parent.width
-                                height: 1
-                                radius: 5
-                                color: "#0F2952"
-                                border.color: "#E3DAC9"
-                                border.width: 2
+                            TextApp {
+                                height: 30
+                                text: "Start Time" //+ ":" +  props.bookingTime + " " + props.bookingDate
+                                verticalAlignment: Text.AlignVCenter
+                            }//
+                            TextApp {
+                                height: 30
+                                text: "End Time" //+ ":" +  props.bookingTime + " " + props.bookingDate
+                                verticalAlignment: Text.AlignVCenter
                             }//
                         }//
+                        Column {
+                            spacing: 2
+                            Rectangle {
+                                color: "#80000000"
+                                TextApp {
+                                    text: props.bookingDate
+                                    height: parent.height
+                                    verticalAlignment: Text.AlignVCenter
+                                    padding: 2
+                                }
+                                width: childrenRect.width
+                                height: 30
+                                radius: 2
+                            }
+                            Rectangle {
+                                color: "#80000000"
+                                TextApp {
+                                    text: props.bookingTime
+                                    height: parent.height
+                                    verticalAlignment: Text.AlignVCenter
+                                    padding: 2
+                                }
+                                width: childrenRect.width
+                                height: 30
+                                radius: 2
+                            }
+                            ComboBoxApp{
+                                id: comboBoxApp
+                                width: 90
+                                height: 30
+                                font.pixelSize: 20
+                                popupHeight: 100
+                                textRole: "text"
+                                backgroundRadius: 2
+
+                                onActivated: {
+                                    props.totalHours = model[index].totalHours
+                                    console.debug(model[index].text, model[index].totalHours)
+                                }//
+                            }//
+                        }//
+                    }//
+
+                    Rectangle {
+                        id: rectangleDate
+                        width: parent.width
+                        height: 1
+                        radius: 5
+                        color: "#0F2952"
+                        border.color: "#E3DAC9"
+                        border.width: 2
                     }//
 
                     Column {
@@ -80,6 +135,10 @@ ViewApp {
                                 text: qsTr("Booking Title")
                                 font.pixelSize: 14
                             }//
+                            TextApp {
+                                text: qsTr(" *")
+                                font.pixelSize: 14
+                            }//
                         }//
 
                         TextFieldApp {
@@ -89,6 +148,9 @@ ViewApp {
                             height: 40
                             maximumLength: 30
 
+                            onAccepted: {
+                                props.checkDataValidity()
+                            }
                             onPressed: {
                                 KeyboardOnScreenCaller.openKeyboard(bookingTitleTextField,qsTr("Booking Title"))
                             }//
@@ -104,6 +166,10 @@ ViewApp {
                                 text: qsTr("Name")
                                 font.pixelSize: 14
                             }//
+                            TextApp {
+                                text: qsTr(" *")
+                                font.pixelSize: 14
+                            }//
                         }//
 
                         TextFieldApp {
@@ -112,7 +178,9 @@ ViewApp {
                             width: 300
                             height: 40
                             maximumLength: 30
-
+                            onAccepted: {
+                                props.checkDataValidity()
+                            }
                             onPressed: {
                                 KeyboardOnScreenCaller.openKeyboard(nameTextField,qsTr("Name"))
                             }//
@@ -133,7 +201,7 @@ ViewApp {
                             placeholderText: qsTr("Note-1")
                             width: 300
                             height: 40
-                            maximumLength: 30
+                            maximumLength: 55
 
                             onPressed: {
                                 KeyboardOnScreenCaller.openKeyboard(this,qsTr("Note-1"))
@@ -145,7 +213,7 @@ ViewApp {
                             placeholderText: qsTr("Note-2")
                             width: 300
                             height: 40
-                            maximumLength: 30
+                            maximumLength: 55
 
                             onPressed: {
                                 KeyboardOnScreenCaller.openKeyboard(this,qsTr("Note-2"))
@@ -157,12 +225,16 @@ ViewApp {
                             placeholderText: qsTr("Note-3")
                             width: 300
                             height: 40
-                            maximumLength: 30
+                            maximumLength: 55
 
                             onPressed: {
                                 KeyboardOnScreenCaller.openKeyboard(this,qsTr("Note-3"))
                             }//
                         }//
+                    }//
+                    TextApp {
+                        text: "* " + qsTr("Required field")
+                        font.pixelSize: 14
                     }//
                 }//
             }//
@@ -171,9 +243,14 @@ ViewApp {
             Item {
                 id: footerItem
                 Layout.fillWidth: true
-                Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
+                Layout.minimumHeight: 70
 
-               BackgroundButtonBarApp {
+                Rectangle {
+                    anchors.fill: parent
+                    color: "#0F2952"
+                    //                    border.color: "#e3dac9"
+                    //                    border.width: 1
+                    radius: 5
 
                     Item {
                         anchors.fill: parent
@@ -196,6 +273,7 @@ ViewApp {
                             width: 194
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.right: parent.right
+                            visible: props.dataValid
 
                             imageSource: "qrc:/UI/Pictures/checkicon.png"
                             text: qsTr("Save")
@@ -223,42 +301,55 @@ ViewApp {
 
                 onInitializedChanged: {
                     const createdAt = Qt.formatDateTime(new Date, "yyyy-MM-dd HH:mm:ss")
+                    let bookingDataList = []
 
-                    const bookingData = {
-                        "date": props.bookingDate,
-                        "time": props.bookingTime,
-                        "bookTitle": bookingTitleTextField.text,
-                        "bookBy": nameTextField.text,
-                        "note1": note1TextField.text,
-                        "note2": note2TextField.text,
-                        "note3": note3TextField.text,
-                        "createdAt": createdAt,
-                    }
+                    for(let i=0; i<props.totalHours; i++){
+                        console.debug(i, props.model[i].text)
+                        if(i>0)
+                            props.bookingTime = props.model[i-1].text
+                        const bookingData = {
+                            "date": props.bookingDate,
+                            "time": props.bookingTime,
+                            "bookTitle": bookingTitleTextField.text,
+                            "bookBy": nameTextField.text,
+                            "note1": note1TextField.text,
+                            "note2": note2TextField.text,
+                            "note3": note3TextField.text,
+                            "createdAt": createdAt,
+                        }
+                        console.debug(bookingData)
+                        bookingDataList.push(bookingData)
+                    }//
 
-                    insert(bookingData)
+                    insertFromList(bookingDataList)
                 }//
 
                 onInsertedHasDone: {
-                    console.log("Booking data has inserted!")
-                    showBusyPage(qsTr("Loading"), function(cycle){
-                        if (cycle >= MachineAPI.BUSY_CYCLE_1) {
-                            const intent = IntentApp.create(uri,
-                                                            {
-                                                                "bookingAdd": {
-                                                                    "bookTitle" : bookingTitleTextField.text,
-                                                                    "bookBy"    : nameTextField.text,
-                                                                    "note1"     : note1TextField.text,
-                                                                    "note2"     : note2TextField.text,
-                                                                    "note3"     : note3TextField.text,
-                                                                }
-                                                            })
-                            finishView(intent)
-                        }
-                    })
+                    console.log("Booking data has inserted!", success)
+
+                    const bookTitle = bookingTitleTextField.text
+                    const bookTime = props.bookingTime + " " + props.bookingDate
+                    let strEvent = qsTr("User: Add booking schedule '%1' at '%2'").arg(bookTitle).arg(bookTime)
+                    MachineAPI.insertEventLog(strEvent)
+
+                    const intent = IntentApp.create(uri,
+                                                    {
+                                                        "bookingAdd": {
+                                                            "bookTitle" : bookingTitleTextField.text,
+                                                            "bookBy"    : nameTextField.text,
+                                                            "note1"     : note1TextField.text,
+                                                            "note2"     : note2TextField.text,
+                                                            "note3"     : note3TextField.text,
+                                                        }
+                                                    })
+                    finishView(intent)
                 }//
             }//
         }//
 
+        UtilsApp{
+            id: utilsApp
+        }
         /// Put all private property inside here
         /// if none, please comment this block to optimize the code
         //        QtObject {
@@ -269,6 +360,33 @@ ViewApp {
             id: props
             property string bookingDate:  ""
             property string bookingTime:  ""
+            property int totalHours: 1
+            property var model: []
+
+            property bool dataValid: false
+
+            function checkDataValidity(){
+                dataValid = (bookingTitleTextField.text !== ""
+                             && nameTextField.text !== "")
+            }//
+
+            function generateModelEndTime(startTime){
+                let maxHours = 23 - Number(startTime)
+                let endTime = Number(startTime) + maxHours
+                let model = []
+                for(let i=1; i<=maxHours; i++){
+                    const value = Number(startTime)+i
+                    const totHours = i
+                    const subModel = {text: utilsApp.fixStrLength(String(value), 2, "0", 1) + ":00", value: value, totalHours: totHours}
+                    //console.debug(JSON.stringify(subModel))
+                    model.push(subModel)
+                }
+                props.model = model
+                comboBoxApp.model = model
+                for(let j=0; j<model.length; j++){
+                    console.debug(props.model[j].text)
+                }
+            }//
         }//
 
         /// OnCreated
@@ -295,6 +413,7 @@ ViewApp {
 
                 props.bookingDate = date
                 props.bookingTime = time
+                props.generateModelEndTime(String(time).split(":")[0])//Pass only the hour
 
                 bookingTitleTextField.text  = boTitle
                 nameTextField.text          = name
