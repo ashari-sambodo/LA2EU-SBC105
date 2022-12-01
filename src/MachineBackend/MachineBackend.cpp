@@ -9659,7 +9659,7 @@ void MachineBackend::readSbcCurrentFullMacAddress()
     qDebug() << pData->getSbcCurrentFullMacAddress();
 }
 
-void MachineBackend::setFanClosedLoopControlEnable(bool value)
+void MachineBackend::setFanClosedLoopControlEnable(bool value, bool ignoreFanSpeed)
 {
     qDebug() << metaObject()->className() << __func__  << thread();
 
@@ -9668,7 +9668,7 @@ void MachineBackend::setFanClosedLoopControlEnable(bool value)
     if(!value) {
         if(m_timerEventForClosedLoopControl->isActive())
             m_timerEventForClosedLoopControl->stop();
-        if(isFanStateNominal()){
+        if(isFanStateNominal() && !ignoreFanSpeed){
             setFanState(MachineEnums::FAN_STATE_ON);
             //_setFanPrimaryDutyCycle(dutyCycle);
             //_setFanPrimaryDutyCycle(dutyCycle);

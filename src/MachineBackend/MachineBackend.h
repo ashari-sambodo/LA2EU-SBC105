@@ -401,7 +401,7 @@ public slots:
   void setSomeSettingsAfterExtConfigImported();
   void setAllOutputShutdown();
 
-  void setFanClosedLoopControlEnable(bool value);
+  void setFanClosedLoopControlEnable(bool value, bool ignoreFanSpeed = false);
   void setFanClosedLoopControlEnablePrevState(bool value);
   void setFanClosedLoopSamplingTime(int value);
   void setFanClosedLoopGainIntegralDfa(float value);

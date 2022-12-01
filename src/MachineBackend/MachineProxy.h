@@ -339,7 +339,7 @@ public slots:
 
   void readSbcCurrentFullMacAddress();
 
-  void setFanClosedLoopControlEnable(bool value);
+  void setFanClosedLoopControlEnable(bool value, bool ignoreFanSpeed = false);
   void setFanClosedLoopControlEnablePrevState(
       bool value); // needed in Calibration page
   void setFanClosedLoopSamplingTime(int value);

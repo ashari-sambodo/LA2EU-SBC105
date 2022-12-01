@@ -16,7 +16,7 @@ import ModulesCpp.Machine 1.0
 
 ViewApp {
     id: viewApp
-    title: "Fan Duty Cycle"
+    title: "Fan Speed"
 
     background.sourceComponent: Item {}
 
@@ -38,7 +38,7 @@ ViewApp {
 
                 HeaderApp {
                     anchors.fill: parent
-                    title: qsTr("Fan Duty Cycle")
+                    title: qsTr("Fan Speed")
                 }
             }
 
@@ -190,20 +190,24 @@ ViewApp {
             id: utilsApp
         }
 
+        /// Disable the Closed Loop enable when access this screen
+        /// Back to previous state if exit
         /// called Once but after onResume
         Component.onCompleted: {
             console.debug("StackView.Active");
-            MachineAPI.setFanClosedLoopControlEnablePrevState(MachineData.fanClosedLoopControlEnable)
+            const ignoreFanSpeed = true
+            MachineAPI.setFanClosedLoopControlEnablePrevState(MachineData.fanClosedLoopControlEnable, ignoreFanSpeed)
             if(MachineData.fanClosedLoopControlEnable)
-                MachineAPI.setFanClosedLoopControlEnable(false)
+                MachineAPI.setFanClosedLoopControlEnable(false, ignoreFanSpeed)
         }//
 
         Component.onDestruction: {
             console.debug("StackView.DeActivating");
-            MachineAPI.setFanClosedLoopControlEnable(MachineData.fanClosedLoopControlEnablePrevState)
+            const ignoreFanSpeed = true
+            MachineAPI.setFanClosedLoopControlEnable(MachineData.fanClosedLoopControlEnablePrevState, ignoreFanSpeed)
             if(MachineData.fanClosedLoopControlEnablePrevState)
-                MachineAPI.setFanClosedLoopControlEnablePrevState(false)
-        }
+                MachineAPI.setFanClosedLoopControlEnablePrevState(false, ignoreFanSpeed)
+        }//
 
         /// Execute This Every This Screen Active/Visible
         executeOnPageVisible: QtObject {

@@ -1014,12 +1014,12 @@ void MachineProxy::setAllOutputShutdown() {
       Qt::QueuedConnection);
 }
 
-void MachineProxy::setFanClosedLoopControlEnable(bool value) {
+void MachineProxy::setFanClosedLoopControlEnable(bool value, bool ignoreFanSpeed) {
   qDebug() << metaObject()->className() << __FUNCTION__ << thread();
 
   QMetaObject::invokeMethod(
       m_machineBackend.data(),
-      [&, value]() { m_machineBackend->setFanClosedLoopControlEnable(value); },
+      [&, value, ignoreFanSpeed]() { m_machineBackend->setFanClosedLoopControlEnable(value, ignoreFanSpeed); },
       Qt::QueuedConnection);
 }
 
