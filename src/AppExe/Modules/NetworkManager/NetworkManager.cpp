@@ -30,7 +30,7 @@ NetworkManager::~NetworkManager()
     //    qDebug() << "~NetworkManager()";
 }
 
-void NetworkManager::readStatus(bool *connected, QString *typeConn, QString *connName, QString *ipv4, const QString iface)
+void NetworkManager::readStatus(short *connected, QString *typeConn, QString *connName, QString *ipv4, const QString iface)
 {
     //    qDebug() << __func__ << QThread::currentThreadId();
     Q_UNUSED(iface)
@@ -76,13 +76,13 @@ void NetworkManager::readStatus(bool *connected, QString *typeConn, QString *con
         ip = qprocess.readAllStandardOutput();
         //        qDebug() << __func__ << ip;
 
-        *connected = true;
+        *connected = 1;
         *typeConn = prof[NSTATUS_TYPE].trimmed();
         *connName = prof[NSTATUS_AP_CONNECTION].trimmed();
         *ipv4 = ip.trimmed();
     }
 #else
-    *connected = true;
+    *connected = 1;
     *typeConn = "ethernet";
     *connName = "Wired connection 1";
     *ipv4 = "192.168.43.110";

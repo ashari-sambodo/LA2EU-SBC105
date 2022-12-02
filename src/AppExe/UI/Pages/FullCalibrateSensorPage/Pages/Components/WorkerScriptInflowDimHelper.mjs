@@ -58,7 +58,10 @@ WorkerScript.onMessage = function(msg) {
         }
         else {
             /// metric
-            velVal  = Math.round(((avgVal / area) / 1000.0) * 100.0) / 100.0
+            velVal  = ((avgVal / area) / 1000.0)
+            //            velVal  = Math.round(((avgVal / area) / 1000.0) * 100.0) / 100.0
+            const velValStr = Number(velVal).toFixed(2)
+            velVal = Number(velValStr)
         }
 
         sumVal = Math.round(sumVal)

@@ -18,7 +18,7 @@ class NetworkManagerQmlApp : public QObject
                //               WRITE setAccessPointAvailable
                NOTIFY acceessPointAvailableChanged)
 
-    Q_PROPERTY(bool connected
+    Q_PROPERTY(short connected
                READ getConnectedStatus
                //               WRITE setConnectedStatus
                NOTIFY connectedStatusChanged)
@@ -80,13 +80,13 @@ public:
 
     static QObject* singletonProvider(QQmlEngine *qmlEngine, QJSEngine *);
 
-    bool getConnectedStatus() const;
+    short getConnectedStatus() const;
     QString getConnName() const;
     QString getIPv4() const;
     QString getTypeConn() const;
     QVariantList getAcceessPointAvailable() const;
 
-    void setConnectedStatus(bool connected);
+    void setConnectedStatus(short connected);
     void setConnName(QString connName);
     void setIPv4(QString ipv4);
     void setTypeConn(QString getTypeConn);
@@ -125,7 +125,7 @@ public slots:
     void readEth0MacAddress();
 
 signals:
-    void connectedStatusChanged(bool connected);
+    void connectedStatusChanged(short connected);
     void connNameChanged(QString connName);
     void ipv4Changed(QString ipv4);
     void typeConnChanged(QString getTypeConn);
@@ -145,7 +145,7 @@ private:
     QThread *m_pThread = nullptr;
     QScopedPointer<NetworkManager> m_pNetworkManager;
 
-    bool m_connected = false;
+    short m_connected = 0;
     QString m_connName;
     QString m_ipv4;
     QString m_typeConn;

@@ -51,7 +51,7 @@ void NetworkManagerQmlApp::init()
 
         /// READ STATUS
         setReadingState(true);
-        bool connected      = false;
+        short connected      = 0;
         QString typeConn    = "";
         QString connName    = "";
         QString ipv4        = "";
@@ -107,7 +107,7 @@ void NetworkManagerQmlApp::readStatus()
     QMetaObject::invokeMethod(m_pNetworkManager.data(), [&]{
         //        qDebug() << __func__ << thread();
 
-        bool connected      = false;
+        short connected      = 0;
         QString typeConn    = "";
         QString connName    = "";
         QString ipv4        = "";
@@ -118,7 +118,7 @@ void NetworkManagerQmlApp::readStatus()
         setTypeConn(typeConn);
         setConnectedStatus(connected);
 
-        connected = false; typeConn.clear(); connName.clear(); ipv4.clear();
+        connected = 0; typeConn.clear(); connName.clear(); ipv4.clear();
         m_pNetworkManager->readStatus(&connected, &typeConn, &connName, &ipv4, "ethernet");
 
         setIPv4Eth(ipv4);
@@ -171,7 +171,7 @@ void NetworkManagerQmlApp::connectToNewAccessPoint(const QString connName, const
     if(!m_pThread->isRunning()) return;
     if(m_connecting) return;
     setConnectingState(true);
-    setConnectedStatus(false);
+    setConnectedStatus(0);
     setConnName("");
     setIPv4("");
 
@@ -188,7 +188,7 @@ void NetworkManagerQmlApp::connectTo(const QString connName)
     if(!m_pThread->isRunning()) return;
     if(m_connecting) return;
     setConnectingState(true);
-    setConnectedStatus(false);
+    setConnectedStatus(0);
     setConnName("");
     setIPv4("");
 
@@ -362,7 +362,7 @@ bool NetworkManagerQmlApp::getForgettingConnState() const
     return m_forgettingConn;
 }
 
-bool NetworkManagerQmlApp::getConnectedStatus() const
+short NetworkManagerQmlApp::getConnectedStatus() const
 {
     return m_connected;
 }
@@ -387,7 +387,7 @@ QVariantList NetworkManagerQmlApp::getAcceessPointAvailable() const
     return m_acceessPointListName;
 }
 
-void NetworkManagerQmlApp::setConnectedStatus(bool connected)
+void NetworkManagerQmlApp::setConnectedStatus(short connected)
 {
     if (m_connected == connected)
         return;

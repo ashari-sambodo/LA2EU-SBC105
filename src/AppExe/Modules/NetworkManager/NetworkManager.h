@@ -25,7 +25,7 @@ public:
     //    };
     //    Q_ENUM(NM_EXIT_CODE)
 
-    void readStatus(bool *connected, QString *typeConn, QString *connName, QString *ipv4, const QString iface = "wifi");
+    void readStatus(short *connected, QString *typeConn, QString *connName, QString *ipv4, const QString iface = "wifi");
     void scanAccessPoint(QStringList *availableAP);
     void connectToNewAccessPoint(const QString connName, const QString passwd = QString());
     void connectTo(const QString connName);

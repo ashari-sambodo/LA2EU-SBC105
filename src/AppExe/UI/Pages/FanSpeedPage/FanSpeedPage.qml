@@ -164,7 +164,7 @@ ViewApp {
                 Layout.fillWidth: true
                 Layout.minimumHeight: MachineAPI.FOOTER_HEIGHT
 
-               BackgroundButtonBarApp {
+                BackgroundButtonBarApp {
                     Item {
                         anchors.fill: parent
                         anchors.margins: 5
@@ -199,6 +199,12 @@ ViewApp {
             MachineAPI.setFanClosedLoopControlEnablePrevState(MachineData.fanClosedLoopControlEnable, ignoreFanSpeed)
             if(MachineData.fanClosedLoopControlEnable)
                 MachineAPI.setFanClosedLoopControlEnable(false, ignoreFanSpeed)
+
+            showDialogMessage(qsTr("Notification"),
+                              qsTr("Fan auto compensation is disabled while accessing this screen."),
+                              dialogInfo,
+                              function onClosed(){},
+                              false)
         }//
 
         Component.onDestruction: {
