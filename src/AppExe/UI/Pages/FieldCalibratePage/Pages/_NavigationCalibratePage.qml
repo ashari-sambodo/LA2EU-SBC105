@@ -156,7 +156,7 @@ ViewApp {
 
                                         Text {
                                             id: iconText
-                                            text: modelData.mtitle ? modelData.mtitle : ""
+                                            text: (index + 1) + ") " + (modelData.mtitle ? modelData.mtitle : "")
                                             height: parent.height
                                             width: parent.width
                                             wrapMode: Text.WordWrap
@@ -364,7 +364,7 @@ ViewApp {
 
             property var menuModel: [
                 {mtype         : "submenu",
-                    mtitle     : "1) " + qsTr("Inflow Measurement"),
+                    mtitle     : qsTr("Inflow Measurement"),
                     micon      : "qrc:/UI/Pictures/menu/ifa_dimsec_measure.png",
                     badge      : 0,
                     badgeText  : qsTr("Done"),
@@ -391,7 +391,7 @@ ViewApp {
                     ]
                 },
                 {mtype         : "menu",
-                    mtitle     : "2) " + qsTr("Downflow Measurement"),
+                    mtitle     : qsTr("Downflow Measurement"),
                     micon      : "qrc:/UI/Pictures/menu/dfa_measure.png",
                     mlink      : "qrc:/UI/Pages/FullCalibrateSensorPage/Pages/MeasureDownflowSetPage.qml",
                     badge      : 0,
@@ -399,7 +399,7 @@ ViewApp {
                     pid         : "meadfanomfield",
                 },
                 {mtype         : "menu",
-                    mtitle     : "3) " + qsTr("ADC Nominal (IFN)"),
+                    mtitle     : qsTr("ADC Nominal (IFN)"),
                     micon      : "qrc:/UI/Pictures/menu/Calibrate-Sensor.png",
                     mlink      : "qrc:/UI/Pages/FieldCalibratePage/Pages/ADCNominalSetPage.qml",
                     badge      : 0,
