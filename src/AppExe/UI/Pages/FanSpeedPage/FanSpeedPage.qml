@@ -201,7 +201,9 @@ ViewApp {
                 MachineAPI.setFanClosedLoopControlEnable(false, ignoreFanSpeed)
 
             showDialogMessage(qsTr("Notification"),
-                              qsTr("Fan auto compensation is disabled while accessing this screen."),
+                              qsTr("Fan auto compensation is disabled while accessing this screen.")
+                              + "<br>"
+                              + qsTr("Use \"Swipe Left from Edge\" shortcut to go to Home screen without destroying this screen."),
                               dialogInfo,
                               function onClosed(){},
                               false)

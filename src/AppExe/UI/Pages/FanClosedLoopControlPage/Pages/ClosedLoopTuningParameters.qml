@@ -879,16 +879,17 @@ The Fan will start at nominal fan duty cycle, and it will be adjusted by loop co
         ///// if none, please comment this block to optimize the code
         QtObject {
             id: props
-
-            readonly property real kpMax: 10
-            readonly property real kiMax: 3
-            readonly property real kdMax: 10
+            ////// Only for Fan duty cycle with 0-1000 resolution
+            readonly property real kpMax: 50
+            readonly property real kiMax: 10
+            readonly property real kdMax: 50
             readonly property real tsMax: 10000
 
             readonly property real kpMin: 0
             readonly property real kiMin: 0
             readonly property real kdMin: 0
             readonly property real tsMin: 200
+            //////
 
             property int warmup: 10
             property int parameterHasChanged : 0

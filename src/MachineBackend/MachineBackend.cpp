@@ -603,7 +603,7 @@ void MachineBackend::setup()
                 //DEFINE_CHANNEL_FOR_AIRFLOW_INFLOW
                 m_boardAnalogInput1->setChannelDoPoll(1, true);
                 m_boardAnalogInput1->setChannelDoAverage(1, true);
-                m_boardAnalogInput1->setChannelSamples(1, 50);
+                m_boardAnalogInput1->setChannelSamples(1, 100);
 
                 ////MONITORING COMMUNICATION STATUS
                 QObject::connect(m_boardAnalogInput1.data(), &AIManage::errorComToleranceReached,
@@ -639,7 +639,7 @@ void MachineBackend::setup()
                 //DEFINE_CHANNEL_FOR_AIRFLOW_DOWNFLOW
                 m_boardAnalogInput2->setChannelDoPoll(0, true);
                 m_boardAnalogInput2->setChannelDoAverage(0, true);
-                m_boardAnalogInput2->setChannelSamples(0, 30);
+                m_boardAnalogInput2->setChannelSamples(0, 20);
 
                 //DEFINE_CHANNEL_FOR_SASH_MOTORIZED_INTERLOCKED_SWITCH
                 m_boardAnalogInput2->setChannelDoPoll(1, true);
