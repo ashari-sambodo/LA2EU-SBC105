@@ -834,7 +834,7 @@ ViewApp {
                                 onLoaded: {
                                     const ducyDfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
                                     const rpmDfa = MachineData.getFanPrimaryNominalRpmFactory()
-                                    const ducyIfa = MachineData.getFanPrimaryNominalDutyCycleFactory()
+                                    const ducyIfa = MachineData.getFanInflowNominalDutyCycleFactory()
                                     const rpmIfa = MachineData.getFanInflowNominalRpmFactory()
 
                                     if(MachineData.cabinetWidth3Feet)

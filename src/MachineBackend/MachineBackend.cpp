@@ -6847,6 +6847,8 @@ void MachineBackend::initFanConfigurationStatus(short value)
         int   fanNomRpm         = pData->getFanPrimaryNominalRpmField();
         short fanMinDutyCycle   = pData->getFanPrimaryMinimumDutyCycleField();
         int   fanMinRpm         = pData->getFanPrimaryMinimumRpmField();
+        short fanMaxDutyCycle   = pData->getFanPrimaryMaximumDutyCycleField();
+        int   fanMaxRpm         = pData->getFanPrimaryMaximumRpmField();
         short fanStbDutyCycle   = pData->getFanPrimaryStandbyDutyCycleField(); // Just Follow Stb Factory//fanNomDutyCycle - deltaValue;
         int   fanStbRpm         = pData->getFanPrimaryStandbyRpmField(); /// this not valid, still follow factory or just zero
 
@@ -6854,6 +6856,8 @@ void MachineBackend::initFanConfigurationStatus(short value)
         pData->setFanPrimaryNominalRpm(static_cast<short>(fanNomRpm));
         pData->setFanPrimaryMinimumDutyCycle(fanMinDutyCycle);
         pData->setFanPrimaryMinimumRpm(static_cast<short>(fanMinRpm));
+        pData->setFanPrimaryMaximumDutyCycle(fanMaxDutyCycle);
+        pData->setFanPrimaryMaximumRpm(static_cast<short>(fanMaxRpm));
         pData->setFanPrimaryStandbyDutyCycle(fanStbDutyCycle);
         pData->setFanPrimaryStandbyRpm(fanStbRpm);
     }
@@ -6865,6 +6869,8 @@ void MachineBackend::initFanConfigurationStatus(short value)
         int   fanNomRpm         = pData->getFanPrimaryNominalRpmFactory();
         short fanMinDutyCycle   = pData->getFanPrimaryMinimumDutyCycleFactory();
         int   fanMinRpm         = pData->getFanPrimaryMinimumRpmFactory();
+        short fanMaxDutyCycle   = pData->getFanPrimaryMaximumDutyCycleFactory();
+        int   fanMaxRpm         = pData->getFanPrimaryMaximumRpmFactory();
         short fanStbDutyCycle   = pData->getFanPrimaryStandbyDutyCycleFactory();
         int   fanStbRpm         = pData->getFanPrimaryStandbyRpmFactory();
 
@@ -6872,6 +6878,8 @@ void MachineBackend::initFanConfigurationStatus(short value)
         pData->setFanPrimaryNominalRpm(static_cast<short>(fanNomRpm));
         pData->setFanPrimaryMinimumDutyCycle(fanMinDutyCycle);
         pData->setFanPrimaryMinimumRpm(static_cast<short>(fanMinRpm));
+        pData->setFanPrimaryMaximumDutyCycle(fanMaxDutyCycle);
+        pData->setFanPrimaryMaximumRpm(static_cast<short>(fanMaxRpm));
         pData->setFanPrimaryStandbyDutyCycle(fanStbDutyCycle);
         pData->setFanPrimaryStandbyRpm(fanStbRpm);
     }

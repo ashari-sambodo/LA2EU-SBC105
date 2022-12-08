@@ -994,14 +994,14 @@ ViewApp {
                 calibTempAdcTextField.text = MachineData.getInflowTempCalibAdc()
                 calibTempTextField.text = MachineData.getInflowTempCalib()
 
-                dfaFanNominalTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanPrimaryNominalDutyCycle())
-                dfaFanMinTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanPrimaryMinimumDutyCycle())
-                dfaFanMaxTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanPrimaryMaximumlDutyCycle())
-                dfaFanStandbyTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanPrimaryStandbyDutyCycle())
+                dfaFanNominalTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanPrimaryNominalDutyCycleFactory())
+                dfaFanMinTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanPrimaryMinimumDutyCycleFactory())
+                dfaFanMaxTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanPrimaryMaximumDutyCycleFactory())
+                dfaFanStandbyTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanPrimaryStandbyDutyCycleFactory())
 
-                ifaFanNominalTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanInflowNominalDutyCycle())
-                ifaFanMinTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanInflowMinimumDutyCycle())
-                ifaFanStandbyTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanInflowStandbyDutyCycle())
+                ifaFanNominalTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanInflowNominalDutyCycleFactory())
+                ifaFanMinTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanInflowMinimumDutyCycleFactory())
+                ifaFanStandbyTextField.text = utilsApp.getFanDucyStrf(MachineData.getFanInflowStandbyDutyCycleFactory())
             }//
 
             /// onPause
